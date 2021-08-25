@@ -6,6 +6,7 @@ const Login = () => {
   const [button, setButton] = useState(true);
 
   const validateForm = () => {
+    /* Regex found at: https://github.com/tryber/sd-09-live-lectures/tree/lecture/12.2 */
     const regex = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/igm.test(email);
     const minPasswordLength = 6;
 
