@@ -13,8 +13,9 @@ module.exports = {
       price: {
         type: Sequelize.FLOAT
       },
-      url_image: {
+      urlImage: {
         type: Sequelize.STRING,
+        field: 'url_image',
       },
       createdAt: {
         allowNull: false,
