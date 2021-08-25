@@ -1,9 +1,10 @@
 import React from 'react';
 
 const Register = () => {
+  console.log('Lint seu lindo');
   return (
     <div>
-      <H1>VOCÉ ESTÁ NO LOGIN</H1>
+      <h1>VOCÉ ESTÁ NO LOGIN</h1>
     </div>
   );
 };
