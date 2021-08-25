@@ -38,7 +38,7 @@ const updateUser = async (req, res, next) => {
 };
 
 const deleteUser = async (req, res) => {
-  const { id } = req.user;
+  const { id } = req.params;
 
   await User.deleteUser(id);
 
