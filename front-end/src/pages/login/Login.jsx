@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button from '../../components/Button';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -57,13 +58,12 @@ const Login = () => {
             data-testid="common_login__input-password"
           />
         </label>
-        <button
+        <Button
           type="button"
           data-testid="common_login__button-login"
+          name="Login"
           disabled={ button }
-        >
-          Login
-        </button>
+        />
       </form>
       <button
         type="button"
