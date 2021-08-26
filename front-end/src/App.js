@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import Login from './pages/login';
 import './App.css';
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
       <Route exact path="/">
         <Redirect to="/login" />
       </Route>
-      <Route path="/login" />
+      <Route path="/login" component={ Login } />
       <Route path="/register" />
       <Route exact path="/customer/products" />
       <Route exact path="/customer/checkout" />
