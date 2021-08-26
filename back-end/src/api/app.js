@@ -1,7 +1,8 @@
 const express = require('express');
 
 const app = express();
+const Router = require('./Router')
 
-app.get('/coffee', (_req, res) => res.status(418).end());
+app.use('/coffee', Router.coffeeRoutes);
 
 module.exports = app;
