@@ -11,14 +11,12 @@ module.exports = (sequelize, DataTypes) => {
   {
     timestamps: false,
   });
+  
   sales.associate = (models) => {
-    models.sales_products.belongsToMany(models.user, {
-      through: sales, foreignKey: 'user_id' ,otherKey: 'id',
-      through: sales, foreignKey: 'seller_id' ,otherKey: 'id',
+    models.sales.belongsToMany(models.users, {
+      through: sales, foreignKey: 'user_id' ,otherKey: 'id', as : 'usercon',
+      through: sales, foreignKey: 'seller_id' ,otherKey: 'id', as : 'selercon',
     });
-    // models.Categories.hasOne(models.BlogPosts, {
-    //   through: salesProducts, foreignKey: 'postId', otherKey: 'categoryId', 
-    // });
   };
   return sales;
 };

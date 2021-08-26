@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import { useHistory } from 'react-router-dom';
 
-import socket from '../../utills/io';
+import connectBack from '../../utills/axiosConfig';
 
 function Login() {
   const [email, setUser] = useState('');
@@ -34,16 +34,18 @@ function Login() {
   };
 
   const redirectCostummer = () => {
-    history.push('/costumer');
+    history.push('/customer/products');
   };
-  const login = () => {
-    socket.emit('login', { email, password });
-    socket.on('login', (data) => {
-      if (!data) {
-        setInvalidLogin(true);
-        return null;
-      }redirectCostummer();
-    });
+
+  const login = async () => {
+    connectBack.post('/login', { email, password })
+      .then(({ data }) => {
+        if (data === false) {
+          setInvalidLogin(true);
+          return null;
+        }
+        redirectCostummer();
+      });
   };
 
   return (
@@ -81,9 +83,14 @@ function Login() {
         >
           Ainda não tenho conta
         </button>
-        {invalidLogin
-          ? <div data-testid={ `${prefix}element-invalid-email` }>LOGIN INVALIDO </div>
-          : <div />}
+        {invalidLogin ? (
+          <div data-testid={ `${prefix}element-invalid-email` }>
+            LOGIN INVALIDO
+            {' '}
+          </div>
+        ) : (
+          <div />
+        )}
       </div>
     </div>
   );

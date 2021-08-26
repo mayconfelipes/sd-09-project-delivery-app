@@ -7,13 +7,11 @@ module.exports = (sequelize, DataTypes) => {
   {
     timestamps: false,
   });
+
   salesProducts.associate = (models) => {
     models.products.belongsToMany(models.products, {
-      through: salesProducts, foreignKey: 'product_id' ,otherKey: 'id',
+      through: salesProducts, foreignKey: 'product_id' ,otherKey: 'id', as :'aaa'
     });
-    // models.Categories.hasOne(models.BlogPosts, {
-    //   through: salesProducts, foreignKey: 'postId', otherKey: 'categoryId', 
-    // });
   };
   return salesProducts;
 };

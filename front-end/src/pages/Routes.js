@@ -12,7 +12,7 @@ function Routes() {
     <Router>
       <Switch>
         <Route path="/login" component={ Login } />
-        <Route path="/costumer" component={ Login } />
+        <Route path="/customer/products" component={ Login } />
         <Redirect from="/" to="/login" />
       </Switch>
     </Router>
