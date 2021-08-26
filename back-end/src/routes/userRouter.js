@@ -10,4 +10,8 @@ deliveryRouter.post('/login', [
   deliveryController.loginController,
 ]);
 
+deliveryRouter.post('/register', [
+  deliveryController.registerController,
+]);
+
 module.exports = deliveryRouter;
