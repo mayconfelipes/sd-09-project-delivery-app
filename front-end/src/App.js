@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
-import Provider from './context/provider';
+import { ThemeProvider } from 'styled-components';
 import Login from './pages/login';
 import Register from './pages/register';
-import GlobalStyle from './globalStyle';
+import GlobalStyle from './theme/globalStyle';
+import Context from './context/index';
 
 function App() {
+  const { theme } = useContext(Context);
   return (
-    <Provider>
+    <ThemeProvider theme={ theme }>
+      <GlobalStyle />
       <BrowserRouter>
-        <GlobalStyle />
         <Switch>
           <Route path="/register" component={ Register } />
           <Route path="/login" component={ Login } />
@@ -19,7 +21,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
-    </Provider>
+    </ThemeProvider>
   );
 }
 
