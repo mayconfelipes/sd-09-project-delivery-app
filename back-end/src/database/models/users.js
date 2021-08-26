@@ -6,5 +6,10 @@ module.exports = (sequelize, DataTypes) => {
     role: DataTypes.STRING
   }, { timestamps: false });
 
+  users.associate = (models) => {
+    users.hasMany(models.sales, { foreignKey: 'user_id' }),
+    users.hasMany(models.sales, { foreignKey: 'seller_id' })
+  }
+
   return users;
 };
