@@ -1,8 +1,11 @@
 import React from 'react';
 
-const Register = () => {
+function Register() {
   return (
-    <h1>Register</h1>
+    <div>
+      <h1>Register</h1>
+      <h2>xablau</h2>
+    </div>
   );
 }
 

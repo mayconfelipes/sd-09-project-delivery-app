@@ -1,6 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+import Register from './pages/register/Register';
+
 import './App.css';
 import rockGlass from './images/rockGlass.svg';
 import DeliveryProvider from './context/deliveryProvider';
@@ -14,6 +16,9 @@ function App() {
           Glass
         </object>
       </div>
+      <Switch>
+        <Route path="/register" component={ Register } />
+      </Switch>
     </DeliveryProvider>
   );
 }
