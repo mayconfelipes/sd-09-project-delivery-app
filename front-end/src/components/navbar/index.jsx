@@ -1,11 +1,12 @@
 import React from 'react';
 
 const Navbar = (abas, user) => {
+  console.log('lint eu te amo');
   return (
     <nav>
-      {abas.map((aba) => {
-        return <a>{ aba }</a>
-      })}
+      {abas.map((aba), index => {
+        return <a key={ index } href="##" >{ aba }</a>
+      })};
       <span>{ user }</span>
       <button type="button" >Sair</button>
     </nav>
