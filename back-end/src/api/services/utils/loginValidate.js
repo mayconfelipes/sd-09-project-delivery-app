@@ -1,3 +1,4 @@
+const md5 = require('md5');
 const { User } = require('../../../database/models');
 
 const isValidEmail = async (email) => {
@@ -10,13 +11,7 @@ const isValidEmail = async (email) => {
     const error = { type: 'BAD_REQUEST', message: '"email" is required' };
     throw error;
   }
-
-  const emailExists = await User.findOne({ where: { email } });
-  if (!emailExists) {
-    const error = { type: 'BAD_REQUEST', message: 'Invalid fields' };
-    throw error;
-  }
-  return emailExists.dataValues;
+  return true;
 };
 
 const isValidPassword = (password) => {
@@ -30,12 +25,30 @@ const isValidPassword = (password) => {
     throw error;
   }
 
+  if (password.length < 6) {
+    const error = { type: 'BAD_REQUEST', message: '"password" must be greater than 6 ' };
+    throw error;
+  }
+  return true;
+};
+
+const isValidUser = async (email, passwd) => {
+  const emailExists = await User.findOne({ where: { email } });
+  const password = md5(passwd);
+
+  if (!emailExists || password !== emailExists.dataValues.password) {
+    const error = { type: 'BAD_REQUEST', message: 'invalid username or password' };
+    throw error;
+  } 
   return true;
 };
 
 const isValidLogin = async (user) => {
-  const userData = await isValidEmail(user.email);
-  isValidPassword(user.password);
+  const { email, password } = user;
+  isValidEmail(email);
+  isValidPassword(password);
+  const userData = await isValidUser(email, password);
+  
   return userData;
 };
 
