@@ -1,23 +1,20 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-
-import './App.css';
-// import rockGlass from './images/rockGlass.svg';
+import { Route, Switch, Redirect } from 'react-router';// import './App.css';
 import DeliveryProvider from './context/deliveryProvider';
-// import Login from './pages/login';
+import Login from './pages/login';
 import Register from './pages/register/Register';
 
 function App() {
   return (
     <DeliveryProvider>
-      <div className="App">
-        {/* <Login /> */}
-        <Switch>
-          {/* <Route exact path="/" component={ Login } />
-          <Route exact path="/login" component={ Login } /> */}
-          <Route path="/register" component={ Register } />
-        </Switch>
-      </div>
+
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="login" />
+        </Route>
+        <Route path="/login" exact component={ Login } />
+        <Route path="/register" component={ Register } />
+      </Switch>
     </DeliveryProvider>
   );
 }
