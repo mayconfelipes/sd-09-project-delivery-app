@@ -1,0 +1,14 @@
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+
+import { Login } from '../pages/Login';
+
+export const Routes = () => {
+  return (
+    <Switch>
+      <Route exact path="/" component={Login} />
+      <Route exact path="/login" component={Login} />
+      <Redirect to="/" />
+    </Switch>
+  );
+};
