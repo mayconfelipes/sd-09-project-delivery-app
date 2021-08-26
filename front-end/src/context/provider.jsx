@@ -15,7 +15,6 @@ function Provider({ children }) {
   const [register, setRegister] = useState(false);
   const [theme, setTheme] = useState(Light);
 
-
   const contextValue = {
     form,
     setForm,
