@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import Login from './pages/login';
@@ -15,7 +15,10 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/register" component={ Register } />
-          <Route path="/" component={ Login } />
+          <Route path="/login" component={ Login } />
+          <Route path="/">
+            <Redirect to="/login" />
+          </Route>
         </Switch>
       </BrowserRouter>
     </ThemeProvider>

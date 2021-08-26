@@ -14,8 +14,8 @@ export const Input = styled.input`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  padding: 2% 4%;
+  width: 80%;
+  padding: 1.5% 4%;
   border-radius: 10px;
   margin: 2% 0 0.5% 0;
   font-size: 1.5em;
