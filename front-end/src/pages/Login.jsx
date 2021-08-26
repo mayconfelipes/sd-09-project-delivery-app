@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -42,12 +43,14 @@ function Login() {
         >
           LOGIN
         </button>
-        <button
-          type="button"
-          data-testid="common_login__button-register"
-        >
-          Ainda não tenho conta
-        </button>
+        <Link to="/register">
+          <button
+            type="button"
+            data-testid="common_login__button-register"
+          >
+            Ainda não tenho conta
+          </button>
+        </Link>
       </form>
       <p data-testid="common_login__element-invalid-email">
         Elemento oculto (Mensagens de erro)

@@ -15,6 +15,11 @@
   flex-direction: column;
 }
 
+.register-page, .register-page form, .register-page form label {
+  display: flex;
+  flex-direction: column;
+}
+
 .login-page form {
   gap: 1rem;
 }
