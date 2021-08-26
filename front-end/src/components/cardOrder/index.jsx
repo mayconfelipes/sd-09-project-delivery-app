@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import StatusOrder from '../statusOrder/index'
 
 const CardOrder = (numberOrder, status, date, totalValue, address) => {
   return (
@@ -6,8 +7,7 @@ const CardOrder = (numberOrder, status, date, totalValue, address) => {
       <span>Pedido</span>
       <span>{numberOrder}</span>
 
-      {/* criar card status e importar */}
-      <div><h3>{status}</h3></div>
+      <div><h3>{StatusOrder(status)}</h3></div>
 
       <p><strong>{date}</strong></p>
       <p><strong>{totalValue}</strong></p>
