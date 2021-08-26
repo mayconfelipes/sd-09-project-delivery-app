@@ -1,5 +1,5 @@
 const errorMiddlewares = require('./errorMiddlewares');
-// const validUser = require('./validUser');
+const validRegister = require('./validRegister');
 const createToken = require('./createToken');
 const validLogin = require('./validLogin');
 const validJWT = require('./validJWT');
@@ -9,7 +9,7 @@ const validJWT = require('./validJWT');
 
 module.exports = {
   errorMiddlewares,
-  // validUser,
+  validRegister,
   createToken,
   validLogin,
   validJWT,
