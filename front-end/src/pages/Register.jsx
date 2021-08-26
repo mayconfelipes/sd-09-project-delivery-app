@@ -14,7 +14,6 @@ function Register() {
     const passwordMinLength = 6;
     const nameMinLength = 12;
 
-    // incluído somente para compilar
 
     if (emailRegex.test(email)
     && password.length >= passwordMinLength
@@ -23,15 +22,6 @@ function Register() {
     }
     setValid(false);
   }, [email, password, name, showInvalidInfoError]);
-
-  // const registerUser = async () => {
-  //   const newUser = await api.registerNewUser( name, email, password);
-  // };
-
-  // const showUserAlreadyRegistered = () => {
-  //   setInvalidInfoError('Alguma mensagem de erro');
-  //   setTimeout(setInvalidInfoError(''), errorMessageTimeout);
-  // };
 
   const showUserAlreadyRegistered = () => {
     setInvalidInfoError('Alguma mensagem de erro');
