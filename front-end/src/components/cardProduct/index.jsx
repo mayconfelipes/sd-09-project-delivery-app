@@ -4,10 +4,10 @@ const CardProduct = (image, name) => {
   const [quantity, setQuantity] = useState(0);
   return (
     <div>
-      <img src={ image } alt={`bebida: ${ image }`} />
+      <img src={ image } alt={ `bebida: ${ image }` } />
       <span>{ name }</span>
       <button
-        type="button"
+        type = "button"
         onClick = { () => {
           if (quantity = 0) return null;
           setQuantity(quantity - 1);
@@ -18,7 +18,7 @@ const CardProduct = (image, name) => {
       <span>{ quantity }</span>
       <button
         type="button"
-        onClick= { () => {
+        onClick = { () => {
           setQuantity(quantity + 1);
         } }
       >
