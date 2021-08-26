@@ -1,5 +1,5 @@
 import React from 'react';
-import StatusOrder from '../statusOrder/index'
+import StatusOrder from '../statusOrder/index';
 
 const CardOrder = (numberOrder, status, date, totalValue, address) => {
   return (
@@ -12,8 +12,8 @@ const CardOrder = (numberOrder, status, date, totalValue, address) => {
       <p><strong>{date}</strong></p>
       <p><strong>{totalValue}</strong></p>
 
-      { address && 
-        <span>{address}</span>
+      { address
+      && <span>{address}</span>
       }
     </div>
   );

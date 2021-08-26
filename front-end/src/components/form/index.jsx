@@ -1,13 +1,10 @@
 import React, { useContext } from 'react';
-// import { useLocation } from 'react-router-dom';
 import context from '../../context';
 import { Form, Input } from './styled';
 
 const FormRender = () => {
   const { form, setForm, register } = useContext(context);
   const { name: userName, email, password } = form;
-
-  // const path = useLocation();
 
   const handleChange = ({ target: { name, value } }) => {
     setForm({ ...form, [name]: value });
