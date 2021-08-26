@@ -1,19 +1,19 @@
-const { Sales } = require('../database/models');
+const { sales } = require('../database/models');
 
 const createSale = async (body) => {
-  const { dataValues } = await Sales.create({ ...body });
+  const { dataValues } = await sales.create({ ...body });
 
   return dataValues;
 };
 
 const getAll = async () => {
-  const allSale = await Sales.findAll();
+  const allSale = await sales.findAll();
 
   return allSale;
 };
 
 const getById = async (id) => {
-  const sale = await Sales.findOne({ where: { id } });
+  const sale = await sales.findOne({ where: { id } });
 
   if (!sale) return { code: 404, message: 'Sale does not exist' };
 
@@ -21,19 +21,19 @@ const getById = async (id) => {
 };
 
 const updateSale = async (id, body) => {
-  const sale = await Sales.findOne({ where: { id } });
+  const sale = await sales.findOne({ where: { id } });
 
   if (!sale) return { code: 404, message: 'Sale does not exist' };
 
-  await Sales.update({ ...body }, { where: { id } });
+  await sales.update({ ...body }, { where: { id } });
 
-  const editSale = await Sales.findOne({ where: { id } });
+  const editSale = await sales.findOne({ where: { id } });
 
   return editSale;
 };
 
 const deleteSale = async (id) => {
-  await Sales.destroy({ where: { id } });
+  await sales.destroy({ where: { id } });
 };
 
 module.exports = {

@@ -1,11 +1,11 @@
-const { Users } = require('../database/models');
+const { users } = require('../database/models');
 
 const createUser = async (body) => {
-  const findUser = await Users.findOne({ where: { email: body.email } });
+  const findUser = await users.findOne({ where: { email: body.email } });
 
   if (findUser) return { code: 409, message: 'User already registered' };
 
-  const { dataValues } = await Users.create({ ...body });
+  const { dataValues } = await users.create({ ...body });
 
   const { password: _, ...newUser } = dataValues;
 
@@ -13,13 +13,13 @@ const createUser = async (body) => {
 };
 
 const getAll = async () => {
-  const allUser = await Users.findAll();
+  const allUser = await users.findAll();
 
   return allUser;
 };
 
 const getById = async (id) => {
-  const user = await Users.findOne({ where: { id } });
+  const user = await users.findOne({ where: { id } });
 
   if (!user) return { code: 404, message: 'User does not exist' };
 
@@ -27,19 +27,19 @@ const getById = async (id) => {
 };
 
 const updateUser = async (id, body) => {
-  const user = await Users.findOne({ where: { id } });
+  const user = await users.findOne({ where: { id } });
 
   if (!user) return { code: 404, message: 'User does not exist' };
 
-  await Users.update({ ...body }, { where: { id } });
+  await users.update({ ...body }, { where: { id } });
 
-  const editUser = await Users.findOne({ where: { id } });
+  const editUser = await users.findOne({ where: { id } });
 
   return editUser;
 };
 
 const deleteUser = async (id) => {
-  await Users.destroy({ where: { id } });
+  await users.destroy({ where: { id } });
 };
 
 module.exports = {
