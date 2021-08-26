@@ -13,7 +13,9 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id',
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       sellerId: {
         type: Sequelize.INTEGER,
@@ -21,7 +23,9 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id',
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       totalPrice: {
         type: Sequelize.DECIMAL,
@@ -36,20 +40,14 @@ module.exports = {
         field: 'delivery_number',
       },
       saleDate: {
+        allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: new Date(),
         field: 'sale_date',
       },
       status: {
         type: Sequelize.STRING
       },
-      // createdAt: {
-      //   allowNull: false,
-      //   type: Sequelize.DATE
-      // },
-      // updatedAt: {
-      //   allowNull: false,
-      //   type: Sequelize.DATE
-      // }
     });
   },
   down: async (queryInterface, Sequelize) => {

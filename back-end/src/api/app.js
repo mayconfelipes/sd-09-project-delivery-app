@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
 
 const userController = require('./controllers/user');
@@ -8,6 +9,8 @@ const saleController = require('./controllers/sale');
 const errorMiddleware = require('./middlewares/Error');
 
 const app = express();
+
+app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '..', '..', 'public')));
 
