@@ -9,6 +9,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [isDisabled, trueOrFalse] = useState(true);
   const [invalidLogin, setInvalidLogin] = useState(false);
+  // const users = []
 
   const prefix = 'common_login__';
   const passMin = 5;
@@ -38,7 +39,7 @@ function Login() {
   };
 
   const login = async () => {
-    connectBack.post('/login', { email, password })
+    connectBack.post('/login', { hasToken: false, method: 'POST', status: 404 })
       .then(({ data }) => {
         if (data === false) {
           setInvalidLogin(true);
