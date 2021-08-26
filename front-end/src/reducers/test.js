@@ -2,6 +2,6 @@ const INITIAL_STATE = {
   name: '',
 };
 
-const test = (state = INITIAL_STATE, action) => state;
+const test = (state = INITIAL_STATE) => state;
 
 export default test;
