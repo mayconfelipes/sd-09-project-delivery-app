@@ -1,7 +1,16 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const routes = require('../routes');
+const Middlewares = require('../middlewares');
 
 const app = express();
 
-app.get('/coffee', (_req, res) => res.status(418).json({ message: 'test' }));
+app.use(bodyParser.json());
+app.use(cors());
+
+app.use('/login', routes.RouteLogin);
+
+app.use(Middlewares.errorMiddlewares);
 
 module.exports = app;
