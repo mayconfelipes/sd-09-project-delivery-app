@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import Provider from './context/provider';
 import Login from './pages/login';
@@ -13,7 +13,10 @@ function App() {
         <GlobalStyle />
         <Switch>
           <Route path="/register" component={ Register } />
-          <Route path="/" component={ Login } />
+          <Route path="/login" component={ Login } />
+          <Route path="/">
+            <Redirect to="/login" />
+          </Route>
         </Switch>
       </BrowserRouter>
     </Provider>

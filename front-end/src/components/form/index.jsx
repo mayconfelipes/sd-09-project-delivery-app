@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import context from '../../context';
 import { Form, Input } from './styled';
 
 const FormRender = () => {
-  const { form, setForm } = useContext(context);
+  const { form, setForm, register } = useContext(context);
   const { name: userName, email, password } = form;
 
-  const path = useLocation();
+  // const path = useLocation();
 
   const handleChange = ({ target: { name, value } }) => {
     setForm({ ...form, [name]: value });
@@ -15,28 +15,34 @@ const FormRender = () => {
 
   return (
     <Form>
+      {register && <p>NOME</p>}
       {
-        (path.pathname !== '/') && <Input
+        register && <Input
           type="text"
           placeHolder="Nome..."
-          data-testid="common_login__input-email"
+          data-testid="common_register__input-name"
           name="nome"
           value={ userName }
           onChange={ handleChange }
         />
       }
+      {register && <p>EMAIL</p>}
       <Input
+        id="teste"
         type="text"
         placeHolder="Email..."
-        data-testid="common_login__input-email"
+        data-testid={ register
+          ? 'common_register__input-email' : '"common_login__input-email"' }
         name="email"
         value={ email }
         onChange={ handleChange }
       />
+      {register && <p>SENHA</p>}
       <Input
         type="password"
         placeHolder="Senha..."
-        data-testid="common_login__input-password"
+        data-testid={ register
+          ? 'common_register__input-password' : '"common_login__input-password"' }
         name="password"
         value={ password }
         onChange={ handleChange }

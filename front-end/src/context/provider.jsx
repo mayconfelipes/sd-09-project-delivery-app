@@ -11,9 +11,13 @@ const DEFAULT_FORM = {
 
 function Provider({ children }) {
   const [form, setForm] = useState(DEFAULT_FORM);
+  const [register, setRegister] = useState(false);
 
   const contextValue = {
-    form, setForm,
+    form,
+    setForm,
+    register,
+    setRegister,
   };
 
   return (
