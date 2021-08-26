@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
-import './Login.css';
+import './Register.css';
 import { useHistory } from 'react-router-dom';
 
 import connectBack from '../../utills/axiosConfig';
 
-function Login() {
+function Register() {
   const [email, setUser] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, trueOrFalse] = useState(true);
   const [invalidLogin, setInvalidLogin] = useState(false);
   // const users = []
 
-  const prefix = 'common_login__';
+  const prefix = 'common_register__';
   const passMin = 6;
+  const nameMin = 12;
   const history = useHistory();
 
   const verifyDisabled = () => {
     const re = /(.+)@(.+){2,}\.(.+){2,}/;
-    if (password.length >= passMin && re.test(email)) {
+    if (password.length >= passMin && re.test(email) && name.length >= nameMin) {
       trueOrFalse(false);
     } else {
       trueOrFalse(true);
@@ -25,7 +27,11 @@ function Login() {
   };
 
   const userChange = ({ target }) => {
-    setUser(target.value);
+    if (target.name === 'email') {
+      setUser(target.value);
+      verifyDisabled();
+    }
+    setName(target.value);
     verifyDisabled();
   };
 
@@ -37,30 +43,47 @@ function Login() {
   const redirectCostummer = () => {
     history.push('/customer/products');
   };
-  const redirectRegister = () => {
-    history.push('/register');
+  const redirectLogin = () => {
+    history.push('/login');
   };
-  const login = () => {
+
+  const login = async () => {
     // connectBack.post('/login', { hasToken: false, method: 'POST', status: 404 })
-    connectBack.post('/login', { email, password })
-      .then(() => {
-        redirectCostummer();
-      })
-      .catch((error) => {
-        console.log(error);
-        setInvalidLogin(true);
-      });
+    // connectBack.post('/login', { email, password })
+    //   .then(({ data }) => {
+    //     if (data === false) {
+    //       setInvalidLogin(true);
+    //       return null;
+    //     }
+    //     console.log(data);
+    //     redirectCostummer();
+    //   });
+    const response = await connectBack.post('/register', { email, password, name });
+    console.log(response, 'response do connect');
+    if (response.data === false) {
+      setInvalidLogin(true);
+      return null;
+    }
+    redirectCostummer();
   };
 
   return (
     <div className="login-Page">
+      <input
+        className="name-input"
+        name="name"
+        value={ name }
+        data-testid={ `${prefix}input-name` }
+        onChange={ userChange }
+        placeholder="Nome completo"
+      />
       <input
         className="email-input"
         name="email"
         value={ email }
         data-testid={ `${prefix}input-email` }
         onChange={ userChange }
-        placeholder="User Email"
+        placeholder="Email do usuário"
       />
       <input
         className="password-input"
@@ -78,15 +101,15 @@ function Login() {
           data-testid={ `${prefix}button-login` }
           disabled={ isDisabled }
         >
-          LOGIN
+          REGISTER
         </button>
         <button
           type="button"
           className="signup-button"
           data-testid={ `${prefix}button-register` }
-          onClick={ redirectRegister }
+          onClick={ redirectLogin }
         >
-          Register
+          Já tenho conta
         </button>
         {invalidLogin ? (
           <div data-testid={ `${prefix}element-invalid-email` }>
@@ -101,4 +124,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

@@ -18,6 +18,7 @@ const PORT = 3001;
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post('/login', userController.findUser)
+app.post('/login', userController.findUser);
+// app.post('/register', userController.registerUser);
 
 http.listen(PORT, () => console.log("App listening on PORT %s", PORT));
