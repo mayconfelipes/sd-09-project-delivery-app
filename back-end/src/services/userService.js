@@ -3,7 +3,7 @@ const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
-const { User } = require('../database/models');
+const { user } = require('../database/models');
 
 const md5Translate = (password) => md5(password);
 
@@ -18,12 +18,12 @@ const generateToken = (userData) => {
 
 const loginService = async (email, password) => {
   const hashedPassword = md5Translate(password);
-  const result = await User.findOne({ where: { email, password: hashedPassword } });
+  const result = await user.findOne({ where: { email, password: hashedPassword } });
   if (!result) {
     return ({ error: { statusCode: 404, message: 'Usuário não encontrado' } });
   }
   const token = generateToken(result.toJSON());
-  return ({ token });
+  return ({ token, role: result.role });
 };
 
 module.exports = {

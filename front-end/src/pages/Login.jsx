@@ -13,7 +13,7 @@ function Login() {
   const verifyLoginCredentials = () => {
     const { email, password } = loginData;
     const minPasswordLength = 6;
-    const emailRegex = /^[^\s@]+@[^\s@]+$/;
+    const emailRegex = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
     if (!emailRegex.test(email)) {
       setDisableButton(true);
       return;
@@ -41,7 +41,7 @@ function Login() {
 
   const errorDivMessage = (
     <div>
-      <p>{ errorMessage }</p>
+      <p data-testid="common_login__element-invalid-email">{ errorMessage }</p>
       <button
         type="button"
         onClick={ () => setErrorMessage() }
@@ -68,6 +68,7 @@ function Login() {
           onChange={ handleChange }
           labelText="Login"
           placeholderText="email@appdelivery.com.br"
+          dataTestId="common_login__input-email"
         />
         <TextInput
           type="password"
@@ -75,15 +76,18 @@ function Login() {
           onChange={ handleChange }
           labelText="Senha"
           placeholderText="************"
+          dataTestId="common_login__input-password"
         />
         <LargeButton
           buttonText="LOGIN"
           isDisabled={ disableButton }
           onClick={ handleClick }
+          dataTestId="common_login__button-login"
         />
         <LargeButton
           buttonText="Ainda não tenho conta"
           onClick={ () => {} }
+          dataTestId="common_login__button-register"
         />
       </section>
       { errorMessage && errorDivMessage }
