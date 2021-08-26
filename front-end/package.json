@@ -23,13 +23,8 @@
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "11.2.7",
     "@testing-library/user-event": "12.8.3",
-<<<<<<< HEAD
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-=======
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
->>>>>>> c7a813854433e996616c91e37b963f2d9deaf19d
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "serve": "12.0.0",
