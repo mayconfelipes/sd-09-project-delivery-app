@@ -1,5 +1,5 @@
 const Sale = (sequelize, DataTypes) => {
-  const newSale = sequelize.define('Sale', {
+  const newSale = sequelize.define('sale', {
     user_id: DataTypes.INTEGER,
     seller_id: DataTypes.INTEGER,
     total_price: DataTypes.DOUBLE,
@@ -11,9 +11,9 @@ const Sale = (sequelize, DataTypes) => {
 
   newSale.associate = (models) => {
     // Verificar o as: user para ver o que ele traz para a gente;
-    newSale.belongsTo(models.User,
+    newSale.belongsTo(models.user,
       { foreignKey: 'user_id', as: 'user' });
-    newSale.belongsTo(models.User,
+    newSale.belongsTo(models.user,
       { foreignKey: 'seller_id', as: 'seller' });
   };
 

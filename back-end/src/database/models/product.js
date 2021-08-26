@@ -1,12 +1,10 @@
 const Product = (sequelize, DataTypes) => {
-  const newProduct = sequelize.define('Product', {
+  const newProduct = sequelize.define('product', {
     name: DataTypes.STRING,
     price: DataTypes.DOUBLE,
     url_image: DataTypes.STRING
   },
   { timestamps: false });
-
-  // fazer a associação
 
   return newProduct;
 };

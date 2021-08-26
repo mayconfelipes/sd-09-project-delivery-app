@@ -1,5 +1,5 @@
 const User = (sequelize, DataTypes) => {
-  const newUser = sequelize.define('User', {
+  const newUser = sequelize.define('user', {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
@@ -9,9 +9,9 @@ const User = (sequelize, DataTypes) => {
 
   // novamente verificar 'as sales'
   newUser.associate = (models) => {
-    newUser.hasMany(models.Sale,
+    newUser.hasMany(models.sale,
       { foreingnKey: 'user_id', as: 'user'});
-    newUser.hasMany(models.Sale,
+    newUser.hasMany(models.sale,
       { foreingnKey: 'seller_id', as: 'seller'});
   };
 
