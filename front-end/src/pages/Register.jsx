@@ -49,6 +49,7 @@ function Register() {
     if (result.error) {
       setErrorMessage(result.error.message);
     } else {
+      localStorage.setItem('Token', JSON.stringify(result.token));
       history.push('/customer/products');
     }
   };

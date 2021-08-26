@@ -1,4 +1,5 @@
 const userService = require('../services/userService');
+const generateToken = require('../utilidades/generateToken');
 
 const loginController = async (req, res, next) => {
   const { body: { email, password } } = req;
@@ -16,8 +17,8 @@ const registerController = async (req, res, next) => {
   if (result.error) {
     return next(result.error);
   }
-
-  return res.status(201).json({ message: 'Usuário registrado com sucesso' });
+  const token = generateToken({ id: result.id, nome, email, role });
+  return res.status(201).json({ token });
 }; 
 
 module.exports = {

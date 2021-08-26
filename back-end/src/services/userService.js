@@ -38,7 +38,7 @@ const registerService = async (newUserData) => {
 
   const result = await user.create({ name: nome, email, password: hashedPassword, role });
 
-  return { result };
+  return { id: result.dataValues.id };
 };
 
 module.exports = {
