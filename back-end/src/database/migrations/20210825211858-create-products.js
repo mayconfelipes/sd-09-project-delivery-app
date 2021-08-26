@@ -9,9 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-        name: { type: Sequelize.STRING(100) },
-        price: { type: Sequelize.DECIMAL(4,2) },
-        url_image: { type: Sequelize.STRING(200) },
+        name: { type: Sequelize.STRING(100), allowNull: false, unique: true },
+        price: { type: Sequelize.DECIMAL(4,2), allowNull: false },
+        url_image: { type: Sequelize.STRING(200), allowNull: false },
       });
   },
 
