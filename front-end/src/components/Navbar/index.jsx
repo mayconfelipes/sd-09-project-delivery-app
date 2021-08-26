@@ -8,26 +8,32 @@ const NavBar = ({ orders = 'MEUS PEDIDOS', products = 'PRODUTOS' }) => {
   return (
     <nav className={ style.container }>
       <div
-        data-testid="customer_products__element-navbar-link-products"
         className={ style.firsGrid }
       >
         <Link className={ style.customerProducts } to={ route }>
-          <p>{products}</p>
+          <p data-testid="customer_products__element-navbar-link-products">{products}</p>
         </Link>
       </div>
       <div
-        data-testid="customer_products__element-navbar-link-orders"
         className={ style.secondGrid }
       >
         <Link to="/customer/orders" className={ style.customerOrders }>
-          <button type="button">{orders}</button>
+          <button
+            data-testid="customer_products__element-navbar-link-orders"
+            type="button"
+          >
+            {orders}
+          </button>
         </Link>
       </div>
       <div
-        data-testid="customer_products__element-navbar-user-full-name"
         className={ style.thirdGrid }
       >
-        <p>Nome da pessoa usuária</p>
+        <p
+          ata-testid="customer_products__element-navbar-user-full-name"
+        >
+          Nome da pessoa usuária
+        </p>
       </div>
       <Link className={ style.lastGrid } to="/login">
         <button
