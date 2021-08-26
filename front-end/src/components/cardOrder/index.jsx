@@ -13,8 +13,7 @@ const CardOrder = (numberOrder, status, date, totalValue, address) => {
       <p><strong>{totalValue}</strong></p>
 
       { address
-      && <span>{address}</span>
-      }
+      && <span>{address}</span>}
     </div>
   );
 };
