@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Main = styled.main`
+export const Main = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,7 +10,7 @@ export const Main = styled.main`
 `;
 
 export const Logo = styled.img`
-  width: 25%;
+  width: 20%;
   min-width: 150px;
 `;
 
