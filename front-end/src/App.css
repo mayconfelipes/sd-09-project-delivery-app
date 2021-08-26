@@ -92,35 +92,35 @@
 }
 
 .product_card {
-  display: flex;
+  background: white;
   border: 2px solid #727272;
   border-radius: 13px;
-  background: white;
-  width: 260px;
+  display: flex;
   height: 400px;
   position: relative;
+  width: 260px;
 }
 
 .card_price {
+  left: 20px;
   position: absolute;
   top: 20px;
-  left: 20px
 }
 
 .product_card__footer {
-  display: flex;
   background: #727272;
-  position: absolute;
   bottom: 0;
-  width: 100%;
+  color: aliceblue;
+  display: flex;
   height: 9vh;
   justify-content: center;
-  color: aliceblue;
+  position: absolute;
+  width: 100%;
 }
 
 .quantity {
-  height: 20px;
   bottom: 23px;
+  height: 20px;
   position: absolute;
 }
 
@@ -129,68 +129,68 @@
 }
 
 .ver_carrinho {
-  display: flex;
-  width: 265px;
-  height: 6vh;
+  align-items: center;
   background: #5e5e5e;
   border-radius: 13px;
-  align-items: center;
-  position: fixed;
   bottom: 20px;
+  display: flex;
+  height: 6vh;
+  position: fixed;
   right: 25px;
+  width: 265px;
 }
 
 .ver_carrinho:hover {
   background: #727272;
 }
 
-.ver_carrinho span{
-  margin-left: 15px;
+.ver_carrinho span {
   color: aliceblue;
   font-size: 1.3rem;
+  margin-left: 15px;
 }
 
 /* === Page Orders === */
 .status_card {
-  display: flex;
   background: white;
-  width: 32vw;
+  display: flex;
   height: 11vh;
   position: relative;
+  width: 32vw;
 }
 
 .num_pedido {
+  align-items: center;
+  background: aliceblue;
   display: flex;
   flex-direction: column;
+  height: 100%;
   justify-content: center;
-  align-items: center;
   position: absolute;
   width: 20%;
-  height: 100%;
-  background: aliceblue;
 }
 
 .status_do_pedido {
-  display: flex;
-  justify-content: center;
   align-items: center;
+  background: rgb(255, 163, 43);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  margin-left: 20%;
   position: absolute;
   width: 45%;
-  height: 100%;
-  margin-left: 20%;
-  background: rgb(255, 163, 43);
 }
 
 .data {
+  font-size: 22px;
   position: absolute;
   right: 53px;
   top: 20px;
-  font-size: 22px;
 }
 
 .total {
-  position: absolute;
-  right: 62px;
   bottom: 20px;
   font-size: 22px;
+  position: absolute;
+  right: 62px;
 }
