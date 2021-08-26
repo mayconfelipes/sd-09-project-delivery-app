@@ -7,8 +7,8 @@ const CardProduct = (image, name) => {
       <img src={ image } alt={ `bebida: ${ image }` } />
       <span>{ name }</span>
       <button
-        type = "button"
-        onClick = { () => {
+        type="button"
+        onClick={ () => {
           if (quantity = 0) return null;
           setQuantity(quantity - 1);
         } }
@@ -18,7 +18,7 @@ const CardProduct = (image, name) => {
       <span>{ quantity }</span>
       <button
         type="button"
-        onClick = { () => {
+        onClick={ () => {
           setQuantity(quantity + 1);
         } }
       >
