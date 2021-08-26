@@ -125,7 +125,7 @@ describe(requirement(4), () => {
       method: "POST",
       status: notFound,
     });
-
+    console.log('==========================')
     await expect(page).toCompareURL(`${host}/login`);
     await expect(page).toFindElement(loginPage.element.invalidLogin);
   });
