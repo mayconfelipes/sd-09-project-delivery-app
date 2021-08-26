@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
     },
     user_id: DataTypes.INTEGER,
     seller_id: DataTypes.INTEGER,
@@ -16,11 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   }, { timestamps: false, tableName: 'Sale' });
 
   Sale.associate = (models) => {
-    Sale.hasMany(models.User, { foreignKey: 'user_id', as: 'user' });
-  };
-
-  Sale.associate = (models) => {
-    Sale.hasMany(models.User, { foreignKey: 'seller_id', as: 'user' });
+    Sale.hasMany(models.User, { foreignKey: 'id', as: 'user' });
   };
 
   return Sale;
