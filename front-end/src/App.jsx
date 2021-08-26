@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import Login from './pages/comum/Login';
 import Register from './pages/comum/Register';
@@ -14,6 +14,7 @@ import SellerOrders from './pages/seller/SellerOrders';
 function App() {
   return (
     <>
+      <Redirect from="/" to="/login" />
       <Route exact path="/login" component={ Login } />
       <Route exact path="/register" component={ Register } />
       <Route exact path="/customer/products" component={ Products } />
