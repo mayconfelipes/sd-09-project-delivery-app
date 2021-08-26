@@ -18,3 +18,75 @@
 .login-page form {
   gap: 1rem;
 }
+
+/* === Nav Bar Customer === */
+.navbar {
+  align-items: center;
+  background: #464646;
+  color: aliceblue;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 8vh;
+  justify-content: space-between;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+}
+
+.navbar a {
+  color: aliceblue;
+  text-decoration: none;
+}
+
+.left_side {
+  align-items: center;
+  display: flex;
+  height: 8vh;
+  justify-content: space-evenly;
+  text-align: center;
+  width: 28vw;
+}
+
+.right_side {
+  align-items: center;
+  display: flex;
+  height: 8vh;
+  justify-content: space-evenly;
+  text-align: center;
+  width: 28vw;
+}
+
+.navbar_produtos, .navbar_pedidos, .navbar_nome, .navbar_sair {
+  align-items: center;
+  display: flex;
+  height: 8vh;
+  justify-content: center;
+  width: 17vw;
+}
+
+.navbar_produtos {
+  background: #727272;
+}
+
+.navbar_pedidos:hover {
+  background: #727272;
+}
+
+.navbar_nome {
+  background: #421981;
+}
+
+.navbar_nome:hover {
+  background: #502197;
+}
+
+.navbar_sair {
+  background: #056cf9;
+  width: 11vw;
+}
+
+.navbar_sair:hover {
+  background: #217cfc;
+  width: 11vw;
+}
