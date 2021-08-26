@@ -18,7 +18,7 @@ const FormRender = () => {
       {
         (path.pathname !== '/') && <Input
           type="text"
-          placeHolder="Nome..."
+          placeholder="Nome..."
           data-testid="common_login__input-email"
           name="nome"
           value={ userName }
@@ -27,7 +27,7 @@ const FormRender = () => {
       }
       <Input
         type="text"
-        placeHolder="Email..."
+        placeholder="Email..."
         data-testid="common_login__input-email"
         name="email"
         value={ email }
@@ -35,7 +35,7 @@ const FormRender = () => {
       />
       <Input
         type="password"
-        placeHolder="Senha..."
+        placeholder="Senha..."
         data-testid="common_login__input-password"
         name="password"
         value={ password }

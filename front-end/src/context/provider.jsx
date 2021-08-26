@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import context from './index';
+import Context from './index';
+import Light from '../theme/light';
 
 const DEFAULT_FORM = {
   email: '',
@@ -11,15 +12,19 @@ const DEFAULT_FORM = {
 
 function Provider({ children }) {
   const [form, setForm] = useState(DEFAULT_FORM);
+  const [theme, setTheme] = useState(Light);
 
   const contextValue = {
-    form, setForm,
+    form,
+    setForm,
+    theme,
+    setTheme,
   };
 
   return (
-    <context.Provider value={ contextValue }>
+    <Context.Provider value={ contextValue }>
       { children }
-    </context.Provider>
+    </Context.Provider>
   );
 }
 
