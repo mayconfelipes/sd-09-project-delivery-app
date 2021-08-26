@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../../service/axiosApi';
 import './login.css';
 
 const Login = () => {
-
   const [userData, setUserData] = useState({
-    emailInput: '',
-    passwordInput: '',
+    email: '',
+    password: '',
   });
   const data = userData;
   const [isDataValid, setIsDataValid] = useState(true);
@@ -17,9 +17,9 @@ const Login = () => {
   }
 
   useEffect(() => {
-    const { emailInput, passwordInput } = userData;
-    const emailValidated = /^[\S.]+@[a-z]+\.\w{2,3}$/g.test(emailInput);
-    const passwordRegex = new RegExp(/[\w\D]{7}/g).test(passwordInput);
+    const { email, password } = userData;
+    const emailValidated = /^[\S.]+@[a-z]+\.\w{2,3}$/g.test(email);
+    const passwordRegex = new RegExp(/[\w\D]{7}/g).test(password);
 
     if (emailValidated && passwordRegex) {
       setIsDataValid(false);
@@ -34,7 +34,7 @@ const Login = () => {
         E-mail
         <input
           type="text"
-          name="emailInput"
+          name="email"
           className="input-email"
           onChange={ handleInputChange }
           data-testId="common_login__input-email"
@@ -44,7 +44,7 @@ const Login = () => {
         Password
         <input
           type="text"
-          name="passwordInput"
+          name="password"
           className="input-password"
           onChange={ handleInputChange }
           data-testId="common_login__input-password"
@@ -60,19 +60,18 @@ const Login = () => {
       >
         Login
       </button>
-      <button
-        type="button"
-        name="register"
-        data-testId="common_login__button-register"
-        className="register-button"
-        onClick={ () => api.post('/login', { email, password })
-          .then((response) => console.log(response)) }
-      >
-        Register
-      </button>
+      <Link to="/register">
+        <button
+          type="button"
+          name="register"
+          data-testId="common_login__button-register"
+          className="register-button"
+        >
+          Register
+        </button>
+      </Link>
     </form>
   );
 };
 
 export default Login;
- */
