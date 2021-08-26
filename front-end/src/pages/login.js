@@ -23,7 +23,8 @@ function Login() {
         </button>
         <button
           type="button"
-          data-testid="common_login__button-register">
+          data-testid="common_login__button-register"
+        >
           Ainda não tenho conta
         </button>
       </form>
