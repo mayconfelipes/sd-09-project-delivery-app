@@ -16,7 +16,7 @@ const FormRender = () => {
   return (
     <Form>
       {
-        (path.pathname !== '/') && <Input
+        (path.pathname !== '/login') && <Input
           type="text"
           placeholder="Nome..."
           data-testid="common_login__input-email"

@@ -19,8 +19,8 @@ export const Logo = styled.img`
 export const LoginButton = styled.button`
   background-color: ${(props) => props.theme.background.button};
   color: ${(props) => props.theme.font.button};
-  height: 7%;
-  width: 15%;
+  height: 6%;
+  width: 13%;
   min-width: 150px;
   font-size: 1.6em;
   margin-top: 2em; 
