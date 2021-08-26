@@ -1,0 +1,10 @@
+.productStatusContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5rem;
+
+  .productStatus {
+    color: #000;
+    text-decoration: none;
+  }
+}

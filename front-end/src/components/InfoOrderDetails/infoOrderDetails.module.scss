@@ -1,0 +1,47 @@
+h1 {
+  font-size: 2rem;
+  margin: 3rem 10% 1rem;
+}
+
+.infoOrderDetails {
+  background-color: #eaf1ef;
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  justify-content: space-between;
+  padding: 1rem;
+
+  .span {
+    font-weight: bold
+  }
+
+  .date, .status, .markAsDelivered, .orderStatus  {
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .date {
+    background-color: #f1fbf9;
+    width: 15rem;
+  }
+
+  .status {
+    background-color: #4dd5b1;
+    width: 17rem;
+  }
+
+  .orderStatus {
+    background-color: #4bc18d;
+    color: #fff;
+    width: 22rem;
+  }
+
+  .markAsDelivered {
+    background-color: #256b52;
+    color: #fff;
+    font-weight: normal;
+    width: 30rem;
+  }
+}
