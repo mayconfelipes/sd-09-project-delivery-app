@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import axiosApi from '../../service/axiosApi';
+import api from '../../service/axiosApi';
 
 function Register() {
   const [input, setInput] = useState({});
@@ -12,8 +12,16 @@ function Register() {
     });
   };
 
-  const handleInputSubmit = () => {
-    // axiosApi(input);
+  const handleInputSubmit = (event) => {
+    event.preventDefault();
+    const data = input;
+
+    // console.log(data);
+    // api.post('/register', data);
+
+    api.post('/register', data)
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
     console.log('click!');
   };
 
@@ -36,7 +44,7 @@ function Register() {
           <input
             type="text"
             id="email"
-            name="name"
+            name="email"
             placeholder="seu-email@site.com"
             onChange={ handleInputChange }
           />
@@ -46,7 +54,7 @@ function Register() {
           <input
             type="password"
             id="password"
-            name="name"
+            name="password"
             placeholder="********"
             onChange={ handleInputChange }
           />
