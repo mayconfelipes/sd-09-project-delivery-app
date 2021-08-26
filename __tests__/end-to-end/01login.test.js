@@ -26,84 +26,84 @@ beforeEach(async () => {
   await expect(page).toCompareURL(`${host}/login`);
 });
 
-// describe(requirement(1), () => {
-//   test("O avaliador navegará para o endereço do host utilizando o endpoint '/'", async () => {
-//     await expect(page).toNavigate(`${host}/`);
-//     await expect(page).toCompareURL(`${host}/login`);
-//   });
-//   test("O avaliador navegará para o endereço do host utilizando o endpoint '/login'", async () => {
-//     await expect(page).toNavigate(`${host}/login`);
-//     await expect(page).toCompareURL(`${host}/login`);
-//   });
-// });
+describe(requirement(1), () => {
+  test("O avaliador navegará para o endereço do host utilizando o endpoint '/'", async () => {
+    await expect(page).toNavigate(`${host}/`);
+    await expect(page).toCompareURL(`${host}/login`);
+  });
+  test("O avaliador navegará para o endereço do host utilizando o endpoint '/login'", async () => {
+    await expect(page).toNavigate(`${host}/login`);
+    await expect(page).toCompareURL(`${host}/login`);
+  });
+});
 
-// describe(requirement(2), () => {
-//   test("O avaliador buscará pelos elementos fundamentais aos demais testes", async () => {
-//     await expect(page).toFindElement(loginPage.input.login);
-//     await expect(page).toFindElement(loginPage.input.password);
-//     await expect(page).toFindElement(loginPage.button.login.default);
-//     await expect(page).toFindElement(loginPage.button.register);
-//   });
-// });
+describe(requirement(2), () => {
+  test("O avaliador buscará pelos elementos fundamentais aos demais testes", async () => {
+    await expect(page).toFindElement(loginPage.input.login);
+    await expect(page).toFindElement(loginPage.input.password);
+    await expect(page).toFindElement(loginPage.button.login.default);
+    await expect(page).toFindElement(loginPage.button.register);
+  });
+});
 
-// describe(requirement(3), () => {
-//   const logins = [
-//     {
-//       email: "cliente@email",
-//       password: internet.password(passwordMinLen),
-//       valid: false,
-//     },
-//     {
-//       email: internet.email().toLowerCase(),
-//       password: internet.password(passwordMinLen - 1),
-//       valid: false,
-//     },
-//     {
-//       email: internet.email().toLowerCase(),
-//       password: internet.password(passwordMinLen),
-//       valid: true,
-//     },
-//   ];
+describe(requirement(3), () => {
+  const logins = [
+    {
+      email: "cliente@email",
+      password: internet.password(passwordMinLen),
+      valid: false,
+    },
+    {
+      email: internet.email().toLowerCase(),
+      password: internet.password(passwordMinLen - 1),
+      valid: false,
+    },
+    {
+      email: internet.email().toLowerCase(),
+      password: internet.password(passwordMinLen),
+      valid: true,
+    },
+  ];
 
-//   const baseTest = async (email, password, valid) => {
-//     await expect(page).toFindElement(loginPage.button.login.disabled);
+  const baseTest = async (email, password, valid) => {
+    await expect(page).toFindElement(loginPage.button.login.disabled);
 
-//     await expect(page).toTypeInInput(loginPage.input.login, email);
-//     await expect(page).toFindElement(loginPage.button.login.disabled);
+    await expect(page).toTypeInInput(loginPage.input.login, email);
+    await expect(page).toFindElement(loginPage.button.login.disabled);
 
-//     await expect(page).toTypeInInput(
-//       loginPage.input.password,
-//       password.substr(zero, password.length - one)
-//     );
-//     await expect(page).toFindElement(loginPage.button.login.disabled);
-//     await expect(page).toTypeInInput(
-//       loginPage.input.password,
-//       password.substr(-one)
-//     );
-//     await expect(page).toFindElement(
-//       loginPage.button.login[valid ? "notDisabled" : "disabled"]
-//     );
+    await expect(page).toTypeInInput(
+      loginPage.input.password,
+      password.substr(zero, password.length - one)
+    );
+    await expect(page).toFindElement(loginPage.button.login.disabled);
+    await expect(page).toTypeInInput(
+      loginPage.input.password,
+      password.substr(-one)
+    );
+    await expect(page).toFindElement(
+      loginPage.button.login[valid ? "notDisabled" : "disabled"]
+    );
 
-//     return true;
-//   };
+    return true;
+  };
 
-//   test.each(logins)(
-//     "O avaliador testará isoladamente o caso: `%p`",
-//     async ({ email, password, valid }) => {
-//       expect(await baseTest(email, password, valid)).toBeTruthy();
-//     }
-//   );
-//   test("O avaliador testará os casos anteriores de forma seguida, sem recarregar a página", async () => {
-//     for (const { email, password, valid } of logins) {
-//       expect(await baseTest(email, password, valid)).toBeTruthy();
+  test.each(logins)(
+    "O avaliador testará isoladamente o caso: `%p`",
+    async ({ email, password, valid }) => {
+      expect(await baseTest(email, password, valid)).toBeTruthy();
+    }
+  );
+  test("O avaliador testará os casos anteriores de forma seguida, sem recarregar a página", async () => {
+    for (const { email, password, valid } of logins) {
+      expect(await baseTest(email, password, valid)).toBeTruthy();
 
-//       await expect(page).toClearTextFromInput(loginPage.input.login);
-//       await expect(page).toClearTextFromInput(loginPage.input.password);
+      await expect(page).toClearTextFromInput(loginPage.input.login);
+      await expect(page).toClearTextFromInput(loginPage.input.password);
 
-//       await page.waitForTimeout(2000);
-//     }
-//   });
-// });
+      await page.waitForTimeout(2000);
+    }
+  });
+});
 
 describe(requirement(4), () => {
   const login = {
@@ -131,10 +131,10 @@ describe(requirement(4), () => {
   });
 });
 
-// describe(requirement(5), () => {
-//   test("O avaliador tentará fazer a ação de login com dados válidos, esse teste pressupõe a validade dos anteriores", async () => {
-//     expect(
-//       await action.common.navigate.login.default(page, "customer")
-//     ).toBeTruthy();
-//   });
-// });
+describe(requirement(5), () => {
+  test("O avaliador tentará fazer a ação de login com dados válidos, esse teste pressupõe a validade dos anteriores", async () => {
+    expect(
+      await action.common.navigate.login.default(page, "customer")
+    ).toBeTruthy();
+  });
+});

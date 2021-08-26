@@ -1,12 +1,11 @@
-const { users } = require("../../database/models");
-const jwt = require("jsonwebtoken");
-const md5 = require("md5");
-
+// const jwt = require('jsonwebtoken');
+const md5 = require('md5');
+const { users } = require('../../database/models');
 
 const findUser = async (password, email) => {
-  password = md5(password);
+  const hash = md5(password);
   const user = await users.findOne({
-    where: { password, email }
+    where: { password: hash, email },
   });
   if (!user) {
     return { hasToken: false };
@@ -15,5 +14,5 @@ const findUser = async (password, email) => {
 };
 
 module.exports = {
-  findUser
+  findUser,
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import { useHistory } from 'react-router-dom';
 
+// import axios from 'axios';
 import connectBack from '../../utills/axiosConfig';
 
 function Login() {
@@ -38,14 +39,15 @@ function Login() {
     history.push('/customer/products');
   };
 
-  const login = async () => {
-    connectBack.post('/login', { hasToken: false, method: 'POST', status: 404 })
-      .then(({ data }) => {
-        if (data === false) {
-          setInvalidLogin(true);
-          return null;
-        }
+  const login = () => {
+    connectBack.post('/login', { password, email })
+      // .interceptors.response.use(() => {
+      //   response.data = { hasToken: null };
+      // })
+      .then(() => {
         redirectCostummer();
+      }).catch(() => {
+        setInvalidLogin(true);
       });
   };
 
