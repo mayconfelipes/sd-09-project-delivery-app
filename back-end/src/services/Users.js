@@ -27,11 +27,13 @@ const getById = async (id) => {
 };
 
 const updateUser = async (id, body) => {
-  const editUser = await Users.findOne({ where: { id } });
+  const user = await Users.findOne({ where: { id } });
 
-  if (!editUser) return { code: 404, message: 'User does not exist' };
+  if (!user) return { code: 404, message: 'User does not exist' };
 
   await Users.update({ ...body }, { where: { id } });
+
+  const editUser = await Users.findOne({ where: { id } });
 
   return editUser;
 };

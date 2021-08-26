@@ -7,10 +7,10 @@ const createUser = async (req, res, next) => {
 
   if (newUser.code) return next(newUser);
 
-  return res.status(201).json({ message: 'User created sucessfully' });
+  return res.status(201).json(newUser);
 };
 
-const getAll = async (req, res) => {
+const getAll = async (_req, res) => {
   const getAllUser = await User.getAll();
 
   return res.status(200).json(getAllUser);

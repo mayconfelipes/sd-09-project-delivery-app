@@ -1,10 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   const Sales = sequelize.define('Sales', {
-    total_price: DataTypes.NUMBER,
+    total_price: DataTypes.DECIMAL,
     delivery_address: DataTypes.STRING,
     delivery_number: DataTypes.STRING,
     sale_date: DataTypes.DATE,
-    status: DataTypes.STRING
+    status: DataTypes.STRING,
+  },
+  {
+    timestamps: false,
   });
 
   Sales.associate = (models) => {
