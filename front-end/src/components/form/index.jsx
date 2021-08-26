@@ -4,10 +4,11 @@ import context from '../../context';
 import { Form, Input } from './styled';
 
 const FormRender = () => {
-  const { form: { email, password }, setForm } = useContext(context);
+  const { form, setForm } = useContext(context);
+  const { name: userName, email, password } = form;
 
   const path = useLocation();
-  console.log(path);
+
   const handleChange = ({ target: { name, value } }) => {
     setForm({ ...form, [name]: value });
   };
@@ -17,10 +18,10 @@ const FormRender = () => {
       {
         (path.pathname !== '/') && <Input
           type="text"
-          placeHolder="Email..."
+          placeHolder="Nome..."
           data-testid="common_login__input-email"
-          name="email"
-          value={ email }
+          name="nome"
+          value={ userName }
           onChange={ handleChange }
         />
       }
@@ -40,7 +41,6 @@ const FormRender = () => {
         value={ password }
         onChange={ handleChange }
       />
-
     </Form>
   );
 };
