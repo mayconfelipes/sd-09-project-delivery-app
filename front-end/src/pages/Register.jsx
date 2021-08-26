@@ -14,7 +14,6 @@ function Register() {
     const passwordMinLength = 6;
     const nameMinLength = 12;
 
-
     if (emailRegex.test(email)
     && password.length >= passwordMinLength
     && name.length >= nameMinLength) {

@@ -7,12 +7,12 @@ const httpServer = http.createServer(app);
 
 app.use(cors());
 
-const io = require('socket.io')(httpServer, {
-  cors: {
-    origin: 'http://localhost:3000',
-    method: ['GET', 'POST'],
-  },
-});
+// const io = require('socket.io')(httpServer, {
+//   cors: {
+//     origin: 'http://localhost:3000',
+//     method: ['GET', 'POST'],
+//   },
+// });
 
 app.get('/', () => console.log('hello world!'));
 
