@@ -12,7 +12,7 @@ function Login() {
   // const users = []
 
   const prefix = 'common_login__';
-  const passMin = 6;
+  const passMin = 5;
   const history = useHistory();
 
   const verifyDisabled = () => {

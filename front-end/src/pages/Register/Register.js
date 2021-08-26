@@ -13,7 +13,7 @@ function Register() {
   // const users = []
 
   const prefix = 'common_register__';
-  const passMin = 6;
+  const passMin = 5;
   const nameMin = 12;
   const history = useHistory();
 
