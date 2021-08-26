@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import axiosApi from '../../service/axiosApi';
 
 function Register() {
   const [input, setInput] = useState({});
@@ -9,6 +10,11 @@ function Register() {
       ...input,
       [name]: value,
     });
+  };
+
+  const handleInputSubmit = () => {
+    // axiosApi(input);
+    console.log('click!');
   };
 
   return (
@@ -28,7 +34,7 @@ function Register() {
         <label htmlFor="email">
           Email:
           <input
-            type="password"
+            type="text"
             id="email"
             name="name"
             placeholder="seu-email@site.com"
@@ -38,14 +44,14 @@ function Register() {
         <label htmlFor="password">
           Senha:
           <input
-            type="text"
+            type="password"
             id="password"
             name="name"
             placeholder="********"
             onChange={ handleInputChange }
           />
         </label>
-        <button type="submit">Cadastrar</button>
+        <button type="submit" onClick={ handleInputSubmit }>Cadastrar</button>
       </form>
     </div>
   );
