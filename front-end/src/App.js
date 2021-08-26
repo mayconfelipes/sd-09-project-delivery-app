@@ -6,7 +6,6 @@ import Product from './pages/customerProducts';
 import Orders from './pages/customerOrders';
 import Register from './pages/Register';
 
-
 function App() {
   return (
     <div className="App">
@@ -17,7 +16,6 @@ function App() {
           <Route path="/customer" component={ Product } />
           <Route path="/orders" component={ Orders } />
           <Route path="/register" component={ Register } />
-
         </Switch>
       </BrowserRouter>
     </div>
