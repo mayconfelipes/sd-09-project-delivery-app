@@ -8,12 +8,22 @@ const FormRender = () => {
 
   const path = useLocation();
   console.log(path);
-  handleChange = ({ target: { name, value } }) => {
+  const handleChange = ({ target: { name, value } }) => {
     setForm({ ...form, [name]: value });
   };
 
   return (
     <Form>
+      {
+        (path.pathname !== '/') && <Input
+          type="text"
+          placeHolder="Email..."
+          data-testid="common_login__input-email"
+          name="email"
+          value={ email }
+          onChange={ handleChange }
+        />
+      }
       <Input
         type="text"
         placeHolder="Email..."
@@ -30,6 +40,7 @@ const FormRender = () => {
         value={ password }
         onChange={ handleChange }
       />
+
     </Form>
   );
 };
