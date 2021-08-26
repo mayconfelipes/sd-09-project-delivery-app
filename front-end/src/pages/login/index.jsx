@@ -7,9 +7,9 @@ import FormRender from '../../components/form';
 
 const Login = () => {
   const { form, setForm } = useContext(context);
-  const { redirect } = login;
+  const { redirect } = form;
 
-  logIn = () => {
+  const logOn = () => {
     // Fazer o fetch para a api e setar o localStorage
     setForm({ ...form, redirect: !redirect });
   };
@@ -22,7 +22,7 @@ const Login = () => {
       <LoginButton
         type="button"
         data-testid="common_login__button-login"
-        onClick={ logIn }
+        onClick={ logOn }
       >
         LOGIN
       </LoginButton>

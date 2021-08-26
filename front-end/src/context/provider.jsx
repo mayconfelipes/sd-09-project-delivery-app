@@ -17,11 +17,11 @@ function Provider({ children }) {
   };
 
   return (
-    <context.Provider value={contextValue}>
+    <context.Provider value={ contextValue }>
       { children }
     </context.Provider>
   );
-};
+}
 
 Provider.propTypes = {
   children: PropTypes.node.isRequired,
