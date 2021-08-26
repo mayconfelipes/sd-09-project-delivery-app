@@ -10,9 +10,9 @@ const User = (sequelize, DataTypes) => {
   // novamente verificar 'as sales'
   newUser.associate = (models) => {
     newUser.hasMany(models.Sale,
-      { foreingnKey: 'user_id', as: 'sales'});
+      { foreingnKey: 'user_id', as: 'user'});
     newUser.hasMany(models.Sale,
-      { foreingnKey: 'seller_id', as: 'sales'});
+      { foreingnKey: 'seller_id', as: 'seller'});
   };
 
   return newUser;

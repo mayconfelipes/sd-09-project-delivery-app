@@ -8,7 +8,7 @@ const Product = (sequelize, DataTypes) => {
 
   // fazer a associação
 
-  return newUser;
+  return newProduct;
 };
 
 module.exports = Product;

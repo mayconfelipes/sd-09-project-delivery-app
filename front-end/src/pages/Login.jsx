@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import AppContext from '../context/AppContext';
 import TextInput from '../components/TextInput';
 import LargeButton from '../components/LargeButton';
 import logoDelivery from '../images/logo-delivery.png';
+import api from '../services/api';
 
 function Login() {
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   const [disableButton, setDisableButton] = useState(true);
+  const { errorMessage, setErrorMessage } = useContext(AppContext);
 
   const verifyLoginCredentials = () => {
     const { email, password } = loginData;
@@ -30,9 +33,23 @@ function Login() {
     setLoginData({ ...loginData, [name]: value });
   };
 
-  const handleClick = () => {
-    console.log('clicou!');
+  const handleClick = async () => {
+    const result = await api.loginUser(loginData);
+    if (result.error) return setErrorMessage(result.error.message);
+    localStorage.setItem('Token', JSON.stringify(result.token));
   };
+
+  const errorDivMessage = (
+    <div>
+      <p>{ errorMessage }</p>
+      <button
+        type="button"
+        onClick={ () => setErrorMessage() }
+      >
+        Tentar novamente
+      </button>
+    </div>
+  );
 
   return (
     <main>
@@ -69,6 +86,7 @@ function Login() {
           onClick={ () => {} }
         />
       </section>
+      { errorMessage && errorDivMessage }
     </main>
   );
 }

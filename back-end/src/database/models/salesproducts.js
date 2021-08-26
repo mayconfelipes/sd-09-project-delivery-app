@@ -25,6 +25,6 @@ const SalesProducts = (sequelize, DataTypes) => {
   return newSalesProducts;
 };
 
-modules.exports = SalesProducts;
+module.exports = SalesProducts;
 
 

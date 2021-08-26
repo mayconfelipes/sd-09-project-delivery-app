@@ -4,10 +4,13 @@ import AppContext from './AppContext';
 
 function Provider({ children }) {
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
 
   const contextValue = {
     loading,
     setLoading,
+    errorMessage,
+    setErrorMessage,
   };
 
   return (

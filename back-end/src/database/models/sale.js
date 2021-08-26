@@ -1,5 +1,5 @@
 const Sale = (sequelize, DataTypes) => {
-  const newSale = sequelize.define('Sales', {
+  const newSale = sequelize.define('Sale', {
     user_id: DataTypes.INTEGER,
     seller_id: DataTypes.INTEGER,
     total_price: DataTypes.DOUBLE,
@@ -20,4 +20,4 @@ const Sale = (sequelize, DataTypes) => {
   return newSale;
 };
 
-modules.exports = Sale;
+module.exports = Sale;
