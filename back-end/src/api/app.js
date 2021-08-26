@@ -3,7 +3,7 @@ const http = require('http');
 const cors = require('cors');
 
 const app = express();
-const httpServer = http.createServer(app);
+// const httpServer = http.createServer(app);
 
 app.use(cors());
 
