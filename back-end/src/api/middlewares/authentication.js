@@ -1,6 +1,6 @@
 const { JWTError } = require('../errors');
 const tokens = require('../tokens');
-const { User } = require('../models');
+const { User } = require('../../database/models');
 
 module.exports = async (req, _res, next) => {
   try {

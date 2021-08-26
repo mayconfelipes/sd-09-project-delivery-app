@@ -10,14 +10,14 @@ const LoginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
-module.exports = (payload) => {
+module.exports = async (payload) => {
   const { error } = LoginSchema.validate(payload);
 
   if (error) throw InvalidArgumentError(error.message);
 
   const { email } = payload;
   const password = crypto.createHash('md5').update(payload.password).digest('hex');
-  const user = User.findOne({ where: { email, password } });
+  const user = await User.findOne({ where: { email, password } });
   if (!user) throw new NotFoundError('User');
 
   const { password: _, ...userData } = user.dataValues;
