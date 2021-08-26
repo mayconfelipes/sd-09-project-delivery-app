@@ -3,6 +3,7 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 
 const registerController = require('../controllers/registerController');
+const loginController = require('../controllers/loginController');
 
 const port = process.env.PORT || 3001;
 const app = require('./app');
@@ -10,6 +11,8 @@ const app = require('./app');
 app.use(bodyParser.json());
 
 app.post('/register', registerController.createUser);
+
+app.post('/login', loginController.newLogin);
 
 app.use((err, _req, res, _next) => {
   if (err.status) return res.status(err.status).json({ message: err.message });
