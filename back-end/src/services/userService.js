@@ -23,7 +23,7 @@ const loginService = async (email, password) => {
     return ({ error: { statusCode: 404, message: 'Usuário não encontrado' } });
   }
   const token = generateToken(result.toJSON());
-  return ({ token, role: result.role });
+  return ({ token, role: result.role, name: result.name, email: result.email });
 };
 
 const registerService = async (newUserData) => {

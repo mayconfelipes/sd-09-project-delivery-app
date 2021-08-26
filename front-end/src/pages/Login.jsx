@@ -41,12 +41,12 @@ function Login() {
     if (result.error) {
       setErrorMessage(result.error.message);
     } else {
-      localStorage.setItem('Token', JSON.stringify(result.token));
+      localStorage.setItem('userData', JSON.stringify(result));
       switch (result.role) {
-      case 'Admin':
+      case 'admin':
         history.push('/admin/manage');
         break;
-      case 'Seller':
+      case 'seller':
         history.push('/seller/orders');
         break;
       default:

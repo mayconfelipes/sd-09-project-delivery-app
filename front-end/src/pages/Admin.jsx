@@ -45,7 +45,7 @@ function Admin() {
     setNewUserData({ ...newUserData, [name]: value });
   };
 
-  const options = ['Customer', 'Seller', 'Admin'];
+  const options = ['customer', 'seller', 'admin'];
   return (
     <main>
       <section>
