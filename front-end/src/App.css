@@ -19,10 +19,10 @@
   gap: 1rem;
 }
 
-/* === Nav Bar Customer === */
+/* === Page Customer === */
 .navbar {
   align-items: center;
-  background: #464646;
+  background: #5e5e5e;
   color: aliceblue;
   display: flex;
   flex-wrap: nowrap;
@@ -89,4 +89,108 @@
 .navbar_sair:hover {
   background: #217cfc;
   width: 11vw;
+}
+
+.product_card {
+  display: flex;
+  border: 2px solid #727272;
+  border-radius: 13px;
+  background: white;
+  width: 260px;
+  height: 400px;
+  position: relative;
+}
+
+.card_price {
+  position: absolute;
+  top: 20px;
+  left: 20px
+}
+
+.product_card__footer {
+  display: flex;
+  background: #727272;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 9vh;
+  justify-content: center;
+  color: aliceblue;
+}
+
+.quantity {
+  height: 20px;
+  bottom: 23px;
+  position: absolute;
+}
+
+.quantity span {
+  margin: 5px;
+}
+
+.ver_carrinho {
+  display: flex;
+  width: 265px;
+  height: 6vh;
+  background: #5e5e5e;
+  border-radius: 13px;
+  align-items: center;
+  position: fixed;
+  bottom: 20px;
+  right: 25px;
+}
+
+.ver_carrinho:hover {
+  background: #727272;
+}
+
+.ver_carrinho span{
+  margin-left: 15px;
+  color: aliceblue;
+  font-size: 1.3rem;
+}
+
+/* === Page Orders === */
+.status_card {
+  display: flex;
+  background: white;
+  width: 32vw;
+  height: 11vh;
+  position: relative;
+}
+
+.num_pedido {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 20%;
+  height: 100%;
+  background: aliceblue;
+}
+
+.status_do_pedido {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 45%;
+  height: 100%;
+  margin-left: 20%;
+  background: rgb(255, 163, 43);
+}
+
+.data {
+  position: absolute;
+  right: 53px;
+  top: 20px;
+  font-size: 22px;
+}
+
+.total {
+  position: absolute;
+  right: 62px;
+  bottom: 20px;
+  font-size: 22px;
 }
