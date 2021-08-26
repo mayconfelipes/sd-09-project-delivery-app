@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use('/login', routes.RouteLogin);
+app.use('/', routes.RouteUser);
 
 app.use(Middlewares.errorMiddlewares);
 

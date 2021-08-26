@@ -12,12 +12,13 @@ const validJWT = (req, _res, next) => {
 
   if (validVerifyToken.message) throw invalidData(validVerifyToken.message, UNAUTHORIZED);
 
-  const { id, email, role } = validVerifyToken;
+  const { id, email, role, name } = validVerifyToken;
 
   req.user = {
     id,
     role,
     email,
+    name,
   };
   next();
 };

@@ -2,9 +2,9 @@ import React from 'react';
 import axiosApi from '../../service/axiosApi';
 
 const Login = () => {
-  const email = 'test@email.com';
-  const password = '6261654984654698494894';
-  console.log(axiosApi(email, password));
+  const email = 'zebirita@email.com';
+  const password = '1c37466c159755ce1fa181bd247cb925';
+  console.log(axiosApi(email, password).then((obj) => obj.data));
 
   return (
     <form>
