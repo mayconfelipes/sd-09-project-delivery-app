@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function DropDownList({ name, options, dataTestId, onChange }) {
   return (
-    <select name={ name } data-testid={ dataTestId } onChange={ onChange }>
+    <select name={ name } id={ name } data-testid={ dataTestId } onChange={ onChange }>
       <option value="">Escolha uma opção</option>
       { options.map((option, key) => (
         <option

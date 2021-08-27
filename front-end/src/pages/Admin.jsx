@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import api from '../services/api';
 import TextInput from '../components/TextInput';
 import LargeButton from '../components/LargeButton';
 import DropDownList from '../components/DropDownList';
@@ -8,7 +9,7 @@ function Admin() {
     nome: '', email: '', password: '', role: '',
   });
   const [disableButton, setDisableButton] = useState(true);
-  // const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState();
 
   // verifica se pode fazer o cadastro
   const verifyNewUserCredentials = () => {
@@ -33,7 +34,6 @@ function Admin() {
       setDisableButton(true);
       return;
     }
-
     setDisableButton(false);
   };
 
@@ -45,7 +45,42 @@ function Admin() {
     setNewUserData({ ...newUserData, [name]: value });
   };
 
-  const options = ['customer', 'seller', 'admin'];
+  const handleClick = async () => {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    const result = await api.registerUserWithAdmin(newUserData, userData.token);
+    if (result.error) {
+      setErrorMessage(result.error.message);
+    }
+    console.log('acabou');
+  };
+
+  const cleanFields = () => {
+    setErrorMessage();
+    const name = document.getElementById('nome');
+    name.value = '';
+    const email = document.getElementById('email');
+    email.value = '';
+    const password = document.getElementById('password');
+    password.value = '';
+    const role = document.getElementById('role');
+    role.value = '';
+    setNewUserData({ nome: '', email: '', password: '', role: '' });
+  };
+
+  const errorDivMessage = (
+    <div>
+      <p data-testid="common_register__element-invalid_register">{ errorMessage }</p>
+      <button
+        type="button"
+        onClick={ cleanFields }
+      >
+        Limpar
+      </button>
+    </div>
+  );
+
+  const options = ['customer', 'seller', 'administrator'];
   return (
     <main>
       <section>
@@ -82,10 +117,11 @@ function Admin() {
         />
         <LargeButton
           buttonText="CADASTRAR"
-          onClick={ () => {} }
+          onClick={ handleClick }
           isDisabled={ disableButton }
           dataTestId="admin_manage__button-register"
         />
+        { errorMessage && errorDivMessage }
       </section>
       <section>
         <p>Aqui fica a lista de usuarios</p>

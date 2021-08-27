@@ -43,7 +43,7 @@ function Login() {
     } else {
       localStorage.setItem('userData', JSON.stringify(result));
       switch (result.role) {
-      case 'admin':
+      case 'administrator':
         history.push('/admin/manage');
         break;
       case 'seller':

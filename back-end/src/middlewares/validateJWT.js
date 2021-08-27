@@ -1,7 +1,7 @@
-// require('dotenv').config();
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-const secret = 'segredo-grupo-3'; // passar para variavel de ambiente
+const secret = process.env.SECRET_KEY; // passar para variavel de ambiente
 
 const validateJWT = (req, res, next) => {
   const { headers: { authorization } } = req;
