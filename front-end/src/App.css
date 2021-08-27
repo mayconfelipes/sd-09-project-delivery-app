@@ -52,3 +52,54 @@
     transform: rotate(-10deg);
   }
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #0fa36b;
+}
+
+.btn {
+  height: 50px;
+  border-radius: 0px;
+  border: 0px;
+  margin: 0px;
+  padding: 0px 20px;
+}
+.btn-green {
+  background-color: #3AA856;
+  color: #ffffff;
+}
+
+.btn-green:hover {
+  background-color: #57bf71;
+}
+
+.btn-blue {
+  background: #4688F0;
+  color: #ffffff;
+}
+
+.btn-blue:hover {
+  background: #5c96f3;
+}
+
+.btn-purple {
+  background-color:#7B4CDF;
+  color: #ffffff;
+}
+
+.list-products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-product {
+  flex-basis: 20%;
+  margin: 20px 0px 10px 15px;
+  border: 1px solid #0000001A;
+  box-shadow: 0px 10px 10px 0px #0000001A;
+  border-radius: 10px;
+;
+}

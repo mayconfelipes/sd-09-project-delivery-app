@@ -1,7 +1,7 @@
 #! /bin/bash
 
 printf "\n> Preparando o campo pra execução do pm2\n\n"
-PATH=$(npm bin):$PATH
+PATH="D:/TRYBE/Git/sd-09-project-delivery-app"
 export NODE_ENV=development
 pm2 stop all | grep 'PM2'
 pm2 delete all | grep 'PM2'
