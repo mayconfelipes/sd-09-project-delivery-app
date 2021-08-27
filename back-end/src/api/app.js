@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/', routes.RouteUser);
+app.use('/', routes.RouteProduct);
 
 app.use(Middlewares.errorMiddlewares);
 
