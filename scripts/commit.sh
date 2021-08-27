@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Antes de usar, faça o git push -u <nome da branch>"
+echo "Antes de usar, faça o git push -u origin <nome da branch>"
 read -p "Alteração back ou front? " bOrF
 read -p "Qual é o fluxo? (customer order, admin, seller products...)? " flux
 read -p "Qual mensagem do commit? " msg
