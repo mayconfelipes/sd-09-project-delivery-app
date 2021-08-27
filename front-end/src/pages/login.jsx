@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import Button from '../components/button';
@@ -12,21 +12,8 @@ const Login = () => {
 
   const history = useHistory();
 
-  const validateForm = () => {
-    /* Regex found at: https://github.com/tryber/sd-09-live-lectures/tree/lecture/12.2 */
-    const regex = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/igm.test(email);
-    const PASSWORD_MIN_LENGTH = 6;
-
-    if (regex && password.length > PASSWORD_MIN_LENGTH) {
-      setButton(false);
-    } else {
-      setButton(true);
-    }
-  };
-
   const handleChange = ({ target: { name, value } }) => {
     if (error) setError('');
-    validateForm();
     switch (name) {
     case 'email':
       return setEmail(value);
@@ -36,6 +23,22 @@ const Login = () => {
       return undefined;
     }
   };
+
+  // Validação do form
+  useEffect(
+    () => {
+      /* Regex found at: https://github.com/tryber/sd-09-live-lectures/tree/lecture/12.2 */
+      const regex = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/igm.test(email);
+      const PASSWORD_MIN_LENGTH = 6;
+
+      if (regex && password.length >= PASSWORD_MIN_LENGTH) {
+        setButton(false);
+      } else {
+        setButton(true);
+      }
+    },
+    [email, password],
+  );
 
   const handleLogin = async () => {
     const LOGIN_URL = 'http://localhost:3001/api/login';
