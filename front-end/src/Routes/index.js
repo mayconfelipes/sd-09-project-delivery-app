@@ -1,22 +1,11 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { isAuthenticated } from '../Services/Auth';
+import { Switch, Route } from 'react-router-dom';
 import {
   HomePage,
   Login,
   NotFound,
 } from '../Pages';
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    { ...rest }
-    render={ (props) => (isAuthenticated() ? (
-      <Component { ...props } />
-    ) : (
-      <Redirect to={ { pathname: '/', state: { from: props.location } } } />
-    )) }
-  />
-);
+import PrivateRoute from './PrivateRoute';
 
 const Routes = () => (
 
