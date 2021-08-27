@@ -4,7 +4,7 @@ import NavBarCustomer from '../components/navBarCustomer';
 function CustomerProducts() {
   return (
     <div>
-      <NavBarCustomer />
+      <NavBarCustomer textProp="pedidos" />
 
       {/*
         status_card será populado dentro de um map, talvez :)

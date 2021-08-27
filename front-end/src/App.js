@@ -13,8 +13,8 @@ function App() {
         <Switch>
           <Route exact path="/"><Redirect to="/login" /></Route>
           <Route path="/login" component={ Login } />
-          <Route path="/customer" component={ Product } />
-          <Route path="/orders" component={ Orders } />
+          <Route path="/customer/products" component={ Product } />
+          <Route path="/customer/orders" component={ Orders } />
           <Route path="/register" component={ Register } />
         </Switch>
       </BrowserRouter>
