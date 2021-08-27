@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const User = require('./controllers/users');
 const Product = require('./controllers/products');
+const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
 // const httpServer = http.createServer(app);
@@ -24,6 +25,8 @@ app.post('/register', User.registerUser);
 app.get('/users', User.getAllUsers);
 
 app.get('/products', Product.getAllProducts);
+
+app.use(errorMiddleware);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
