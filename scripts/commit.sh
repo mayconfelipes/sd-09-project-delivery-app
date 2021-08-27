@@ -1,10 +1,14 @@
 #!/bin/bash
-read -p "Qual mensagem do commit? " msg
 read -p "Alteração back ou front? " bOrF
+read -p "Qual é o fluxo? (customer order, admin, seller products...)? " flux
+read -p "Qual mensagem do commit? " msg
 
-theMsg={"Update: $bOrF $msg"^^}
+upperBorF=${bOrF^^}
+upperTheMsg=${msg^^}
+upperFlux=${flux^^}
 git add .
 git commit -m "$theMsg"
+theMsg="[MAIN-GROUP-6][${upperBorF}][${upperFlux}][${upperTheMsg}]"
 
 read -p "Foi commitado: > $theMsg <. Enviar ao gitHub? " yOrN
 
