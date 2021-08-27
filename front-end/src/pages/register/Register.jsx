@@ -4,8 +4,12 @@ import api from '../../service/axiosApi';
 import validateUserData from '../../helpers/validateUserData';
 
 function Register() {
-  const [input, setInput] = useState({});
-  const [dataIsValid, setDataIsValid] = useState(false);
+  const [input, setInput] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const [btnDisabled, setBtnDisabled] = useState(true);
 
   const handleInputChange = ({ target }) => {
     const { name, value } = target;
@@ -16,7 +20,8 @@ function Register() {
   };
 
   useEffect(() => {
-    setDataIsValid(validateUserData(input));
+    const dataIsValid = validateUserData(input);
+    setBtnDisabled(!dataIsValid);
   }, [input]);
 
   const handleInputSubmit = (event) => {
@@ -69,6 +74,7 @@ function Register() {
         <button
           type="submit"
           onClick={ handleInputSubmit }
+          disabled={ btnDisabled }
           data-testid="common_register__button-register"
         >
           Cadastrar
