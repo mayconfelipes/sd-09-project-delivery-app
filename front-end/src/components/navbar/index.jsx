@@ -7,8 +7,7 @@ const Navbar = (abas, user) => {
       {abas.map((aba, index) => {
         console.log('lint');
         return <a key={ index } href="##">{ aba }</a>;
-      })
-      }
+      })}
       ;
       <span>{ user }</span>
       <button type="button">Sair</button>

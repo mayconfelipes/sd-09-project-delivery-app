@@ -6,12 +6,11 @@ import FormRender from '../../components/form';
 const Register = () => {
   const { setRegister } = useContext(context);
 
-  const changeStatusRegister = async () => {
-    await setRegister(true);
-  };
-
   useEffect(() => {
-    changeStatusRegister();
+    function changeStatusRegister() {
+      setRegister(true);
+    };
+    await changeStatusRegister();
   }, [changeStatusRegister]);
 
   return (
