@@ -37,6 +37,7 @@ function Register() {
             name="name"
             placeholder="Seu nome"
             onChange={ handleInputChange }
+            data-testid="common_register__input-name"
           />
         </label>
         <label htmlFor="email">
@@ -47,6 +48,7 @@ function Register() {
             name="email"
             placeholder="seu-email@site.com"
             onChange={ handleInputChange }
+            data-testid="common_register__input-email"
           />
         </label>
         <label htmlFor="password">
@@ -57,9 +59,16 @@ function Register() {
             name="password"
             placeholder="********"
             onChange={ handleInputChange }
+            data-testid="common_register__input-password"
           />
         </label>
-        <button type="submit" onClick={ handleInputSubmit }>Cadastrar</button>
+        <button
+          type="submit"
+          onClick={ handleInputSubmit }
+          data-testid="common_register__button-register"
+        >
+          Cadastrar
+        </button>
       </form>
     </div>
   );
