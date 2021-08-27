@@ -32,8 +32,9 @@ function Login() {
       <button type="button" data-testid="common_login__button-login">LOGIN</button>
       <button
         type="button"
-        data-testid="common_login__button-register">
-          AINDA NÃO TENHO CONTA
+        data-testid="common_login__button-register"
+      >
+        AINDA NÃO TENHO CONTA
       </button>
     </form>
   );
