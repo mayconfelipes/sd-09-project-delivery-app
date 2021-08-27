@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
 const app = express();
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
@@ -12,7 +13,5 @@ const middlewares = require('../middlewares');
 
 app.use('/login', controllers.login, middlewares.error);
 app.get('/coffee', (_req, res) => res.status(418).end());
-
-// app.use('/login', controller.login);
 
 module.exports = app;
