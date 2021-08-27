@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// import { Redirect } from 'react-router-dom';
 import { loginAPI } from '../../services/loginAPI';
 
 function Login() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const passwordminLength = 6;
 
-  const isInputValid = () => {
-    const passwordminLength = 6;
-
+  useEffect(() => {
     const isDisabled = email.match(/\S+@\S+\.\S+/)
       && password.length >= passwordminLength;
 
     setIsButtonDisabled(!isDisabled);
-  };
+  }, [email, password]);
 
   const canUserLogin = async () => {
     const loginBody = { email, password };
@@ -34,10 +34,7 @@ function Login() {
           <input
             type="email"
             name="email"
-            onChange={ (e) => {
-              setEmail(e.target.value);
-              isInputValid();
-            } }
+            onChange={ (e) => setEmail(e.target.value) }
             data-testid="common_login__input-email"
             placeholder="exemplo@exemplo.com"
             required
@@ -50,10 +47,7 @@ function Login() {
           <input
             type="password"
             name="password"
-            onChange={ (e) => {
-              setPassword(e.target.value);
-              isInputValid();
-            } }
+            onChange={ (e) => setPassword(e.target.value) }
             data-testid="common_login__input-password"
             placeholder="Barak Obama"
             required
@@ -61,15 +55,19 @@ function Login() {
         </label>
       </div>
       <button
-        type="button"
+        type="submit"
         data-testid="common_login__button-login"
         disabled={ isButtonDisabled }
       >
         LOGIN
       </button>
       <button
-        type="submit"
+        type="button"
         data-testid="common_login__button-register"
+        // onClick={ () => {
+        //   console.log('cliquei');
+        //   return (<Redirect to="/register" />);
+        // } }
       >
         AINDA NÃO TENHO CONTA
       </button>
