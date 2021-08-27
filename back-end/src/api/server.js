@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const bodyParser = require('body-parser');
 
-// validação de token para usuario e administrador  - aguardando uso
 const tokenValidController = require('../controllers/tokenValidController');
 const registerController = require('../controllers/registerController');
 const loginController = require('../controllers/loginController');
