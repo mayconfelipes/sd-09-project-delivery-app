@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import api from '../../service/axiosApi';
 import './login.css';
+// import useDeliveryContext from '../../context/deliveryProvider';
+import DeliveryContext from '../../context/deliveryContext';
 
 const Login = () => {
-
+  const { isTest } = useContext(DeliveryContext);
   const [userData, setUserData] = useState({
     emailInput: '',
     passwordInput: '',
   });
+
   const data = userData;
   const [isDataValid, setIsDataValid] = useState(true);
 
@@ -28,6 +31,8 @@ const Login = () => {
     }
   }, [userData]);
 
+  console.log(isTest);
+
   return (
     <form className="px-5 py-7">
       <label htmlFor="input-email" className="label-email">
@@ -37,7 +42,7 @@ const Login = () => {
           name="emailInput"
           className="input-email"
           onChange={ handleInputChange }
-          data-testId="common_login__input-email"
+          data-testid="common_login__input-email"
         />
       </label>
       <label htmlFor="label-password" className="label-password">
@@ -47,14 +52,14 @@ const Login = () => {
           name="passwordInput"
           className="input-password"
           onChange={ handleInputChange }
-          data-testId="common_login__input-password"
+          data-testid="common_login__input-password"
         />
       </label>
       <button
         type="button"
         name="login"
         className="login-button"
-        data-testId="common_login__button-login"
+        data-testid="common_login__button-login"
         disabled={ isDataValid }
         onClick={ () => api.post('/login', data).then((res) => console.log(res)) }
       >
@@ -63,7 +68,7 @@ const Login = () => {
       <button
         type="button"
         name="register"
-        data-testId="common_login__button-register"
+        data-testid="common_login__button-register"
         className="register-button"
         onClick={ () => api.post('/login', { email, password })
           .then((response) => console.log(response)) }
@@ -75,4 +80,3 @@ const Login = () => {
 };
 
 export default Login;
- */

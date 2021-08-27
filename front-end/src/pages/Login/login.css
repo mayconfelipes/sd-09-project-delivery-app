@@ -7,7 +7,7 @@ input-email {
 }
 
 label-password {
-  @apply ffont-semibold text-sm text-gray-600 pb-1 block;
+  @apply font-semibold text-sm text-gray-600 pb-1 block;
 }
 
 input-password {
