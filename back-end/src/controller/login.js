@@ -17,10 +17,4 @@ router.post('/', rescue(async (req, res, next) => {
   return res.status(200).json(user);
 }));
 
-// router.get('/', (req, res) => {
-//   return res.status(200).json({
-//     message: 'chegou',
-//   });
-// });
-
 module.exports = router;
