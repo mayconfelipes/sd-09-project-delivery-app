@@ -1,9 +1,12 @@
-const passwordValidation = (password) => password.length > 6;
+const passwordMinLength = 6;
+const userNameMaxLength = 12;
+const emailRegex = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
 
-const userNameValidation = (userName) => userName.trim().length < 12;
+const passwordValidation = (password) => password.length > passwordMinLength;
 
-const emailValidation = (email) =>
-  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+const userNameValidation = (userName) => userName.trim().length < userNameMaxLength;
+
+const emailValidation = (email) => emailRegex.test(email);
 
 module.exports = {
   passwordValidation,
