@@ -3,18 +3,18 @@ const rescue = require('express-rescue');
 
 const router = express.Router();
 
-const { User } = require('../database/models');
+const service = require('../service/login');
 
 router.post('/', rescue(async (req, res, next) => {
-  const { email } = req.body;
-  const user = await User.findOne({ where: { email, password } });
+  const user = await service.login(req.body);
 
-  if (user.length === 0) {
-    next({
+  if (!user.length) {
+    return next({
       statusCode: 404,
       message: 'Not Found',
     });
   }
+  return res.status(200).json(user);
 }));
 
 // router.get('/', (req, res) => {

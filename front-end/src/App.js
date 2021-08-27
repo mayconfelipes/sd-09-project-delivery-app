@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Login from './pages/Login';
 import Orders from './pages/Orders';
-import './App.css';
 import Products from './pages/Products';
 import Notfound from './pages/Notfound';
+import './App.css';
 
 function App() {
   return (

@@ -13,6 +13,6 @@ const middlewares = require('../middlewares');
 app.use('/login', controllers.login, middlewares.error);
 app.get('/coffee', (_req, res) => res.status(418).end());
 
-app.use('/login', controller.login);
+// app.use('/login', controller.login);
 
 module.exports = app;

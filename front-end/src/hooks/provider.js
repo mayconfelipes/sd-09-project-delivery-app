@@ -21,6 +21,7 @@ function Provider({ children }) {
   const contextValue = {
     user,
     signIn,
+    setUser,
   };
 
   return (

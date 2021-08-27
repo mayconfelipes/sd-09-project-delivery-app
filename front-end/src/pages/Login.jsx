@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router';
 import AppContext from '../hooks/context';
 
 const axios = require('axios').default;
@@ -7,7 +8,8 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [notFoundError, setNotFoundError] = useState(false);
-  // const { signIn } = useContext(AppContext);
+  const { setUser } = useContext(AppContext);
+  const router = useHistory();
 
   const PASSWORD_LENGTH_EXPECTED = 6;
 
@@ -51,7 +53,8 @@ function Login() {
       email,
       password,
     }).then((response) => {
-      console.log(response);
+      setUser(response.data);
+      router.push('customer/products');
     }).catch(() => {
       setNotFoundError(true);
     });
