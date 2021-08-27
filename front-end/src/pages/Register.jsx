@@ -49,7 +49,7 @@ function Register() {
     if (result.error) {
       setErrorMessage(result.error.message);
     } else {
-      localStorage.setItem('Token', JSON.stringify(result.token));
+      localStorage.setItem('userData', JSON.stringify(result));
       history.push('/customer/products');
     }
   };
@@ -72,7 +72,7 @@ function Register() {
         type="button"
         onClick={ cleanFields }
       >
-        Tentar novamente
+        Limpar
       </button>
     </div>
   );
