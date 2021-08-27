@@ -7,7 +7,7 @@ const { User } = require('../database/models');
 
 router.post('/', rescue(async (req, res, next) => {
   const { email } = req.body;
-  const user = await User.findAll({ where: { email, } });
+  const user = await User.findAll({ where: { email } });
 
   if (user.length === 0) {
     next({
@@ -17,10 +17,10 @@ router.post('/', rescue(async (req, res, next) => {
   }
 }));
 
-router.get('/', (req, res) => {
-  return res.status(200).json({
-    message: 'chegou'
-  })
-})
+// router.get('/', (req, res) => {
+//   return res.status(200).json({
+//     message: 'chegou',
+//   });
+// });
 
 module.exports = router;
