@@ -4,8 +4,8 @@ const statusCode = require('../utils/statusCode');
 
 const verifyRegisteredUser = async (req, _res, next) => {
   try {
-    const { email } = req.body;
-    const data = await registerService.findOneUser(email);
+    const { name, email } = req.body;
+    const data = await registerService.findOneUser(name, email);
     if (data) throw errorObj('User already registered', statusCode.conflict);
     next();
   } catch (error) {
@@ -18,7 +18,7 @@ const registerUserInDB = async (req, res, next) => {
     const { name, email, password, role } = req.body;
     const data = await registerService.saveOneUser(name, email, password, role);
     if (data.message) throw errorObj(data.message, statusCode.badRequest);
-    res.status(statusCode.OK).json(data);
+    res.status(statusCode.created).json(data);
   } catch (error) {
     next(error);
   }

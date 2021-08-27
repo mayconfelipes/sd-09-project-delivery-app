@@ -1,7 +1,12 @@
 const Joi = require('joi');
 
 const schemaRegister = Joi.object({
-  name: Joi.string().not().empty().required(),
+  name: Joi
+    .string()
+    .min(12)
+    .not()
+    .empty()
+    .required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
   role: Joi.string().default('user'),

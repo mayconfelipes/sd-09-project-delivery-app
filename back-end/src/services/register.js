@@ -2,10 +2,12 @@ const { users } = require('../database/models');
 const validatorJoi = require('../utils/validatorJoi');
 const md5HashCreate = require('../utils/hashMd5');
 
-const findOneUser = async (email) => {
-  const data = await users.findOne({ where: { email } });
-  if (!data) return '';
-  return data.dataValues;
+const findOneUser = async (name, email) => {
+  const dataName = await users.findOne({ where: { name } });
+  const dataEmail = await users.findOne({ where: { email } });
+  if (!dataEmail && !dataName) return '';
+  const dataFound = dataName || dataEmail;
+  return dataFound;
 };
 
 const saveOneUser = async (name, email, password, role) => {
