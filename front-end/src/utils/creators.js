@@ -1,25 +1,32 @@
 import React from 'react';
 
-export const createInput = (name, type, onChange, route) => (
-  <input
-    data-testid={ `${route}__input-${type}` }
-    name={ name }
-    type={ type }
-    placeholder={ name }
-    onChange={ onChange }
-    required
-  />
+export const createInput = ({ id, name, type, placeholder, label, onChange, route }) => (
+  <>
+    <label htmlFor={ id }>
+      { label }
+    </label>
+    <input
+      data-testid={ `${route}__input-${type}` }
+      name={ name }
+      type={ type }
+      placeholder={ placeholder }
+      onChange={ onChange }
+      autoComplete="off"
+      required
+    />
+  </>
 );
 
-export const createButton = (name, text, onClick, route) => (
+export const createButton = ({ name, label, onClick, route, disabled = false }) => (
   <button
     data-testid={ `${route}__button-${name}` }
     name={ name }
     type="button"
     onClick={ onClick }
+    disabled={ disabled }
     required
   >
-    { text }
+    { label }
   </button>
 );
 

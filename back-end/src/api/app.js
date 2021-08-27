@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cors = require('cors');
 
 const userController = require('./controllers/user');
 const loginController = require('./controllers/login');
@@ -10,6 +11,7 @@ const errorMiddleware = require('./middlewares/Error');
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '..', '..', 'public')));
