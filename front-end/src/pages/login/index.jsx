@@ -18,6 +18,7 @@ const Login = () => {
 
   useEffect(() => {
     const isValid = formValidator(email, password);
+    console.log(isValid);
     setEnableButton(isValid);
   }, [email, password, setEnableButton, setForm]);
 

@@ -13,6 +13,7 @@ const DEFAULT_FORM = {
 function Provider({ children }) {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [theme, setTheme] = useState(Light);
+  const [register, setRegister] = useState(false);
   const [enableButton, setEnableButton] = useState(false);
 
   const contextValue = {
@@ -22,6 +23,8 @@ function Provider({ children }) {
     setTheme,
     enableButton,
     setEnableButton,
+    register,
+    setRegister,
   };
 
   return (
