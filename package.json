@@ -18,7 +18,8 @@
     "test": "jest --runInBand --detectOpenHandles --forceExit --verbose",
     "test:dev": "NODE_ENV=development npm run jest -- --runInBand --detectOpenHandles --forceExit --verbose",
     "test:dev:open": "NODE_ENV=development HEADLESS=false npm run test:dev",
-    "test:dev:report": "./__tests__/reports/generate.sh"
+    "test:dev:report": "./__tests__/reports/generate.sh",
+    "commit": "./scripts/commit.sh"
   },
   "repository": {
     "type": "git",
