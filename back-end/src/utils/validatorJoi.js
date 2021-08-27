@@ -14,7 +14,7 @@ const schemaRegister = Joi.object({
 
 const schemaLogin = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).required()
+  password: Joi.string().min(6).required(),
 });
 
 const verifierSchemaRegister = (name, email, password, role) => {
@@ -31,5 +31,5 @@ const verifierSchemaLogin = (email, password) => {
 
 module.exports = {
   verifierSchemaRegister,
-  verifierSchemaLogin
+  verifierSchemaLogin,
 };

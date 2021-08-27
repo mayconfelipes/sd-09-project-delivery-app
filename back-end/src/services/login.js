@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const errorObj = require('../utils/errorObj');
 const validatorJoi = require('../utils/validatorJoi');
 
 require('dotenv/config');
@@ -18,5 +17,5 @@ const userLogin = async (email, password) => {
 };
   
 module.exports = {
-  userLogin
-}
+  userLogin,
+};
