@@ -17,6 +17,10 @@ function Register() {
   const nameMin = 12;
   const history = useHistory();
 
+  const saveTokenLocalStorage = (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
+  };
+
   const verifyDisabled = () => {
     const re = /(.+)@(.+){2,}\.(.+){2,}/;
     if (password.length >= passMin && re.test(email) && name.length >= nameMin) {
@@ -44,9 +48,11 @@ function Register() {
     history.push('/customer/products');
   };
 
-  const login = async () => {
+  const registerUser = async () => {
     connectBack.post('/register', { email, password, name })
-      .then(() => {
+      .then((response) => {
+        console.log(response.data.user);
+        saveTokenLocalStorage(response.data.user);
         redirectCostummer();
       })
       .catch((error) => {
@@ -85,14 +91,14 @@ function Register() {
         <button
           type="button"
           className="signin-button"
-          onClick={ login }
+          onClick={ registerUser }
           data-testid={ `${prefix}button-register` }
           disabled={ isDisabled }
         >
           REGISTER
         </button>
         {invalidLogin ? (
-          <div data-testid={ `${prefix}element-invalid-email` }>
+          <div data-testid={ `${prefix}element-invalid_register` }>
             REGISTRO INVALIDO
             {' '}
           </div>
