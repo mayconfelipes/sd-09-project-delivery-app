@@ -1,4 +1,5 @@
 #!/bin/bash
+read -p "nome da branch? " branchName
 read -p "Alteração back ou front? " bOrF
 read -p "Qual é o fluxo? (customer order, admin, seller products...)? " flux
 read -p "Qual mensagem do commit? " msg
@@ -14,7 +15,7 @@ git commit -m "$theMsg"
 read -p "Foi commitado: > $theMsg <. Enviar ao gitHub? " yOrN
 
 if [[ $yOrN == "y" ]]; then
-  git push
+  git push -u origin branchName
   echo "Não esqueça de abrir a PR, direcionar à main-group-6 e marcar no trello"
   else
   echo "Não enviado ao gitHub"
