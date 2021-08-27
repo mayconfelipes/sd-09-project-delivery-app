@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { registerAPI } from '../../services/registerAPI';
 import useStyle from './registerPage.style';
 
 export default function Register() {
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -12,18 +13,23 @@ export default function Register() {
 
   const classes = useStyle();
 
-  const canUserRegister = () => {
-    setError(true);
-    if (error === true) {
-      toast('Email já registrado');
-    }
+  const canUserRegister = async () => {
+    const headers = {
+      name,
+      email,
+      password,
+    };
+    const responseRegister = await registerAPI(headers);
+    console.log(responseRegister);
+    // if (error === true) {
+    //   toast('Email já registrado');
+    // }
   };
 
   const isInputValid = (passwordInputValue = password) => {
     const numberToComperPassword = 6;
     const numberToComperName = 12;
 
-    console.log(passwordInputValue);
     if (
       name.length >= numberToComperName
       && email.match(/\S+@\S+\.\S+/)
@@ -37,9 +43,11 @@ export default function Register() {
 
   return (
     <>
-      <ToastContainer
+      <div
         data-testid="common_register__element-invalid_register"
-      />
+      >
+        <ToastContainer />
+      </div>
       <p className={ classes.registerTitle }>Cadastro</p>
       <form
         className={ classes.formsContainer }
