@@ -62,7 +62,7 @@ function Login() {
 
   return (
     <div>
-      <form>
+      <form id="form">
         { createInput('email', 'Login') }
         { createInput('password', 'Senha') }
         <button
