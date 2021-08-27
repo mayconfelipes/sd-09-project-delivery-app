@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import api from '../../service/axiosApi';
 
@@ -41,7 +40,7 @@ function Register() {
       })
       .catch((err) => {
         setShowError(true);
-        console.log(err);
+        console.log('[Erro] >', err.response.data.message);
       });
   };
 
