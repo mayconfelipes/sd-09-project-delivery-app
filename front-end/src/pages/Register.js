@@ -47,8 +47,8 @@ class Register extends React.Component {
     const { name, email, password } = this.state;
 
     try {
-      await fetchPOST('http://localhost:3001/users', { name, email, password });
-      console.log('ok');
+      const result = await fetchPOST('http://localhost:3001/users', { name, email, password });
+      localStorage.setItem('token', result);
       this.setState({
         toggleMessage: false,
         redirect: true,

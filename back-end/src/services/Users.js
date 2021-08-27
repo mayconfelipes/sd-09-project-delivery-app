@@ -18,7 +18,9 @@ const createUser = async (body) => {
 
   const { password: _, ...newUser } = dataValues;
 
-  return newUser;
+  const token = jwt.sign(newUser, secret, jwtConfig);
+
+  return token;
 };
 
 const getAll = async () => {
