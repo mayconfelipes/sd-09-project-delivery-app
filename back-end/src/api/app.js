@@ -1,17 +1,19 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-dotenv.config();
-
-const controllers = require('../controller/productController');
+const cors = require('cors');
 
 const app = express();
 app.use(bodyParser.json());
 
-app.get('/products', controllers.getProducts)
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
-app.get('/', (_req, res) => res.status(200).send('Oi'))
+const controllers = require('../controller');
+const middlewares = require('../middlewares');
 
+app.use('/login', controllers.login, middlewares.error);
+app.use(controllers.products, middlewares.error);
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 module.exports = app;

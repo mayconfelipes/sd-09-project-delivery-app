@@ -27,6 +27,39 @@
   margin-top: 8em;
 }
 
+.main--products {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.main--products li {
+ border: 1px solid #4287f5;
+ flex-direction: column;
+ transform: scale(0.9);
+ width: 20em;
+}
+
+.main--products li, h1, h4 {
+  padding: 1em;
+}
+
+.main--products li:hover {
+  border: 4px solid #4287f5;
+  transform: scale(1);
+}
+
+.button-cart {
+  background-color: #2a3957;
+  bottom: 50px;
+  color: #4287f5;
+  height: 50px;
+  position: fixed;
+  right: 0px; 
+  width: 25%;
+}
+ 
+
 @keyframes shake {
 
   0% {
