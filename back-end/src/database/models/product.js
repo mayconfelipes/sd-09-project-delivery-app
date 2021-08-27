@@ -5,13 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     urlImage: DataTypes.STRING(200),
   }, { tableName: 'products', underscored: true, timestamps: false, });
 
-  // Product.associate = (models) => {
-  //   Product.belongsToMany(models.Sale, {
-  //     through: models.SalesProducts,
-  //     foreignKey: 'productId',
-  //     as: 'sales',
-  //   });
-  // }
+  Product.associate = (models) => {
+    Product.belongsToMany(models.Sale, {
+      through: models.SalesProducts,
+      foreignKey: 'productId',
+      as: 'sales',
+    });
+  }
 
   return Product;
 };

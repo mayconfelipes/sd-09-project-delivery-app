@@ -8,10 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     deliveryAddress: DataTypes.STRING(100),
     deliveryNumber: DataTypes.STRING(50),
     status: DataTypes.STRING(50),
+    sale_date: { type: DataTypes.DATE, defaultValue: Sequelize.NOW },
   }, {
     tableName: 'sales',
     timestamps: false,
-    createdAt: 'sale_date',
+    createdAt: 'saleDate',
     updateAt: false,
     underscored: true,
   });
