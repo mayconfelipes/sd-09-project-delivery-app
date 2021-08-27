@@ -1,10 +1,13 @@
 import React, { useState, useContext } from 'react';
 import AppContext from '../hooks/context';
 
+const axios = require('axios').default;
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signIn } = useContext(AppContext);
+  const [notFoundError, setNotFoundError] = useState(false);
+  // const { signIn } = useContext(AppContext);
 
   const PASSWORD_LENGTH_EXPECTED = 6;
 
@@ -14,12 +17,6 @@ function Login() {
     }
 
     return setPassword(target.value);
-  };
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-
-    await signIn(email, password);
   };
 
   function validateEmail(emailValue) {
@@ -47,6 +44,19 @@ function Login() {
     </div>
   );
 
+  const loginFunction = (e) => {
+    e.preventDefault();
+
+    axios.post('http://localhost:3001/login', {
+      email,
+      password,
+    }).then((response) => {
+      console.log(response);
+    }).catch(() => {
+      setNotFoundError(true);
+    });
+  };
+
   return (
     <div>
       <form>
@@ -55,8 +65,8 @@ function Login() {
         <button
           type="submit"
           disabled={ !isValid() }
+          onClick={ loginFunction }
           data-testid="common_login__button-login"
-          onClick={ onSubmit }
         >
           Login
         </button>
@@ -67,6 +77,9 @@ function Login() {
           Ainda não tenho conta
         </button>
       </form>
+      {notFoundError
+        ? <p data-testid="common_login__element-invalid-email">O usúario não existe</p>
+        : null}
     </div>
   );
 }
