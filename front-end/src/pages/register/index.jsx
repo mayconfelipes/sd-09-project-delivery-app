@@ -17,7 +17,6 @@ const Register = () => {
 
   useEffect(() => {
     const isValid = formValidator(email, password, name);
-    console.log(name, ' ', isValid);
     setEnableButton(isValid);
   }, [email, password, name, setEnableButton, setForm]);
 
