@@ -1,18 +1,13 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import { node } from 'prop-types';
+import { LoginProvider } from './LoginContext';
 
-const Context = createContext();
-
-const Provider = ({ children }) => {
-  const contextValue = {};
-
-  return (
-    <Context.Provider value={ contextValue }>
-      { children }
-    </Context.Provider>
-  );
-};
+const Provider = ({ children }) => (
+  <LoginProvider>
+    { children }
+  </LoginProvider>
+);
 
 Provider.propTypes = { children: node }.isRequired;
 
-export { Context, Provider };
+export default Provider;
