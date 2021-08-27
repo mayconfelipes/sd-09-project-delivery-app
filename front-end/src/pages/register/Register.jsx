@@ -14,12 +14,8 @@ export default function Register() {
   const classes = useStyle();
 
   const canUserRegister = async () => {
-    const headers = {
-      name,
-      email,
-      password,
-    };
-    const responseRegister = await registerAPI(headers);
+    const registerBody = { name, email, password };
+    const responseRegister = await registerAPI(registerBody);
     console.log(responseRegister);
     // if (error === true) {
     //   toast('Email já registrado');
