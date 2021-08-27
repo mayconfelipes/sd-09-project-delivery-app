@@ -1,3 +1,5 @@
+const { Sequelize } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   const Sale = sequelize.define('Sale', {
     userId: DataTypes.INTEGER,
@@ -8,9 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.STRING(50),
   }, {
     tableName: 'sales',
-    timestamps: true,
-    createdAt: 'saleDate',
-    updateAt: false
+    timestamps: false,
+    createdAt: 'sale_date',
+    updateAt: false,
+    underscored: true,
   });
 
   Sale.associate = (models) => {
