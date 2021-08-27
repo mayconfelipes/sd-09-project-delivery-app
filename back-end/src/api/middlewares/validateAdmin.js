@@ -1,10 +1,6 @@
-const error = require('../utils/generateError');
-
-const errorMessage = 'Only admins can register new admins';
-
-module.exports = (req, _res, next) => {
+module.exports = (req, res, next) => {
   if (req.user.role !== 'administrator') {
-    throw error('unauthorized', errorMessage);
+    return res.status(401).json({ message: 'Only admins can register new admins' });
   }
   return next();
 };
