@@ -1,3 +1,4 @@
+const md5 = require('md5');
 const { User } = require('../../database/models');
 const error = require('../utils/generateError');
 
@@ -7,7 +8,7 @@ const emailRegistered = 'Email already registered';
 const create = async ({ name, email, password }, role = 'customer') => {
   const userExists = await User.findOne({ where: { email } });
   if (userExists) throw error('conflict', emailRegistered);
-  const data = await User.create({ name, email, password, role });
+  const data = await User.create({ name, email, password: md5(password), role });
   return data;
 };
 
