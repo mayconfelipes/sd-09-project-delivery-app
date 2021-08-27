@@ -1,15 +1,17 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import Login from './pages/Login';
 
 function App() {
   return (
     <Router>
-      <div>Movie Card Library CRUD</div>
+      <div>App Delivery</div>
       <Switch>
         <Route path="/login" exact component={ Login } />
-        <Route path="/" exact component={ Login } />
-        {/* <Route path="" exact component={ NotFound } /> */}
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
       </Switch>
     </Router>
   );

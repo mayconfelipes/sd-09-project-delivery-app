@@ -8,6 +8,5 @@ app.use(express.json());
 
 app.use(router);
 app.use(mdwError.errorMiddleware);
-// app.get('/coffee', (_req, res) => res.status(418).end());
 
 module.exports = app;
