@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import { Main } from './styled';
+import context from '../../context';
+import FormRender from '../../components/form';
 
 const Register = () => {
-  console.log('Lint seu lindo');
+  const { setRegister } = useContext(context);
+
+  useEffect(() => {
+    const changeStatusRegister = () => {
+      setRegister(true);
+    };
+    changeStatusRegister();
+  }, [setRegister]);
+
   return (
-    <div>
-      <h1>VOCÉ ESTÁ NO LOGIN</h1>
-    </div>
+    <Main>
+      <h1>Cadastro</h1>
+      <FormRender />
+      <button
+        type="button"
+        data-testid="common_register__button-register"
+        onClick={ console.log('fazer fetch de cadastro') }
+      >
+        CADASTRAR
+      </button>
+    </Main>
   );
 };
 
