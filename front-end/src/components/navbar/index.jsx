@@ -1,10 +1,11 @@
 import React from 'react';
 
 const Navbar = (abas, user) => {
+  const { tabs } = abas;
   console.log('lint eu te amo');
   return (
     <nav>
-      {abas.map((aba) => {
+      {tabs.map((aba) => {
         console.log('lint');
         return <a key={ aba } href="##">{ aba }</a>;
       })}
