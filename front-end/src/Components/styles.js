@@ -26,8 +26,19 @@ export const ButtonElement = styled.button`
   padding: '14px',
   border-radius: '8px',
   margin-bottom: '14px',
-  background-color: ${({ styleColor }) => root.button[styleColor].backgroundColor};
-  color: ${({ styleColor }) => root.button[styleColor].color};
+  background-color: ${({ styleColor }) => {
+    if (root.button[styleColor]) {
+      return root.button[styleColor].backgroundColor;
+    }
+    return null;
+  }};
+
+  color: ${({ styleColor }) => {
+    if (root.button[styleColor]) {
+      return root.button[styleColor].color;
+    }
+    return null;
+  }};
 `;
 
 export const InputElement = styled.input`

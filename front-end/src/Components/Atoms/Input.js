@@ -6,7 +6,6 @@ function Input({ children: { name, placeholder, inputType } }) {
   return (
     <InputElement
       type={ inputType }
-      style={ inputStyle }
       name={ name }
       id={ name }
       placeholder={ placeholder }
