@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import TextInput from '../components/TextInput';
 import LargeButton from '../components/LargeButton';
@@ -34,11 +34,26 @@ function Login() {
     setLoginData({ ...loginData, [name]: value });
   };
 
+  const history = useHistory();
+
   const handleClick = async () => {
     const result = await api.loginUser(loginData);
-    if (result.error) return setErrorMessage(result.error.message);
-    localStorage.setItem('Token', JSON.stringify(result.token));
-    localStorage.setItem('Role', JSON.stringify(result.role));
+    if (result.error) {
+      setErrorMessage(result.error.message);
+    } else {
+      localStorage.setItem('userData', JSON.stringify(result));
+      switch (result.role) {
+      case 'admin':
+        history.push('/admin/manage');
+        break;
+      case 'seller':
+        history.push('/seller/orders');
+        break;
+      default:
+        history.push('/customer/products');
+        break;
+      }
+    }
   };
 
   const errorDivMessage = (
