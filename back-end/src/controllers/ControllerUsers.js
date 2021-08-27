@@ -4,9 +4,9 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const token = await ServiceUsers.login({ email, password });
+    const { id, user, token } = await ServiceUsers.login({ email, password });
 
-    return res.status(200).json({ token });
+    return res.status(200).json({ id, user, token });
   } catch (error) {
     return next(error);
   }
