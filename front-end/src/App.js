@@ -3,7 +3,9 @@ import { Switch, Route } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Admin from './pages/Admin';
 import OrdersPage from './pages/OrdersPage';
+
 import './App.css';
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
       </Route>
       <Route path="/register" component={ Register } />
       <Route path="/customer/orders" component={ OrdersPage } />
+      <Route path="/admin/manage" component={ Admin } />
     </Switch>
   );
 }

@@ -1,20 +1,9 @@
 require('dotenv').config();
 const md5 = require('md5');
-const jwt = require('jsonwebtoken');
-const fs = require('fs');
-const path = require('path');
 const { user } = require('../database/models');
+const generateToken = require('../utilidades/generateToken');
 
 const md5Translate = (password) => md5(password);
-
-const generateToken = (userData) => {
-  const { password, ...userNecessaryInfos } = userData;
-  const jwtConfig = { expiresIn: '1d', algorithm: 'HS256' };
-  const secret = fs
-    .readFileSync(path.join(`${__dirname}../../../jwt.evaluation.key`), 'utf-8');
-  const token = jwt.sign(userNecessaryInfos, secret, jwtConfig);
-  return token;
-};
 
 const loginService = async (email, password) => {
   const hashedPassword = md5Translate(password);
@@ -23,7 +12,7 @@ const loginService = async (email, password) => {
     return ({ error: { statusCode: 404, message: 'Usuário não encontrado' } });
   }
   const token = generateToken(result.toJSON());
-  return ({ token, role: result.role });
+  return ({ token, id: result.id, name: result.name, email: result.email, role: result.role });
 };
 
 const registerService = async (newUserData) => {
@@ -38,7 +27,7 @@ const registerService = async (newUserData) => {
 
   const result = await user.create({ name: nome, email, password: hashedPassword, role });
 
-  return { id: result.dataValues.id };
+  return { id: result.dataValues.id, name: nome, email, role };
 };
 
 module.exports = {
