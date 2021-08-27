@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../../service/axiosApi';
+
+import validateUserData from '../../helpers/validateUserData';
 
 function Register() {
   const [input, setInput] = useState({});
+  const [dataIsValid, setDataIsValid] = useState(false);
 
   const handleInputChange = ({ target }) => {
     const { name, value } = target;
@@ -12,12 +15,13 @@ function Register() {
     });
   };
 
+  useEffect(() => {
+    setDataIsValid(validateUserData(input));
+  }, [input]);
+
   const handleInputSubmit = (event) => {
     event.preventDefault();
     const data = input;
-
-    // console.log(data);
-    // api.post('/register', data);
 
     api.post('/register', data)
       .then((response) => console.log(response))
