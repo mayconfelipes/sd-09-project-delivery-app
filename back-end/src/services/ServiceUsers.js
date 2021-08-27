@@ -9,14 +9,14 @@ const login = async ({ email, password }) => {
   const findUser = await RepositoryUsers.getByUser({ email, password: hashPassword });
 
   if (!findUser) {
-    throw invalidData('Invalid fields', 400);
+    throw invalidData('Usuário não encontrado', 404);
   }
 
-  const { password: passBD, ...userWithoutPassword } = findUser.dataValues;
+  const { password: passBD, id, ...user } = findUser.dataValues;
 
-  const token = await createToken(userWithoutPassword);
+  const token = await createToken(user);
 
-  return token;
+  return { id, user, token };
 };
 
 const register = async ({ name, email, password, role }) => {
