@@ -18,7 +18,8 @@ const registerController = async (req, res, next) => {
     return next(result.error);
   }
   const token = generateToken({ id: result.id, nome, email, role });
-  return res.status(201).json({ token });
+
+  return res.status(201).json({ token, ...result });
 }; 
 
 module.exports = {

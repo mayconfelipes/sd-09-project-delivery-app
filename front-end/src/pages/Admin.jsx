@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import api from '../services/api';
 import TextInput from '../components/TextInput';
 import LargeButton from '../components/LargeButton';
+import DropDownList from '../components/DropDownList';
 
-function Register() {
-  // estados para utilizar na pagina
+function Admin() {
   const [newUserData, setNewUserData] = useState({
-    nome: '', email: '', password: '', role: 'customer',
+    nome: '', email: '', password: '', role: '',
   });
   const [disableButton, setDisableButton] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
 
   // verifica se pode fazer o cadastro
   const verifyNewUserCredentials = () => {
-    const { nome, email, password } = newUserData;
+    const { nome, email, password, role } = newUserData;
     const minNameLength = 12;
     const minPasswordLength = 6;
     const emailRegex = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
@@ -31,6 +30,10 @@ function Register() {
       setDisableButton(true);
       return;
     }
+    if (role === '') {
+      setDisableButton(true);
+      return;
+    }
     setDisableButton(false);
   };
 
@@ -42,60 +45,59 @@ function Register() {
     setNewUserData({ ...newUserData, [name]: value });
   };
 
-  const history = useHistory();
-
-  const handleClick = async () => {
-    const result = await api.registerUser(newUserData);
-    if (result.error) {
-      setErrorMessage(result.error.message);
-    } else {
-      localStorage.setItem('userData', JSON.stringify(result));
-      history.push('/customer/products');
-    }
-  };
-
   const cleanFields = () => {
-    setErrorMessage();
     const name = document.getElementById('nome');
     name.value = '';
     const email = document.getElementById('email');
     email.value = '';
     const password = document.getElementById('password');
     password.value = '';
-    setNewUserData({ nome: '', email: '', password: '', role: 'customer' });
+    const role = document.getElementById('role');
+    role.value = '';
+    setNewUserData({ nome: '', email: '', password: '', role: '' });
+  };
+
+  const handleClick = async () => {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const result = await api.registerUserWithAdmin(newUserData, userData.token);
+    if (result.error) {
+      setErrorMessage(result.error.message);
+    }
+    cleanFields();
   };
 
   const errorDivMessage = (
     <div>
-      <p data-testid="common_register__element-invalid_register">{ errorMessage }</p>
+      <p data-testid="admin_manage__element-invalid-register">{ errorMessage }</p>
       <button
         type="button"
-        onClick={ cleanFields }
+        onClick={ () => setErrorMessage() }
       >
-        Limpar
+        OK
       </button>
     </div>
   );
 
+  const options = ['customer', 'seller', 'administrator'];
   return (
     <main>
       <section>
-        <p>Cadastro</p>
+        <p>Cadastrar novo usuário</p>
         <TextInput
           type="text"
           name="nome"
           onChange={ handleChange }
           labelText="Nome"
           placeholderText="Nome completo"
-          dataTestId="common_register__input-name"
+          dataTestId="admin_manage__input-name"
         />
         <TextInput
           type="text"
           name="email"
           onChange={ handleChange }
-          labelText="email"
-          placeholderText="email desejado"
-          dataTestId="common_register__input-email"
+          labelText="Email"
+          placeholderText="email@email.com"
+          dataTestId="admin_manage__input-email"
         />
         <TextInput
           type="password"
@@ -103,19 +105,27 @@ function Register() {
           onChange={ handleChange }
           labelText="Senha"
           placeholderText="senha"
-          dataTestId="common_register__input-password"
+          dataTestId="admin_manage__input-password"
+        />
+        <DropDownList
+          options={ options }
+          name="role"
+          dataTestId="admin_manage__select-role"
+          onChange={ handleChange }
         />
         <LargeButton
           buttonText="CADASTRAR"
           onClick={ handleClick }
           isDisabled={ disableButton }
-          dataTestId="common_register__button-register"
+          dataTestId="admin_manage__button-register"
         />
+        { errorMessage && errorDivMessage }
       </section>
-      { errorMessage && errorDivMessage }
+      <section>
+        <p>Aqui fica a lista de usuarios</p>
+      </section>
     </main>
-
   );
 }
 
-export default Register;
+export default Admin;
