@@ -12,11 +12,14 @@ const DEFAULT_FORM = {
 
 function Provider({ children }) {
   const [form, setForm] = useState(DEFAULT_FORM);
+  const [register, setRegister] = useState(false);
   const [theme, setTheme] = useState(Light);
 
   const contextValue = {
     form,
     setForm,
+    register,
+    setRegister,
     theme,
     setTheme,
   };
