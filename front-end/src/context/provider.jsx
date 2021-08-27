@@ -8,6 +8,7 @@ const DEFAULT_FORM = {
   password: '',
   name: '',
   redirect: false,
+  ableButton: false,
 };
 
 function Provider({ children }) {
