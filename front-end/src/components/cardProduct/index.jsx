@@ -4,7 +4,7 @@ const CardProduct = (image, name) => {
   const [quantity, setQuantity] = useState(0);
 
   const increaseQuantity = () => {
-    if (quantity ===0) return null;
+    if (quantity === 0) return null;
     setQuantity(quantity - 1);
   };
 
