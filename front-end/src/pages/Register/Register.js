@@ -26,11 +26,12 @@ function Register() {
     }
   };
 
-  const userChange = ({ target }) => {
-    if (target.name === 'email') {
-      setUser(target.value);
-      verifyDisabled();
-    }
+  const emailChange = ({ target }) => {
+    setUser(target.value);
+    verifyDisabled();
+  };
+
+  const nameChange = ({ target }) => {
     setName(target.value);
     verifyDisabled();
   };
@@ -43,28 +44,16 @@ function Register() {
   const redirectCostummer = () => {
     history.push('/customer/products');
   };
-  const redirectLogin = () => {
-    history.push('/login');
-  };
 
   const login = async () => {
-    // connectBack.post('/login', { hasToken: false, method: 'POST', status: 404 })
-    // connectBack.post('/login', { email, password })
-    //   .then(({ data }) => {
-    //     if (data === false) {
-    //       setInvalidLogin(true);
-    //       return null;
-    //     }
-    //     console.log(data);
-    //     redirectCostummer();
-    //   });
-    const response = await connectBack.post('/register', { email, password, name });
-    console.log(response, 'response do connect');
-    if (response.data === false) {
-      setInvalidLogin(true);
-      return null;
-    }
-    redirectCostummer();
+    connectBack.post('/register', { email, password, name })
+      .then(() => {
+        redirectCostummer();
+      })
+      .catch((error) => {
+        console.log(error);
+        setInvalidLogin(true);
+      });
   };
 
   return (
@@ -74,7 +63,7 @@ function Register() {
         name="name"
         value={ name }
         data-testid={ `${prefix}input-name` }
-        onChange={ userChange }
+        onChange={ nameChange }
         placeholder="Nome completo"
       />
       <input
@@ -82,7 +71,7 @@ function Register() {
         name="email"
         value={ email }
         data-testid={ `${prefix}input-email` }
-        onChange={ userChange }
+        onChange={ emailChange }
         placeholder="Email do usuário"
       />
       <input
@@ -98,22 +87,14 @@ function Register() {
           type="button"
           className="signin-button"
           onClick={ login }
-          data-testid={ `${prefix}button-login` }
+          data-testid={ `${prefix}button-register` }
           disabled={ isDisabled }
         >
           REGISTER
         </button>
-        <button
-          type="button"
-          className="signup-button"
-          data-testid={ `${prefix}button-register` }
-          onClick={ redirectLogin }
-        >
-          Já tenho conta
-        </button>
         {invalidLogin ? (
           <div data-testid={ `${prefix}element-invalid-email` }>
-            LOGIN INVALIDO
+            REGISTRO INVALIDO
             {' '}
           </div>
         ) : (
