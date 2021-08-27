@@ -12,7 +12,7 @@ const Register = () => {
 
   useEffect(() => {
     changeStatusRegister();
-  }, []);
+  }, [changeStatusRegister]);
 
   return (
     <Main>
