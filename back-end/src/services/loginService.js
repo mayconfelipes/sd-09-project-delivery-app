@@ -12,7 +12,7 @@ const findUser = async (email) => {
 
 const login = async ({ email, password }) => {
   const selectUser = await findUser(email);
-  const { password: bdPass, role, name} = selectUser;
+  const { password: bdPass, role, name } = selectUser;
   const encriptedPassword = md5(password);
 
   const passwordNotFound = { status: 404, message: 'Not found' };
