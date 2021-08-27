@@ -35,19 +35,19 @@ const Login = () => {
     <section className={ style.loginContainer }>
       <h1>APP Delivery</h1>
       <form className={ style.inputContainer }>
-        <label htmlFor="input" className={ style.inputStyle }>
-          Login
+        <label htmlFor="inputEmail" className={ style.inputStyle }>
+          Email
           <input
-            id="input"
+            id="inputEmail"
             data-testid="common_login__input-email"
             name="emailInput"
             onChange={ handleInputChange }
           />
         </label>
-        <label htmlFor="input" className={ style.inputStyle }>
-          Login
+        <label htmlFor="inputPassword" className={ style.inputStyle }>
+          Senha
           <input
-            id="input"
+            id="inputPassword"
             data-testid="common_login__input-password"
             name="passwordInput"
             onChange={ handleInputChange }

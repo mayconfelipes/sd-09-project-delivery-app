@@ -3,7 +3,7 @@ import P from 'prop-types';
 import { Link } from 'react-router-dom';
 import style from './navbar.module.scss';
 
-const NavBar = ({ orders = 'MEUS PEDIDOS', products = 'PRODUTOS' }) => {
+const NavBar = ({ orders, products }) => {
   const route = products === 'PRODUTOS' ? '/customer/products' : '/seller/orders';
   return (
     <nav className={ style.container }>
@@ -50,6 +50,11 @@ const NavBar = ({ orders = 'MEUS PEDIDOS', products = 'PRODUTOS' }) => {
 export default NavBar;
 
 NavBar.propTypes = {
-  orders: P.string.isRequired,
-  products: P.string.isRequired,
+  orders: P.string,
+  products: P.string,
+};
+
+NavBar.defaultProps = {
+  orders: 'MEUS PEDIDOS',
+  products: 'PRODUTOS',
 };
