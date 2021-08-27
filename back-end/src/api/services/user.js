@@ -10,7 +10,7 @@ const findUser = async ({ password, email }) => {
   if (!user) {
     return false;
   }
-  return { email, name: user.dataValues.name, role: user.dataValues.role};
+  return { email, name: user.dataValues.name, role: user.dataValues.role };
 };
 
 const registerUser = async ({ password, email, name }) => {
@@ -20,7 +20,7 @@ const registerUser = async ({ password, email, name }) => {
     return false;
   }
   const response = await users.create({ password: hashedPassword, email, name, role: 'customer' });
-  return { email, name: response.dataValues.name, role: response.dataValues.role};
+  return { email, name: response.dataValues.name, role: response.dataValues.role };
 };
 
 module.exports = {
