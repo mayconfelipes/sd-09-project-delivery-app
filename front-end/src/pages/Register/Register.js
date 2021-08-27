@@ -25,7 +25,6 @@ function Register() {
       trueOrFalse(true);
     }
   };
-  // comment
   const emailChange = ({ target }) => {
     setUser(target.value);
     verifyDisabled();
