@@ -1,31 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ButtonElement } from '../styles';
 
 function Button({ text, styleColor }) {
-  const color = {
-    primary: {
-      backgroundColor: '#EA7C69',
-      color: '#FFF',
-    },
-  };
-
-  const style = {
-    ...color[styleColor],
-    padding: '14px',
-    borderRadius: '8px',
-    marginBottom: '14px',
-  };
-
-  return (
-    <button type="button" style={ style }>
-      {text}
-    </button>
-  );
+  return <ButtonElement type="button" styleColor={ styleColor }>{text}</ButtonElement>;
 }
 
 Button.propTypes = {
   text: PropTypes.string.isRequired,
   styleColor: PropTypes.string.isRequired,
-};
+}.isRequired;
 
 export default Button;
