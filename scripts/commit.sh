@@ -16,7 +16,9 @@ read -p "Foi commitado: > $theMsg <. Enviar ao gitHub? " yOrN
 
 if [[ $yOrN == "y" ]]; then
   git push
+  echo "-------------------------------------------------------------------------------------------"
   echo "Não esqueça de abrir a PR, verificar se está direcionado à main-group-6 e marcar no trello"
+  echo "-------------------------------------------------------------------------------------------"
   else
   echo "Não enviado ao gitHub"
 fi
