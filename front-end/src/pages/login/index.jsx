@@ -7,32 +7,30 @@ import FormRender from '../../components/form';
 import formValidator from '../../services/formValidator';
 
 const Login = () => {
-  const { form, setForm } = useContext(context);
+  const { form, setForm, enableButton, setEnableButton } = useContext(context);
   const { email, password, redirect } = form;
 
   const logOn = () => {
     // Fazer o fetch para a api e setar o localStorage
-    setForm({ ...form, redirect: !redirect });
-  };
-
-  const verifyForm = () => {
-    const isValid = formValidator(email, password, _);
-    setForm({ ...form, enableButton: isValid });
+    // setForm({ ...form, redirect: !redirect });
+    console.log('clicou');
   };
 
   useEffect(() => {
-    verifyForm();
-  });
+    const isValid = formValidator(email, password);
+    setEnableButton(isValid);
+  }, [email, password, setEnableButton, setForm]);
 
   return (
     <Main>
-      { redirect && <Redirect to="/" /> }
+      { redirect && <Redirect to="/home" /> }
       <Logo src={ logo } alt="Ícone do aplicativo" />
       <FormRender />
       <LoginButton
         type="button"
         data-testid="common_login__button-login"
         onClick={ logOn }
+        disabled={ !enableButton }
       >
         LOGIN
       </LoginButton>

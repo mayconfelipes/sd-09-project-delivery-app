@@ -16,9 +16,9 @@ const FormRender = () => {
       {
         register && <Input
           type="text"
-          placeHolder="Nome..."
+          placeholder="Nome..."
           data-testid="common_register__input-name"
-          name="nome"
+          name="name"
           value={ userName }
           onChange={ handleChange }
         />
@@ -27,9 +27,8 @@ const FormRender = () => {
       <Input
         id="teste"
         type="text"
-        placeHolder="Email..."
-        data-testid={ register
-          ? 'common_register__input-email' : '"common_login__input-email"' }
+        placeholder="Email..."
+        data-testid={ `common_${register ? 'register' : 'login'}__input-email` }
         name="email"
         value={ email }
         onChange={ handleChange }
@@ -37,9 +36,8 @@ const FormRender = () => {
       {register && <p>SENHA</p>}
       <Input
         type="password"
-        placeHolder="Senha..."
-        data-testid={ register
-          ? 'common_register__input-password' : '"common_login__input-password"' }
+        placeholder="Senha..."
+        data-testid={ `common_${register ? 'register' : 'login'}__input-email` }
         name="password"
         value={ password }
         onChange={ handleChange }

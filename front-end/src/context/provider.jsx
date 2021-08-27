@@ -8,21 +8,20 @@ const DEFAULT_FORM = {
   password: '',
   name: '',
   redirect: false,
-  ableButton: false,
 };
 
 function Provider({ children }) {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [theme, setTheme] = useState(Light);
-  const [register, setRegister] = useState(false);
+  const [enableButton, setEnableButton] = useState(false);
 
   const contextValue = {
     form,
     setForm,
     theme,
     setTheme,
-    register,
-    setRegister,
+    enableButton,
+    setEnableButton,
   };
 
   return (
