@@ -7,8 +7,9 @@ upperBorF=${bOrF^^}
 upperTheMsg=${msg^^}
 upperFlux=${flux^^}
 git add .
-git commit -m "$theMsg"
 theMsg="[MAIN-GROUP-6][${upperBorF}][${upperFlux}][${upperTheMsg}]"
+
+git commit -m "$theMsg"
 
 read -p "Foi commitado: > $theMsg <. Enviar ao gitHub? " yOrN
 
