@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const axios = require('axios').default;
 
@@ -68,15 +69,17 @@ function Login() {
         >
           Login
         </button>
-        <button
-          type="button"
-          data-testid="common_login__button-register"
-        >
-          Ainda não tenho conta
-        </button>
+        <Link to="/register">
+          <button
+            type="button"
+            data-testid="common_login__button-register"
+          >
+            Ainda não tenho conta
+          </button>
+        </Link>
       </form>
       {notFoundError
-        ? <p data-testid="common_login__element-invalid-email">O usúario não existe</p>
+        ? <p data-testid="common_login__element-invalid-email">O usuário não existe</p>
         : null}
     </div>
   );
