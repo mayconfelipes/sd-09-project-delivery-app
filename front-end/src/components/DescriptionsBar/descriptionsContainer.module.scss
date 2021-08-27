@@ -1,0 +1,73 @@
+.completeDescriptionsContainer, .descriptionsContainer, .userBar {
+  display: grid;
+  font-size: 2.5rem;
+  grid-template-rows: 1fr;
+  grid-template-areas: 
+  "firstGrid secondGrid thirdGrid fourthGrid fifthGrid sixthGrid";
+  height:5rem;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.completeDescriptionsContainer {
+  grid-template-columns: 5% 45% 10% 10% 10% 15%;
+
+  .sixthGrid {
+    background-color: #4bc18d;
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+
+  .fifthGrid {
+    background-color:  #056CF9;
+  }
+}
+
+.descriptionsContainer {
+  grid-template-columns: 5% 60% 10% 10% 10%;
+
+  .fifthGrid {
+    background-color:  #056CF9;
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+}
+
+.userBar {
+  grid-template-columns: 5% 21% 21% 21% 12%;
+
+  .fifthGrid {
+    background-color:  #056CF9;
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+}
+
+.firstGrid, .secondGrid, .thirdGrid, .fourthGrid, .fifthGrid, .sixthGrid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thirdGrid, .fourthGrid, .fifthGrid, .sixthGrid {
+  color: #fff;
+  font-weight: bold;
+}
+
+.firstGrid {
+  background-color:#4bc18d;
+  border-radius: 0.5rem 0 0 0.5rem;
+  font-weight: bold;
+}
+
+.secondGrid {
+  background-color: #F2FFFC;
+  justify-content: flex-start;
+  margin-left: 2rem;
+}
+
+.thirdGrid {
+  background-color:  #036B52;
+}
+
+.fourthGrid {
+  background-color: #421981;
+}

@@ -1,0 +1,64 @@
+.totalContainer {
+  border: 1px solid rgb(182, 182, 182);
+  border-radius: 3px;
+  box-shadow: 0 3px 0 #c3c2c2;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: auto;
+  width: 80%;
+
+  button {
+    align-self: flex-end;
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 4rem 3rem 3rem;
+  }
+}
+
+h1, h2 {
+  font-size: 2rem;
+  margin: 3rem 10% 1rem;
+}
+
+.barContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.formDataContainer {
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  justify-content: space-between;
+
+  border: 1px solid rgb(182, 182, 182);
+  border-radius: 3px;
+  box-shadow: 0 3px 0 #c3c2c2;
+  height: auto;
+  margin: 1rem auto 7rem auto;
+  width: 80%;
+
+  .checkoutButton {
+    font-weight: bold;
+    margin: 2rem 0 ;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+
+  label:nth-child(1), label:nth-child(3) {
+    width: 40%;
+  }
+
+  label:nth-child(1) > select, label:nth-child(3) > input, label:nth-child(2) > input {
+    height: 4rem;
+  }
+}

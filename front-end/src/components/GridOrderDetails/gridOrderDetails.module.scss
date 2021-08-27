@@ -1,0 +1,20 @@
+.gridWithRemoveItem, .gridWithoutRemoveItem {
+  display: grid;
+  font-size: 2rem;
+  grid-template-rows: 1fr;
+  grid-template-areas: 
+    "firstGrid secondGrid thirdGrid fourthGrid fifthGrid sixthGrid";
+  height: 3rem;
+  justify-content: center;
+  margin-top: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.gridWithRemoveItem {
+  grid-template-columns: 5% 45% 10% 10% 10% 15%;
+}
+
+.gridWithoutRemoveItem {
+  grid-template-columns: 5% 60% 10% 10% 10%;
+}

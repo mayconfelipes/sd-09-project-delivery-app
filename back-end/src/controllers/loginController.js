@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../database/models');
+const { Users } = require('../database/models');
 require('dotenv').config();
 
 const jwtConfig = {
@@ -12,7 +12,7 @@ const secret = 'secret_key';
 const login = async (req, res) => {
   const { email } = req.body;
   try {
-    const exists = await User.findOne({ where: { email } });
+    const exists = await Users.findOne({ where: { email } });
     if (!exists) {
       return res.status(400).json({ message: 'Invalid fields' });
     }

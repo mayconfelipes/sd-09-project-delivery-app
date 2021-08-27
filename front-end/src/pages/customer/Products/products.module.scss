@@ -1,0 +1,20 @@
+.productsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin: 3rem;
+}
+
+.cartButton {
+    bottom: 2rem;
+    overflow-x:hidden;
+    overflow-y:scroll;
+    position:fixed;
+    right: 0;
+
+    button {
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+}

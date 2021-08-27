@@ -35,15 +35,15 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   SalesProductModel.associate = (models) => {
-    models.SalesProductModel.belongsTo(models.Sales, {
+    models.SalesProducts.belongsTo(models.Sales, {
       foreignKey: 'sale_id',
       targetKey: 'id',
     });
-    models.SalesProductModel.belongsTo(models.Products, {
+    models.SalesProducts.belongsTo(models.Products, {
       foreignKey: 'product_id',
       targetKey: 'id',
     });
-  }
+  };
 
   return SalesProductModel;
 };
