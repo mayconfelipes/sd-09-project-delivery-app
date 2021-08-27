@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = (sequelize, DataTypes) => {
   const ProductsModel = sequelize.define('Products', {
     id: {
@@ -27,6 +25,14 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'products',
     timestamps: false,
   });
+
+  ProductsModel.associate = (models) => {
+    models.Products.belongsToMany(models.Sales, {
+      through: models.SalesProducts,
+      foreignKey: 'product_id',
+      as: 'sales',
+      })
+  }
 
   return ProductsModel;
 };
