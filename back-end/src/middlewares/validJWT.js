@@ -3,19 +3,20 @@ const verifyToken = require('./verifyToken');
 
 const UNAUTHORIZED = 401;
 
-const validJWT = (req, _res, next) => {
+const validJWT = async (req, _res, next) => {
   const token = req.headers.authorization;
 
   if (!token) throw invalidData('Token not found', UNAUTHORIZED);
 
-  const validVerifyToken = verifyToken(token);
+  const validVerifyToken = await verifyToken(token);
 
   if (validVerifyToken.message) throw invalidData(validVerifyToken.message, UNAUTHORIZED);
 
-  const { id, email, role, name } = validVerifyToken;
+  const { userId, user } = validVerifyToken;
+  const { email, role, name } = user;
 
   req.user = {
-    id,
+    userId,
     role,
     email,
     name,

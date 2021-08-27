@@ -7,5 +7,11 @@ const Middlewares = require('../middlewares');
 
 router.post('/login', Middlewares.validLogin, ControllerUsers.login);
 router.post('/register', Middlewares.validRegister, ControllerUsers.register);
+router.post(
+  '/admin/register',
+  Middlewares.validJWT,
+  Middlewares.validRegisterAdmin,
+  ControllerUsers.registerAdmin,
+);
 
 module.exports = router;
