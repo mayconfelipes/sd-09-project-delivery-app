@@ -21,6 +21,7 @@ module.exports = async (payload) => {
   if (!user) throw new NotFoundError('User');
 
   const { password: _, ...userData } = user.dataValues;
+  console.log(userData);
   const token = tokens.access.create(userData);
-  return { token };
+  return { token, user: { ...userData } };
 };
