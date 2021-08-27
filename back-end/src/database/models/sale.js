@@ -1,3 +1,5 @@
+const { Sequelize } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   const Sale = sequelize.define('Sale', {
     userId: DataTypes.INTEGER,
@@ -6,11 +8,13 @@ module.exports = (sequelize, DataTypes) => {
     deliveryAddress: DataTypes.STRING(100),
     deliveryNumber: DataTypes.STRING(50),
     status: DataTypes.STRING(50),
+    sale_date: { type: DataTypes.DATE, defaultValue: Sequelize.NOW },
   }, {
     tableName: 'sales',
-    timestamps: true,
+    timestamps: false,
     createdAt: 'saleDate',
-    updateAt: false
+    updateAt: false,
+    underscored: true,
   });
 
   Sale.associate = (models) => {

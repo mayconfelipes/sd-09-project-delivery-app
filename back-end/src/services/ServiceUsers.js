@@ -12,11 +12,11 @@ const login = async ({ email, password }) => {
     throw invalidData('Usuário não encontrado', 404);
   }
 
-  const { password: passBD, id, ...user } = findUser.dataValues;
+  const { password: passBD, id: userId, ...user } = findUser.dataValues;
 
-  const token = await createToken(user);
+  const token = await createToken({ userId, user });
 
-  return { id, user, token };
+  return { user, token };
 };
 
 const register = async ({ name, email, password, role }) => {
