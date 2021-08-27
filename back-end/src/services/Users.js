@@ -1,10 +1,17 @@
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 const { users } = require('../database/models');
 
+const NOTFOUND = { code: 404, message: 'User not found' };
+
+const jwtConfig = {
+  expiresIn: '1h',
+  algorithm: 'HS256',
+};
+
+const secret = 'teste';
+
 const createUser = async (body) => {
-  const findUser = await users.findOne({ where: { email: body.email } });
-
-  if (findUser) return { code: 409, message: 'User already registered' };
-
   const { dataValues } = await users.create({ ...body });
 
   const { password: _, ...newUser } = dataValues;
@@ -18,34 +25,26 @@ const getAll = async () => {
   return allUser;
 };
 
-const getById = async (id) => {
-  const user = await users.findOne({ where: { id } });
-
-  if (!user) return { code: 404, message: 'User does not exist' };
-
-  return user.dataValues;
-};
-
-const updateUser = async (id, body) => {
-  const user = await users.findOne({ where: { id } });
-
-  if (!user) return { code: 404, message: 'User does not exist' };
-
-  await users.update({ ...body }, { where: { id } });
-
-  const editUser = await users.findOne({ where: { id } });
-
-  return editUser;
-};
-
 const deleteUser = async (id) => {
   await users.destroy({ where: { id } });
+};
+
+const login = async ({ email, password }) => {
+  const md5Password = crypto.createHash('md5').update(password).digest('hex');
+  const user = await users.findOne({ where: { email, password: md5Password } });
+
+  if (!user) throw NOTFOUND;
+
+  const { password: _, ...loginUser } = user.dataValues;
+
+  const token = jwt.sign(loginUser, secret, jwtConfig);
+
+  return token;
 };
 
 module.exports = {
   createUser,
   getAll,
-  getById,
-  updateUser,
   deleteUser,
+  login,
 };

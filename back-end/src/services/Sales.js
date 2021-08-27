@@ -32,14 +32,9 @@ const updateSale = async (id, body) => {
   return editSale;
 };
 
-const deleteSale = async (id) => {
-  await sales.destroy({ where: { id } });
-};
-
 module.exports = {
   createSale,
   getAll,
   getById,
   updateSale,
-  deleteSale,
 };
