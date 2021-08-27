@@ -1,15 +1,27 @@
-import React from 'react';
-import './App.css';
-import rockGlass from './images/rockGlass.svg';
+import React, { useContext } from 'react';
+import { Switch, Route, Redirect } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import Login from './pages/login';
+import Register from './pages/register';
+import GlobalStyle from './theme/globalStyle';
+import Context from './context/index';
 
 function App() {
+  const { theme } = useContext(Context);
   return (
-    <div className="App">
-      <span className="logo">TRYBE</span>
-      <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
-        Glass
-      </object>
-    </div>
+    <ThemeProvider theme={ theme }>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/register" component={ Register } />
+          <Route path="/login" component={ Login } />
+          <Route path="/">
+            <Redirect to="/login" />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
