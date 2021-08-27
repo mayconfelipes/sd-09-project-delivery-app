@@ -2,15 +2,15 @@ module.exports = (sequelize, DataTypes) => {
   const sale = sequelize.define(
     "sale",
     {
-      user_id: DataTypes.INTEGER,
-      seller_id: DataTypes.INTEGER,
-      total_price: DataTypes.DECIMAL,
-      delivery_address: DataTypes.STRING,
-      delivery_number: DataTypes.STRING,
-      sale_date: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+      userId: DataTypes.INTEGER,
+      sellerId: DataTypes.INTEGER,
+      totalPrice: DataTypes.DECIMAL,
+      deliveryAddress: DataTypes.STRING,
+      deliveryNumber: DataTypes.STRING,
+      saleDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
       status: DataTypes.STRING,
     },
-    { timestamps: false, tableName: "sales" }
+    { timestamps: false, tableName: "sales", underscored: true }
   );
 
   sale.associate = (models) => {
@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "user_id",
       as: "user",
     });
+    sale.belongsTo(models.user, {
+      foreignKey: "seller_id",
+      as: "seller",
+    })
   };
 
   return sale;
