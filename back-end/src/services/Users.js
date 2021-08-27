@@ -12,7 +12,9 @@ const jwtConfig = {
 const secret = 'teste';
 
 const createUser = async (body) => {
-  const { dataValues } = await users.create({ ...body });
+  const { password, role = 'customer', ...allBody } = body;
+  const md5Password = crypto.createHash('md5').update(password).digest('hex');
+  const { dataValues } = await users.create({ ...allBody, password: md5Password, role });
 
   const { password: _, ...newUser } = dataValues;
 
