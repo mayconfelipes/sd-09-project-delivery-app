@@ -9,6 +9,7 @@ import style from './products.module.scss';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
     fetch('http://localhost:3001/products')
       .then((res) => res.json())
@@ -26,6 +27,9 @@ const Products = () => {
             price={ price.replace('.', ',') }
             image={ image }
             description={ name }
+            /* onClickDecrement={ onHandleDecrement }
+            onClickIncrement={ onHandleIncrement }
+            value={ quantity } */
           />))}
       </div>
       <div className={ style.cartButton }>
