@@ -2,8 +2,6 @@ const express = require('express');
 const User = require('../database/controllers/UserController');
 const errorMiddleware = require('../utils/errorMiddleware');
 
-const Sale = require('../database/controllers/SaleController');
-
 const app = express();
 
 app.use(express.json());
