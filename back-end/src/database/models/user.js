@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: { type: DataTypes.STRING, allowNull: false, validate: validatePassword },
     role: DataTypes.STRING,
-  }, { timestamps: false, tableName: 'Users' });
+  }, { timestamps: false, tableName: 'users' });
 
   return User;
 };
