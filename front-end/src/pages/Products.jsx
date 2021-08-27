@@ -1,9 +1,10 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
+import '../App.css';
 
 function Products() {
   return (
-    <div>
+    <div className="main">
       <Navbar />
       Varios produtos
       <button

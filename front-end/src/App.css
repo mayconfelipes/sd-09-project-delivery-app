@@ -23,6 +23,10 @@
   max-height: 80vh;
 }
 
+.main {
+  margin-top: 8em;
+}
+
 @keyframes shake {
 
   0% {
