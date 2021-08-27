@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import * as api from '../services/api';
 
 function Register() {
   const [email, setEmail] = useState('');
@@ -7,6 +9,7 @@ function Register() {
   const [valid, setValid] = useState(false);
   const [showInvalidInfoError, setInvalidInfoError] = useState('');
 
+  const history = useHistory();
   const errorMessageTimeout = 2000;
 
   useEffect(() => {
@@ -22,9 +25,19 @@ function Register() {
     setValid(false);
   }, [email, password, name, showInvalidInfoError]);
 
-  const showUserAlreadyRegistered = () => {
-    setInvalidInfoError('Alguma mensagem de erro');
+  const showUserAlreadyRegistered = (message) => {
+    setInvalidInfoError(message);
     setTimeout(() => setInvalidInfoError(''), errorMessageTimeout);
+  };
+
+  const registerNewUser = async () => {
+    try {
+      const newUser = await api.registerUser(name, email, password);
+      localStorage.setItem('user', JSON.stringify(newUser));
+      history.push('/customer/products');
+    } catch (error) {
+      showUserAlreadyRegistered(error.message);
+    }
   };
 
   return (
@@ -61,8 +74,8 @@ function Register() {
           type="button"
           data-testid="common_register__button-register"
           disabled={ !valid }
-          // onClick={ () => registerUser() }
-          onClick={ () => showUserAlreadyRegistered() }
+          onClick={ () => registerNewUser() }
+          // onClick={ () => showUserAlreadyRegistered() }
         >
           CADASTRAR
         </button>
