@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => await queryInterface.bulkInsert('People',
+  up: async (queryInterface, Sequelize) => await queryInterface.bulkInsert('users',
     [
       {
         name: 'Delivery App Admin',
@@ -21,10 +21,9 @@ module.exports = {
         password: '1c37466c159755ce1fa181bd247cb925',
         role: 'customer',
       },
-
-    ], {}),
+    ], { timestamp: false }),
  
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('People', null, {});
+    await queryInterface.bulkDelete('users', null, {});
   }
 };

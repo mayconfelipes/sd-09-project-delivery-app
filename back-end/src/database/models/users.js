@@ -32,5 +32,9 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
+  UsersModel.associate = (models) => {
+    models.Users.hasMany(models.Sales)
+  }
+
   return UsersModel;
 };
