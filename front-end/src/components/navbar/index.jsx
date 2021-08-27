@@ -8,7 +8,6 @@ const Navbar = (abas, user) => {
         console.log('lint');
         return <a key={ index } href="##">{ aba }</a>;
       })}
-      ;
       <span>{ user }</span>
       <button type="button">Sair</button>
     </nav>

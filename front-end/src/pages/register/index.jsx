@@ -4,14 +4,14 @@ import context from '../../context';
 import FormRender from '../../components/form';
 
 const Register = () => {
-  const { setRegister } = useContext(context);
+  const { setRegister, register } = useContext(context);
 
   useEffect(() => {
-    function changeStatusRegister() {
+    const changeStatusRegister = () => {
       setRegister(true);
     };
-    await changeStatusRegister();
-  }, [changeStatusRegister]);
+    changeStatusRegister();
+  }, [register]);
 
   return (
     <Main>
