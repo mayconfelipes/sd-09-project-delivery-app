@@ -8,7 +8,6 @@ import Products from './pages/products/Products';
 function App() {
   return (
     <DeliveryProvider>
-
       <Switch>
         <Route exact path="/">
           <Redirect to="login" />

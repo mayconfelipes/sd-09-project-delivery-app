@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+// import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import api from '../../service/axiosApi';
 
 import validateUserData from '../../helpers/validateUserData';
+import UserRegisterAlert from '../../components/alerts/UserRegisterAlert';
 
 function Register() {
   const [input, setInput] = useState({
@@ -10,6 +13,9 @@ function Register() {
     password: '',
   });
   const [btnDisabled, setBtnDisabled] = useState(true);
+  const [showError, setShowError] = useState(false);
+
+  const history = useHistory();
 
   const handleInputChange = ({ target }) => {
     const { name, value } = target;
@@ -30,8 +36,12 @@ function Register() {
 
     api.post('/register', data)
       .then((response) => console.log(response))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setShowError(true);
+        console.log(err);
+      });
     console.log('click!');
+    history.push('/customer/products');
   };
 
   return (
@@ -72,7 +82,7 @@ function Register() {
           />
         </label>
         <button
-          type="submit"
+          type="button"
           onClick={ handleInputSubmit }
           disabled={ btnDisabled }
           data-testid="common_register__button-register"
@@ -80,6 +90,7 @@ function Register() {
           Cadastrar
         </button>
       </form>
+      {showError && <UserRegisterAlert />}
     </div>
   );
 }
