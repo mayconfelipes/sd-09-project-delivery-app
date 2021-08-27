@@ -35,13 +35,14 @@ function Register() {
     const data = input;
 
     api.post('/register', data)
-      .then((response) => console.log(response))
+      .then((response) => {
+        console.log(response);
+        history.push('/customer/products');
+      })
       .catch((err) => {
         setShowError(true);
         console.log(err);
       });
-    console.log('click!');
-    history.push('/customer/products');
   };
 
   return (
