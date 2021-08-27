@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router';
+import { Link, useHistory } from 'react-router-dom';
 import AppContext from '../hooks/context';
 
 const axios = require('axios').default;
@@ -73,15 +73,17 @@ function Login() {
         >
           Login
         </button>
-        <button
-          type="button"
-          data-testid="common_login__button-register"
-        >
-          Ainda não tenho conta
-        </button>
+        <Link to="/register">
+          <button
+            type="button"
+            data-testid="common_login__button-register"
+          >
+            Ainda não tenho conta
+          </button>
+        </Link>
       </form>
       {notFoundError
-        ? <p data-testid="common_login__element-invalid-email">O usúario não existe</p>
+        ? <p data-testid="common_login__element-invalid-email">O usuário não existe</p>
         : null}
     </div>
   );
