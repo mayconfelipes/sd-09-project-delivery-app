@@ -1,13 +1,12 @@
-const { users } = require("../../database/models");
-const jwt = require("jsonwebtoken");
-const md5 = require("md5");
+// const jwt = require('jsonwebtoken');
+const md5 = require('md5');
+const { users } = require('../../database/models');
 
-
-const findUser = async ({password, email}) => {
-  password = md5(password);
-  console.log('antes do acesso ao banco')
+const findUser = async ({ password, email }) => {
+  const hashedPassword = md5(password);
+  console.log('antes do acesso ao banco');
   const user = await users.findOne({
-    where: { password, email }
+    where: { password: hashedPassword, email },
   });
   if (!user) {
     return { hasToken: false };
