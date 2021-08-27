@@ -7,7 +7,7 @@ const Sale = (sequelize, DataTypes) => {
       delivery_number: DataTypes.STRING,
       status: DataTypes.STRING,
       sale_date: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
         defaultValue: new Date(),
       },
     },
