@@ -1,30 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router';
+import AppContext from '../hooks/context';
 
 const axios = require('axios').default;
 
 function Login() {
-  const [emailValue, setEmailValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [notFoundError, setNotFoundError] = useState(false);
+  const { setUser } = useContext(AppContext);
+  const router = useHistory();
 
   const PASSWORD_LENGTH_EXPECTED = 6;
 
   const handleChange = ({ target }) => {
     if (target.name === 'email') {
-      return setEmailValue(target.value);
+      return setEmail(target.value);
     }
 
-    return setPasswordValue(target.value);
+    return setPassword(target.value);
   };
 
-  function validateEmail(email) {
+  function validateEmail(emailValue) {
     const re = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    return re.test(String(email).toLowerCase());
+    return re.test(String(emailValue).toLowerCase());
   }
 
   const isValid = () => {
-    const validatedEmail = validateEmail(emailValue);
-    const validatedPassword = passwordValue.length >= PASSWORD_LENGTH_EXPECTED;
+    const validatedEmail = validateEmail(email);
+    const validatedPassword = password.length >= PASSWORD_LENGTH_EXPECTED;
 
     return validatedEmail && validatedPassword;
   };
@@ -46,10 +50,11 @@ function Login() {
     e.preventDefault();
 
     axios.post('http://localhost:3001/login', {
-      email: emailValue,
-      password: passwordValue,
+      email,
+      password,
     }).then((response) => {
-      console.log(response);
+      setUser(response.data);
+      router.push('customer/products');
     }).catch(() => {
       setNotFoundError(true);
     });
@@ -57,7 +62,7 @@ function Login() {
 
   return (
     <div>
-      <form>
+      <form id="form">
         { createInput('email', 'Login') }
         { createInput('password', 'Senha') }
         <button
