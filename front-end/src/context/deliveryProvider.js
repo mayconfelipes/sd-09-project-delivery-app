@@ -1,9 +1,9 @@
 import { shape } from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import DeliveryContext from './deliveryContext';
 
-export default function DeliveryProvider({ children }) {
-  const [isTest, setTest] = useState();
+export const DeliveryProvider = ({ children }) => {
+  const [isTest, setTest] = useState('deu bom');
 
   const context = {
     isTest,
@@ -15,12 +15,10 @@ export default function DeliveryProvider({ children }) {
       {children}
     </DeliveryContext.Provider>
   );
-}
+};
 
 DeliveryProvider.propTypes = {
   children: shape().isRequired,
 };
 
-// export function useDeliveryContext() {
-//   return useContext(DeliveryContext);
-// }
+export const useDeliveryContext = () => useContext(DeliveryContext);

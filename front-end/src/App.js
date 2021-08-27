@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';// import './App.css';
-import DeliveryProvider from './context/deliveryProvider';
+import { DeliveryProvider } from './context/deliveryProvider';
 import Admin from './pages/Admin';
 import Custommer from './pages/Custommer';
 import Login from './pages/Login';

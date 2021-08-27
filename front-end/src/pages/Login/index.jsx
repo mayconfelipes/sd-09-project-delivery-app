@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import api from '../../service/axiosApi';
-import './login.css';
-// import useDeliveryContext from '../../context/deliveryProvider';
-import DeliveryContext from '../../context/deliveryContext';
+import NotFound from '../../components/notFound';
 
 const Login = () => {
-  const { isTest } = useContext(DeliveryContext);
+  const [isError, setError] = useState();
+  const [redirect, setRedirect] = useState();
   const [userData, setUserData] = useState({
-    emailInput: '',
-    passwordInput: '',
+    email: '',
+    password: '',
   });
 
-  const data = userData;
   const [isDataValid, setIsDataValid] = useState(true);
 
   function handleInputChange({ target }) {
@@ -20,9 +19,9 @@ const Login = () => {
   }
 
   useEffect(() => {
-    const { emailInput, passwordInput } = userData;
-    const emailValidated = /^[\S.]+@[a-z]+\.\w{2,3}$/g.test(emailInput);
-    const passwordRegex = new RegExp(/[\w\D]{7}/g).test(passwordInput);
+    const { email, password } = userData;
+    const emailValidated = /^[\S.]+@[a-z]+\.\w{2,3}$/g.test(email);
+    const passwordRegex = new RegExp(/[\w\D]{6}/g).test(password);
 
     if (emailValidated && passwordRegex) {
       setIsDataValid(false);
@@ -31,51 +30,64 @@ const Login = () => {
     }
   }, [userData]);
 
-  console.log(isTest);
+  const handleError = async () => {
+    const data = userData;
+    try {
+      await api.post('/login', data);
+      setRedirect(true);
+    } catch (error) {
+      setError(true);
+      console.log(error);
+    }
+  };
 
   return (
-    <form className="px-5 py-7">
-      <label htmlFor="input-email" className="label-email">
-        E-mail
-        <input
-          type="text"
-          name="emailInput"
-          className="input-email"
-          onChange={ handleInputChange }
-          data-testid="common_login__input-email"
-        />
-      </label>
-      <label htmlFor="label-password" className="label-password">
-        Password
-        <input
-          type="text"
-          name="passwordInput"
-          className="input-password"
-          onChange={ handleInputChange }
-          data-testid="common_login__input-password"
-        />
-      </label>
-      <button
-        type="button"
-        name="login"
-        className="login-button"
-        data-testid="common_login__button-login"
-        disabled={ isDataValid }
-        onClick={ () => api.post('/login', data).then((res) => console.log(res)) }
-      >
-        Login
-      </button>
-      <button
-        type="button"
-        name="register"
-        data-testid="common_login__button-register"
-        className="register-button"
-        onClick={ () => api.post('/login', { email, password })
-          .then((response) => console.log(response)) }
-      >
-        Register
-      </button>
-    </form>
+    <>
+      <form className="px-5 py-7">
+        <label htmlFor="input-email" className="label-email">
+          E-mail
+          <input
+            type="text"
+            name="email"
+            className="input-email"
+            onChange={ handleInputChange }
+            data-testid="common_login__input-email"
+          />
+        </label>
+        <label htmlFor="label-password" className="label-password">
+          Password
+          <input
+            type="text"
+            name="password"
+            className="input-password"
+            onChange={ handleInputChange }
+            data-testid="common_login__input-password"
+          />
+        </label>
+        <button
+          type="button"
+          name="login"
+          className="login-button"
+          data-testid="common_login__button-login"
+          disabled={ isDataValid }
+          onClick={ () => handleError() }
+        >
+          Login
+        </button>
+        <Link to="/register">
+          <button
+            type="button"
+            name="register"
+            data-testid="common_login__button-register"
+            className="register-button"
+          >
+            Register
+          </button>
+        </Link>
+      </form>
+      {isError && <NotFound />}
+      {redirect && <Redirect to="customer/products" /> }
+    </>
   );
 };
 
