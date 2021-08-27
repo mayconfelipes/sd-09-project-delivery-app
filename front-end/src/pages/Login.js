@@ -1,41 +1,44 @@
 import React, { useState, useContext } from 'react';
-// import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { LoginContext } from '../context/LoginContext';
 import { createInput, createButton } from '../utils/creators';
+import validateEmail from '../utils/validateEmail';
+import { PASS_MIN_LENGTH } from '../utils/validationNumbers';
 import { emailOptions, passwordOptions } from '../data/InputOptions';
 import ErrorMessage from '../components/ErrorMessage';
 import { login } from '../services/api';
 import { loginButton, registerButton } from '../data/ButtonOptions';
-// import rockGlass from '../images/rockGlass.svg';
+import rockGlass from '../images/rockGlass.svg';
 
-const PASS_MIN_LENGTH = 6;
 const route = 'common_login';
 
 function Login() {
   const {
-    apiResponse,
     loginErrorMessage,
     setApiResponse,
     setLoginErrorMessage,
   } = useContext(LoginContext);
-  const [state, setState] = useState({ email: '', password: '' });
-  // const [validLogin, setValidLogin] = useState(false);
+  const [state, setState] = useState({ emailInput: '', passwordInput: '' });
+  const [canRedirect, setCanRedirect] = useState(false);
 
   const handleChange = ({ target: { name, value } }) => {
     setState({ ...state, [name]: value });
   };
 
-  const handleLogin = () => (
-    login(state.email, state.password, setApiResponse, setLoginErrorMessage));
+  const handleLogin = async () => {
+    const response = await login(
+      state.email, state.password, setApiResponse, setLoginErrorMessage,
+    );
 
-  const validateEmail = (email) => {
-    const isValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-
-    return !!isValid;
+    if (response.token) return setCanRedirect(true);
   };
 
   return (
-    <section>
+    <section className="App">
+      <span className="logo">TRYBE</span>
+      <object data={ rockGlass } type="image/svg+xml" className="rocksGlass">
+        Glass
+      </object>
       <h1>LOGIN</h1>
       { createInput({ ...emailOptions, onChange: handleChange, route }) }
       { createInput({ ...passwordOptions, onChange: handleChange, route }) }
@@ -43,11 +46,14 @@ function Login() {
         ...loginButton,
         onClick: handleLogin,
         route,
-        disabled: !validateEmail(state.email) || state.password.length < PASS_MIN_LENGTH,
+        disabled: !validateEmail(state.emailInput)
+          || state.passwordInput.length < PASS_MIN_LENGTH,
       })}
-      { createButton({ ...registerButton, onClick: () => {}, route }) }
-      { loginErrorMessage && <ErrorMessage route={ route } /> }
-      { apiResponse && <p>Login efetuado</p> }
+      <Link to="/register">
+        { createButton({ ...registerButton, onClick: () => {}, route }) }
+      </Link>
+      { loginErrorMessage && <ErrorMessage route={ route } field="-email" /> }
+      { canRedirect && <p>Login efetuado</p> }
     </section>
   );
 }

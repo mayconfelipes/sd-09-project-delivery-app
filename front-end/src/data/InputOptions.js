@@ -1,15 +1,23 @@
 export const emailOptions = {
   id: 'emailInput',
-  name: 'email',
+  name: 'emailInput',
   type: 'email',
-  placeholder: 'email@trybeer.com.br',
+  placeholder: 'seu-email@site.com.br',
   label: 'Email',
 };
 
 export const passwordOptions = {
   id: 'passwordInput',
-  name: 'password',
+  name: 'passwordInput',
   type: 'password',
   placeholder: '******',
   label: 'Senha',
+};
+
+export const nameOptions = {
+  id: 'nameInput',
+  name: 'nameInput',
+  type: 'text',
+  placeholder: 'Seu nome',
+  label: 'Nome',
 };
