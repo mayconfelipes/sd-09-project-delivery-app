@@ -11,7 +11,7 @@ const verifierSchemaRegister = (name, email, password, role) => {
   const { error } = schemaRegister.validate({ name, email, password, role });
   if (error) return error.details[0];
   return {};
-}
+};
 
 module.exports = {
   verifierSchemaRegister,

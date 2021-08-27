@@ -7,7 +7,7 @@ const verifyRegisteredUser = async (req, _res, next) => {
     const { email } = req.body;
     const data = await registerService.findOneUser(email);
     if (data) throw errorObj('User already registered', statusCode.conflict);
-    next()
+    next();
   } catch (error) {
     next(error);
   }
