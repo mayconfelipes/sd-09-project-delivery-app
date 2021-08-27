@@ -37,7 +37,7 @@ const Login = () => {
           name="email"
           className="input-email"
           onChange={ handleInputChange }
-          data-testId="common_login__input-email"
+          data-testid="common_login__input-email"
         />
       </label>
       <label htmlFor="label-password" className="label-password">
@@ -47,14 +47,14 @@ const Login = () => {
           name="password"
           className="input-password"
           onChange={ handleInputChange }
-          data-testId="common_login__input-password"
+          data-testid="common_login__input-password"
         />
       </label>
       <button
         type="button"
         name="login"
         className="login-button"
-        data-testId="common_login__button-login"
+        data-testid="common_login__button-login"
         disabled={ isDataValid }
         onClick={ () => api.post('/login', data).then((res) => console.log(res)) }
       >
@@ -64,7 +64,7 @@ const Login = () => {
         <button
           type="button"
           name="register"
-          data-testId="common_login__button-register"
+          data-testid="common_login__button-register"
           className="register-button"
         >
           Register
