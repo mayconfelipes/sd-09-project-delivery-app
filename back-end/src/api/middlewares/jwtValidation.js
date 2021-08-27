@@ -4,23 +4,25 @@ const rescue = require('express-rescue');
 const fs = require('fs');
 
 const jtwValidate = rescue(async (req, res, next) => {
-    const token = req.headers.authorization;
-    const secret = fs.readFileSync('jwt.evaluation.key', { encoding: 'utf-8' }).trim();
-    const jwtConfig = {
-        expiresIn: '3h',
-        algorithm: 'HS256',
-      };
+  const token = req.headers.authorization;
+  const secret = fs.readFileSync('jwt.evaluation.key', { encoding: 'utf-8' }).trim();
+  const jwtConfig = {
+    expiresIn: '3h',
+    algorithm: 'HS256',
+  };
 
-      if (!token) {
-        throw boom.unauthorized('Token not found');
-      }
-      try {
-        const decoded = jwt.verify(token, secret, jwtConfig);
-        req.user = decoded;
-        if (decoded)next();
-      } catch (e) {
-       throw boom.unauthorized('Expired or invalid token');
-      }
+  if (!token) {
+    throw boom.unauthorized('Token not found');
+  }
+
+  const decoded = jwt.verify(token, secret, jwtConfig);
+  req.user = decoded;
+
+  if (decoded) {
+    next();
+  } else {
+    throw boom.unauthorized('Expired or invalid token');
+  }
 });
 
 module.exports = { jtwValidate };
