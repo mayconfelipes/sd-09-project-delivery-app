@@ -5,25 +5,19 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       userId: {
         type: Sequelize.INTEGER,
         field: 'user_id',
-        references: {
-          model: 'users',
-          key: 'id',
-        },
+        references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
       sellerId: {
         type: Sequelize.INTEGER,
         field: 'seller_id',
-        references: {
-          model: 'users',
-          key: 'id',
-        },
+        references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
@@ -46,7 +40,7 @@ module.exports = {
         field: 'sale_date',
       },
       status: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
     });
   },

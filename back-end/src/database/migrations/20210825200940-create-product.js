@@ -5,13 +5,13 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       price: {
-        type: Sequelize.DECIMAL(4, 2)
+        type: Sequelize.DECIMAL(4, 2),
       },
       urlImage: {
         type: Sequelize.STRING,
