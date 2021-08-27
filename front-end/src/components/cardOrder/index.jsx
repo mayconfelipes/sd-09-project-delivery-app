@@ -1,7 +1,9 @@
 import React from 'react';
 import StatusOrder from '../statusOrder/index';
 
-const CardOrder = (numberOrder, status, date, totalValue, address) => {
+const CardOrder = (order) => {
+  const { numberOrder, status, date, totalValue, address } = order;
+  console.log("te amo lint")
   return (
     <div>
       <span>Pedido</span>
