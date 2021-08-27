@@ -4,9 +4,9 @@ const Navbar = (abas, user) => {
   console.log('lint eu te amo');
   return (
     <nav>
-      {abas.map(({ aba, index }) => {
+      {abas.map((aba) => {
         console.log('lint');
-        return <a key={ index } href="##">{ aba }</a>;
+        return <a key={ aba } href="##">{ aba }</a>;
       })}
       <span>{ user }</span>
       <button type="button">Sair</button>
