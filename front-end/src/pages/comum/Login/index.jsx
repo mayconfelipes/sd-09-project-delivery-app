@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-// import Input from '../../../components/Input';
 import PrimaryButton from '../../../components/PrimaryButton';
 import TertiaryButton from '../../../components/TertiaryButton';
 
@@ -45,12 +44,6 @@ const Login = () => {
             onChange={ handleInputChange }
           />
         </label>
-        {/* <Input
-          onInputChange={ handleInputChange }
-          labelDescription="Login"
-          dataTestId="common_login__input-email"
-          inputName="emailInput"
-        /> */}
         <label htmlFor="input" className={ style.inputStyle }>
           Login
           <input
@@ -60,12 +53,6 @@ const Login = () => {
             onChange={ handleInputChange }
           />
         </label>
-        {/* <Input
-          onInputChange={ handleInputChange }
-          labelDescription="Senha"
-          dataTestId="common_login__input-password"
-          inputName="passwordInput"
-        /> */}
         <Link to="/customer/products">
           <PrimaryButton
             isBtnDisabled={ isDataValid }
