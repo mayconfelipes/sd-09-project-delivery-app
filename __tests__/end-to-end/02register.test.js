@@ -40,8 +40,8 @@ describe(requirement(6), () => {
   });
 });
 
-describe(requirement(7), () => {
-  test.only("O avaliador buscará pelos elementos fundamentais aos demais testes", async () => {
+describe.only(requirement(7), () => {
+  test("O avaliador buscará pelos elementos fundamentais aos demais testes", async () => {
     await expect(page).toFindElement(registerPage.input.name);
     await expect(page).toFindElement(registerPage.input.email);
     await expect(page).toFindElement(registerPage.input.password);
