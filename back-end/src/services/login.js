@@ -10,7 +10,7 @@ const jwtConfig = {
 };
 
 const userLogin = async (email, password) => {
-  const validData = validatorJoi.verifierSchemaRegister(email, password);
+  const validData = validatorJoi.verifierSchemaLogin(email, password);
   if (validData.message) return validData;
 
   const token = jwt.sign({ email, password }, process.env.JWT_SECRET, jwtConfig);

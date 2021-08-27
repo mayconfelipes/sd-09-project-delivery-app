@@ -22,4 +22,6 @@ const isValidToken = async (req, res, next) => {
   }
 };
 
-module.exports = isValidToken; 
+module.exports = {
+    isValidToken,
+}; 
