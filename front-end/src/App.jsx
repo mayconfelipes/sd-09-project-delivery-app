@@ -14,7 +14,9 @@ import SellerOrders from './pages/seller/SellerOrders';
 function App() {
   return (
     <>
-      <Redirect from="/" to="/login" />
+      <Route exact path="/">
+        <Redirect to="/login" />
+      </Route>
       <Route exact path="/login" component={ Login } />
       <Route exact path="/register" component={ Register } />
       <Route exact path="/customer/products" component={ Products } />
