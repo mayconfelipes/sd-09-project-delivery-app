@@ -25,7 +25,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="main">
       <img src="" alt="logotipo delivery-app" />
       <h1>Delivery App</h1>
       <form>
