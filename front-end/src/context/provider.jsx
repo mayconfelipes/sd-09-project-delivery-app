@@ -8,13 +8,13 @@ const DEFAULT_FORM = {
   password: '',
   name: '',
   redirect: false,
-  ableButton: false,
 };
 
 function Provider({ children }) {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [register, setRegister] = useState(false);
   const [theme, setTheme] = useState(Light);
+  const [enableButton, setEnableButton] = useState(false);
 
   const contextValue = {
     form,
@@ -23,6 +23,8 @@ function Provider({ children }) {
     setRegister,
     theme,
     setTheme,
+    enableButton,
+    setEnableButton,
   };
 
   return (
