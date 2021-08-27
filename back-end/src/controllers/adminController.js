@@ -7,7 +7,8 @@ const registerUser = async (req, res, next) => {
   if (result.error) {
     return next(result.error);
   }
-  return res.status(200).json(result);
+
+  return res.status(201).json(result);
 };
 
 module.exports = {

@@ -45,18 +45,7 @@ function Admin() {
     setNewUserData({ ...newUserData, [name]: value });
   };
 
-  const handleClick = async () => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
-
-    const result = await api.registerUserWithAdmin(newUserData, userData.token);
-    if (result.error) {
-      setErrorMessage(result.error.message);
-    }
-    console.log('acabou');
-  };
-
   const cleanFields = () => {
-    setErrorMessage();
     const name = document.getElementById('nome');
     name.value = '';
     const email = document.getElementById('email');
@@ -68,14 +57,23 @@ function Admin() {
     setNewUserData({ nome: '', email: '', password: '', role: '' });
   };
 
+  const handleClick = async () => {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const result = await api.registerUserWithAdmin(newUserData, userData.token);
+    if (result.error) {
+      setErrorMessage(result.error.message);
+    }
+    cleanFields();
+  };
+
   const errorDivMessage = (
     <div>
-      <p data-testid="common_register__element-invalid_register">{ errorMessage }</p>
+      <p data-testid="admin_manage__element-invalid-register">{ errorMessage }</p>
       <button
         type="button"
-        onClick={ cleanFields }
+        onClick={ () => setErrorMessage() }
       >
-        Limpar
+        OK
       </button>
     </div>
   );
