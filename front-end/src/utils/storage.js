@@ -1,4 +1,7 @@
-const getUserDataLocalStorage = () => JSON.parse(localStorage.getItem('userData'));
+const USERDATA = 'userData';
+
+const getUserDataLocalStorage = () => JSON.parse(localStorage.getItem(USERDATA));
+const removeUserDataLocalStorage = () => localStorage.removeItem(USERDATA);
 
 const getNameLocalStorage = () => {
   const userData = getUserDataLocalStorage();
@@ -11,4 +14,8 @@ const getTokenLocalStorage = () => {
   return userData.token ? userData.token : '';
 };
 
-module.exports = { getNameLocalStorage, getTokenLocalStorage };
+module.exports = {
+  getNameLocalStorage,
+  getTokenLocalStorage,
+  removeUserDataLocalStorage,
+};

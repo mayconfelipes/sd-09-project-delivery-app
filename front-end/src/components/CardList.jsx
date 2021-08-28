@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import Api from '../services/api';
-import { getTokenLocalStorage } from '../utils/storage';
+import { getTokenLocalStorage, removeUserDataLocalStorage } from '../utils/storage';
 import Card from './Card';
 
 const CardList = () => {
@@ -21,6 +21,7 @@ const CardList = () => {
   }, []);
 
   if (isError) {
+    removeUserDataLocalStorage();
     return <Redirect to="/login" />;
   }
 
