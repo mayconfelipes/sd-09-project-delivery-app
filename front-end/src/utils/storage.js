@@ -5,13 +5,13 @@ const removeUserDataLocalStorage = () => localStorage.removeItem(USERDATA);
 
 const getNameLocalStorage = () => {
   const userData = getUserDataLocalStorage();
-  if (userData.name) { return userData.name; }
+  if (userData && userData.name) { return userData.name; }
   return 'sem nome cadastrado';
 };
 
 const getTokenLocalStorage = () => {
   const userData = getUserDataLocalStorage();
-  return userData.token ? userData.token : '';
+  return userData && userData.token ? userData.token : '';
 };
 
 module.exports = {
