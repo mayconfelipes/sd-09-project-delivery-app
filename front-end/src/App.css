@@ -59,6 +59,12 @@
   background-color: #0fa36b;
 }
 
+.nav-display-flex {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
 .navbar-link {
   height: 50px;
   border-radius: 0px;
@@ -67,6 +73,11 @@
   padding: 0px 20px;
   text-decoration: none;
 }
+
+.navbar-link-none {
+  text-decoration: none;
+}
+
 .navbar-link-green {
   background-color: #3AA856;
   color: #ffffff;

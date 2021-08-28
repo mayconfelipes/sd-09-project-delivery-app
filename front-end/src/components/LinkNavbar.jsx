@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 
 function LinkNavbar({ text, dataTestId, classStyle, id, to }) {
   return (
-    <Link to={ to } className={ classStyle }>
-      <span
+    <Link className="navbar-link-none" to={ to }>
+      <div
         data-testid={ dataTestId }
         id={ id }
+        className={ classStyle }
       >
         { text }
-      </span>
+      </div>
     </Link>
   );
 }

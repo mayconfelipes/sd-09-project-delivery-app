@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../components/NavbarCustomer';
+import Navbar from '../components/Navbar';
 import CardList from '../components/CardList';
 
 const Products = () => (

@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LinkNavbar from './LinkNavbar';
 
-const NavBar = ({
-  showProducts = true,
-  showPedidos = true,
-  showNomeCliente = true,
-  showSair = true,
+const Navbar = ({
+  showProducts,
+  showPedidos,
+  showNomeCliente,
+  showSair,
 }) => (
   <nav className="navbar">
-    <div>
+    <div className="nav-display-flex">
       {showProducts ? (
         <LinkNavbar
           dataTestId="customer_products__element-navbar-link-products"
@@ -28,7 +28,7 @@ const NavBar = ({
         />
       ) : ('') }
     </div>
-    <div>
+    <div className="nav-display-flex">
       {showNomeCliente ? (
         <LinkNavbar
           dataTestId="customer_products__element-navbar-user-full-name"
@@ -48,11 +48,18 @@ const NavBar = ({
     </div>
   </nav>
 );
-NavBar.propTypes = {
-  showProducts: PropTypes.bool.isRequired,
-  showPedidos: PropTypes.bool.isRequired,
-  showNomeCliente: PropTypes.bool.isRequired,
-  showSair: PropTypes.bool.isRequired,
+Navbar.propTypes = {
+  showProducts: PropTypes.bool,
+  showPedidos: PropTypes.bool,
+  showNomeCliente: PropTypes.bool,
+  showSair: PropTypes.bool,
 };
 
-export default NavBar;
+Navbar.defaultProps = {
+  showProducts: true,
+  showPedidos: true,
+  showNomeCliente: true,
+  showSair: true,
+};
+
+export default Navbar;
