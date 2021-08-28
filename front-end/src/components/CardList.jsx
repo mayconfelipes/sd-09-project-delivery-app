@@ -1,17 +1,29 @@
 import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router';
 import Api from '../services/api';
+import { getTokenLocalStorage } from '../utils/storage';
 import Card from './Card';
 
 const CardList = () => {
   const [productData, setProductData] = useState([]);
+  const [isError, setIsError] = useState(false);
 
-  const products = async () => {
-    const productsAll = await Api.getAllProducts();
-    setProductData(productsAll);
+  const fetchProducts = async () => { // requisição para o Backend
+    const productsAll = await Api.getAllProducts(getTokenLocalStorage());
+    if (productsAll.error) {
+      return setIsError(true);
+    }
+    return setProductData(productsAll);
   };
+
   useEffect(() => {
-    products();
+    fetchProducts();
   }, []);
+
+  if (isError) {
+    return <Redirect to="/login" />;
+  }
+
   return (
     <div className="list-products">
       {productData.map((product, index) => (

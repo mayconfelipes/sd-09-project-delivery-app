@@ -44,13 +44,13 @@ const registerUserWithAdmin = (newUser, token) => {
     .catch((err) => err);
 };
 
-const getAllProducts = () => {
+const getAllProducts = (token) => {
   const endpoint = `${URL}/customer/products`;
   return fetch(endpoint, {
     method: 'GET',
     headers: {
       'Content-Type': CONTENT,
-      // authorization: token,
+      authorization: token,
     },
   })
     .then((response) => response.json())
