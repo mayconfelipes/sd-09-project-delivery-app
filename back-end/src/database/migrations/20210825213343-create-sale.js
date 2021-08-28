@@ -45,6 +45,7 @@ module.exports = {
       },
       status: {
         type: Sequelize.STRING,
+        defaultValue: 'Pendente',
       },
       sale_date: {
         allowNull: false,

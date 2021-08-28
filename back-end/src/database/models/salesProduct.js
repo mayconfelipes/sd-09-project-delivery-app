@@ -2,13 +2,14 @@ module.exports = (sequelize, DataTypes) => {
   const salesProduct = sequelize.define(
     "salesProduct",
     {
-      sale_id: DataTypes.INTEGER,
-      product_id: DataTypes.INTEGER,
+      saleId: DataTypes.INTEGER,
+      productId: DataTypes.INTEGER,
       quantity: DataTypes.INTEGER,
     },
     {
       timestamps: false,
       tableName: "salesProducts",
+      underscored: true,
     }
   );
 
@@ -16,15 +17,15 @@ module.exports = (sequelize, DataTypes) => {
     models.product.belongsToMany(models.sale, {
       as: "sale",
       through: salesProduct,
-      foreignKey: "product_id",
-      otherKey: "sale_id",
+      foreignKey: "productId",
+      otherKey: "saleId",
     });
 
     models.sale.belongsToMany(models.product, {
       as: "product",
       through: salesProduct,
-      foreignKey: "sale_id",
-      otherKey: "product_id",
+      foreignKey: "saleId",
+      otherKey: "productId",
     });
   };
 
