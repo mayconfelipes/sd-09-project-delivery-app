@@ -31,6 +31,16 @@ const setCarrinhoLocalStorage = (productData) => {
   localStorage.setItem('carrinho', JSON.stringify(cart));
 };
 
+const getTotalCartLocalStorage = () => {
+  const cart = getCarrinhoLocalStorage();
+  const totalCart = cart.reduce(
+    (accumulator, { total }) => accumulator + total,
+    0,
+  );
+  return `Ver Carrinho: ${totalCart
+    .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+};
+
 const removeCarrinhoLocalStorage = () => localStorage.removeItem('carrinho');
 
 module.exports = {
@@ -40,4 +50,5 @@ module.exports = {
   setCarrinhoLocalStorage,
   getCarrinhoLocalStorage,
   removeCarrinhoLocalStorage,
+  getTotalCartLocalStorage,
 };

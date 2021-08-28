@@ -1,4 +1,4 @@
-const { setCarrinhoLocalStorage } = require('./storage');
+const { setCarrinhoLocalStorage, getTotalCartLocalStorage } = require('./storage');
 const dataTestId = require('./dataTestIds');
 
 const testid = dataTestId.default;
@@ -34,6 +34,8 @@ const increment = (event) => {
     total: parseFloat((price * qtdProduct).toFixed(2)),
   };
   setCarrinhoLocalStorage(productData);
+  document.querySelector(`[data-testid='${testid[21]}']`)
+    .innerText = getTotalCartLocalStorage();
 };
 
 module.exports = { decrement, increment };

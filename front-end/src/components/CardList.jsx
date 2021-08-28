@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import Api from '../services/api';
-import { getTokenLocalStorage, removeUserDataLocalStorage } from '../utils/storage';
+import {
+  getTokenLocalStorage,
+  removeUserDataLocalStorage,
+  getTotalCartLocalStorage,
+} from '../utils/storage';
+
 import Card from './Card';
 import testid from '../utils/dataTestIds';
 import LinkNavbar from './LinkNavbar';
@@ -32,7 +37,7 @@ const CardList = () => {
       <LinkNavbar
         id="btn-total-cart"
         dataTestId={ testid[21] }
-        text="Ver Carrinho: R$ 0,00"
+        text={ getTotalCartLocalStorage() }
         to="/customer/checkout"
       />
 
