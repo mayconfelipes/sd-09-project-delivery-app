@@ -13,16 +13,14 @@ const decrement = (event) => {
 };
 
 const increment = (event) => {
-  const qtdEstoque = 10;
   const idProduct = event.target.id.split('-')[1]; // só pega o id
   let qtdProduct = parseInt(
     document.getElementById(`result-${idProduct}`).value,
     10,
   );
   qtdProduct += 1;
-  if (qtdProduct <= qtdEstoque) {
-    document.getElementById(`result-${idProduct}`).value = qtdProduct;
-  } // incrementa 1 a cada click
+  document.getElementById(`result-${idProduct}`).value = qtdProduct;
+  // incrementa 1 a cada click
 };
 
 const AddDecItemCard = (
@@ -50,7 +48,7 @@ const AddDecItemCard = (
 );
 
 AddDecItemCard.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default AddDecItemCard;

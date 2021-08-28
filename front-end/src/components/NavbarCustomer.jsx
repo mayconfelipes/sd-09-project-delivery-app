@@ -1,38 +1,34 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Button from './Button';
+import LinkNavbar from './LinkNavbar';
 
 const NavBar = () => (
   <nav className="navbar">
     <div>
-      <Link to="/customer/products">
-        <Button
-          dataTestId="customer_products__element-navbar-link-products"
-          buttonText="PRODUTOS"
-          classStyle="btn btn-green"
-        />
-      </Link>
-      <Link to="/customer/checkout">
-        <Button
-          dataTestId="customer_products__element-navbar-link-orders"
-          buttonText="MEUS PEDIDOS"
-          classStyle="btn btn-green"
-        />
-      </Link>
+      <LinkNavbar
+        dataTestId="customer_products__element-navbar-link-products"
+        text="PRODUTOS"
+        classStyle="navbar-link navbar-link-green"
+        to="/customer/products"
+      />
+      <LinkNavbar
+        dataTestId="customer_products__element-navbar-link-orders"
+        text="MEUS PEDIDOS"
+        classStyle="navbar-link navbar-link-green"
+        to="/customer/checkout"
+      />
     </div>
     <div>
-      <Button
+      <LinkNavbar
         dataTestId="customer_products__element-navbar-user-full-name"
-        buttonText="FuncaoPegalocalStorage"
-        classStyle="btn btn-purple"
+        text="FuncaoPegalocalStorage"
+        classStyle="navbar-link navbar-link-purple"
       />
-      <Link to="/">
-        <Button
-          dataTestId="customer_products__element-navbar-link-logout"
-          buttonText="Sair"
-          classStyle="btn btn-blue"
-        />
-      </Link>
+      <LinkNavbar
+        dataTestId="customer_products__element-navbar-link-logout"
+        text="Sair"
+        classStyle="navbar-link navbar-link-blue"
+        to="/"
+      />
     </div>
   </nav>
 );

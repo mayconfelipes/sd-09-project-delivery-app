@@ -59,32 +59,33 @@
   background-color: #0fa36b;
 }
 
-.btn {
+.navbar-link {
   height: 50px;
   border-radius: 0px;
   border: 0px;
   margin: 0px;
   padding: 0px 20px;
+  text-decoration: none;
 }
-.btn-green {
+.navbar-link-green {
   background-color: #3AA856;
   color: #ffffff;
 }
 
-.btn-green:hover {
+.navbar-link-green:hover {
   background-color: #57bf71;
 }
 
-.btn-blue {
+.navbar-link-blue {
   background: #4688F0;
   color: #ffffff;
 }
 
-.btn-blue:hover {
+.navbar-link-blue:hover {
   background: #5c96f3;
 }
 
-.btn-purple {
+.navbar-link-purple {
   background-color:#7B4CDF;
   color: #ffffff;
 }
