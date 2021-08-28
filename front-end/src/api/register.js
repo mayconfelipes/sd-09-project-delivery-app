@@ -13,9 +13,7 @@ const Register = (name, email, password, role) => {
       'Content-Type': 'application/json',
     },
     body,
-  }).then((response) => {
-    response.json();
-  });
+  }).then((response) => response.json());
 };
 
 export default Register;

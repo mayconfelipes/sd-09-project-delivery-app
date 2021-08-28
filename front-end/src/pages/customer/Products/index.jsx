@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 // import P from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import useGlobalContext from '../../../context/GlobalStateProvider';
+
 import NavBar from '../../../components/Navbar';
 import ProductCard from '../../../components/ProductCard';
 import PrimaryButton from '../../../components/PrimaryButton';
@@ -9,6 +11,7 @@ import style from './products.module.scss';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const { totalPrice } = useGlobalContext();
 
   useEffect(() => {
     fetch('http://localhost:3001/products')
@@ -27,9 +30,6 @@ const Products = () => {
             price={ price.replace('.', ',') }
             image={ image }
             description={ name }
-            /* onClickDecrement={ onHandleDecrement }
-            onClickIncrement={ onHandleIncrement }
-            value={ quantity } */
           />))}
       </div>
       <div className={ style.cartButton }>
@@ -37,7 +37,9 @@ const Products = () => {
           <PrimaryButton
             dataTestId="customer_products__checkout-bottom-value"
           >
-            Ver Carrinho: R$ 26,90
+            Ver Carrinho: R$
+            {' '}
+            {totalPrice}
           </PrimaryButton>
         </Link>
       </div>

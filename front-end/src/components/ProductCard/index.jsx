@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import P from 'prop-types';
 import style from './productCard.module.scss';
 import useGlobalContext from '../../context/GlobalStateProvider';
@@ -10,29 +10,29 @@ const ProductCard = (
     description,
   },
 ) => {
-  const { setCartQuantity, cartQuantity } = useGlobalContext();
   const [quantity, setQuantity] = useState(0);
 
-  // useEffect(() => {
-  //   setQuantity(quantity);
-  //   setCartQuantity({
-  //     ...cartQuantity, [id]: quantity });
-  // }, [cartQuantity, id, quantity, setCartQuantity]);
+  const { setCartQuantity, cartQuantity } = useGlobalContext();
+
+  useEffect(() => {
+    setQuantity((value) => value);
+  }, [quantity, cartQuantity]);
+
+  useEffect(() => {
+    setCartQuantity([
+      ...cartQuantity, { id, quantity, price, description }]);
+  }, [cartQuantity, description, id, price, quantity, setCartQuantity]);
 
   const onHandleDecrement = () => {
-    if (quantity === 0) return;
+    if (quantity <= 0) return;
     setQuantity(quantity - 1);
-    setCartQuantity({
-      ...cartQuantity, [id]: quantity });
   };
 
   const onHandleIncrement = () => {
     setQuantity(quantity + 1);
-    setCartQuantity({
-      ...cartQuantity, [id]: quantity });
   };
 
-  const onInputChange = () => null;
+  const onInputChange = (() => null);
 
   return (
     <div className={ style.productCardContainer }>
@@ -58,7 +58,7 @@ const ProductCard = (
           <input
             data-testid={ `customer_products__input-card-quantity-${id}` }
             type="text"
-            value={ quantity }
+            value={ quantity || 0 }
             name={ id }
             onChange={ onInputChange }
           />
