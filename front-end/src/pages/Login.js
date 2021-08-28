@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import useLogin from '../hooks/useLogin';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [setLogin, login] = useLogin();
 
   const History = useHistory();
+
+  useEffect(() => {
+    if (login.login) {
+      History.push('/customer/products');
+    }
+  }, [login]);
 
   const buttonAble = () => {
     const MIN_CHARACTERS = 6;
@@ -17,7 +25,7 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    History.push('/asdasd');
+    setLogin({ email, password });
   };
 
   const handleRegister = () => {
@@ -26,14 +34,15 @@ const Login = () => {
 
   return (
     <div className="main">
-      <img src="" alt="logotipo delivery-app" />
+      <img src="/logo192.png" alt="logotipo delivery-app" width="60px" />
       <h1>Delivery App</h1>
-      <form>
+      <form className="form-login">
         <label htmlFor="input-email">
           Login
           <input
             type="email"
             id="input-email"
+            autoComplete="on"
             data-testid="common_login__input-email"
             onChange={ ({ target: { value } }) => setEmail(value) }
           />
@@ -44,6 +53,7 @@ const Login = () => {
           <input
             type="password"
             id="input-password"
+            autoComplete="on"
             data-testid="common_login__input-password"
             onChange={ ({ target: { value } }) => setPassword(value) }
           />
@@ -51,6 +61,7 @@ const Login = () => {
 
         <button
           type="button"
+          className="btn-login"
           data-testid="common_login__button-login"
           disabled={ !buttonAble() }
           onClick={ handleLogin }
@@ -59,17 +70,19 @@ const Login = () => {
         </button>
         <button
           type="button"
-          data-testid="common_login__input-button-register"
+          className="btn-register"
+          data-testid="common_login__button-register"
           onClick={ handleRegister }
         >
           Ainda não tenho conta
         </button>
       </form>
       <div
-        className="error-box"
-        disabled
+        className={ login.message ? 'error-box' : 'hidden' }
         data-testid="common_login__element-invalid-email"
-      />
+      >
+        {login.message}
+      </div>
     </div>
   );
 };

@@ -1,6 +1,77 @@
 .main {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  padding: 1em 0;
+}
+
+.form-login {
+  align-items: center;
+  background-color: #EAF1EF;
+  border: 1px solid #B1C2BE;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  justify-content: space-evenly;
+  margin: 1em 0;
+  padding: 1em;
+}
+
+.form-login > label > input {
+  border: 1px solid #001813;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0.5em 0 0 0;
+  font-size: 1.2em;
+  padding: 0.5em 0.2em;
+}
+
+.form-login > button {
+  border: 4px solid #036B52;
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-size: 1em;
+  width: 100%;
+  padding: 1em;
+}
+
+.form-login > button:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.form-login > button:disabled {
+  background-color: #EAF1EF;
+  border-color: #B1C2BE;
+  color: #B1C2BE;
+  cursor: initial;
+  font-weight: normal;
+}
+
+.btn-login {
+  background-color: #036B52;
+  box-sizing: border-box;
+  color: #F2FFFC;
+  font-size: 1em;
+  width: 100%;
+  padding: 1em;
+}
+
+.btn-register {
+  background-color: #F2FFFC;
+  color: #036B52;
+}
+
+.error-box {
+  color: #421981;
+  display: block;
+  font-weight: bold;
+  transition: display 2s;
+}
+
+.hidden {
+  display: none;
 }
