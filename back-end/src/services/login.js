@@ -1,18 +1,19 @@
+require('dotenv/config');
+
 const jwt = require('jsonwebtoken');
 const validatorJoi = require('../utils/validatorJoi');
-
-require('dotenv/config');
 
 const jwtConfig = {
   expiresIn: '2d',
   algorithm: 'HS256',
 };
 
-const userLogin = async (email, password) => {
+const userLogin = (email, password) => {
   const validData = validatorJoi.verifierSchemaLogin(email, password);
+  const teste = process.env.JWT_SECRET || 'secret';
   if (validData.message) return validData;
 
-  const token = jwt.sign({ email, password }, process.env.JWT_SECRET, jwtConfig);
+  const token = jwt.sign({ email, password }, teste, jwtConfig);
   return token;
 };
   

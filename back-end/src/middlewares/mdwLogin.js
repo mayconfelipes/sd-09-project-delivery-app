@@ -1,27 +1,27 @@
 const LoginService = require('../services/login');
-const statusCode = require('../utils/statusCode');
+const {
+  statusCode: { OK, notFound },
+  hashMd5,
+  errorObj,
+} = require('../utils');
 const { users } = require('../database/models');
 
-const userLogin = async (req, res) => {
-    try {
-      const { email, password } = req.body;
-      const getToken = await LoginService.userLogin(email, password);
-      const userIsValid = await users.findOne({ where: { email } });
-      console.log(userIsValid);
-      if (!userIsValid) {
-        return res
-        .status(statusCode.badRequest)
-        .json({ message: 'Invalid fields' });
-      }
-      return res
-      .status(statusCode.OK)
-      .json({ token: getToken });
-    } catch (err) {
-      return res
-      .status(statusCode.badRequest)
-      .json({ message: err.message });
+const userLogin = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const userIsValid = await users.findOne({ where: { email } });
+    const md5Hash = hashMd5(password);
+    if (!userIsValid || userIsValid.password !== md5Hash) {
+      const invalidFields = errorObj('Invalid fields', notFound);
+      return next(invalidFields);
     }
-  };
+    const getToken = LoginService.userLogin(email, password);
+    return res.status(OK).json({ token: getToken });
+  } catch (err) {
+    // const internalError = errorObj(err.message, badRequest);
+    return next(err);
+  }
+};
 
 module.exports = {
   userLogin,

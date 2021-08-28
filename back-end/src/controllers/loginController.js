@@ -3,6 +3,6 @@ const mdwLogin = require('../middlewares/mdwLogin');
 
 const pingRouter = express.Router();
 
-pingRouter.get('/', mdwLogin.userLogin);
+pingRouter.post('/', mdwLogin.userLogin);
 
 module.exports = pingRouter;
