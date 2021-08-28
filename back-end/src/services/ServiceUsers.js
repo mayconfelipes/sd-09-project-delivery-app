@@ -36,7 +36,14 @@ const register = async ({ name, email, password, role }) => {
   return userWithoutPasswordAndEmail;
 };
 
+const getAllUsers = async () => {
+  const users = await RepositoryUsers.getAllUsers();
+
+  return users;
+};
+
 module.exports = {
   login,
   register,
+  getAllUsers,
 };

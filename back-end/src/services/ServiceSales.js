@@ -17,6 +17,20 @@ const sale = async ({ userId, totalPrice, deliveryNumber, deliveryAddress, name,
   return newSale;
 };
 
+const getSalesByUserId = async ({ userId }) => {
+  const sales = await RepositorySales.getSalesByUserId({ userId });
+
+  return sales;
+};
+
+const getSalesBySaleId = async ({ saleId }) => {
+  const sales = await RepositorySales.getSalesBySaleId({ saleId });
+
+  return sales;
+};
+
 module.exports = {
   sale,
+  getSalesBySaleId,
+  getSalesByUserId,
 };

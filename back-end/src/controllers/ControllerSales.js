@@ -15,6 +15,33 @@ const sale = async (req, res, next) => {
   }
 };
 
+const getSalesByUserId = async (req, res, next) => {
+  try {
+    const { userId } = req.user;
+
+    const sales = await ServiceSales.getSalesByUserId({ userId });
+    
+    return res.status(200).json(sales);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getSalesBySaleId = async (req, res, next) => {
+  try {
+    const { userId } = req.user;
+    const { saleId } = req.params;
+
+    const sales = await ServiceSales.getSalesBySaleId({ saleId, userId });
+    
+    return res.status(200).json(sales);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   sale,
+  getSalesByUserId,
+  getSalesBySaleId,
 };

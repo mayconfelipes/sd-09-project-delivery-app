@@ -13,5 +13,6 @@ router.post(
   Middlewares.validRegisterAdmin,
   ControllerUsers.registerAdmin,
 );
+router.get('/users', Middlewares.validJWT, ControllerUsers.getAllUsers);
 
 module.exports = router;

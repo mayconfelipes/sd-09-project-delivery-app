@@ -28,12 +28,20 @@ const register = async (req, res, next) => {
 const registerAdmin = async (req, res, next) => {
   try {
     const { name, email, password, role } = req.body;
-
-    if (req.user.role !== 'admin') throw invalidData('invalid register', 409);
-
+    if (req.user.role !== 'administrator') throw invalidData('invalid register', 409);
     const user = await ServiceUsers.register({ name, email, password, role });
 
     return res.status(201).json({ user });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const getAllUsers = async (req, res, next) => {
+  try {
+    const users = await ServiceUsers.getAllUsers();
+
+    return res.status(200).json(users);
   } catch (error) {
     return next(error);
   }
@@ -43,4 +51,5 @@ module.exports = {
   login,
   register,
   registerAdmin,
+  getAllUsers,
 };
