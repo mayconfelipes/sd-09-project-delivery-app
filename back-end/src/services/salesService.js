@@ -41,8 +41,16 @@ const create = async (saleInfo) => {
   return newSale.id;
 };
 
+const updateStatus = async ({ saleId, status }) => {
+  const selectSale = await sale.findByPk(saleId);
+  await selectSale.update({ status });
+
+  return selectSale.status;
+};
+
 module.exports = {
   create,
   findByPk,
   findAll,
+  updateStatus,
 };

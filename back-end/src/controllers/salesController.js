@@ -28,8 +28,19 @@ const findAll = async (req, res, next) => {
   }
 };
 
+const updateSaleStatus = async (req, res, next) => {
+  try {
+    const updatedStatus = await salesService.updateStatus(req.body);
+
+    return res.status(200).json({ message: updatedStatus });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
   create,
   getById,
   findAll,
+  updateSaleStatus,
 };
