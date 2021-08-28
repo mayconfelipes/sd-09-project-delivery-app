@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 import { decrement, increment } from '../utils/actionAddDec';
 import testid from '../utils/dataTestIds';
+import { getQtdProductCartLocalStorage } from '../utils/storage';
 
 const AddDecItemCard = ({ id }) => {
   // const [sumTotal, setSumTotal] = useState(0);
@@ -21,7 +22,7 @@ const AddDecItemCard = ({ id }) => {
       <input
         data-testid={ `${testid[20]}${id}` }
         id={ `qtd-${id}` }
-        value={ 0 }
+        value={ getQtdProductCartLocalStorage(id) }
         className="card-input"
       />
       <Button

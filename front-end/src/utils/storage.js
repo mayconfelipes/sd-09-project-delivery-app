@@ -43,6 +43,13 @@ const getTotalCartLocalStorage = () => {
 
 const removeCarrinhoLocalStorage = () => localStorage.removeItem('carrinho');
 
+const getQtdProductCartLocalStorage = (idProduct) => {
+  const cart = getCarrinhoLocalStorage();
+  const qtdProduct = cart
+    .filter(({ id }) => parseInt(id, 10) === idProduct)[0];
+  return qtdProduct ? qtdProduct.quantity : 0;
+};
+
 module.exports = {
   getNameLocalStorage,
   getTokenLocalStorage,
@@ -51,4 +58,5 @@ module.exports = {
   getCarrinhoLocalStorage,
   removeCarrinhoLocalStorage,
   getTotalCartLocalStorage,
+  getQtdProductCartLocalStorage,
 };
