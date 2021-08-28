@@ -18,5 +18,9 @@ export default PrimaryButton;
 PrimaryButton.propTypes = {
   children: P.node.isRequired,
   dataTestId: P.string.isRequired,
-  isBtnDisabled: P.bool.isRequired,
+  isBtnDisabled: P.bool,
+};
+
+PrimaryButton.defaultProps = {
+  isBtnDisabled: false,
 };
