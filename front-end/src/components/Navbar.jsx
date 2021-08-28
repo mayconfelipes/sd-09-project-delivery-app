@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import LinkNavbar from './LinkNavbar';
 import { getNameLocalStorage } from '../utils/storage';
 
-const Navbar = ({
-  showProducts,
-  showPedidos,
-  showNomeCliente,
-  showSair,
-}) => (
+const Navbar = ({ showProducts, showPedidos, showNomeCliente, showSair }) => (
   <nav className="navbar">
     <div className="nav-display-flex">
       {showProducts ? (
@@ -31,11 +26,12 @@ const Navbar = ({
     </div>
     <div className="nav-display-flex">
       {showNomeCliente ? (
-        <LinkNavbar
-          dataTestId="customer_products__element-navbar-user-full-name"
-          text={ getNameLocalStorage() }
-          classStyle="navbar-link navbar-link-purple"
-        />
+        <div
+          data-testid="customer_products__element-navbar-user-full-name"
+          className="navbar-link navbar-link-purple"
+        >
+          {getNameLocalStorage()}
+        </div>
       ) : ('') }
 
       {showSair ? (
@@ -49,6 +45,7 @@ const Navbar = ({
     </div>
   </nav>
 );
+
 Navbar.propTypes = {
   showProducts: PropTypes.bool,
   showPedidos: PropTypes.bool,

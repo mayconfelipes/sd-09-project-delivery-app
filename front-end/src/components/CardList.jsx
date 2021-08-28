@@ -7,8 +7,7 @@ const CardList = () => {
 
   const products = async () => {
     const productsAll = await Api.getAllProducts();
-    console.log(productsAll);
-    setProductData(productsAll); // o que seta os dados na minha variável product data
+    setProductData(productsAll);
   };
   useEffect(() => {
     products();

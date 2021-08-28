@@ -3,9 +3,10 @@ const express = require('express');
 const customerRouter = express.Router();
 
 const productController = require('../controllers/productController');
+const validateToken = require('../middlewares/validateJWT');
 
 customerRouter.get('/products', [
-  productController.getAllProducts,
+  validateToken, productController.getAllProducts,
 ]);
 
 module.exports = customerRouter;
