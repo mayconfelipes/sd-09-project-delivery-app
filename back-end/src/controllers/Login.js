@@ -10,7 +10,7 @@ const login = rescue(async (req, res, next) => {
   if (response.error) {
     return next({
       error: {
-        status: 404,
+        statusCode: 404,
         message: 'Usuário ou senha inválidos.',
       },
     });

@@ -5,7 +5,7 @@ module.exports = (req, _res, next) => {
     return next({
       error: {
         statusCode: 400,
-        message: '"email" is required',
+        message: 'O campo "email" é obrigatório.',
       },
     });
   }
@@ -14,7 +14,7 @@ module.exports = (req, _res, next) => {
     return next({
       error: {
         statusCode: 400,
-        message: '"email" must be a valid email',
+        message: 'O campo "email" deve ser um email válido.',
       },
     });
   }

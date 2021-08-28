@@ -3,7 +3,7 @@ module.exports = (req, _res, next) => {
     return next({
       error: {
         statusCode: 400,
-        message: '"password" is required',
+        message: 'O campo "password" é obrigatório.',
       },
     });
   }
@@ -12,7 +12,7 @@ module.exports = (req, _res, next) => {
     return next({
       error: {
         statusCode: 400,
-        message: '"password" length must be 6 characters long',
+        message: 'O campo "password" deve ter pelo menos 6 caracteres.',
       },
     });
   }
