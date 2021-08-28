@@ -12,11 +12,13 @@ function NavBarCustomer(props) {
       || textProp === 'detalhes'
     ) {
       return (
-        <div
-          className="navbar_pedidos"
-          data-testid="customer_products__element-navbar-link-orders"
-        >
-          <a href="/customer/orders">MEUS PEDIDOS</a>
+        <div className="navbar_pedidos">
+          <a
+            href="/customer/orders"
+            data-testid="customer_products__element-navbar-link-orders"
+          >
+            MEUS PEDIDOS
+          </a>
         </div>
       );
     }
@@ -28,9 +30,13 @@ function NavBarCustomer(props) {
         <div className="left_side">
           <div
             className="navbar_produtos"
-            data-testid="customer_products__element-navbar-link-products"
           >
-            <a href="/customer/products">PRODUTOS</a>
+            <a
+              data-testid="customer_products__element-navbar-link-products"
+              href="/customer/products"
+            >
+              PRODUTOS
+            </a>
           </div>
 
           { setOrders() }
@@ -45,11 +51,13 @@ function NavBarCustomer(props) {
             Nome do usuário
           </div>
 
-          <div
-            className="navbar_sair"
-            data-testid="customer_products__element-navbar-link-logout"
-          >
-            <a href="/customer">Sair</a>
+          <div className="navbar_sair">
+            <a
+              href="/login"
+              data-testid="customer_products__element-navbar-link-logout"
+            >
+              Sair
+            </a>
           </div>
         </div>
       </nav>

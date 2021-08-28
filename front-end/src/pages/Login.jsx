@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -15,8 +15,13 @@ function Login() {
     setValid(false);
   }, [email, password]);
 
+  const users = JSON.parse(localStorage.getItem('users'));
+  console.log(users);
+
   return (
     <div className="login-page">
+      { valid ? <Redirect to="/customer/products" /> : null}
+
       <form>
         <label htmlFor="login-input">
           Login
@@ -40,6 +45,7 @@ function Login() {
           type="button"
           data-testid="common_login__button-login"
           disabled={ !valid }
+          onClick={ () => console.log(valid) }
         >
           LOGIN
         </button>
