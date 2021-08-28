@@ -1,36 +1,58 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import LinkNavbar from './LinkNavbar';
 
-const NavBar = () => (
+const NavBar = ({
+  showProducts = true,
+  showPedidos = true,
+  showNomeCliente = true,
+  showSair = true,
+}) => (
   <nav className="navbar">
     <div>
-      <LinkNavbar
-        dataTestId="customer_products__element-navbar-link-products"
-        text="PRODUTOS"
-        classStyle="navbar-link navbar-link-green"
-        to="/customer/products"
-      />
-      <LinkNavbar
-        dataTestId="customer_products__element-navbar-link-orders"
-        text="MEUS PEDIDOS"
-        classStyle="navbar-link navbar-link-green"
-        to="/customer/checkout"
-      />
+      {showProducts ? (
+        <LinkNavbar
+          dataTestId="customer_products__element-navbar-link-products"
+          text="PRODUTOS"
+          classStyle="navbar-link navbar-link-green"
+          to="/customer/products"
+        />
+      ) : ('') }
+
+      {showPedidos ? (
+        <LinkNavbar
+          dataTestId="customer_products__element-navbar-link-orders"
+          text="MEUS PEDIDOS"
+          classStyle="navbar-link navbar-link-green"
+          to="/customer/checkout"
+        />
+      ) : ('') }
     </div>
     <div>
-      <LinkNavbar
-        dataTestId="customer_products__element-navbar-user-full-name"
-        text="FuncaoPegalocalStorage"
-        classStyle="navbar-link navbar-link-purple"
-      />
-      <LinkNavbar
-        dataTestId="customer_products__element-navbar-link-logout"
-        text="Sair"
-        classStyle="navbar-link navbar-link-blue"
-        to="/"
-      />
+      {showNomeCliente ? (
+        <LinkNavbar
+          dataTestId="customer_products__element-navbar-user-full-name"
+          text="FuncaoPegalocalStorage"
+          classStyle="navbar-link navbar-link-purple"
+        />
+      ) : ('') }
+
+      {showSair ? (
+        <LinkNavbar
+          dataTestId="customer_products__element-navbar-link-logout"
+          text="Sair"
+          classStyle="navbar-link navbar-link-blue"
+          to="/"
+        />
+      ) : ('') }
     </div>
   </nav>
 );
+NavBar.propTypes = {
+  showProducts: PropTypes.bool.isRequired,
+  showPedidos: PropTypes.bool.isRequired,
+  showNomeCliente: PropTypes.bool.isRequired,
+  showSair: PropTypes.bool.isRequired,
+};
 
 export default NavBar;
