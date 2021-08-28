@@ -32,11 +32,11 @@ function Register() {
 
   const registerNewUser = async () => {
     try {
-      const newUser = await api.registerUser(name, email, password);
-      localStorage.setItem('user', JSON.stringify(newUser));
+      const { data } = await api.registerUser(name, email, password);
+      localStorage.setItem('user', JSON.stringify(data));
       history.push('/customer/products');
     } catch (error) {
-      showUserAlreadyRegistered(error.message);
+      showUserAlreadyRegistered('User already registered');
     }
   };
 
@@ -75,12 +75,14 @@ function Register() {
           data-testid="common_register__button-register"
           disabled={ !valid }
           onClick={ () => registerNewUser() }
-          // onClick={ () => showUserAlreadyRegistered() }
         >
           CADASTRAR
         </button>
       </form>
-      <p data-testid="common_login__element-invalid-email">
+      <p
+        className="register-error-message"
+        data-testid="common_register__element-invalid_register"
+      >
         { showInvalidInfoError }
       </p>
     </div>
