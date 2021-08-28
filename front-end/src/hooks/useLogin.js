@@ -22,24 +22,3 @@ export default function useLogin() {
 
   return [setLogin, data];
 }
-
-// const initialData = {};
-
-// const useLogin = async () => (
-//   // try {
-//   //   const response = await axios({
-//   //     method: 'post',
-//   //     url: 'http://localhost:3001/login',
-//   //     data: payload,
-//   //   });
-//   //   console.log('resposta:', response);
-//   //   initialData.token = response.token;
-//   // } catch (err) {
-//   //   console.error(err);
-//   //   initialData.error = err.message;
-//   // }
-
-//   [, initialData]
-// );
-
-// export default useLogin;
