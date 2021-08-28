@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LinkNavbar from './LinkNavbar';
+import { getNameLocalStorage } from '../utils/storage';
 
 const Navbar = ({
   showProducts,
@@ -32,7 +33,7 @@ const Navbar = ({
       {showNomeCliente ? (
         <LinkNavbar
           dataTestId="customer_products__element-navbar-user-full-name"
-          text="FuncaoPegalocalStorage"
+          text={ getNameLocalStorage() }
           classStyle="navbar-link navbar-link-purple"
         />
       ) : ('') }
