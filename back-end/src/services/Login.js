@@ -1,19 +1,24 @@
 const md5 = require('md5');
-const { User } = require('../database/models');
+const Joi = require('joi');
 
-const { removePassword } = require('../../schemas');
+const { User } = require('../database/models');
+const { removePassword, generateError } = require('../../schemas');
+
+const LoginSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required(),
+});
 
 const login = async (email, password) => {
-  const cryptPassword = md5(password);
-  const user = await User.findOne({ where: { email, password: cryptPassword } });
+  const { error } = LoginSchema.validate({ email, password });
 
-  if (!user) {
-    return {
-      error: {
-        message: 'Usuário ou senha inválidos',
-        status: 'invalid_data',
-      },
-    };
+  if (error) throw generateError(422, error.message);
+
+  const cryptPassword = md5(password);
+  const user = await User.findOne({ where: { email } });
+
+  if (!user || user.dataValues.password !== cryptPassword) {
+    throw generateError(404, 'Email not registered or invalid password.');
   }
 
   const userWithoutPassword = removePassword(user.dataValues);

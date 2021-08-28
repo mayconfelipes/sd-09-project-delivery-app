@@ -2,19 +2,10 @@ const jwt = require('jsonwebtoken');
 const rescue = require('express-rescue');
 const Login = require('../services/Login');
 
-const login = rescue(async (req, res, next) => {
+const login = rescue(async (req, res) => {
   const { email, password } = req.body;
 
   const response = await Login.login(email, password);
-
-  if (response.error) {
-    return next({
-      error: {
-        statusCode: 404,
-        message: 'Usuário ou senha inválidos.',
-      },
-    });
-  }
 
   const payload = response;
   const secret = process.env.JWT_SECRET;
