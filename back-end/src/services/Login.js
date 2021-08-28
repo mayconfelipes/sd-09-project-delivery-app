@@ -1,25 +1,25 @@
 const md5 = require('md5');
 const { User } = require('../database/models');
 
+const { removePassword } = require('../../schemas');
+
 const login = async (email, password) => {
   const cryptPassword = md5(password);
-  const foundUser = await User.findOne({ where: { email, password: cryptPassword } });
+  const user = await User.findOne({ where: { email, password: cryptPassword } });
 
-  if (!foundUser) {
+  if (!user) {
     return {
-      status: 'error',
-      data: {
+      error: {
         message: 'Usuário ou senha inválidos',
         status: 'invalid_data',
       },
     };
   }
 
+  const userWithoutPassword = removePassword(user.dataValues);
+
   return {
-    status: 'success',
-    data: {
-      message: ''
-    }
+    user: userWithoutPassword,
   };
 };
 
