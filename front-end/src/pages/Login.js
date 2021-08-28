@@ -13,7 +13,7 @@ const Login = () => {
     if (login.login) {
       History.push('/customer/products');
     }
-  }, [login]);
+  }, [login, History]);
 
   const buttonAble = () => {
     const MIN_CHARACTERS = 6;
