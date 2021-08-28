@@ -16,6 +16,15 @@ const login = rescue(async (req, res) => {
   return res.status(200).json({ user: { ...response.user, token } });
 });
 
+const register = rescue(async (req, res) => {
+  const { name, email, password } = req.body;
+
+  const response = await User.register(name, email, password);
+
+  return res.status(201).json(response);
+});
+
 module.exports = {
   login,
+  register,
 };
