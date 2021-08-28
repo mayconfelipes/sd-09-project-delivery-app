@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import LinkNavbar from './LinkNavbar';
-import { removeUserDataLocalStorage, getNameLocalStorage } from '../utils/storage';
+import {
+  removeUserDataLocalStorage,
+  getNameLocalStorage,
+  removeCarrinhoLocalStorage,
+} from '../utils/storage';
 import Button from './Button';
 
 const Navbar = ({ showProducts, showPedidos, showNomeCliente, showSair }) => {
@@ -10,6 +14,7 @@ const Navbar = ({ showProducts, showPedidos, showNomeCliente, showSair }) => {
 
   if (isLogout) {
     removeUserDataLocalStorage();
+    removeCarrinhoLocalStorage();
     return <Redirect to="/login" />;
   }
 

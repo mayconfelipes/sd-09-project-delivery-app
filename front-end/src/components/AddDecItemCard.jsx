@@ -28,7 +28,7 @@ const AddDecItemCard = ({ id }) => {
         buttonText="+"
         id={ `positive-${id}` }
         dataTestId={ `${testid[18]}${id}` }
-        onClick={ (event) => increment(event, testid) }
+        onClick={ increment }
         classStyle="card-button card-button-right"
       />
     </div>);

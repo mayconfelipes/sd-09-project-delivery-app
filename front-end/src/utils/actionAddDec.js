@@ -1,3 +1,8 @@
+const { setCarrinhoLocalStorage } = require('./storage');
+const dataTestId = require('./dataTestIds');
+
+const testid = dataTestId.default;
+
 const decrement = (event) => {
   const idProduct = event.target.id.split('-')[1];
   const qtdProduct = document.getElementById(`qtd-${idProduct}`).value - 1;
@@ -6,7 +11,7 @@ const decrement = (event) => {
   }
 };
 
-const increment = (event, testid) => {
+const increment = (event) => {
   const idProduct = event.target.id.split('-')[1];
   let qtdProduct = parseInt(
     document.getElementById(`qtd-${idProduct}`).value,
@@ -28,7 +33,7 @@ const increment = (event, testid) => {
     quantity: qtdProduct,
     total: parseFloat((price * qtdProduct).toFixed(2)),
   };
-  console.log(productData);
+  setCarrinhoLocalStorage(productData);
 };
 
 module.exports = { decrement, increment };
