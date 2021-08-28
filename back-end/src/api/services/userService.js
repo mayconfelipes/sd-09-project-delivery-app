@@ -4,7 +4,7 @@ const { isValidToken, generateToken } = require('./utils/tokenValidate');
 const { isValidUserFields } = require('./utils/userValidate');
 
 const create = async (user) => {
-  isValidUserFields(user);
+  await isValidUserFields(user);
   const hashPassword = md5(user.password);
   const newUser = { ...user, password: hashPassword };
   
