@@ -24,7 +24,7 @@ const increment = (event) => {
 };
 
 const AddDecItemCard = (
-  { id }, // desistruturei vem como objeto
+  { id },
 ) => (
   <div>
     <Button
@@ -32,17 +32,20 @@ const AddDecItemCard = (
       id={ `negative-${id}` } // depois quebrar e usar o valor do id
       dataTestId={ `customer_products__button-card-add-item-${id}` } // apresentar o id do produto, criar a lógica aqui
       onClick={ decrement }
+      classStyle="card-button card-button-left"
     />
     <input
       data-testid={ `customer_products__input-card-quantity-${id}` } // inserir o id
       id={ `result-${id}` } // usar o id do produto
       value={ 0 }
+      className="card-input"
     />
     <Button
       buttonText="+"
       id={ `positive-${id}` }
       dataTestId={ `customer_products__button-card-rm-item-${id}` } // pegar o id do produto
       onClick={ increment }
+      classStyle="card-button card-button-right"
     />
   </div>
 );

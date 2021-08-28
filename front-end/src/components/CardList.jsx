@@ -21,6 +21,7 @@ const CardList = () => {
           id={ product.id }
           price={ product.price }
           title={ product.name }
+          image={ product.url_image }
         />
       ))}
     </div>
