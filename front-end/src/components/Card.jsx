@@ -1,22 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AddDecItemCard from './AddDecItemCard';
+import testid from '../utils/dataTestIds';
 
 const Card = ({ id, price, title, image }) => (
   <div className="card-product">
     <div>
-      <span data-testid={ `customer_products__element-card-price-${id}` }>
+      <span data-testid={ `${testid[16]}${id}` }>
         { price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
       </span>
       <img
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
+        data-testid={ `${testid[17]}${id}` }
         alt={ title }
         src={ image }
         className="card-product-img"
       />
     </div>
     <div className="card-product-footer">
-      <span data-testid={ `customer_products__element-card-title-${id}` }>
+      <span data-testid={ `${testid[15]}${id}` }>
         { title }
       </span>
       <AddDecItemCard id={ id } />
