@@ -18,12 +18,12 @@ app.post('/register', registerController.createUser);
 app.post('/login', loginController.newLogin);
 
 app.get('/products', tokenValidController.checkUser, productsController.getAll);
+app.get('/images/:path', tokenValidController.checkUser, productsController.getImage);
 
 app.post('/sale', tokenValidController.checkUser, salesController.create);
 app.get('/sale', tokenValidController.checkUser, salesController.findAll);
 app.get('/sale/:id', tokenValidController.checkUser, salesController.getById);
-
-app.get('/images/:path', tokenValidController.checkUser, productsController.getImage);
+app.put('/sale/status', tokenValidController.checkUser, salesController.updateSaleStatus);
 
 app.use((err, _req, res, _next) => {
   if (err.status) return res.status(err.status).json({ message: err.message });
