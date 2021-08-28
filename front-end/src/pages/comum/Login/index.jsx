@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import PrimaryButton from '../../../components/PrimaryButton';
 import TertiaryButton from '../../../components/TertiaryButton';
 
+import login from '../../../api/login';
+
 import style from './login.module.scss';
 
 const Login = () => {
@@ -12,10 +14,13 @@ const Login = () => {
     passwordInput: '',
   });
 
+  // const [setLoginResponse] = useState({});
+
   const [isDataValid, setIsDataValid] = useState(true);
 
-  function handleInputChange({ target }) {
-    const { name, value } = target;
+  function handleInputChange(event) {
+    event.preventDefault();
+    const { name, value } = event.target;
     setUserData({ ...userData, [name]: value });
   }
 
@@ -29,7 +34,16 @@ const Login = () => {
     } else {
       setIsDataValid(true);
     }
+
+    return () => null;
   }, [userData]);
+
+  const sendLoginRequest = async () => {
+    const { emailInput, passwordInput } = userData;
+    const loginsStatus = await login(emailInput, passwordInput);
+    // setLoginResponse(loginsStatus);
+    console.log('login', loginsStatus);
+  };
 
   return (
     <section className={ style.loginContainer }>
@@ -57,6 +71,7 @@ const Login = () => {
           <PrimaryButton
             isBtnDisabled={ isDataValid }
             dataTestId="common_login__button-login"
+            onLoginClick={ sendLoginRequest }
           >
             Login
           </PrimaryButton>

@@ -5,6 +5,8 @@ import PrimaryButton from '../../../components/PrimaryButton';
 
 import style from './register.module.scss';
 
+import register from '../../../api/register';
+
 const Register = () => {
   const [userData, setUserData] = useState({
     nameInput: '',
@@ -13,9 +15,11 @@ const Register = () => {
   });
 
   const [isDataValid, setIsDataValid] = useState(true);
+  const [loginResponse, setLoginResponse] = useState({});
 
-  function handleInputChange({ target }) {
-    const { name, value } = target;
+  function handleInputChange(event) {
+    event.preventDefault();
+    const { name, value } = event.target;
     setUserData({ ...userData, [name]: value });
   }
 
@@ -31,6 +35,14 @@ const Register = () => {
       setIsDataValid(true);
     }
   }, [userData]);
+
+  const sendLoginRequest = async () => {
+    const { nameInput, emailInput, passwordInput } = userData;
+    const role = 'user';
+    const loginsStatus = await register(nameInput, emailInput, passwordInput, role);
+    setLoginResponse(loginsStatus);
+    console.log('test', loginResponse);
+  };
 
   return (
     <section className={ style.loginContainer }>
@@ -67,6 +79,7 @@ const Register = () => {
           <PrimaryButton
             isBtnDisabled={ isDataValid }
             dataTestId="common_register__button-register"
+            onLoginClick={ sendLoginRequest }
           >
             CADASTRAR
           </PrimaryButton>

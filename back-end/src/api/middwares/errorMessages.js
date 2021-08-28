@@ -1,9 +1,9 @@
-const USER_NOT_EXIST = 'User does not exist';
-const USER_NOT_CREATED = 'User not created';
-const USER_REGISTERED = 'User already registered';
+const EMAIL_REGISTERED = 'E-mail já registrado';
+const NAME_REGISTERED = 'Nome de usuário já cadastrado';
+const USER_NOT_CREATED = 'Usuário não pode ser criado';
 
 module.exports = {
-  USER_NOT_EXIST,
+  EMAIL_REGISTERED,
+  NAME_REGISTERED,
   USER_NOT_CREATED,
-  USER_REGISTERED,
 };

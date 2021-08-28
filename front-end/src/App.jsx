@@ -10,10 +10,11 @@ import Checkout from './pages/customer/Checkout';
 // import SuccessfulShopping from './pages/customer/SuccessfulShopping';
 import CustomerOrders from './pages/customer/CustomerOrders';
 import SellerOrders from './pages/seller/SellerOrders';
+import { GlobalStateProvider } from './context/GlobalStateProvider';
 
 function App() {
   return (
-    <>
+    <GlobalStateProvider>
       <Route exact path="/">
         <Redirect to="/login" />
       </Route>
@@ -34,7 +35,7 @@ function App() {
         render={ (props) => <SellerOrderDetails { ...props } /> }
       />
       { /* <SuccessfulShopping /> */ }
-    </>
+    </GlobalStateProvider>
   );
 }
 
