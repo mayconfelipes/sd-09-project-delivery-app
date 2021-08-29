@@ -34,12 +34,12 @@ const setCarrinhoLocalStorage = (productData) => {
 const getTotalCartLocalStorage = () => {
   const cart = getCarrinhoLocalStorage();
   const totalCart = cart.reduce(
-    (accumulator, { subTotal }) => accumulator + subTotal,
+    (accumulator, { subTotal }) => (accumulator + parseFloat(subTotal)),
     0,
   );
-  return `Ver Carrinho: ${totalCart
-    .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
-};
+  return totalCart
+    .toLocaleString(undefined, { minimumFractionDigits: 2, maximunFractionDigits: 2 });
+}; // mozila.org
 
 const removeCarrinhoLocalStorage = () => localStorage.removeItem('carrinho');
 
