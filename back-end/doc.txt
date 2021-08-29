@@ -1,0 +1,59 @@
+Documentação
+
+----------
+
+Padrão dos endpoints
+
+Os endpoints seguem o padrão http://localhost:3001/entidade/. 
+Por exemplo, o endpoind em que o cadastro de um usuáiro é realizado será o http://localhost:3001/user/
+
+A exceção é o login, que deve ser realizado através do enpoint http://localhost:3001/user/login
+----------
+
+Retorno dos endpoints
+
+----------USER----------
+
+REGISTER: POST http://localhost:3001/user/ =>
+
+{
+ "user": {
+    "id": 10,
+    "name": "matheus martino do amaral",
+    "email": "teste@teste.com",
+    "role": "user"
+  }
+}
+
+LOGIN: POST http://localhost:3001/user/login =>
+
+{
+  "user": {
+    "id": 9,
+    "name": "matheus martino do amaral",
+    "email": "teste@teste.com",
+    "role": "user",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJuYW1lIjoibWF0aGV1cyBtYXJ0aW5vIGRvIGFtYXJhbCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwicm9sZSI6InVzZXIifSwiaWF0IjoxNjMwMjE1OTEyfQ.YpRIWzvTZxU72nZLicA7Eb7bV5Fk1dbnQwgHZdNHYwk"
+  }
+}
+
+----------PRODUCT---------
+
+FIND ALL: GET http://localhost:3001/product/ =>
+
+[
+  {
+    "id": 1,
+    "name": "Skol Lata 250ml",
+    "price": "2.20",
+    "url_image": "http://localhost:3001/images/skol_lata_350ml.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Heineken 600ml",
+    "price": "7.50",
+    "url_image": "http://localhost:3001/images/heineken_600ml.jpg"
+  },
+  //...
+]
+
