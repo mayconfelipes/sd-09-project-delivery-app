@@ -8,6 +8,7 @@ import { emailOptions, nameOptions, passwordOptions } from '../data/InputOptions
 import { finishRegisterButton } from '../data/ButtonOptions';
 import { register } from '../services/api';
 import ErrorMessage from '../components/ErrorMessage';
+import FormSection from '../components/StyledComponents/FormSection';
 
 const route = 'common_register';
 
@@ -15,7 +16,7 @@ function Registration() {
   const [state, setState] = useState({
     nameInput: '', emailInput: '', passwordInput: '',
   });
-  const [validRegister, setValidRegister] = useState(true);
+  const [apiResponse, setApiResponse] = useState({});
 
   const handleChange = ({ target: { name, value } }) => {
     setState({ ...state, [name]: value });
@@ -26,13 +27,12 @@ function Registration() {
   const handleRegister = async () => {
     const response = await register(nameInput, emailInput, passwordInput);
 
-    return response.message ? setValidRegister(false) : setValidRegister(true);
+    return setApiResponse(response);
   };
 
   return (
-    <section className="App">
+    <FormSection>
       <h1>CADASTRO</h1>
-      <span data-testid={ `${route}__element-invalid_register` }>Invalid Register</span>
       { createInput({ ...nameOptions, onChange: handleChange, route }) }
       { createInput({ ...emailOptions, onChange: handleChange, route }) }
       { createInput({ ...passwordOptions, onChange: handleChange, route }) }
@@ -44,8 +44,8 @@ function Registration() {
           || !validateEmail(emailInput)
           || passwordInput < PASS_MIN_LENGTH,
       }) }
-      { !validRegister && <ErrorMessage route={ route } field="_register" /> }
-    </section>
+      { apiResponse.message && <ErrorMessage route={ route } field="_register" /> }
+    </FormSection>
   );
 }
 

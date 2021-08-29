@@ -9,6 +9,7 @@ import ErrorMessage from '../components/ErrorMessage';
 import { login } from '../services/api';
 import { loginButton, registerButton } from '../data/ButtonOptions';
 import rockGlass from '../images/rockGlass.svg';
+import FormSection from '../components/StyledComponents/FormSection';
 
 const route = 'common_login';
 
@@ -34,9 +35,8 @@ function Login() {
   };
 
   return (
-    <section className="App">
-      <span className="logo">TRYBE</span>
-      <object data={ rockGlass } type="image/svg+xml" className="rocksGlass">
+    <FormSection>
+      <object data={ rockGlass } type="image/svg+xml">
         Glass
       </object>
       <h1>LOGIN</h1>
@@ -54,7 +54,7 @@ function Login() {
       </Link>
       { loginErrorMessage && <ErrorMessage route={ route } field="-email" /> }
       { canRedirect && <p>Login efetuado</p> }
-    </section>
+    </FormSection>
   );
 }
 

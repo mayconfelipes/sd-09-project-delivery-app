@@ -9,7 +9,7 @@ const jwtConfig = { expiresIn: '30m', algorithm: 'HS256' };
 
 module.exports = async ({ email, password }) => {
   const userDB = await User.findOne({ where: { email, password: md5(password) } });
-  if (!userDB) throw error('badRequest', 'Incorrect username or password');
+  if (!userDB) throw error('notFound', 'Incorrect username or password');
 
   const { dataValues: { password: _, ...user } } = userDB;
   const token = jwt.sign(user, secret, jwtConfig);
