@@ -7,7 +7,10 @@ const Card = ({ id, price, title, image }) => (
   <div className="card-product">
     <div>
       <span data-testid={ `${testid[16]}${id}` }>
-        { price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+        {parseFloat(price).toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        })}
       </span>
       <img
         data-testid={ `${testid[17]}${id}` }
@@ -17,9 +20,7 @@ const Card = ({ id, price, title, image }) => (
       />
     </div>
     <div className="card-product-footer">
-      <span data-testid={ `${testid[15]}${id}` }>
-        { title }
-      </span>
+      <span data-testid={ `${testid[15]}${id}` }>{title}</span>
       <AddDecItemCard id={ id } />
     </div>
   </div>

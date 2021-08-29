@@ -28,7 +28,7 @@ function Login() {
 
   useEffect(() => {
     verifyLoginCredentials();
-  }, [loginData]);
+  }, [loginData, verifyLoginCredentials]);
 
   const handleChange = ({ target: { name, value } }) => {
     setLoginData({ ...loginData, [name]: value });
@@ -41,7 +41,7 @@ function Login() {
     if (result.error) {
       setErrorMessage(result.error.message);
     } else {
-      localStorage.setItem('userData', JSON.stringify(result));
+      localStorage.setItem('user', JSON.stringify(result));
       switch (result.role) {
       case 'administrator':
         history.push('/admin/manage');

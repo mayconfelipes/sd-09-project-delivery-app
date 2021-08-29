@@ -10,10 +10,8 @@ const QTDDEFAULTSTATE = -1;
 const AddDecItemCard = ({ id }) => {
   const [qtdInputOnChange, setQtdInputOnChange] = useState(QTDDEFAULTSTATE);
 
-  const sumTotal = 0;
   return (
     <div>
-      {sumTotal}
       <Button
         buttonText="-"
         id={ `negative-${id}` } // para não ter id igual

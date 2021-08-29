@@ -7,9 +7,6 @@ const QTDDEFAULTSTATE = -1;
 const setProductLocalStorage = (idProduct, qtdProduct) => {
   const name = document.querySelector(`[data-testid='${testid[15]}${idProduct}']`)
     .innerText;
-  const urlImage = document.querySelector(
-    `[data-testid='${testid[17]}${idProduct}']`,
-  ).src;
   const price = parseFloat(
     document
       .querySelector(`[data-testid='${testid[16]}${idProduct}']`)
@@ -19,12 +16,11 @@ const setProductLocalStorage = (idProduct, qtdProduct) => {
   const total = parseFloat((price * qtdProduct).toFixed(2));
 
   productData = {
-    id: idProduct,
+    productId: idProduct,
     name,
-    urlImage,
-    price,
     quantity: qtdProduct,
-    total,
+    unitPrice: price.toFixed(2),
+    subTotal: total.toFixed(2),
   };
   setCarrinhoLocalStorage(productData);
   document.querySelector(`[data-testid='${testid[21]}']`)

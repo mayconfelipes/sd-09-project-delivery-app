@@ -1,4 +1,4 @@
-const USERDATA = 'userData';
+const USERDATA = 'user';
 const INVALIDINDEX = -1;
 
 const getUserDataLocalStorage = () => JSON.parse(localStorage.getItem(USERDATA));
@@ -22,7 +22,7 @@ const getCarrinhoLocalStorage = () => {
 
 const setCarrinhoLocalStorage = (productData) => {
   const cart = getCarrinhoLocalStorage();
-  const index = cart.findIndex(({ id }) => id === productData.id);
+  const index = cart.findIndex(({ productId }) => productId === productData.id);
   if (index > INVALIDINDEX) {
     cart[index] = productData; // subtitui os dados da posição, pelos atualizados
   } else {
@@ -34,7 +34,7 @@ const setCarrinhoLocalStorage = (productData) => {
 const getTotalCartLocalStorage = () => {
   const cart = getCarrinhoLocalStorage();
   const totalCart = cart.reduce(
-    (accumulator, { total }) => accumulator + total,
+    (accumulator, { subTotal }) => accumulator + subTotal,
     0,
   );
   return `Ver Carrinho: ${totalCart
@@ -46,7 +46,7 @@ const removeCarrinhoLocalStorage = () => localStorage.removeItem('carrinho');
 const getQtdProductCartLocalStorage = (idProduct) => {
   const cart = getCarrinhoLocalStorage();
   const qtdProduct = cart
-    .filter(({ id }) => parseInt(id, 10) === idProduct)[0];
+    .filter(({ productId }) => parseInt(productId, 10) === idProduct)[0];
   return qtdProduct ? qtdProduct.quantity : 0;
 };
 
