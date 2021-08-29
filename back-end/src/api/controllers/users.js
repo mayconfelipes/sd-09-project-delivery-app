@@ -5,9 +5,9 @@ const create = async (req, res, next) => {
   try {
     const user = req.body;
 
-    await usersServices.create(user);
+    const token = await usersServices.create(user);
 
-    res.status(CREATED_STATUS).send();
+    res.status(CREATED_STATUS).json({ token });
   } catch (err) {
     next(err);
   }
