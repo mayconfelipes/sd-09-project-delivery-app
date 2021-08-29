@@ -17,8 +17,8 @@ const sale = async ({ userId, totalPrice, deliveryNumber, deliveryAddress, name,
   return newSale;
 };
 
-const getSalesByUserId = async ({ userId }) => {
-  const sales = await RepositorySales.getSalesByUserId({ userId });
+const getSalesByUserId = async ({ userId, sellerId }) => {
+  const sales = await RepositorySales.getSalesByUserId({ userId, sellerId });
 
   return sales;
 };

@@ -12,11 +12,11 @@ const validJWT = async (req, _res, next) => {
 
   if (validVerifyToken.message) throw invalidData(validVerifyToken.message, UNAUTHORIZED);
 
-  const { userId, user } = validVerifyToken;
+  const { id, user } = validVerifyToken;
   const { email, role, name } = user;
 
   req.user = {
-    userId,
+    id,
     role,
     email,
     name,
