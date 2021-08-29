@@ -19,8 +19,10 @@ const setProductLocalStorage = (idProduct, qtdProduct) => {
     productId: idProduct,
     name,
     quantity: qtdProduct,
-    unitPrice: price.toFixed(2),
-    subTotal: total.toFixed(2),
+    unitPrice: price
+      .toLocaleString(undefined, { minimumFractionDigits: 2, maximunFractionDigits: 2 }),
+    subTotal: total
+      .toLocaleString(undefined, { minimumFractionDigits: 2, maximunFractionDigits: 2 }),
   };
   setCarrinhoLocalStorage(productData);
   document.querySelector(`[data-testid='${testid[21]}']`)
