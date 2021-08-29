@@ -8,7 +8,7 @@ const registerUser = async ({ name, email, password }) => {
     name,
     email,
     password: passwordMd5,
-    role: 'user',
+    role: 'customer',
   });
 
   return user;

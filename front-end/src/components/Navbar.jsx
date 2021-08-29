@@ -1,6 +1,15 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Navbar() {
+  const { name } = JSON.parse(localStorage.getItem('user'));
+  const router = useHistory();
+
+  const handleClick = () => {
+    localStorage.removeItem('user');
+    router.push('/');
+  };
+
   return (
     <nav>
       <ul>
@@ -21,15 +30,16 @@ function Navbar() {
           </a>
         </li>
         <li data-testid="customer_products__element-navbar-user-full-name">
-          Osni da Silva Alberto Ribeiro da Silva
+          {name}
         </li>
         <li>
-          <a
-            href="/"
+          <button
+            type="button"
             data-testid="customer_products__element-navbar-link-logout"
+            onClick={ handleClick }
           >
             Sair
-          </a>
+          </button>
         </li>
       </ul>
     </nav>

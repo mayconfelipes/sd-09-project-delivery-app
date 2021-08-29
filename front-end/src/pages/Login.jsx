@@ -8,7 +8,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [notFoundError, setNotFoundError] = useState(false);
-  const { setUser } = useContext(AppContext);
+  const { setUser, setUserInLocalStorage } = useContext(AppContext);
   const router = useHistory();
 
   const PASSWORD_LENGTH_EXPECTED = 6;
@@ -54,6 +54,7 @@ function Login() {
       password,
     }).then((response) => {
       setUser(response.data);
+      setUserInLocalStorage(response.data);
       router.push('customer/products');
     }).catch(() => {
       setNotFoundError(true);
