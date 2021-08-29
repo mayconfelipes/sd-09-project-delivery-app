@@ -5,15 +5,17 @@ import {
   getTokenLocalStorage,
   removeUserDataLocalStorage,
   getTotalCartLocalStorage,
+  getCarrinhoLocalStorage,
 } from '../utils/storage';
 
 import Card from './Card';
 import testid from '../utils/dataTestIds';
-import LinkNavbar from './LinkNavbar';
+import Button from './Button';
 
 const CardList = () => {
   const [productData, setProductData] = useState([]);
   const [isError, setIsError] = useState(false);
+  const [isRedirectCart, setIsRedirectCart] = useState(false);
 
   const fetchProducts = async () => { // requisição para o Backend
     const productsAll = await Api.getAllProducts(getTokenLocalStorage());
@@ -32,13 +34,20 @@ const CardList = () => {
     return <Redirect to="/login" />;
   }
 
+  if (isRedirectCart) {
+    return <Redirect to="/customer/checkout" />;
+  }
+
   return (
     <div>
-      <LinkNavbar
+      <Button
         id="btn-total-cart"
         dataTestId={ testid[21] }
-        text={ getTotalCartLocalStorage() }
-        to="/customer/checkout"
+        buttonText={ getTotalCartLocalStorage() }
+        onClick={ () => {
+          setIsRedirectCart(true);
+        } }
+        isDisabled={ getCarrinhoLocalStorage().length <= 0 }
       />
 
       <div className="list-products">

@@ -22,7 +22,9 @@ const getCarrinhoLocalStorage = () => {
 
 const setCarrinhoLocalStorage = (productData) => {
   const cart = getCarrinhoLocalStorage();
-  const index = cart.findIndex(({ productId }) => productId === productData.id);
+  const index = cart.findIndex(
+    ({ productId }) => productId === productData.productId,
+  );
   if (index > INVALIDINDEX) {
     cart[index] = productData; // subtitui os dados da posição, pelos atualizados
   } else {
@@ -34,7 +36,7 @@ const setCarrinhoLocalStorage = (productData) => {
 const getTotalCartLocalStorage = () => {
   const cart = getCarrinhoLocalStorage();
   const totalCart = cart.reduce(
-    (accumulator, { subTotal }) => (accumulator + parseFloat(subTotal)),
+    (accumulator, { subTotal }) => accumulator + Number(subTotal.replace(',', '.')),
     0,
   );
   return totalCart
