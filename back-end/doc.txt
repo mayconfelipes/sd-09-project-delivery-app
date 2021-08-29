@@ -109,12 +109,14 @@ body =>
 response => 
 
 {
-  "id": 4,
-  "userId": 1,
-  "sellerId": 2,
-  "totalPrice": 59.5,
-  "deliveryAddress": "Rua teste",
-  "deliveryNumber": "10",
-  "status": "Pendente",
-  "saleDate": "2021-08-29T21:36:36.098Z"
+  "sale": {
+    "id": 4,
+    "userId": 1,
+    "sellerId": 2,
+    "totalPrice": 59.5,
+    "deliveryAddress": "Rua teste",
+    "deliveryNumber": "10",
+    "status": "Pendente",
+    "saleDate": "2021-08-29T21:36:36.098Z"
+  }
 }
