@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { LoginContext } from '../context/LoginContext';
 import { createInput, createButton } from '../utils/creators';
 import validateEmail from '../utils/validateEmail';
@@ -36,6 +36,8 @@ function Login() {
     if (response.token) return setCanRedirect(true);
   };
 
+  if (canRedirect) return <Redirect to="/customer/products" />;
+
   return (
     <FormSection>
       <object data={ rockGlass } type="image/svg+xml">
@@ -55,20 +57,20 @@ function Login() {
         { createButton({ ...registerButton, onClick: () => {}, route }) }
       </Link>
       { loginErrorMessage && <ErrorMessage route={ route } field="-email" /> }
-      { canRedirect && <p>Login efetuado</p> }
     </FormSection>
   );
 }
 
 /*
-email
-  1 - adm@deliveryapp.com
-  2 - fulana@deliveryapp.com
-  3 - zebirita@email.com
-password
-  1 - --adm2@21!!--
-  2 - fulana@123
-  3 - $#zebirita#$
+user
+  adm@deliveryapp.com
+  --adm2@21!!--
+
+  fulana@deliveryapp.com
+  fulana@123
+
+  zebirita@email.com
+  $#zebirita#$
 */
 
 export default Login;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 // import { Context } from '../context';
 import { createInput, createButton } from '../utils/creators';
 import validateEmail from '../utils/validateEmail';
@@ -30,6 +30,8 @@ function Registration() {
     return setApiResponse(response);
   };
 
+  if (apiResponse.id) return <Redirect to="/customer/products" />;
+
   return (
     <FormSection>
       <h1>CADASTRO</h1>
@@ -42,7 +44,7 @@ function Registration() {
         route,
         disabled: nameInput.length < NAME_MIN_LENGTH
           || !validateEmail(emailInput)
-          || passwordInput < PASS_MIN_LENGTH,
+          || passwordInput.length < PASS_MIN_LENGTH,
       }) }
       { apiResponse.message && <ErrorMessage route={ route } field="_register" /> }
     </FormSection>
@@ -50,3 +52,9 @@ function Registration() {
 }
 
 export default Registration;
+
+/*
+  name: Joana a Moreira,
+  email: joanaamoreira73@live.com,
+  password:_lu2BT
+*/
