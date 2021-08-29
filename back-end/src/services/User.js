@@ -40,7 +40,7 @@ const login = async (email, password) => {
   };
 };
 
-const register = async (name, email, password) => {
+const register = async ({ name, email, password }) => {
   const { error } = RegisterSchema.validate({ name, email, password });
 
   if (error) throw generateError(422, error.message);
