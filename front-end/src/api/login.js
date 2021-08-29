@@ -11,9 +11,7 @@ const login = (email, password) => {
       'Content-Type': 'application/json',
     },
     body,
-  }).then((response) => {
-    response.json();
-  });
+  }).then((response) => response.json());
 };
 
 export default login;
