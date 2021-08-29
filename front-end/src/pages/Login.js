@@ -26,9 +26,11 @@ function Login() {
     setState({ ...state, [name]: value });
   };
 
+  const { emailInput, passwordInput } = state;
+
   const handleLogin = async () => {
     const response = await login(
-      state.email, state.password, setApiResponse, setLoginErrorMessage,
+      emailInput, passwordInput, setApiResponse, setLoginErrorMessage,
     );
 
     if (response.token) return setCanRedirect(true);
@@ -46,8 +48,8 @@ function Login() {
         ...loginButton,
         onClick: handleLogin,
         route,
-        disabled: !validateEmail(state.emailInput)
-          || state.passwordInput.length < PASS_MIN_LENGTH,
+        disabled: !validateEmail(emailInput)
+          || passwordInput.length < PASS_MIN_LENGTH,
       })}
       <Link to="/register">
         { createButton({ ...registerButton, onClick: () => {}, route }) }

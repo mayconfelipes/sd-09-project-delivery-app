@@ -4,6 +4,7 @@ export const emailOptions = {
   type: 'email',
   placeholder: 'seu-email@site.com.br',
   label: 'Email',
+  testId: 'email',
 };
 
 export const passwordOptions = {
@@ -12,6 +13,7 @@ export const passwordOptions = {
   type: 'password',
   placeholder: '******',
   label: 'Senha',
+  testId: 'password',
 };
 
 export const nameOptions = {
@@ -20,4 +22,5 @@ export const nameOptions = {
   type: 'text',
   placeholder: 'Seu nome',
   label: 'Nome',
+  testId: 'name',
 };
