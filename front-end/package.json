@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "with-env": "SKIP_PREFLIGHT_CHECK=true",
-    "start": "react-scripts start",
+    "start": "npm run with-env react-scripts start",
     "start:build": "PORT=3000 ./node_modules/.bin/serve -s build",
     "build": "npm run with-env react-scripts build",
     "test": "npm run with-env react-scripts test -- --runInBand --detectOpenHandles --verbose",
