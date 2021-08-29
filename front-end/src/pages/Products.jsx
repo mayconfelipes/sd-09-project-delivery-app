@@ -6,7 +6,6 @@ const Products = () => (
   <div>
     <Navbar />
     <CardList />
-
   </div>
 );
 
