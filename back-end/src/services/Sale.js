@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable max-lines-per-function */
 const Joi = require('joi');
 const { generateError } = require('../../schemas');
