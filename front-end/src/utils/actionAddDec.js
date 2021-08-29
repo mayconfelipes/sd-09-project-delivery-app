@@ -2,6 +2,7 @@ const { setCarrinhoLocalStorage, getTotalCartLocalStorage } = require('./storage
 const dataTestId = require('./dataTestIds');
 
 const testid = dataTestId.default;
+const QTDDEFAULTSTATE = -1;
 
 const setProductLocalStorage = (idProduct, qtdProduct) => {
   const name = document.querySelector(`[data-testid='${testid[15]}${idProduct}']`)
@@ -50,4 +51,13 @@ const increment = (event) => {
   setProductLocalStorage(idProduct, qtdProduct);
 };
 
-module.exports = { decrement, increment };
+const doOnChangeQtdInput = (event, setQtdInputOnChange) => {
+  const qtdProduct = parseInt(event.target.value, 10);
+  if (qtdProduct > QTDDEFAULTSTATE) {
+    const idProduct = event.target.id.split('-')[1]; // no id do input tem o id do produto
+    setProductLocalStorage(idProduct, qtdProduct);
+    setQtdInputOnChange(qtdProduct);
+  }
+};
+
+module.exports = { decrement, increment, doOnChangeQtdInput };
