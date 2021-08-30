@@ -2,19 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const NavBar = () => (
-  <nav data-testid="customer_products__element-navbar-link-products">
+  <nav>
     <ul>
       <Link to="/customer/products">
-        <li>PRODUTOS</li>
+        <li data-testid="customer_products__element-navbar-link-products">PRODUTOS</li>
       </Link>
       <Link to="/customer/orders">
-        <li>MEUS PEDIDOS</li>
+        <li data-testid="customer_products__element-navbar-link-orders">MEUS PEDIDOS</li>
       </Link>
       <Link to="/register">
-        <li>test</li>
+        <li data-testid="customer_products__element-navbar-user-full-name">NAME</li>
       </Link>
       <Link to="/login">
-        <li>Sair</li>
+        <li data-testid="customer_products__element-navbar-link-logout">Sair</li>
       </Link>
     </ul>
   </nav>
