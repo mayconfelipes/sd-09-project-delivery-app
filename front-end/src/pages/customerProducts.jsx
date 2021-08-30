@@ -14,15 +14,6 @@ const CustomerProducts = () => {
     getProducts().then((response) => setProducts(response));
   }, []);
 
-  const increment = () => {
-    const incre = document.querySelector('.incremeto');
-
-    incre.addEventListener('click', () => {
-      const text = incre.previousSibling.value;
-      console.log(text);
-    });
-  };
-
   return (
     <div>
       <NavBarCustomer textProp="produtos" />
@@ -35,7 +26,7 @@ const CustomerProducts = () => {
                 className="card_price"
                 data-testid={ `customer_products__element-card-price-${product.id}` }
               >
-                { `R$ ${product.price}` }
+                { product.price }
               </div>
 
               <img
@@ -55,7 +46,7 @@ const CustomerProducts = () => {
 
                 <div className="quantity">
                   <button
-                    className="decremento"
+                    className={ `decremento-${product.id}` }
                     type="button"
                     data-testid={ `customer_products__button-card-rm-item-${product.id}` }
                   >
@@ -67,12 +58,12 @@ const CustomerProducts = () => {
                     }
                   />
                   <button
-                    className="incremento"
+                    className={ `incremento-${product.id}` }
                     type="button"
                     data-testid={
                       `customer_products__button-card-add-item-${product.id}`
                     }
-                    onClick={ () => increment() }
+                    onClick={ () => {} }
                   >
                     +
                   </button>

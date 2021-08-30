@@ -5,11 +5,15 @@ import '../styles/navBarCustomer.css';
 function NavBarCustomer(props) {
   const { textProp } = props;
 
-  const token = 'abc123';
-  const getUserName = JSON.parse(localStorage.getItem(token)).name;
+  const getUserName = () => {
+    const userName = JSON.parse(localStorage.getItem('user')) || '';
+    if (userName) {
+      return userName.name;
+    }
+  };
 
   const logout = () => {
-    localStorage.removeItem(token);
+    localStorage.removeItem('user');
   };
 
   function setOrders() {
@@ -56,7 +60,7 @@ function NavBarCustomer(props) {
             className="navbar_nome"
             data-testid="customer_products__element-navbar-user-full-name"
           >
-            { getUserName }
+            { getUserName() }
           </div>
 
           <div className="navbar_sair">
