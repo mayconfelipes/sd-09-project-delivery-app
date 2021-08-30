@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import * as api from '../services/api';
+
+const errorMessageTimeout = 2000;
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [valid, setValid] = useState(false);
+  const [showInvalidLoginError, setInvalidLoginError] = useState('');
 
-  const token = 'abc123';
-
-  const localstorageMock = () => {
-    localStorage.setItem(token, JSON.stringify({
-      id: 1,
-      name: 'Fulana Pereira',
-      email: 'fulana@deliveryapp.com',
-      role: 'seller',
-      token,
-    }));
-  };
+  const history = useHistory();
 
   useEffect(() => {
     const emailRegex = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
@@ -26,6 +20,21 @@ function Login() {
     }
     setValid(false);
   }, [email, password]);
+
+  const showInvalidLoginMessage = (message) => {
+    setInvalidLoginError(message);
+    setTimeout(() => setInvalidLoginError(''), errorMessageTimeout);
+  };
+
+  const loginUser = async () => {
+    try {
+      const { data } = await api.loginUser(email, password);
+      localStorage.setItem('user', JSON.stringify(data));
+      history.push('/customer/products');
+    } catch (error) {
+      showInvalidLoginMessage(error.message);
+    }
+  };
 
   return (
     <div className="login-page">
@@ -48,16 +57,14 @@ function Login() {
             onChange={ (e) => setPassword(e.target.value) }
           />
         </label>
-        <Link to="/customer/products">
-          <button
-            type="button"
-            data-testid="common_login__button-login"
-            disabled={ !valid }
-            onClick={ () => localstorageMock() }
-          >
-            LOGIN
-          </button>
-        </Link>
+        <button
+          type="button"
+          data-testid="common_login__button-login"
+          disabled={ !valid }
+          onClick={ () => loginUser() }
+        >
+          LOGIN
+        </button>
         <Link to="/register">
           <button
             type="button"
@@ -68,7 +75,7 @@ function Login() {
         </Link>
       </form>
       <p data-testid="common_login__element-invalid-email">
-        Elemento oculto (Mensagens de erro)
+        { showInvalidLoginError }
       </p>
     </div>
   );

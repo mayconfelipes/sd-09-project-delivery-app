@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const { Op } = require('sequelize');
 const { User } = require('../../database/models');
 const { newToken } = require('../utils/jwtfunctions');
 const newError = require('../utils/newError');
@@ -21,8 +22,17 @@ const loginUser = async ({ email, password }) => {
 };
 
 const registerUser = async ({ name, email, password, role }) => {
-  const checkUser = await User.findOne({ where: { email } });
+  const checkUser = await User.findOne({
+    where: {
+      [Op.or]: [
+        { email },
+        { name },
+      ],
+    },
+  });
+
   if (checkUser) throw newError(409, 'User already registered');
+
   const passwordMD5 = crypto.createHash('md5').update(password).digest('hex');
   await User.create({ name, email, password: passwordMD5, role });
   const registeredUser = await searchUser(email, passwordMD5);
