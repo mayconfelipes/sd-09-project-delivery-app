@@ -1,8 +1,10 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const getJwtSecret = require('../../../utils/getJwtSecret');
 
-const sign = (payload) => jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 86400 });
+const jwtSecret = getJwtSecret();
 
-const verify = (token) => jwt.verify(token, process.env.JWT_SECRET);
+const sign = (payload) => jwt.sign(payload, jwtSecret, { expiresIn: 86400 });
+
+const verify = (token) => jwt.verify(token, jwtSecret);
 
 module.exports = { sign, verify };
