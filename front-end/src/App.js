@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-
 import { Products, Login, Register, SellerOrders } from './Pages';
 
 import './App.css';
