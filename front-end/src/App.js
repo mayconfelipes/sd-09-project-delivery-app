@@ -9,7 +9,7 @@ function App() {
     <Switch>
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
-      <Route path="/products" component={ Products } />
+      <Route path="/customer/products" component={ Products } />
       <Route path="/seller/orders" component={ SellerOrders } />
       <Route exact path="/">
         <Redirect to="/login" />

@@ -50,7 +50,7 @@ function LoginFormComponent() {
     }
     localStorage.setItem('userInfo', JSON.stringify(response));
     if (response.role === 'customer') {
-      history.push('/products');
+      history.push('/customer/products');
     } else if (response.role === 'seller') {
       history.push('/seller/orders');
     } else {

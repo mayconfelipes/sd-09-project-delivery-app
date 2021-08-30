@@ -28,7 +28,7 @@ export const userLogin = async ({ email, password }) => {
 };
 
 export const getSales = async (token) => {
-  const request = await fetch('http://localhost3001/sale', {
+  const request = await fetch('http://localhost:3001/sale', {
     method: 'GET',
     headers: {
       'Content-Type': APP_SCHEMA,
