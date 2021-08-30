@@ -43,10 +43,6 @@ function LoginFormComponent() {
 
   const logIn = async () => {
     const response = await userLogin({ email: login, password });
-    // return response.message
-    // ? setErrorMessage({
-    //   message: 'Login ou senha inválidos! :(',
-    // }) : history.push(`/${response.role}/products`);
     if (response.message) {
       return setErrorMessage({
         message: 'Login ou senha inválidos! :(',
