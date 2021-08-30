@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 const Navbar = ({ abas, user }) => {
   console.log('lint eu te amo');
   return (
