@@ -2,8 +2,8 @@
 
 const { product } = require('../../database/models');
 
-const getAllProducts = async () => await product.findAll({});
+const getAllProducts = async () => product.findAll({});
 
-const getProductById = async (id) => await product.findOne({ where: { id } });
+const getProductById = async (id) => product.findOne({ where: { id } });
 
 module.exports = { getAllProducts, getProductById };
