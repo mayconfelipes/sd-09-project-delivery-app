@@ -3,6 +3,6 @@ const SaleController = require('../database/controllers/SaleController');
 
 const router = express.Router();
 
-router.get('/checkout', SaleController.checkOut);
+router.post('/checkout', SaleController.checkOut);
 
 module.exports = router;

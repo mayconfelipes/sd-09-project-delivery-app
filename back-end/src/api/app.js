@@ -20,10 +20,9 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/products', productRoute);
+app.use('/customer', authMiddleware, saleRoute);
 
 app.use(express.static(path.join(__dirname, '../', '../', 'public')));
-
-app.post('/customer', authMiddleware, saleRoute);
 
 app.use(errorMiddleware);
 
