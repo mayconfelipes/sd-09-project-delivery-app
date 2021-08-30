@@ -10,16 +10,23 @@ class ProductCard extends React.Component {
     };
 
     this.changeValue = this.changeValue.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    if (value < 0) return this.setState({ [name]: 0 });
+    this.setState({ [name]: value });
   }
 
   changeValue(type) {
     const { value } = this.state;
 
     if (type === 'add') {
-      this.setState((prevState) => ({ value: (prevState.value + 1) }));
+      this.setState((prevState) => ({ value: (Number(prevState.value) + 1) }));
     } else if (type === 'sub') {
       if (value === 0) return;
-      this.setState((prevState) => ({ value: (prevState.value - 1) }));
+      this.setState((prevState) => ({ value: (Number(prevState.value) - 1) }));
     }
   }
 
@@ -32,7 +39,7 @@ class ProductCard extends React.Component {
           <p
             data-testid={ `customer_products__element-card-price-${product.id}` }
           >
-            { product.price }
+            { product.price.replace(/\./, ',')}
           </p>
           <img
             src={ product.url_image }
@@ -55,11 +62,12 @@ class ProductCard extends React.Component {
           >
             -
           </button>
-          <p
+          <input
+            name="value"
+            value={ value }
+            onChange={ this.handleChange }
             data-testid={ `customer_products__input-card-quantity-${product.id}` }
-          >
-            { value }
-          </p>
+          />
           <button
             type="button"
             onClick={ () => this.changeValue('add') }

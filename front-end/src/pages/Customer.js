@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import fetchGET from '../services/fetchGET';
 
@@ -8,13 +9,23 @@ class Customer extends React.Component {
 
     this.state = {
       products: [],
+      name: '',
     };
 
     this.fetchAPI = this.fetchAPI.bind(this);
+    this.userName = this.userName.bind(this);
   }
 
   componentDidMount() {
     this.fetchAPI();
+    this.userName();
+  }
+
+  userName() {
+    const user = localStorage.getItem('user');
+    this.setState({
+      name: JSON.parse(user).name,
+    });
   }
 
   async fetchAPI() {
@@ -28,8 +39,12 @@ class Customer extends React.Component {
     }
   }
 
+  removeUser() {
+    localStorage.removeItem('user');
+  }
+
   render() {
-    const { products } = this.state;
+    const { products, name } = this.state;
     return (
       <div>
         <nav>
@@ -48,14 +63,17 @@ class Customer extends React.Component {
           <p
             data-testid="customer_products__element-navbar-user-full-name"
           >
-            NOME DO USER
+            { name }
           </p>
-          <button
-            type="button"
-            data-testid="customer_products__element-navbar-link-logout"
-          >
-            Sair
-          </button>
+          <Link to="/login">
+            <button
+              type="button"
+              onClick={ this.removeUser }
+              data-testid="customer_products__element-navbar-link-logout"
+            >
+              Sair
+            </button>
+          </Link>
         </nav>
         <div>
           { products.map((product, index) => (
