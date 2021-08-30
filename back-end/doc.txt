@@ -52,7 +52,7 @@ response =>
     "id": 9,
     "name": "matheus martino do amaral",
     "email": "teste@teste.com",
-    "role": "user",
+    "role": "customer",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJuYW1lIjoibWF0aGV1cyBtYXJ0aW5vIGRvIGFtYXJhbCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwicm9sZSI6InVzZXIifSwiaWF0IjoxNjMwMjE1OTEyfQ.YpRIWzvTZxU72nZLicA7Eb7bV5Fk1dbnQwgHZdNHYwk"
   }
 }

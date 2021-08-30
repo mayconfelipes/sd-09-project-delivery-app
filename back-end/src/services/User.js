@@ -50,7 +50,7 @@ const register = async ({ name, email, password }) => {
   if (existentUser) throw generateError(409, 'Email already registered.');
 
   const cryptPassword = md5(password);
-  const user = await User.create({ name, email, password: cryptPassword, role: 'user' });
+  const user = await User.create({ name, email, password: cryptPassword, role: 'customer' });
   const userWithoutPassword = removePassword(user.dataValues);
 
   return {
