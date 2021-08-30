@@ -14,8 +14,8 @@ const loginValidator = Joi.object({
 route.post('/', [
   validate(loginValidator),
   rescue(async (req, res) => {
-    const token = await generateToken(req.body);
-    res.status(200).json(token);
+    const data = await generateToken(req.body);
+    res.status(200).json(data);
   }),
 ]);
 
