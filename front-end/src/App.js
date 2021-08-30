@@ -3,24 +3,27 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Register, AdminManage, SellerOrders, SellerOrdersDetails,
   CustomerCheckout, CustomerOrders, CustomerOrdersDetails, CustomerProducts,
 } from './pages';
-import './App.css';
+import GlobalStyle from './GlobalStyle';
 
 function App() {
   return (
-    <Switch>
-      <Route exact path="/">
-        <Redirect to="/login" />
-      </Route>
-      <Route path="/login" component={ Login } />
-      <Route path="/register" component={ Register } />
-      <Route path="/customer/products" component={ CustomerProducts } />
-      <Route path="/customer/checkout" component={ CustomerCheckout } />
-      <Route exact path="/customer/orders:id" component={ CustomerOrdersDetails } />
-      <Route path="/customer/orders" component={ CustomerOrders } />
-      <Route exact path="/seller/orders:id" component={ SellerOrdersDetails } />
-      <Route path="/seller/orders" component={ SellerOrders } />
-      <Route path="/admin/manage" component={ AdminManage } />
-    </Switch>
+    <>
+      <GlobalStyle />
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+        <Route path="/login" component={ Login } />
+        <Route path="/register" component={ Register } />
+        <Route path="/customer/products" component={ CustomerProducts } />
+        <Route path="/customer/checkout" component={ CustomerCheckout } />
+        <Route exact path="/customer/orders:id" component={ CustomerOrdersDetails } />
+        <Route path="/customer/orders" component={ CustomerOrders } />
+        <Route exact path="/seller/orders:id" component={ SellerOrdersDetails } />
+        <Route path="/seller/orders" component={ SellerOrders } />
+        <Route path="/admin/manage" component={ AdminManage } />
+      </Switch>
+    </>
   );
 }
 
