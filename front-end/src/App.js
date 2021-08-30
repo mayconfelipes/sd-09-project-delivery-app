@@ -5,6 +5,7 @@ import Admin from './pages/Admin';
 import Custommer from './pages/Custommer';
 import Login from './pages/Login';
 import Products from './pages/Products';
+import Checkout from './pages/Checkout';
 
 import Register from './pages/Register/Register';
 
@@ -18,7 +19,7 @@ function App() {
         <Route path="/login" exact component={ Login } />
         <Route path="/register" component={ Register } />
         <Route path="/customer/products" component={ Custommer } />
-        <Route path="/customer/checkout" component={ Custommer } />
+        <Route path="/customer/checkout" component={ Checkout } />
         <Route path="/customer/orders" component={ Products } />
         <Route path="/customer/orders/:id" component={ Custommer } />
         {/* <Route path="/seller/orders" component={ Seller } />
