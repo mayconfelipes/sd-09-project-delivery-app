@@ -24,6 +24,10 @@ function Login() {
     }
   };
 
+  const saveTokenLocalStorage = (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
+  };
+
   const userChange = ({ target }) => {
     setUser(target.value);
     verifyDisabled();
@@ -43,7 +47,9 @@ function Login() {
   const login = () => {
     // connectBack.post('/login', { hasToken: false, method: 'POST', status: 404 })
     connectBack.post('/login', { email, password })
-      .then(() => {
+      .then((response) => {
+        console.log('LOGOU', response.data.user);
+        saveTokenLocalStorage(response.data.user);
         redirectCostummer();
       })
       .catch((error) => {
