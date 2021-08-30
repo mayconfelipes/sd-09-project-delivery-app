@@ -21,14 +21,22 @@ const getCarrinhoLocalStorage = () => {
 };
 
 const setCarrinhoLocalStorage = (productData) => {
-  const cart = getCarrinhoLocalStorage();
+  let cart = getCarrinhoLocalStorage();
+
   const index = cart.findIndex(
     ({ productId }) => productId === productData.productId,
   );
   if (index > INVALIDINDEX) {
-    cart[index] = productData; // subtitui os dados da posição, pelos atualizados
+    if (productData.quantity === 0) {
+      cart = cart.filter( // cart recebe só os qtd !== 0
+        ({ productId }) => parseInt(productId,
+          10) !== parseInt(productData.productId, 10),
+      );
+    } else {
+      cart[index] = productData; // subtitui os dados da posição, pelos atualizados
+    }
   } else {
-    cart.push(productData);
+    cart.push(productData); // insere no localStorage
   }
   localStorage.setItem('carrinho', JSON.stringify(cart));
 };

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Redirect } from 'react-router';
 import Api from '../services/api';
+import AppContext from '../context/AppContext';
 import {
   getTokenLocalStorage,
   removeUserDataLocalStorage,
-  getTotalCartLocalStorage,
-  getCarrinhoLocalStorage,
 } from '../utils/storage';
 
 import Card from './Card';
@@ -13,6 +12,7 @@ import testid from '../utils/dataTestIds';
 import Button from './Button';
 
 const CardList = () => {
+  const { totalCart } = useContext(AppContext);
   const [productData, setProductData] = useState([]);
   const [isError, setIsError] = useState(false);
   const [isRedirectCart, setIsRedirectCart] = useState(false);
@@ -43,11 +43,11 @@ const CardList = () => {
       <Button
         id="btn-total-cart"
         dataTestId={ testid[21] }
-        buttonText={ getTotalCartLocalStorage() }
+        buttonText={ totalCart }
         onClick={ () => {
           setIsRedirectCart(true);
         } }
-        isDisabled={ getCarrinhoLocalStorage().length <= 0 }
+        isDisabled={ totalCart === '0,00' }
       />
 
       <div className="list-products">
