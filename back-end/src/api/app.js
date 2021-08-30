@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 app.get('/coffee', (_req, res) => res.status(418).end());
-app.get('/login', User.login);
+app.post('/login', User.login);
 app.post('/register', User.register);
 
 app.use(errorMiddleware);
