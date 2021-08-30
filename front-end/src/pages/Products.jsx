@@ -29,6 +29,7 @@ function Products() {
                   {name}
                 </h4>
                 <img
+                  className="main--img"
                   src={ urlImage }
                   alt={ name }
                   data-testid={ `customer_products__img-card-bg-image-${id}` }

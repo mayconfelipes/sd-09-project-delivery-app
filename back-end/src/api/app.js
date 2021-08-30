@@ -5,8 +5,9 @@ const cors = require('cors');
 
 const app = express();
 app.use(bodyParser.json());
-
+// app.use(express.static(`${__dirname}/public`));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 app.use(cors());
 
 const controllers = require('../controller');
