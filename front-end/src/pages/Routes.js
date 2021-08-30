@@ -1,7 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import Login from './Login';
-import CustomerProvider from '../context/CustomerContext';
+import CustomerProvider from '../context/CustomerProvider';
+import Checkout from './Checkout';
 
 const Routes = () => (
   <BrowserRouter>
@@ -10,6 +11,9 @@ const Routes = () => (
         <Redirect to="/login" />
       </Route>
       <Route path="/login" component={ Login } />
+      <CustomerProvider>
+        <Route path="/customer/checkout" component={ Checkout } />
+      </CustomerProvider>
     </Switch>
   </BrowserRouter>
 );
