@@ -6,10 +6,10 @@ const ErrorH3 = styled.h3`
   color: red;
 `;
 
-function ErrorMessage({ route }) {
+function ErrorMessage({ route, field }) {
   return (
     <ErrorH3
-      data-testid={ `${route}__element-invalid-email` }
+      data-testid={ `${route}__element-invalid${field}` }
     >
       Os valores informados estão incorretos.
     </ErrorH3>
@@ -18,6 +18,7 @@ function ErrorMessage({ route }) {
 
 ErrorMessage.propTypes = {
   route: PropTypes.string.isRequired,
+  field: PropTypes.string.isRequired,
 };
 
 export default ErrorMessage;

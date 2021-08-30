@@ -1,41 +1,58 @@
 import React, { useState, useContext } from 'react';
-// import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { LoginContext } from '../context/LoginContext';
 import { createInput, createButton } from '../utils/creators';
+import validateEmail from '../utils/validateEmail';
+import { PASS_MIN_LENGTH } from '../utils/validationNumbers';
 import { emailOptions, passwordOptions } from '../data/InputOptions';
 import ErrorMessage from '../components/ErrorMessage';
 import { login } from '../services/api';
 import { loginButton, registerButton } from '../data/ButtonOptions';
-// import rockGlass from '../images/rockGlass.svg';
+import rockGlass from '../images/rockGlass.svg';
+import FormSection from '../components/StyledComponents/FormSection';
 
-const PASS_MIN_LENGTH = 6;
 const route = 'common_login';
+
+const redirectPath = {
+  administrator: <Redirect to="/admin/manage" />,
+  seller: <Redirect to="/seller/orders" />,
+  customer: <Redirect to="/customer/products" />,
+};
 
 function Login() {
   const {
-    apiResponse,
     loginErrorMessage,
     setApiResponse,
     setLoginErrorMessage,
   } = useContext(LoginContext);
-  const [state, setState] = useState({ email: '', password: '' });
-  // const [validLogin, setValidLogin] = useState(false);
+  const [state, setState] = useState({ emailInput: '', passwordInput: '' });
+  const [canRedirect, setCanRedirect] = useState(false);
+  const [path, setPath] = useState('');
 
   const handleChange = ({ target: { name, value } }) => {
     setState({ ...state, [name]: value });
   };
 
-  const handleLogin = () => (
-    login(state.email, state.password, setApiResponse, setLoginErrorMessage));
+  const { emailInput, passwordInput } = state;
 
-  const validateEmail = (email) => {
-    const isValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+  const handleLogin = async () => {
+    const response = await login(
+      emailInput, passwordInput, setApiResponse, setLoginErrorMessage,
+    );
 
-    return !!isValid;
+    if (response.token) {
+      setPath(response.role);
+      return setCanRedirect(true);
+    }
   };
 
+  if (canRedirect) return redirectPath[path];
+
   return (
-    <section>
+    <FormSection>
+      <object data={ rockGlass } type="image/svg+xml">
+        Glass
+      </object>
       <h1>LOGIN</h1>
       { createInput({ ...emailOptions, onChange: handleChange, route }) }
       { createInput({ ...passwordOptions, onChange: handleChange, route }) }
@@ -43,24 +60,27 @@ function Login() {
         ...loginButton,
         onClick: handleLogin,
         route,
-        disabled: !validateEmail(state.email) || state.password.length < PASS_MIN_LENGTH,
+        disabled: !validateEmail(emailInput)
+          || passwordInput.length < PASS_MIN_LENGTH,
       })}
-      { createButton({ ...registerButton, onClick: () => {}, route }) }
-      { loginErrorMessage && <ErrorMessage route={ route } /> }
-      { apiResponse && <p>Login efetuado</p> }
-    </section>
+      <Link to="/register">
+        { createButton({ ...registerButton, onClick: () => {}, route }) }
+      </Link>
+      { loginErrorMessage && <ErrorMessage route={ route } field="-email" /> }
+    </FormSection>
   );
 }
 
 /*
-email
-  1 - adm@deliveryapp.com
-  2 - fulana@deliveryapp.com
-  3 - zebirita@email.com
-password
-  1 - --adm2@21!!--
-  2 - fulana@123
-  3 - $#zebirita#$
+user
+  adm@deliveryapp.com
+  --adm2@21!!--
+
+  fulana@deliveryapp.com
+  fulana@123
+
+  zebirita@email.com
+  $#zebirita#$
 */
 
 export default Login;

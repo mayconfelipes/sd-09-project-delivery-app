@@ -1,12 +1,14 @@
 import React from 'react';
 
-export const createInput = ({ id, name, type, placeholder, label, onChange, route }) => (
+export const createInput = ({
+  id, name, type, placeholder, label, testId, onChange, route,
+}) => (
   <>
     <label htmlFor={ id }>
       { label }
     </label>
     <input
-      data-testid={ `${route}__input-${type}` }
+      data-testid={ `${route}__input-${testId}` }
       name={ name }
       type={ type }
       placeholder={ placeholder }
