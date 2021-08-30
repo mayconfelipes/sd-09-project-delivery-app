@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import { NavBarElement } from '../styles';
 import Navigations from '../Molecules/Navigations';
 import Button from '../Atoms/Button';
+import Text from '../Atoms/Text';
 
-function NavBar() {
+function NavBar({ links, user }) {
   return (
     <NavBarElement>
-      <Navigations>teste</Navigations>
-      <Button>Sair</Button>
+      <Navigations links={ links } />
+      <Text>{user}</Text>
+      <Button
+        text="Sair"
+        styleColor="purple"
+      />
     </NavBarElement>
   );
 }

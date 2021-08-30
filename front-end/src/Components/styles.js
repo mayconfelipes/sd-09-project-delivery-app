@@ -1,15 +1,8 @@
 import styled from 'styled-components';
 
-const colorsPallete = {
-  grey: '#264653',
-  green: '#2a9d8f',
-  yellow: '#e9c46a',
-  orange: '#e76f51',
-  white: '#fff',
-};
-
 const root = {
   colors: {
+    blueLight: '#2D303E',
     red: '#EA7C69',
     white: '#fff',
   },
@@ -23,35 +16,39 @@ const root = {
 
 // ATOMS
 export const ButtonElement = styled.button`
-  padding: '14px',
-  border-radius: '8px',
-  margin-bottom: '14px',
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 14px;
   background-color: ${({ styleColor }) => {
     if (root.button[styleColor]) {
       return root.button[styleColor].backgroundColor;
     }
     return null;
   }};
-
   color: ${({ styleColor }) => {
     if (root.button[styleColor]) {
       return root.button[styleColor].color;
     }
     return null;
   }};
+  ${(props) => {
+    if (props.disabled) {
+      return `background-color: ${root.colors.blueLight}`;
+    }
+  }}
 `;
 
 export const InputElement = styled.input`
-  background-color: '#2D303E',
-  padding: '14px',
-  border-radius: '8px',
-  border: '1px solid #393C49',
-  margin-bottom: '15px',
-  color: '#E0E6E9',
+  background-color: #2D303E;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #393C49;
+  margin-bottom: 15px;
+  color: #E0E6E9;
 `;
 
 export const ListLinkElement = styled.li`
-list-style: none;
+  list-style: none;
 `;
 
 export const OptionElement = styled.option``;
@@ -64,17 +61,15 @@ export const TitleElement = styled.h1``;
 
 // MOLECULES
 export const ImagePriceElement = styled.div`
-  border: 1px solid ${colorsPallete.grey};
+  border: 1px solid ${root.colors.white};
   width: 200px;
-
   img {
     max-width: 100%;
     height: auto;
-  }
-
+  };
   span {
     padding: 5px 10px;
-  }
+  };
 `;
 
 export const InputRageElement = styled.div`
@@ -86,11 +81,11 @@ export const InputRageElement = styled.div`
 export const InputSelectElement = styled.label``;
 
 export const InputTextElement = styled.label`
-  display: 'flex';
-  flex-direction: 'column';
+  display: flex;
+  flex-direction: column;
   span{
-    color: '#FFF';
-    padding: '8px';
+    color: #FFF;
+    padding: 8px;
   }
 `;
 
@@ -111,9 +106,23 @@ export const CardProductElement = styled.div``;
 
 export const CardStatusElement = styled.div``;
 
-export const NavBarElement = styled.div``;
+export const NavBarElement = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 export const ProductListElement = styled.ul``;
+
+export const LoginForm = styled.form`
+  background-color: #1F1D2B;
+  padding: 27px 24px 13px 24px;
+  border-radius: 8px;
+  border: 1px solid #393C49;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+`;
 
 // TEMPLATES
 

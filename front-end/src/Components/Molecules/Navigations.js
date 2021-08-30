@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import { NavigationsElement } from '../styles';
 import ListLink from '../Atoms/LinkList';
 
-function Navigations({ children }) {
+function Navigations({ links }) {
   return (
     <NavigationsElement>
-      <ListLink>{children}</ListLink>
-      <ListLink>{children}</ListLink>
-      <ListLink>{children}</ListLink>
+      {links && links.map(({ text, url }, index) => (
+        <ListLink
+          key={ `navbar-${index}` }
+          text={ text }
+          url={ url }
+        />
+
+      ))}
     </NavigationsElement>
   );
 }
