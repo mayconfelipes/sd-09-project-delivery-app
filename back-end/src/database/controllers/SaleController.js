@@ -1,11 +1,11 @@
 const Sale = require('../services/SaleService');
 
-const getAll = async (_req, res) => {
-  const sales = await Sale.getAll();
+const checkOut = async (req, res) => {
+  const sale = await Sale.checkOut(req.body);
 
-  return res.status(200).json(sales);
+  return res.status(201).json(sale);
 };
 
 module.exports = {
-  getAll,
+  checkOut,
 };

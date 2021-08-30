@@ -2,8 +2,8 @@ const Product = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     name: DataTypes.STRING,
     price: DataTypes.DECIMAL,
-    urlImage: DataTypes.STRING
-  }, { timestamps: false });
+    url_image: DataTypes.STRING
+  }, { timestamps: false, underscored: true });
 
   return Product;
 };

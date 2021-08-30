@@ -65,7 +65,8 @@ const register = async (name, email, password) => {
     const token = sign(payload);
 
     return token;
-  } catch (_error) {
+  } catch (error) {
+    console.log(error);
     throw errorHelper(409, '"Email" or "Name" already used');
   }
 };
