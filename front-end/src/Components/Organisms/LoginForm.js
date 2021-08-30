@@ -7,9 +7,6 @@ import { LoginForm } from '../styles';
 import validation from '../../validation/userValidation';
 import { userLogin } from '../../services/api';
 
-const notFound = 404;
-const statusOk = 200;
-
 function LoginFormComponent() {
   const inicialFormData = {
     login: '',
@@ -45,16 +42,12 @@ function LoginFormComponent() {
 
   //  Teste
   const logIn = async () => {
-    const response = await userLogin({ email: login, password });
-    const { status } = response;
-    if (status === notFound) {
-      const { message } = await response.json();
-      setErrorMessage({ message: `Error ${status}: ${message}` });
+    const response = await userLogin({ email: login, password }).json();
+    const { message } = response;
+    if (message) {
+      return setErrorMessage({ message: `Error: ${message}` });
     }
-
-    if (status === statusOk) {
-      return history.push('/customer/products');
-    }
+    return history.push('/customer/products');
   };
 
   return (
