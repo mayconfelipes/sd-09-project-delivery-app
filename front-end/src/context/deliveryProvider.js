@@ -3,11 +3,11 @@ import React, { useState, useContext } from 'react';
 import DeliveryContext from './deliveryContext';
 
 export const DeliveryProvider = ({ children }) => {
-  const [isTest, setTest] = useState('deu bom');
+  const [dataUser, setDataUser] = useState('deu bom');
 
   const context = {
-    isTest,
-    setTest,
+    dataUser,
+    setDataUser,
   };
 
   return (
