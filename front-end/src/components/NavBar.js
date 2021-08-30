@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import './NavBar.css';
 
 function NavBar(props) {
@@ -27,34 +27,31 @@ function NavBar(props) {
         { userType === 'customer' && (
           <>
             <li>
-              <button
-                type="button"
-                onClick={ () => history.push('/customer/products') }
+              <NavLink
+                to='/customer/products'
                 data-testid="customer_products__element-navbar-link-products"
               >
                 Produtos
-              </button>
+              </NavLink>
             </li>
             <li>
-              <button
-                type="button"
-                onClick={ () => history.push('/customer/orders') }
+              <NavLink
+                to='/customer/orders'
                 data-testid="customer_products__element-navbar-link-orders"
               >
                 Meus pedidos
-              </button>
+              </NavLink>
             </li>
           </>
         ) }
         { userType === 'seller' && (
           <li>
-            <button
-              type="button"
-              onClick={ () => history.push('/seller/orders') }
+            <NavLink
+              to='/seller/orders'
               data-testid="customer_products__element-navbar-link-orders"
             >
               Meus pedidos
-            </button>
+            </NavLink>
           </li>
         ) }
         { userType === 'admin' && (
@@ -67,10 +64,9 @@ function NavBar(props) {
             </a>
           </li>
         ) }
-        <div className="flexRigth">
+        <div>
 
           <li
-            className="nav-name"
             data-testid="customer_products__element-navbar-user-full-name"
           >
             { userName }

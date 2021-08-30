@@ -6,7 +6,7 @@ import Context from '../../../context/Context';
 const ProductsCard = ({ product }) => {
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart } = useContext(Context);
-  const { id, name, price, url_image: urlImage } = product;
+  const { id, name, price, url_image } = product;
 
   useEffect(() => {
     const isInCart = cart.filter((item) => item.id === id);
@@ -45,7 +45,7 @@ const ProductsCard = ({ product }) => {
       </div>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ urlImage }
+        src={ url_image }
         alt="produto"
       />
       <p
