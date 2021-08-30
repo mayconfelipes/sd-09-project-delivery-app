@@ -1,8 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import api from '../../service/axiosApi';
 
+import validateUserData from '../../helpers/validateUserData';
+import UserRegisterAlert from '../../components/alerts/UserRegisterAlert';
+import DeliveryContext from '../../context/deliveryContext';
+
 function Register() {
-  const [input, setInput] = useState({});
+  const [input, setInput] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [showError, setShowError] = useState(false);
+
+  const { isTest } = useContext(DeliveryContext);
+
+  const history = useHistory();
 
   const handleInputChange = ({ target }) => {
     const { name, value } = target;
@@ -12,22 +27,33 @@ function Register() {
     });
   };
 
+  useEffect(() => {
+    const dataIsValid = validateUserData(input);
+    setBtnDisabled(!dataIsValid);
+  }, [input]);
+
   const handleInputSubmit = (event) => {
     event.preventDefault();
     const data = input;
 
-    // console.log(data);
-    // api.post('/register', data);
+    console.log('data:', data);
 
     api.post('/register', data)
-      .then((response) => console.log(response))
-      .catch((err) => console.log(err));
-    console.log('click!');
+      .then((response) => {
+        console.log(response);
+        history.push('/customer/products');
+      })
+      .catch((err) => {
+        setShowError(true);
+        console.log('[Erro] >', err);
+        // console.log('[Erro] >', err.response.data.message);
+      });
   };
 
   return (
     <div>
       <h1>Register</h1>
+      <h4>{ isTest }</h4>
       <form>
         <label htmlFor="name">
           Nome:
@@ -37,6 +63,7 @@ function Register() {
             name="name"
             placeholder="Seu nome"
             onChange={ handleInputChange }
+            data-testid="common_register__input-name"
           />
         </label>
         <label htmlFor="email">
@@ -47,6 +74,7 @@ function Register() {
             name="email"
             placeholder="seu-email@site.com"
             onChange={ handleInputChange }
+            data-testid="common_register__input-email"
           />
         </label>
         <label htmlFor="password">
@@ -57,10 +85,19 @@ function Register() {
             name="password"
             placeholder="********"
             onChange={ handleInputChange }
+            data-testid="common_register__input-password"
           />
         </label>
-        <button type="submit" onClick={ handleInputSubmit }>Cadastrar</button>
+        <button
+          type="button"
+          onClick={ handleInputSubmit }
+          disabled={ btnDisabled }
+          data-testid="common_register__button-register"
+        >
+          Cadastrar
+        </button>
       </form>
+      {showError && <UserRegisterAlert />}
     </div>
   );
 }
