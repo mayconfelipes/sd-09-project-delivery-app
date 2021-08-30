@@ -10,6 +10,7 @@ const userSchema = joi.object().keys({
     .required(),
   password: joi.string().min(6).not().empty()
     .required(),
+  role: joi.string(),
 });
 
 const verifyUserAlreadyExists = async (email) => {
@@ -27,7 +28,7 @@ const validateUser = async (req, _res, next) => {
 
   const userAlreadyExists = await verifyUserAlreadyExists(newUser.email);
 
-  if (!userAlreadyExists) throw CONFLICT;
+  if (userAlreadyExists) throw CONFLICT;
 
   next();
 };
