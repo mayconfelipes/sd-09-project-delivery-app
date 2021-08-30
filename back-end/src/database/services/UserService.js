@@ -2,7 +2,7 @@ const Joi = require('joi');
 const crypto = require('crypto');
 const { Op } = require("sequelize");
 
-const { User } = require('../models');
+const { user: User } = require('../models');
 const errorHelper = require('../../utils/errorHelper');
 const { sign } = require('./jwt/jwt');
 const joiValidation = require('../../utils/joiValidation');
@@ -65,7 +65,7 @@ const register = async (name, email, password) => {
     const token = sign(payload);
 
     return token;
-  } catch (_error) {
+  } catch (error) {
     throw errorHelper(409, '"Email" or "Name" already used');
   }
 };
