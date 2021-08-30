@@ -6,12 +6,13 @@ const { User } = require('../models');
 const errorHelper = require('../../utils/errorHelper');
 const { sign } = require('./jwt/jwt');
 const joiValidation = require('../../utils/joiValidation');
+const getJwtSecret = require('../../utils/getJwtSecret');
 
-require('dotenv').config();
+const jwtSecret = getJwtSecret();
 
 const encodedPassword = (password) => {
   return crypto
-    .createHmac("md5", process.env.JWT_SECRET)
+    .createHmac("md5", jwtSecret)
     .update(password)
     .digest('hex');
 };
