@@ -40,7 +40,7 @@
     "moment": "2.29.1",
     "mysql2": "2.2.5",
     "pm2": "^5.1.1",
-    "puppeteer": "9.1.0",
+    "puppeteer": "^9.1.0",
     "sequelize": "6.3.4",
     "sequelize-cli": "6.2.0"
   },
@@ -55,6 +55,8 @@
     }
   },
   "dependencies": {
-    "prop-types": "^15.7.2"
+    "chrome-aws-lambda": "^10.1.0",
+    "prop-types": "^15.7.2",
+    "puppeteer-core": "^10.2.0"
   }
 }
