@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
-const md5 = require('md5');
+const md5 = require('md5'); 
+const fs = require('fs');
+const path = require('path');
 const { Users } = require('../database/models');
 require('dotenv').config();
  
@@ -8,7 +10,7 @@ const jwtConfig = {
   expiresIn: 600000,
 };
 
-const secret = 'secret_key';
+const secret = fs.readFileSync(path.join(__dirname, '../../jwt.evaluation.key'), 'utf8');
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -20,7 +22,7 @@ const login = async (req, res) => {
       const encPassword = md5(password);
       if (encPassword === exists.password) {
         const token = jwt.sign({ data: exists.displayName }, secret, jwtConfig);
-        return res.status(200).json({ message: 'Login successful', token });
+        return res.status(200).json({ message: 'Login successful', token, user: secret });
       }
       return res.status(400).json({ message: 'Wrong Password' });
   } catch (e) {
