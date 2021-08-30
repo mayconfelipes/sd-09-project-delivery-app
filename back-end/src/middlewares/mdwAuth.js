@@ -1,13 +1,13 @@
 require('dotenv/config');
 const jwt = require('jsonwebtoken');
 
-const STATUS_401 = 401;
+const statusCode = require('../utils/statusCode');
 
 const isValidToken = async (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
     return res
-    .status(STATUS_401)
+    .status(statusCode.unauthorized)
     .json({ message: 'Token not found' });
   }
 
@@ -17,7 +17,7 @@ const isValidToken = async (req, res, next) => {
     next();
   } catch (err) {
     return res
-    .status(STATUS_401)
+    .status(statusCode.unauthorized)
     .json({ message: 'Expired or invalid token' });
   }
 };
