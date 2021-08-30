@@ -1,19 +1,31 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-import { Main, Logo, LoginButton } from './styled';
+import { Main, Logo, LoginButton, Register } from './styled';
 import context from '../../context';
 import logo from '../../images/logo.png';
 import FormRender from '../../components/form';
 import formValidator from '../../services/formValidator';
+import Api from '../../services/api';
 
 const Login = () => {
+  const [registerOkay, setRegisterOkay] = useState(false);
   const { form, setForm, enableButton, setEnableButton } = useContext(context);
-  const { email, password, redirect } = form;
+  const { email, password } = form;
 
-  const logOn = () => {
-    // Fazer o fetch para a api e setar o localStorage
-    // setForm({ ...form, redirect: !redirect });
-    console.log('clicou');
+  const fetchRegister = async () => {
+    const oldLocal = JSON.parse(localStorage.getItem('user'));
+
+    const result = await Api.post('/login', { email, password })
+      .then((response) => response)
+      .catch((err) => console.log(err));
+
+    const { token } = result.data;
+
+    oldLocal.token = token;
+
+    localStorage
+      .setItem('user', JSON.stringify(oldLocal));
+    setRegisterOkay(true);
   };
 
   useEffect(() => {
@@ -23,16 +35,28 @@ const Login = () => {
 
   return (
     <Main>
-      { redirect && <Redirect to="/home" /> }
+      { registerOkay && <Redirect to="/customer/products" /> }
       <Logo src={ logo } alt="Ícone do aplicativo" />
       <FormRender />
       <LoginButton
         type="button"
         data-testid="common_login__button-login"
-        onClick={ logOn }
+        onClick={ fetchRegister }
         disabled={ !enableButton }
       >
         LOGIN
+      </LoginButton>
+      <LoginButton
+        type="button"
+        // data-testid="common_login__button-register"
+        // onClick={ logOn }
+      >
+        <Register
+          to="/register"
+          data-testid="common_login__button-register"
+        >
+          REGISTER
+        </Register>
       </LoginButton>
     </Main>
   );

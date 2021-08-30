@@ -4,7 +4,7 @@ import { Main } from './styled';
 import context from '../../context';
 import FormRender from '../../components/form';
 import formValidator from '../../services/formValidator';
-import { api } from '../../services/api';
+import Api from '../../services/api';
 
 const Register = () => {
   const [registerOkay, setRegisterOkay] = useState(false);
@@ -25,7 +25,7 @@ const Register = () => {
   const fetchRegister = async () => {
     const data = { name, email, password };
 
-    const result = await api.post('/register', { ...data })
+    const result = await Api.post('/register', { ...data })
       .then((response) => response)
       .catch((err) => console.log(err));
 
