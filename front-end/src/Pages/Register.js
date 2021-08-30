@@ -1,12 +1,12 @@
 import React from 'react';
-import LoginForm from '../Components/Organisms/LoginForm';
 import Logo from '../Components/Organisms/Logo';
+import RegisterFormComponent from '../Components/Organisms/RegisterForm';
 
 function Register() {
   return (
     <div className="App">
       <Logo />
-      <LoginForm />
+      <RegisterFormComponent title="Registro" />
     </div>
   );
 }
