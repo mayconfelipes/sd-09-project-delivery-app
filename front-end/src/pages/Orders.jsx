@@ -1,9 +1,10 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
+import '../App.css';
 
 function Orders() {
   return (
-    <div>
+    <div className="main">
       <Navbar />
       Varios pedidos
     </div>
