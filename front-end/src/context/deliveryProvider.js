@@ -1,18 +1,39 @@
 import { shape } from 'prop-types';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import DeliveryContext from './deliveryContext';
+import api from '../service/axiosApi';
 
 export const DeliveryProvider = ({ children }) => {
-  const [dataUser, setDataUser] = useState('deu bom');
+  const [userData, setUserData] = useState({
+    email: '',
+    password: '',
+  });
+  const [allProducts, setAllProducts] = useState([]);
+
+  const getProductCallBack = useCallback(async () => {
+    try {
+      const response = await api.get('/products');
+      setAllProducts(response.data.products);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }, []);
+
+  useEffect(() => {
+    getProductCallBack();
+  }, [getProductCallBack]);
 
   const context = {
-    dataUser,
-    setDataUser,
+    userData,
+    setUserData,
+    // getAllProdutcs,
+    allProducts,
   };
 
   return (
     <DeliveryContext.Provider value={ context }>
-      {children}
+      { children }
     </DeliveryContext.Provider>
   );
 };
