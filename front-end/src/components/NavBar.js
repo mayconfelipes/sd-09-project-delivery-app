@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './NavBar.css';
 
 function NavBar(props) {
   const { userType, userName } = props;
-  const history = useHistory();
   let prefix = '';
   console.log(prefix);
 
@@ -28,7 +27,7 @@ function NavBar(props) {
           <>
             <li>
               <NavLink
-                to='/customer/products'
+                to="/customer/products"
                 data-testid="customer_products__element-navbar-link-products"
               >
                 Produtos
@@ -36,7 +35,7 @@ function NavBar(props) {
             </li>
             <li>
               <NavLink
-                to='/customer/orders'
+                to="/customer/orders"
                 data-testid="customer_products__element-navbar-link-orders"
               >
                 Meus pedidos
@@ -47,7 +46,7 @@ function NavBar(props) {
         { userType === 'seller' && (
           <li>
             <NavLink
-              to='/seller/orders'
+              to="/seller/orders"
               data-testid="customer_products__element-navbar-link-orders"
             >
               Meus pedidos

@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import './styles.css';
-import Context from '../../../context/Context';
+import React, { useContext, useEffect, useState } from 'react';
+import Context from '../Context/Context';
+import './ProductsCard.css';
 
 const ProductsCard = ({ product }) => {
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart } = useContext(Context);
-  const { id, name, price, url_image } = product;
+  const { id, name, price, url_image: urlImage } = product;
 
   useEffect(() => {
     const isInCart = cart.filter((item) => item.id === id);
@@ -41,18 +41,18 @@ const ProductsCard = ({ product }) => {
         className="card_price"
         data-testid={ `customer_products__element-card-price-${id}` }
       >
-        {price.replace('.', ',')}
+        { price.replace('.', ',') }
       </div>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ url_image }
+        src={ urlImage }
         alt="produto"
       />
       <p
         className="card_body"
         data-testid={ `customer_products__element-card-title-${id}` }
       >
-        {name}
+        { name }
       </p>
       <div className="card_foot">
         <button
