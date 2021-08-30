@@ -1,13 +1,11 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Redirect } from 'react-router';
 import { Main } from './styled';
 import context from '../../context';
 import FormRender from '../../components/form';
 import formValidator from '../../services/formValidator';
-import { api } from '../../services/api';
 
 const Register = () => {
-  const [registerOkay, setRegisterOkay] = useState(false);
   const {
     form, setForm, enableButton, setEnableButton, setRegister,
   } = useContext(context);
@@ -22,20 +20,6 @@ const Register = () => {
     setEnableButton(isValid);
   }, [email, password, name, setEnableButton, setForm]);
 
-  const fetchRegister = async () => {
-    const data = { name, email, password };
-
-    const result = await api.post('/register', { ...data })
-      .then((response) => response)
-      .catch((err) => console.log(err));
-
-    const { token } = result.data;
-
-    localStorage
-      .setItem('user', JSON.stringify({ name, email, role: 'customer', token }));
-    setRegisterOkay(true);
-  };
-
   return (
     <Main>
       { redirect && <Redirect to="/login" /> }
@@ -44,12 +28,11 @@ const Register = () => {
       <button
         type="button"
         data-testid="common_register__button-register"
-        onClick={ () => fetchRegister() }
+        onClick={ () => console.log('fazer fetch de cadastro') }
         disabled={ !enableButton }
       >
         CADASTRAR
       </button>
-      { registerOkay && <Redirect to="customer/products" /> }
     </Main>
   );
 };
