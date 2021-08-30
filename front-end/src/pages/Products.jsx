@@ -73,7 +73,8 @@ function Products() {
         </ul>
       </main>
       <button
-        data-testid="customer_products__checkout-bottom-value"
+        // data-testid="customer_products__checkout-bottom-value"
+        data-testid="customer_products__button-cart"
         type="button"
         className="button-cart"
       >
