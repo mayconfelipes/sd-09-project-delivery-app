@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Main = styled.div`
   display: flex;
@@ -25,4 +26,8 @@ export const LoginButton = styled.button`
   font-size: 1.6em;
   margin-top: 2em; 
   border-radius: 10px;
+`;
+
+export const Register = styled(Link)`
+  font-decoration: none;
 `;
