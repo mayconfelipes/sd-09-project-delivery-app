@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useHistory } from 'react-router-dom';
 import { registerAPI } from '../../services/registerAPI';
 import useStyle from './registerPage.style';
 
@@ -12,11 +13,13 @@ export default function Register() {
   const [password, setPassword] = useState('');
 
   const classes = useStyle();
+  const history = useHistory();
 
   const canUserRegister = async () => {
     const registerBody = { name, email, password };
     const responseRegister = await registerAPI(registerBody);
     console.log(responseRegister);
+    return history.push('/customer/products');
     // if (error === true) {
     //   toast('Email já registrado');
     // }
