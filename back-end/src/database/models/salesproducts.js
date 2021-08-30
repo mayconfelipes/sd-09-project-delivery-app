@@ -5,15 +5,15 @@ module.exports = (sequelize, DataTypes) => {
 
   SalesProducts.associate = (models) => {
     models.Product.belongsToMany(models.Sale, {
-      through: SalesProducts,
       as: 'sale',
+      through: SalesProducts,
       foreignKey: 'productId',
       otherKey: 'saleId',
     });
 
     models.Sale.belongsToMany(models.Product, {
-      through: SalesProducts,
       as: 'product',
+      through: SalesProducts,
       foreignKey: 'saleId',
       otherKey: 'productId',
     });
