@@ -32,7 +32,9 @@ const ProductCard = (
     setQuantity(quantity + 1);
   };
 
-  const onInputChange = (() => null);
+  const onInputChange = (({ target }) => {
+    setQuantity(target.value);
+  });
 
   return (
     <div className={ style.productCardContainer }>
@@ -58,7 +60,7 @@ const ProductCard = (
           <input
             data-testid={ `customer_products__input-card-quantity-${id}` }
             type="text"
-            value={ quantity || 0 }
+            value={ quantity }
             name={ id }
             onChange={ onInputChange }
           />

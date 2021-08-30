@@ -30,7 +30,7 @@ const NavBar = ({ orders, products }) => {
         className={ style.thirdGrid }
       >
         <p
-          ata-testid="customer_products__element-navbar-user-full-name"
+          data-testid="customer_products__element-navbar-user-full-name"
         >
           Nome da pessoa usuária
         </p>

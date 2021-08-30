@@ -35,11 +35,16 @@ const Products = () => {
       <div className={ style.cartButton }>
         <Link to="/customer/checkout">
           <PrimaryButton
-            dataTestId="customer_products__checkout-bottom-value"
+            dataTestId="customer_products__button-cart"
+            isBtnDisabled={ totalPrice === '0,00' }
           >
             Ver Carrinho: R$
             {' '}
-            {totalPrice}
+            <span
+              data-testid="customer_products__checkout-bottom-value"
+            >
+              {totalPrice}
+            </span>
           </PrimaryButton>
         </Link>
       </div>

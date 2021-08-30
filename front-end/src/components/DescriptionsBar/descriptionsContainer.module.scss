@@ -16,6 +16,14 @@
   .sixthGrid {
     background-color: #4bc18d;
     border-radius: 0 0.5rem 0.5rem 0;
+
+    button {
+      border: hidden;
+      background-color: #4bc18d;
+      font-size: 2rem;
+      height: 0.2rem;
+      margin-bottom: 5rem;
+    }
   }
 
   .fifthGrid {

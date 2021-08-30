@@ -52,11 +52,12 @@ const DescriptionsBar = ({
       </div>
       { shouldDeleteApear && (
         <div className={ style.sixthGrid }>
-          <p
+          <button
+            type="button"
             data-testid={ `customer_checkout__element-order-table-remove-${index}` }
           >
             Remover
-          </p>
+          </button>
         </div>
       ) }
     </div>
