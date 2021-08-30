@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import api from '../../service/axiosApi';
 
 import validateUserData from '../../helpers/validateUserData';
 import UserRegisterAlert from '../../components/alerts/UserRegisterAlert';
+import DeliveryContext from '../../context/deliveryContext';
 
 function Register() {
   const [input, setInput] = useState({
@@ -13,6 +14,8 @@ function Register() {
   });
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [showError, setShowError] = useState(false);
+
+  const { isTest } = useContext(DeliveryContext);
 
   const history = useHistory();
 
@@ -33,6 +36,8 @@ function Register() {
     event.preventDefault();
     const data = input;
 
+    console.log('data:', data);
+
     api.post('/register', data)
       .then((response) => {
         console.log(response);
@@ -40,13 +45,15 @@ function Register() {
       })
       .catch((err) => {
         setShowError(true);
-        console.log('[Erro] >', err.response.data.message);
+        console.log('[Erro] >', err);
+        // console.log('[Erro] >', err.response.data.message);
       });
   };
 
   return (
     <div>
       <h1>Register</h1>
+      <h4>{ isTest }</h4>
       <form>
         <label htmlFor="name">
           Nome:

@@ -15,7 +15,7 @@ const getByEmail = async ({ email }) => {
 const getByName = async ({ name }) => {
   const findName = await User.findOne({ where: { name } });
 
-  return findName.dataValues;
+  return findName;
 };
 
 const create = async ({ name, email, password, role }) => {
