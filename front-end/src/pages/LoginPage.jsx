@@ -56,16 +56,16 @@ function Login() {
             onChange={ (e) => setPassword(e.target.value) }
           />
         </label>
-        <Link to="/customer/products">
-          <button
-            type="button"
-            data-testid="common_login__button-login"
-            disabled={ !valid }
-            onClick={ () => loginUser() }
-          >
-            LOGIN
-          </button>
-        </Link>
+
+        <button
+          type="button"
+          data-testid="common_login__button-login"
+          disabled={ !valid }
+          onClick={ () => loginUser() }
+        >
+          LOGIN
+        </button>
+
         <Link to="/register">
           <button
             type="button"

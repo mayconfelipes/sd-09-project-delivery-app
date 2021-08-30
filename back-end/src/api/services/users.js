@@ -7,7 +7,7 @@ const newError = require('../utils/newError');
 const searchUser = async (email, password) => {
   const foundUser = await User.findOne({
     where: { email, password },
-    attributes: { exclude: ['password', 'id'] },
+    attributes: { exclude: ['password'] },
   });
   if (!foundUser) return false;
   return foundUser.dataValues;
