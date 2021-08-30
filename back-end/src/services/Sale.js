@@ -53,19 +53,8 @@ const register = async (saleInfo) => {
   });
 
   seedSalesProducts(sale.id, cart);
-  
-  return {
-    sale: {
-      id: sale.id,
-      userId: sale.userId,
-      sellerId: sale.sellerId,
-      totalPrice: sale.totalPrice,
-      deliveryAddress: sale.deliveryAddress,
-      deliveryNumber: sale.deliveryNumber,
-      status: sale.status,
-      saleDate: sale.saleDate,
-    },
-  };
+
+  return { sale: sale.dataValues };
 };
 
 module.exports = {
