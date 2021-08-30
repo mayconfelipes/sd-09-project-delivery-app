@@ -12,9 +12,9 @@ const login = async ({ email, password }) => {
     throw invalidData('Usuário não encontrado', 404);
   }
 
-  const { password: passBD, id: userId, ...user } = findUser.dataValues;
+  const { password: passBD, id, ...user } = findUser.dataValues;
 
-  const token = await createToken({ userId, user });
+  const token = await createToken({ id, user });
 
   return { user, token };
 };
@@ -36,7 +36,14 @@ const register = async ({ name, email, password, role }) => {
   return userWithoutPasswordAndEmail;
 };
 
+const getAllUsers = async () => {
+  const users = await RepositoryUsers.getAllUsers();
+
+  return users;
+};
+
 module.exports = {
   login,
   register,
+  getAllUsers,
 };
