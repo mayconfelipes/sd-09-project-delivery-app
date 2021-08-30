@@ -1,10 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import Button from './button';
 import '../styles/header.css';
 
 const Header = () => {
+  const [userLogged, setUserLogged] = useState(false);
   const userData = JSON.parse(localStorage.getItem('user'));
+  const handleClick = () => {
+    localStorage.removeItem('user');
+    setUserLogged(true);
+  };
+
+  if (userLogged) return <Redirect to="/login" />;
   return (
     <header className="header">
       <nav className="headerNav">
@@ -25,6 +32,7 @@ const Header = () => {
       <Button
         name="Sair"
         data-testid="customer_products__element-navbar-link-logout"
+        onClick={ () => handleClick() }
       />
     </header>
   );
