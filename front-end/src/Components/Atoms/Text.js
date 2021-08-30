@@ -2,8 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TextElement } from '../styles';
 
-function Text({ children }) {
-  return <TextElement>{children}</TextElement>;
+function Text({ children, testId }) {
+  return (
+    <TextElement
+      data-testid={ testId }
+    >
+      {children}
+    </TextElement>
+  );
 }
 
 Text.propTypes = {
