@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import PrimaryButton from '../../../components/PrimaryButton';
 
 import style from './register.module.scss';
+
+import register from '../../../api/register';
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -13,9 +15,12 @@ const Register = () => {
   });
 
   const [isDataValid, setIsDataValid] = useState(true);
+  const [isLogged, setIsLoggedStatus] = useState(false);
+  const [cadasterFailure, setCadasterFailure] = useState(false);
 
-  function handleInputChange({ target }) {
-    const { name, value } = target;
+  function handleInputChange(event) {
+    event.preventDefault();
+    const { name, value } = event.target;
     setUserData({ ...userData, [name]: value });
   }
 
@@ -32,8 +37,17 @@ const Register = () => {
     }
   }, [userData]);
 
+  const sendLoginRequest = async () => {
+    const { nameInput, emailInput, passwordInput } = userData;
+    const role = 'user';
+    const { token } = await register(nameInput, emailInput, passwordInput, role);
+    if (token) setIsLoggedStatus(true);
+    else setCadasterFailure(true);
+  };
+
   return (
     <section className={ style.loginContainer }>
+      { isLogged && <Redirect to="/customer/products" /> }
       <h1>Cadastro</h1>
       <form className={ style.inputContainer }>
         <label htmlFor="input" className={ style.inputStyle }>
@@ -63,19 +77,21 @@ const Register = () => {
             onChange={ handleInputChange }
           />
         </label>
-        <Link to="/customer/products">
-          <PrimaryButton
-            isBtnDisabled={ isDataValid }
-            dataTestId="common_register__button-register"
-          >
-            CADASTRAR
-          </PrimaryButton>
-        </Link>
-        <p
-          data-testid="common_register__element-invalid_register"
+        <PrimaryButton
+          isBtnDisabled={ isDataValid }
+          dataTestId="common_register__button-register"
+          onLoginClick={ sendLoginRequest }
         >
-          Mostrar uma mensagem caso o registro seja inválido
-        </p>
+          CADASTRAR
+        </PrimaryButton>
+        { cadasterFailure && (
+          <p
+            data-testid="common_register__element-invalid_register"
+          >
+            Usuário já existe
+          </p>
+        ) }
+
       </form>
     </section>
   );

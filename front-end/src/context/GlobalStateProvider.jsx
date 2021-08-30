@@ -3,31 +3,14 @@ import P from 'prop-types';
 import GlobalContext from './context';
 
 export const GlobalStateProvider = ({ children }) => {
-  const [quantity, setQuantity] = useState(0);
-
-  const onHandleDecrement = () => {
-    if (quantity === 0) return;
-    setQuantity(quantity - 1);
-  };
-
-  const onHandleIncrement = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const onInputChange = ({ target }) => {
-    const { name, value } = target;
-    setQuantity(...quantity, { [name]: value });
-    return null;
-  };
-
+  const [cartQuantity, setCartQuantity] = useState({});
+  // useEffect(() => {
+  //   console.log(cartQuantity); setCartQuantity({ ...cartQuantity });
+  // }, [cartQuantity]);
   return (
     <GlobalContext.Provider
       value={
-        {
-          onHandleDecrement,
-          onHandleIncrement,
-          quantity,
-          onInputChange }
+        { setCartQuantity, cartQuantity }
       }
     >
       { children }
