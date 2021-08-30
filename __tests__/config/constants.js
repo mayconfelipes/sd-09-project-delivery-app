@@ -47,7 +47,7 @@ module.exports = {
       : ["development", "dev"].includes(environment)
       ? EVAL_ALWAYS_RESTORE_DEV_DB === "true"
       : true,
-    host: HOSTNAME || MYSQL_HOST || "localhost",
+    host: MYSQL_HOST || HOSTNAME || "localhost",
     port: MYSQL_PORT || "3306",
     user: MYSQL_USER || "root",
     password: MYSQL_PASSWORD || "",

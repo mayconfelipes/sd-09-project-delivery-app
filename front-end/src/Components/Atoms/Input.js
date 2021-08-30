@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { InputElement } from '../styles';
 
-function Input({ children: { name, placeholder, inputType } }) {
+function Input({ children: { name, placeholder, inputType, testId, onChange } }) {
   return (
     <InputElement
       type={ inputType }
       name={ name }
       id={ name }
       placeholder={ placeholder }
+      data-testid={ testId }
+      onChange={ onChange }
     />
   );
 }
