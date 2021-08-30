@@ -23,9 +23,10 @@ function Login() {
     if (responseLogin.message === 'Invalid fields') {
       return setIsValidFields(false);
     }
+    console.log(responseLogin);
     if (responseLogin.token) {
-      history.push('/customer/products');
       localStorage.setItem('userData', JSON.stringify(responseLogin));
+      history.push('/customer/products');
     }
   };
 
