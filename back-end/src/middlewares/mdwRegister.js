@@ -28,16 +28,15 @@ const registerUserInDB = async (req, _res, next) => {
 
 const generateTokenRegister = async (req, res, next) => {
   try {
-    const { email } = req.body
-    const { name, password, role }  = await users.findOne({ where: { email } });
+    const { email } = req.body;
+    const { name, password, role } = await users.findOne({ where: { email } });
     const objToReturnWithUserInfos = {
       name,
       email,
       role,
       token: LoginService.userLogin(email, password),
-    }
-    console.log(objToReturnWithUserInfos)
-    return res.status(201).json(objToReturnWithUserInfos)
+    };
+    return res.status(201).json(objToReturnWithUserInfos);
   } catch (error) {
     next(error);
   }

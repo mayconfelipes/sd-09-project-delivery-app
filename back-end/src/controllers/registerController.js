@@ -7,7 +7,7 @@ pingRouter.post(
     '/',
     mdwRegister.verifyRegisteredUser,
     mdwRegister.registerUserInDB,
-    mdwRegister.generateTokenRegister
+    mdwRegister.generateTokenRegister,
 );
 
 module.exports = pingRouter;
