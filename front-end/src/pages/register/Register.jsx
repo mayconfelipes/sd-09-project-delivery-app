@@ -112,7 +112,6 @@ export default function Register() {
             data-testid="common_register__button-register"
             disabled={ isButtonDisabled }
             type="submit"
-
           >
             CADASTRAR
           </button>
