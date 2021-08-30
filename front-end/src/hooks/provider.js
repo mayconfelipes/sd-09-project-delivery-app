@@ -6,6 +6,8 @@ import AppContext from './context';
 
 function Provider({ children }) {
   const [user, setUser] = useState({});
+  const [products, setProducts] = useState([]);
+  // const [loading, setLoading] = useState(true);
   const router = useHistory();
 
   const signIn = async (email, password) => {
@@ -18,14 +20,24 @@ function Provider({ children }) {
     }
   };
 
+  const getProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/products');
+      setProducts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const setUserInLocalStorage = (data) => {
     localStorage.setItem('user', JSON.stringify(data));
   };
 
   const contextValue = {
     user,
-    signIn,
     setUser,
+    signIn,
+    getProducts,
+    products,
     setUserInLocalStorage,
   };
 
