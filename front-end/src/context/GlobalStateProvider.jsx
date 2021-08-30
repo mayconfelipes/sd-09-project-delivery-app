@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+// import * as lodash from 'lodash';
 import P from 'prop-types';
 import GlobalContext from './context';
 
@@ -11,11 +12,22 @@ export const GlobalStateProvider = ({ children }) => {
     setCartQuantity(cartQuantity);
   }, [cartQuantity]);
 
+  // useEffect(() => {
+  //   const itemsGroup = lodash.groupBy(cartQuantity, 'id');
+  //   console.log('items', cartQuantity);
+  //   console.log('itemsGroup', itemsGroup);
+  // }, [cartQuantity]);
+
   useEffect(() => {
     // SOURCE: https://stackoverflow.com/questions/53226100/array-filter-to-remove-duplicate-ojects
     const result = Object.values(cartQuantity)
-      .reduce((acc, cur) => Object.assign(acc, { ...acc, [cur.description]: cur }), {});
-    setItems(Object.values(result));
+      .reduce((acc, cur) => Object.assign(acc, {
+        ...acc, [cur.id]: cur }), {});
+
+    const allItems = Object.values(result).filter((item) => item.quantity > 0);
+
+    // const reverseItems = allItems.reverse();
+    setItems(allItems.reverse());
   }, [cartQuantity]);
 
   useEffect(() => {
@@ -27,13 +39,17 @@ export const GlobalStateProvider = ({ children }) => {
     const totPrice = (Math.round(sumOfValues * 100) / 100).toFixed(2);
     const number = totPrice.toString();
     setTotalPrice(number.replace('.', ','));
-    console.log('test');
   }, [items]);
 
   return (
     <GlobalContext.Provider
       value={
-        { setCartQuantity, cartQuantity, totalPrice, items }
+        {
+          setCartQuantity,
+          cartQuantity,
+          totalPrice,
+          items,
+          setItems }
       }
     >
       { children }

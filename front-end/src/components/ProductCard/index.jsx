@@ -11,8 +11,13 @@ const ProductCard = (
   },
 ) => {
   const [quantity, setQuantity] = useState(0);
+  const [quantityItem, setQuantityItem] = useState(0);
 
-  const { setCartQuantity, cartQuantity } = useGlobalContext();
+  const { setCartQuantity, cartQuantity, items } = useGlobalContext();
+
+  useEffect(() => {
+    setQuantityItem(quantity);
+  }, [quantity, quantityItem, setQuantityItem]);
 
   useEffect(() => {
     setQuantity((value) => value);
@@ -22,6 +27,11 @@ const ProductCard = (
     setCartQuantity([
       ...cartQuantity, { id, quantity, price, description }]);
   }, [cartQuantity, description, id, price, quantity, setCartQuantity]);
+
+  useEffect(() => {
+    items.filter(({
+      id: itemId, quantity: quant }) => itemId === id && setQuantityItem(quant));
+  }, [id, items]);
 
   const onHandleDecrement = () => {
     if (quantity <= 0) return;
@@ -60,7 +70,7 @@ const ProductCard = (
           <input
             data-testid={ `customer_products__input-card-quantity-${id}` }
             type="text"
-            value={ quantity }
+            value={ quantityItem || 0 }
             name={ id }
             onChange={ onInputChange }
           />

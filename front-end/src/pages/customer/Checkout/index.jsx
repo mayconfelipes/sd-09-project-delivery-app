@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import DescriptionsBar from '../../../components/DescriptionsBar';
@@ -12,10 +12,18 @@ import useGlobalContext from '../../../context/GlobalStateProvider';
 import style from './checkout.module.scss';
 
 const Checkout = () => {
-  const { totalPrice, items } = useGlobalContext();
-  console.log(items);
+  const { items, setItems, totalPrice } = useGlobalContext();
   const id = 1;
-  const dataTestIdId = 'customer_checkout__element-order-table-item-number-';
+
+  useEffect(() => {
+    console.log('checkout', items);
+  }, [items]);
+
+  const onClickRemoveItem = (itemId) => {
+    const filteredItems = items.filter(({ id: idItem }) => itemId !== idItem);
+    setItems(filteredItems);
+  };
+
   return (
     <>
       <Navbar />
@@ -23,37 +31,39 @@ const Checkout = () => {
       <div className={ style.totalContainer }>
         <GridOrderDetails shouldRemoveItemApear />
         <div className={ style.barContainer }>
-          {items && items.map(({ description, quantity, price }, index) => {
+          {items && items.map((
+            { id: itemId, description, quantity, price }, index,
+          ) => {
             const intPrice = parseFloat(price.replace(',', '.'));
             const multPrice = parseFloat(quantity) * intPrice;
-            const totPrice = Math.round(multPrice * 100) / 100;
+            const totPrice = (Math.round(multPrice * 100) / 100).toFixed(2);
             const toStringNumber = totPrice.toString().replace('.', ',');
-            console.log(totPrice);
-            if (quantity > 0) {
-              return (<DescriptionsBar
-                key={ Math.random() }
-                id={ index }
-                userOrProductName={ description }
-                emailOrQuantity={ quantity }
-                userTypeOrValue={ price }
-                deleteOrPrice={ toStringNumber }
-                shouldDeleteApear
-                dataTestIdId={ dataTestIdId + index }
-                dataTestIdUserOrProductName={
-                  `customer_checkout__element-order-table-name-${index}`
-                }
-                dataTestIdEmailOrQuantity={
-                  `customer_checkout__element-order-table-quantity-${index}`
-                }
-                dataTestIdUserTypeOrValue={
-                  `customer_checkout__element-order-table-unit-price-${index}`
-                }
-                dataTestIdDeleteOrPrice={
-                  `customer_checkout__element-order-table-remove-${index}`
-                }
-              />);
-            }
-            return null;
+            return (<DescriptionsBar
+              key={ Math.random() }
+              id={ index }
+              itemId={ itemId }
+              userOrProductName={ description }
+              emailOrQuantity={ quantity }
+              userTypeOrValue={ price }
+              deleteOrPrice={ toStringNumber }
+              shouldDeleteApear
+              dataTestIdId={
+                `customer_checkout__element-order-table-item-number-${index}`
+              }
+              removeItem={ onClickRemoveItem }
+              dataTestIdUserOrProductName={
+                `customer_checkout__element-order-table-name-${index}`
+              }
+              dataTestIdEmailOrQuantity={
+                `customer_checkout__element-order-table-quantity-${index}`
+              }
+              dataTestIdUserTypeOrValue={
+                `customer_checkout__element-order-table-unit-price-${index}`
+              }
+              dataTestIdDeleteOrPrice={
+                `customer_checkout__element-order-table-remove-${index}`
+              }
+            />);
           })}
         </div>
         <PrimaryButton>
