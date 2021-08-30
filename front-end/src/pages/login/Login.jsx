@@ -79,7 +79,7 @@ function Login() {
         data-testid="common_login__button-register"
         onClick={ () => history.push('/register') }
       >
-        AINDA NÃO TENHO CONTA
+        <a href="/register">AINDA NÃO TENHO CONTA</a>
       </button>
     </form>
   );
