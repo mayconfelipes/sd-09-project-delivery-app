@@ -37,13 +37,15 @@
  align-items: center;
  border: 1px solid #4287f5;
  flex-direction: column;
+ height: 38em;
  justify-content: center;
+ padding: 1em;
  transform: scale(0.9);
  text-align: center;
  width: 20em;
 }
 
-.main--products li, h1, h4 {
+.main--products h1, h4 {
   padding: 1em;
   text-align: center;
 }

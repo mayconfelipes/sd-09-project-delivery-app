@@ -35,18 +35,20 @@ function Products() {
                   data-testid={ `customer_products__img-card-bg-image-${id}` }
                 />
                 <h1>{price}</h1>
-                <button
-                  data-testid={ `customer_products__button-card-rm-item-${id}` }
-                  type="button"
-                >
-                  -
-                </button>
-                <button
-                  data-testid={ `customer_products__button-card-add-item-${id}` }
-                  type="button"
-                >
-                  +
-                </button>
+                <div className="main--add-item-btn">
+                  <button
+                    data-testid={ `customer_products__button-card-rm-item-${id}` }
+                    type="button"
+                  >
+                    -
+                  </button>
+                  <button
+                    data-testid={ `customer_products__button-card-add-item-${id}` }
+                    type="button"
+                  >
+                    +
+                  </button>
+                </div>
               </li>))
           }
         </ul>
