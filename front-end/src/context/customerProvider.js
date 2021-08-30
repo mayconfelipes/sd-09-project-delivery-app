@@ -1,14 +1,13 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-
-const CustomerContext = createContext();
+import Customer from './customerContext';
 
 function CustomerProvider({ children }) {
   const data = {};
   return (
-    <CustomerContext.Provider value={ data }>
+    <Customer.Provider value={ data }>
       {children}
-    </CustomerContext.Provider>
+    </Customer.Provider>
   );
 }
 
