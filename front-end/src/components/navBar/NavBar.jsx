@@ -44,6 +44,10 @@ export default function NavBar() {
           data-testid=" customer_products__element-navbar-link-logout"
           className={ classes.optionsNavBar }
           style={ { backgroundColor: '#056CF9', width: '20%', fontWeight: '400' } }
+          onClick={ () => {
+            window.localStorage.clear();
+            window.location.href = 'http://localhost:3000/login';
+          } }
         >
           Sair
         </button>
