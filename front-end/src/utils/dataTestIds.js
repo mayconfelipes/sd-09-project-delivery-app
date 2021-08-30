@@ -19,10 +19,10 @@ const dataTestIds = {
   18: 'customer_products__button-card-add-item-',
   19: 'customer_products__button-card-rm-item-',
   20: 'customer_products__input-card-quantity-',
-  21: 'customer_products__checkout-bottom-value',
+  21: 'customer_products__button-cart',
   22: 'customer_checkout__element-order-table-item-number-',
   23: 'customer_checkout__element-order-table-name-',
-  24: 'cutomer_checkout__element-order-table-quantity-',
+  24: 'customer_checkout__element-order-table-quantity-',
   25: 'customer_checkout__element-order-table-unit-price-',
   26: 'customer_checkout__element-order-table-sub-total-',
   27: 'customer_checkout__element-order-table-remove-',
@@ -69,7 +69,6 @@ const dataTestIds = {
   73: 'admin_manage__element-user-table-role-',
   74: 'admin_manage__element-user-table-remove-',
   75: 'admin_manage__element-invalid-register',
-  76: 'customer_products__button-cart',
   78: 'admin_manage__input-password',
 };
 
