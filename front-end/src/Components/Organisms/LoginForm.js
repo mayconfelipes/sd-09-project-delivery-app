@@ -43,6 +43,7 @@ function LoginFormComponent() {
     setLoginForm({ ...loginForm, [name]: value });
   };
 
+  //  Teste
   const logIn = async () => {
     const response = await userLogin({ email: login, password });
     const { status } = response;
