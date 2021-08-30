@@ -4,14 +4,14 @@ import Button from './button';
 import '../styles/header.css';
 
 const Header = () => {
-  const [userLogged, setUserLogged] = useState(false);
+  const [userLogout, setUserLogout] = useState(false);
   const userData = JSON.parse(localStorage.getItem('user'));
   const handleClick = () => {
     localStorage.removeItem('user');
-    setUserLogged(true);
+    setUserLogout(true);
   };
 
-  if (userLogged) return <Redirect to="/login" />;
+  if (userLogout) return <Redirect to="/login" />;
   return (
     <header className="header">
       <nav className="headerNav">

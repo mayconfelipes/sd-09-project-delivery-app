@@ -47,7 +47,6 @@ const Login = () => {
     await axios.post(LOGIN_URL, payload)
       .then(
         (response) => {
-          console.log(response);
           const { token, user: { name, role } } = response.data;
           const user = {
             name,
