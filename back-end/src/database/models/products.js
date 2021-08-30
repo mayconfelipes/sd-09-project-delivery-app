@@ -4,11 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       id: { type: DataTypes.INTEGER, primaryKey: true },
       name: { type: DataTypes.STRING, allowNull: false },
-      price: { type: DataTypes.DECIMAL },
-      quanurl_image: { type: DataTypes.STRING},
+      price: { type: DataTypes.DECIMAL(4,2) },
+      urlImage: { type: DataTypes.STRING},
     },
     {
       timestamps: false,
+      underscored: true,
     }
   );
   // salesProducts.associate = (models) => {

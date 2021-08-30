@@ -7,27 +7,24 @@ const NavBar = () => {
   return (
     <nav>
       <ul>
-        <li>
+        <li data-testid={ `${prefix}link-products` }>
           <Link
             to="/customer/products"
-            data-testid={ `${prefix}link-products` }
           >
             Produtos
           </Link>
         </li>
-        <li>
+        <li data-testid={ `${prefix}link-orders` }>
           <Link
             to="/customer/orders"
-            data-testid={ `${prefix}link-orders` }
           >
             Meus pedidos
           </Link>
         </li>
         <li data-testid={ `${prefix}user-full-name` }>{userInfo.name}</li>
-        <li>
+        <li data-testid={ `${prefix}link-logout` }>
           <Link
             to="/login"
-            data-testid={ `${prefix}link-logout` }
           >
             Sair
           </Link>

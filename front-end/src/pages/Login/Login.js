@@ -26,6 +26,7 @@ function Login() {
 
   const saveTokenLocalStorage = (user) => {
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('products', JSON.stringify({}));
   };
 
   const userChange = ({ target }) => {
