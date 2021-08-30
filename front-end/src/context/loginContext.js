@@ -6,10 +6,12 @@ export const LoginContext = createContext();
 export const LoginProvider = ({ children }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [invalidUser, setInvalidUser] = useState('');
+  const [redirectTo, setRedirectTo] = useState(false);
 
   const fetchToLogin = () => {
     const body = {
-      username: email,
+      email,
       password,
     };
 
@@ -26,17 +28,19 @@ export const LoginProvider = ({ children }) => {
       .then((res) => res.json())
       .then((response) => {
         console.log(response);
-        if (response.error) {
+        if (response.message) {
           setInvalidUser(true);
         } else {
-          localStorage.setItem('Token', response.token);
-          localStorage.setItem('user', JSON.stringify(response.user));
+          console.log(response);
+          setRedirectTo(true);
+          localStorage.setItem('User', JSON.stringify(response));
         }
       });
   };
 
   const handleClickLogin = async () => {
-    await fetchToLogin;
+    console.log('to aq');
+    await fetchToLogin();
   };
 
   const contextValue = { email,
@@ -44,6 +48,8 @@ export const LoginProvider = ({ children }) => {
     password,
     setPassword,
     handleClickLogin,
+    invalidUser,
+    redirectTo,
   };
 
   return (
