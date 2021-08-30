@@ -1,9 +1,11 @@
 const routes = require('express').Router();
+const rescue = require('express-rescue');
 const logins = require('./controllers/loginController');
 const users = require('./controllers/userController');
 
-routes.post('/login', logins.login);
+routes.post('/login', rescue(logins.login));
 
-routes.get('/user', users.findAll);
+routes.post('/user', rescue(users.create));
+routes.get('/user', rescue(users.findAll));
 
 module.exports = routes;
