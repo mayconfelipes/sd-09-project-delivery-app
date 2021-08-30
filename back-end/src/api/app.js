@@ -1,13 +1,12 @@
 const express = require('express');
 
 const path = require('path');
+const cors = require('cors');
 
 const loginRoute = require('../routes/loginRoute');
 const registerRoute = require('../routes/registerRoute');
 const productRoute = require('../routes/productRoute');
-// const saleRoute = require('../routes/saleRoute');
-
-const cors = require('cors');
+const saleRoute = require('../routes/saleRoute');
 
 const errorMiddleware = require('../utils/errorMiddleware');
 const authMiddleware = require('../database/services/jwt/authMiddleware');
@@ -24,7 +23,7 @@ app.use('/products', productRoute);
 
 app.use(express.static(path.join(__dirname, '../', '../', 'public')));
 
-app.post('/customer/checkout', authMiddleware, Sale.checkOut);
+app.post('/customer', authMiddleware, saleRoute);
 
 app.use(errorMiddleware);
 
