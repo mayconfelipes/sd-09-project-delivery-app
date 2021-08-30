@@ -28,6 +28,9 @@ function Provider({ children }) {
       console.log(error);
     }
   };
+  const setUserInLocalStorage = (data) => {
+    localStorage.setItem('user', JSON.stringify(data));
+  };
 
   const contextValue = {
     user,
@@ -35,6 +38,7 @@ function Provider({ children }) {
     signIn,
     getProducts,
     products,
+    setUserInLocalStorage,
   };
 
   return (

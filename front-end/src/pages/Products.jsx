@@ -1,8 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
+import jwt from 'jsonwebtoken';
+import { useHistory } from 'react-router-dom';
 import AppContext from '../hooks/context';
 import Navbar from '../components/Navbar';
 import '../App.css';
+
+const SECRET_KEY = 'minhachavesecreta';
 
 function Products() {
   const { products, getProducts } = useContext(AppContext);
@@ -11,6 +15,22 @@ function Products() {
     getProducts();
   }, []);
   console.log(products);
+  const router = useHistory();
+
+  useEffect(() => {
+    if (!localStorage.getItem('user')) {
+      return router.push('/');
+    }
+
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    try {
+      jwt.verify(token, SECRET_KEY);
+    } catch (error) {
+      localStorage.removeItem('user');
+      router.push('/');
+    }
+  });
+
   return (
     <div className="main">
       <Navbar />
