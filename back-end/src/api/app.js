@@ -25,7 +25,7 @@ app.get('/', () => console.log('hello world!'));
 app.post('/login', User.loginUser);
 app.post('/register', User.registerUser);
 app.get('/users', User.getAllUsers);
-
+app.get('/customer/products', User.getAllUsers);
 app.get('/products', Product.getAllProducts);
 
 app.use(errorMiddleware);

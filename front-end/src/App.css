@@ -20,6 +20,6 @@
   flex-direction: column;
 }
 
-.login-page form {
+.login-page, .register-page form {
   gap: 1rem;
 }

@@ -79,7 +79,10 @@ function Register() {
           CADASTRAR
         </button>
       </form>
-      <p data-testid="common_login__element-invalid-email">
+      <p
+        className="register-error-message"
+        data-testid="common_register__element-invalid_register"
+      >
         { showInvalidInfoError }
       </p>
     </div>
