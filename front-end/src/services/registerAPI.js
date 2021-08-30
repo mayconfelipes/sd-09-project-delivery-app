@@ -20,13 +20,6 @@ const registerAPI = async (registeBody) => {
     };
     console.log(errorObj);
   }
-
-  // console.log('ENTROU');
-  // const dataRegister = await fetch('localhost:3001/register', myInit);
-  // const response = await dataRegister.json();
-  // return response;
 };
 
-module.exports = {
-  registerAPI,
-};
+export default registerAPI;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom';
-import { registerAPI } from '../../services/registerAPI';
+import registerAPI from '../../services/registerAPI';
 import useStyle from './registerPage.style';
 
 export default function Register() {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { loginAPI } from '../../services/loginAPI';
+import loginAPI from '../../services/loginAPI';
 
 function Login() {
   const [isValidFields, setIsValidFields] = useState(true);
