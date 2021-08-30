@@ -3,11 +3,9 @@ const formValidator = (email, password, name) => {
   const minNameLenght = 12;
   const minPasswordLenght = 6;
 
-  if (name === undefined) {
-    if (!emailRegex.test(email)
-    || password.length < minPasswordLenght) {
-      return false;
-    }
+  if (name === undefined
+    && (!emailRegex.test(email) || password.length < minPasswordLenght)) {
+    return false;
   }
 
   if (
