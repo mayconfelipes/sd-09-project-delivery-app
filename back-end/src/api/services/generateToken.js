@@ -13,5 +13,5 @@ module.exports = async ({ email, password }) => {
 
   const { dataValues: { password: _, ...user } } = userDB;
   const token = jwt.sign(user, secret, jwtConfig);
-  return { token };
+  return { token, role: userDB.role };
 };

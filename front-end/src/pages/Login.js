@@ -13,6 +13,12 @@ import FormSection from '../components/StyledComponents/FormSection';
 
 const route = 'common_login';
 
+const redirectPath = {
+  administrator: <Redirect to="/admin/manage" />,
+  seller: <Redirect to="/seller/orders" />,
+  customer: <Redirect to="/customer/products" />,
+};
+
 function Login() {
   const {
     loginErrorMessage,
@@ -21,6 +27,7 @@ function Login() {
   } = useContext(LoginContext);
   const [state, setState] = useState({ emailInput: '', passwordInput: '' });
   const [canRedirect, setCanRedirect] = useState(false);
+  const [path, setPath] = useState('');
 
   const handleChange = ({ target: { name, value } }) => {
     setState({ ...state, [name]: value });
@@ -33,10 +40,13 @@ function Login() {
       emailInput, passwordInput, setApiResponse, setLoginErrorMessage,
     );
 
-    if (response.token) return setCanRedirect(true);
+    if (response.token) {
+      setPath(response.role);
+      return setCanRedirect(true);
+    }
   };
 
-  if (canRedirect) return <Redirect to="/customer/products" />;
+  if (canRedirect) return redirectPath[path];
 
   return (
     <FormSection>
