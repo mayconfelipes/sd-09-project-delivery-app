@@ -16,8 +16,6 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up('md')]: {
     },
-    [theme.breakpoints.up('lg')]: {
-    },
   },
   inputTitles: {
     margin: '10px 0 5px 5px',
