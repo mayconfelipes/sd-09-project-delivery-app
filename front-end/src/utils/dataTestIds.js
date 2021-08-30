@@ -19,7 +19,7 @@ const dataTestIds = {
   18: 'customer_products__button-card-add-item-',
   19: 'customer_products__button-card-rm-item-',
   20: 'customer_products__input-card-quantity-',
-  21: 'customer_products__checkout-bottom-value',
+  21: 'customer_products__button-cart',
   22: 'customer_checkout__element-order-table-item-number-',
   23: 'customer_checkout__element-order-table-name-',
   24: 'cutomer_checkout__element-order-table-quantity-',
