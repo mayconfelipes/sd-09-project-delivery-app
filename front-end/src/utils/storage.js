@@ -48,7 +48,7 @@ const getTotalCartLocalStorage = () => {
     0,
   );
   return totalCart.toFixed(2).replace('.', ',');
-}; // mozila.org
+};
 
 const removeCarrinhoLocalStorage = () => localStorage.removeItem('carrinho');
 

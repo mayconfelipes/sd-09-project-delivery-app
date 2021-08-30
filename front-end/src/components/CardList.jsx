@@ -42,7 +42,7 @@ const CardList = () => {
     <div>
       <Button
         id="btn-total-cart"
-        dataTestId={ testid[21] }
+        dataTestId={ testid[76] } // 21
         buttonText={ totalCart }
         onClick={ () => {
           setIsRedirectCart(true);
