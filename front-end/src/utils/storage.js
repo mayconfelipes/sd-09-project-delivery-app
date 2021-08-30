@@ -39,8 +39,7 @@ const getTotalCartLocalStorage = () => {
     (accumulator, { subTotal }) => accumulator + Number(subTotal.replace(',', '.')),
     0,
   );
-  return totalCart
-    .toLocaleString(undefined, { minimumFractionDigits: 2, maximunFractionDigits: 2 });
+  return totalCart.toFixed(2).replace('.', ',');
 }; // mozila.org
 
 const removeCarrinhoLocalStorage = () => localStorage.removeItem('carrinho');
