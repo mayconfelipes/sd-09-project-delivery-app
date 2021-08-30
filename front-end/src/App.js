@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import Login from './pages/login';
 import Register from './pages/register';
+import Products from './pages/customerProducts';
 import GlobalStyle from './theme/globalStyle';
 import Context from './context/index';
 
@@ -14,6 +15,7 @@ function App() {
       <GlobalStyle />
       <BrowserRouter>
         <Switch>
+          <Route path="/customer/products" component={ Products } />
           <Route path="/register" component={ Register } />
           <Route path="/login" component={ Login } />
           <Route path="/">
