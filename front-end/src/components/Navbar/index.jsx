@@ -1,12 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => (
   <nav data-testid="customer_products__element-navbar-link-products">
     <ul>
-      <li>PRODUTOS</li>
-      <li>MEUS PEDIDOS</li>
-      <li>test</li>
-      <li>Sair</li>
+      <Link to="/customer/products">
+        <li>PRODUTOS</li>
+      </Link>
+      <Link to="/customer/orders">
+        <li>MEUS PEDIDOS</li>
+      </Link>
+      <Link to="/register">
+        <li>test</li>
+      </Link>
+      <Link to="/login">
+        <li>Sair</li>
+      </Link>
     </ul>
   </nav>
 );
