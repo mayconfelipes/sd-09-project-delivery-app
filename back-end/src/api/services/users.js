@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 const { Users } = require('../../database/models');
 const { messageError } = require('../middwares/errors');
 const {
@@ -30,6 +31,13 @@ const emailExists = async (email) => {
   }
 };
 
+const jwtConfig = {
+  algorithm: 'HS256',
+  expiresIn: 600000,
+};
+
+const secret = 'secret_key';
+
 const create = async (user) => {
   const { name, email, password, role } = user;
 
@@ -48,6 +56,8 @@ const create = async (user) => {
   if (!newUser) {
     throw messageError(INTERNAL_ERROR_STATUS, USER_NOT_CREATED);
   }
+
+  return jwt.sign({ data: { name, email, role } }, secret, jwtConfig);
 };
 
 module.exports = {

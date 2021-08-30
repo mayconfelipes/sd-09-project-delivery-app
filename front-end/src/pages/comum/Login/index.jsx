@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import PrimaryButton from '../../../components/PrimaryButton';
 import TertiaryButton from '../../../components/TertiaryButton';
@@ -14,7 +14,9 @@ const Login = () => {
     passwordInput: '',
   });
 
-  // const [setLoginResponse] = useState({});
+  const [isLogged, setIsLogged] = useState(false);
+
+  const [invalidLogin, setInvalidLogin] = useState(false);
 
   const [isDataValid, setIsDataValid] = useState(true);
 
@@ -40,13 +42,14 @@ const Login = () => {
 
   const sendLoginRequest = async () => {
     const { emailInput, passwordInput } = userData;
-    const loginsStatus = await login(emailInput, passwordInput);
-    // setLoginResponse(loginsStatus);
-    console.log('login', loginsStatus);
+    const { token } = await login(emailInput, passwordInput);
+    if (token) setIsLogged(true);
+    else setInvalidLogin(true);
   };
 
   return (
     <section className={ style.loginContainer }>
+      { isLogged && <Redirect to="/customer/products" /> }
       <h1>APP Delivery</h1>
       <form className={ style.inputContainer }>
         <label htmlFor="inputEmail" className={ style.inputStyle }>
@@ -62,20 +65,19 @@ const Login = () => {
           Senha
           <input
             id="inputPassword"
+            type="password"
             data-testid="common_login__input-password"
             name="passwordInput"
             onChange={ handleInputChange }
           />
         </label>
-        <Link to="/customer/products">
-          <PrimaryButton
-            isBtnDisabled={ isDataValid }
-            dataTestId="common_login__button-login"
-            onLoginClick={ sendLoginRequest }
-          >
-            Login
-          </PrimaryButton>
-        </Link>
+        <PrimaryButton
+          isBtnDisabled={ isDataValid }
+          dataTestId="common_login__button-login"
+          onLoginClick={ sendLoginRequest }
+        >
+          Login
+        </PrimaryButton>
         <Link to="/register">
           <TertiaryButton
             dataTestId="common_login__button-register"
@@ -83,11 +85,13 @@ const Login = () => {
             Ainda não tenho conta
           </TertiaryButton>
         </Link>
-        <p
-          data-testid="common_login__element-invalid-email"
-        >
-          Se email inválido mostrar uma mensagem
-        </p>
+        {
+          invalidLogin && (
+            <h4 data-testid="common_login__element-invalid-email">
+              Email e/ou senha inválidos
+            </h4>
+          )
+        }
       </form>
     </section>
   );
