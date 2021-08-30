@@ -21,7 +21,7 @@ beforeEach(async () => {
   expect(await action.common.navigate.register.default(page)).toBeTruthy();
 });
 
-describe(requirement(6), () => {
+describe.only(requirement(6), () => {
   beforeEach(async () => {
     await expect(page).toNavigate(`${host}/login`);
     await expect(page).toCompareURL(`${host}/login`);

@@ -7,7 +7,7 @@ function Button({ text, styleColor, testId, onClick, isDisabled }) {
     <ButtonElement
       type="button"
       styleColor={ styleColor }
-      data-testId={ testId }
+      data-testid={ testId }
       onClick={ onClick }
       disabled={ isDisabled || false }
     >
@@ -17,8 +17,8 @@ function Button({ text, styleColor, testId, onClick, isDisabled }) {
 }
 
 Button.propTypes = {
-  text: PropTypes.string.isRequired,
-  styleColor: PropTypes.string.isRequired,
+  text: PropTypes.string,
+  styleColor: PropTypes.string,
 }.isRequired;
 
 export default Button;

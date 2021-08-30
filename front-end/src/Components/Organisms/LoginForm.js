@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import InputText from '../Molecules/InputText';
 import Text from '../Atoms/Text';
 import Button from '../Atoms/Button';
@@ -7,8 +7,8 @@ import { LoginForm } from '../styles';
 import validation from '../../validation/userValidation';
 import { userLogin } from '../../services/api';
 
-const notFound = 404;
-const statusOk = 200;
+// const notFound = 404;
+// const statusOk = 200;
 
 function LoginFormComponent() {
   const inicialFormData = {
@@ -38,22 +38,15 @@ function LoginFormComponent() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(e.target.value);
-    console.log(loginForm);
     setLoginForm({ ...loginForm, [name]: value });
   };
 
   const logIn = async () => {
     const response = await userLogin({ email: login, password });
-    const { status } = response;
-    if (status === notFound) {
-      const { message } = await response.json();
-      setErrorMessage({ message: `Error ${status}: ${message}` });
-    }
-
-    if (status === statusOk) {
-      return history.push('/customer/products');
-    }
+    return response.message
+      ? setErrorMessage({
+        message: 'Login ou senha inválidos! :(',
+      }) : history.push(`/${response.role}/products`);
   };
 
   return (
@@ -78,12 +71,14 @@ function LoginFormComponent() {
         onClick={ logIn }
         isDisabled={ !validation.validationForLogin({ login, password }) }
       />
-      <Button
-        text="Ainda não tenho conta"
-        styleColor="primary"
-        testId="common_login__button-register"
-        onClick={ logIn }
-      />
+      <Link to="/register">
+        <Button
+          text="Ainda não tenho conta"
+          styleColor="primary"
+          testId="common_login__button-register"
+        />
+      </Link>
+
       {errorMessage.message
         ? <Text testId="common_login__element-invalid-email">{errorMessage.message}</Text>
         : null}

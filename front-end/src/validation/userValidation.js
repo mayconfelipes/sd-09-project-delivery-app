@@ -12,7 +12,6 @@ const validationForLogin = ({ password, login }) => {
   const isPasswordValid = passwordValidation(password);
   const isEmailValid = emailValidation(login);
   if (isPasswordValid && isEmailValid) {
-    console.log(isPasswordValid);
     return true;
   }
 

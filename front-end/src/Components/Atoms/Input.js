@@ -9,7 +9,7 @@ function Input({ children: { name, placeholder, inputType, testId, onChange } })
       name={ name }
       id={ name }
       placeholder={ placeholder }
-      data-testId={ testId }
+      data-testid={ testId }
       onChange={ onChange }
     />
   );
