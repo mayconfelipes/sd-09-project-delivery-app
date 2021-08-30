@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import * as api from '../services/api';
 
-const errorMessageTimeout = 2000;
-
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,6 +9,7 @@ function Login() {
   const [showInvalidLoginError, setInvalidLoginError] = useState('');
 
   const history = useHistory();
+  const errorMessageTimeout = 2000;
 
   useEffect(() => {
     const emailRegex = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
@@ -57,6 +56,7 @@ function Login() {
             onChange={ (e) => setPassword(e.target.value) }
           />
         </label>
+
         <button
           type="button"
           data-testid="common_login__button-login"
@@ -65,6 +65,7 @@ function Login() {
         >
           LOGIN
         </button>
+
         <Link to="/register">
           <button
             type="button"

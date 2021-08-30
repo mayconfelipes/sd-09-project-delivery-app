@@ -18,6 +18,8 @@ app.use(cors());
 //   },
 // });
 
+app.use('/images', express.static(`${__dirname}/../../public`));
+
 app.get('/', () => console.log('hello world!'));
 
 app.post('/login', User.loginUser);
