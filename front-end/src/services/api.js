@@ -49,3 +49,10 @@ export const register = async (name, email, password) => {
 export const getProducts = () => axios.get(`${url}/product`)
   .then(({ data }) => { console.log(data); return data; })
   .catch((error) => error.response.data);
+
+export const getSalesBySeller = (id) => axios.get(`${url}/sale/seller/${id}`)
+  .then(({ data }) => data);
+
+export const getSale = (id) => axios.get(`${url}/sale/${id}`)
+  .then(({ data }) => data)
+  .catch((error) => error.response.data);
