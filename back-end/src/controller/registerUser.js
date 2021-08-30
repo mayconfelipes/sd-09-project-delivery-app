@@ -12,7 +12,7 @@ router.post('/', [
     await service.registerUser(req.body);
 
     return res.status(201).json({ message: 'Created' });
-  })
+  }),
 ]);
 
 module.exports = router;
