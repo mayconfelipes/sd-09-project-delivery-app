@@ -4,7 +4,7 @@ const { newToken } = require('../utils/jwtfunctions');
 const newError = require('../utils/newError');
 
 const searchUser = async (email, password) => {
-  const foundUser = await User.findOne({ 
+  const foundUser = await User.findOne({
     where: { email, password },
     attributes: { exclude: ['password', 'id'] },
   });

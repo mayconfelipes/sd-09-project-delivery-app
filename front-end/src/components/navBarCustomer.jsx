@@ -1,8 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styles/navBarCustomer.css';
 
 function NavBarCustomer(props) {
   const { textProp } = props;
+
+  const token = 'abc123';
+  const getUserName = JSON.parse(localStorage.getItem(token)).name;
+
+  const logout = () => {
+    localStorage.removeItem(token);
+  };
 
   function setOrders() {
     if (
@@ -48,13 +56,14 @@ function NavBarCustomer(props) {
             className="navbar_nome"
             data-testid="customer_products__element-navbar-user-full-name"
           >
-            Nome do usuário
+            { getUserName }
           </div>
 
           <div className="navbar_sair">
             <a
               href="/login"
               data-testid="customer_products__element-navbar-link-logout"
+              onClick={ () => logout() }
             >
               Sair
             </a>

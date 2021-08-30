@@ -1,0 +1,87 @@
+/* === Page Customer Product Card === */
+.container_cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  left: 100px;
+  position: absolute;
+  top: 100px;
+  width: 80vw;
+}
+
+.container_cards div + div {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.product_card {
+  background: white;
+  border: 2px solid #727272;
+  border-radius: 13px;
+  display: flex;
+  height: 400px;
+  justify-content: center;
+  position: relative;
+  width: 310px;
+}
+
+.card_price {
+  font-size: 25px;
+  font-weight: 600;
+  left: 20px;
+  position: absolute;
+  top: 20px;
+}
+
+.image {
+  align-self: center;
+  height: 200px;
+  width: 190px;
+}
+
+.product_card__footer {
+  background: #727272;
+  border-radius: 0 0 13px 13px;
+  bottom: 0;
+  color: aliceblue;
+  display: flex;
+  height: 9vh;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+}
+
+.quantity {
+  bottom: 23px;
+  height: 20px;
+  position: absolute;
+}
+
+.quantity input {
+  margin: 5px;
+  text-align: center;
+  width: 20px;
+}
+
+/* === Page Customer Button For Shopping Cart === */
+.ver_carrinho {
+  align-items: center;
+  background: #5e5e5e;
+  border-radius: 13px;
+  bottom: 20px;
+  display: flex;
+  height: 6vh;
+  position: fixed;
+  right: 25px;
+  width: 265px;
+}
+
+.ver_carrinho:hover {
+  background: #727272;
+}
+
+.ver_carrinho span {
+  color: aliceblue;
+  font-size: 1.3rem;
+  margin-left: 15px;
+}

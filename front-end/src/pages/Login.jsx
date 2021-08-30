@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [valid, setValid] = useState(false);
+
+  const token = 'abc123';
+
+  const localstorageMock = () => {
+    localStorage.setItem(token, JSON.stringify({
+      id: 1,
+      name: 'Fulana Pereira',
+      email: 'fulana@deliveryapp.com',
+      role: 'seller',
+      token,
+    }));
+  };
 
   useEffect(() => {
     const emailRegex = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
@@ -15,13 +27,8 @@ function Login() {
     setValid(false);
   }, [email, password]);
 
-  const users = JSON.parse(localStorage.getItem('users'));
-  console.log(users);
-
   return (
     <div className="login-page">
-      { valid ? <Redirect to="/customer/products" /> : null}
-
       <form>
         <label htmlFor="login-input">
           Login
@@ -41,14 +48,16 @@ function Login() {
             onChange={ (e) => setPassword(e.target.value) }
           />
         </label>
-        <button
-          type="button"
-          data-testid="common_login__button-login"
-          disabled={ !valid }
-          onClick={ () => console.log(valid) }
-        >
-          LOGIN
-        </button>
+        <Link to="/customer/products">
+          <button
+            type="button"
+            data-testid="common_login__button-login"
+            disabled={ !valid }
+            onClick={ () => localstorageMock() }
+          >
+            LOGIN
+          </button>
+        </Link>
         <Link to="/register">
           <button
             type="button"

@@ -1,41 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import ProductsContext from '../context/ProductsContext';
 import NavBarCustomer from '../components/navBarCustomer';
+import '../styles/customerProducts.css';
 
-function CustomerProducts() {
-  // const DBMock = [
-  //   {
-  //     id: 1,
-  //     price: '1,00',
-  //     img: '/',
-  //     description: 'produto_1',
-  //   },
-  //   {
-  //     id: 2,
-  //     price: '2,00',
-  //     img: '/',
-  //     description: 'produto_2',
-  //   },
-  //   {
-  //     id: 3,
-  //     price: '3,00',
-  //     img: '/',
-  //     description: 'produto_3',
-  //   },
-  // ];
-
-  const [items, setItems] = useState([]);
-
-  const getItems = async () => {
-    const getFromDB = await fetch('http://localhost:3001/products');
-    const respDB = await getFromDB.json();
-    setItems(respDB);
-    return respDB;
-  };
+const CustomerProducts = () => {
+  const {
+    getProducts,
+    setProducts,
+    products,
+  } = useContext(ProductsContext);
 
   useEffect(() => {
-    getItems();
-    console.log(items);
+    getProducts().then((response) => setProducts(response));
   }, []);
+
+  const increment = () => {
+    const incre = document.querySelector('.incremeto');
+
+    incre.addEventListener('click', () => {
+      const text = incre.previousSibling.value;
+      console.log(text);
+    });
+  };
 
   return (
     <div>
@@ -43,11 +29,11 @@ function CustomerProducts() {
 
       <div className="container_cards">
         {
-          items.map((product, index) => (
+          products.map((product, index) => (
             <div className="product_card" key={ index }>
               <div
                 className="card_price"
-                data-testid="customer_products__element-card-price-"
+                data-testid={ `customer_products__element-card-price-${product.id}` }
               >
                 { `R$ ${product.price}` }
               </div>
@@ -75,11 +61,18 @@ function CustomerProducts() {
                   >
                     -
                   </button>
-                  <span data-testid="customer_products__input-card-quantity-">0</span>
+                  <input
+                    data-testid={
+                      `customer_products__input-card-quantity-${product.id}`
+                    }
+                  />
                   <button
                     className="incremento"
                     type="button"
-                    data-testid="customer_products__button-card-add-item-"
+                    data-testid={
+                      `customer_products__button-card-add-item-${product.id}`
+                    }
+                    onClick={ () => increment() }
                   >
                     +
                   </button>
@@ -98,6 +91,6 @@ function CustomerProducts() {
       </div>
     </div>
   );
-}
+};
 
 export default CustomerProducts;
