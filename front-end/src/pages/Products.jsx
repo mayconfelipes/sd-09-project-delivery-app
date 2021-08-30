@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import jwt from 'jsonwebtoken';
 import { useHistory } from 'react-router-dom';
@@ -13,8 +12,8 @@ function Products() {
 
   useEffect(() => {
     getProducts();
-  }, []);
-  console.log(products);
+  }, [getProducts]);
+
   const router = useHistory();
 
   useEffect(() => {
