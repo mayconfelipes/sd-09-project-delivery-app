@@ -19,7 +19,7 @@ const createSaleProduct = async (saleId, productId, quantity) => {
 };
 
 const getSalesByUserId = async ({ userId = 0, sellerId = 0 }) => {
-  console.log(userId);
+  console.log(sellerId);
   const sales = Sale.findAll({
     where: { 
       [Op.or]: [{ userId }, { sellerId }],
