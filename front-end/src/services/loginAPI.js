@@ -22,6 +22,4 @@ const loginAPI = async (loginBody) => {
   }
 };
 
-module.exports = {
-  loginAPI,
-};
+export default loginAPI;

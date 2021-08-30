@@ -16,8 +16,6 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up('md')]: {
     },
-    [theme.breakpoints.up('lg')]: {
-    },
   },
   inputTitles: {
     margin: '10px 0 5px 5px',
@@ -39,6 +37,12 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#cccccc',
       color: '#666666',
     },
+  },
+  divErrorHidden: {
+    display: 'none',
+  },
+  divErrorShown: {
+    display: 'block',
   },
 }));
 

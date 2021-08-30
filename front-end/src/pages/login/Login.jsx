@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { loginAPI } from '../../services/loginAPI';
+import loginAPI from '../../services/loginAPI';
 
 function Login() {
   const [isValidFields, setIsValidFields] = useState(true);
@@ -20,12 +20,13 @@ function Login() {
   const canUserLogin = async () => {
     const loginBody = { email, password };
     const responseLogin = await loginAPI(loginBody);
-    console.log(responseLogin);
     if (responseLogin.message === 'Invalid fields') {
       return setIsValidFields(false);
     }
+    console.log(responseLogin);
     if (responseLogin.token) {
-      return history.push('/customer/products');
+      localStorage.setItem('userData', JSON.stringify(responseLogin));
+      history.push('/customer/products');
     }
   };
 
@@ -62,7 +63,7 @@ function Login() {
             name="password"
             onChange={ (e) => setPassword(e.target.value) }
             data-testid="common_login__input-password"
-            placeholder="Barak Obama"
+            placeholder="***********"
             required
           />
         </label>
@@ -77,6 +78,7 @@ function Login() {
       <button
         type="button"
         data-testid="common_login__button-register"
+        onClick={ () => history.push('/register') }
       >
         <a href="/register">AINDA NÃO TENHO CONTA</a>
       </button>

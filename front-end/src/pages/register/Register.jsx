@@ -1,25 +1,36 @@
 import React, { useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+// import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { registerAPI } from '../../services/registerAPI';
+import { useHistory } from 'react-router-dom';
+import registerAPI from '../../services/registerAPI';
 import useStyle from './registerPage.style';
 
 export default function Register() {
-  // const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const classes = useStyle();
+  const history = useHistory();
 
   const canUserRegister = async () => {
     const registerBody = { name, email, password };
     const responseRegister = await registerAPI(registerBody);
-    console.log(responseRegister);
-    // if (error === true) {
-    //   toast('Email já registrado');
-    // }
+    if (responseRegister.token) {
+      localStorage.setItem('userData', JSON.stringify(responseRegister));
+      return history.push('/customer/products');
+    }
+    if (responseRegister.message) {
+      setError(true);
+      const notMagicNumber = 3000;
+      setTimeout(() => {
+        setError(false);
+      }, notMagicNumber);
+      return;
+    }
+    return history.push('/login');
   };
 
   const isInputValid = (passwordInputValue = password) => {
@@ -39,11 +50,6 @@ export default function Register() {
 
   return (
     <>
-      <div
-        data-testid="common_register__element-invalid_register"
-      >
-        <ToastContainer />
-      </div>
       <p className={ classes.registerTitle }>Cadastro</p>
       <form
         className={ classes.formsContainer }
@@ -115,6 +121,12 @@ export default function Register() {
           >
             CADASTRAR
           </button>
+          <div
+            data-testid="common_register__element-invalid_register"
+            className={ error ? classes.divErrorShown : classes.divErrorHidden }
+          >
+            Usuário cadastrado
+          </div>
         </div>
       </form>
     </>
