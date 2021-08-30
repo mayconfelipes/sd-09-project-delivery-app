@@ -8,7 +8,7 @@ const service = require('../service/login');
 router.post('/', rescue(async (req, res, next) => {
   const user = await service.login(req.body);
 
-  if (!user.length) {
+  if (user.error) {
     return next({
       statusCode: 404,
       message: 'Not Found',

@@ -18,10 +18,15 @@ function Provider({ children }) {
     }
   };
 
+  const setUserInLocalStorage = (data) => {
+    localStorage.setItem('user', JSON.stringify(data));
+  };
+
   const contextValue = {
     user,
     signIn,
     setUser,
+    setUserInLocalStorage,
   };
 
   return (
