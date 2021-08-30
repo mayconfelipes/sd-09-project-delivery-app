@@ -4,7 +4,6 @@ const formValidator = (email, password, name) => {
   const minPasswordLenght = 6;
 
   if (name === undefined) {
-    console.log('lint');
     if (!emailRegex.test(email)
     || password.length < minPasswordLenght) {
       return false;
