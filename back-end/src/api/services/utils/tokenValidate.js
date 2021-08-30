@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const { Unauthorized } = require('../../utils/httpStatus');
 
 const getJwtEvaluationKey = () => {
-  const jwtEvaluationKey = path.resolve('jwt.evaluation.key');
+  const jwtEvaluationKey = path.resolve(__dirname, '..', '..', '..', '..', 'jwt.evaluation.key');
   let result = fs.readFileSync(jwtEvaluationKey, 'utf8');
   result = result.replace('\n', '');
   return result;
