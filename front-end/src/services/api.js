@@ -43,8 +43,37 @@ const registerUserWithAdmin = (newUser, token) => {
     .catch((err) => err);
 };
 
+// pega uma venda do database
+const getSaleById = (id) => {
+  const endpoint = `http://localhost:3001/sale/${id}`;
+  return fetch(endpoint, {
+    headers: {
+      'Content-Type': CONTENT,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
+// dado um id pega todos os items de uma venda pelo id da venda
+const getSaleItems = (id) => {
+  const endpoint = `http://localhost:3001/sale/items/${id}`;
+
+  return fetch(endpoint, {
+    headers: {
+      'Content-Type': CONTENT,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
 export default {
   loginUser,
   registerUser,
   registerUserWithAdmin,
+  getSaleById,
+  getSaleItems,
 };

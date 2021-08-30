@@ -8,12 +8,12 @@ const User = (sequelize, DataTypes) => {
   { timestamps: false });
 
   // novamente verificar 'as sales'
-  newUser.associate = (models) => {
-    newUser.hasMany(models.sale,
-      { foreingnKey: 'user_id', as: 'user'});
-    newUser.hasMany(models.sale,
-      { foreingnKey: 'seller_id', as: 'seller'});
-  };
+  // newUser.associate = (models) => {
+  //   newUser.hasMany(models.sale,
+  //     { foreingnKey: 'user_id', as: 'user'});
+  //   newUser.hasMany(models.sale,
+  //     { foreingnKey: 'seller_id', as: 'seller'});
+  // };
 
   return newUser;
 };
