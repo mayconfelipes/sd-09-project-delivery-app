@@ -1,11 +1,13 @@
-const Product = (sequelize, DataTypes) => {
-  const Product = sequelize.define('Product', {
+const product = (sequelize, DataTypes) => {
+  const product = sequelize.define('product', {
     name: DataTypes.STRING,
     price: DataTypes.DECIMAL,
+
     urlImage: DataTypes.STRING
   }, { timestamps: false, underscored: true, tableName: 'Products' });
 
-  return Product;
+
+  return product;
 };
 
-module.exports = Product;
+module.exports = product;
