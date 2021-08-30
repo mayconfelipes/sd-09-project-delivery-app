@@ -1,8 +1,10 @@
 const { products } = require('../database/models');
 
 const getAll = async () => {
-  const blogPosts = await products.findAll();
-  return blogPosts;
+  const allProducts = await products.findAll();
+  return allProducts;
 };
 
-module.exports = getAll;
+module.exports = {
+  getAll,
+};

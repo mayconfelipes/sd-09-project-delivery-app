@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
+const jwtKey = require('fs')
+  .readFileSync('jwt.evaluation.key', { encoding: 'utf-8' })
+  .trim();
 const { users } = require('../../database/models');
 require('dotenv').config();
-
-const secret = 'teste';
 
 const authToken = async (req, _res, next) => {
   const token = req.headers.authorization;
@@ -12,7 +13,7 @@ const authToken = async (req, _res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, secret);
+    const decoded = jwt.verify(token, jwtKey);
 
     const user = await users.findOne({ where: { email: decoded.email } });
 

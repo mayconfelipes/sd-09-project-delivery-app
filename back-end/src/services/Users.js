@@ -1,22 +1,23 @@
 const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
 const { users } = require('../database/models');
+const createToken = require('../middlewares/createToken');
 
 const NOTFOUND = { code: 404, message: 'User not found' };
 
-const jwtConfig = {
-  expiresIn: '1h',
-  algorithm: 'HS256',
-};
-
-const secret = 'teste';
-
 const createUser = async (body) => {
-  const { dataValues } = await users.create({ ...body });
+  const { password, role = 'customer', ...allBody } = body;
+  const md5Password = crypto.createHash('md5').update(password).digest('hex');
+  const { dataValues } = await users.create({ ...allBody, password: md5Password, role });
 
-  const { password: _, ...newUser } = dataValues;
+  const { password: _, id: __, ...newUser } = dataValues;
 
-  return newUser;
+  const token = createToken(newUser);
+
+  const userToken = {
+    ...newUser,
+    token,
+  };
+  return userToken;
 };
 
 const getAll = async () => {
@@ -35,11 +36,17 @@ const login = async ({ email, password }) => {
 
   if (!user) throw NOTFOUND;
 
-  const { password: _, ...loginUser } = user.dataValues;
+  const { password: _, id: __, ...loginUser } = user.dataValues;
 
-  const token = jwt.sign(loginUser, secret, jwtConfig);
+  const token = createToken(loginUser);
 
-  return token;
+  const userToken = {
+    ...loginUser,
+    token,
+  };
+  console.log(userToken);
+
+  return userToken;
 };
 
 module.exports = {

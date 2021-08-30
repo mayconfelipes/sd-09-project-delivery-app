@@ -2,22 +2,23 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import fetchPOST from '../services/fetchPOST';
 
-class Login extends React.Component {
+class Register extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      disabled: true,
+      toggleMessage: false,
+      name: '',
       email: '',
       password: '',
-      toggleMessage: false,
       message: '',
+      disabled: true,
       redirect: false,
     };
 
-    this.fetchAPI = this.fetchAPI.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.toggleButton = this.toggleButton.bind(this);
+    this.fetchAPI = this.fetchAPI.bind(this);
   }
 
   handleChange({ target }) {
@@ -26,12 +27,12 @@ class Login extends React.Component {
   }
 
   toggleButton() {
-    const { email, password } = this.state;
-    const number = 6;
-
+    const { name, email, password } = this.state;
+    const numberName = 12;
+    const numberPassword = 6;
     const validateEmail = /^[\S.]+@[a-z]+\.\w{2,3}$/g.test(email);
 
-    if (validateEmail && password.length >= number) {
+    if (validateEmail && password.length >= numberPassword && name.length >= numberName) {
       this.setState({
         disabled: false,
       });
@@ -43,11 +44,10 @@ class Login extends React.Component {
   }
 
   async fetchAPI() {
-    const { email, password } = this.state;
+    const { name, email, password } = this.state;
 
     try {
-      const result = await fetchPOST('http://localhost:3001/login', { email, password });
-
+      const result = await fetchPOST('http://localhost:3001/users', { name, email, password });
       localStorage.setItem('user', JSON.stringify(result));
       this.setState({
         toggleMessage: false,
@@ -62,56 +62,74 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password, toggleMessage, message, disabled, redirect } = this.state;
+    const {
+      toggleMessage,
+      name,
+      email,
+      password,
+      message,
+      disabled,
+      redirect } = this.state;
     return (
       <div>
-        <h3>Login</h3>
+        <p>Cadastro</p>
         <div>
+          <label htmlFor="name">
+            Nome
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={ name }
+              onChange={ this.handleChange }
+              data-testid="common_register__input-name"
+            />
+          </label>
           <label htmlFor="email">
-            Login
+            Email
             <input
               type="text"
               id="email"
               name="email"
               value={ email }
               onChange={ this.handleChange }
-              data-testid="common_login__input-email"
+              data-testid="common_register__input-email"
             />
           </label>
           <label htmlFor="password">
-            Password
+            Senha
             <input
               type="password"
               id="password"
               name="password"
               value={ password }
               onChange={ this.handleChange }
-              data-testid="common_login__input-password"
+              data-testid="common_register__input-password"
             />
           </label>
           <button
             type="button"
-            data-testid="common_login__button-login"
+            data-testid="common_register__button-register"
             onClick={ this.fetchAPI }
             disabled={ disabled }
           >
-            LOGIN
+            CADASTRAR
           </button>
-          { toggleMessage
-            && <p data-testid="common_login__element-invalid-email">{ message }</p> }
-          <Link to="/register">
-            <button
-              type="button"
-              data-testid="common_login__button-register"
-            >
-              Ainda não tenho conta
-            </button>
-          </Link>
         </div>
+        { toggleMessage
+          && <p data-testid="common_register__element-invalid_register">{ message }</p> }
         { redirect && <Redirect to="/customer/products" /> }
+        <Link to="/login">
+          <button
+            type="button"
+            data-testid="common_login__button-register"
+          >
+            Login
+          </button>
+        </Link>
       </div>
     );
   }
 }
 
-export default Login;
+export default Register;
