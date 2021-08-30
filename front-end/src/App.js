@@ -17,6 +17,7 @@ function App() {
       </Route>
       <Route path="/register" component={ Register } />
       <Route path="/customer/orders" component={ OrdersPage } />
+      <Route path="/seller/orders" component={ OrdersPage } />
       <Route path="/admin/manage" component={ Admin } />
     </Switch>
   );

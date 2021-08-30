@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import dataTestIds from '../utils/dataTestIds';
 
 function OrderCard({
   role,
@@ -16,7 +17,11 @@ function OrderCard({
     if (userRole === 'seller') {
       return (
         <div>
-          <button type="button" onClick={ handleClick }>
+          <button
+            type="button"
+            onClick={ handleClick }
+            data-testid={ dataTestIds[49] }
+          >
             { status }
           </button>
         </div>
@@ -24,14 +29,18 @@ function OrderCard({
     }
     return (
       <div>
-        <p>{ status }</p>
+        <p
+          data-testid={ dataTestIds[34] }
+        >
+          { status }
+        </p>
       </div>
     );
   };
 
   const addressDiv = () => (
     <div>
-      { `${adress}, ${addressNumber}` }
+      <p data-testid={ dataTestIds[52] }>{ `${adress}, ${addressNumber}` }</p>
     </div>
   );
 
@@ -39,12 +48,24 @@ function OrderCard({
     <div>
       <div>
         <div>
-          <p>{ `Pedido: ${id}` }</p>
+          <p
+            data-testid={ userRole === 'seller' ? dataTestIds[33] : dataTestIds[48] }
+          >
+            { `Pedido: ${id}` }
+          </p>
         </div>
         { statusDiv(role) }
         <div>
-          <p>{ date }</p>
-          <p>{ price }</p>
+          <p
+            data-testid={ userRole === 'seller' ? dataTestIds[50] : dataTestIds[35] }
+          >
+            { date }
+          </p>
+          <p
+            data-testid={ userRole === 'seller' && dataTestIds[51] }
+          >
+            { price }
+          </p>
         </div>
       </div>
       { role === 'seller' && addressDiv() }
