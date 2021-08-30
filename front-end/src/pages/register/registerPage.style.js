@@ -38,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
       color: '#666666',
     },
   },
+  divErrorHidden: {
+    display: 'none',
+  },
+  divErrorShown: {
+    display: 'block',
+  },
 }));
 
 export default useStyles;

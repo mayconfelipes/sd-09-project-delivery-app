@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function Cards(props) {
   const [currentQuantityToBuy, setCurrentQuantityToBuy] = useState(0);
+
   const { cardInfos: { price, nameAndQuantityInMl, thumbNail, id } } = props;
   return (
     <div
@@ -60,7 +61,7 @@ export default function Cards(props) {
         >
           {nameAndQuantityInMl}
         </p>
-        <div style={ { margin: '10px 0 10px 0' } }>
+        <div style={ { margin: '10px 0 10px 0', display: 'flex', alignItems: 'center' } }>
           <button
             style={ {
               backgroundColor: '#206B53',
@@ -84,18 +85,20 @@ export default function Cards(props) {
           >
             -
           </button>
-          <span
+          <input
             style={ {
               backgroundColor: '#FFF',
-              padding: '8px 15px',
+              // padding: '8px 15px',
               borderTop: '1px solid black',
               borderBottom: '1px solid black',
               color: '#828282',
+              width: '31px',
+              height: '31px',
+              textAlign: 'center',
             } }
-          >
-            {currentQuantityToBuy}
-
-          </span>
+            value={ currentQuantityToBuy }
+            onChange={ (e) => setCurrentQuantityToBuy(Number(e.target.value)) }
+          />
           <button
             style={ {
               backgroundColor: '#206B53',
@@ -108,7 +111,10 @@ export default function Cards(props) {
               cursor: 'pointer',
             } }
             data-testid={ `customer_products__button-card-add-item-${id}` }
-            onClick={ () => setCurrentQuantityToBuy(currentQuantityToBuy + 1) }
+            onClick={ () => {
+              setCurrentQuantityToBuy(currentQuantityToBuy + 1);
+              console.log(currentQuantityToBuy);
+            } }
             type="button"
           >
             +

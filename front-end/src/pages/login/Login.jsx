@@ -24,8 +24,8 @@ function Login() {
       return setIsValidFields(false);
     }
     if (responseLogin.token) {
+      history.push('/customer/products');
       localStorage.setItem('userData', JSON.stringify(responseLogin));
-      return history.push('/customer/products');
     }
   };
 
@@ -62,7 +62,7 @@ function Login() {
             name="password"
             onChange={ (e) => setPassword(e.target.value) }
             data-testid="common_login__input-password"
-            placeholder="Barak Obama"
+            placeholder="***********"
             required
           />
         </label>
