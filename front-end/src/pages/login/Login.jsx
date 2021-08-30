@@ -78,7 +78,7 @@ function Login() {
         type="button"
         data-testid="common_login__button-register"
       >
-        AINDA NÃO TENHO CONTA
+        <a href="/register">AINDA NÃO TENHO CONTA</a>
       </button>
     </form>
   );
