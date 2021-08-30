@@ -10,8 +10,9 @@ import PrivateRoute from './PrivateRoute';
 const Routes = () => (
 
   <Switch>
-    <Route exact path="/" component={ Login } />
-    <PrivateRoute path="/home" component={ HomePage } />
+    {/* <Route exact path="/" component={ HomePage } /> */}
+    <Route exact path="/login" component={ Login } />
+    <PrivateRoute path="/" component={ HomePage } />
     <Route component={ NotFound } />
   </Switch>
 
