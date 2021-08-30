@@ -1,6 +1,7 @@
-const { BadRequest } = require('../../utils/httpStatus');
 const isValidEmail = require('./emailValidate');
+const { User } = require('../../../database/models');
 const isValidPassword = require('./passwordValidate');
+const { BadRequest, Conflict } = require('../../utils/httpStatus');
 
 const validRoles = {
   administrator: 'administrator',
@@ -19,10 +20,10 @@ const isValidName = (name) => {
     throw error;
   }
 
-  if (name.length < 3) {
+  if (name.length < 12) {
     const error = { 
       type: BadRequest,
-      message: '"Name" length must be at least 3 characters long',
+      message: '"Name" length must be at least 12 characters long',
     };
     throw error;
   }
@@ -47,11 +48,22 @@ const isValidRole = (role) => {
   return true;
 };
 
-const isValidUserFields = (fields) => {
+const isValidUser = async (email) => {
+  const emailExists = await User.findOne({ where: { email } });
+
+  if (emailExists) {
+    const error = { type: Conflict, message: 'this email is already registered' };
+    throw error;
+  } 
+  return emailExists;
+};
+
+const isValidUserFields = async (fields) => {
   isValidName(fields.name);
   isValidEmail(fields.email);
   isValidPassword(fields.password);
   isValidRole(fields.role);
+  await isValidUser(fields.email);
 };
 
 module.exports = {
