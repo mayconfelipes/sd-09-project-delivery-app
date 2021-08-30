@@ -12,16 +12,16 @@
 .navbar a {
   color: #f2f2f2;
   display: block;
-  float: left;
   flex-grow: 1;
+  float: left;
   padding: 14px 16px;
   text-align: center;
   text-decoration: none;
 }
 
 .navbar p {
-  padding-left: 12em;
   color: #4287f5;
+  padding-left: 12em;
 }
 
 .navbar a:hover {
