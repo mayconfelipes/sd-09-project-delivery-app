@@ -27,7 +27,6 @@ export const DeliveryProvider = ({ children }) => {
   const context = {
     userData,
     setUserData,
-    // getAllProdutcs,
     allProducts,
   };
 
