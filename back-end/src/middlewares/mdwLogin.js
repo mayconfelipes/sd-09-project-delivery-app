@@ -16,7 +16,14 @@ const userLogin = async (req, res, next) => {
       return next(invalidFields);
     }
     const getToken = LoginService.userLogin(email, password);
-    return res.status(OK).json({ token: getToken });
+
+    const objToReturnForResponseOk = {
+      name: userIsValid.name,
+      email: userIsValid.email,
+      role: userIsValid.role,
+      token: getToken,
+    }
+    return res.status(OK).json(objToReturnForResponseOk);
   } catch (err) {
     // const internalError = errorObj(err.message, badRequest);
     return next(err);

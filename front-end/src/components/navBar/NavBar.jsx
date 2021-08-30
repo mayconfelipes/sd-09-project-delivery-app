@@ -2,6 +2,8 @@ import React from 'react';
 import useStyle from './navBar.style';
 
 export default function NavBar() {
+  const userInfos = JSON.parse(localStorage.getItem('userData'));
+
   const classes = useStyle();
 
   return (
@@ -35,7 +37,7 @@ export default function NavBar() {
           className={ classes.optionsNavBar }
           style={ { backgroundColor: '#421981', fontWeight: '400' } }
         >
-          NOME DO USUÁRIO
+          {userInfos.name}
         </button>
         <button
           type="button"

@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from '../../components/navBar/NavBar';
 import Cards from '../../components/cards/Cards';
-import useStyle from './mainPage.style';
+import useStyle from './custumerProducts.style';
 import dataForCardMainPage from '../../data/mockedData';
 
 export default function MainPage() {

@@ -20,11 +20,11 @@ function Login() {
   const canUserLogin = async () => {
     const loginBody = { email, password };
     const responseLogin = await loginAPI(loginBody);
-    console.log(responseLogin);
     if (responseLogin.message === 'Invalid fields') {
       return setIsValidFields(false);
     }
     if (responseLogin.token) {
+      localStorage.setItem('userData', JSON.stringify(responseLogin));
       return history.push('/customer/products');
     }
   };
