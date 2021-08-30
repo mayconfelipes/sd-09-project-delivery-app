@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import Login from './Login/Login';
 import Register from './Register/Register';
+import Products from './Products/Products';
 
 function Routes() {
   return (
@@ -14,7 +15,7 @@ function Routes() {
       <Switch>
         <Route path="/login" component={ Login } />
         <Route path="/register" component={ Register } />
-        <Route path="/customer/products" component={ Login } />
+        <Route path="/customer/products" component={ Products } />
         <Redirect from="/" to="/login" />
       </Switch>
     </Router>
