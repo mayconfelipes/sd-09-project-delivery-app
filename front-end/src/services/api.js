@@ -34,18 +34,6 @@ export const register = async (name, email, password) => {
   }
 };
 
-// export const getProducts = async () => {
-//   try {
-//     const { data } = await axios.get(`${url}/product`);
-
-//     return data;
-//   } catch (error) {
-//     const { data } = error.response;
-
-//     return data;
-//   }
-// }
-
 export const getProducts = () => axios.get(`${url}/product`)
-  .then(({ data }) => { console.log(data); return data; })
+  .then(({ data }) => data)
   .catch((error) => error.response.data);

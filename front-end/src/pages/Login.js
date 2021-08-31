@@ -41,6 +41,7 @@ function Login() {
     );
 
     if (response.token) {
+      localStorage.user = JSON.stringify(response);
       setPath(response.role);
       return setCanRedirect(true);
     }

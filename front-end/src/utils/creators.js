@@ -9,6 +9,7 @@ export const createInput = ({
     </label>
     <input
       data-testid={ `${route}__input-${testId}` }
+      id={ id }
       name={ name }
       type={ type }
       placeholder={ placeholder }

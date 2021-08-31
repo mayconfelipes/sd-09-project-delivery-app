@@ -12,3 +12,13 @@ export const finishRegisterButton = {
   name: 'register',
   label: 'CADASTRAR',
 };
+
+export const addItemBtn = (id) => ({
+  name: `card-add-item-${id}`,
+  label: '+',
+});
+
+export const rmItemBtn = (id) => ({
+  name: `card-rm-item-${id}`,
+  label: '-',
+});
