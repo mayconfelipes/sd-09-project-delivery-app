@@ -21,6 +21,7 @@ function Provider({ children }) {
   };
 
   const getProducts = async () => {
+    if (products.length) return;
     try {
       const response = await axios.get('http://localhost:3001/products');
       setProducts(response.data);
@@ -28,6 +29,7 @@ function Provider({ children }) {
       console.log(error);
     }
   };
+
   const setUserInLocalStorage = (data) => {
     localStorage.setItem('user', JSON.stringify(data));
   };

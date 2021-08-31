@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import jwt from 'jsonwebtoken';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AppContext from '../hooks/context';
 import Navbar from '../components/Navbar';
 import '../App.css';
@@ -80,13 +80,15 @@ function Products() {
           }
         </ul>
       </main>
-      <button
-        data-testid="customer_products__checkout-bottom-value"
-        type="button"
-        className="button-cart"
-      >
-        Carrinho
-      </button>
+      <Link to="/customer/checkout">
+        <button
+          data-testid="customer_products__checkout-bottom-value"
+          type="button"
+          className="button-cart"
+        >
+          Carrinho
+        </button>
+      </Link>
     </div>
   );
 }
