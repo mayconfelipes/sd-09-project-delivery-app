@@ -4,7 +4,7 @@ const { jtwValidate } = require('../middlewares/jwtValidation');
 
 const router = express.Router();
 
-router.get('/customer/products', jtwValidate, getAllP);
+router.get('/customer/products', getAllP);
 router.get('/customer/products:id', jtwValidate, getPById);
 
 module.exports = router;

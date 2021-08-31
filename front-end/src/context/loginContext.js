@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react';
 import { node } from 'prop-types';
+import React, { createContext, useState } from 'react';
 
 export const LoginContext = createContext();
 
@@ -8,6 +8,8 @@ export const LoginProvider = ({ children }) => {
   const [password, setPassword] = useState('');
   const [invalidUser, setInvalidUser] = useState('');
   const [redirectTo, setRedirectTo] = useState(false);
+  const [role, setRole] = useState('');
+  const [cart, setCart] = useState([]);
 
   const fetchToLogin = () => {
     const body = {
@@ -32,24 +34,29 @@ export const LoginProvider = ({ children }) => {
           setInvalidUser(true);
         } else {
           console.log(response);
-          setRedirectTo(true);
           localStorage.setItem('User', JSON.stringify(response));
+          setRedirectTo(true);
+          setRole(response.role);
         }
       });
   };
 
   const handleClickLogin = async () => {
-    console.log('to aq');
     await fetchToLogin();
   };
 
-  const contextValue = { email,
+  const contextValue = {
+    email,
     setEmail,
     password,
     setPassword,
     handleClickLogin,
     invalidUser,
     redirectTo,
+    cart,
+    setCart,
+    role,
+    setRole,
   };
 
   return (

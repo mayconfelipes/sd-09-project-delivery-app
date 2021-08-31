@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Context from '../Context/Context';
+import { LoginContext } from '../context/loginContext';
 
 const Cart = () => {
   const [total, setTotal] = useState(0);
-  const { cart } = useContext(Context);
+  const { cart } = useContext(LoginContext);
   const history = useHistory();
 
   useEffect(() => {

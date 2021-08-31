@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
-import Context from '../Context/Context';
+import { LoginContext } from '../context/loginContext';
 import './ProductsCard.css';
 
 const ProductsCard = ({ product }) => {
   const [quantity, setQuantity] = useState(0);
-  const { cart, setCart } = useContext(Context);
+  const { cart, setCart } = useContext(LoginContext);
   const { id, name, price, url_image: urlImage } = product;
 
   useEffect(() => {
