@@ -18,6 +18,8 @@ function ProductCard({ product }) {
   useEffect(() => {
   }, [product.url_image]);
 
+  const convertDotToComma = (string) => string.replace(/\./g, ',');
+
   return (
     <div>
       <div>
@@ -34,7 +36,7 @@ function ProductCard({ product }) {
         {product.name}
       </div>
       <div data-testid={ `customer_products__element-card-price-${product.id}` }>
-        {product.price}
+        {convertDotToComma(product.price)}
       </div>
       <button
         type="button"
