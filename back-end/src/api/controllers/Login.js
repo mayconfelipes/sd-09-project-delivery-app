@@ -7,7 +7,6 @@ const loginService = require('../service/Login');
 const secret = fs.readFileSync('jwt.evaluation.key', { encoding: 'utf-8' }).trim();
 
 const login = rescue(async (req, res, next) => {
-    console.log(req.body);
     const { error } = loginVerify.validate(req.body);
     if (error) {
        return next(error);
