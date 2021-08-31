@@ -6,11 +6,11 @@ import LogoImage from '../../images/Foto-Rick-and-Morty-PNG.png';
 import LogOutImage from '../../images/logout.png';
 
 const navBarStyle = {
-  backgroundColor: '#1F1D2B',
+  backgroundColor: '#1f1d2b',
   display: 'flex',
   justifyContent: 'space-between',
   padding: '0 30px',
-};
+  };
 
 const logoStyle = {
   height: '100px',
@@ -23,7 +23,7 @@ const navigatorsStyle = {
 };
 
 const navigationStyle = {
-  backgroundColor: '#EA7C69',
+  backgroundColor: '#ea7c69',
   color: 'white',
   borderRadius: '12px',
   padding: '5px',
@@ -38,7 +38,7 @@ const userNameDivStyle = {
 };
 
 const userName = {
-  backgroundColor: '#EA7C69',
+  backgroundColor: '#ea7c69',
   color: 'white',
   borderRadius: '12px',
   padding: '5px',
@@ -53,11 +53,13 @@ function NavBar() {
       <div>
         <img style={ logoStyle } src={ LogoImage } alt="navbar-logo" />
       </div>
-      <div style={ navigatorsStyle }>
+      <div
+        style={ navigatorsStyle }
+        data-testid="customer_products__element-navbar-link-products"
+      >
         <Link
           style={ navigationStyle }
           to="/products"
-          data-testid="customer_products__element-navbar-link-products"
         >
           <span>Produtos</span>
         </Link>

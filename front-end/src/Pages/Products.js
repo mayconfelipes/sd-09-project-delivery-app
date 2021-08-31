@@ -2,7 +2,7 @@ import React from 'react';
 import ProductLine from '../Components/Molecules/ProductLine';
 import CardProduct from '../Components/Organisms/CardProduct';
 import CardStatus from '../Components/Organisms/CardStatus';
-import NavBar from '../Components/Organisms/NabBar';
+import NavBar from '../Components/newComponents/NabBar';
 
 function Products() {
   return (

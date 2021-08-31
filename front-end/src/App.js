@@ -8,7 +8,7 @@ import './App.css';
 function App() {
   return (
     <Switch>
-      <Route path="/products" component={ Products } />
+      <Route path="/customer/products" component={ Products } />
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
       <Route exact path="/">
