@@ -5,18 +5,25 @@ import api from '../../service/axiosApi';
 import NotFound from '../../components/notFound';
 
 const DetailsOrderSeller = (props) => {
-  const { match: { params: { id } } } = props;
+  const {
+    match: {
+      params: { id },
+    },
+  } = props;
   const [order, setOrder] = useState({});
   const [orderStatus, setOrderStatus] = useState('');
-  // eslint-disable-next-line max-len
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlciI6eyJuYW1lIjoiQ2xpZW50ZSBaw6kgQmlyaXRhIiwiZW1haWwiOiJ6ZWJpcml0YUBlbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIifSwiaWF0IjoxNjMwMzUwNjg3LCJleHAiOjE2MzA0MzcwODd9.Gjs1axk3YjO3FZ2fbpCGDriiAAuuZIu-AV7BwvhCwSw';
+
+  const { token } = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    api.get(`/order/${id}`, { headers: { authorization: token } }).then((result) => {
-      setOrder(result.data[0]);
-      setOrderStatus(result.data[0].status);
-    }).catch((err) => console.log(err));
-  }, [id]);
+    api
+      .get(`/order/${id}`, { headers: { authorization: token } })
+      .then((result) => {
+        setOrder(result.data[0]);
+        setOrderStatus(result.data[0].status);
+      })
+      .catch((err) => console.log(err));
+  }, [id, token]);
 
   const handleStatus = ({ target: { name } }) => {
     io.emit('updateOrders', { id: order.id, status: name });
@@ -32,16 +39,10 @@ const DetailsOrderSeller = (props) => {
     <div>
       <p>
         PEDIDO:
-        { order.id }
+        {order.id}
       </p>
-      <p>
-        { orderStatus }
-      </p>
-      <button
-        name="Preparando"
-        type="submit"
-        onClick={ handleStatus }
-      >
+      <p>{orderStatus}</p>
+      <button name="Preparando" type="submit" onClick={ handleStatus }>
         PREPARAR PEDIDO
       </button>
       <button name="Em Trânsito" type="submit" onClick={ handleStatus }>

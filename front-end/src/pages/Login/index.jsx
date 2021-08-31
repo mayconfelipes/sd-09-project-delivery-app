@@ -33,7 +33,10 @@ const Login = () => {
   const handleError = async () => {
     const data = userData;
     try {
-      await api.post('/login', data);
+      await api.post('/login', data).then((response) => {
+        console.log(response.data);
+        localStorage.setItem('user', JSON.stringify(response.data));
+      });
       setRedirect(true);
     } catch (error) {
       setError(true);
