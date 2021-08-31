@@ -75,6 +75,7 @@ const Login = () => {
         <button
           type="button"
           id="login"
+          className="login"
           data-testid="common_login__button-login"
           onClick={ handleClickLogin }
           disabled={ disableButton }
@@ -85,6 +86,7 @@ const Login = () => {
         <button
           type="button"
           id="register"
+          className="register"
           data-testid="common_login__button-register"
         >
           Ainda não tenho conta
