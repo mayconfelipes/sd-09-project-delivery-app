@@ -7,7 +7,7 @@ const error = (err, _req, res, _next) => {
 
     if (err.isBoom) {
         const { payload } = err.output;
-        return res.status(404).json({ message: payload.message, "hasToken": false });
+        return res.status(404).json({ message: payload.message, hasToken: false });
     }
     return res.status(500)
         .json({ message: err.message });

@@ -12,7 +12,10 @@
   justify-content: center;
   margin: auto;
   width: 60%;
+}
 
+.fields label {
+  width: 100%;
 }
 
 .fields input {
