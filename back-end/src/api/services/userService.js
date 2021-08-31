@@ -10,7 +10,8 @@ const create = async (user) => {
   
   const userData = await User.create(newUser);
   const token = generateToken(userData.dataValues);
-  const result = { token };
+  const { name, email, role } = userData.dataValues;
+  const result = { name, email, role, token };
   return result;
 };
 
