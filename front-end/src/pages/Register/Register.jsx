@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import api from '../../service/axiosApi';
 
 import validateUserData from '../../helpers/validateUserData';
 import UserRegisterAlert from '../../components/alerts/UserRegisterAlert';
-import DeliveryContext from '../../context/deliveryContext';
+// import DeliveryContext from '../../context/deliveryContext';
 
 function Register() {
   const [input, setInput] = useState({
@@ -14,8 +14,6 @@ function Register() {
   });
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [showError, setShowError] = useState(false);
-
-  const { isTest } = useContext(DeliveryContext);
 
   const history = useHistory();
 

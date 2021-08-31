@@ -42,9 +42,16 @@ const getSalesBySaleId = async ({ saleId }) => {
   return sales;
 };
 
+const updateSale = async (id, status) => {
+    await Sale.update({ status }, { where: { id } });
+    const response = await Sale.findOne({ where: { id } });
+    return response;
+};
+
 module.exports = {
   createSale,
   createSaleProduct,
   getSalesByUserId,
   getSalesBySaleId,
+  updateSale,
 };
