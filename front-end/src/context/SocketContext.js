@@ -11,7 +11,7 @@ export function SocketProvider({ children }) {
 
   useEffect(() => {
     socket.on('helloWorld', (data) => console.log(data));
-  })
+  });
 
   const contextData = {};
 
