@@ -37,7 +37,7 @@ const FormRender = () => {
       <Input
         type="password"
         placeholder="Senha..."
-        data-testid={ `common_${register ? 'register' : 'login'}__input-email` }
+        data-testid={ `common_${register ? 'register' : 'login'}__input-password` }
         name="password"
         value={ password }
         onChange={ handleChange }

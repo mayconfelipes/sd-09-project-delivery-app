@@ -1,11 +1,33 @@
 const { Sale } = require('../models');
+const erroHelper = require('../../utils/errorHelper');
 
-const getAll = async () => {
-  const sale = await Sale.findAll({ include: { association: 'user' } });
+const sequelizeDataSale = (data) => {
+  const newData = {
+    user_id: data.userId,
+    seller_id: data.sellerId,
+    total_price: data.totalPrice,
+    delivery_address: data.deliveryAddress,
+    delivery_number: data.deliveryNumber,
+    sale_date: data.saleDate,
+    status: data.status,
+  };
 
-  return sale;
+  return newData;
+};
+
+const checkOut = async (data) => {
+  console.log(data);
+  const newData = sequelizeDataSale(data);
+
+  try {
+    const { dataValues: sale } = await Sale.create(newData);
+
+    return sale;
+  } catch (_error) {
+    throw erroHelper(400, '"data" conflict');
+  }
 };
 
 module.exports = {
-  getAll,
+  checkOut,
 };

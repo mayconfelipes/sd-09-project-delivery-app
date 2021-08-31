@@ -8,6 +8,7 @@ import Api from '../../services/api';
 
 const Register = () => {
   const [registerOkay, setRegisterOkay] = useState(false);
+  const [errorExist, setErrorExist] = useState(false);
   const {
     form, setForm, enableButton, setEnableButton, setRegister,
   } = useContext(context);
@@ -27,15 +28,19 @@ const Register = () => {
 
     const result = await Api.post('/register', { ...data })
       .then((response) => response)
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setErrorExist(true);
+        return { Error: err };
+      });
 
-    const { token } = result.data;
-
-    localStorage
-      .setItem('user', JSON.stringify({ name, email, role: 'customer', token }));
-    setRegisterOkay(true);
+    if (!result.Error) {
+      const { token } = result.data;
+      localStorage
+        .setItem('user', JSON.stringify({ name, email, role: 'customer', token }));
+      setRegisterOkay(true);
+    }
   };
-
+  const id = 'common_register__element-invalid_register';
   return (
     <Main>
       { redirect && <Redirect to="/login" /> }
@@ -50,6 +55,8 @@ const Register = () => {
         CADASTRAR
       </button>
       { registerOkay && <Redirect to="customer/products" /> }
+      { errorExist
+        && <p data-testid={ id }> Error </p> }
     </Main>
   );
 };
