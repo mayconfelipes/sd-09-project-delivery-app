@@ -10,7 +10,7 @@ const jwtConfig = {
 };
 
 const createToken = async (userData) => {
-  const secret = await fs.readFile(pathJWT, 'utf-8');
+  const secret = await (await fs.readFile(pathJWT, 'utf-8')).trim();
   const token = jwt.sign(userData, secret, jwtConfig);
 
   return token;
