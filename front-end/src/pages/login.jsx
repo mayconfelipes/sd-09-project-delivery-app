@@ -47,8 +47,14 @@ const Login = () => {
     await axios.post(LOGIN_URL, payload)
       .then(
         (response) => {
-          localStorage.setItem('token', JSON.stringify(response.data.token));
-          localStorage.setItem('user', JSON.stringify(response.data.user));
+          const { token, user: { name, role } } = response.data;
+          const user = {
+            name,
+            email,
+            role,
+            token,
+          };
+          localStorage.setItem('user', JSON.stringify(user));
 
           history.push('/customer/products');
         },
