@@ -37,7 +37,7 @@ function OrdersDetails() {
         { createButton('preparing-check', 'preparing-check', () => {}, route) }
         { createButton('dispatch-check', 'dispatch-check', () => {}, route) }
         <p data-testid={ `${route}__element-order-total-price` }>
-          {`R$ ${sale.totalPrice}`}
+          {`R$ ${sale.totalPrice.replace(/\./, ',')}`}
         </p>
       </section>
     </>
