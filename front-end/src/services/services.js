@@ -7,4 +7,6 @@ const mapCards = (productList) => {
 
 export default {
   mapCards,
+  add,
+  rmv,
 };
