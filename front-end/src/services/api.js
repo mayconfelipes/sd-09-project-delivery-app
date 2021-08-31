@@ -20,3 +20,9 @@ export const loginUser = async (email, password) => {
     });
   return loggedUser;
 };
+
+export const getOrders = async () => {
+  const orders = await axios
+    .get('/customer/orders');
+  return orders;
+};

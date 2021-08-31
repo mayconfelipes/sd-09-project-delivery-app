@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import context from '../services/context';
 import * as api from '../services/api';
 
 const errorMessageTimeout = 2000;
 
 function Login() {
+  const { setUserInfo } = useContext(context);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [valid, setValid] = useState(false);
@@ -30,8 +33,10 @@ function Login() {
     try {
       const { data } = await api.loginUser(email, password);
       localStorage.setItem('user', JSON.stringify(data));
+      setUserInfo(data);
       history.push('/customer/products');
     } catch (error) {
+      console.log(error);
       showInvalidLoginMessage(error.message);
     }
   };
