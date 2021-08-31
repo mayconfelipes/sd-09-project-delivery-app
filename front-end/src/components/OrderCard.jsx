@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import dataTestIds from '../utils/dataTestIds';
 
 function OrderCard({
@@ -11,65 +12,64 @@ function OrderCard({
   sale_date: date,
   status,
 }) {
-  const handleClick = () => {};
-
-  const statusDiv = (userRole) => {
-    if (userRole === 'seller') {
-      return (
-        <div>
-          <button
-            type="button"
-            onClick={ handleClick }
-            data-testid={ dataTestIds[49] }
-          >
-            { status }
-          </button>
-        </div>
-      );
-    }
-    return (
-      <div>
-        <p
-          data-testid={ dataTestIds[34] }
-        >
-          { status }
-        </p>
-      </div>
-    );
-  };
+  const statusDiv = (userRole) => (
+    <div>
+      <p
+        data-testid={
+          userRole === 'seller'
+            ? `${dataTestIds[49]}${id}`
+            : `${dataTestIds[34]}${id}`
+        }
+      >
+        { status }
+      </p>
+    </div>
+  );
 
   const addressDiv = () => (
     <div>
-      <p data-testid={ dataTestIds[52] }>{ `${adress}, ${addressNumber}` }</p>
+      <p data-testid={ `${dataTestIds[52]}${id}` }>
+        { `${adress}, ${addressNumber}` }
+      </p>
     </div>
   );
 
   return (
-    <div>
+    <Link to={ `/${role}/orders/${id}` }>
       <div>
         <div>
-          <p
-            data-testid={ userRole === 'seller' ? dataTestIds[33] : dataTestIds[48] }
-          >
-            { `Pedido: ${id}` }
-          </p>
+          <div>
+            <p
+              data-testid={
+                userRole === 'seller'
+                  ? `${dataTestIds[33]}${id}`
+                  : `${dataTestIds[48]}${id}`
+              }
+            >
+              { `Pedido: ${id}` }
+            </p>
+          </div>
+          { statusDiv(role) }
+          <div>
+            <p
+              data-testid={
+                userRole === 'seller'
+                  ? `${dataTestIds[50]}${id}`
+                  : `${dataTestIds[35]}${id}`
+              }
+            >
+              { date }
+            </p>
+            <p
+              data-testid={ userRole === 'seller' && `${dataTestIds[51]}${id}` }
+            >
+              { price }
+            </p>
+          </div>
         </div>
-        { statusDiv(role) }
-        <div>
-          <p
-            data-testid={ userRole === 'seller' ? dataTestIds[50] : dataTestIds[35] }
-          >
-            { date }
-          </p>
-          <p
-            data-testid={ userRole === 'seller' && dataTestIds[51] }
-          >
-            { price }
-          </p>
-        </div>
+        { role === 'seller' && addressDiv() }
       </div>
-      { role === 'seller' && addressDiv() }
-    </div>
+    </Link>
   );
 }
 

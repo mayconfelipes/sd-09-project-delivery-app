@@ -49,7 +49,7 @@ function Register() {
     if (result.error) {
       setErrorMessage(result.error.message);
     } else {
-      localStorage.setItem('userData', JSON.stringify(result));
+      localStorage.setItem('user', JSON.stringify(result));
       history.push('/customer/products');
     }
   };

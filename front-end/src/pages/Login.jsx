@@ -41,7 +41,7 @@ function Login() {
     if (result.error) {
       setErrorMessage(result.error.message);
     } else {
-      localStorage.setItem('userData', JSON.stringify(result));
+      localStorage.setItem('user', JSON.stringify(result));
       switch (result.role) {
       case 'administrator':
         history.push('/admin/manage');
