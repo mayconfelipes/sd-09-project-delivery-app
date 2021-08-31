@@ -41,7 +41,7 @@ const ProductsCard = ({ product }) => {
         data-testid={ `customer_products__element-card-price-${id}` }
       >
         R$
-        { price.toString().replace('.', ',') }
+        { price.toFixed(2).toString().replace('.', ',') }
       </div>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
