@@ -48,11 +48,10 @@
 .card_price {
   background-color: pink;
   border-radius: 5px;
-  left: 75px;
   position: relative;
   text-align: center;
   top: 0;
-  width: 40px;
+  width: fit-content;
 }
 
 button:active {
