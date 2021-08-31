@@ -2,7 +2,7 @@ const boom = require('@hapi/boom');
 const md5 = require('md5');
 
 const registerVerify = require('./utils/registerSchema');
-const { User } = require('../../database/models');
+const { user } = require('../../database/models');
 
 const validateParams = (name, email, password) => {
   const { error } = registerVerify.validate({ name, email, password });
@@ -10,7 +10,7 @@ const validateParams = (name, email, password) => {
 };
 
 const findUserExists = async (email) => {
-  const userExists = await User.findOne({ where: { email } });
+  const userExists = await user.findOne({ where: { email } });
   if (userExists) throw boom.conflict('Email already registered');
 };
 
@@ -23,7 +23,8 @@ const registerNewUser = async (payload) => {
 
   password = md5(password);
 
-  const result = await User.create({ name, email, password, role: 'customer' });
+  const result = await user.create({ name, email, password, role: 'customer' });
+
 
   return { name: result.name, email: result.email, role: result.role };
 };

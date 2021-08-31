@@ -24,7 +24,13 @@ const Login = () => {
     if (!isValid) setDisable(true);
   };
 
-  const errorMsg = () => <p data-testid="common_login__element-invalid-email">Email ou Senha Inválidos</p>;
+  const errorMsg = () => (
+    <p
+      data-testid="common_login__element-invalid-email"
+    >
+      Email ou Senha Inválidos
+    </p>
+  );
 
   const chosseRouteToRedirect = () => {
     const userString = localStorage.getItem('User');
