@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   {
     quantity: DataTypes.INTEGER,
   },
-  { timestamps: false, tableName: 'SalesProducts' });
+  { timestamps: false, tableName: 'salesProducts' });
   
   SaleProduct.associate = (models) => {
     models.Product.belongsToMany(models.Sale, {

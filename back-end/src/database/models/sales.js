@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     delivery_number: DataTypes.STRING,
     sale_date: DataTypes.DATE,
     status: DataTypes.STRING,
-  }, { timestamps: false, tableName: 'Sale' });
+  }, { timestamps: false, tableName: 'sales' });
 
   Sale.associate = (models) => {
     Sale.hasMany(models.User, { foreignKey: 'id', as: 'user' });
