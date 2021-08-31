@@ -3,7 +3,7 @@ const rescue = require('express-rescue');
 
 const loginService = require('../services/loginService');
 const loginValidator = require('../middlewares/loginValidator');
-const { ok } = require('../utils/httStatusCodes');
+const { ok } = require('../utils/httpStatusCodes');
 
 const loginController = express.Router();
 

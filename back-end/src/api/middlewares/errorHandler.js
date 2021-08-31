@@ -1,4 +1,4 @@
-const httpStatusCode = require('../utils/httStatusCodes');
+const httpStatusCode = require('../utils/httpStatusCodes');
 
 const errorHandler = (err, _req, res, _next) => {
   if (err.isJoi) {
