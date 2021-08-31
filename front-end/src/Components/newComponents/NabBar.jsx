@@ -10,7 +10,7 @@ const navBarStyle = {
   display: 'flex',
   justifyContent: 'space-between',
   padding: '0 30px',
-  };
+};
 
 const logoStyle = {
   height: '100px',
@@ -55,11 +55,11 @@ function NavBar() {
       </div>
       <div
         style={ navigatorsStyle }
-        data-testid="customer_products__element-navbar-link-products"
       >
         <Link
           style={ navigationStyle }
           to="/products"
+          data-testid="customer_products__element-navbar-link-products"
         >
           <span>Produtos</span>
         </Link>
