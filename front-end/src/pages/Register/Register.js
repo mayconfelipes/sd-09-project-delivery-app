@@ -52,12 +52,11 @@ function Register() {
   const registerUser = async () => {
     connectBack.post('/register', { email, password, name })
       .then((response) => {
-        console.log(response.data.user);
         saveTokenLocalStorage(response.data.user);
         redirectCostummer();
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         setInvalidLogin(true);
       });
   };

@@ -12,17 +12,27 @@ const findUser = async ({ password, email }) => {
   }
   return { email, name: user.dataValues.name, role: user.dataValues.role };
 };
-
-const registerUser = async ({ password, email, name }) => {
+let newRole;
+const registerUser = async ({ password, email, name, role }) => {
   const hashedPassword = md5(password);
   const userExists = await users.findOne({ where: { email } });
   if (userExists) {
     return false;
+  } if (!role) {
+    newRole = 'customer';
   }
-  const response = await users.create({ password: hashedPassword, email, name, role: 'customer' });
-  return { email, name: response.dataValues.name, role: response.dataValues.role };
+  const response = await users.create({
+    password: hashedPassword,
+    email,
+    name,
+    role: newRole,
+  });
+  return {
+    email,
+    name: response.dataValues.name,
+    role: response.dataValues.role,
+  };
 };
-
 module.exports = {
   findUser,
   registerUser,

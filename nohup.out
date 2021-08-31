@@ -1,0 +1,26 @@
+
+> sd-0x-project-delivery-app@1.0.0 start
+> ./scripts/prepare-for-test.sh
+
+
+> Preparando o campo pra execução dos testes
+
+
+> sd-0x-project-delivery-app@1.0.0 start
+> ./scripts/prepare-for-test.sh
+
+
+> Preparando o campo pra execução dos testes
+
+[PM2][WARN] No process found
+[PM2][WARN] No process found
+
+
+> ASYNC: Instalando o front-end e gerando uma build do projeto
+
+> ASYNC: Instalando o back-end e inicializando o banco de dados com o ORM
+npm notice 
+npm notice New minor version of npm available! 7.20.3 -> 7.21.1
+npm notice Changelog: <https://github.com/npm/cli/releases/tag/v7.21.1>
+npm notice Run `npm install -g npm@7.21.1` to update!
+npm notice 

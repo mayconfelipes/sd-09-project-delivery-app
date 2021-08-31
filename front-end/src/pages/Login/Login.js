@@ -9,7 +9,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const [isDisabled, trueOrFalse] = useState(true);
   const [invalidLogin, setInvalidLogin] = useState(false);
-  // const users = []
 
   const prefix = 'common_login__';
   const passMin = 5;
@@ -40,14 +39,20 @@ function Login() {
   };
 
   const redirectCostummer = () => {
-    history.push('/customer/products');
+    console.log(email);
+    if (email === 'adm@deliveryapp.com') {
+      history.push('/admin/manage');
+    } else {
+      history.push('/customer/products');
+    }
   };
   const redirectRegister = () => {
     history.push('/register');
   };
   const login = () => {
     // connectBack.post('/login', { hasToken: false, method: 'POST', status: 404 })
-    connectBack.post('/login', { email, password })
+    connectBack
+      .post('/login', { email, password })
       .then((response) => {
         console.log('LOGOU', response.data.user);
         saveTokenLocalStorage(response.data.user);
