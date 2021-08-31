@@ -46,8 +46,7 @@ class Login extends React.Component {
     const { email, password } = this.state;
 
     try {
-      const result = await fetchPOST('http://localhost:3001/login', { email, password });
-
+      const result = await fetchPOST('login', { email, password });
       localStorage.setItem('user', JSON.stringify(result));
       this.setState({
         toggleMessage: false,

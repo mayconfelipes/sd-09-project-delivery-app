@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     quantity: DataTypes.INTEGER
   },
   {
+    underscored: true,
     timestamps: false,
   });
 
@@ -10,14 +11,14 @@ module.exports = (sequelize, DataTypes) => {
     models.products.belongsToMany(models.sales, {
       as: 'sale',
       through: salesProducts,
-      foreignKey: 'product_id',
-      otherKey: 'sale_id',
+      foreignKey: 'productId',
+      otherKey: 'saleId',
     });
     models.sales.belongsToMany(models.products, {
       as: 'product',
       through: salesProducts,
-      foreignKey: 'sale_id',
-      otherKey: 'product_id',
+      foreignKey: 'saleId',
+      otherKey: 'productId',
     })
   };
 

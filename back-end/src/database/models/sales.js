@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.STRING,
   },
   {
+    underscored: true,
     timestamps: false,
   });
 

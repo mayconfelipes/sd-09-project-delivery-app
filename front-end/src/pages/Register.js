@@ -47,7 +47,7 @@ class Register extends React.Component {
     const { name, email, password } = this.state;
 
     try {
-      const result = await fetchPOST('http://localhost:3001/users', { name, email, password });
+      const result = await fetchPOST('users', { name, email, password });
       localStorage.setItem('user', JSON.stringify(result));
       this.setState({
         toggleMessage: false,
@@ -72,7 +72,7 @@ class Register extends React.Component {
       redirect } = this.state;
     return (
       <div>
-        <p>Cadastro</p>
+        <h3>Cadastro</h3>
         <div>
           <label htmlFor="name">
             Nome
