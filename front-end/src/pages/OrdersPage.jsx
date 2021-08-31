@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import NavBar from '../components/Navbar';
+import OrderCard from '../components/OrderCard';
 import Api from '../services/api';
 
 function OrdersPage() {
@@ -16,7 +17,8 @@ function OrdersPage() {
     }
     setUserData(data);
     const salesData = await Api.getAllSales(data.token);
-    if (salesData.error.message === 'Expired or invalid token') {
+    if (salesData.error
+      && salesData.error.message === 'Expired or invalid token') {
       setLoading(false);
       return setRedirect(true);
     }
@@ -32,13 +34,20 @@ function OrdersPage() {
 
   if (loading) return <h1>Loading...</h1>;
 
-  console.log(sales);
+  const mountProp = (role, sale) => ({
+    role,
+    ...sale,
+  });
 
   return (
     <main>
       <NavBar role={ userData.role } />
       <section>
-        {/* Aqui vai os cards de orders */}
+        {
+          sales.map((sale) => (
+            <OrderCard key={ sale.id } sale={ mountProp(userData.role, sale) } />
+          ))
+        }
       </section>
     </main>
   );
