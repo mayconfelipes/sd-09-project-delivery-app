@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Cards(props) {
+export default function Cards({ cardInfos }) {
   const [currentQuantityToBuy, setCurrentQuantityToBuy] = useState(0);
 
-  const { cardInfos: { price, nameAndQuantityInMl, thumbNail, id } } = props;
+  const { price, nameAndQuantityInMl, thumbNail, id } = cardInfos;
   return (
     <div
       style={ {
@@ -113,7 +113,6 @@ export default function Cards(props) {
             data-testid={ `customer_products__button-card-add-item-${id}` }
             onClick={ () => {
               setCurrentQuantityToBuy(currentQuantityToBuy + 1);
-              console.log(currentQuantityToBuy);
             } }
             type="button"
           >
@@ -126,12 +125,8 @@ export default function Cards(props) {
 }
 
 Cards.propTypes = {
-  cardInfos: PropTypes.arrayOf(
-    PropTypes.shape({
-      price: PropTypes.number.isRequired,
-      nameAndQuantityInMl: PropTypes.string.isRequired,
-      thumbNail: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-    }).isRequired,
-  ).isRequired,
-};
+  price: PropTypes.number,
+  nameAndQuantityInMl: PropTypes.string,
+  thumbNail: PropTypes.string,
+  id: PropTypes.number,
+}.isRequired;

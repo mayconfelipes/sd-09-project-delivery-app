@@ -42,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
       width: '50%',
     },
   },
+  link: {
+    width: '100%',
+    textDecoration: 'none',
+  },
 }));
 
 export default useStyles;
