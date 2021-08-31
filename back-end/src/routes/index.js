@@ -9,5 +9,5 @@ module.exports = {
   Sales,
   Products,
   Login,
-  SalesProducts
+  SalesProducts,
 };
