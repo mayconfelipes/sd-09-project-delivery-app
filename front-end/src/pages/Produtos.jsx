@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '../components/Header';
 
 const Produtos = async () => {
-  const PRODUCTS_ENDPOINT = 'localhost:3001/api/customer/products';
+  const PRODUCTS_ENDPOINT = 'localhost:3001/api/products';
   const products = await axios.get(PRODUCTS_ENDPOINT);
 
   // Recebe a lista de produtos no formato:
