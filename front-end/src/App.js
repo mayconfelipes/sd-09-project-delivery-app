@@ -3,7 +3,6 @@ import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import { LoginProvider } from './context/loginContext';
 import Login from './pages/Login';
-import 'bootstrap/dist/css/bootstrap.min.css';
 //  import rockGlass from './images/rockGlass.svg';
 
 function App() {
