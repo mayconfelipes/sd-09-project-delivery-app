@@ -33,3 +33,7 @@ export const register = async (name, email, password) => {
     return data;
   }
 };
+
+export const getProducts = () => axios.get(`${url}/product`)
+  .then(({ data }) => data)
+  .catch((error) => error.response.data);

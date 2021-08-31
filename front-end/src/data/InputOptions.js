@@ -24,3 +24,12 @@ export const nameOptions = {
   label: 'Nome',
   testId: 'name',
 };
+
+export const itemQty = (id) => ({
+  id: `card-quantity-${id}`,
+  name: `card-quantity-${id}`,
+  type: 'text',
+  placeholder: null,
+  label: null,
+  testId: `card-quantity-${id}`,
+});

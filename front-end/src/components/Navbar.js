@@ -3,16 +3,26 @@ import React from 'react';
 // import { Context } from '../context';
 
 const route = 'customer_products';
+const testid = `${route}__element-navbar`;
 
 function Navbar() {
+  const clearStorage = () => { localStorage.user = ''; };
   return (
-    <section>
+    <nav>
       <h1>NAVBAR</h1>
-      <a data-testid={ `${route}__element-navbar-link-products` } href="/">products</a>
-      <a data-testid={ `${route}__element-navbar-link-orders` } href="/">orders</a>
-      <p data-testid={ `${route}__element-navbar-user-full-name` }>full name</p>
-      <a data-testid={ `${route}__element-navbar-link-logout` } href="/">logout</a>
-    </section>
+      <a data-testid={ `${testid}-link-products` } href="/customer/products">
+        PRODUTOS
+      </a>
+      <a data-testid={ `${testid}-link-orders` } href="/customer/orders">
+        MEUS PEDIDOS
+      </a>
+      <p data-testid={ `${testid}-user-full-name` }>
+        { JSON.parse(localStorage.user).name }
+      </p>
+      <a data-testid={ `${testid}-link-logout` } href="/" onClick={ clearStorage }>
+        Sair
+      </a>
+    </nav>
   );
 }
 
