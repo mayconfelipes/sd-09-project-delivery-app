@@ -3,6 +3,7 @@ import Cart from '../Cart/Cart';
 import NavBar from '../components/NavBar';
 import ProductsCard from '../components/ProductsCard';
 import { LoginContext } from '../context/loginContext';
+import './Products.css';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
