@@ -19,6 +19,7 @@ function Register() {
 
   const saveTokenLocalStorage = (user) => {
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('products', JSON.stringify({}));
   };
 
   const verifyDisabled = () => {
