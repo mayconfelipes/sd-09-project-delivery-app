@@ -38,7 +38,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      createdAt: {
+      saleDate: {
         type: Sequelize.DATE,
         allowNull: false,
         field: 'sale_date',
