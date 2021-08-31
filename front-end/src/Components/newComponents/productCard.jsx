@@ -8,7 +8,11 @@ function ProductCard({ product }) {
   };
 
   const decrement = () => {
-    setCounter(counter - 1);
+    if (counter > 0) {
+      setCounter(counter - 1);
+    } else {
+      setCounter(0);
+    }
   };
 
   useEffect(() => {
@@ -39,11 +43,12 @@ function ProductCard({ product }) {
       >
         -
       </button>
-      <div
+      <input
+        type="number"
+        disabled="true"
         data-testid={ `customer_products__input-card-quantity-${product.id}` }
-      >
-        {counter}
-      </div>
+        value={ counter }
+      />
       <button
         type="button"
         onClick={ increment }
