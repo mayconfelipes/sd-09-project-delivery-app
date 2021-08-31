@@ -1,5 +1,5 @@
-const md5 = require("md5");
-const { users } = require("../../database/models");
+const md5 = require('md5');
+const { users } = require('../../database/models');
 
 const registerUser = async ({ password, email, name, role }) => {
   const hashedPassword = md5(password);
@@ -13,15 +13,15 @@ const registerUser = async ({ password, email, name, role }) => {
     password: hashedPassword,
     email,
     name,
-    role
+    role,
   });
   return {
     email,
     name: response.dataValues.name,
-    role: response.dataValues.role
+    role: response.dataValues.role,
   };
 };
 
 module.exports = {
-  registerUser
+  registerUser,
 };
