@@ -1,29 +1,40 @@
-import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import connectBack from '../../utills/axiosConfig';
+const baseURL = 'http://localhost:3001';
+let headers;
+let adminConnectBack;
 
 function Admin() {
   const [userName, setUser] = useState('');
   const [email, setEmail] = useState('');
   const [isDisabled, trueOrFalse] = useState(true);
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('customer');
   const prefix = 'admin_manage__';
-  const passMin = 5;
-  // const history = useHistory();
+  const passMin = 6;
+  const nameMin = 11;
+
+  useEffect(() => {
+    const userToken = JSON.parse(localStorage.getItem('user'));
+    console.log(userToken);
+    if (userToken) {
+      headers = {
+        authorization: userToken.token };
+    }
+    adminConnectBack = axios.create({
+      baseURL, headers,
+    });
+  }, []);
 
   const verifyDisabled = () => {
     const re = /(.+)@(.+){2,}\.(.+){2,}/;
-    if (password.length >= passMin && re.test(email)) {
+    if (password.length >= passMin && re.test(email)
+    && userName.length >= nameMin) {
       trueOrFalse(false);
     } else {
       trueOrFalse(true);
     }
-  };
-
-  const saveTokenLocalStorage = (user) => {
-    localStorage.setItem('user', JSON.stringify(user));
   };
 
   const userChange = ({ target }) => {
@@ -65,17 +76,22 @@ function Admin() {
   //     });
   // };
   const registerUser = async () => {
-    connectBack
-      .post('/register', { email, password, name: userName, role })
+    adminConnectBack
+      .post('/admin/register',
+        { email, password, name: userName, role })
       .then((response) => {
         console.log(response.data.user);
-        saveTokenLocalStorage(response.data.user);
+        // saveTokenLocalStorage(response.data.user);
         // redirectCostummer();
       })
       .catch((error) => {
         console.log(error);
         // setInvalidLogin(true);
       });
+    setUser('');
+    setEmail('');
+    setPassword('');
+    setRole('');
   };
   return (
     <div className="login-Page">
@@ -111,9 +127,9 @@ function Admin() {
         onChange={ roleChange }
         placeholder="Role"
       >
-        <option value="administrator">Administrador</option>
-        <option value="seller">Vendedor</option>
         <option value="customer">Consumidor</option>
+        <option value="seller">Vendedor</option>
+        <option value="administrator">Administrador</option>
       </select>
       <div className="buttons">
         <button

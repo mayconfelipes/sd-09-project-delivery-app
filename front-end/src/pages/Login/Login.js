@@ -9,7 +9,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const [isDisabled, trueOrFalse] = useState(true);
   const [invalidLogin, setInvalidLogin] = useState(false);
-  // const users = []
 
   const prefix = 'common_login__';
   const passMin = 5;
@@ -41,7 +40,6 @@ function Login() {
   const redirectCostummer = () => {
     console.log(email);
     if (email === 'adm@deliveryapp.com') {
-      console.log('ifei');
       history.push('/admin/manage');
     } else {
       history.push('/customer/products');
