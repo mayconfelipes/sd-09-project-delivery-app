@@ -19,10 +19,10 @@
 - 18: customer_products__button-card-add-item-\<id>
 - 19: customer_products__button-card-rm-item-\<id>
 - 20: customer_products__input-card-quantity-\<id>
-- 21: customer_products__checkout-bottom-value
+- 21: customer_products__button-cart
 - 22: customer_checkout__element-order-table-item-number-\<index>
 - 23: customer_checkout__element-order-table-name-\<index>
-- 24: cutomer_checkout__element-order-table-quantity-\<index>
+- 24: customer_checkout__element-order-table-quantity-\<index>
 - 25: customer_checkout__element-order-table-unit-price-\<index>
 - 26: customer_checkout__element-order-table-sub-total-\<index>
 - 27: customer_checkout__element-order-table-remove-\<index>
