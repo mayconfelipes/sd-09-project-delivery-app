@@ -9,6 +9,7 @@ import Api from '../../services/api';
 
 const Login = () => {
   const [registerOkay, setRegisterOkay] = useState(false);
+  const [error, setError] = useState(false);
   const { form, setForm, enableButton, setEnableButton } = useContext(context);
   const { email, password } = form;
 
@@ -18,6 +19,8 @@ const Login = () => {
     const result = await Api.post('/login', { email, password })
       .then((response) => response)
       .catch((err) => console.log(err));
+
+    if (!result.data.token) setError(true);
 
     const { token } = result.data;
 
@@ -36,6 +39,8 @@ const Login = () => {
   return (
     <Main>
       { registerOkay && <Redirect to="/customer/products" /> }
+      { error
+        && <p common_login__element-invalid-email>Deu erro</p>}
       <Logo src={ logo } alt="Ícone do aplicativo" />
       <FormRender />
       <LoginButton
@@ -48,8 +53,6 @@ const Login = () => {
       </LoginButton>
       <LoginButton
         type="button"
-        // data-testid="common_login__button-register"
-        // onClick={ logOn }
       >
         <Register
           to="/register"
