@@ -15,6 +15,15 @@ const register = rescue(async (req, res) => {
   return res.status(201).json(sale);
 });
 
+const update = rescue(async (req, res) => {
+  const { id, status } = req.body;
+
+  const sale = await Sale.update({ id, status });
+
+  return res.status(200).json(sale);
+});
+
 module.exports = {
   register,
+  update,
 };
