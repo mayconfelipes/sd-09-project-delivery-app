@@ -23,13 +23,15 @@ class Checkout extends React.Component {
               <th>Remover Item</th>
             </tr>
           </thead>
-          { getProducts.map((product, index) => (
-            <ItensDetails
-              key={ `${product}${index}` }
-              product={ product }
-              indexP={ index }
-            />
-          )) }
+          <tbody>
+            { getProducts.map((product, index) => (
+              <ItensDetails
+                key={ `${product}${index}` }
+                product={ product }
+                indexP={ index }
+              />
+            )) }
+          </tbody>
         </table>
         <p
           data-testid="customer_checkout__element-order-total-price"

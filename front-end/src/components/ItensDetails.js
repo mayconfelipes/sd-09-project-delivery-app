@@ -33,40 +33,38 @@ class ItensDetails extends React.Component {
     const { product: { name, price, quantity }, indexP } = this.props;
 
     return (
-      <tbody>
-        <tr>
-          <td
-            data-testid={ `customer_checkout__element-order-table-item-number-${indexP}` }
-          >
-            { indexP + 1 }
-          </td>
-          <td
-            data-testid={ `customer_checkout__element-order-table-name-${indexP}` }
-          >
-            { name }
-          </td>
-          <td
-            data-testid={ `customer_checkout__element-order-table-quantity-${indexP}` }
-          >
-            { quantity }
-          </td>
-          <td
-            data-testid={ `customer_checkout__element-order-table-unit-price-${indexP}` }
-          >
-            { price.replace(/\./, ',') }
-          </td>
-          <td
-            data-testid={ `customer_checkout__element-order-table-sub-total-${indexP}` }
-          >
-            { (price * quantity).toFixed(2).replace(/\./, ',') }
-          </td>
-          <td
-            data-testid={ `customer_checkout__element-order-table-remove-${indexP}` }
-          >
-            <button type="button" onClick={ this.removeProduct }>Remover</button>
-          </td>
-        </tr>
-      </tbody>
+      <tr>
+        <td
+          data-testid={ `customer_checkout__element-order-table-item-number-${indexP}` }
+        >
+          { indexP + 1 }
+        </td>
+        <td
+          data-testid={ `customer_checkout__element-order-table-name-${indexP}` }
+        >
+          { name }
+        </td>
+        <td
+          data-testid={ `customer_checkout__element-order-table-quantity-${indexP}` }
+        >
+          { quantity }
+        </td>
+        <td
+          data-testid={ `customer_checkout__element-order-table-unit-price-${indexP}` }
+        >
+          { price.replace(/\./, ',') }
+        </td>
+        <td
+          data-testid={ `customer_checkout__element-order-table-sub-total-${indexP}` }
+        >
+          { (price * quantity).toFixed(2).replace(/\./, ',') }
+        </td>
+        <td
+          data-testid={ `customer_checkout__element-order-table-remove-${indexP}` }
+        >
+          <button type="button" onClick={ this.removeProduct }>Remover</button>
+        </td>
+      </tr>
     );
   }
 }

@@ -106,6 +106,7 @@ class ProductCard extends React.Component {
   render() {
     const { product } = this.props;
     const { value } = this.state;
+
     return (
       <div>
         <div>
