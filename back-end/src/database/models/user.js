@@ -7,7 +7,7 @@ const User = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       role: DataTypes.STRING,
     },
-    { timestamps: false, tableName: 'users' }
+    { timestamps: false, tableName: 'users', underscored: true }
   );
 
   return user;

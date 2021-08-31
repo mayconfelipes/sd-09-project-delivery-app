@@ -28,8 +28,8 @@ const calculateTotalPrice = (cart) => {
 const seedSalesProducts = (saleId, cart) => {
   cart.forEach(({ productId, quantity }) => {
     SaleProduct.create({
-      sale_id: saleId,
-      product_id: productId,
+      saleId,
+      productId,
       quantity,
     });
   });
@@ -43,28 +43,18 @@ const register = async (saleInfo) => {
   const { userId, sellerId, deliveryAddress, deliveryNumber, cart } = saleInfo;
   const totalPrice = await calculateTotalPrice(cart);
 
-  const sale = await Sale.create({ user_id: userId,
-    seller_id: sellerId,
-    total_price: totalPrice,
-    delivery_address: deliveryAddress,
-    delivery_number: deliveryNumber,
+  const sale = await Sale.create({
+    userId,
+    sellerId,
+    totalPrice,
+    deliveryAddress,
+    deliveryNumber,
     status: 'Pendente',
   });
 
   seedSalesProducts(sale.id, cart);
-  
-  return {
-    sale: {
-      id: sale.id,
-      userId: sale.user_id,
-      sellerId: sale.seller_id,
-      totalPrice: sale.total_price,
-      deliveryAddress: sale.delivery_address,
-      deliveryNumber: sale.delivery_number,
-      status: sale.status,
-      saleDate: sale.sale_date,
-    },
-  };
+
+  return { sale: sale.dataValues };
 };
 
 module.exports = {

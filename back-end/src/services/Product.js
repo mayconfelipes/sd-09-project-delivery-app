@@ -4,11 +4,11 @@ const findAll = async () => {
   const products = await Product.findAll();
 
   return products
-    .map(({ dataValues: { id, name, price, url_image } }) => ({
+    .map(({ dataValues: { id, name, price, urlImage } }) => ({
       id,
       name,
       price,
-      urlImage: url_image,
+      urlImage,
     }));
 };
 
