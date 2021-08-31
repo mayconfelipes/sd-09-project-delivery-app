@@ -16,6 +16,7 @@
 
 .fields label {
   width: 100%;
+  color: black;
 }
 
 .fields input {
@@ -62,8 +63,4 @@ input:focus {
 .login:hover {
   background-color: rgb(8, 85, 34);
   transition: ease 0.2s;
-}
-
-.fields label {
-  color: black;
 }
