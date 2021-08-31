@@ -22,7 +22,7 @@ const ProductsCard = ({ product }) => {
       return;
     }
     setCart([...cart, { id, quantity, name, price: Number(price) }]);
-  }, [quantity]);
+  }, [id, quantity, name, price, cart, setCart]);
 
   const dec = () => {
     if (quantity === 0) {
