@@ -1,6 +1,7 @@
 import React from 'react';
 
 import OrderLIst from '../../components/checkout/OrderLIst';
+import AddressDetails from '../../components/checkout/AddressDetails';
 import './style.css';
 
 const Checkout = () => (
@@ -10,6 +11,7 @@ const Checkout = () => (
     </header>
     <div className="checkout-main-container">
       <OrderLIst />
+      <AddressDetails />
     </div>
   </div>
 );
