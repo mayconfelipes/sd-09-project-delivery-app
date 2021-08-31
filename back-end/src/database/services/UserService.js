@@ -6,32 +6,30 @@ const { user: User } = require('../models');
 const errorHelper = require('../../utils/errorHelper');
 const { sign } = require('./jwt/jwt');
 const joiValidation = require('../../utils/joiValidation');
-const getJwtSecret = require('../../utils/getJwtSecret');
-
-const jwtSecret = getJwtSecret();
 
 const encodedPassword = (password) => {
   return crypto
-    .createHmac("md5", jwtSecret)
+    .createHash('md5')
     .update(password)
     .digest('hex');
 };
 
 const login = async (email, password) => {
   try {
+    console.log(password);
     const encryptedPassword = encodedPassword(password);
-
+    console.log(encryptedPassword);
     const { dataValues: user } = await User.findOne({
       where: { email, password: encryptedPassword }
     });
 
     const { password: userPassword, ...payload } = user;
-
+    console.log(payload);
     const token = sign(payload);
 
-    return token;
+    return { token, payload };
   } catch (_error) {
-    throw errorHelper(401, '"Email" or "Password" invalid');
+    throw errorHelper(404, '"Email" or "Password" invalid');
   }
 };
 
