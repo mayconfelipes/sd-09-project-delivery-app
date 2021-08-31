@@ -1,7 +1,10 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
+import '../App.css';
 
 function Login() {
+  const history = useHistory();
   const {
     email,
     setEmail,
@@ -59,7 +62,12 @@ function Login() {
       >
         LOGIN
       </button>
-      <button type="button" data-testid="common_login__button-register">
+
+      <button
+        type="button"
+        data-testid="common_login__button-register"
+        onClick={ () => history.push('/register') }
+      >
         Ainda não tenho conta
       </button>
       <div>
