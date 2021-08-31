@@ -24,7 +24,7 @@ const Products = () => {
 
   useEffect(() => {
     getData();
-  }, [userData]);
+  });
 
   return (
     <div className="main-wrapper-products">
