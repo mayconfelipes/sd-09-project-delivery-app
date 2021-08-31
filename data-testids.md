@@ -76,3 +76,4 @@
 -
 -
 - 78: admin_manage__input-password
+- 79: customer_products__checkout-bottom-value
