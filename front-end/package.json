@@ -8,7 +8,7 @@
   "engineStrict": true,
   "private": true,
   "scripts": {
-    "with-env": "SKIP_PREFLIGHT_CHECK=true",
+    "with-env": "cross-env SKIP_PREFLIGHT_CHECK=true",
     "start": "npm run with-env react-scripts start",
     "start:build": "PORT=3000 ./node_modules/.bin/serve -s build",
     "build": "npm run with-env react-scripts build",
@@ -31,6 +31,7 @@
     "web-vitals": "1.1.2"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint-config-trybe-frontend": "1.2.1",
     "stylelint": "13.13.1",
     "stylelint-config-standard": "22.0.0",

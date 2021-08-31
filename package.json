@@ -7,18 +7,18 @@
   },
   "engineStrict": true,
   "scripts": {
-    "pm2": "./node_modules/.bin/pm2",
-    "jest": "./node_modules/.bin/jest",
-    "start": "./scripts/prepare-for-test.sh",
-    "stop": "(pm2 stop all && pm2 delete all) | grep 'PM2'",
-    "dev": "./scripts/prepare-for-dev.sh",
-    "dev:prestart": "./scripts/prestart-dev.sh",
-    "db:reset": "./scripts/reset-db-dev.sh",
-    "db:reset:debug": "./scripts/reset-db-dev-debug.sh",
+    "pm2": "cross-env ./node_modules/.bin/pm2",
+    "jest": "cross-env ./node_modules/.bin/jest",
+    "start": "cross-env ./scripts/prepare-for-test.sh",
+    "stop": "cross-env (pm2 stop all && pm2 delete all) | grep 'PM2'",
+    "dev": "cross-env ./scripts/prepare-for-dev.sh",
+    "dev:prestart": "cross-env ./scripts/prestart-dev.sh",
+    "db:reset": "cross-env scripts/reset-db-dev.sh",
+    "db:reset:debug": "cross-env ./scripts/reset-db-dev-debug.sh",
     "test": "jest --runInBand --detectOpenHandles --forceExit --verbose",
-    "test:dev": "NODE_ENV=development npm run jest -- --runInBand --detectOpenHandles --forceExit --verbose",
-    "test:dev:open": "NODE_ENV=development HEADLESS=false npm run test:dev",
-    "test:dev:report": "./__tests__/reports/generate.sh"
+    "test:dev": "cross-env NODE_ENV=development npm run jest -- --runInBand --detectOpenHandles --forceExit --verbose",
+    "test:dev:open": "cross-env NODE_ENV=development HEADLESS=false npm run test:dev",
+    "test:dev:report": "cross-env ./__tests__/reports/generate.sh"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,8 @@
   "homepage": "https://github.com/betrybe/sd-0x-project-delivery-app#readme",
   "devDependencies": {
     "axios": "0.21.1",
+    "cross": "^1.0.0",
+    "cross-env": "^7.0.3",
     "dotenv": "8.2.0",
     "faker": "5.5.3",
     "jest": "26.6.3",
