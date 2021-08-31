@@ -50,6 +50,16 @@ const CardList = () => {
         isDisabled={ totalCart === '0,00' }
       />
 
+      <Button
+        id="btn-total-cart"
+        dataTestId={ testid[76] } // testando datatestid teste 16
+        buttonText={ totalCart }
+        onClick={ () => {
+          setIsRedirectCart(true);
+        } }
+        isDisabled={ totalCart === '0,00' }
+      />
+
       <div className="list-products">
         {productData.map((product, index) => (
           <Card
