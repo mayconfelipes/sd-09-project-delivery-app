@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { shape } from 'prop-types';
 import io from '../../socket';
 import api from '../../service/axiosApi';
-import NotFound from '../../components/notFound';
+import NotFound from '../../components/NotFound';
 
 const DetailsOrderSeller = (props) => {
   const {
