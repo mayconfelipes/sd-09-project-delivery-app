@@ -20,7 +20,7 @@ function Login() {
       setEmail(value);
     }
   };
-  
+
   const validatePassword = ({ target: { value } }) => {
     const minPasswordLength = 6;
     if (value.length < minPasswordLength) {
