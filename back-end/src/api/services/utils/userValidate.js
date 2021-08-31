@@ -6,7 +6,7 @@ const { BadRequest, Conflict } = require('../../utils/httpStatus');
 const validRoles = {
   administrator: 'administrator',
   seller: 'seller',
-  costumer: 'costumer',
+  customer: 'customer',
 };
 
 const isValidName = (name) => {
