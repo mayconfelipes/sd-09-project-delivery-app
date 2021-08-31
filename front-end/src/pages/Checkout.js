@@ -1,25 +1,36 @@
 import React, { useContext } from 'react';
 // import Header from '../components/Header';
-// import ProductItem from '../components/ProductItem';
+import ProductItem from '../components/ProductItem';
 import Customer from '../context/customerContext';
 
 const Checkout = () => {
   const { shoppingCart, sellers } = useContext(Customer);
+  console.log(shoppingCart, sellers);
   return (
     <>
       {/* <Header /> */}
-      <h1>Finalizar Pedido</h1>
-      {/* {shoppingCart.forEach((product) => (
-        <ProductItem>{product}</ProductItem>
-      ))} */}
-      <div className="">
+      <h2>Finalizar Pedido</h2>
+      <span>Item</span>
+      <span>Descrição</span>
+      <span>Quantidade</span>
+      <span>Valor Unitário</span>
+      <span>Sub-total</span>
+      <span>Remover Item</span>
+      {shoppingCart.map((product, index) => (
+        <ProductItem key={ product.id } index={ index } product={ product } />
+      ))}
+      <div className="" data-testid="customer_checkout__element-order-total-price">
         Total: R$
-        {shoppingCart.reduce((acc, curr) => acc + curr)}
+        {shoppingCart.reduce(
+          ((acc, curr) => acc + ((+curr.price) * curr.quantity)), 0,
+        )}
       </div>
       <form>
+        <h3>Detalhes e Endereço para Entrega</h3>
         <label htmlFor="select-seler">
+          P. Vendedora Responsável
           <select id="select-seller" data-testid="customer_checkout__select-seller">
-            {sellers.forEach((seller) => (
+            {sellers.map((seller) => (
               <option key={ seller.id }>
                 {seller.name}
               </option>
@@ -27,9 +38,11 @@ const Checkout = () => {
           </select>
         </label>
         <label htmlFor="address">
+          Endereço
           <input id="address" data-testid="customer_checkout__input-address" />
         </label>
         <label htmlFor="number">
+          Número
           <input id="number" data-testid="customer_checkout__input-addressNumber" />
         </label>
         <button
