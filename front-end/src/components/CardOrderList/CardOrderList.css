@@ -1,0 +1,31 @@
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.card-order {
+  border: 0.5px solid rgba(0, 0, 0, 0.199);
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1rem;
+  padding: 10px;
+  max-width: 30rem;
+}
+
+.card-order div section {
+  display: flex;
+}
+
+.status-container {
+  padding: 20px 40px;
+}
+
+.date-and-value {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-order-address {
+  display: flex;
+}
