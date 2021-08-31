@@ -8,7 +8,6 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [role] = useState('customer');
   const [setRegister, register] = useRegister();
 
   const history = useHistory();
@@ -22,10 +21,10 @@ const Register = () => {
   const validateInputs = () => {
     const MIN_CHARACTERS_PASSWORD = 6;
     const MIN_CHARACTERS_NAME = 12;
-    const check = /^[\S.]+@[a-z]+\.\w{2,3}$/g;
+    const check = RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email);
     if (name.length >= MIN_CHARACTERS_NAME
       && password.length >= MIN_CHARACTERS_PASSWORD
-      && check.test(email)) {
+      && check) {
       return true;
     }
     return false;
@@ -63,6 +62,7 @@ const Register = () => {
           datatestid="common_register__input-password"
           onChange={ ({ target }) => setPassword(target.value) }
           value={ password }
+          type="password"
         />
         <Button
           label="CADASTRAR"
@@ -73,8 +73,11 @@ const Register = () => {
         />
       </form>
       <span
-        datatestid="common_register__element-invalid_register"
-      />
+        data-testid="common_register__element-invalid_register"
+        className={ register.message ? 'error-box' : 'hidden' }
+      >
+        { register.message}
+      </span>
     </>
   );
 };

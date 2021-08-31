@@ -17,6 +17,7 @@ export default function useRegister() {
       localStorage.setItem('token', JSON.stringify(response.data));
     } catch (error) {
       setData(error.response.data);
+      console.log(error.response.data);
     }
   }
 

@@ -11,7 +11,7 @@ const isValidEmail = (email) => {
     throw error;
   }
 
-  const isValidEmailFormat = new RegExp(/^[\S.]+@[a-z]+\.\w{2,3}$/g).test(email);
+  const isValidEmailFormat = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email);
   if (!isValidEmailFormat) {
     const error = { type: BadRequest, message: '"email" must be a valid email' };
     throw error;

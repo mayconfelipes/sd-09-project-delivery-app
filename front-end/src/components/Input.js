@@ -1,28 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Input = ({ id, name, label, onChange, value, datatestid, placeholder }) => (
+const Input = ({ id, name, label, onChange, value, placeholder, type, datatestid }) => (
   <label htmlFor={ name }>
     { label }
     <input
       id={ id }
+      data-testid={ datatestid }
       name={ name }
       onChange={ onChange }
       value={ value }
-      data-testid={ datatestid }
       placeholder={ placeholder }
+      type={ type }
     />
   </label>
 );
 
 Input.propTypes = {
-  datatestid: PropTypes.string.isRequired,
   id: PropTypes.string,
   label: PropTypes.string,
   value: PropTypes.string,
   name: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  type: PropTypes.string,
+  datatestid: PropTypes.string.isRequired,
 };
 
 Input.defaultProps = {
@@ -31,6 +33,7 @@ Input.defaultProps = {
   value: '',
   name: '',
   id: '',
+  type: 'text',
   onChange: null,
 };
 
