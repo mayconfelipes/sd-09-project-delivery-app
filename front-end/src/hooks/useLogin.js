@@ -4,7 +4,7 @@ import axios from 'axios';
 const initialData = {};
 
 export default function useLogin() {
-  const [login, setLoginData] = useState(initialData);
+  const [data, setData] = useState(initialData);
 
   async function setLogin(payload) {
     try {
@@ -13,14 +13,12 @@ export default function useLogin() {
         url: 'http://localhost:3001/login',
         data: payload,
       });
-      setLoginData({ login: true });
-      localStorage.setItem('user', JSON.stringify(response.data));
+      setData({ login: true });
+      localStorage.setItem('token', JSON.stringify(response.data));
     } catch (error) {
-      console.log(error);
-      setLoginData(error.response.data);
+      setData(error.response.data);
     }
   }
 
-  console.log(login);
-  return [login, setLogin];
+  return [setLogin, data];
 }
