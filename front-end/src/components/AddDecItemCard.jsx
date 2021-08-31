@@ -22,7 +22,7 @@ const AddDecItemCard = ({ id }) => {
         id={ `negative-${id}` } // para não ter id igual
         dataTestId={ `${testid[19]}${id}` }
         onClick={ (event) => {
-          decrement(event);
+          decrement(event, setQtdInputOnChange);
           setTotalCart(getTotalCartLocalStorage());
         } }
         classStyle="card-button card-button-left"
@@ -44,7 +44,7 @@ const AddDecItemCard = ({ id }) => {
         id={ `positive-${id}` }
         dataTestId={ `${testid[18]}${id}` }
         onClick={ (event) => {
-          increment(event);
+          increment(event, setQtdInputOnChange);
           setTotalCart(getTotalCartLocalStorage());
         } }
         classStyle="card-button card-button-right"

@@ -34,16 +34,17 @@ const setProductLocalStorage = (idProduct, qtdProduct) => {
       .lenght > 0;
 };
 
-const decrement = (event) => {
+const decrement = (event, setQtdInputOnChange) => {
   const idProduct = event.target.id.split('-')[1];
   const qtdProduct = document.getElementById(`qtd-${idProduct}`).value - 1;
   if (qtdProduct >= 0) {
     document.getElementById(`qtd-${idProduct}`).value = qtdProduct;
     setProductLocalStorage(idProduct, qtdProduct);
   }
+  setQtdInputOnChange(qtdProduct);
 };
 
-const increment = (event) => {
+const increment = (event, setQtdInputOnChange) => {
   const idProduct = event.target.id.split('-')[1];
   let qtdProduct = parseInt(
     document.getElementById(`qtd-${idProduct}`).value,
@@ -52,6 +53,7 @@ const increment = (event) => {
   qtdProduct += 1;
   document.getElementById(`qtd-${idProduct}`).value = qtdProduct; // alterando elem tela
   setProductLocalStorage(idProduct, qtdProduct);
+  setQtdInputOnChange(qtdProduct);
 };
 
 const doOnChangeQtdInput = (event, setQtdInputOnChange) => {
