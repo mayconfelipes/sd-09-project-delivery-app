@@ -2,7 +2,7 @@ const md5 = require('md5');
 
 module.exports = {
     up: async (queryInterface, _Sequelize) => {
-      await queryInterface.bulkInsert("Users", [
+      await queryInterface.bulkInsert("users", [
         {
           id: 1,
           name: "Delivery App Admin",
@@ -30,7 +30,7 @@ module.exports = {
       ],{timestamp:false});
     },
     down: async (queryInterface, _Sequelize) => {
-      await queryInterface.bulkDelete("Users", null, {});
+      await queryInterface.bulkDelete("users", null, {});
     },
   };
   
