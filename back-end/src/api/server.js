@@ -8,6 +8,7 @@ const http = require('http').createServer(app);
 const userController = require('./controllers/users');
 const adminController = require('./controllers/admin');
 const productController = require('./controllers/product');
+
 const images = path.join(__dirname, '..', '..', 'public');
 // const io = require('socket.io')(http, {
   //   cors: {
