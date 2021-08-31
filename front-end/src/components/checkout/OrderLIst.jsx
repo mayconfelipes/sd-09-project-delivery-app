@@ -1,5 +1,6 @@
 import React from 'react';
 
+// import { useDeliveryContext } from '../../context/deliveryProvider';
 import TableRow from './TableRow';
 
 const OrderLIst = () => {
@@ -12,11 +13,15 @@ const OrderLIst = () => {
     'Remover item',
   ];
 
+  // const { allProducts } = useDeliveryContext();
+
+  // const { name, unitPrice, quantity, subTotal } = cart[i];
+
   const teste = [{
-    Descricao: 'cerveja skol',
-    Quantidade: 5,
-    ValorUnitario: 3,
-    SubTotal: 15,
+    name: 'cerveja skol',
+    unitPrice: 5,
+    quantity: 3,
+    subTotal: 15,
   }];
 
   return (
@@ -30,10 +35,17 @@ const OrderLIst = () => {
             </tr>
           </thead>
           <tbody>
-            {teste.map((item, index) => <TableRow key={ index } item={ item } />)}
+            {teste.map((product, index) => (
+              <TableRow key={ index } item={ index } product={ product } />
+            ))}
           </tbody>
         </table>
-        <span className="order-price">Total: R$ 50, 00</span>
+        <span
+          className="order-price"
+          data-testid="customer_checkout__element-order-total-price"
+        >
+          Total: R$ 50, 00
+        </span>
       </div>
     </div>
   );
