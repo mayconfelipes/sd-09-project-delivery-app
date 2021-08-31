@@ -15,7 +15,6 @@ const login = rescue(async (req, res, next) => {
    const payload = { email, password };
    const token = jwt.sign(payload, secret);
     
-   // return res.status(200).json(result);
     return res.status(200).json({ message: token });
 });
 
