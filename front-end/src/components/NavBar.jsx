@@ -22,14 +22,17 @@ const NavBar = () => {
           </Link>
         </li>
         <li data-testid={ `${prefix}user-full-name` }>{userInfo.name}</li>
-        <li data-testid={ `${prefix}link-logout` }>
+        <button
+          data-testid={ `${prefix}link-logout` }
+          onClick={ () => localStorage.removeItem('user') }
+          type="button"
+        >
           <Link
-            onClick={ () => localStorage.setItem('user', null) }
             to="/login"
           >
             Sair
           </Link>
-        </li>
+        </button>
       </ul>
     </nav>
   );

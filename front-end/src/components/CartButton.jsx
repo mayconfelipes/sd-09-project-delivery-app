@@ -12,12 +12,16 @@ const CartButton = () => {
   const currPrice = Object.entries(cartItens).reduce((acc, curr) => acc + curr[1], 0);
   return (
     <div>
-      <Link
-        to="/customer/checkout"
-        data-testid="customer_products__checkout-bottom-value"
-      >
-        {`Ver carrinho: R$${currPrice}`}
-      </Link>
+      <p>
+        Ver carrinho: R$
+        <Link
+          to="/customer/checkout"
+          data-testid="customer_products__checkout-bottom-value"
+          disabled={ currPrice === 0 }
+        >
+          {`${currPrice}`}
+        </Link>
+      </p>
     </div>
   );
 };
