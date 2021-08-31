@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import api from '../../service/axiosApi';
-import NotFound from '../../components/notFound';
+import NotFound from '../../components/NotFound';
+import { useDeliveryContext } from '../../context/deliveryProvider';
 
 const Login = () => {
   const [isError, setError] = useState();
   const [redirect, setRedirect] = useState();
-  const [userData, setUserData] = useState({
-    email: '',
-    password: '',
-  });
-
   const [isDataValid, setIsDataValid] = useState(true);
+  const { userData, setUserData } = useDeliveryContext();
 
   function handleInputChange({ target }) {
     const { name, value } = target;
@@ -88,8 +85,8 @@ const Login = () => {
           </button>
         </Link>
       </form>
-      {isError && <NotFound />}
-      {redirect && <Redirect to="customer/products" /> }
+      { isError && <NotFound /> }
+      { redirect && <Redirect to="customer/products" /> }
     </>
   );
 };
