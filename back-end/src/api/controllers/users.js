@@ -14,7 +14,9 @@ const tokenConfig = (email) => {
 
 const findUser = async (req, res) => {
   const { password, email } = req.body;
+  console.log(password)
   const response = await userService.findUser({ password, email });
+  console.log(response)
   const token = tokenConfig(email);
   if (!response) {
     return res.status(404).send({ hasToken: false });
@@ -24,8 +26,8 @@ const findUser = async (req, res) => {
 };
 
 const registerUser = async (req, res) => {
-  const { password, name, email } = req.body;
-  const response = await userService.registerUser({ password, name, email });
+  const { password, name, email, role } = req.body;
+  const response = await userService.registerUser({ password, name, email, role });
   const token = tokenConfig(email);
   if (!response) {
     return res.status(409).send({ alreadyExists: true });

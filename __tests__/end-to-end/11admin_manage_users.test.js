@@ -32,7 +32,7 @@ describe(requirement(39), () => {
   });
 });
 
-describe(requirement(40), () => {
+describe.only(requirement(40), () => {
   const people = [
     {
       ...newUser({
@@ -171,7 +171,7 @@ describe(requirement(43), () => {
   });
 });
 
-describe(requirement(44), () => {
+describe.skip(requirement(44), () => {
   const people = createUserForAdm(lengthRules);
 
   const peopleList = people
