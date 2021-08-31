@@ -1,11 +1,11 @@
 const boom = require('@hapi/boom');
 const md5 = require('md5');
 
-const registerVerify = require("./utils/registerSchema");
-const { User } = require("../../database/models");
+const registerVerify = require('./utils/registerSchema');
+const { User } = require('../../database/models');
 
 const validateParams = (name, email, password) => {
-  const { error } = registerVerify.validate({name, email, password});
+  const { error } = registerVerify.validate({ name, email, password });
   if (error) throw error;
 };
 
@@ -23,8 +23,7 @@ const registerNewUser = async (payload) => {
 
   password = md5(password);
 
-  const result = await User.create({name, email, password, role: 'customer'});
-
+  const result = await User.create({ name, email, password, role: 'customer' });
 
   return { name: result.name, email: result.email, role: result.role };
 };
