@@ -1,9 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
 const { error } = require('./middlewares/Error');
 
 const app = express();
+
 app.use(bodyParser.json());
+app.use(cors());
 
 const { loginRouter } = require('./routes');
 const { registerRouter } = require('./routes');
