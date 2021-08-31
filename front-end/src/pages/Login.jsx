@@ -29,7 +29,7 @@ function Login() {
 
   useEffect(() => {
     verifyLoginCredentials();
-  }, [loginData]);
+  }, [loginData, verifyLoginCredentials]);
 
   const handleChange = ({ target: { name, value } }) => {
     setLoginData({ ...loginData, [name]: value });

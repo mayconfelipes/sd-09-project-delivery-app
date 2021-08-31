@@ -1,7 +1,8 @@
 const CONTENT = 'application/json';
+const URL = 'http://localhost:3001';
 
 const loginUser = (user) => {
-  const endpoint = 'http://localhost:3001/users/login';
+  const endpoint = `${URL}/users/login`;
   return fetch(endpoint, {
     method: 'POST',
     headers: {
@@ -15,7 +16,7 @@ const loginUser = (user) => {
 };
 
 const registerUser = (newUser) => {
-  const endpoint = 'http://localhost:3001/users/register';
+  const endpoint = `${URL}/users/register`;
   return fetch(endpoint, {
     method: 'POST',
     headers: {
@@ -29,7 +30,7 @@ const registerUser = (newUser) => {
 };
 
 const registerUserWithAdmin = (newUser, token) => {
-  const endpoint = 'http://localhost:3001/admin/register';
+  const endpoint = `${URL}/admin/register`;
   return fetch(endpoint, {
     method: 'POST',
     headers: {
@@ -70,10 +71,25 @@ const getSaleItems = (id) => {
     .catch((err) => err);
 };
 
+const getAllProducts = (token) => {
+  const endpoint = `${URL}/customer/products`;
+  return fetch(endpoint, {
+    method: 'GET',
+    headers: {
+      'Content-Type': CONTENT,
+      authorization: token,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
 export default {
   loginUser,
   registerUser,
   registerUserWithAdmin,
   getSaleById,
   getSaleItems,
+  getAllProducts,
 };

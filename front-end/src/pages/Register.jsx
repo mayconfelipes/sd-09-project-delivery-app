@@ -37,7 +37,7 @@ function Register() {
 
   useEffect(() => {
     verifyNewUserCredentials();
-  }, [newUserData]);
+  }, [newUserData, verifyNewUserCredentials]);
 
   const handleChange = ({ target: { name, value } }) => {
     setNewUserData({ ...newUserData, [name]: value });

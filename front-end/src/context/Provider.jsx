@@ -5,12 +5,16 @@ import AppContext from './AppContext';
 function Provider({ children }) {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
+  const [totalCart, setTotalCart] = useState('0,00');
 
   const contextValue = {
     loading,
     setLoading,
     errorMessage,
     setErrorMessage,
+    totalCart,
+    setTotalCart,
+
   };
 
   return (
