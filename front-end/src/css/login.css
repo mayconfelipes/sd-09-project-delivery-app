@@ -4,8 +4,6 @@
   width: 30%;
 }
 
-
-
 .fields {
   align-items: center;
   display: flex;
@@ -18,8 +16,8 @@
 }
 
 .fields input {
-  border: solid 1px rgb(156, 138, 138);
   background-color: rgba(255, 255, 255, 0.829);
+  border: solid 1px rgb(156, 138, 138);
   border-radius: 4px;
   margin-bottom: 10px;
   padding: .5rem;
@@ -29,8 +27,8 @@
 input:focus {
   border: solid 1px rgb(73, 72, 72);
   box-shadow: 0 0 0 0;
-  transition: ease 0.3s;
   outline: 0;
+  transition: ease 0.3s;
 }
 
 .fields button {
@@ -42,14 +40,14 @@ input:focus {
 }
 
 #login {
-  border: none;
   background-color: rgb(13, 59, 28);
+  border: none;
   color: wheat;
 }
 
 #register {
-  border: solid 1px rgb(6, 59, 23);;
   background-color: rgba(231, 219, 195, 0.863);
+  border: solid 1px rgb(6, 59, 23);
   color: rgb(13, 59, 28);
 }
 
