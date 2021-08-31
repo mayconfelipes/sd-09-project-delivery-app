@@ -17,6 +17,7 @@ const root = {
 // ATOMS
 export const ButtonElement = styled.button`
   padding: 14px;
+  width: 100%;
   border-radius: 8px;
   margin-bottom: 14px;
   background-color: ${({ styleColor }) => {
@@ -114,7 +115,7 @@ export const NavBarElement = styled.div`
 
 export const ProductListElement = styled.ul``;
 
-export const LoginForm = styled.form`
+export const FormElement = styled.form`
   background-color: #1F1D2B;
   padding: 27px 24px 13px 24px;
   border-radius: 8px;

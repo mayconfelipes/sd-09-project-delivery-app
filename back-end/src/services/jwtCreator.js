@@ -2,7 +2,7 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 const jwtCreator = ({ name, email, role }) => {
-  const secret = process.env.JWT_SECRET;
+  const secret = process.env.JWT_SECRET || 'paranguamicutirimiruaroapalavracabalistica';
   const jwtConfig = {
     expiresIn: '7d',
     algorithm: 'HS256',

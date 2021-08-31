@@ -6,7 +6,7 @@ function Login() {
   return (
     <div className="App">
       <Logo />
-      <LoginForm />
+      <LoginForm title="Login" />
     </div>
   );
 }
