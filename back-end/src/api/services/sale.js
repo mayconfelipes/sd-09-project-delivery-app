@@ -36,4 +36,10 @@ const destroy = async ({ id }) => {
   return data;
 };
 
-module.exports = { create, findAll, findOne, update, destroy };
+const findBySeller = async ({ id }) => {
+  const data = await Sale.findAll({ where: { sellerId: id } });
+
+  return data;
+};
+
+module.exports = { create, findAll, findOne, update, destroy, findBySeller };

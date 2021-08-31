@@ -58,4 +58,11 @@ route.delete('/:id', [
   }),
 ]);
 
+route.get('/seller/:id', [
+  rescue(async (req, res) => {
+    const sales = await Sale.findBySeller(req.params);
+    res.status(200).json(sales);
+  }),
+]);
+
 module.exports = route;
