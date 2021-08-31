@@ -7,9 +7,9 @@ import NavBar from '../Components/Organisms/NabBar';
 function Products() {
   return (
     <>
+      <NavBar />
       <CardProduct>teste</CardProduct>
       <CardStatus>00001</CardStatus>
-      <NavBar />
       <ProductLine>name</ProductLine>
     </>
   );
