@@ -1,7 +1,7 @@
 const SalesProducts = (sequelize, DataTypes) => {
   const newSalesProducts = sequelize.define('salesProducts', {
-    // sale_id: DataTypes.INTEGER,
-    // product_id: DataTypes.INTEGER,
+    sale_id: DataTypes.INTEGER,
+    product_id: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER
   }, { timestamps: false });
 

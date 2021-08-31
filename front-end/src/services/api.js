@@ -17,6 +17,7 @@ const loginUser = (user) => {
 
 const registerUser = (newUser) => {
   const endpoint = `${URL}/users/register`;
+  console.log(endpoint);
   return fetch(endpoint, {
     method: 'POST',
     headers: {
@@ -38,6 +39,33 @@ const registerUserWithAdmin = (newUser, token) => {
       authorization: token,
     },
     body: JSON.stringify({ ...newUser }),
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
+// pega uma venda do database
+const getSaleById = (id) => {
+  const endpoint = `${URL}/sales/${id}`;
+  return fetch(endpoint, {
+    headers: {
+      'Content-Type': CONTENT,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
+// dado um id pega todos os items de uma venda pelo id da venda
+const getSaleItems = (id) => {
+  const endpoint = `${URL}/sales/items/${id}`;
+
+  return fetch(endpoint, {
+    headers: {
+      'Content-Type': CONTENT,
+    },
   })
     .then((response) => response.json())
     .then((data) => data)
@@ -76,6 +104,8 @@ export default {
   loginUser,
   registerUser,
   registerUserWithAdmin,
+  getSaleById,
+  getSaleItems,
   getAllProducts,
   getAllSales,
 };
