@@ -6,7 +6,11 @@ const ItemCard = ({ list }) => (
     <div>
       { list.map(({ id, name, price, urlImage }) => (
         <div key={ id }>
-          <img id={ name } src={ urlImage } alt={ name } data-testid="customer_products__img-card-bg-image" />
+          <img
+          id={ name }
+          src={ urlImage }
+          alt={ name }
+          data-testid="customer_products__img-card-bg-image" />
           <div>
             <div data-testid="customer_products__element-card-title">
               <span>{ name }</span>
