@@ -1,3 +1,44 @@
+.primary {
+  background-color: #036B52;
+  color: #F2FFFC;
+}
+
+.secondary {
+  background-color: #2FC18C;
+  color: #001813;
+}
+
+.ternary {
+  background-color: #421981;
+  color: #F2FFFC;
+}
+
+.quaternary {
+  background-color: #056CF9;
+  color: #F2FFFC;
+}
+
+.dark {
+  color: #001813;
+}
+
+.light {
+  color: #F2FFFC;
+}
+
+.light-background {
+  background-color: #F2FFFC;
+  color: #001813;
+}
+
+.grow-1 {
+  flex-grow: 1;
+}
+
+.grow-3 {
+  flex-grow: 3;
+}
+
 .main {
   align-items: center;
   display: flex;
@@ -74,4 +115,9 @@
 
 .hidden {
   display: none;
+}
+
+.cart-row {
+  display: flex;
+  justify-content: space-evenly;
 }

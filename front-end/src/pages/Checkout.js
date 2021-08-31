@@ -10,16 +10,22 @@ const Checkout = () => {
     <>
       {/* <Header /> */}
       <h2>Finalizar Pedido</h2>
-      <span>Item</span>
-      <span>Descrição</span>
-      <span>Quantidade</span>
-      <span>Valor Unitário</span>
-      <span>Sub-total</span>
-      <span>Remover Item</span>
-      {shoppingCart.map((product, index) => (
-        <ProductItem key={ product.id } index={ index } product={ product } />
-      ))}
-      <div className="" data-testid="customer_checkout__element-order-total-price">
+      <div className="cart-row">
+        <span>Item</span>
+        <span>Descrição</span>
+        <span>Quantidade</span>
+        <span>Valor Unitário</span>
+        <span>Sub-total</span>
+        <span>Remover Item</span>
+      </div>
+      <div className="cart-row">
+        {shoppingCart.map((product, index) => (
+          <ProductItem key={ product.id } index={ index } product={ product } />
+        ))}
+      </div>
+      <div
+        data-testid="customer_checkout__element-order-total-price"
+      >
         Total: R$
         {shoppingCart.reduce(
           ((acc, curr) => acc + ((+curr.price) * curr.quantity)), 0,
