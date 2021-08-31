@@ -40,7 +40,6 @@ function Products() {
               <li
                 key={ index }
                 className="main--products"
-                data-testid={ `customer_products__element-card-price-${id}` }
               >
                 <h4
                   data-testid={ `customer_products__element-card-title-${id}` }
@@ -53,7 +52,11 @@ function Products() {
                   alt={ name }
                   data-testid={ `customer_products__img-card-bg-image-${id}` }
                 />
-                <h1>{price}</h1>
+                <h1
+                  data-testid={ `customer_products__element-card-price-${id}` }
+                >
+                  {price.replace(/\./ig, ',')}
+                </h1>
                 <div className="main--add-item-btn">
                   <button
                     data-testid={ `customer_products__button-card-rm-item-${id}` }
@@ -61,6 +64,11 @@ function Products() {
                   >
                     -
                   </button>
+                  <input
+                    type="number"
+                    data-testid={ `customer_products__input-card-quantity-${id}` }
+                    value={ 0 }
+                  />
                   <button
                     data-testid={ `customer_products__button-card-add-item-${id}` }
                     type="button"

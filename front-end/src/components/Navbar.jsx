@@ -1,9 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD
-import './css/navbar.css';
-=======
 import { useHistory } from 'react-router-dom';
->>>>>>> 72557ddb7f332bb1d227ae0bb857a86a1ab162a9
+import './css/navbar.css';
 
 function Navbar() {
   const { name } = JSON.parse(localStorage.getItem('user'));
@@ -15,7 +12,7 @@ function Navbar() {
   };
 
   return (
-    <div className="navbar">
+    <nav className="navbar">
       <div>
         <a
           data-testid="customer_products__element-navbar-link-products"
@@ -34,7 +31,7 @@ function Navbar() {
       </div>
       <div data-testid="customer_products__element-navbar-user-full-name">
         <p>
-          {}
+          {name}
         </p>
       </div>
       <div>
@@ -47,7 +44,7 @@ function Navbar() {
           Sair
         </button>
       </div>
-    </div>
+    </nav>
   );
 }
 

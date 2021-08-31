@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-//
+import AppContext from '../hooks/context';
 
 const axios = require('axios').default;
 
@@ -8,6 +8,7 @@ function RegisterUser() {
   const [nameToRegister, setNameToRegister] = useState('');
   const [emailToRegister, setEmailToRegister] = useState('');
   const [passwordToRegister, setPasswordToRegister] = useState('');
+  const { setUserInLocalStorage } = useContext(AppContext);
   const router = useHistory();
 
   const PASSWORD_LENGTH_EXPECTED = 6;
@@ -47,6 +48,7 @@ function RegisterUser() {
       password: passwordToRegister,
     }).then((response) => {
       console.log(response);
+      setUserInLocalStorage(response.data);
       router.push('customer/products');
     }).catch((err) => {
       console.error(err);

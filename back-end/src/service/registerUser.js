@@ -1,8 +1,9 @@
 const md5 = require('md5');
 const { User } = require('../database/models');
+const generateToken = require('../utils/generateToken');
 
-const registerUser = async ({ name, email, password }) => {
-  const passwordMd5 = md5(password);
+const registerUser = async ({ name, email, password: passwordUser }) => {
+  const passwordMd5 = md5(passwordUser);
 
   const user = await User.create({
     name,
@@ -11,7 +12,11 @@ const registerUser = async ({ name, email, password }) => {
     role: 'customer',
   });
 
-  return user;
+  const { id, password, ...userWithOutPassword } = user.dataValues;
+
+  const token = generateToken(id);
+
+  return { ...userWithOutPassword, token };
 };
 
 module.exports = {
