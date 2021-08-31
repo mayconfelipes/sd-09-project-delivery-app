@@ -5,7 +5,7 @@ import { TextElement } from '../styles';
 function Text({ children, testId }) {
   return (
     <TextElement
-      data-testId={ testId }
+      data-testid={ testId }
     >
       {children}
     </TextElement>
