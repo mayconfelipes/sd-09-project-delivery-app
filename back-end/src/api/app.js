@@ -24,6 +24,7 @@ app.post('/login', User.loginUser);
 app.post('/register', User.registerUser);
 app.get('/users', User.getAllUsers);
 app.get('/customer/products', User.getAllUsers);
+app.get('/customer/orders', User.getOrders);
 app.get('/products', Product.getAllProducts);
 
 app.use(errorMiddleware);
