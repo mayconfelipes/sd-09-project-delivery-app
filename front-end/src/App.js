@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
           <Redirect to="/login" />
         </Route>
         <Route path="/login" component={ Login } />
-        <Route path="/register" component={ Signup } />
+        <Route path="/register" component={ Register } />
       </Switch>
     </BrowserRouter>
   );

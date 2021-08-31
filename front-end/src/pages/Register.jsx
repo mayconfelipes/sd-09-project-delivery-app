@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function Signup() {
+function Register() {
   const [signupValues, setSignupValues] = useState({ name: '', email: '', password: '' });
-  // const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [disableBtn, setDisableBtn] = useState(true);
-  const testIdcommon = 'common_register__';
 
   useEffect(() => {
     const passwordLength = 6;
@@ -28,52 +28,78 @@ function Signup() {
     console.log(signupValues);
   }
 
+  async function registerUser() {
+    try {
+      const { name, email, password } = signupValues;
+      const request = await axios({
+        method: 'post',
+        url: 'http://localhost:3001/user',
+        data: {
+          name,
+          email,
+          password,
+        },
+      });
+      const { data } = request;
+      console.log(request);
+      localStorage.setItem('user', JSON.stringify(data));
+    } catch (e) {
+      console.log(e);
+      setErrorMessage('error');
+    }
+  }
+
   return (
-    <div className="signup-container">
-      <div>
-        <span>Nome</span>
+    <div>
+
+      <label htmlFor="name">
+        Nome
         <input
           type="text"
           name="name"
-          datatestid={ `${testIdcommon}input-name` }
+          data-testid="common_register__input-name"
           value={ signupValues.name }
           onChange={ (event) => handleLocalState(event) }
         />
-      </div>
-      <div>
-        <span>Email</span>
+      </label>
+
+      <label htmlFor="email">
+        Email
         <input
           type="text"
           name="email"
-          datatestid={ `${testIdcommon}input-email` }
+          data-testid="common_register__input-email"
           value={ signupValues.email }
           onChange={ (event) => handleLocalState(event) }
         />
-      </div>
-      <div>
+      </label>
+
+      <label htmlFor="password">
         <span>Senha</span>
         <input
           type="text"
           name="password"
-          datatestid={ `${testIdcommon}input-password` }
+          data-testid="common_register__input-password"
           value={ signupValues.password }
           onChange={ (event) => handleLocalState(event) }
         />
-      </div>
+      </label>
+
       <button
         type="button"
-        datatestid={ `${testIdcommon}button-register` }
+        data-testid="common_register__button-register"
         disabled={ disableBtn }
+        onClick={ registerUser }
       >
         Cadastrar
       </button>
       <span
-        datatestid={ `${testIdcommon}button-register` }
+        data-testid="common_register__element-invalid_register"
       >
-        hola
+        {errorMessage}
       </span>
     </div>
   );
 }
 
-export default Signup;
+export default Register;
