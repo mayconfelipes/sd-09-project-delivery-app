@@ -3,10 +3,27 @@ import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Cards({ cardInfos }) {
+export default function Cards({ cardInfos, retrieveSumFromChild }) {
   const [currentQuantityToBuy, setCurrentQuantityToBuy] = useState(0);
-
+  const [currentPriceSum, setCurrentPriceSum] = useState(0);
   const { price, nameAndQuantityInMl, thumbNail, id } = cardInfos;
+  const minimumToRemove = -1;
+  const minimumToAdd = 1;
+
+  const sumValueOfProducts = (quantity) => {
+    const newPriceSum = price * (currentQuantityToBuy + quantity);
+    const calculateSum = newPriceSum - currentPriceSum;
+    retrieveSumFromChild(calculateSum);
+    setCurrentPriceSum(newPriceSum);
+  };
+
+  const sumValueOfProductsBlur = (quantity) => {
+    const newPriceSum = price * ((currentQuantityToBuy + quantity) / 2);
+    const calculateSum = newPriceSum - currentPriceSum;
+    retrieveSumFromChild(calculateSum);
+    setCurrentPriceSum(newPriceSum);
+  };
+
   return (
     <div
       style={ {
@@ -32,8 +49,9 @@ export default function Cards({ cardInfos }) {
         <img
           data-testid={ `customer_products__img-card-bg-image-${id}` }
           style={ {
-            width: '100%',
-            height: 'auto',
+            width: 'auto',
+            height: '200px',
+            margin: '10px',
           } }
           src={ thumbNail }
           alt="Imagem de uma bebida"
@@ -80,6 +98,7 @@ export default function Cards({ cardInfos }) {
                 return setCurrentQuantityToBuy(0);
               }
               setCurrentQuantityToBuy(currentQuantityToBuy - 1);
+              sumValueOfProducts(minimumToRemove);
             } }
             type="button"
           >
@@ -97,7 +116,12 @@ export default function Cards({ cardInfos }) {
               textAlign: 'center',
             } }
             value={ currentQuantityToBuy }
-            onChange={ (e) => setCurrentQuantityToBuy(Number(e.target.value)) }
+            onChange={ (e) => {
+              setCurrentQuantityToBuy(Number(e.target.value));
+            } }
+            onBlur={ (e) => {
+              sumValueOfProductsBlur(Number(e.target.value));
+            } }
           />
           <button
             style={ {
@@ -113,6 +137,7 @@ export default function Cards({ cardInfos }) {
             data-testid={ `customer_products__button-card-add-item-${id}` }
             onClick={ () => {
               setCurrentQuantityToBuy(currentQuantityToBuy + 1);
+              sumValueOfProducts(minimumToAdd);
             } }
             type="button"
           >
@@ -129,4 +154,5 @@ Cards.propTypes = {
   nameAndQuantityInMl: PropTypes.string,
   thumbNail: PropTypes.string,
   id: PropTypes.number,
+  calculateSum: PropTypes.func,
 }.isRequired;
