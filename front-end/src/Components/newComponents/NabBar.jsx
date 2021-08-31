@@ -48,6 +48,7 @@ const userName = {
 };
 
 function NavBar() {
+  const userInfo = JSON.parse(localStorage.getItem('user'));
   return (
     <NavBarElement style={ navBarStyle }>
       <div>
@@ -76,11 +77,18 @@ function NavBar() {
           style={ userName }
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          <span>Cicrano da silva</span>
+          <span>{ userInfo.name }</span>
         </div>
       </div>
       <div data-testid="customer_products__element-navbar-link-logout">
-        <img style={ logoStyle } src={ LogOutImage } alt="logout" />
+        <Link to="/login">
+          <button
+            type="button"
+            onClick={ () => localStorage.clear() }
+          >
+            <img style={ logoStyle } src={ LogOutImage } alt="logout" />
+          </button>
+        </Link>
       </div>
     </NavBarElement>
   );
