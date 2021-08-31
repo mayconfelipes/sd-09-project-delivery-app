@@ -72,7 +72,7 @@ class Register extends React.Component {
       redirect } = this.state;
     return (
       <div>
-        <p>Cadastro</p>
+        <h3>Cadastro</h3>
         <div>
           <label htmlFor="name">
             Nome
