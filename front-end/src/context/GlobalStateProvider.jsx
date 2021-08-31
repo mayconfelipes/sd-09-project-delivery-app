@@ -6,7 +6,6 @@ import GlobalContext from './context';
 export const GlobalStateProvider = ({ children }) => {
   const [cartQuantity, setCartQuantity] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [items, setItems] = useState([]);
   const [itemId, setItemId] = useState(0);
 
   useEffect(() => {
@@ -20,11 +19,11 @@ export const GlobalStateProvider = ({ children }) => {
         cartQuantity.splice(index, 1);
       }
     }
-    setItems(cartQuantity);
+    localStorage.setItem('cart', JSON.stringify(cartQuantity));
   }, [cartQuantity, itemId]);
 
   useEffect(() => {
-    const sumOfValues = items
+    const sumOfValues = cartQuantity
       .reduce((sum, { price, quantity }) => {
         const intPrice = parseFloat(price.replace(',', '.'));
         return parseFloat(sum) + intPrice * parseFloat(quantity);
@@ -32,7 +31,7 @@ export const GlobalStateProvider = ({ children }) => {
     const totPrice = (Math.round(sumOfValues * 100) / 100).toFixed(2);
     const number = totPrice.toString();
     setTotalPrice(number.replace('.', ','));
-  }, [items, itemId]);
+  }, [cartQuantity, itemId]);
 
   return (
     <GlobalContext.Provider
@@ -41,8 +40,6 @@ export const GlobalStateProvider = ({ children }) => {
           setCartQuantity,
           cartQuantity,
           totalPrice,
-          items,
-          setItems,
           setItemId }
       }
     >

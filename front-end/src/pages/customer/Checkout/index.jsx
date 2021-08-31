@@ -12,21 +12,17 @@ import useGlobalContext from '../../../context/GlobalStateProvider';
 import style from './checkout.module.scss';
 
 const Checkout = () => {
-  const { items, setItems, totalPrice, setCartQuantity } = useGlobalContext();
+  const { totalPrice, setCartQuantity, cartQuantity } = useGlobalContext();
   const id = 1;
 
   const onClickRemoveItem = (itemId) => {
     const one = 1;
-    const index = items.findIndex((item) => item.id === itemId);
+    const index = cartQuantity.findIndex((item) => item.id === itemId);
     if (index !== -one) {
-      const newItems = [...items];
+      const newItems = [...cartQuantity];
       newItems.splice(index, 1);
-      setItems(newItems);
       setCartQuantity(newItems);
     }
-    // const filteredItems = items.filter(({ id: idItem }) => itemId !== idItem);
-    // setItems(filteredItems);
-    // setCartQuantity(filteredItems);
   };
 
   return (
@@ -36,13 +32,71 @@ const Checkout = () => {
       <div className={ style.totalContainer }>
         <GridOrderDetails shouldRemoveItemApear />
         <div className={ style.barContainer }>
-          {items && items.map((
+          {JSON.parse(localStorage.getItem('cart'))
+          && JSON.parse(localStorage.getItem('cart')).map((
             { id: itemId, description, quantity, price }, index,
           ) => {
             const intPrice = parseFloat(price.replace(',', '.'));
             const multPrice = parseFloat(quantity) * intPrice;
             const totPrice = (Math.round(multPrice * 100) / 100).toFixed(2);
             const toStringNumber = totPrice.toString().replace('.', ',');
+
+            // return (
+            //   <div key={ itemId } className={ gridStyle }>
+            //     <span
+            //       className={ style.firstGrid }
+            //       data-testid={
+            //         `customer_checkout__element-order-table-item-number-${index}`
+            //       }
+            //     >
+            //       { id + 1 }
+
+            //     </span>
+            //     <span
+            //       className={ style.secondGrid }
+            //       data-testid={ `customer_checkout__element-order-table-name-${index}` }
+            //     >
+            //       { userOrProductName }
+            //     </span>
+            //     <span
+            //       className={ style.thirdGrid }
+            //       data-testid={
+            //         `customer_checkout__element-order-table-quantity-${index}`
+            //       }
+            //     >
+            //       { emailOrQuantity }
+            //     </span>
+            //     <span
+            //       className={ style.fourthGrid }
+            //       data-testid={
+            //         `customer_checkout__element-order-table-unit-price-${index}`
+            //       }
+            //     >
+            //       { userTypeOrValue }
+            //     </span>
+            //     <span
+            //       className={ style.fifthGrid }
+            //       data-testid={
+            //         `customer_checkout__element-order-table-sub-total-${index}`
+            //       }
+            //     >
+            //       { deleteOrPrice }
+            //     </span>
+            //     { shouldDeleteApear && (
+            //       <div className={ style.sixthGrid }>
+            //         <button
+            //           type="button"
+            //           onClick={ () => removeItem(itemId) }
+            //           data-testid={
+            //             `customer_checkout__element-order-table-remove-${index}`
+            //           }
+            //         >
+            //           Remover
+            //         </button>
+            //       </div>
+            //     ) }
+            //   </div>
+            // );
             return (<DescriptionsBar
               key={ Math.random() }
               id={ index }
@@ -66,6 +120,9 @@ const Checkout = () => {
                 `customer_checkout__element-order-table-unit-price-${index}`
               }
               dataTestIdDeleteOrPrice={
+                `customer_checkout__element-order-table-sub-total-${index}`
+              }
+              dataTestIdRemove={
                 `customer_checkout__element-order-table-remove-${index}`
               }
             />);
