@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: DataTypes.STRING,
     price: DataTypes.DECIMAL,
-    url_image: DataTypes.STRING,
-  }, { timestamps: false, tableName: 'Products' });
+    urlImage: DataTypes.STRING,
+  }, { underscored: true, timestamps: false, tableName: 'products' });
 
   return Product;
 };
