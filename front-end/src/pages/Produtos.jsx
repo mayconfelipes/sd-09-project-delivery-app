@@ -14,9 +14,11 @@ const Produtos = async () => {
 
   console.log(products);
 
-  <section>
-    <Header />
-  </section>
+  return (
+    <section>
+      <Header />
+    </section>
+  );
 };
 
 export default Produtos;
