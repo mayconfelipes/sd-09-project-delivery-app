@@ -4,12 +4,14 @@ const { Users } = require('../../database/models');
 const { messageError } = require('../middwares/errors');
 const {
   INTERNAL_ERROR_STATUS,
-  CONFLICT_STATUS } = require('../middwares/httpStatus');
+  CONFLICT_STATUS,
+  NOT_FOUND_STATUS } = require('../middwares/httpStatus');
 
 const {
   NAME_REGISTERED,
   EMAIL_REGISTERED,
-  USER_NOT_CREATED } = require('../middwares/errorMessages');
+  USER_NOT_CREATED,
+  USER_NOT_EXIST } = require('../middwares/errorMessages');
 
 const findByName = async (name) => Users.findOne({ where: { name } });
 
@@ -60,6 +62,28 @@ const create = async (user) => {
   return jwt.sign({ data: { name, email, role } }, secret, jwtConfig);
 };
 
+const getById = async (id) => {
+  const user = await Users.findByPk(id);
+
+  if (!user) {
+    throw messageError(NOT_FOUND_STATUS, USER_NOT_EXIST);
+  }
+
+  return user;
+};
+
+const getByName = async (name) => {
+  const user = await Users.findOne({ where: { name } });
+
+  if (!user) {
+    throw messageError(NOT_FOUND_STATUS, USER_NOT_EXIST);
+  }
+
+  return user;
+};
+
 module.exports = {
   create,
+  getById,
+  getByName,
 };
