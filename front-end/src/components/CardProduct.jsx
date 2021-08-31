@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const CardProduct = (props) => {
-  const { product: { id, name, price, urlImage } } = props;
+  const { product: { id, name, price, urlImage }, setChanged } = props;
+  // const { setChanged } = props;
   const prefix = 'customer_products__';
   const [quantity, setQuantity] = useState(0);
 
@@ -15,18 +16,30 @@ const CardProduct = (props) => {
       .setItem('products', JSON.stringify(currentProducts));
   };
 
+  const alterNumber = (quan, prodName) => {
+    if (quan < 1) quan = 0;
+    const intQuant = parseInt(quan, 10);
+    setQuantity(intQuant);
+    setProducts(intQuant, prodName);
+    setChanged(`${id}-${quan + 1}`);
+  };
+
   const addItem = () => {
-    setQuantity(quantity + 1);
-    setProducts(quantity + 1, name);
+    const intQuant = parseInt(quantity, 10);
+    setQuantity(intQuant + 1);
+    setProducts(intQuant + 1, name);
+    setChanged(`${id}-${quantity + 1}`);
   };
 
   const removeItem = () => {
-    if (quantity === 0) {
-      setQuantity(0);
-      setProducts(0, name);
-    } else {
-      setQuantity(quantity - 1);
-      setProducts(quantity - 1, name);
+    const intQuant = parseInt(quantity, 10);
+    if (quantity >= 1) {
+      setQuantity(intQuant - 1);
+      setProducts(intQuant - 1, name);
+      setChanged(`${id}-${quantity + 1}`);
+      // setQuantity(0);
+      // setProducts(0, name);
+      // setChanged(`${id}-${quantity + 1}`);
     }
   };
   const brazilianPrice = () => {
@@ -48,7 +61,7 @@ const CardProduct = (props) => {
       <input
         type="numer"
         value={ quantity }
-        onChange={ (e) => setQuantity(e.target.value) }
+        onChange={ (e) => alterNumber(e.target.value, name) }
         data-testid={ `${prefix}input-card-quantity-${id}` }
       />
       <button

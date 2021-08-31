@@ -15,6 +15,7 @@ function Routes() {
       <Switch>
         <Route path="/login" component={ Login } />
         <Route path="/register" component={ Register } />
+        <Route path="/customer/checkout" component={ Products } />
         <Route path="/customer/products" component={ Products } />
         <Redirect from="/" to="/login" />
       </Switch>

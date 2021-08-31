@@ -6,6 +6,8 @@ import CartButton from '../../components/CartButton';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [changed, setChanged] = useState(0);
 
   const fetchDrinks = async () => {
     try {
@@ -21,14 +23,24 @@ const Products = () => {
   useEffect(() => {
     fetchDrinks();
   }, []);
+  useEffect(() => {
+    const cartItens = JSON.parse(localStorage.getItem('products'));
+    const currPrice = Object.entries(cartItens)
+      .reduce((acc, curr) => acc + curr[1], 0).toFixed(2);
+    setTotalPrice(currPrice);
+  }, [changed]);
 
   return (
     <div>
       <NavBar />
       {products ? products
-        .map((product) => <CardProduct key={ product.id } product={ product } />)
+        .map((product) => (<CardProduct
+          key={ product.id }
+          product={ product }
+          setChanged={ setChanged }
+        />))
         : <Loading /> }
-      <CartButton />
+      <CartButton totalPrice={ totalPrice } />
     </div>
   );
 };
