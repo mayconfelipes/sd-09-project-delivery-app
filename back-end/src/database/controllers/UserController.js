@@ -4,9 +4,9 @@ const User = require('../services/UserService');
 const login = rescue(async(req, res) => {
   const { email, password } = req.body;
 
-  const token = await User.login(email, password);
+  const user = await User.login(email, password);
 
-  return res.status(200).json({ token });
+  return res.status(200).json(user);
 }); 
 
 const register = rescue(async(req, res) => {
