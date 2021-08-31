@@ -4,11 +4,7 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Authorization'],
-}));
+app.use(cors());
 
 const Router = require('./Router');
 const { handleError } = require('../middlewares');
