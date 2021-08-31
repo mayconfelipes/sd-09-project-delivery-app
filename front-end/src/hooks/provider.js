@@ -7,7 +7,8 @@ import AppContext from './context';
 function Provider({ children }) {
   const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const [productsCart, setProductsCart] = useState({});
+  const [loading, setLoading] = useState(true);
   const router = useHistory();
 
   const signIn = async (email, password) => {
@@ -21,13 +22,19 @@ function Provider({ children }) {
   };
 
   const getProducts = async () => {
+    if (products.length) return;
     try {
       const response = await axios.get('http://localhost:3001/products');
       setProducts(response.data);
+      const a = {};
+      response.data.forEach(({ name, price }) => { a[name] = { qty: 0, price }; });
+      setProductsCart(a);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
+
   const setUserInLocalStorage = (data) => {
     localStorage.setItem('user', JSON.stringify(data));
   };
@@ -39,6 +46,9 @@ function Provider({ children }) {
     getProducts,
     products,
     setUserInLocalStorage,
+    productsCart,
+    setProductsCart,
+    loading,
   };
 
   return (

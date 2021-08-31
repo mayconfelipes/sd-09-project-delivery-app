@@ -8,8 +8,12 @@ import '../App.css';
 const SECRET_KEY = 'minhachavesecreta';
 
 function Products() {
-  const { products, getProducts } = useContext(AppContext);
+  const {
+    products,
+    getProducts,
+    productsCart, setProductsCart, loading } = useContext(AppContext);
 
+  let total = 0;
   useEffect(() => {
     getProducts();
   }, [getProducts]);
@@ -29,6 +33,39 @@ function Products() {
       router.push('/');
     }
   });
+
+  const handleClick = () => {
+    router.push('/customer/checkout');
+  };
+
+  const addProduct = (name) => {
+    const currentQty = productsCart[name].qty;
+    setProductsCart({
+      ...productsCart, [name]: { ...productsCart[name], qty: currentQty + 1 },
+    });
+    console.log(productsCart);
+  };
+
+  const decreasesProduct = (name) => {
+    const currentQty = productsCart[name].qty;
+    if (currentQty <= 0) return;
+    setProductsCart({
+      ...productsCart, [name]: { ...productsCart[name], qty: currentQty - 1 },
+    });
+    console.log(productsCart);
+  };
+
+  const totalPrice = () => {
+    const productsKeys = Object.keys(productsCart);
+    productsKeys.forEach((product) => {
+      total += productsCart[product].qty * Number(productsCart[product].price);
+    });
+
+    console.log(total);
+    return total.toFixed(2);
+  };
+
+  if (loading) return <h1>loading...</h1>;
 
   return (
     <div className="main">
@@ -61,22 +98,26 @@ function Products() {
                   <button
                     data-testid={ `customer_products__button-card-rm-item-${id}` }
                     type="button"
+                    onClick={ () => decreasesProduct(name) }
                   >
                     -
                   </button>
                   <input
                     type="number"
+                    name={ name }
                     data-testid={ `customer_products__input-card-quantity-${id}` }
-                    value={ 0 }
+                    value={ productsCart[name].qty }
                   />
                   <button
                     data-testid={ `customer_products__button-card-add-item-${id}` }
                     type="button"
+                    onClick={ () => addProduct(name) }
                   >
                     +
                   </button>
                 </div>
-              </li>))
+              </li>
+            ))
           }
         </ul>
       </main>
@@ -85,8 +126,9 @@ function Products() {
         data-testid="customer_products__button-cart"
         type="button"
         className="button-cart"
+        onClick={ () => handleClick() }
       >
-        Carrinho
+        { `Ver Carrinho: ${totalPrice()} `}
       </button>
     </div>
   );
