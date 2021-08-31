@@ -1,10 +1,13 @@
 import React from 'react';
 import { node } from 'prop-types';
 import { LoginProvider } from './LoginContext';
+import { SocketProvider  } from './SocketContext';
 
 const Provider = ({ children }) => (
   <LoginProvider>
-    { children }
+    <SocketProvider>
+      { children }
+    </SocketProvider>
   </LoginProvider>
 );
 

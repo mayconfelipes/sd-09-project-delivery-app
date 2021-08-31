@@ -2,6 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
+const http = require('http');
+
+const app = express();
+
+const server = http.createServer(app);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'],
+  },
+});
 
 const userController = require('./controllers/user');
 const loginController = require('./controllers/login');
@@ -9,12 +20,14 @@ const productController = require('./controllers/product');
 const saleController = require('./controllers/sale');
 const errorMiddleware = require('./middlewares/Error');
 
-const app = express();
-
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '..', '..', 'public')));
+
+io.on('connection', (socket) => {
+  socket.emit('helloWorld', `${socket.id} says Hello!`);
+});
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
@@ -25,4 +38,4 @@ app.use('/sale', saleController);
 
 app.use(errorMiddleware);
 
-module.exports = app;
+module.exports = server;
