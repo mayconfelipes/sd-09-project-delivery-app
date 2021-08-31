@@ -18,6 +18,8 @@ app.use('/sales', routes.Sales);
 
 app.use('/products', routes.Products);
 
+app.use('/sales-products', routes.SalesProducts);
+
 app.use(erroMiddleware);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
