@@ -14,7 +14,6 @@ const User = (sequelize, DataTypes) => {
   //   newUser.hasMany(models.sale,
   //     { foreingnKey: 'seller_id', as: 'seller'});
   // };
-
   return newUser;
 };
 

@@ -17,6 +17,7 @@ const loginUser = (user) => {
 
 const registerUser = (newUser) => {
   const endpoint = `${URL}/users/register`;
+  console.log(endpoint);
   return fetch(endpoint, {
     method: 'POST',
     headers: {
@@ -46,7 +47,7 @@ const registerUserWithAdmin = (newUser, token) => {
 
 // pega uma venda do database
 const getSaleById = (id) => {
-  const endpoint = `http://localhost:3001/sale/${id}`;
+  const endpoint = `${URL}/sales/${id}`;
   return fetch(endpoint, {
     headers: {
       'Content-Type': CONTENT,
@@ -59,7 +60,7 @@ const getSaleById = (id) => {
 
 // dado um id pega todos os items de uma venda pelo id da venda
 const getSaleItems = (id) => {
-  const endpoint = `http://localhost:3001/sale/items/${id}`;
+  const endpoint = `${URL}/sales/items/${id}`;
 
   return fetch(endpoint, {
     headers: {
@@ -85,6 +86,20 @@ const getAllProducts = (token) => {
     .catch((err) => err);
 };
 
+const getAllSales = (token) => {
+  const endpoint = `${URL}/sales`;
+  return fetch(endpoint, {
+    method: 'GET',
+    headers: {
+      'Content-Type': CONTENT,
+      authorization: token,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
 export default {
   loginUser,
   registerUser,
@@ -92,4 +107,5 @@ export default {
   getSaleById,
   getSaleItems,
   getAllProducts,
+  getAllSales,
 };

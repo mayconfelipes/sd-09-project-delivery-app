@@ -1,4 +1,19 @@
-const { sale, user, product } = require('../database/models');
+const { sale, product, user } = require('../database/models');
+
+const getAllSalesService = async (id, userRole) => {
+  const userId = (userRole === 'seller' ? 'seller_id' : 'user_id');
+  try {
+    const result = await sale.findAll({
+      where: { [userId]: id },
+      include: [{
+        model: product, as: 'products', through: { attributes: ['quantity'] },
+      }],
+    });
+    return result;
+  } catch (error) {
+    return { error };
+  }
+};
 
 const getSaleById = async (id) => {
   const result = await sale
@@ -14,7 +29,6 @@ const getSaleById = async (id) => {
 const getSaleItems = async (id) => {
   const result = await sale.findOne({ where: { id },
   include: [
-    // { model: salesProducts, as: 'salesProducts' },
     { model: product, as: 'products', through: { attributes: ['quantity'] } },
   ],
   });
@@ -22,6 +36,7 @@ const getSaleItems = async (id) => {
 };
 
 module.exports = {
+  getAllSalesService,
   getSaleById,
   getSaleItems,
 };
