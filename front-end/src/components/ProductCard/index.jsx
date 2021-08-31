@@ -13,20 +13,20 @@ const ProductCard = (
   const [quantity, setQuantity] = useState(0);
   const [quantityItem, setQuantityItem] = useState(0);
 
-  const { setCartQuantity, cartQuantity, items } = useGlobalContext();
+  const { setCartQuantity, cartQuantity, items, setItemId } = useGlobalContext();
 
   useEffect(() => {
     setQuantityItem(quantity);
-  }, [quantity, quantityItem, setQuantityItem]);
+  }, [quantity]);
 
   useEffect(() => {
-    setQuantity((value) => value);
-  }, [quantity, cartQuantity]);
-
-  useEffect(() => {
-    setCartQuantity([
-      ...cartQuantity, { id, quantity, price, description }]);
-  }, [cartQuantity, description, id, price, quantity, setCartQuantity]);
+    setItemId(id);
+    if (quantityItem > 0) {
+      setCartQuantity([
+        ...cartQuantity, { id, quantity, price, description }]);
+    }
+  }, [cartQuantity,
+    description, id, price, quantity, quantityItem, setCartQuantity, setItemId]);
 
   useEffect(() => {
     items.filter(({

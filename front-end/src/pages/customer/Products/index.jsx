@@ -27,7 +27,7 @@ const Products = () => {
           <ProductCard
             key={ id }
             id={ id }
-            price={ price.replace('.', ',') }
+            price={ `${price.replace('.', ',')}` }
             image={ image }
             description={ name }
           />))}

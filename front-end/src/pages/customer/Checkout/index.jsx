@@ -12,16 +12,26 @@ import useGlobalContext from '../../../context/GlobalStateProvider';
 import style from './checkout.module.scss';
 
 const Checkout = () => {
-  const { items, setItems, totalPrice } = useGlobalContext();
+  const { items, setItems, totalPrice, setCartQuantity } = useGlobalContext();
   const id = 1;
 
   useEffect(() => {
     console.log('checkout', items);
+    console.log('reverseItems');
   }, [items]);
 
   const onClickRemoveItem = (itemId) => {
-    const filteredItems = items.filter(({ id: idItem }) => itemId !== idItem);
-    setItems(filteredItems);
+    const one = 1;
+    const index = items.findIndex((item) => item.id === itemId);
+    if (index !== -one) {
+      const newItems = [...items];
+      newItems.splice(index, 1);
+      setItems(newItems);
+      setCartQuantity(newItems);
+    }
+    // const filteredItems = items.filter(({ id: idItem }) => itemId !== idItem);
+    // setItems(filteredItems);
+    // setCartQuantity(filteredItems);
   };
 
   return (

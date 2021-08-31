@@ -4,6 +4,12 @@ import { Link } from 'react-router-dom';
 import style from './navbar.module.scss';
 
 const NavBar = ({ orders, products }) => {
+  const userData = JSON.parse(localStorage.getItem('user'));
+
+  const onLoginClick = () => {
+    localStorage.removeItem('user');
+  };
+
   const route = products === 'PRODUTOS' ? '/customer/products' : '/seller/orders';
   return (
     <nav className={ style.container }>
@@ -32,11 +38,12 @@ const NavBar = ({ orders, products }) => {
         <p
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          Nome da pessoa usuária
+          {userData && userData.name}
         </p>
       </div>
       <Link className={ style.lastGrid } to="/login">
         <button
+          onClick={ onLoginClick }
           type="button"
           data-testid="customer_products__element-navbar-link-logout"
         >
