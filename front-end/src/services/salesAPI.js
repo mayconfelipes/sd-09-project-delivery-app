@@ -1,5 +1,5 @@
 const URLBase = 'http://localhost:3001';
-​
+
 const salesOrdersAPI = async (saleBody) => {
   try {
     const URL = `${URLBase}/sales/orders`;
@@ -21,5 +21,5 @@ const salesOrdersAPI = async (saleBody) => {
     console.log(errorObj);
   }
 };
-​
+
 export default salesOrdersAPI;
