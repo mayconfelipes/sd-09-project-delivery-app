@@ -3,8 +3,8 @@ const { mdwSales, mdwSalesDetails } = require('../middlewares/mdwSales');
 
 const pingRouter = express.Router();
 
-pingRouter.get('/orders', mdwSales);
+pingRouter.post('/orders', mdwSales);
 
-pingRouter.get('/details', mdwSalesDetails);
+pingRouter.get('/details/:id', mdwSalesDetails);
 
 module.exports = pingRouter;

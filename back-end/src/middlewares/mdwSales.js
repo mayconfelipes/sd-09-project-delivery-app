@@ -5,8 +5,8 @@ const { sellerOrders, saleDetails } = require('../services/sellerOrders');
 
 const mdwSales = async (req, res, next) => {
   try {
-    console.log('Rota /sales/orders');
-    const orders = await sellerOrders(1);
+    const { sellerId } = req.body;
+    const orders = await sellerOrders(sellerId);
     return res.status(OK).json(orders);
   } catch (error) {
     return next(error);
@@ -15,8 +15,8 @@ const mdwSales = async (req, res, next) => {
 
 const mdwSalesDetails = async (req, res, next) => {
   try {
-    console.log('Rota /sales/details');
-    const salesAndProducts = await saleDetails();
+    const { id } = req.params;
+    const salesAndProducts = await saleDetails(id);
     return res.status(OK).json(salesAndProducts);
   } catch (error) {
     return next(error);
