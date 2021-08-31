@@ -58,9 +58,25 @@ const getAllProducts = (token) => {
     .catch((err) => err);
 };
 
+const saveOrder = (orderData) => {
+  const endpoint = `${URL}/customer/checkout`;
+  return fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': CONTENT,
+      authorization: token,
+    },
+    body: JSON.stringify({ orderData }),
+  })
+    .then((response) => response.json())
+    .then((data) => data) // conferir
+    .catch((err) => err);
+};
+
 export default {
   loginUser,
   registerUser,
   registerUserWithAdmin,
   getAllProducts,
+  saveOrder,
 };

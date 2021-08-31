@@ -8,5 +8,6 @@ const validateToken = require('../middlewares/validateJWT');
 customerRouter.get('/products', [
   validateToken, productController.getAllProducts,
 ]);
+customerRouter.post('/checkout', validateToken, productController.saveOrder);
 
 module.exports = customerRouter;
