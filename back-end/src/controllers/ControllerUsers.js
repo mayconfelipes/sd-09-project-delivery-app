@@ -47,9 +47,20 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
+const getAllSellers = async (req, res, next) => {
+  try {
+    const sellers = await ServiceUsers.getAllSellers();
+
+    return res.status(200).json(sellers);
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
   login,
   register,
   registerAdmin,
   getAllUsers,
+  getAllSellers,
 };

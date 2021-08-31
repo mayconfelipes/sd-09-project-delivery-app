@@ -42,8 +42,15 @@ const getAllUsers = async () => {
   return users;
 };
 
+const getAllSellers = async () => {
+  const sellers = await RepositoryUsers.getAllSellers();
+
+  return sellers;
+};
+
 module.exports = {
   login,
   register,
   getAllUsers,
+  getAllSellers,
 };
