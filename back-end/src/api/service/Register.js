@@ -25,8 +25,8 @@ const registerNewUser = async (payload) => {
 
   const result = await User.create({name, email, password, role: 'customer'});
 
-  console.log(result);
-  return result;
+
+  return { name: result.name, email: result.email, role: result.role };
 };
 
 module.exports = {
