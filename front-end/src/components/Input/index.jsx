@@ -18,5 +18,9 @@ export default Input;
 Input.propTypes = {
   labelDescription: P.string.isRequired,
   dataTestId: P.string.isRequired,
-  inputName: P.string.isRequired,
+  inputName: P.string,
+};
+
+Input.defaultProps = {
+  inputName: '',
 };

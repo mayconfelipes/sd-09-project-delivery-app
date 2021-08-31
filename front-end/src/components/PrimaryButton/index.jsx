@@ -18,7 +18,7 @@ export default PrimaryButton;
 
 PrimaryButton.propTypes = {
   children: P.node.isRequired,
-  dataTestId: P.string.isRequired,
+  dataTestId: P.string,
   isBtnDisabled: P.bool,
   onLoginClick: P.func,
 };
@@ -26,4 +26,5 @@ PrimaryButton.propTypes = {
 PrimaryButton.defaultProps = {
   isBtnDisabled: false,
   onLoginClick: () => {},
+  dataTestId: '',
 };

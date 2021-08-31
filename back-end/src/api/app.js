@@ -20,16 +20,17 @@ app.use(
   }),
 );
 
-app.get('/products', products);
-
 const validadeUserExists = require('./middwares/validators/validadeUserExists');
 const login = require('../controllers/loginController');
+
+app.get('/products', products);
 
 app.post('/register', usersControllers.create);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.post('/login', validadeUserExists, login);
+
 app.use(sendErrorMessage);
 
 module.exports = app;

@@ -42,8 +42,9 @@ const Login = () => {
 
   const sendLoginRequest = async () => {
     const { emailInput, passwordInput } = userData;
-    const { token } = await login(emailInput, passwordInput);
-    if (token) setIsLogged(true);
+    const result = await login(emailInput, passwordInput);
+    localStorage.setItem('user', JSON.stringify(result));
+    if (result.token) setIsLogged(true);
     else setInvalidLogin(true);
   };
 

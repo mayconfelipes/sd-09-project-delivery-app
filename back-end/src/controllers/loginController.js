@@ -22,7 +22,8 @@ const login = async (req, res) => {
       const encPassword = md5(password);
       if (encPassword === exists.password) {
         const token = jwt.sign({ data: exists.displayName }, secret, jwtConfig);
-        return res.status(200).json({ message: 'Login successful', token, user: secret });
+        const { name, role } = exists;
+        return res.status(200).json({ name, email, role, token });
       }
       return res.status(400).json({ message: 'Wrong Password' });
   } catch (e) {

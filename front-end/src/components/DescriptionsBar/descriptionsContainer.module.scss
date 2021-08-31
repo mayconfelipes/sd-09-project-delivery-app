@@ -4,7 +4,6 @@
   grid-template-rows: 1fr;
   grid-template-areas: 
   "firstGrid secondGrid thirdGrid fourthGrid fifthGrid sixthGrid";
-  height:5rem;
   justify-content: center;
   text-align: center;
   width: 100%;
@@ -16,6 +15,14 @@
   .sixthGrid {
     background-color: #4bc18d;
     border-radius: 0 0.5rem 0.5rem 0;
+
+    button {
+      border: hidden;
+      align-self: center;
+      background: none;
+      font-size: 2.4rem;
+      color: #fff;
+    }
   }
 
   .fifthGrid {
@@ -45,6 +52,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 5rem;
 }
 
 .thirdGrid, .fourthGrid, .fifthGrid, .sixthGrid {
