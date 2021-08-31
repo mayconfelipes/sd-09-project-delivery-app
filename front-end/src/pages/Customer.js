@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ProductCard from '../components/ProductCard';
 import fetchGET from '../services/fetchGET';
 import { productsAction } from '../actions/checkoutAction';
+import HeaderCustomer from '../components/HeaderCustomer';
 
 class Customer extends React.Component {
   constructor() {
@@ -12,28 +13,18 @@ class Customer extends React.Component {
 
     this.state = {
       products: [],
-      name: '',
     };
 
     this.fetchAPI = this.fetchAPI.bind(this);
-    this.userName = this.userName.bind(this);
   }
 
   componentDidMount() {
     this.fetchAPI();
-    this.userName();
-  }
-
-  userName() {
-    const user = localStorage.getItem('user');
-    this.setState({
-      name: JSON.parse(user).name,
-    });
   }
 
   async fetchAPI() {
     try {
-      const result = await fetchGET('http://localhost:3001/products');
+      const result = await fetchGET('products');
       this.setState({
         products: result,
       });
@@ -42,44 +33,13 @@ class Customer extends React.Component {
     }
   }
 
-  removeUser() {
-    localStorage.removeItem('user');
-  }
-
   render() {
-    const { products, name } = this.state;
+    const { products } = this.state;
     const { getTotalPrice, getProducts } = this.props;
 
     return (
       <div>
-        <nav>
-          <button
-            type="button"
-            data-testid="customer_products__element-navbar-link-products"
-          >
-            PRODUTOS
-          </button>
-          <button
-            type="button"
-            data-testid="customer_products__element-navbar-link-orders"
-          >
-            MEUS PEDIDOS
-          </button>
-          <p
-            data-testid="customer_products__element-navbar-user-full-name"
-          >
-            { name }
-          </p>
-          <Link to="/login">
-            <button
-              type="button"
-              onClick={ this.removeUser }
-              data-testid="customer_products__element-navbar-link-logout"
-            >
-              Sair
-            </button>
-          </Link>
-        </nav>
+        <HeaderCustomer />
         <Link to="/customer/checkout">
           <button
             type="button"

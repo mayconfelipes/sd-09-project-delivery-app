@@ -1,10 +1,10 @@
 const axios = require('axios');
 
 const fetchGET = async (endpoint) => {
-  const token = localStorage.getItem('token');
-  const result = await axios.get(endpoint, {
+  const user = localStorage.getItem('user');
+  const result = await axios.get(`http://localhost:3001/${endpoint}`, {
     headers: {
-      authorization: token,
+      authorization: JSON.parse(user).token,
     },
   });
   const { data } = result;

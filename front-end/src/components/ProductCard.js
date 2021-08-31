@@ -16,6 +16,11 @@ class ProductCard extends React.Component {
     this.controlProducts = this.controlProducts.bind(this);
     this.removeProduct = this.removeProduct.bind(this);
     this.calTotalPrice = this.calTotalPrice.bind(this);
+    this.updateValue = this.updateValue.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateValue();
   }
 
   handleChange({ target }) {
@@ -23,6 +28,18 @@ class ProductCard extends React.Component {
     if (value < 0) return this.setState({ [name]: 0 });
     this.setState({ [name]: value }, () => {
       this.removeProduct();
+    });
+  }
+
+  updateValue() {
+    const { product, getProducts } = this.props;
+
+    getProducts.forEach((productFor) => {
+      if (productFor.id === product.id) {
+        this.setState({
+          value: productFor.quantity,
+        });
+      }
     });
   }
 
@@ -36,7 +53,7 @@ class ProductCard extends React.Component {
     setTotalPrice(totalPrice.toFixed(2).replace(/\./, ','));
   }
 
-  async controlProducts() {
+  controlProducts() {
     const { product, getProducts, setProducts } = this.props;
     const { value } = this.state;
     let newProducts = getProducts;
@@ -44,7 +61,7 @@ class ProductCard extends React.Component {
     const boolProduct = getProducts.find((productFind) => productFind.id === product.id);
 
     if (boolProduct) {
-      newProducts = await getProducts.map((prod) => {
+      newProducts = getProducts.map((prod) => {
         if (prod.id === product.id) {
           return { ...prod, quantity: value };
         }
