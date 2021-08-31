@@ -2,11 +2,14 @@ import React from 'react';
 import { node } from 'prop-types';
 import { LoginProvider } from './LoginContext';
 import { SocketProvider } from './SocketContext';
+import { CustomerProvider } from './CustomerContext';
 
 const Provider = ({ children }) => (
   <LoginProvider>
     <SocketProvider>
-      { children }
+      <CustomerProvider>
+        { children }
+      </CustomerProvider>
     </SocketProvider>
   </LoginProvider>
 );
