@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import './NavBar.css';
 
 function NavBar(props) {
-  const { userType, userName } = props;
+  const { userType = '', userName = '' } = props;
   let prefix = '';
   console.log(prefix);
 

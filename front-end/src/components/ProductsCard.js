@@ -10,7 +10,6 @@ const ProductsCard = ({ product }) => {
 
   useEffect(() => {
     const isInCart = cart.filter((item) => item.id === id);
-
     if (quantity === 0) {
       const newCart = cart.filter((item) => item.id !== id);
       setCart(newCart);
@@ -22,7 +21,7 @@ const ProductsCard = ({ product }) => {
       return;
     }
     setCart([...cart, { id, quantity, name, price: Number(price) }]);
-  }, [id, quantity, name, price, cart, setCart]);
+  }, []);
 
   const dec = () => {
     if (quantity === 0) {
@@ -41,7 +40,7 @@ const ProductsCard = ({ product }) => {
         className="card_price"
         data-testid={ `customer_products__element-card-price-${id}` }
       >
-        { price.replace('.', ',') }
+        { price }
       </div>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
