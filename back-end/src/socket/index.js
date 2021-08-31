@@ -2,7 +2,7 @@ const RepositorySales = require('../repositories/RepositorySales');
 
 const updateSaleStatus = async (io, id, status) => {
   await RepositorySales.updateSale(id, status);
-  io.emit('updateStatus', status, id);
+  io.emit('updateStatus', { status, id });
 };
 
 module.exports = (io) => {
