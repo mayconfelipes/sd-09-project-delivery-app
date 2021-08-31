@@ -24,6 +24,7 @@ const NavBar = () => {
         <li data-testid={ `${prefix}user-full-name` }>{userInfo.name}</li>
         <li data-testid={ `${prefix}link-logout` }>
           <Link
+            onClick={ () => localStorage.setItem('user', null) }
             to="/login"
           >
             Sair

@@ -1,16 +1,22 @@
-import React from 'react';
+import { React } from 'react';
 import { Link } from 'react-router-dom';
 
 const CartButton = () => {
-  const cartItens = JSON.parse(localStorage.getItem('cart'));
-  const totalPrice = cartItens.price * cartItens.quantity;
+  // const [totalPrice, setTotalPrice] = useState(0);
+  // useEffect(() => {
+  //   const cartItens = JSON.parse(localStorage.getItem('products'));
+  //   const currPrice = Object.entries(cartItens).reduce((acc, curr) => acc + curr[1], 0);
+  //   setTotalPrice(currPrice);
+  // }, [totalPrice]);
+  const cartItens = JSON.parse(localStorage.getItem('products'));
+  const currPrice = Object.entries(cartItens).reduce((acc, curr) => acc + curr[1], 0);
   return (
     <div>
       <Link
         to="/customer/checkout"
         data-testid="customer_products__checkout-bottom-value"
       >
-        {`Ver carrinho: R$${totalPrice}`}
+        {`Ver carrinho: R$${currPrice}`}
       </Link>
     </div>
   );

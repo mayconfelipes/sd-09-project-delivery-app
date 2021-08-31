@@ -1,12 +1,13 @@
 const express = require('express');
-const app = express();
-const http = require('http').createServer(app);
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
+
+const app = express();
+const http = require('http').createServer(app);
 const userController = require('./controllers/users');
 const productController = require('./controllers/product');
 
-const path = require('path');
 const images = path.join(__dirname, '..', '..', 'public');
 // const io = require('socket.io')(http, {
   //   cors: {

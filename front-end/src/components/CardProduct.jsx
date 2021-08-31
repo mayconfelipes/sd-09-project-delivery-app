@@ -6,36 +6,39 @@ const CardProduct = (props) => {
   const prefix = 'customer_products__';
   const [quantity, setQuantity] = useState(0);
 
-  const setProducts = (quant) => {
+  const setProducts = (quant, productName) => {
     const totalProduct = quant * price;
     const getProducts = JSON.parse(localStorage.getItem('products'));
-    const currentProducts = { ...getProducts, name: totalProduct };
+    const currentProducts = { ...getProducts, [productName]: totalProduct };
+    console.log(currentProducts);
     localStorage
       .setItem('products', JSON.stringify(currentProducts));
   };
 
   const addItem = () => {
     setQuantity(quantity + 1);
-    setProducts(quantity + 1);
+    setProducts(quantity + 1, name);
   };
 
   const removeItem = () => {
     if (quantity === 0) {
       setQuantity(0);
-      setProducts(0);
+      setProducts(0, name);
     } else {
       setQuantity(quantity - 1);
-      setProducts(quantity - 1);
+      setProducts(quantity - 1, name);
     }
   };
-  // const brazilianPrice = () => {
-  //   const newPrice = price.toString().replace('.', ',');
-  //   return newPrice;
-  // };
+  const brazilianPrice = () => {
+    const minN = 3;
+    const newPrice = price.toString().replace('.', ',');
+    if (newPrice.length === minN) return `${newPrice}0`;
+    return newPrice;
+  };
   return (
     <div>
       <p data-testid={ `${prefix}element-card-title-${id}` }>{name}</p>
-      <p data-testid={ `${prefix}element-card-price-${id}` }>{price}</p>
+      <p data-testid={ `${prefix}element-card-price-${id}` }>{brazilianPrice()}</p>
       <img
         width="100px"
         src={ urlImage }

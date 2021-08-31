@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../../components/NavBar';
 import CardProduct from '../../components/CardProduct';
 import Loading from '../../components/Loading';
-// import CartButton from '../../components/CartButton';
+import CartButton from '../../components/CartButton';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -28,7 +28,7 @@ const Products = () => {
       {products ? products
         .map((product) => <CardProduct key={ product.id } product={ product } />)
         : <Loading /> }
-      {/* <CartButton /> */}
+      <CartButton />
     </div>
   );
 };
