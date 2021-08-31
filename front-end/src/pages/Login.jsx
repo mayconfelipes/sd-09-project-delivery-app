@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { LoginContext } from '../context/loginContext';
+import '../css/login.css';
 
 const Login = () => {
   const {
@@ -44,53 +45,61 @@ const Login = () => {
     }
   };
 
+  const loginForm = () => (
+    <section className="login-form">
+      <div className="fields">
+        { invalidUser && errorMsg() }
+        <label htmlFor="email">
+          Email
+          <input
+            type="text"
+            id="email"
+            data-testid="common_login__input-email"
+            name="email"
+            value={ email }
+            onChange={ ({ target }) => setEmail(target.value) }
+          />
+        </label>
+        <label htmlFor="password">
+          Senha
+          <input
+            type="password"
+            id="password"
+            data-testid="common_login__input-password"
+            name="password"
+            value={ password }
+            onChange={ ({ target }) => setPassword(target.value) }
+          />
+        </label>
+
+        <button
+          type="button"
+          id="login"
+          data-testid="common_login__button-login"
+          onClick={ handleClickLogin }
+          disabled={ disableButton }
+        >
+          Entrar
+        </button>
+
+        <button
+          type="button"
+          id="register"
+          data-testid="common_login__button-register"
+        >
+          Ainda não tenho conta
+        </button>
+        { redirectTo && chosseRouteToRedirect() }
+      </div>
+    </section>
+  );
+
   useEffect(() => {
     verifyInputs();
   }, [email, password]);
 
   return (
-    <section id="loginForm">
-      { invalidUser && errorMsg() }
-      <label htmlFor="email">
-        Email
-        <input
-          type="text"
-          id="email"
-          data-testid="common_login__input-email"
-          name="email"
-          value={ email }
-          onChange={ ({ target }) => setEmail(target.value) }
-        />
-      </label>
-      <label htmlFor="password">
-        Senha
-        <input
-          type="password"
-          id="password"
-          data-testid="common_login__input-password"
-          name="password"
-          value={ password }
-          onChange={ ({ target }) => setPassword(target.value) }
-        />
-      </label>
-
-      <button
-        type="button"
-        data-testid="common_login__button-login"
-        onClick={ handleClickLogin }
-        disabled={ disableButton }
-      >
-        Entrar
-      </button>
-
-      <button
-        type="button"
-        data-testid="common_login__button-register"
-      >
-        Ainda não tenho conta
-      </button>
-      { redirectTo && chosseRouteToRedirect() }
-    </section>
+    loginForm()
   );
 };
 
