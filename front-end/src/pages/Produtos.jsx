@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import Header from '../components/Header';
+import { mapCards } from '../services/services';
 
 const Produtos = async () => {
   const PRODUCTS_ENDPOINT = 'localhost:3001/api/customer/products';
@@ -16,6 +17,7 @@ const Produtos = async () => {
 
   <section>
     <Header />
+
   </section>
 };
 
