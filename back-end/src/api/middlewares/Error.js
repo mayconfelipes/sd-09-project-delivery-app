@@ -6,8 +6,8 @@ const error = (err, req, res, _next) => {
     }
 
     if (err.isBoom) {
-        const { statusCode, payload } = err.output;
-        return res.status(statusCode).json({ message: payload.message });
+        const { payload } = err.output;
+        return res.status(404).json({ message: payload.message });
     }
     return res.status(500)
         .json({ message: err.message });
