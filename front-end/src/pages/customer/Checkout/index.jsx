@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import DescriptionsBar from '../../../components/DescriptionsBar';
@@ -14,11 +14,6 @@ import style from './checkout.module.scss';
 const Checkout = () => {
   const { items, setItems, totalPrice, setCartQuantity } = useGlobalContext();
   const id = 1;
-
-  useEffect(() => {
-    console.log('checkout', items);
-    console.log('reverseItems');
-  }, [items]);
 
   const onClickRemoveItem = (itemId) => {
     const one = 1;

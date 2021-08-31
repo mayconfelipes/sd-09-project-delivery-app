@@ -17,16 +17,18 @@ const ProductCard = (
 
   useEffect(() => {
     setQuantityItem(quantity);
-  }, [quantity]);
+  }, [cartQuantity, id, quantity]);
 
   useEffect(() => {
-    setItemId(id);
-    if (quantityItem > 0) {
+    setItemId(quantity);
+    const ifExistsArray = cartQuantity.filter((item) => item.id === id);
+    if (ifExistsArray.length > 0) {
+      ifExistsArray[0].quantity = quantity;
+    } else {
       setCartQuantity([
         ...cartQuantity, { id, quantity, price, description }]);
     }
-  }, [cartQuantity,
-    description, id, price, quantity, quantityItem, setCartQuantity, setItemId]);
+  }, [cartQuantity, description, id, price, quantity, setCartQuantity, setItemId]);
 
   useEffect(() => {
     items.filter(({
@@ -35,6 +37,7 @@ const ProductCard = (
 
   const onHandleDecrement = () => {
     if (quantity <= 0) return;
+
     setQuantity(quantity - 1);
   };
 

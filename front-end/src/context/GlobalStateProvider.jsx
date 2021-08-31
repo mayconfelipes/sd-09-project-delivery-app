@@ -11,22 +11,20 @@ export const GlobalStateProvider = ({ children }) => {
 
   useEffect(() => {
     setCartQuantity(cartQuantity);
-    console.log(cartQuantity);
-  }, [cartQuantity]);
+    const one = 1;
+    const filtered = cartQuantity.filter(({ quantity }) => quantity === 0);
 
-  console.log(itemId);
-  useEffect(() => {
-    // SOURCE: https://stackoverflow.com/questions/53226100/array-filter-to-remove-duplicate-ojects
-    const result = Object.values(cartQuantity)
-      .reduce((acc, cur) => Object.assign(acc, {
-        ...acc, [cur.description]: cur }), {});
-    const allItems = Object.values(result).filter((item) => item.quantity > 0);
-    setItems(allItems);
-    console.log('allItems', allItems);
-  }, [cartQuantity]);
+    if (filtered.length) {
+      const index = cartQuantity.findIndex(({ id }) => id === filtered[0].id);
+      if (index !== -one) {
+        cartQuantity.splice(index, 1);
+      }
+    }
+    setItems(cartQuantity);
+  }, [cartQuantity, itemId]);
 
   useEffect(() => {
-    const sumOfValues = Object.values(items)
+    const sumOfValues = items
       .reduce((sum, { price, quantity }) => {
         const intPrice = parseFloat(price.replace(',', '.'));
         return parseFloat(sum) + intPrice * parseFloat(quantity);
@@ -34,7 +32,7 @@ export const GlobalStateProvider = ({ children }) => {
     const totPrice = (Math.round(sumOfValues * 100) / 100).toFixed(2);
     const number = totPrice.toString();
     setTotalPrice(number.replace('.', ','));
-  }, [items]);
+  }, [items, itemId]);
 
   return (
     <GlobalContext.Provider
