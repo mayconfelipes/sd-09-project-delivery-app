@@ -13,28 +13,33 @@ const ProductCard = (
   const [quantity, setQuantity] = useState(0);
   const [quantityItem, setQuantityItem] = useState(0);
 
-  const { setCartQuantity, cartQuantity, items, setItemId } = useGlobalContext();
+  const { setCartQuantity, cartQuantity, setItemId } = useGlobalContext();
 
   useEffect(() => {
     setQuantityItem(quantity);
-  }, [quantity]);
+  }, [cartQuantity, id, quantity, quantityItem]);
 
   useEffect(() => {
-    setItemId(id);
-    if (quantityItem > 0) {
+    setItemId(quantity);
+    const ifExistsArray = cartQuantity.filter((item) => item.id === id);
+    if (ifExistsArray.length > 0) {
+      ifExistsArray[0].quantity = quantity;
+    } else {
       setCartQuantity([
         ...cartQuantity, { id, quantity, price, description }]);
     }
-  }, [cartQuantity,
-    description, id, price, quantity, quantityItem, setCartQuantity, setItemId]);
+  }, [cartQuantity, description, id, price, quantity, setCartQuantity, setItemId]);
 
   useEffect(() => {
-    items.filter(({
-      id: itemId, quantity: quant }) => itemId === id && setQuantityItem(quant));
-  }, [id, items]);
+    const localItems = JSON.parse(localStorage.getItem('cart'));
+    if (localItems.length) {
+      localItems.map((item) => item.id === id && setQuantity(item.quantity));
+    }
+  }, [id]);
 
   const onHandleDecrement = () => {
     if (quantity <= 0) return;
+
     setQuantity(quantity - 1);
   };
 

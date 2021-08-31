@@ -18,6 +18,7 @@ const DescriptionsBar = ({
   dataTestIdEmailOrQuantity,
   dataTestIdUserTypeOrValue,
   dataTestIdDeleteOrPrice,
+  dataTestIdRemove,
 }) => {
   let gridStyle = null;
 
@@ -61,7 +62,7 @@ const DescriptionsBar = ({
           <button
             type="button"
             onClick={ () => removeItem(itemId) }
-            data-testid={ dataTestIdDeleteOrPrice }
+            data-testid={ dataTestIdRemove }
           >
             Remover
           </button>
@@ -88,4 +89,5 @@ DescriptionsBar.propTypes = {
   dataTestIdUserTypeOrValue: P.string.isRequired,
   dataTestIdDeleteOrPrice: P.string.isRequired,
   removeItem: P.func.isRequired,
+  dataTestIdRemove: P.string.isRequired,
 };
