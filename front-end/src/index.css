@@ -14,16 +14,77 @@ code {
 
 .signup-container {
   align-items: center;
+  animation: fade 0.2s linear;
+  background-color: #fff;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   justify-content: center;
   margin: auto;
-  width: 400px;
-  height: 400px;
+  padding: 30px;
+  position: relative;
+  width: 250px;
+  height: 300px;
 }
 
-.signup-container div {
+.signup-container label {
   display: flex;
   flex-direction: column;
+}
+
+.signup-container input {
+  border: 1px solid #c6c6c6;
+  border-radius: 10px;
+  padding: 10px;
+  width: 200px;
+}
+
+.signup-container > button {
+  background: #036b52;
+  border: transparent;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 10px;
+  padding: 10px 20px;
+  transition: 0.2s;
+}
+
+.signup-container > button:hover {
+  filter: brightness(0.9);
+}
+
+.signup-container > span {
+  bottom: 0;
+  color: red;
+  padding: 10px;
+  position: absolute;
+}
+
+.password-container {
+  height: 50px;
+  position: relative;
+}
+
+.passreveal {
+  cursor: pointer;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  top: 40%;
+}
+
+.passreveal:hover {
+  filter: brightness(0.2);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

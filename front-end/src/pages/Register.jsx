@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 function Register() {
   const [signupValues, setSignupValues] = useState({ name: '', email: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
   const [disableBtn, setDisableBtn] = useState(true);
+  const [revealPass, setRevealPass] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     const passwordLength = 6;
@@ -25,7 +28,6 @@ function Register() {
   function handleLocalState(event) {
     const { name, value } = event.target;
     setSignupValues((prevState) => ({ ...prevState, [name]: value }));
-    console.log(signupValues);
   }
 
   async function registerUser() {
@@ -41,63 +43,76 @@ function Register() {
         },
       });
       const { data } = request;
-      console.log(request);
       localStorage.setItem('user', JSON.stringify(data));
+      history.push('/customer/products');
     } catch (e) {
-      console.log(e);
-      setErrorMessage('error');
+      setErrorMessage('Usuario já cadastrado');
     }
   }
 
   return (
-    <div>
+    <div className="App">
+      <div className="signup-container">
 
-      <label htmlFor="name">
-        Nome
-        <input
-          type="text"
-          name="name"
-          data-testid="common_register__input-name"
-          value={ signupValues.name }
-          onChange={ (event) => handleLocalState(event) }
-        />
-      </label>
+        <label htmlFor="name">
+          Nome
+          <input
+            type="text"
+            name="name"
+            data-testid="common_register__input-name"
+            placeholder="Seu nome"
+            value={ signupValues.name }
+            onChange={ (event) => handleLocalState(event) }
+          />
+        </label>
 
-      <label htmlFor="email">
-        Email
-        <input
-          type="text"
-          name="email"
-          data-testid="common_register__input-email"
-          value={ signupValues.email }
-          onChange={ (event) => handleLocalState(event) }
-        />
-      </label>
+        <label htmlFor="email">
+          Email
+          <input
+            type="text"
+            name="email"
+            placeholder="seu-email@site.com.br"
+            data-testid="common_register__input-email"
+            value={ signupValues.email }
+            onChange={ (event) => handleLocalState(event) }
+          />
+        </label>
+        <div className="password-container">
+          <label htmlFor="password">
+            <span>Senha</span>
+            <input
+              type={ revealPass ? 'password' : 'text' }
+              name="password"
+              placeholder="**********"
+              data-testid="common_register__input-password"
+              value={ signupValues.password }
+              onChange={ (event) => handleLocalState(event) }
+            />
+          </label>
+          <span
+            onClick={ () => setRevealPass(!revealPass) }
+            onKeyDown={ () => {} }
+            role="button"
+            tabIndex={ 0 }
+            aria-label="Reveal and hide pass"
+            className={ `far ${revealPass ? 'fa-eye' : 'fa-eye-slash'} passreveal` }
+          />
+        </div>
 
-      <label htmlFor="password">
-        <span>Senha</span>
-        <input
-          type="text"
-          name="password"
-          data-testid="common_register__input-password"
-          value={ signupValues.password }
-          onChange={ (event) => handleLocalState(event) }
-        />
-      </label>
-
-      <button
-        type="button"
-        data-testid="common_register__button-register"
-        disabled={ disableBtn }
-        onClick={ registerUser }
-      >
-        Cadastrar
-      </button>
-      <span
-        data-testid="common_register__element-invalid_register"
-      >
-        {errorMessage}
-      </span>
+        <button
+          type="button"
+          data-testid="common_register__button-register"
+          disabled={ disableBtn }
+          onClick={ registerUser }
+        >
+          Cadastrar
+        </button>
+        <span
+          data-testid="common_register__element-invalid_register"
+        >
+          {errorMessage}
+        </span>
+      </div>
     </div>
   );
 }
