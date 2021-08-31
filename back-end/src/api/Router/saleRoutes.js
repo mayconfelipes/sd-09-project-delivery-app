@@ -5,5 +5,6 @@ const { validateToken } = require('../../middlewares');
 const router = express.Router();
 
 router.post('/', [validateToken, Sale.register]);
+router.put('/', [validateToken, Sale.update]);
 
 module.exports = router;
