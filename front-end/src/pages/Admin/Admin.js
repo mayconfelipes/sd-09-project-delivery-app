@@ -11,6 +11,7 @@ function Admin() {
   const [isDisabled, trueOrFalse] = useState(true);
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('customer');
+  const [invalidRegister, setInvalidRegister] = useState(false);
   const prefix = 'admin_manage__';
   const passMin = 6;
   const nameMin = 11;
@@ -86,7 +87,7 @@ function Admin() {
       })
       .catch((error) => {
         console.log(error);
-        // setInvalidLogin(true);
+        setInvalidRegister(true);
       });
     setUser('');
     setEmail('');
@@ -141,6 +142,14 @@ function Admin() {
         >
           REGISTER
         </button>
+        {invalidRegister ? (
+          <div data-testid={ `${prefix}element-invalid-register` }>
+            REGISTRO INVALIDO
+            {' '}
+          </div>
+        ) : (
+          <div />
+        )}
       </div>
     </div>
   );
