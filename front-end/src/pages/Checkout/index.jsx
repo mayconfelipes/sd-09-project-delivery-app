@@ -16,6 +16,13 @@ const Checkout = () => (
       <h2>Detalhes e Endereço para Entrega</h2>
       <AddressDetails />
     </div>
+    <button
+      type="button"
+      className="finalize-order"
+      data-testid="customer_checkout__button-submit-order"
+    >
+      FINALIZAR PEDIDO
+    </button>
   </div>
 );
 
