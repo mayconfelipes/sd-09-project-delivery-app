@@ -13,6 +13,7 @@ const Routes = () => (
     {/* <Route exact path="/" component={ HomePage } /> */}
     <PrivateRoute exact path="/" component={ HomePage } />
     <Route exact path="/login" component={ Login } />
+    
     <Route component={ NotFound } />
   </Switch>
 
