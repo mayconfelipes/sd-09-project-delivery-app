@@ -6,6 +6,12 @@ const Product = (sequelize, DataTypes) => {
   },
   { timestamps: false });
 
+  // tirar daqui
+  // newProduct.associate = (models) => {
+  //   newProduct.hasMany(models.salesProducts,
+  //     { foreignKey: 'product_id', as: 'products' });
+  // }
+
   return newProduct;
 };
 

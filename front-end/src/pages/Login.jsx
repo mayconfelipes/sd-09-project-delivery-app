@@ -5,6 +5,7 @@ import TextInput from '../components/TextInput';
 import LargeButton from '../components/LargeButton';
 import logoDelivery from '../images/logo-delivery.png';
 import api from '../services/api';
+import dataTestIds from '../utils/dataTestIds';
 
 function Login() {
   const [loginData, setLoginData] = useState({ email: '', password: '' });
@@ -28,7 +29,7 @@ function Login() {
 
   useEffect(() => {
     verifyLoginCredentials();
-  }, [loginData, verifyLoginCredentials]);
+  }, [loginData]);
 
   const handleChange = ({ target: { name, value } }) => {
     setLoginData({ ...loginData, [name]: value });
@@ -58,7 +59,7 @@ function Login() {
 
   const errorDivMessage = (
     <div>
-      <p data-testid="common_login__element-invalid-email">{ errorMessage }</p>
+      <p data-testid={ dataTestIds[5] }>{ errorMessage }</p>
       <button
         type="button"
         onClick={ () => setErrorMessage() }
@@ -85,7 +86,7 @@ function Login() {
           onChange={ handleChange }
           labelText="Login"
           placeholderText="email@appdelivery.com.br"
-          dataTestId="common_login__input-email"
+          dataTestId={ dataTestIds[1] }
         />
         <TextInput
           type="password"
@@ -93,19 +94,19 @@ function Login() {
           onChange={ handleChange }
           labelText="Senha"
           placeholderText="************"
-          dataTestId="common_login__input-password"
+          dataTestId={ dataTestIds[2] }
         />
         <LargeButton
           buttonText="LOGIN"
           isDisabled={ disableButton }
           onClick={ handleClick }
-          dataTestId="common_login__button-login"
+          dataTestId={ dataTestIds[3] }
         />
         <Link to="/register">
           <LargeButton
             buttonText="Ainda não tenho conta"
             onClick={ () => {} }
-            dataTestId="common_login__button-register"
+            dataTestId={ dataTestIds[4] }
           />
         </Link>
       </section>
