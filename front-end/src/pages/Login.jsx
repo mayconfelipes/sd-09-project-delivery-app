@@ -37,7 +37,7 @@ const Login = () => {
     const user = JSON.parse(userString);
     switch (user.role) {
     case 'customer': {
-      return <Redirect to="/produtos" />;
+      return <Redirect to="/customer/products" />;
     }
     case 'admim': {
       return <Redirect to="/administrador" />;
