@@ -275,3 +275,22 @@ retorna
 }
 ```
 - - -
+>**`GET /sellers`** 
+```
+Buscando todos os vendedores recebem — um token valido pelo Header Authorization.
+
+
+retorna
+- status 200 - ok
+[
+  {
+    "id": 2,
+    "name": "Fulana Pereira"
+  },
+  {
+    "id": 6,
+    "name": "leao"
+  }
+]
+```
+- - -

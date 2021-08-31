@@ -7,6 +7,7 @@ const registerController = require('../controllers/registerController');
 const loginController = require('../controllers/loginController');
 const productsController = require('../controllers/productsController');
 const salesController = require('../controllers/salesController');
+const sellerController = require('../controllers/sellerController');
 
 const port = process.env.PORT || 3001;
 const app = require('./app');
@@ -19,6 +20,8 @@ app.post('/login', loginController.newLogin);
 
 app.get('/products', tokenValidController.checkUser, productsController.getAll);
 app.get('/images/:path', tokenValidController.checkUser, productsController.getImage);
+
+app.get('/sellers', tokenValidController.checkUser, sellerController.allSellers);
 
 app.post('/sale', tokenValidController.checkUser, salesController.create);
 app.get('/sale', tokenValidController.checkUser, salesController.findAll);
