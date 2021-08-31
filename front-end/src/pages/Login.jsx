@@ -17,7 +17,7 @@ const Login = () => {
   const [disableButton, setDisable] = useState(false);
 
   const verifyInputs = () => {
-    const emailRegex = /^[\w]+@([\w]+\.)+[\w]{2,4}$/gi;
+    const emailRegex = /\S+@\S+\.\S+/;
     const passwordLength = 6;
     const isValid = email.match(emailRegex) && password.length >= passwordLength;
     if (isValid) setDisable(false);
