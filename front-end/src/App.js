@@ -4,6 +4,7 @@ import { Redirect } from 'react-router';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
+import Checkout from './pages/Checkout';
 import Admin from './pages/Admin';
 
 import './App.css';
@@ -17,6 +18,7 @@ function App() {
       </Route>
       <Route path="/register" component={ Register } />
       <Route path="/customer/products" component={ Products } />
+      <Route path="/customer/checkout" component={ Checkout } />
       <Route path="/admin/manage" component={ Admin } />
     </Switch>
   );

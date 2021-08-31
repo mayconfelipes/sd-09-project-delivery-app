@@ -19,20 +19,8 @@ try {
 
 const saveOrder = async (req, res, next) => {
   try {
-    const { body: { user_id,
-      seller_id,
-      total_price,
-      delivery_address,
-      delivery_number,
-      sale_date, 
-      status } } = req;
-    const order = await productService.saveOrder({ user_id,
-      seller_id,
-      total_price,
-      delivery_address,
-      delivery_number,
-      sale_date,
-      status });      
+    const orderData = req.body;
+    const order = await productService.saveOrder({ orderData });      
     return res.status(201).json(order);
   } catch (error) { return next(error); }
 };

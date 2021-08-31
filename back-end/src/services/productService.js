@@ -5,23 +5,8 @@ const getProductsAll = async () => {
   return products;
 };
 
-const saveOrder = async ({ 
-  user_id,
-  seller_id,
-  total_price,
-  delivery_address,
-  delivery_number,
-  sale_date,
-  status }) => {
-  const order = await sale.create({
-    user_id,
-    seller_id,
-    total_price,
-    delivery_address,
-    delivery_number,
-    sale_date,
-    status,
-  });
+const saveOrder = async ({ orderData }) => {
+  const order = await sale.create(orderData);
 
   return order;
 };
