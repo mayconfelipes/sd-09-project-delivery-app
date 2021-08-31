@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Customer from './customerContext';
 
 function CustomerProvider({ children }) {
-  const shoppingCart = [
+  const [shoppingCart, setShoppingCart] = useState([
     {
       id: 1,
       name: 'Stella Artois',
@@ -11,18 +11,20 @@ function CustomerProvider({ children }) {
       url_image: 'none',
       quantity: 2,
     },
-  ];
+  ]);
 
-  const sellers = [
+  const [sellers, setSellers] = useState([
     {
       id: 1,
       name: 'Jeca Tatu',
     },
-  ];
+  ]);
 
   const data = {
     shoppingCart,
+    setShoppingCart,
     sellers,
+    setSellers,
   };
   return (
     <Customer.Provider value={ data }>
