@@ -58,9 +58,24 @@ const getAllProducts = (token) => {
     .catch((err) => err);
 };
 
+const getAllSales = (token) => {
+  const endpoint = `${URL}/sales`;
+  return fetch(endpoint, {
+    method: 'GET',
+    headers: {
+      'Content-Type': CONTENT,
+      authorization: token,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
 export default {
   loginUser,
   registerUser,
   registerUserWithAdmin,
   getAllProducts,
+  getAllSales,
 };
