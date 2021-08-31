@@ -7,12 +7,16 @@ const { ok } = require('../utils/httStatusCodes');
 
 const loginController = express.Router();
 
-loginController.post('/', loginValidator, rescue(async (req, res) => {
+loginController.post('/', loginValidator, rescue(async (req, res, next) => {
   const { email, password } = req.body;
 
-  const token = await loginService.login(email, password);
+  const { error, token } = await loginService.login(email, password);
 
-  res.status(ok).json(token);
+  if (error) {
+    return next(error);
+  }
+
+  return res.status(ok).json({ token });
 }));
 
 module.exports = loginController;
