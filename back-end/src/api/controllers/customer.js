@@ -5,7 +5,6 @@ module.exports = {
     try {
       const response = await customerService.findAll();
 
-      console.log(response);
       res.status(200).json(response);
     } catch (err) {
       console.log(err);
