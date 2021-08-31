@@ -11,7 +11,9 @@ const Checkout = () => (
       <Header />
     </header>
     <div className="checkout-main-container">
+      <h2>Finalizar pedidos</h2>
       <OrderLIst />
+      <h2>Detalhes e Endereço para Entrega</h2>
       <AddressDetails />
     </div>
   </div>

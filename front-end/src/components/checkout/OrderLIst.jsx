@@ -25,28 +25,25 @@ const OrderLIst = () => {
   }];
 
   return (
-    <div>
-      <h3>Finalizar pedidos</h3>
-      <div className="order-list-container">
-        <table className="order-table">
-          <thead>
-            <tr>
-              {tableHeaders.map((header, index) => <th key={ index }>{ header }</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            {teste.map((product, index) => (
-              <TableRow key={ index } item={ index } product={ product } />
-            ))}
-          </tbody>
-        </table>
-        <span
-          className="order-price"
-          data-testid="customer_checkout__element-order-total-price"
-        >
-          Total: R$ 50, 00
-        </span>
-      </div>
+    <div className="order-list-container">
+      <table className="order-table">
+        <thead>
+          <tr>
+            {tableHeaders.map((header, index) => <th key={ index }>{ header }</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {teste.map((product, index) => (
+            <TableRow key={ index } item={ index } product={ product } />
+          ))}
+        </tbody>
+      </table>
+      <span
+        className="order-price"
+        data-testid="customer_checkout__element-order-total-price"
+      >
+        Total: R$ 50, 00
+      </span>
     </div>
   );
 };
