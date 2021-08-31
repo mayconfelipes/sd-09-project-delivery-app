@@ -88,3 +88,15 @@ code {
     opacity: 1;
   }
 }
+
+/* LOGIN FORM */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+
+.login-form input, .login-form button {
+  padding: 4px 8px;
+}
