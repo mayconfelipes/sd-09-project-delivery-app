@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
-const userService = require('../services/user');
-const { join } = require("path");
-const jwtKey = require("fs")
-  .readFileSync(join(__dirname, "..", "..", "..", "jwt.evaluation.key"), {
-    encoding: "utf-8"
-  })
-  .trim();
+const { join } = require('path');
+const jwtKey = require('fs')
+.readFileSync(join(__dirname, '..', '..', '..', 'jwt.evaluation.key'), {
+  encoding: 'utf-8',
+})
+.trim();
 
+const userService = require('../services/user');
 
 const tokenConfig = (email) => {
   const jwtConfig = {
@@ -29,7 +29,7 @@ const findUser = async (req, res) => {
 };
 
 const registerUser = async (req, res) => {
-  console.log(req)
+  console.log(req);
   const { password, name, email, role } = req.body;
   const response = await userService.registerUser({ password, name, email, role });
   const token = tokenConfig(email);
