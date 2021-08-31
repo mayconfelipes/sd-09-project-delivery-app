@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getImg } from '../../services/api';
 
 function ProductCard({ product }) {
   const [counter, setCounter] = useState(0);
-  const [prodImg, setProdImg] = useState('');
   const increment = () => {
     setCounter(counter + 1);
   };
@@ -14,22 +12,16 @@ function ProductCard({ product }) {
   };
 
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem('user'));
-    const productImg = async () => {
-      const img = await getImg(userInfo.token, product.url_image);
-      console.log(img);
-      setProdImg(img);
-    };
-    productImg();
   }, [product.url_image]);
 
   return (
     <div>
       <div>
         <img
-          src={ prodImg }
+          src={ product.url_image }
           alt={ product.name }
           data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+          className="product-image"
         />
       </div>
       <div

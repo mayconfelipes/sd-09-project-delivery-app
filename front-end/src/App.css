@@ -10,6 +10,12 @@
   width: 100%;
 }
 
+.product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: fill
+}
+
 .App > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
