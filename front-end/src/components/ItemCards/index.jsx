@@ -10,7 +10,8 @@ const ItemCard = ({ list }) => (
             id={ name }
             src={ urlImage }
             alt={ name }
-            data-testid="customer_products__img-card-bg-image" />
+            data-testid="customer_products__img-card-bg-image"
+          />
           <div>
             <div data-testid="customer_products__element-card-title">
               <span>{ name }</span>
