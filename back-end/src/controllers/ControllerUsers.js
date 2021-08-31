@@ -7,7 +7,7 @@ const login = async (req, res, next) => {
 
     const { user, token } = await ServiceUsers.login({ email, password });
 
-    return res.status(200).json({ user, token });
+    return res.status(200).json({ ...user, token });
   } catch (error) {
     return next(error);
   }
