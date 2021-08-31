@@ -21,6 +21,7 @@ app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
 app.use('/customer', customerRouter);
 app.use('/sales', salesRouter);
+
 app.use('/images', express.static(path.join(__dirname, '..', '..', 'images')));
 app.use(errorMiddleware);
 

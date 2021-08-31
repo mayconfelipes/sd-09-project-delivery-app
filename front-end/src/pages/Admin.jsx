@@ -3,6 +3,7 @@ import api from '../services/api';
 import TextInput from '../components/TextInput';
 import LargeButton from '../components/LargeButton';
 import DropDownList from '../components/DropDownList';
+import dataTestIds from '../utils/dataTestIds';
 
 function Admin() {
   const [newUserData, setNewUserData] = useState({
@@ -58,7 +59,7 @@ function Admin() {
   };
 
   const handleClick = async () => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userData = JSON.parse(localStorage.getItem('user'));
     const result = await api.registerUserWithAdmin(newUserData, userData.token);
     if (result.error) {
       setErrorMessage(result.error.message);
@@ -68,7 +69,7 @@ function Admin() {
 
   const errorDivMessage = (
     <div>
-      <p data-testid="admin_manage__element-invalid-register">{ errorMessage }</p>
+      <p data-testid={ dataTestIds[75] }>{ errorMessage }</p>
       <button
         type="button"
         onClick={ () => setErrorMessage() }
@@ -89,7 +90,7 @@ function Admin() {
           onChange={ handleChange }
           labelText="Nome"
           placeholderText="Nome completo"
-          dataTestId="admin_manage__input-name"
+          dataTestId={ dataTestIds[65] }
         />
         <TextInput
           type="text"
@@ -97,7 +98,7 @@ function Admin() {
           onChange={ handleChange }
           labelText="Email"
           placeholderText="email@email.com"
-          dataTestId="admin_manage__input-email"
+          dataTestId={ dataTestIds[66] }
         />
         <TextInput
           type="password"
@@ -105,19 +106,20 @@ function Admin() {
           onChange={ handleChange }
           labelText="Senha"
           placeholderText="senha"
-          dataTestId="admin_manage__input-password"
+          dataTestId={ dataTestIds[78] }
         />
         <DropDownList
           options={ options }
           name="role"
-          dataTestId="admin_manage__select-role"
+          dataTestId={ dataTestIds[68] }
           onChange={ handleChange }
+          isHidden="true"
         />
         <LargeButton
           buttonText="CADASTRAR"
           onClick={ handleClick }
           isDisabled={ disableButton }
-          dataTestId="admin_manage__button-register"
+          dataTestId={ dataTestIds[69] }
         />
         { errorMessage && errorDivMessage }
       </section>

@@ -1,5 +1,21 @@
 const salesService = require('../services/salesService');
 
+const getSaleById = async (req, res, _next) => {
+  const { id } = req.params;
+
+  const result = await salesService.getSaleById(id);
+
+  res.status(200).json(result);
+};
+
+const getSaleItems = async (req, res, _next) => {
+  const { id } = req.params;
+
+  const result = await salesService.getSaleItems(id);
+
+  res.status(200).json(result);
+};
+
 const getAllSalesController = async (req, res, next) => {
   const { payload: { userData: { id, role } } } = req;
   const result = await salesService.getAllSalesService(id, role);
@@ -11,4 +27,6 @@ const getAllSalesController = async (req, res, next) => {
 
 module.exports = {
   getAllSalesController,
+  getSaleById,
+  getSaleItems,
 };

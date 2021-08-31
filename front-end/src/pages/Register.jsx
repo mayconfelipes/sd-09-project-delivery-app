@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import api from '../services/api';
 import TextInput from '../components/TextInput';
 import LargeButton from '../components/LargeButton';
+import dataTestIds from '../utils/dataTestIds';
 
 function Register() {
   // estados para utilizar na pagina
@@ -67,7 +68,7 @@ function Register() {
 
   const errorDivMessage = (
     <div>
-      <p data-testid="common_register__element-invalid_register">{ errorMessage }</p>
+      <p data-testid={ dataTestIds[10] }>{ errorMessage }</p>
       <button
         type="button"
         onClick={ cleanFields }
@@ -76,7 +77,6 @@ function Register() {
       </button>
     </div>
   );
-
   return (
     <main>
       <section>
@@ -87,7 +87,7 @@ function Register() {
           onChange={ handleChange }
           labelText="Nome"
           placeholderText="Nome completo"
-          dataTestId="common_register__input-name"
+          dataTestId={ dataTestIds[6] }
         />
         <TextInput
           type="text"
@@ -95,7 +95,7 @@ function Register() {
           onChange={ handleChange }
           labelText="email"
           placeholderText="email desejado"
-          dataTestId="common_register__input-email"
+          dataTestId={ dataTestIds[7] }
         />
         <TextInput
           type="password"
@@ -103,13 +103,13 @@ function Register() {
           onChange={ handleChange }
           labelText="Senha"
           placeholderText="senha"
-          dataTestId="common_register__input-password"
+          dataTestId={ dataTestIds[8] }
         />
         <LargeButton
           buttonText="CADASTRAR"
           onClick={ handleClick }
           isDisabled={ disableButton }
-          dataTestId="common_register__button-register"
+          dataTestId={ dataTestIds[9] }
         />
       </section>
       { errorMessage && errorDivMessage }
