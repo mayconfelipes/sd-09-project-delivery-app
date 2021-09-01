@@ -11,12 +11,13 @@ module.exports = (sequelize, DataTypes) => {
     totalPrice: DataTypes.DECIMAL,
     deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
-    saleDate: DataTypes.DATE,
-    status: DataTypes.STRING,
+    saleDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    status: { type: DataTypes.STRING, defaultValue: 'Pendente' },
   }, { underscored: true, timestamps: false, tableName: 'sales' });
 
   Sale.associate = (models) => {
-    Sale.hasMany(models.User, { foreignKey: 'id', as: 'user' });
+    Sale.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    Sale.belongsTo(models.User, { foreignKey: 'sellerId', as: 'seller' });
   };
 
   return Sale;
