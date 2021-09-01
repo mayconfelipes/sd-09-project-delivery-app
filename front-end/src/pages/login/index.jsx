@@ -9,26 +9,24 @@ import Api from '../../services/api';
 
 const Login = () => {
   const [registerOkay, setRegisterOkay] = useState(false);
-  const [error, setError] = useState(false);
+  const [errorExist, setErrorExist] = useState(false);
   const { form, setForm, enableButton, setEnableButton } = useContext(context);
   const { email, password } = form;
 
   const fetchRegister = async () => {
-    const oldLocal = JSON.parse(localStorage.getItem('user'));
-
     const result = await Api.post('/login', { email, password })
       .then((response) => response)
-      .catch((err) => console.log(err));
-
-    if (!result.data.token) setError(true);
-
-    const { token } = result.data;
-
-    oldLocal.token = token;
-
-    localStorage
-      .setItem('user', JSON.stringify(oldLocal));
-    setRegisterOkay(true);
+      .catch((err) => {
+        setErrorExist(true);
+        return { Error: err };
+      });
+    if (!result.Error) {
+      const { token, payload } = result.data;
+      const { name, email: emailBack, role } = payload;
+      localStorage
+        .setItem('user', JSON.stringify({ name, email: emailBack, role, token }));
+      setRegisterOkay(true);
+    }
   };
 
   useEffect(() => {
@@ -53,14 +51,17 @@ const Login = () => {
       </LoginButton>
       <LoginButton
         type="button"
+        data-testid="common_login__button-register"
+        // onClick={ logOn }
       >
         <Register
           to="/register"
-          data-testid="common_login__button-register"
+          // data-testid="common_login__button-register"
         >
           REGISTER
         </Register>
       </LoginButton>
+      { errorExist && <p data-testid="common_login__element-invalid-email">Error</p> }
     </Main>
   );
 };

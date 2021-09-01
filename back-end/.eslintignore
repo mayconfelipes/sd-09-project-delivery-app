@@ -3,3 +3,4 @@ seeders
 /src/tests/
 jest.config.js
 /src/coverage
+.esquema

@@ -1,5 +1,5 @@
 const formValidator = (email, password, name) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+$/;
+  const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
   const minNameLenght = 12;
   const minPasswordLenght = 6;
 
