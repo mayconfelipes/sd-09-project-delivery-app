@@ -11,7 +11,7 @@ function App() {
     <LoginProvider>
       <div className="App">
         <Switch>
-          <Route path="/produtos" component={ Products } />
+          <Route path="/customer/products" component={ Products } />
           <Route path="/login" component={ Login } />
           <Route
             exact

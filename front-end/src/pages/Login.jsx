@@ -31,18 +31,18 @@ const Login = () => {
     const userString = localStorage.getItem('User');
     const user = JSON.parse(userString);
     switch (user.role) {
-    case 'customer': {
-      return <Redirect to="/produtos" />;
-    }
-    case 'admim': {
-      return <Redirect to="/administrador" />;
-    }
-    case 'seller': {
-      return <Redirect to="/vendedor" />;
-    }
-    default: {
-      console.log('Role inválida');
-    }
+      case 'customer': {
+        return <Redirect to="/customer/products" />;
+      }
+      case 'admim': {
+        return <Redirect to="/administrador" />;
+      }
+      case 'seller': {
+        return <Redirect to="/vendedor" />;
+      }
+      default: {
+        console.log('Role inválida');
+      }
     }
   };
 
