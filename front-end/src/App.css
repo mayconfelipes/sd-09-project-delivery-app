@@ -1,0 +1,11 @@
+@import '~antd/dist/antd.css' ;
+
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  line-height: normal;
+}
+
