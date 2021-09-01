@@ -177,11 +177,11 @@
   color: white;
   cursor: pointer;
   font-weight: 800;
-  width: 60px;
   height: 60px;
   position: fixed;
   right: 27px;
   top: 11%;
+  width: 60px;
   z-index: 999;
 }
 
@@ -191,9 +191,10 @@
   border: 0;
   color: #ccc9cd;
   font-weight: 800;
-  padding: 18px 15px 18px 15px;
+  height: 60px;
   position: fixed;
-  right: 20px;
+  right: 27px;
   top: 11%;
+  width: 60px;
   z-index: 999;
 }

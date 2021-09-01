@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import LinkNavbar from './LinkNavbar';
@@ -8,13 +8,17 @@ import {
   removeCarrinhoLocalStorage,
 } from '../utils/storage';
 import Button from './Button';
+import AppContext from '../context/AppContext';
 
 const Navbar = ({ role }) => {
   const [isLogout, setIsLogout] = useState(false);
+  const { setTotalCart } = useContext(AppContext);
 
   if (isLogout) {
     removeUserDataLocalStorage();
     removeCarrinhoLocalStorage();
+    setTotalCart('0,00');
+
     return <Redirect to="/login" />;
   }
 
