@@ -80,6 +80,24 @@ code {
   filter: brightness(0.2);
 }
 
+.tp {
+  font-weight: bold;
+  padding: 10px;
+  margin-right: 15px;
+  text-align: right;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table, th, td {
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  text-align: center;
+}
+
 @keyframes fade {
   from {
     opacity: 0;
