@@ -6,17 +6,18 @@ import Context from '../context/Context';
 function CardProduct({ product }) {
   const { name, urlImage, price, id } = product;
   const [value, setValue] = useState(0);
-
   const { addProduct, removeProduct } = useContext(Context);
 
   const handleChange = (e) => {
     const { name: operation } = e.target;
     if (operation.includes('add')) {
-      setValue(value + 1);
-      addProduct(product);
+      const quantity = value + 1;
+      setValue(quantity);
+      addProduct({ ...product, quantity });
     } else if (value > 0) {
-      setValue(value - 1);
-      removeProduct(product);
+      const quantity = value - 1;
+      setValue(quantity);
+      removeProduct({ ...product, quantity });
     }
   };
 
