@@ -12,7 +12,6 @@ const secretPath = path.resolve(__dirname, '..', '..', '..', 'jwt.evaluation.key
 
 const newToken = async (payload) => {
   const secret = (await fs.readFile(secretPath, 'utf-8')).trim();
-  console.log(secret);
   return jwt.sign(payload, secret, config);
 };
 

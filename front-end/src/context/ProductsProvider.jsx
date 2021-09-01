@@ -5,6 +5,7 @@ import ProductsContext from './ProductsContext';
 const ProductsProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
+  const [order, setOrder] = useState([]);
 
   const getProducts = async () => {
     try {
@@ -35,6 +36,8 @@ const ProductsProvider = ({ children }) => {
     users,
     setProducts,
     products,
+    setOrder,
+    order,
   };
 
   return (

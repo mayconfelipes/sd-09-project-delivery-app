@@ -8,11 +8,52 @@ const CustomerProducts = () => {
     getProducts,
     setProducts,
     products,
+    setOrder,
   } = useContext(ProductsContext);
+
+  const newOrder = [];
 
   useEffect(() => {
     getProducts().then((response) => setProducts(response));
   }, []);
+
+  const changeQttByInput = () => {
+    console.log('Olá');
+  };
+
+  const changeQtt = ({ target }) => {
+    const getBtn = document.querySelector(`.${target.className}`);
+
+    let selector = '';
+    if (getBtn.textContent === '+') {
+      selector = getBtn.previousSibling;
+    } else {
+      selector = getBtn.nextSibling;
+    }
+
+    const product = products.filter((item) => item.name === selector.className);
+
+    let value = Number(selector.value);
+    if (getBtn.textContent === '+') {
+      value += 1;
+    } else if (value >= 1) {
+      value -= 1;
+    }
+
+    const index = newOrder.findIndex((item) => item.id === product[0].id);
+
+    if (index < 0) {
+      newOrder.push({ id: product[0].id, quantity: value });
+    } else {
+      newOrder[index].quantity = value;
+    }
+
+    setOrder(newOrder);
+
+    console.log(newOrder);
+
+    selector.value = value;
+  };
 
   return (
     <div>
@@ -26,7 +67,7 @@ const CustomerProducts = () => {
                 className="card_price"
                 data-testid={ `customer_products__element-card-price-${product.id}` }
               >
-                { product.price }
+                { product.price.replace('.', ',') }
               </div>
 
               <img
@@ -49,13 +90,19 @@ const CustomerProducts = () => {
                     className={ `decremento-${product.id}` }
                     type="button"
                     data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+                    onClick={ changeQtt }
                   >
                     -
                   </button>
                   <input
+                    type="Number"
+                    min="0"
+                    // value="0"
+                    className={ `${product.name}` }
                     data-testid={
                       `customer_products__input-card-quantity-${product.id}`
                     }
+                    onChange={ changeQttByInput }
                   />
                   <button
                     className={ `incremento-${product.id}` }
@@ -63,7 +110,7 @@ const CustomerProducts = () => {
                     data-testid={
                       `customer_products__button-card-add-item-${product.id}`
                     }
-                    onClick={ () => {} }
+                    onClick={ changeQtt }
                   >
                     +
                   </button>
@@ -78,7 +125,7 @@ const CustomerProducts = () => {
         className="ver_carrinho"
         data-testid="customer_products__checkout-bottom-value"
       >
-        <span>Ver carrinho: R$ 1.000,00</span>
+        <span>Ver carrinho: R$ 0,00</span>
       </div>
     </div>
   );
