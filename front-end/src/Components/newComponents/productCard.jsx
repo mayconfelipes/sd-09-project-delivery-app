@@ -21,6 +21,25 @@ function ProductCard({ product }) {
     }
   };
 
+  const manuallyCounter = (quantity) => {
+    if (quantity < 0) { return; }
+
+    if (quantity === '') { quantity = 0; }
+
+    const difference = parseFloat(quantity) - parseFloat(counter);
+
+    const price = Number(parseFloat(product.price).toFixed(2));
+
+    if (difference > 0) {
+      const priceToAdd = price * difference;
+      setTotalPrice(totalPrice + priceToAdd);
+    } else {
+      const priceToSubtract = price * difference;
+      setTotalPrice(totalPrice + priceToSubtract);
+    }
+    setCounter(quantity);
+  };
+
   useEffect(() => {
   }, [product.url_image]);
 
@@ -53,8 +72,8 @@ function ProductCard({ product }) {
       </button>
       <input
         type="number"
-        disabled="true"
         data-testid={ `customer_products__input-card-quantity-${product.id}` }
+        onChange={ (e) => manuallyCounter(e.target.value) }
         value={ counter }
       />
       <button
