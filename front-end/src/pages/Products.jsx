@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import jwt from 'jsonwebtoken';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AppContext from '../hooks/context';
 import Navbar from '../components/Navbar';
 import '../App.css';
@@ -11,20 +11,22 @@ function Products() {
   const {
     products,
     getProducts,
-    productsCart, setProductsCart, loading } = useContext(AppContext);
+    // productsCart,
+    loading } = useContext(AppContext);
+
+  const [local, setLocal] = useState({});
 
   let total = 0;
   useEffect(() => {
     getProducts();
+    setLocal(JSON.parse(localStorage.getItem('productCart')));
   }, [getProducts]);
-
   const router = useHistory();
 
   useEffect(() => {
     if (!localStorage.getItem('user')) {
       return router.push('/');
     }
-
     const { token } = JSON.parse(localStorage.getItem('user'));
     try {
       jwt.verify(token, SECRET_KEY);
@@ -34,39 +36,43 @@ function Products() {
     }
   });
 
-  const handleClick = () => {
-    router.push('/customer/checkout');
-  };
-
   const addProduct = (name) => {
-    const currentQty = productsCart[name].qty;
-    setProductsCart({
-      ...productsCart, [name]: { ...productsCart[name], qty: currentQty + 1 },
-    });
-    console.log(productsCart);
+    const localProductCart = JSON.parse(localStorage.getItem('productCart'));
+    const currentQty = localProductCart[name].quantity;
+    localStorage.setItem('productCart', JSON.stringify({ ...localProductCart,
+      [name]: { ...localProductCart[name], quantity: currentQty + 1 } }));
+
+    setLocal(JSON.parse(localStorage.getItem('productCart')));
   };
 
   const decreasesProduct = (name) => {
-    const currentQty = productsCart[name].qty;
+    const localProductCart = JSON.parse(localStorage.getItem('productCart'));
+    const currentQty = localProductCart[name].quantity;
     if (currentQty <= 0) return;
-    setProductsCart({
-      ...productsCart, [name]: { ...productsCart[name], qty: currentQty - 1 },
-    });
-    console.log(productsCart);
+    localStorage.setItem('productCart', JSON.stringify({ ...localProductCart,
+      [name]: { ...localProductCart[name], quantity: currentQty - 1 } }));
+
+    setLocal(JSON.parse(localStorage.getItem('productCart')));
   };
 
   const totalPrice = () => {
-    const productsKeys = Object.keys(productsCart);
+    const productsKeys = Object.keys(local);
     productsKeys.forEach((product) => {
-      total += productsCart[product].qty * Number(productsCart[product].price);
+      total += local[product].quantity * Number(local[product].price);
     });
 
-    console.log(total);
     return total.toFixed(2);
   };
 
-  if (loading) return <h1>loading...</h1>;
-
+  if (loading || !products.length || !Object.keys(local).length) {
+    return (
+      <div className="main">
+        <Navbar />
+        <main><h1>loading...</h1></main>
+      </div>
+    );
+  }
+  console.log(Object.keys(local));
   return (
     <div className="main">
       <Navbar />
@@ -106,7 +112,7 @@ function Products() {
                     type="number"
                     name={ name }
                     data-testid={ `customer_products__input-card-quantity-${id}` }
-                    value={ productsCart[name].qty }
+                    value={ local[name].quantity }
                   />
                   <button
                     data-testid={ `customer_products__button-card-add-item-${id}` }
@@ -121,15 +127,16 @@ function Products() {
           }
         </ul>
       </main>
-      <button
+      <Link to="/customer/checkout">
+        <button
         // data-testid="customer_products__checkout-bottom-value"
-        data-testid="customer_products__button-cart"
-        type="button"
-        className="button-cart"
-        onClick={ () => handleClick() }
-      >
-        { `Ver Carrinho: ${totalPrice()} `}
-      </button>
+          data-testid="customer_products__button-cart"
+          type="button"
+          className="button-cart"
+        >
+          { `Ver Carrinho: ${totalPrice()} `}
+        </button>
+      </Link>
     </div>
   );
 }

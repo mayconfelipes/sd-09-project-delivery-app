@@ -21,14 +21,24 @@ function Provider({ children }) {
     }
   };
 
+  const setProductCartInLocalStorage = (data) => {
+    localStorage.setItem('productCart', JSON.stringify(data));
+  };
+
   const getProducts = async () => {
     if (products.length) return;
     try {
       const response = await axios.get('http://localhost:3001/products');
       setProducts(response.data);
-      const a = {};
-      response.data.forEach(({ name, price }) => { a[name] = { qty: 0, price }; });
-      setProductsCart(a);
+      const productObject = {};
+      response.data.forEach(({ name, price }) => {
+        productObject[name] = { name, quantity: 0, price };
+      });
+      setProductsCart(productObject);
+      if (!JSON.parse(localStorage.getItem('productCart'))) {
+        setLoading(false);
+        return setProductCartInLocalStorage(productObject);
+      }
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -49,6 +59,7 @@ function Provider({ children }) {
     productsCart,
     setProductsCart,
     loading,
+    setProductCartInLocalStorage,
   };
 
   return (

@@ -76,7 +76,7 @@ describe(requirement(12), () => {
   );
 });
 
-describe(requirement(13), () => {
+describe.only(requirement(13), () => {
   test("O avaliador testará se o local storage contém os dados da pessoa usuária", async () => {
     const { name, email } = user.customer();
 
@@ -154,7 +154,7 @@ describe(requirement(14), () => {
   );
 });
 
-describe(requirement(15), () => {
+describe.only(requirement(15), () => {
   const itemList = action.customer.getRandomProducts();
   showCurrentCart(itemList, requirement(15));
 

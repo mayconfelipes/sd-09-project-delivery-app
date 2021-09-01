@@ -1,0 +1,11 @@
+.productsContainer, .formCheckoutContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.products {
+  align-items: center;
+  display: flex;
+  gap: 2rem;
+}
