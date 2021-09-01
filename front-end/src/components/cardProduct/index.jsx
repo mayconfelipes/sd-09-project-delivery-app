@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import context from '../../context';
+// import formatPrice from '../../services/formatPrice';
 
 const CardProduct = ({ image, name, price, id }) => {
+  const { totalValueCart, setTotalValueCart } = useContext(context);
   const [quantity, setQuantity] = useState(0);
 
   const increaseQuantity = () => {
     if (quantity === 0) return null;
     setQuantity(quantity - 1);
+    setTotalValueCart((parseFloat(totalValueCart) - parseFloat(price)).toFixed(2));
   };
 
   return (
@@ -37,6 +41,7 @@ const CardProduct = ({ image, name, price, id }) => {
         type="button"
         onClick={ () => {
           setQuantity(quantity + 1);
+          setTotalValueCart((parseFloat(totalValueCart) + parseFloat(price)).toFixed(2));
         } }
         data-testid={ `customer_products__button-card-add-item-${id} ` }
       >
