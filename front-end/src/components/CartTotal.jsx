@@ -1,9 +1,12 @@
 import React, { useEffect, useContext } from 'react';
 // import PropTypes from 'prop-types';
-import context from '../services/context';
+import ProductsContext from '../context/ProductsContext';
 
 function CartTotal() {
-  const { currentOrder, setCurrentOrderTotal, currentOrderTotal } = useContext(context);
+  const {
+    currentOrder,
+    setCurrentOrderTotal,
+    currentOrderTotal } = useContext(ProductsContext);
 
   useEffect(() => {
     setCurrentOrderTotal(currentOrder

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import context from '../services/context';
+import ProductsContext from '../context/ProductsContext';
 
 function CheckoutItem({ orderItem, index }) {
-  const { removeItemFromCart } = useContext(context);
+  const { removeItemFromCart } = useContext(ProductsContext);
   const { name, price, quantity } = orderItem;
   return (
     <div className="checkout-item-container">

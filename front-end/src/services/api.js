@@ -26,3 +26,7 @@ export const getOrders = async () => {
     .get('/customer/orders');
   return orders;
 };
+
+export const getSellers = async () => {
+  
+}

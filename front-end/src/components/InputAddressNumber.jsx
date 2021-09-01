@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import context from '../services/context';
+import ProductsContext from '../context/ProductsContext';
 
 function InputAddressNumber() {
-  const { setOrderAddressNumber } = useContext(context);
+  const { setOrderAddressNumber } = useContext(ProductsContext);
   return (
     <div>
       <label htmlFor="address-number-input">

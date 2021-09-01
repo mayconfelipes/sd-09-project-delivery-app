@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import ProductsContext from '../context/ProductsContext';
 import NavBarCustomer from '../components/navBarCustomer';
 import '../styles/customerProducts.css';
@@ -74,12 +75,13 @@ const CustomerProducts = () => {
         }
       </div>
 
-      <div
+      <Link
+        to="/customer/checkout"
         className="ver_carrinho"
         data-testid="customer_products__checkout-bottom-value"
       >
         <span>Ver carrinho: R$ 1.000,00</span>
-      </div>
+      </Link>
     </div>
   );
 };

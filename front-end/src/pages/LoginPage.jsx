@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
+// import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import context from '../services/context';
+import ProductsContext from '../context/ProductsContext';
 import * as api from '../services/api';
 
 function Login() {
-  const { setUserInfo } = useContext(context);
+  const { setUserInfo } = useContext(ProductsContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

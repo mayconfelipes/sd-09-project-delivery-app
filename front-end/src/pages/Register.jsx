@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import context from '../services/context';
+import ProductsContext from '../context/ProductsContext';
 import * as api from '../services/api';
 
 function Register() {
-  const { setUserInfo } = useContext(context);
+  const { setUserInfo } = useContext(ProductsContext);
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');

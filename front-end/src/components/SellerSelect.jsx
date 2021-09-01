@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import context from '../services/context';
+import ProductsContext from '../context/ProductsContext';
 
 function SellerSelect() {
-  const { allSellers, setSelectedSeller } = useContext(context);
+  const { allSellers, setSelectedSeller } = useContext(ProductsContext);
 
   useEffect(() => {
     setSelectedSeller(allSellers[0].name);

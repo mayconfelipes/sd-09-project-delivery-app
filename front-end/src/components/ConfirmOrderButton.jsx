@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import context from '../services/context';
+import ProductsContext from '../context/ProductsContext';
 
 function ConfirmOrderButton() {
-  const { submitOrder } = useContext(context);
+  const { submitOrder } = useContext(ProductsContext);
   return (
     <button
       type="button"
