@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
-import { useCart } from '../../contexts/CartContext';
+import { useCart } from '../../../contexts/CartContext';
+import './style.css';
 
 function ProductCard({ product }) {
   const [counter, setCounter] = useState(0);
@@ -45,24 +46,8 @@ function ProductCard({ product }) {
 
   const convertDotToComma = (string) => string.replace(/\./g, ',');
 
-  return (
-    <div>
-      <div>
-        <img
-          src={ product.url_image }
-          alt={ product.name }
-          data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-          className="product-image"
-        />
-      </div>
-      <div
-        data-testid={ `customer_products__element-card-title-${product.id}` }
-      >
-        {product.name}
-      </div>
-      <div data-testid={ `customer_products__element-card-price-${product.id}` }>
-        {convertDotToComma(product.price)}
-      </div>
+  const counterDiv = () => (
+    <div className="product-card-counter">
       <button
         type="button"
         onClick={ decrement }
@@ -83,6 +68,32 @@ function ProductCard({ product }) {
       >
         +
       </button>
+    </div>
+  );
+
+  return (
+    <div className="product-card">
+      <div>
+        <img
+          src={ product.url_image }
+          alt={ product.name }
+          data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+          className="product-image"
+        />
+      </div>
+      <div
+        className="product-card-name"
+        data-testid={ `customer_products__element-card-title-${product.id}` }
+      >
+        {product.name}
+      </div>
+      <div
+        className="product-card-price"
+        data-testid={ `customer_products__element-card-price-${product.id}` }
+      >
+        {convertDotToComma(product.price)}
+      </div>
+      {counterDiv()}
     </div>
   );
 }
