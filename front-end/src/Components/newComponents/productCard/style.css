@@ -3,7 +3,7 @@
   background-color: #1f1d2b;
   border-radius: 20px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  display:flex;
+  display: flex;
   flex-direction: column;
   margin: 10px;
   padding: 20px 10px;
@@ -46,33 +46,33 @@
 }
 
 .product-card-counter input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+
   /*  https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp */
   -webkit-appearance: none;
   margin: 0;
 }
 
-.product-card-counter input[type=number] {
+.product-card-counter input[ type = number ] {
   -moz-appearance: textfield;
 }
 
 .product-card-counter button {
+
   /*  https://codepen.io/kanishkkunal/pen/KwpGNa  */
   background-color: #ea7c69;
-  border:solid 1px #f39c12;
+  border: solid 1px #f39c12;
+  box-shadow: 0 4px 0 #d35400;
   cursor: pointer;
   height: 40px;
-  padding:16px 18px 14px;
-  text-decoration:none;
-  text-align:center;
+  padding: 16px 18px 14px;
+	transition: all 0.1s;
+  text-align: center;
+  text-decoration: none;
   width: 40px;
-
+  -webkit-box-shadow: 0 4px 0 #d35400;
   -webkit-transition: all 0.1s;
 	-moz-transition: all 0.1s;
-	transition: all 0.1s;
-	
-  -webkit-box-shadow:0 4px 0 #d35400;
-  -moz-box-shadow:0 4px 0 #d35400;
-  box-shadow:0 4px 0 #d35400;
+  -moz-box-shadow: 0 4px 0 #d35400;
 }
 
 .product-card-counter button:first-of-type {
@@ -83,10 +83,10 @@
   border-radius: 0 8px 8px 0;
 }
 
-.product-card-counter button:active{
+.product-card-counter button:active {
   box-shadow: 0 2px 0 #d35400;
-  position:relative;
-  top:4px;
+  position: relative;
+  top: 4px;
   -webkit-box-shadow: 0 2px 0 #d35400;
   -moz-box-shadow: 0 2px 0 #d35400;
 }
