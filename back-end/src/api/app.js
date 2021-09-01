@@ -17,7 +17,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
 
-require('../sockets')(io);
+require('../api/sockets')(io);
 
 app.use((_req, res, next) => {
   res.io = io;

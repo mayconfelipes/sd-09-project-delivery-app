@@ -1,5 +1,14 @@
-const { sale, sequelize } = require('../database/models');
-const schemaForSale = require('../schemas/sale');
+const { sale, sequelize } = require('../../database/models');
+const schemaForSale = require('../../schema/sale');
+
+const getTotalPrice = async (data) => {
+  const pricesPromises = data.map(async ({ id, quantity }) => {
+    const price = await getItemPrice(id);
+    return price * quantity;
+  });
+  const prices = await Promise.all(pricesPromises);
+  return prices.reduce((acc, cur) => acc + cur, 0);
+};
 
 const createSale = async (saleData, userId) => {
   const { error } = schemaForSale.validate(saleData);
