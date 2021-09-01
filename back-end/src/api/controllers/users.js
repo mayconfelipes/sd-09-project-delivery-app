@@ -15,7 +15,7 @@ const create = async (req, res, next) => {
 
 const getByRole = async (req, res, next) => {
   try {
-    const { role } = req.body;
+    const { role } = req.query;
 
     const users = await usersServices.getByRole(role);
 
