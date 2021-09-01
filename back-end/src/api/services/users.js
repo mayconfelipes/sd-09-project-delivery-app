@@ -82,8 +82,15 @@ const getByName = async (name) => {
   return user.dataValues;
 };
 
+const getByRole = async (role) => {
+  const users = await Users.findAll({ where: { role }, attributes: { exclude: ['password'] } });
+
+  return users;
+};
+
 module.exports = {
   create,
   getById,
   getByName,
+  getByRole,
 };
