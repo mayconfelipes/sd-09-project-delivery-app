@@ -20,7 +20,7 @@ const Products = () => {
     };
     await fetch('http://localhost:3001/customer/products', myInit)
       .then((response) => response.json())
-      .then((data) => setProducts(data.products))
+      .then((data) => setProducts(data))
       .catch((err) => console.log(err));
   }
 
