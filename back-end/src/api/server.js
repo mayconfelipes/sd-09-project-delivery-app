@@ -33,5 +33,4 @@ app.post('/admin/register', adminController.registerUser);
 app.get('/products', productController.getAllProducts);
 app.get('/sales', salesController.getAll);
 
-
 http.listen(PORT, () => console.log('App listening on PORT %s', PORT));
