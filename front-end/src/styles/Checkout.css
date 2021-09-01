@@ -2,7 +2,7 @@
   display: flex;
 }
 
-.order-details-address form div {
+.order-details-address form div label {
   display: flex;
   flex-direction: column;
 }

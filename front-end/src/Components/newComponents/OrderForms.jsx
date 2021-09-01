@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -66,40 +65,46 @@ export default function OrderForms() {
     <section className="order-details-address">
       <form onSubmit={ handleSubmit } action="/customer/orders/id" method="POST">
         <div>
-          <label htmlFor="pessoa vendedora">P. Vendedora Responsável</label>
-          <select
-            onChange={ handleChange }
-            id="seller"
-            data-testid="customer_checkout__select-seller"
-          >
-            {sellers.map(({ name, id }) => (
-              <option value={ id } key={ id }>
-                {name}
-              </option>
-            ))}
-          </select>
+          <label htmlFor="seller">
+            P. Vendedora Responsável
+            <select
+              onChange={ handleChange }
+              id="seller"
+              data-testid="customer_checkout__select-seller"
+            >
+              {sellers.map(({ name, id }) => (
+                <option value={ id } key={ id }>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
 
         <div>
-          <label htmlFor="address">Endereço</label>
-          <input
-            data-testid="customer_checkout__input-address"
-            type="text"
-            id="address"
-            placeholder="Travessa Terceira da Castanheira, Bairro Muruci"
-            onChange={ handleChange }
-          />
+          <label htmlFor="address">
+            Endereço
+            <input
+              data-testid="customer_checkout__input-address"
+              type="text"
+              id="address"
+              placeholder="Travessa Terceira da Castanheira, Bairro Muruci"
+              onChange={ handleChange }
+            />
+          </label>
         </div>
 
         <div>
-          <label htmlFor="number">Número</label>
-          <input
-            data-testid="customer_checkout__input-addressNumber"
-            type="number"
-            id="number"
-            placeholder="198"
-            onChange={ handleChange }
-          />
+          <label htmlFor="number">
+            Número
+            <input
+              data-testid="customer_checkout__input-addressNumber"
+              type="number"
+              id="number"
+              placeholder="198"
+              onChange={ handleChange }
+            />
+          </label>
         </div>
         <button
           type="submit"
