@@ -45,15 +45,61 @@ class Order extends React.Component {
     return newDate;
   }
 
+  buttonCustomer(role) {
+    return (
+      <button
+        type="button"
+        disabled="true"
+        data-testid={ `${role}_order_details__button-delivery-check` }
+      >
+        MARCAR COMO ENTREGUE
+      </button>
+    );
+  }
+
+  buttonSeller(role) {
+    return (
+      <div>
+        <button
+          type="button"
+          data-testid={ `${role}_order_details__button-preparing-check` }
+        >
+          PREPARAR PEDIDO
+        </button>
+        <button
+          type="button"
+          disabled="true"
+          data-testid={ `${role}_order_details__button-dispatch-check` }
+        >
+          SAIU PARA ENTREGA
+        </button>
+      </div>
+    );
+  }
+
+  renderSeller(role) {
+    const { allInfo: { seller } } = this.state;
+    return (
+      <p
+        data-testid={
+          `${role}_order_details__element-order-details-label-seller-name`
+        }
+      >
+        <span>P.Vend:</span>
+        {seller.name}
+      </p>
+    );
+  }
+
   render() {
     const { allInfo } = this.state;
-    const customerString = 'customer_order_details';
+    const { role } = JSON.parse(localStorage.user);
 
     if (allInfo.length === 0) {
       return <p>Loading...</p>;
     }
 
-    const { id, seller, saleDate, status, products, totalPrice } = allInfo;
+    const { id, saleDate, status, products, totalPrice } = allInfo;
 
     const newDate = this.dateFormat(saleDate);
     return (
@@ -61,36 +107,32 @@ class Order extends React.Component {
         <h3>Detalhe do Pedido</h3>
         <div>
           <div>
-            <p data-testid={ `${customerString}__element-order-details-label-order-id` }>
+            <p
+              data-testid={
+                `${role}_order_details__element-order-details-label-order-id`
+              }
+            >
               <span>PEDIDO:</span>
               { id }
             </p>
+            { role === 'customer' && this.renderSeller(role)}
             <p
-              data-testid={ `${customerString}__element-order-details-label-seller-name` }
-            >
-              <span>P.Vend:</span>
-              {seller.name}
-            </p>
-            <p
-              data-testid={ `${customerString}__element-order-details-label-order-date` }
+              data-testid={
+                `${role}_order_details__element-order-details-label-order-date`
+              }
             >
               { newDate }
             </p>
             <p
               data-testid={
-                `${customerString}__element-order-details-label-delivery-status`
+                `${role}_order_details__element-order-details-label-delivery-status`
               }
             >
               { status }
             </p>
           </div>
-          <button
-            type="button"
-            disabled="true"
-            data-testid={ `${customerString}__button-delivery-check` }
-          >
-            MARCAR COMO ENTREGUE
-          </button>
+          { role === 'customer' && this.buttonCustomer(role) }
+          { role === 'seller' && this.buttonSeller(role) }
         </div>
         <table>
           <thead>
@@ -108,12 +150,13 @@ class Order extends React.Component {
                 key={ `${product}${index}` }
                 product={ product }
                 idP={ index }
+                role={ role }
               />
             )) }
           </tbody>
         </table>
         <p
-          data-testid={ `${customerString}__element-order-total-price` }
+          data-testid={ `${role}_order_details__element-order-total-price` }
         >
           { totalPrice.replace(/\./, ',') }
         </p>

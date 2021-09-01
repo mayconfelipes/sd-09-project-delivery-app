@@ -27,7 +27,7 @@ class Orders extends React.Component {
 
   render() {
     const { allSales } = this.state;
-    console.log(allSales);
+    const { role } = JSON.parse(localStorage.user);
 
     return (
       <div>
@@ -35,6 +35,7 @@ class Orders extends React.Component {
           <OrderCard
             key={ `${sale}${index}` }
             sale={ sale }
+            role={ role }
           />
         )) }
       </div>

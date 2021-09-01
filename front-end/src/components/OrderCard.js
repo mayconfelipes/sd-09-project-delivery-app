@@ -7,6 +7,7 @@ class OrderCard extends React.Component {
     super();
 
     this.dateFormat = this.dateFormat.bind(this);
+    this.sellerAddress = this.sellerAddress.bind(this);
   }
 
   dateFormat(date) {
@@ -24,33 +25,47 @@ class OrderCard extends React.Component {
     return newDate;
   }
 
-  render() {
+  sellerAddress() {
     const { sale } = this.props;
+    return (
+      <p
+        data-testid={ `seller_orders__element-card-address-${sale.id}` }
+      >
+        {`${sale.deliveryAddress}, ${sale.deliveryNumber}` }
+      </p>
+    );
+  }
+
+  render() {
+    const { sale, role } = this.props;
     const newDate = this.dateFormat(sale.saleDate);
 
     return (
       <div>
-        <Link to={ `/customer/orders/${sale.id}` }>
+        <Link to={ `/${role}/orders/${sale.id}` }>
           <p
-            data-testid={ `customer_orders__element-order-id-${sale.id}` }
+            data-testid={ `${role}_orders__element-order-id-${sale.id}` }
           >
             <span>Pedido:</span>
             { sale.id }
           </p>
-          <p
-            data-testid={ `customer_orders__element-delivery-status-${sale.id}` }
-          >
-            { sale.status }
-          </p>
           <div>
             <p
-              data-testid={ `customer_orders__element-order-date-${sale.id}` }
+              data-testid={ `${role}_orders__element-delivery-status-${sale.id}` }
             >
-              { newDate }
+              { sale.status }
             </p>
-            <p data-testid={ `customer_orders__element-card-price-${sale.id}` }>
-              { sale.totalPrice.replace(/\./, ',') }
-            </p>
+            <div>
+              <p
+                data-testid={ `${role}_orders__element-order-date-${sale.id}` }
+              >
+                { newDate }
+              </p>
+              <p data-testid={ `${role}_orders__element-card-price-${sale.id}` }>
+                { sale.totalPrice.replace(/\./, ',') }
+              </p>
+            </div>
+            { role === 'seller' && this.sellerAddress() }
           </div>
         </Link>
       </div>
