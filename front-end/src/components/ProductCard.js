@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 const ProductCard = (props) => {
   const { product } = props;
+  // const [selectedProducts, setSelectedProducts] = useState();
+  // const [cartTotal, setCartTotal] = useState();
 
   return (
     <div className="main">

@@ -5,7 +5,7 @@ import useProducts from '../hooks/useProducts';
 import ProductCard from '../components/ProductCard';
 
 const ClientProducts = () => {
-  const { token } = JSON.parse(localStorage.getItem('token'));
+  const { token } = JSON.parse(localStorage.getItem('user'));
   const [products, setProducts] = useProducts();
   const cartTotal = JSON.parse(localStorage.getItem('cart'));
   let renderProducts;
