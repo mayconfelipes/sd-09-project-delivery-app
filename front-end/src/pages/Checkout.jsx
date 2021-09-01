@@ -13,12 +13,6 @@ import {
   getTotalCartLocalStorage,
 } from '../utils/storage';
 
-const ITEM_NUMBER_ID = 'customer_checkout__element-order-table-item-number-';
-const NAME_ID = 'customer_checkout__element-order-table-name-';
-const QUANT_ID = 'customer_checkout__element-order-table-quantity-';
-const UNIT_PRICE_ID = 'customer_checkout__element-order-table-unit-price-';
-const SUB_TOTAL_ID = 'customer_checkout__element-order-table-sub-total-';
-const REMOVE_ID = 'customer_checkout__element-order-table-remove-';
 function Checkout() {
   const { totalCart, setTotalCart } = useContext(AppContext);
   const history = useHistory();
@@ -26,21 +20,17 @@ function Checkout() {
   const [infoSale, setInfoSalle] = useState({
     address: '', addressNumber: '',
   });
-  // const [carrinho, setCarrinho] = useState(cartData);
+
   const handleChange = ({ target: { name, value } }) => {
     setInfoSalle({ ...infoSale, [name]: value });
   };
+
   function handleRemove(i) {
-    // console.table(cartData);
-    // const newCartData = carrinho
-    //   .filter((item) => parseInt(item.productId, 10) !== parseInt(i, 10));
-    // localStorage.setItem('carrinho', JSON.stringify(newCartData));
     const RemoveCartData = {
       productId: i,
       quantity: 0,
     };
     setCarrinhoLocalStorage(RemoveCartData);
-    // setCarrinho(getCarrinhoLocalStorage());
     setTotalCart(getTotalCartLocalStorage());
   }
   const handleClick = async () => {
@@ -49,7 +39,9 @@ function Checkout() {
     if (result.error) { console.error(`tratar erro ${result.error}`); }
     history.push(`/customer/order/${result.id}`); // conferir esse id
   };
+
   const options = ['vendor1', 'vendor2', 'vendor3'];// buscar vendedores
+
   return (
     <main>
       <Navbar />
@@ -67,20 +59,20 @@ function Checkout() {
         <tbody>
           {cartData.map((item, index) => (
             <tr key={ index }>
-              <td data-testid={ ITEM_NUMBER_ID + index }>{index + 1}</td>
-              <td data-testid={ NAME_ID + index }>{item.name}</td>
-              <td data-testid={ QUANT_ID + index }>{item.quantity}</td>
-              <td data-testid={ UNIT_PRICE_ID + index }>
+              <td data-testid={ `${testIds[22]}${index}` }>{index + 1}</td>
+              <td data-testid={ `${testIds[23]}${index}` }>{item.name}</td>
+              <td data-testid={ `${testIds[24]}${index}` }>{item.quantity}</td>
+              <td data-testid={ `${testIds[25]}${index}` }>
                 {item.unitPrice}
               </td>
-              <td data-testid={ SUB_TOTAL_ID + index }>
+              <td data-testid={ `${testIds[26]}${index}` }>
                 {item.subTotal}
               </td>
               <td>
                 <LargeButton
                   buttonText="remover"
                   onClick={ () => handleRemove(item.productId) }
-                  dataTestId={ REMOVE_ID + index }
+                  data-testid={ `${testIds[27]}${index}` }
                 />
               </td>
             </tr>
