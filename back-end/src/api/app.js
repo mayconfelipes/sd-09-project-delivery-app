@@ -12,7 +12,10 @@ const { validateToken } = require('./middwares/validators/validateToken');
 const app = express();
 
 app.use(
-  cors(),
+  cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  }),
 );
 
 app.use(bodyParser.json());
