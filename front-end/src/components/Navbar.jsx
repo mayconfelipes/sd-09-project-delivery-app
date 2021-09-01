@@ -27,14 +27,14 @@ const Navbar = ({ role }) => {
       <div className="nav-display-flex">
         {role === 'customer' && (
           <LinkNavbar
-            dataTestId="customer_products__element-navbar-link-products"
+            dataTestId={ testid[11] }
             text="PRODUTOS"
             classStyle="navbar-link navbar-link-green"
             to="/customer/products"
           />
         )}
         <LinkNavbar
-          dataTestId="customer_products__element-navbar-link-orders"
+          dataTestId={ testid[12] }
           text="MEUS PEDIDOS"
           classStyle="navbar-link navbar-link-green"
           to={ `/${role}/orders` }
@@ -42,13 +42,13 @@ const Navbar = ({ role }) => {
       </div>
       <div className="nav-display-flex">
         <div
-          data-testid="customer_products__element-navbar-user-full-name"
+          data-testid={ testid[13] }
           className="navbar-link navbar-link-purple"
         >
           {getNameLocalStorage()}
         </div>
         <Button
-          dataTestId="customer_products__element-navbar-link-logout"
+          dataTestId={ testid[14] }
           buttonText="Sair"
           classStyle="navbar-link navbar-link-blue"
           onClick={ () => setIsLogout(true) }
