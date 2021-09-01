@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  salesProducts.associate = (models) => {
-    models.products.belongsToMany(models.products, {
-      through: salesProducts, foreignKey: 'product_id' ,otherKey: 'id', as :'aaa'
-    });
-  };
+  // salesProducts.associate = (models) => {
+  //   models.products.belongsToMany(models.products, {
+  //     through: salesProducts, foreignKey: 'product_id' ,otherKey: 'id', as :'aaa'
+  //   });
+  // };
   return salesProducts;
 };
