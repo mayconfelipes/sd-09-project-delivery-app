@@ -5,7 +5,7 @@ import PrimaryButton from '../../../components/PrimaryButton';
 
 import style from './register.module.scss';
 
-import register from '../../../api/register';
+import { register } from '../../../api/register';
 
 const Register = () => {
   const [userData, setUserData] = useState({
