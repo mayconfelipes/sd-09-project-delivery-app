@@ -53,8 +53,8 @@ function Registro() {
     await axios.post(REGISTER_URL, payload)
       .then(
         (response) => {
-          localStorage.setItem('token', JSON.stringify(response.data.token));
-          localStorage.setItem('user', JSON.stringify(response.data.user));
+          const { user, token } = response.data;
+          localStorage.setItem('user', JSON.stringify({ token, ...user }));
 
           history.push('/customer/products');
         },

@@ -4,11 +4,11 @@ module.exports = (sequelize, DataTypes) => {
     userId: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true },
     sellerId: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true },
     totalPrice: DataTypes.DECIMAL,
-    deliveryAdress: DataTypes.STRING,
+    deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
     status: DataTypes.STRING,
-    createdAt: DataTypes.DATE,
-  }, { updatedAt: false, tableName: 'sales', underscored: true });
+    saleDate: DataTypes.DATE,
+  }, { timestamps: false, tableName: 'sales', underscored: true });
 
   Sale.associate = (models) => {
     Sale.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
