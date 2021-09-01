@@ -51,7 +51,6 @@ function Register() {
   return (
     <div>
       <h1>Register</h1>
-      <h4>{ isTest }</h4>
       <form>
         <label htmlFor="name">
           Nome:
