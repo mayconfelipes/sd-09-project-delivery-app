@@ -15,5 +15,6 @@ routes.get('/products', rescue(products.findAll));
 routes.get('/images/:image', rescue(images.getImage));
 
 routes.post('/sales', rescue(sales.create));
+routes.get('/sales', rescue(sales.findAll));
 
 module.exports = routes;
