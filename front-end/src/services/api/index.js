@@ -27,7 +27,8 @@ export const fetchToLogin = (email, password, setInvalidUser, setRedirectTo) => 
     });
 };
 
-export const fetchToRegister = (name, email, password, setInvalidUser) => {
+export const fetchToRegister = (payload, setInvalidUser, setRedirectTo) => {
+  const { name, email, password } = payload;
   const body = {
     name,
     email,
@@ -51,6 +52,7 @@ export const fetchToRegister = (name, email, password, setInvalidUser) => {
       } else {
         console.log(response);
         localStorage.setItem('User', JSON.stringify(response));
+        setRedirectTo(true);
       }
     });
 };

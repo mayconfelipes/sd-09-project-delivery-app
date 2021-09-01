@@ -18,7 +18,7 @@ export const LoginProvider = ({ children }) => {
 
   const handleClickRegister = async () => {
     console.log('request /register');
-    await fetchToRegister(name, email, password, setInvalidUser);
+    await fetchToRegister({ name, email, password }, setInvalidUser, setRedirectTo);
   };
 
   const contextValue = { email,
