@@ -1,7 +1,8 @@
 const Joi = require('joi');
 
-const { Sale, SalesProduct } = require('../../database/models');
+const { Sale, SalesProduct, Product } = require('../../database/models');
 const { InvalidArgumentError } = require('../errors');
+const productsService = require('./products');
 
 const STATUS_CHOICES = [
   'Pendente',
@@ -35,6 +36,20 @@ const createSalesProductRelationship = (saleId, products) => (
   ))
 );
 
+const retriveSaleSerializer = async (sale) => {
+  const salesProducts = await SalesProduct.findAll({ where: { saleId: sale.id } })
+  .then((response) => response.map(({ dataValues }) => dataValues));
+  const allProducts = await Product.findAll()
+    .then((result) => result.map(({ dataValues }) => dataValues));
+
+  const products = salesProducts.map(({ productId, quantity }) => {
+    const product = allProducts.find(({ id }) => id === productId);
+    return { ...product, quantity };
+  });
+
+  return { ...sale, products };
+};
+
 module.exports = {
   async create(payload) {
     const { error } = SaleSchema.validate(payload);
@@ -49,5 +64,15 @@ module.exports = {
     await createSalesProductRelationship(saleId, products);
 
     return { id: saleId, ...payload };
+  },
+  async getAll() {
+    return Sale.findAll();
+  },
+  async getById(id) {
+    const { dataValues: sale } = await Sale.findOne({ where: { id } });
+    const SPArray = await SalesProduct.findAll({ where: { saleId: id } });
+    const salesProducts = SPArray.map(({ dataValues }) => dataValues);
+
+    return retriveSaleSerializer(sale);
   },
 };
