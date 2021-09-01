@@ -19,8 +19,10 @@ function ProductCard({ product: { id, name, price, urlImage } }) {
   // };
 
   useEffect(() => {
-    updateQuantity(id, quantity, price);
-  }, [id, quantity, price, updateQuantity]);
+    if (quantity >= 0) {
+      updateQuantity(id, quantity, price);
+    }
+  }, [id, quantity, price]);
 
   const onClick = ({ target }) => {
     if (target.name.includes('add')) setQuantity(() => (quantity + 1));
