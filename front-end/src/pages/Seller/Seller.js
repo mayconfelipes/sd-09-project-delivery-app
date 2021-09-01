@@ -33,49 +33,46 @@ const Seller = () => {
       role="link"
       tabIndex={ 0 }
     >
-      <div className="seller-itens">
-        Nº
-        {item.id}
-      </div>
-      <div className="seller-itens">
+      <section className="seller-card-parte-de-cima">
+        <div className="seller-itens">
+          Nº
+          {item.id}
+        </div>
+        <div className="seller-itens">
+          <div
+            className="seller-itens"
+            data-testid={ `${prefix}delivery-status-${item.id}` }
+          >
+            <div className="seller-page-status">
+              Pendente
+            </div>
+          </div>
+        </div>
+        <div className="seller-data-e-preço">
+          <div className="seller-itens">
+            <div
+              className="seller-itens"
+              data-testid={ `${prefix}order-date-${item.id}` }
+            />
+            {item.sale_date}
+          </div>
+          <div className="seller-itens">
+            <div
+              className="seller-itens"
+              data-testid={ `${prefix}card-price-${item.id}` }
+            />
+            R$ Uma senhora Bordoada.
+          </div>
+        </div>
+      </section>
+      <section className="seller-card-parte-de-baixo">
         <div
-          className="seller-itens"
-          data-testid={ `${prefix}delivery-status-${item.id}` }
+          className="seller-endereço"
+          data-testid={ `${prefix}card-address-${item.id}` }
         >
-          <div className="seller-page-status">
-            <p>
-              Status:
-            </p>
-            <p>  Pendente    </p>
-          </div>
+          {item.delivery_address}
         </div>
-      </div>
-      <div className="seller-endereço">
-        <div className="seller-itens" data-testid={ `${prefix}card-address-${item.id}` }>
-          <p>
-            Endereço:
-          </p>
-        </div>
-        {item.delivery_address}
-      </div>
-      <div className="seller-data-e-preço">
-        <div className="seller-itens">
-          <div className="seller-itens" data-testid={ `${prefix}order-date-${item.id}` }>
-            <p>
-              Data:
-            </p>
-          </div>
-          {item.sale_date}
-        </div>
-        <div className="seller-itens">
-          <div className="seller-itens" data-testid={ `${prefix}card-price-${item.id}` }>
-            <p>
-              Preço:
-            </p>
-          </div>
-          Uma senhora Bordoada.
-        </div>
-      </div>
+      </section>
     </div>
   ));
 

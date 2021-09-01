@@ -1,10 +1,20 @@
 .seller-card {
   border: 1px solid black;
   display: flex;
-  flex-direction: row;
-  height: 35vh;
+  flex-direction: column;
+  height: 30vh;
   margin: 3%;
   width: 90%;
+}
+
+.seller-card-parte-de-cima {
+  display: flex;
+  flex-direction: row;
+}
+
+.seller-card-parte-de-baixo {
+  display: flex;
+  flex-direction: row;
 }
 
 .seller-itens {
@@ -14,8 +24,9 @@
 
 .seller-page-status {
   background-color: brown;
+  height: 20vw;
   margin-left: 3%;
-  position: relative;
+  width: 30vw;
 }
 
 .seller-data-e-preço {
@@ -34,4 +45,5 @@
   flex-direction: column;
   height: 10vh;
   margin-left: 3%;
+  width: 100vw;
 }
