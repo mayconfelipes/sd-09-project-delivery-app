@@ -34,7 +34,7 @@ app.post('/login', validadeUserExists, login);
 
 app.post('/register', usersControllers.create);
 
-app.get('/register', validateToken, usersControllers.getByRole);
+app.get('/register/:role', validateToken, usersControllers.getByRole);
 
 app.post('/sales', validateToken, salesControllers.create);
 
