@@ -168,7 +168,7 @@ describe.only(requirement(15), () => {
         customerProductsPage.button.card.addItem +
         `[data-testid$='-${productId}']`,
       clickCount: quantity,
-      delay: 2000,
+      delay: 100,
     });
 
     await expect(page).toGetValueFromElement(
@@ -184,7 +184,7 @@ describe.only(requirement(15), () => {
         customerProductsPage.button.card.rmItem +
         `[data-testid$='-${productId}']`,
       clickCount: quantity * 2,
-      delay: 2000,
+      delay: 100,
     });
 
     await expect(page).toGetValueFromElement(
