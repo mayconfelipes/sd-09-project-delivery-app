@@ -6,9 +6,12 @@ import TextInput from '../components/TextInput';
 import DropDownList from '../components/DropDownList';
 import api from '../services/api';
 import AppContext from '../context/AppContext';
-
 import dataIds from '../utils/dataTestIds'; // mudar datatestids
-// import { setCarrinhoLocalStorage } from '../utils/storage';
+import {
+  setCarrinhoLocalStorage,
+  getCarrinhoLocalStorage,
+  getTotalCartLocalStorage,
+} from '../utils/storage';
 
 const ITEM_NUMBER_ID = 'customer_checkout__element-order-table-item-number-';
 const NAME_ID = 'customer_checkout__element-order-table-name-';
@@ -16,29 +19,30 @@ const QUANT_ID = 'customer_checkout__element-order-table-quantity-';
 const UNIT_PRICE_ID = 'customer_checkout__element-order-table-unit-price-';
 const SUB_TOTAL_ID = 'customer_checkout__element-order-table-sub-total-';
 const REMOVE_ID = 'customer_checkout__element-order-table-remove-';
-
 function Checkout() {
-  const { totalCart } = useContext(AppContext);
+  const { totalCart, setTotalCart } = useContext(AppContext);
   const history = useHistory();
-  const cartData = JSON.parse(localStorage.getItem('carrinho')) || [];
-
+  const cartData = getCarrinhoLocalStorage();
   const [infoSale, setInfoSalle] = useState({
     address: '', addressNumber: '',
   });
-  const [carrinho, setCarrinho] = useState(cartData);
-
+  // const [carrinho, setCarrinho] = useState(cartData);
   const handleChange = ({ target: { name, value } }) => {
     setInfoSalle({ ...infoSale, [name]: value });
   };
-
   function handleRemove(i) {
     // console.table(cartData);
-    const newCartData = carrinho
-      .filter((item) => parseInt(item.productId, 10) !== parseInt(i, 10));
-    localStorage.setItem('carrinho', JSON.stringify(newCartData));
-    setCarrinho(newCartData);
+    // const newCartData = carrinho
+    //   .filter((item) => parseInt(item.productId, 10) !== parseInt(i, 10));
+    // localStorage.setItem('carrinho', JSON.stringify(newCartData));
+    const RemoveCartData = {
+      productId: i,
+      quantity: 0,
+    };
+    setCarrinhoLocalStorage(RemoveCartData);
+    // setCarrinho(getCarrinhoLocalStorage());
+    setTotalCart(getTotalCartLocalStorage());
   }
-
   const handleClick = async () => {
     const orderdata = JSON.parse(localStorage.getItem('orderData'));
     const result = await api.saveOrder(orderdata);
@@ -46,7 +50,6 @@ function Checkout() {
     history.push(`/customer/order/${result.id}`); // conferir esse id
   };
   const options = ['vendor1', 'vendor2', 'vendor3'];// buscar vendedores
-
   return (
     <main>
       <Navbar />
@@ -124,5 +127,4 @@ function Checkout() {
     </main>
   );
 }
-
 export default Checkout;
