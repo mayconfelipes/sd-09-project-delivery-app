@@ -1,7 +1,10 @@
-import { string, number, shape, func } from 'prop-types';
 import React from 'react';
 
-export default function OrderTable({ cartItems, setCartItems, totalPrice }) {
+import { useCart } from '../../Contexts/CartContext';
+
+export default function OrderTable() {
+  const { cartItems, setCartItems, totalPrice } = useCart();
+
   return (
     <>
       <table>
@@ -24,7 +27,7 @@ export default function OrderTable({ cartItems, setCartItems, totalPrice }) {
                 {id}
               </td>
               <td
-                data-testid={ `customer_checkout__element-order-table-name-${name}` }
+                data-testid={ `customer_checkout__element-order-table-name-${i}` }
               >
                 {name}
               </td>
@@ -72,14 +75,3 @@ export default function OrderTable({ cartItems, setCartItems, totalPrice }) {
     </>
   );
 }
-
-OrderTable.propTypes = {
-  cartItems: shape({
-    id: number,
-    name: string,
-    quantity: number,
-    price: number,
-  }),
-  setCartItems: func,
-  totalPrice: number,
-}.isRequired;

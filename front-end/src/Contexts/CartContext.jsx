@@ -4,35 +4,13 @@ import { node } from 'prop-types';
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const teste = [{
-    id: 1,
-    name: 'cerveja',
-    quantity: 2,
-    price: 3.50,
-  },
-  {
-    id: 2,
-    name: 'água',
-    quantity: 2,
-    price: 2,
-  }];
+  const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   // falta logica de adicionar item ao carrinho e atualizar quantity
 
-  const [cartItems, setCartItems] = useState(teste);
-
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  function addCartItem(item) {
-    setCartItems(...cartItems, { ...item });
-  }
-
-  function updateTotalPrice() {
-    return totalPrice;
-  }
-
   const context = {
-    cartItems, setCartItems, addCartItem, totalPrice, setTotalPrice, updateTotalPrice,
+    cartItems, setCartItems, totalPrice, setTotalPrice,
   };
 
   return (
@@ -40,6 +18,12 @@ export function CartProvider({ children }) {
       { children }
     </CartContext.Provider>
   );
+}
+
+export function useCart() {
+  const context = useContext(CartContext);
+  console.log(context);
+  return context;
 }
 
 CartProvider.propTypes = {
