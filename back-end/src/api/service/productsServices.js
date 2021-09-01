@@ -4,7 +4,7 @@ const { product } = require('../../database/models');
 
 const getAllProducts = async () => {
   console.log('getAllProducts');
-  product.findAll();
+  return product.findAll({});
 };
 const getProductById = async (id) => product.findOne({ where: { id } });
 
