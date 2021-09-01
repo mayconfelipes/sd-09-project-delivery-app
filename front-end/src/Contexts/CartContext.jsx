@@ -22,7 +22,7 @@ export function CartProvider({ children }) {
 
 export function useCart() {
   const context = useContext(CartContext);
-  console.log(context);
+  // console.log(context);
   return context;
 }
 

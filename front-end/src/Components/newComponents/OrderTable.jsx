@@ -5,6 +5,12 @@ import { useCart } from '../../Contexts/CartContext';
 export default function OrderTable() {
   const { cartItems, setCartItems } = useCart();
 
+  const totalPrice = cartItems.reduce(
+    (acc, curr) => acc + curr.price * curr.quantity, 0,
+  );
+
+  const stringTotalPrice = String(totalPrice.toFixed(2)).replace(/\./g, ',');
+
   return (
     <>
       <table>
@@ -32,19 +38,19 @@ export default function OrderTable() {
                 {name}
               </td>
               <td
-                data-testid={ `cutomer_checkout__element-order-table-quantity-${i}` }
+                data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
               >
                 {quantity}
               </td>
               <td
                 data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
               >
-                {price}
+                {`${price}`.replace(/\./g, ',')}
               </td>
               <td
                 data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
               >
-                {quantity * price}
+                {`${(quantity * price).toFixed(2)}`.replace(/\./g, ',')}
               </td>
               <td>
                 <button
@@ -66,10 +72,7 @@ export default function OrderTable() {
          * a lógica de soma será feita em outro lugar
          */}
         Total:
-        {` R$ ${cartItems.reduce(
-          (acc, curr) => acc + curr.price * curr.quantity,
-          0,
-        )}`}
+        {` R$ ${stringTotalPrice}`}
       </div>
     </>
   );
