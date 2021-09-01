@@ -55,6 +55,7 @@ const ProductsProvider = ({ children }) => {
     };
     console.log(orderObject);
   }
+  const [order, setOrder] = useState([]);
 
   const getProducts = async () => {
     try {
@@ -78,9 +79,9 @@ const ProductsProvider = ({ children }) => {
     }
   };
 
-  const getSellers = async () => {
-    const getFromDB = await fetch
-  }
+  // const getSellers = async () => {
+  //   const getFromDB = await fetch
+  // }
 
   const context = {
     getProducts,
@@ -107,6 +108,8 @@ const ProductsProvider = ({ children }) => {
     setSelectedSeller,
     setCurrentOrderTotal,
     submitOrder,
+    setOrder,
+    order,
   };
 
   return (
