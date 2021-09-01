@@ -10,10 +10,6 @@ const salesControllers = require('./controllers/sales');
 const { validateToken } = require('./middwares/validators/validateToken');
 
 const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(express.static(path.resolve(__dirname, '..', '..', 'public')));
 
 app.use(
   cors({
@@ -21,6 +17,11 @@ app.use(
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
   }),
 );
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static(path.resolve(__dirname, '..', '..', 'public')));
 
 app.get('/products', products);
 
