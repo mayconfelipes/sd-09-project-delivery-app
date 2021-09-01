@@ -1,4 +1,4 @@
-const { salesProducts, sales, products } = require('../database/models');
+const { salesProducts, sales, products, users } = require('../database/models');
 
 const createSaleProduct = async (body) => {
   const { dataValues } = await salesProducts.create({ ...body });
@@ -7,9 +7,9 @@ const createSaleProduct = async (body) => {
 };
 
 const getAll = async () => {
-  const allSalesProducts = await salesProducts.findAll({ include: [
-    { model: sales, as: 'sale' },
-    { model: products, as: 'product' },
+  const allSalesProducts = await sales.findAll({ include: [
+    { model: users, as: 'seller', attributes: { exclude: ['password'] } },
+    { model: products, as: 'products', attributes: { exclude: ['urlImage'] } },
   ] });
 
   return allSalesProducts;

@@ -62,6 +62,12 @@ class Login extends React.Component {
 
   render() {
     const { email, password, toggleMessage, message, disabled, redirect } = this.state;
+    const user = JSON.parse(localStorage.getItem('user')) || {};
+
+    if (user.token) {
+      return <Redirect to="/customer/products" />;
+    }
+
     return (
       <div>
         <h3>Login</h3>

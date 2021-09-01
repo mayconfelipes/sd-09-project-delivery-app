@@ -1,84 +1,32 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import ProductCard from '../components/ProductCard';
-import fetchGET from '../services/fetchGET';
-import { productsAction } from '../actions/checkoutAction';
+import { Redirect, Route, Switch } from 'react-router-dom';
+
 import HeaderCustomer from '../components/HeaderCustomer';
+import Products from './Products';
+import Checkout from './Checkout';
+import OrdersDetails from './OrdersDetails';
+import Orders from './Orders';
 
-class Customer extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      products: [],
-    };
-
-    this.fetchAPI = this.fetchAPI.bind(this);
-  }
-
-  componentDidMount() {
-    this.fetchAPI();
-  }
-
-  async fetchAPI() {
-    try {
-      const result = await fetchGET('products');
-      this.setState({
-        products: result,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
+class CustomerHeader extends React.Component {
   render() {
-    const { products } = this.state;
-    const { getTotalPrice, getProducts } = this.props;
+    const user = JSON.parse(localStorage.getItem('user')) || {};
+
+    if (!user.token) {
+      return <Redirect to="/login" />;
+    }
 
     return (
       <div>
         <HeaderCustomer />
-        <Link to="/customer/checkout">
-          <button
-            type="button"
-            disabled={ !getProducts.length > 0 }
-            data-testid="customer_products__button-cart"
-          >
-            Ver Carrinho: RS$
-            <span
-              data-testid="customer_products__checkout-bottom-value"
-            >
-              {getTotalPrice}
-            </span>
-          </button>
-        </Link>
-        <div>
-          { products.map((product, index) => (
-            <ProductCard
-              key={ `${product}${index}` }
-              product={ product }
-            />
-          ))}
-        </div>
+        <Switch>
+          <Route path="/customer/orders/:id" component={ OrdersDetails } />
+          <Route path="/customer/orders" component={ Orders } />
+          <Route path="/customer/products" component={ Products } />
+          <Route path="/customer/checkout" component={ Checkout } />
+        </Switch>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  getProducts: state.checkoutReducer.productsBuy,
-  getTotalPrice: state.checkoutReducer.totalPrice,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setProducts: (productsBuy) => dispatch(productsAction(productsBuy)),
-});
-
-Customer.propTypes = ({
-  getProducts: PropTypes.arrayOf(PropTypes.object),
-  setProducts: PropTypes.func,
-}).isRequired;
-
-export default connect(mapStateToProps, mapDispatchToProps)(Customer);
+export default CustomerHeader;

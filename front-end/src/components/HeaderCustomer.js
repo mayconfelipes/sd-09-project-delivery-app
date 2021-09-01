@@ -41,12 +41,14 @@ class HeaderCustomer extends React.Component {
               PRODUTOS
             </button>
           </Link>
-          <button
-            type="button"
-            data-testid="customer_products__element-navbar-link-orders"
-          >
-            MEUS PEDIDOS
-          </button>
+          <Link to="/customer/orders">
+            <button
+              type="button"
+              data-testid="customer_products__element-navbar-link-orders"
+            >
+              MEUS PEDIDOS
+            </button>
+          </Link>
           <p
             data-testid="customer_products__element-navbar-user-full-name"
           >
