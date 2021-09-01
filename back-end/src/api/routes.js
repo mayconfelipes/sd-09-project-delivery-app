@@ -8,7 +8,8 @@ const sales = require('./controllers/saleController');
 
 routes.post('/login', rescue(logins.login));
 
-routes.post('/user', rescue(users.create));
+routes.post('/users/register', rescue(users.create));
+routes.get('/users/sellers', rescue(users.getSellers));
 
 routes.get('/products', rescue(products.findAll));
 routes.get('/images/:image', rescue(images.getImage));
