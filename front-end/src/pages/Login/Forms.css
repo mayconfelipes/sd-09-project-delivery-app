@@ -1,0 +1,35 @@
+.buttons {
+  align-items: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 3%;
+  width: 100%;
+}
+
+.login-Page {
+  background-color: whitesmoke;
+  border: 3px solid black;
+  border-radius: 2%;
+  box-shadow: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  left: 15%;
+  position: absolute;
+  top: 30%;
+  width: 70%;
+
+}
+
+.email-input, .password-input, .name-input, .role-input {
+  align-self: center;
+  display: flex;
+  margin-top: 10%;
+  width: 80%;
+}
+
+.signup-button, .signin-button {
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
+

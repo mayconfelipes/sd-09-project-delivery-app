@@ -97,7 +97,7 @@ function Admin() {
   return (
     <div className="login-Page">
       <input
-        className="user_name_input"
+        className="name-input"
         name="userName"
         value={ userName }
         data-testid={ `${prefix}input-name` }
@@ -105,7 +105,7 @@ function Admin() {
         placeholder="User Name"
       />
       <input
-        className="email_input"
+        className="email-input"
         name="email"
         value={ email }
         data-testid={ `${prefix}input-email` }
@@ -113,7 +113,7 @@ function Admin() {
         placeholder="User Email"
       />
       <input
-        className="password_input"
+        className="password-input"
         name="password"
         data-testid={ `${prefix}input-password` }
         value={ password }
@@ -121,7 +121,7 @@ function Admin() {
         placeholder="Password"
       />
       <select
-        className="role_input"
+        className="role-input"
         name="role"
         data-testid={ `${prefix}select-role` }
         value={ role }

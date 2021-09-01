@@ -8,6 +8,7 @@ const http = require('http').createServer(app);
 const userController = require('./controllers/users');
 const adminController = require('./controllers/admin');
 const productController = require('./controllers/product');
+const salesController = require('./controllers/sales');
 
 const images = path.join(__dirname, '..', '..', 'public');
 // const io = require('socket.io')(http, {
@@ -30,5 +31,6 @@ app.post('/login', userController.findUser);
 app.post('/register', userController.registerUser);
 app.post('/admin/register', adminController.registerUser);
 app.get('/products', productController.getAllProducts);
+app.get('/sales', salesController.getAll);
 
 http.listen(PORT, () => console.log('App listening on PORT %s', PORT));

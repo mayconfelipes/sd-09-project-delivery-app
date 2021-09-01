@@ -1,0 +1,10 @@
+.seller-card {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  margin: 3%;
+}
+
+.seller-itens {
+  margin-left: 3%;
+}

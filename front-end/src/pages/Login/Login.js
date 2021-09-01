@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Login.css';
+import './Forms.css';
 import { useHistory } from 'react-router-dom';
 
 import connectBack from '../../utills/axiosConfig';
@@ -21,6 +21,7 @@ function Login() {
     } else {
       trueOrFalse(true);
     }
+    setInvalidLogin(false);
   };
 
   const saveTokenLocalStorage = (user) => {
