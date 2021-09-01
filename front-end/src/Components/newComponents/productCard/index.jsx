@@ -1,22 +1,41 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
-import { useCart } from '../../../contexts/CartContext';
+import React, { useState } from 'react';
+import { useCart } from '../../../Contexts/CartContext';
 import './style.css';
 
 function ProductCard({ product }) {
   const [counter, setCounter] = useState(0);
-  const { totalPrice, setTotalPrice } = useCart();
+  const { totalPrice, setTotalPrice, setCartItems, cartItems } = useCart();
+
   const increment = () => {
     const price = Number(parseFloat(product.price).toFixed(2));
     setTotalPrice(totalPrice + price);
+    if (counter === 0) {
+      setCartItems([...cartItems, { ...product, quantity: 1 }]);
+    } else {
+      const currentProductIndex = cartItems.findIndex(({ id }) => id === product.id);
+      cartItems[currentProductIndex].quantity = counter + 1;
+      setCartItems(cartItems);
+    }
     setCounter(counter + 1);
   };
 
   const decrement = () => {
     if (counter > 0) {
-      const price = Number(parseFloat(product.price).toFixed(2));
-      setTotalPrice(totalPrice - price);
-      setCounter(counter - 1);
+      if (counter === 1) {
+        const filteredCartItems = cartItems.filter(({ id }) => id !== product.id);
+        setCartItems(filteredCartItems);
+        const price = Number(parseFloat(product.price).toFixed(2));
+        setTotalPrice(totalPrice - price);
+        setCounter(0);
+      } else {
+        const currentProductIndex = cartItems.findIndex(({ id }) => id === product.id);
+        cartItems[currentProductIndex].quantity = counter - 1;
+        setCartItems(cartItems);
+        const price = Number(parseFloat(product.price).toFixed(2));
+        setTotalPrice(totalPrice - price);
+        setCounter(counter - 1);
+      }
     } else {
       setCounter(0);
     }
@@ -40,9 +59,6 @@ function ProductCard({ product }) {
     }
     setCounter(quantity);
   };
-
-  useEffect(() => {
-  }, [product.url_image]);
 
   const convertDotToComma = (string) => string.replace(/\./g, ',');
 

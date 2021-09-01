@@ -3,7 +3,7 @@ import React from 'react';
 import { useCart } from '../../Contexts/CartContext';
 
 export default function OrderTable() {
-  const { cartItems, setCartItems, totalPrice } = useCart();
+  const { cartItems, setCartItems } = useCart();
 
   return (
     <>
@@ -24,7 +24,7 @@ export default function OrderTable() {
               <td
                 data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
               >
-                {id}
+                {i + 1}
               </td>
               <td
                 data-testid={ `customer_checkout__element-order-table-name-${i}` }
@@ -66,7 +66,6 @@ export default function OrderTable() {
          * a lógica de soma será feita em outro lugar
          */}
         Total:
-        {totalPrice}
         {` R$ ${cartItems.reduce(
           (acc, curr) => acc + curr.price * curr.quantity,
           0,

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 import { node } from 'prop-types';
 
 export const CartContext = createContext();

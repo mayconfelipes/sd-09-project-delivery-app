@@ -1,16 +1,15 @@
 import React from 'react';
 
-import NavBar from '../Components/newComponents/NavBar';
 import OrderTable from '../Components/newComponents/OrderTable';
 import OrderForms from '../Components/newComponents/OrderForms';
 
 import '../styles/Checkout.css';
+import NavBar from '../Components/newComponents/NabBar';
 
 export default function Checkout() {
   return (
     <section>
       <NavBar />
-
       {/* Componente Tabela de pedidos */}
       <section>
         <h3>Finalizar pedido</h3>
