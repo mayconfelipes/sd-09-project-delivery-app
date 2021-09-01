@@ -20,6 +20,9 @@ const Login = () => {
 
   const [isDataValid, setIsDataValid] = useState(true);
 
+  const [role, setRole] = useState('');
+  console.log(role);
+
   function handleInputChange(event) {
     event.preventDefault();
     const { name, value } = event.target;
@@ -44,13 +47,16 @@ const Login = () => {
     const { emailInput, passwordInput } = userData;
     const result = await login(emailInput, passwordInput);
     localStorage.setItem('user', JSON.stringify(result));
+    setRole(result.role);
     if (result.token) setIsLogged(true);
     else setInvalidLogin(true);
   };
 
   return (
     <section className={ style.loginContainer }>
-      { isLogged && <Redirect to="/customer/products" /> }
+      { isLogged && <Redirect
+        to={ role === 'customer' ? '/customer/products' : '/seller/orders' }
+      /> }
       <h1>APP Delivery</h1>
       <form className={ style.inputContainer }>
         <label htmlFor="inputEmail" className={ style.inputStyle }>

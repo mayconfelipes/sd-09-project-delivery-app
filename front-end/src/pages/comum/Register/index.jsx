@@ -39,7 +39,8 @@ const Register = () => {
 
   const sendLoginRequest = async () => {
     const { nameInput, emailInput, passwordInput } = userData;
-    const role = 'user';
+    const role = 'customer';
+    localStorage.setItem('user', JSON.stringify({ name: nameInput }));
     const { token } = await register(nameInput, emailInput, passwordInput, role);
     if (token) setIsLoggedStatus(true);
     else setCadasterFailure(true);
