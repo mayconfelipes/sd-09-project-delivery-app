@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import P from 'prop-types';
 import style from './productCard.module.scss';
 import useGlobalContext from '../../context/GlobalStateProvider';
@@ -10,29 +10,46 @@ const ProductCard = (
     description,
   },
 ) => {
-  const { setCartQuantity, cartQuantity } = useGlobalContext();
   const [quantity, setQuantity] = useState(0);
+  const [quantityItem, setQuantityItem] = useState(0);
 
-  // useEffect(() => {
-  //   setQuantity(quantity);
-  //   setCartQuantity({
-  //     ...cartQuantity, [id]: quantity });
-  // }, [cartQuantity, id, quantity, setCartQuantity]);
+  const { setCartQuantity, cartQuantity, setItemId } = useGlobalContext();
+
+  useEffect(() => {
+    setQuantityItem(quantity);
+  }, [cartQuantity, id, quantity, quantityItem]);
+
+  useEffect(() => {
+    setItemId(quantity);
+    const ifExistsArray = cartQuantity.filter((item) => item.id === id);
+    if (ifExistsArray.length > 0) {
+      ifExistsArray[0].quantity = quantity;
+    } else {
+      setCartQuantity([
+        ...cartQuantity, { id, quantity, price, description }]);
+    }
+  }, [cartQuantity, description, id, price, quantity, setCartQuantity, setItemId]);
+
+  useEffect(() => {
+    const localItems = JSON.parse(localStorage.getItem('cart'));
+    if (localItems.length) {
+      localItems.map((item) => item.id === id && setQuantity(item.quantity));
+    }
+  }, [id]);
 
   const onHandleDecrement = () => {
-    if (quantity === 0) return;
+    if (quantity <= 0) return;
+
     setQuantity(quantity - 1);
-    setCartQuantity({
-      ...cartQuantity, [id]: quantity });
   };
 
   const onHandleIncrement = () => {
     setQuantity(quantity + 1);
-    setCartQuantity({
-      ...cartQuantity, [id]: quantity });
   };
 
-  const onInputChange = () => null;
+  const onInputChange = (({ target }) => {
+    setQuantity(target.value);
+  });
 
   return (
     <div className={ style.productCardContainer }>
@@ -58,7 +75,7 @@ const ProductCard = (
           <input
             data-testid={ `customer_products__input-card-quantity-${id}` }
             type="text"
-            value={ quantity }
+            value={ quantityItem || 0 }
             name={ id }
             onChange={ onInputChange }
           />

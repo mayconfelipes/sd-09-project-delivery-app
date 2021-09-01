@@ -4,26 +4,23 @@ import P from 'prop-types';
 import style from './descriptionsContainer.module.scss';
 
 const DescriptionsBar = ({
-  index,
   isAboutUser = false,
   shouldDeleteApear = true,
   id,
+  itemId,
   userOrProductName,
   emailOrQuantity,
   userTypeOrValue,
   deleteOrPrice,
+  removeItem,
   dataTestIdId,
   dataTestIdUserOrProductName,
   dataTestIdEmailOrQuantity,
   dataTestIdUserTypeOrValue,
   dataTestIdDeleteOrPrice,
+  dataTestIdRemove,
 }) => {
   let gridStyle = null;
-  // const gridStyle = isAboutUser
-  //   ? style.userBar
-  //   : shouldDeleteApear
-  //     ? style.completeDescriptionsContainer
-  //     : style.descriptionsContainer;
 
   if (isAboutUser) {
     gridStyle = style.userBar;
@@ -35,28 +32,40 @@ const DescriptionsBar = ({
 
   return (
     <div className={ gridStyle }>
-      <div className={ style.firstGrid }>
-        <p data-testid={ dataTestIdId }>{ id }</p>
-      </div>
-      <div className={ style.secondGrid }>
-        <p data-testid={ dataTestIdUserOrProductName }>{ userOrProductName }</p>
-      </div>
-      <div className={ style.thirdGrid }>
-        <p data-testid={ dataTestIdEmailOrQuantity }>{ emailOrQuantity }</p>
-      </div>
-      <div className={ style.fourthGrid }>
-        <p data-testid={ dataTestIdUserTypeOrValue }>{ userTypeOrValue }</p>
-      </div>
-      <div className={ style.fifthGrid }>
-        <p data-testid={ dataTestIdDeleteOrPrice }>{ deleteOrPrice }</p>
-      </div>
+      <span className={ style.firstGrid } data-testid={ dataTestIdId }>{ id + 1 }</span>
+      <span
+        className={ style.secondGrid }
+        data-testid={ dataTestIdUserOrProductName }
+      >
+        { userOrProductName }
+      </span>
+      <span
+        className={ style.thirdGrid }
+        data-testid={ dataTestIdEmailOrQuantity }
+      >
+        { emailOrQuantity }
+      </span>
+      <span
+        className={ style.fourthGrid }
+        data-testid={ dataTestIdUserTypeOrValue }
+      >
+        { userTypeOrValue }
+      </span>
+      <span
+        className={ style.fifthGrid }
+        data-testid={ dataTestIdDeleteOrPrice }
+      >
+        { deleteOrPrice }
+      </span>
       { shouldDeleteApear && (
         <div className={ style.sixthGrid }>
-          <p
-            data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+          <button
+            type="button"
+            onClick={ () => removeItem(itemId) }
+            data-testid={ dataTestIdRemove }
           >
             Remover
-          </p>
+          </button>
         </div>
       ) }
     </div>
@@ -66,12 +75,12 @@ const DescriptionsBar = ({
 export default DescriptionsBar;
 
 DescriptionsBar.propTypes = {
-  index: P.string.isRequired,
   isAboutUser: P.bool.isRequired,
   shouldDeleteApear: P.bool.isRequired,
   id: P.string.isRequired,
+  itemId: P.string.isRequired,
   userOrProductName: P.string.isRequired,
-  emailOrQuantity: P.string.isRequired,
+  emailOrQuantity: P.number.isRequired,
   userTypeOrValue: P.string.isRequired,
   deleteOrPrice: P.string.isRequired,
   dataTestIdId: P.string.isRequired,
@@ -79,4 +88,6 @@ DescriptionsBar.propTypes = {
   dataTestIdEmailOrQuantity: P.string.isRequired,
   dataTestIdUserTypeOrValue: P.string.isRequired,
   dataTestIdDeleteOrPrice: P.string.isRequired,
+  removeItem: P.func.isRequired,
+  dataTestIdRemove: P.string.isRequired,
 };
