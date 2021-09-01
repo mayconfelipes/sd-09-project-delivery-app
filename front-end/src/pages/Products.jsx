@@ -11,17 +11,19 @@ function Products() {
   const {
     products,
     getProducts,
-    // productsCart,
     loading } = useContext(AppContext);
 
   const [local, setLocal] = useState({});
-
+  const router = useHistory();
   let total = 0;
+
+  const getProductsCartLocalStorage = () => (
+    JSON.parse(localStorage.getItem('productCart')));
+
   useEffect(() => {
     getProducts();
-    setLocal(JSON.parse(localStorage.getItem('productCart')));
+    setLocal(getProductsCartLocalStorage());
   }, [getProducts]);
-  const router = useHistory();
 
   useEffect(() => {
     if (!localStorage.getItem('user')) {
@@ -37,22 +39,24 @@ function Products() {
   });
 
   const addProduct = (name) => {
-    const localProductCart = JSON.parse(localStorage.getItem('productCart'));
+    const localProductCart = getProductsCartLocalStorage();
     const currentQty = localProductCart[name].quantity;
     localStorage.setItem('productCart', JSON.stringify({ ...localProductCart,
       [name]: { ...localProductCart[name], quantity: currentQty + 1 } }));
 
-    setLocal(JSON.parse(localStorage.getItem('productCart')));
+    setLocal(getProductsCartLocalStorage());
   };
 
   const decreasesProduct = (name) => {
-    const localProductCart = JSON.parse(localStorage.getItem('productCart'));
+    const localProductCart = getProductsCartLocalStorage();
     const currentQty = localProductCart[name].quantity;
+
     if (currentQty <= 0) return;
+
     localStorage.setItem('productCart', JSON.stringify({ ...localProductCart,
       [name]: { ...localProductCart[name], quantity: currentQty - 1 } }));
 
-    setLocal(JSON.parse(localStorage.getItem('productCart')));
+    setLocal(getProductsCartLocalStorage());
   };
 
   const totalPrice = () => {
@@ -64,7 +68,7 @@ function Products() {
     return total.toFixed(2);
   };
 
-  if (loading || !products.length || !Object.keys(local).length) {
+  if (loading || !products.length || (local && !Object.keys(local).length) || !local) {
     return (
       <div className="main">
         <Navbar />
@@ -72,7 +76,9 @@ function Products() {
       </div>
     );
   }
-  console.log(Object.keys(local));
+
+  console.log('passei');
+
   return (
     <div className="main">
       <Navbar />
@@ -129,12 +135,15 @@ function Products() {
       </main>
       <Link to="/customer/checkout">
         <button
-        // data-testid="customer_products__checkout-bottom-value"
           data-testid="customer_products__button-cart"
           type="button"
           className="button-cart"
         >
-          { `Ver Carrinho: ${totalPrice()} `}
+          <span
+            data-testid="customer_products__checkout-bottom-value"
+          >
+            { `Ver Carrinho: ${totalPrice()} `}
+          </span>
         </button>
       </Link>
     </div>

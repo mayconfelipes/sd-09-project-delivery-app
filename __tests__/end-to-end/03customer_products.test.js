@@ -76,7 +76,7 @@ describe(requirement(12), () => {
   );
 });
 
-describe.only(requirement(13), () => {
+describe(requirement(13), () => {
   test("O avaliador testará se o local storage contém os dados da pessoa usuária", async () => {
     const { name, email } = user.customer();
 
@@ -168,7 +168,7 @@ describe.only(requirement(15), () => {
         customerProductsPage.button.card.addItem +
         `[data-testid$='-${productId}']`,
       clickCount: quantity,
-      delay: 100,
+      delay: 2000,
     });
 
     await expect(page).toGetValueFromElement(
@@ -184,7 +184,7 @@ describe.only(requirement(15), () => {
         customerProductsPage.button.card.rmItem +
         `[data-testid$='-${productId}']`,
       clickCount: quantity * 2,
-      delay: 100,
+      delay: 2000,
     });
 
     await expect(page).toGetValueFromElement(
