@@ -1,4 +1,6 @@
-const Register = (name, email, password, role) => {
+const AppJson = 'application/json';
+
+const register = (name, email, password, role) => {
   const body = JSON.stringify({
     name,
     email,
@@ -9,11 +11,21 @@ const Register = (name, email, password, role) => {
   return fetch('http://localhost:3001/register', {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      Accept: AppJson,
+      'Content-Type': AppJson,
     },
     body,
   }).then((response) => response.json());
 };
 
-export default Register;
+const getRegister = async (role, Auth) => fetch(`http://localhost:3001/register/:${role}`, {
+  method: 'GET',
+  headers: {
+    Accept: AppJson,
+    'Content-Type': AppJson,
+    Authorization: Auth,
+  },
+}).then((response) => response.json())
+  .then((data) => data);
+
+export { register, getRegister };

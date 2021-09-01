@@ -1,9 +1,5 @@
-const sales = async (
-  { userId,
-    sellerId,
-    totalPrice,
-    deliveryAddress,
-    deliveryNumber }) => {
+const sales = async ({
+  userId, sellerId, totalPrice, deliveryAddress, deliveryNumber }) => {
   const body = JSON.stringify({
     userId,
     sellerId,

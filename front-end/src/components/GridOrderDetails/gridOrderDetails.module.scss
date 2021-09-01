@@ -1,6 +1,6 @@
 .gridWithRemoveItem, .gridWithoutRemoveItem {
   display: grid;
-  font-size: 2rem;
+  font-size: 1.8rem;
   grid-template-rows: 1fr;
   grid-template-areas: 
     "firstGrid secondGrid thirdGrid fourthGrid fifthGrid sixthGrid";
