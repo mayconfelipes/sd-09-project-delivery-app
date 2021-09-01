@@ -2,7 +2,7 @@ const Sale = (sequelize, DataTypes) => {
   const newSale = sequelize.define('sale', {
     user_id: DataTypes.INTEGER,
     seller_id: DataTypes.INTEGER,
-    total_price: DataTypes.DOUBLE,
+    total_price: DataTypes.DECIMAL(5,2),
     delivery_address: DataTypes.STRING,
     delivery_number: DataTypes.STRING,
     sale_date: DataTypes.DATE,
@@ -15,7 +15,7 @@ const Sale = (sequelize, DataTypes) => {
       { foreignKey: 'user_id', as: 'user' });
     newSale.belongsTo(models.user,
       { foreignKey: 'seller_id', as: 'seller' });
-  };
+    }
 
   return newSale;
 };

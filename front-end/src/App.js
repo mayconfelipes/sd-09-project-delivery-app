@@ -6,6 +6,9 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import Checkout from './pages/Checkout';
 import Admin from './pages/Admin';
+import CustomerOrderDetails from './pages/CustomerOrderDetails';
+import SellerOrderDetails from './pages/SellerOrderDetails';
+import OrdersPage from './pages/OrdersPage';
 
 import './App.css';
 
@@ -19,6 +22,10 @@ function App() {
       <Route path="/register" component={ Register } />
       <Route path="/customer/products" component={ Products } />
       <Route path="/customer/checkout" component={ Checkout } />
+      <Route path="/customer/orders/:id" component={ CustomerOrderDetails } />
+      <Route path="/customer/orders" component={ OrdersPage } />
+      <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
+      <Route path="/seller/orders" component={ OrdersPage } />
       <Route path="/admin/manage" component={ Admin } />
     </Switch>
   );

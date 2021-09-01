@@ -17,6 +17,7 @@ const loginUser = (user) => {
 
 const registerUser = (newUser) => {
   const endpoint = `${URL}/users/register`;
+  console.log(endpoint);
   return fetch(endpoint, {
     method: 'POST',
     headers: {
@@ -44,6 +45,33 @@ const registerUserWithAdmin = (newUser, token) => {
     .catch((err) => err);
 };
 
+// pega uma venda do database
+const getSaleById = (id) => {
+  const endpoint = `${URL}/sales/${id}`;
+  return fetch(endpoint, {
+    headers: {
+      'Content-Type': CONTENT,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
+// dado um id pega todos os items de uma venda pelo id da venda
+const getSaleItems = (id) => {
+  const endpoint = `${URL}/sales/items/${id}`;
+
+  return fetch(endpoint, {
+    headers: {
+      'Content-Type': CONTENT,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
 const getAllProducts = (token) => {
   const endpoint = `${URL}/customer/products`;
   return fetch(endpoint, {
@@ -58,6 +86,7 @@ const getAllProducts = (token) => {
     .catch((err) => err);
 };
 
+// checkout feature
 const saveOrder = (orderData) => {
   const endpoint = `${URL}/customer/checkout`;
   return fetch(endpoint, {
@@ -73,10 +102,28 @@ const saveOrder = (orderData) => {
     .catch((err) => err);
 };
 
+// main-group-3
+const getAllSales = (token) => {
+  const endpoint = `${URL}/sales`;
+  return fetch(endpoint, {
+    method: 'GET',
+    headers: {
+      'Content-Type': CONTENT,
+      authorization: token,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
 export default {
   loginUser,
   registerUser,
   registerUserWithAdmin,
+  getSaleById,
+  getSaleItems,
   getAllProducts,
   saveOrder,
+  getAllSales,
 };
