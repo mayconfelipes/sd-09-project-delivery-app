@@ -11,13 +11,12 @@ import {
 import assets from '../../Assets';
 import testIds from '../../utils/testIds';
 import useLoginInfo from '../../hooks/useLoginInfo';
-import { PostLogin } from '../../Services/Api';
+import useLoginApi from '../../hooks/useLoginApi';
 
 const LoginPage = () => {
   const { loginInfo, handleFieldsChange, isValidInfo } = useLoginInfo();
-  const loginUser = (data) => () => {
-    PostLogin(data);
-  };
+  const { isValidLogin, loginUser } = useLoginApi();
+
   return (
     <Container>
       <Image src={ assets.images.logo } />
@@ -53,9 +52,11 @@ const LoginPage = () => {
         <Button data-test-id={ testIds.id4 }>
           Ainda não tenho conta
         </Button>
-        <Wrapper data-test-id={ testIds.id5 }>
-          Mensagem de erro
-        </Wrapper>
+        { isValidLogin || (
+          <Wrapper data-test-id={ testIds.id5 }>
+            Mensagem de erro
+          </Wrapper>
+        )}
       </Wrapper>
     </Container>
   );
