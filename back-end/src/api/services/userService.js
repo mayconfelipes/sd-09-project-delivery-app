@@ -1,6 +1,6 @@
 const md5 = require('md5');
 const { User } = require('../../database/models');
-const { isValidToken, generateToken } = require('./utils/tokenValidate');
+const { generateToken } = require('./utils/tokenValidate');
 const { isValidUserFields } = require('./utils/userValidate');
 
 const create = async (user) => {
@@ -10,19 +10,11 @@ const create = async (user) => {
   
   const userData = await User.create(newUser);
   const token = generateToken(userData.dataValues);
-  const result = { token };
-  return result;
-};
-
-const findAll = async (authorization) => {
-  isValidToken(authorization);
-  const result = await User.findAll(
-    { attributes: { exclude: ['password'] } },
-  );
+  const { name, email, role } = userData.dataValues;
+  const result = { name, email, role, token };
   return result;
 };
 
 module.exports = {
   create,
-  findAll,
 };
