@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import api from '../../service/axiosApi';
-import NotFound from '../../components/NotFound';
+import NotFound from '../../components/NotFound/index';
 import { useDeliveryContext } from '../../context/deliveryProvider';
 
 const Login = () => {
@@ -31,7 +31,6 @@ const Login = () => {
     const data = userData;
     try {
       await api.post('/login', data).then((response) => {
-        console.log(response.data);
         localStorage.setItem('user', JSON.stringify(response.data));
       });
       setRedirect(true);

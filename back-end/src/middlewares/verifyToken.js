@@ -6,9 +6,9 @@ const pathJWT = path.resolve(__dirname, '..', '..', 'jwt.evaluation.key');
 
 const verifyToken = async (token) => {
   try {
-    const secret = await fs.readFile(pathJWT, 'utf-8');
+    const secret = await (await fs.readFile(pathJWT, 'utf-8')).trim();
     const decoded = jwt.verify(token, secret);
-    
+
     return decoded;
   } catch (error) {
     return {
