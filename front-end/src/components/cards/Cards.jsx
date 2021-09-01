@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import addToLocal from '../../services/products';
 
 export default function Cards({ cardInfos, retrieveSumFromChild }) {
   const [currentQuantityToBuy, setCurrentQuantityToBuy] = useState(0);
@@ -9,6 +10,18 @@ export default function Cards({ cardInfos, retrieveSumFromChild }) {
   const { price, nameAndQuantityInMl, thumbNail, id } = cardInfos;
   const minimumToRemove = -1;
   const minimumToAdd = 1;
+
+  useEffect(() => {
+    const createObjectToSaveInLocalStorage = (quantity) => {
+      const obj = { id, nameAndQuantityInMl, price, quantity, thumbNail };
+      return obj;
+    };
+    const saveToStorage = (objToSave) => {
+      addToLocal(objToSave);
+    };
+
+    saveToStorage(createObjectToSaveInLocalStorage(currentQuantityToBuy));
+  }, [id, nameAndQuantityInMl, price, thumbNail, currentQuantityToBuy]);
 
   const sumValueOfProducts = (quantity) => {
     const newPriceSum = price * (currentQuantityToBuy + quantity);
@@ -45,7 +58,12 @@ export default function Cards({ cardInfos, retrieveSumFromChild }) {
         {' '}
         {price}
       </p>
-      <div>
+      <div
+        style={ {
+          display: 'flex',
+          justifyContent: 'center',
+        } }
+      >
         <img
           data-testid={ `customer_products__img-card-bg-image-${id}` }
           style={ {
@@ -115,7 +133,9 @@ export default function Cards({ cardInfos, retrieveSumFromChild }) {
               height: '31px',
               textAlign: 'center',
             } }
+            data-testid={ `customer_products__input-card-quantity-${id}` }
             value={ currentQuantityToBuy }
+            type="number"
             onChange={ (e) => {
               setCurrentQuantityToBuy(Number(e.target.value));
             } }
