@@ -22,7 +22,22 @@ const findAll = async (authorization) => {
   isValidToken(authorization);
   
   const result = await Sale.findAll({
-    attributes: { exclude: ['user_id', 'seller_id'] }, 
+    attributes: { exclude: ['userId', 'sellerId'] }, 
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: User, as: 'seller', attributes: { exclude: ['password'] } },
+      { model: Product, as: 'products', through: { attributes: [] } },
+    ],
+  });
+
+  return result;
+};
+
+const findById = async (id, authorization) => {
+  isValidToken(authorization);
+  
+  const result = await Sale.findByPk(id, {
+    attributes: { exclude: ['userId', 'sellerId'] },
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: User, as: 'seller', attributes: { exclude: ['password'] } },
@@ -36,4 +51,5 @@ const findAll = async (authorization) => {
 module.exports = {
   create,
   findAll,
+  findById,
 };
