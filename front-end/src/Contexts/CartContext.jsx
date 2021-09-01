@@ -27,8 +27,12 @@ export function CartProvider({ children }) {
     setCartItems(...cartItems, { ...item });
   }
 
+  function updateTotalPrice() {
+    return totalPrice;
+  }
+
   const context = {
-    cartItems, setCartItems, addCartItem, totalPrice, setTotalPrice,
+    cartItems, setCartItems, addCartItem, totalPrice, setTotalPrice, updateTotalPrice,
   };
 
   return (

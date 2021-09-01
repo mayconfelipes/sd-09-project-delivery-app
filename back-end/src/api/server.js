@@ -21,7 +21,7 @@ app.post('/login', loginController.newLogin);
 app.get('/products', tokenValidController.checkUser, productsController.getAll);
 app.get('/images/:path', tokenValidController.checkUser, productsController.getImage);
 
-app.get('/sellers', tokenValidController.checkUser, sellerController.allSellers);
+app.get('/sellers', sellerController.allSellers);
 
 app.post('/sale', tokenValidController.checkUser, salesController.create);
 app.get('/sale', tokenValidController.checkUser, salesController.findAll);

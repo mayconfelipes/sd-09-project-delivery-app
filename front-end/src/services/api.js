@@ -35,7 +35,11 @@ export const userLogin = async ({ email, password }) => {
 };
 
 export const closeOrder = async (orderInfo) => {
-  const request = await fetch('http://localhost:3001/sale', options('POST', orderInfo, 'token'));
+  const userToken = JSON.parse(localStorage.getItem('user'))
+    ? JSON.parse(localStorage.getItem('user')).token
+    : 'token';
+
+  const request = await fetch('http://localhost:3001/sale', options('POST', orderInfo, userToken));
 
   const response = await request.json();
   return response;
