@@ -1,11 +1,10 @@
+const http = require('http');
+const { Server } = require('socket.io');
 const express = require('express');
 // const http = require('http');
 const cors = require('cors');
 const User = require('./controllers/users');
 const Product = require('./controllers/products');
-
-const http = require('http');
-const { Server } = require('socket.io');
 
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
@@ -18,7 +17,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
 
-require('../api/sockets')(io);
+require('../sockets')(io);
 
 app.use((_req, res, next) => {
   res.io = io;
