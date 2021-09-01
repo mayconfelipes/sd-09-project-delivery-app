@@ -102,6 +102,7 @@
 }
 
 .list-products {
+  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -151,15 +152,15 @@
 
 .btn-cart {
   position: fixed;
-  right: 5px;
+  right: 2px;
   top: 10%;
   z-index: 999;
 }
 
 .bt-cart-img {
   cursor: pointer;
-  height: 100px;
-  width: 100px;
+  height: 120px;
+  width: 120px;
 }
 
 .btn-invisivel {
@@ -174,13 +175,14 @@
   border-radius: 100%;
   border: 0;
   color: white;
+  cursor: pointer;
   font-weight: 800;
-  padding: 18px 15px 18px 15px;
+  width: 60px;
+  height: 60px;
   position: fixed;
-  right: 20px;
+  right: 27px;
   top: 11%;
   z-index: 999;
-  cursor: pointer;
 }
 
 .btn-cart-desabled {
