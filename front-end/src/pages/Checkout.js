@@ -20,19 +20,23 @@ const Checkout = () => {
     <>
       {/* <Header /> */}
       <h2>Finalizar Pedido</h2>
-      <div className="cart-row">
-        <span className="grow-1">Item</span>
-        <span className="grow-3">Descrição</span>
-        <span className="grow-1">Quantidade</span>
-        <span className="grow-1">Valor Unitário</span>
-        <span className="grow-1">Sub-total</span>
-        <span className="grow-1">Remover Item</span>
-      </div>
-      <div className="cart-row">
-        {shoppingCart.length ? shoppingCart.map((product, index) => (
-          <CheckoutItem key={ product.id } index={ index } product={ product } />
-        )) : 'Apenas teias de aranha em seu carrinho...'}
-      </div>
+      <table>
+        <thead className="cart-row">
+          <tr>
+            <th className="grow-1">Item</th>
+            <th className="grow-3">Descrição</th>
+            <th className="grow-1">Quantidade</th>
+            <th className="grow-1">Valor Unitário</th>
+            <th className="grow-1">Sub-total</th>
+            <th className="grow-1">Remover Item</th>
+          </tr>
+        </thead>
+        <tbody className="cart-row">
+          {shoppingCart.length ? shoppingCart.map((product, index) => (
+            <CheckoutItem key={ product.id } index={ index } product={ product } />
+          )) : 'Apenas teias de aranha em seu carrinho...'}
+        </tbody>
+      </table>
       <div
         data-testid="customer_checkout__element-order-total-price"
       >
