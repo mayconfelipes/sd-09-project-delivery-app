@@ -6,7 +6,7 @@ import TextInput from '../components/TextInput';
 import DropDownList from '../components/DropDownList';
 import api from '../services/api';
 import AppContext from '../context/AppContext';
-import dataIds from '../utils/dataTestIds'; // mudar datatestids
+import testIds from '../utils/dataTestIds'; // mudar datatestids
 import {
   setCarrinhoLocalStorage,
   getCarrinhoLocalStorage,
@@ -80,7 +80,7 @@ function Checkout() {
         </tbody>
       </table>
       <section>
-        <p data-TestId={ dataIds[28] }>
+        <p data-TestId={ testIds[28] }>
           Total: R$
           { totalCart }
         </p>
@@ -93,7 +93,7 @@ function Checkout() {
           onChange={ handleChange }
           labelText="Endereço"
           placeholderText="Seu endereço aqui"
-          data-TestId={ dataIds[30] }
+          data-TestId={ testIds[30] }
         />
         <TextInput
           type="text"
@@ -101,19 +101,19 @@ function Checkout() {
           onChange={ handleChange }
           labelText="Endereço"
           placeholderText="Seu endereço aqui"
-          data-TestId={ dataIds[31] }
+          data-TestId={ testIds[31] }
         />
         <DropDownList
           options={ options }
           name="seller"
-          dataTestId={ dataIds[29] }
+          dataTestId={ testIds[29] }
           onChange={ handleChange }
         />
         <LargeButton
           buttonText="FINALIZAR PEDIDO"
           // isDisabled={ disableButton }
           onClick={ handleClick }
-          dataTestId={ dataIds[32] }
+          dataTestId={ testIds[32] }
         />
       </section>
     </main>
