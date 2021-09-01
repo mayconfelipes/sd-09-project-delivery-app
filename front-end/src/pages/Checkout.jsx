@@ -1,30 +1,17 @@
 import React, { useState } from 'react';
+// import AppContext from '../hooks/context';
 import Navbar from '../components/Navbar';
 import styles from '../css/Checkout.module.css';
 import '../App.css';
 
 function Checkout() {
+  // const { productsCart } = useContext(AppContext);
   const INITIAL_STATE = { seller: '', address: '', numberHouse: '' };
   const [detailsForm, setDetailsForm] = useState(INITIAL_STATE);
   let total = 0;
 
-  const orders = [
-    {
-      name: 'produto 1',
-      price: '3.50',
-      quantity: 3,
-    },
-    {
-      name: 'produto 2',
-      price: '4.10',
-      quantity: 4,
-    },
-    {
-      name: 'produto 3',
-      price: '1.56',
-      quantity: 1,
-    },
-  ];
+  const orders = Object.values(JSON.parse(localStorage.getItem('productCart')))
+    .filter(({ quantity }) => quantity > 0);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -61,6 +48,8 @@ function Checkout() {
       {value}
     </span>
   );
+
+  console.log(orders);
 
   return (
     <div className="main">

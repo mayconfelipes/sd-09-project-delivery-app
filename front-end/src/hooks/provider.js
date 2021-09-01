@@ -7,7 +7,8 @@ import AppContext from './context';
 function Provider({ children }) {
   const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const [productsCart, setProductsCart] = useState({});
+  const [loading, setLoading] = useState(true);
   const router = useHistory();
 
   const signIn = async (email, password) => {
@@ -20,11 +21,25 @@ function Provider({ children }) {
     }
   };
 
+  const setProductCartInLocalStorage = (data) => {
+    localStorage.setItem('productCart', JSON.stringify(data));
+  };
+
   const getProducts = async () => {
     if (products.length) return;
     try {
       const response = await axios.get('http://localhost:3001/products');
       setProducts(response.data);
+      const productObject = {};
+      response.data.forEach(({ name, price }) => {
+        productObject[name] = { name, quantity: 0, price };
+      });
+      setProductsCart(productObject);
+      if (!JSON.parse(localStorage.getItem('productCart'))) {
+        setLoading(false);
+        return setProductCartInLocalStorage(productObject);
+      }
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -41,6 +56,10 @@ function Provider({ children }) {
     getProducts,
     products,
     setUserInLocalStorage,
+    productsCart,
+    setProductsCart,
+    loading,
+    setProductCartInLocalStorage,
   };
 
   return (
