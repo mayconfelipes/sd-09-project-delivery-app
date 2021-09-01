@@ -4,51 +4,59 @@ import api from '../services/api';
 
 function Checkout() {
   // const { cart, setCart } = useContext(Provider);
-  const [loading, setLoading] = useState(false);
+  // const [seller, setSeller] = ('Fulana Pereira');
+  const [salesDetails, setSalesDetails] = useState({
+    userId: 1,
+    sellerId: 1,
+    totalPrice: 100,
+    deliveryAdress: '',
+    deliveryNumber: 0,
+    status: 'pendente',
+    saleDate: Date.now() });
   const [products, setProducts] = useState([]);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
-    api.get('product')
-      .then((res) => setProducts(res.data));
-    setLoading(false);
+    api.get('product').then((res) => setProducts(res.data));
+    api.get('user').then((res) => setUser(res.data));
   }, []);
 
-  console.log(loading);
+  console.log(user);
   console.log(products);
+  console.log(salesDetails);
 
-  const productsTbobyRender = () => {
-    if (loading) return <h3>Carregando...</h3>;
-
-    return products.map((product, index) => (
-      <tr key={ `${product.id}` }>
-        <td data-testid={ `customer_checkout__element-order-table-item-number-${index}` }>
-          {index + 1}
-        </td>
-        <td data-testid={ `customer_checkout__element-order-table-name-${index}` }>
-          {product.name}
-        </td>
-        <td data-testid={ `customer_checkout__element-order-table-quantity-${index}` }>
-          Quantidade carrinho
-        </td>
-        <td data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }>
-          {product.price}
-        </td>
-        <td data-testid={ `checkout__element-order-table-sub-total-${index}` }>
-          Sub total carrinho
-        </td>
-        <td>
-          <button
-            type="button"
-            data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-            onClick={ setProducts(products.filter((prod) => id !== prod.id)) }
-          >
-            Remover
-          </button>
-        </td>
-      </tr>
-    ));
+  const removeProductOnClick = (id) => {
+    setProducts(products.filter((product) => id !== product.id));
   };
+
+  const productsTbobyRender = () => products.map((product, index) => (
+    <tr key={ `${product.id}` }>
+      <td data-testid={ `customer_checkout__element-order-table-item-number-${index}` }>
+        {index + 1}
+      </td>
+      <td data-testid={ `customer_checkout__element-order-table-name-${index}` }>
+        {product.name}
+      </td>
+      <td data-testid={ `customer_checkout__element-order-table-quantity-${index}` }>
+        Quantidade carrinho
+      </td>
+      <td data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }>
+        {product.price}
+      </td>
+      <td data-testid={ `checkout__element-order-table-sub-total-${index}` }>
+        Sub total carrinho
+      </td>
+      <td>
+        <button
+          type="button"
+          data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+          onClick={ () => removeProductOnClick(product.id) }
+        >
+          Remover
+        </button>
+      </td>
+    </tr>
+  ));
 
   const cartTableRender = () => (
     <table>
@@ -66,18 +74,46 @@ function Checkout() {
     </table>
   );
 
-  /* const detailsAndAdressRender = () => (
+  const dropDownSellers = () => (
+    <select value="Fulana Pereira" data-testid="customer_checkout__select-seller">
+      <option value="Fulana Pereira">Fulana Pereira</option>
+    </select>
+  );
+
+  const detailsAndAdressRender = () => (
     <table>
       <thead>
         <tr>
-          <th>P.Vendedora Responsável</th>
+          <th>P. Vendedora Responsável</th>
           <th>Endereço</th>
           <th>Número</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        <tr>
+          <td>{dropDownSellers()}</td>
+          <td>
+            <input
+              data-testid="customer_checkout__input-address"
+              type="text"
+              onChange={
+                ({ target }) => setSalesDetails({ deliveryAdress: target.value })
+              }
+            />
+          </td>
+          <td>
+            <input
+              data-testid="customer_checkout__input-addressNumber"
+              type="text"
+              onChange={
+                ({ target }) => setSalesDetails({ deliveryNumber: target.value })
+              }
+            />
+          </td>
+        </tr>
+      </tbody>
     </table>
-  ); */
+  );
 
   return (
     <div>
@@ -88,6 +124,14 @@ function Checkout() {
       </h1>
       <hr />
       <h3>Detalhes do pedido para entrega</h3>
+      {detailsAndAdressRender()}
+      <button
+        data-testid="customer_checkout__button-submit-order"
+        type="button"
+        onClick={ () => api.post('/sale', salesDetails) }
+      >
+        FINALIZAR PEDIDO
+      </button>
     </div>
   );
 }
