@@ -1,0 +1,92 @@
+.product-card {
+  display:flex;
+  flex-direction: column;
+  width: 200px;
+  background-color: #1F1D2B;
+  align-items: center;
+  border-radius: 20px;
+  padding: 20px 10px;
+  margin: 10px;
+  transition: 0.3s;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.product-card img {
+  border-radius: 8px;
+  height: 130px;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+.product-card-name {
+  color: #fff;
+}
+
+.product-card-price {
+  color: #fff;
+}
+
+.product-card-counter {
+  display: flex;
+}
+
+.product-card-counter input {
+  text-align: center;
+  width: 30px;
+  background-color: #2D303E;
+  padding: 14px;
+  border: 1px solid #393C49;
+  margin-bottom: 15px;
+  color: #E0E6E9;
+  outline: none;
+}
+
+.product-card-counter input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  /*  https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp */
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.product-card-counter input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.product-card-counter button {
+  /*  https://codepen.io/kanishkkunal/pen/KwpGNa  */
+  background-color: #EA7C69;
+  height: 40px;
+  width: 40px;
+  text-decoration:none;
+  border:solid 1px #f39c12;
+  text-align:center;
+  padding:16px 18px 14px;
+  cursor: pointer;
+
+  -webkit-transition: all 0.1s;
+	-moz-transition: all 0.1s;
+	transition: all 0.1s;
+	
+  -webkit-box-shadow: 0px 4px 0px #d35400;
+  -moz-box-shadow: 0px 4px 0px #d35400;
+  box-shadow: 0px 4px 0px #d35400;
+}
+
+.product-card-counter button:first-of-type {
+  border-radius: 8px 0 0 8px;
+}
+
+.product-card-counter button:last-of-type {
+  border-radius: 0 8px 8px 0;
+}
+
+.product-card-counter button:active{
+  -webkit-box-shadow: 0px 2px 0px #d35400;
+  -moz-box-shadow: 0px 2px 0px #d35400;
+  box-shadow: 0px 2px 0px #d35400;
+  position:relative;
+  top:4px;
+}
