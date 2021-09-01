@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import jwt from 'jsonwebtoken';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import AppContext from '../hooks/context';
 import Navbar from '../components/Navbar';
-import '../App.css';
+// import '../App.css';
 import ProductCard from '../components/ProductCard';
 
 const SECRET_KEY = 'minhachavesecreta';
@@ -15,22 +15,20 @@ function Products() {
     productsCart,
     loading } = useContext(AppContext);
 
-  // const [local, setLocal] = useState({});
   const router = useHistory();
   let total = 0;
 
-  // const getProductsCartLocalStorage = () => (
-  //   JSON.parse(localStorage.getItem('productCart')));
+  const test = useCallback(() => getProducts(), [getProducts]);
 
   useEffect(() => {
-    getProducts();
-    // setLocal(getProductsCartLocalStorage());
-  }, [getProducts]);
+    test();
+  }, [test]);
 
   useEffect(() => {
     if (!localStorage.getItem('user')) {
       return router.push('/');
     }
+    console.log('oi');
     const { token } = JSON.parse(localStorage.getItem('user'));
     try {
       jwt.verify(token, SECRET_KEY);
@@ -38,14 +36,19 @@ function Products() {
       localStorage.removeItem('user');
       router.push('/');
     }
-  });
+  }, [router]);
+
+  const handleClick = () => {
+    localStorage.setItem('productCart', JSON.stringify(productsCart));
+    router.push('/customer/checkout');
+  };
 
   const totalPrice = () => {
     const productsKeys = Object.keys(productsCart);
     productsKeys.forEach((product) => {
       total += productsCart[product].quantity * Number(productsCart[product].price);
     });
-
+    console.log(total);
     return total.toFixed(2).toString().replace(/\./ig, ',');
   };
 
@@ -73,19 +76,18 @@ function Products() {
           }
         </ul>
       </main>
-      <Link to="/customer/checkout">
-        <button
-          data-testid="customer_products__button-cart"
-          type="button"
-          className="button-cart"
+      <button
+        data-testid="customer_products__button-cart"
+        type="button"
+        className="button-cart"
+        onClick={ handleClick }
+      >
+        <span
+          data-testid="customer_products__checkout-bottom-value"
         >
-          <span
-            data-testid="customer_products__checkout-bottom-value"
-          >
-            { totalPrice() }
-          </span>
-        </button>
-      </Link>
+          { totalPrice() }
+        </span>
+      </button>
     </div>
   );
 }

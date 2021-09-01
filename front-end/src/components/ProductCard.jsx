@@ -20,24 +20,23 @@ function ProductCard({ product }) {
   };
 
   const addProduct = () => {
-    const currentQty = stateProduct.quantity;
-    setProductsCart({
-      ...productsCart,
-      [name]: { ...productsCart[name], quantity: currentQty + 1 } });
-    setStateProduct({ ...stateProduct, quantity: currentQty + 1 });
+    // const currentQty = stateProduct.quantity;
+    setStateProduct((oldState) => ({ ...oldState, quantity: oldState.quantity + 1 }));
+    setProductsCart((oldState) => ({
+      ...oldState,
+      [name]: { ...oldState[name], quantity: oldState[name].quantity + 1 } }));
   };
 
   const decreasesProduct = () => {
     const currentQty = stateProduct.quantity;
     if (currentQty >= 1) {
-      setProductsCart({
-        ...productsCart,
-        [name]: { ...productsCart[name], quantity: currentQty - 1 } });
-      setStateProduct({ ...stateProduct, quantity: currentQty - 1 });
+      setStateProduct((oldState) => ({ ...oldState, quantity: oldState.quantity - 1 }));
+      setProductsCart((oldState) => ({
+        ...oldState,
+        [name]: { ...oldState[name], quantity: oldState[name].quantity - 1 } }));
     }
   };
 
-  console.log(stateProduct);
   return (
     <li
       key={ index }
@@ -77,7 +76,7 @@ function ProductCard({ product }) {
         <button
           data-testid={ `customer_products__button-card-add-item-${id}` }
           type="button"
-          onClick={ () => addProduct() }
+          onClick={ addProduct }
         >
           +
         </button>
