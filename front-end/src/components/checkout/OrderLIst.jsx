@@ -17,12 +17,20 @@ const OrderLIst = () => {
 
   // const { name, unitPrice, quantity, subTotal } = cart[i];
 
-  const teste = [{
-    name: 'cerveja skol',
-    unitPrice: 5,
-    quantity: 3,
-    subTotal: 15,
-  }];
+  const teste = [
+    {
+      name: 'cerveja Skol',
+      unitPrice: 5.00,
+      quantity: 3,
+      subTotal: 15.00,
+    },
+    {
+      name: 'cerveja Stela',
+      unitPrice: 10.00,
+      quantity: 2,
+      subTotal: 20.00,
+    },
+  ];
 
   return (
     <div className="order-list-container">
