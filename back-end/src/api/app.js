@@ -14,7 +14,7 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 app.post('/login', User.login);
 app.post('/register', User.register);
 
-app.post('/customer/checkout', Sale.checkOut);
+app.post('/customer/checkout', authMiddleware, Sale.checkOut);
 
 app.use(errorMiddleware);
 
