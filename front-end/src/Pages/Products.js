@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import NavBar from '../Components/newComponents/NabBar';
 import ProductCard from '../Components/newComponents/productCard';
 import { getProducts } from '../services/api';
+import CartButton from '../Components/newComponents/CartButton';
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -18,6 +19,7 @@ function Products() {
       <NavBar />
       {products.length > 0 && products
         .map((prod) => <ProductCard product={ prod } key={ prod.id } />)}
+      <CartButton />
     </>
   );
 }
