@@ -4,7 +4,7 @@ const { jwtValidate } = require('../middlewares/jwtValidation');
 
 const router = express.Router();
 
-router.get('/', jwtValidate, getAllP);
+router.get('/', jwtValidate,getAllP);
 router.get('/:id', jwtValidate, getPById);
 
 module.exports = router;
