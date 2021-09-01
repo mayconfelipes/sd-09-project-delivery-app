@@ -3,8 +3,8 @@
 const { product } = require('../../database/models');
 
 const getAllProducts = async () => {
-  console.log('getAllProducts');
-  product.findAll();
+  const products = await product.findAll();
+  return products
 };
 const getProductById = async (id) => product.findOne({ where: { id } });
 

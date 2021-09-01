@@ -1,15 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cart from '../Cart/Cart';
 import NavBar from '../components/NavBar';
 import ProductsCard from '../components/ProductsCard';
-import { LoginContext } from '../context/loginContext';
 import './Products.css';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const { role, name } = useContext(LoginContext);
   const user = JSON.parse(localStorage.getItem('User'));
-  const { token } = user;
+  const { token, role, name } = user;
+
   async function getData() {
     const myInit = {
       method: 'GET',
@@ -21,9 +20,11 @@ const Products = () => {
     };
     await fetch('http://localhost:3001/customer/products', myInit)
       .then((response) => response.json())
-      .then((data) => console.log(data, setProducts([])))
+      .then((data) => setProducts(data.products))
       .catch((err) => console.log(err));
   }
+
+  console.log('renderizei', products);
 
   useEffect(() => {
     getData();
@@ -36,10 +37,9 @@ const Products = () => {
         userName={ name }
       />
       <div className="wrapper-card-product">
-        { products && products.length > 0 && (
-          products.map((product) => (
-            <ProductsCard key={ product.id } product={ product } />
-          ))) }
+        { products && products.length > 0 && products.map((product) => (
+          <ProductsCard key={ product.id } product={ product } />
+        )) }
       </div>
       <Cart />
     </div>

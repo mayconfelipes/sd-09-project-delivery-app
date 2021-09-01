@@ -4,6 +4,7 @@ import { LoginContext } from '../context/loginContext';
 import './ProductsCard.css';
 
 const ProductsCard = ({ product }) => {
+  console.log(product);
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart } = useContext(LoginContext);
   const { id, name, price, url_image: urlImage } = product;
