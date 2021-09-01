@@ -64,6 +64,7 @@ const register = async (name, email, password) => {
 
     return token;
   } catch (error) {
+
     throw errorHelper(409, '"Email" or "Name" already used');
   }
 };
