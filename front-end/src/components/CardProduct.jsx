@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import '../styles/CardProduct.css';
+// import '../styles/CardProduct.css';
 
 function CardProduct({ product }) {
   const { name, urlImage, price, id } = product;
-  const [value, setValue] = useState(
+  const [value, setValue] = useState(0);
 
-  );
+  const handleChange = (e) => {
+    const { name: operation } = e.target;
+    if (operation.includes('add')) {
+      setValue(value + 1);
+    } else if (value > 0) {
+      setValue(value - 1);
+    }
+  };
 
   const formatedPrice = (price_) => price_.replace('.', ',');
 
@@ -28,8 +35,9 @@ function CardProduct({ product }) {
         </span>
         <button
           type="button"
+          name="rm-button"
           data-testid={ `customer_products__button-card-rm-item-${id}` }
-          onClick={ () => setValue(value - 1) }
+          onClick={ (e) => handleChange(e) }
         >
           -
         </button>
@@ -38,11 +46,13 @@ function CardProduct({ product }) {
           type="text"
           data-testid={ `customer_products__input-card-quantity-${id}` }
           value={ value }
+          readOnly
         />
         <button
           type="button"
+          name="add-button"
           data-testid={ `customer_products__button-card-add-item-${id}` }
-          onClick={ () => setValue(value + 1) }
+          onClick={ (e) => handleChange(e) }
         >
           +
         </button>

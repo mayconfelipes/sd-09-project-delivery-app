@@ -16,7 +16,7 @@ const Produtos = () => {
         const config = {
           headers: { Authorization: `${token}` },
         };
-        const PRODUCTS_ENDPOINT = 'http://localhost:3001/api/customer/products';
+        const PRODUCTS_ENDPOINT = 'http://localhost:3001/api/products';
         const fetchData = async () => {
           await axios.get(PRODUCTS_ENDPOINT, config)
             .then((d) => setProducts(d.data))
@@ -24,7 +24,7 @@ const Produtos = () => {
         };
         fetchData();
       }
-    }, [],
+    }, [userData],
   );
   if (!userData || error) {
     localStorage.removeItem('user');
