@@ -105,6 +105,7 @@ function Register() {
         <button
           type="button"
           data-testid="common_register__button-register"
+          className="sign-btn"
           disabled={ disableBtn }
           onClick={ registerUser }
         >

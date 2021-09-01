@@ -142,6 +142,26 @@ table tr td {
   padding: 10px;
 }
 
+.delete-btn {
+  border: transparent;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.delete-btn em {
+  color: #a0a0a0;
+  font-size: 18px;
+  transition: 0.2s;
+}
+
+.delete-btn em:hover {
+  filter: brightness(0.5);
+}
+
+.hide-message {
+  opacity: 0;
+}
+
 @keyframes fade {
   from {
     opacity: 0;
@@ -149,4 +169,17 @@ table tr td {
   to {
     opacity: 1;
   }
+}
+
+/* LOGIN FORM */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+
+.login-form input,
+.login-form button {
+  padding: 4px 8px;
 }

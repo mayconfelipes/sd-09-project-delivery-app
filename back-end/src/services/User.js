@@ -28,19 +28,17 @@ const login = async (email, password) => {
 
   const cryptPassword = md5(password);
   const user = await findByEmail(email);
-
   if (!user || user.dataValues.password !== cryptPassword) {
     throw generateError(404, 'Email not registered or invalid password.');
   }
 
   const userWithoutPassword = removePassword(user.dataValues);
-
   return {
     user: userWithoutPassword,
   };
 };
 
-const register = async ({ name, email, password }) => {
+const register = async ({ name, email, password, role }) => {
   const { error } = RegisterSchema.validate({ name, email, password });
 
   if (error) throw generateError(422, error.message);
@@ -50,7 +48,8 @@ const register = async ({ name, email, password }) => {
   if (existentUser) throw generateError(409, 'Email already registered.');
 
   const cryptPassword = md5(password);
-  const user = await User.create({ name, email, password: cryptPassword, role: 'customer' });
+  const user = await User.create({ 
+    name, email, password: cryptPassword, role: role || 'customer' });
   const userWithoutPassword = removePassword(user.dataValues);
 
   return {
@@ -58,7 +57,16 @@ const register = async ({ name, email, password }) => {
   };
 };
 
+const getAllUsers = async () => {
+  const users = await User.findAll();
+  return users;
+};
+
+const deleteUser = async (id) => User.destroy({ where: { id } });
+
 module.exports = {
   login,
   register,
+  getAllUsers,
+  deleteUser,
 };

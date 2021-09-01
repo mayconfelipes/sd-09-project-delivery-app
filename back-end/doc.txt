@@ -120,3 +120,30 @@ response =>
     "saleDate": "2021-08-29T21:36:36.098Z"
   }
 }
+
+UPDATE: PUT http://localhost:3001/sale/
+
+headers => 
+
+Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0LCJuYW1lIjoibWF0aGV1cyBtYXJ0aW5vIGRvIGFtYXJhbCIsImVtYWlsIjoidGVzdGVpQHRlc3RlLmNvbSIsInJvbGUiOiJ1c2VyIn0sImlhdCI6MTYzMDI2NjExN30.9ZLJuu7nk3nLnrz-C9wg5YwgY2nvi9UCzxUqRNj2gow"
+
+body =>
+
+{
+    "id": 1,
+    "status": "Em trânsito"
+}
+
+response =>
+
+  "sale": {
+    "id": 1,
+    "totalPrice": "59.50",
+    "deliveryAddress": "Rua teste",
+    "deliveryNumber": "10",
+    "status": "Em trânsito",
+    "saleDate": "2021-08-30T01:59:12.000Z",
+    "userId": 1,
+    "sellerId": 2
+  }
+}
