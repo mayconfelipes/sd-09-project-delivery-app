@@ -1,19 +1,21 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
 import Button from '../components/button';
 
 const Login = () => {
+  const { state } = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [button, setButton] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(
+    state ? state.error : '',
+  );
 
   const history = useHistory();
 
   const handleChange = ({ target: { name, value } }) => {
-    if (error) setError('');
     switch (name) {
     case 'email':
       return setEmail(value);
