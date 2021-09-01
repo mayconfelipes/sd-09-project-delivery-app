@@ -24,8 +24,6 @@ const Products = () => {
       .catch((err) => console.log(err));
   }
 
-  console.log('renderizei', products);
-
   useEffect(() => {
     getData();
   }, []);
