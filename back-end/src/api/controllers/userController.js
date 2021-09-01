@@ -6,6 +6,13 @@ const create = async (req, res) => {
   return res.status(201).json(result);
 };
 
+const getSellers = async (req, res) => {
+  const { authorization } = req.headers;
+  const result = await users.getSellers(authorization);
+  return res.status(200).json(result);
+};
+
 module.exports = {
   create,
+  getSellers,
 };
