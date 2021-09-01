@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import Customer from '../context/customerContext';
 
 export default function CheckoutItem({ product, index }) {
-  const removeProduct = () => true;
+  const { shoppingCart, setShoppingCart } = useContext(Customer);
+
+  const removeProduct = () => {
+    const newCart = shoppingCart.filter((item, listIndex) => listIndex !== index);
+    setShoppingCart(newCart);
+  };
 
   const {
-    id,
     name,
     quantity,
     price,
@@ -16,7 +21,7 @@ export default function CheckoutItem({ product, index }) {
         className="secondary grow-1"
         data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
       >
-        { id }
+        { index + 1 }
       </span>
       <span
         className="light-background grow-3"

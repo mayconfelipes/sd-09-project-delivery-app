@@ -4,13 +4,13 @@ import Customer from './customerContext';
 
 function CustomerProvider({ children }) {
   const [shoppingCart, setShoppingCart] = useState([
-    {
-      id: 1,
-      name: 'Stella Artois',
-      price: '11.00',
-      url_image: 'none',
-      quantity: 2,
-    },
+    // {
+    //   id: 1,
+    //   name: 'Stella Artois',
+    //   price: '11.00',
+    //   url_image: 'none',
+    //   quantity: 2,
+    // },
   ]);
 
   const [sellers, setSellers] = useState([
