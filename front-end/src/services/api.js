@@ -39,6 +39,20 @@ export const getProducts = async (token) => {
   return response;
 };
 
+// trabalhando
+export const getCostumerOrders = async (token) => {
+  const request = await fetch('http://localhost:3001/sale', {
+    method: 'GET',
+    headers: {
+      'Content-Type': APP_JSON,
+      Authorization: token,
+    },
+  });
+  const response = await request.json();
+  return response;
+};
+// trabalhando
+
 export const getImg = async (token, imgPath) => {
   const request = await fetch(imgPath, {
     method: 'GET',
