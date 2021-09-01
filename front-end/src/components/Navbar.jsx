@@ -9,6 +9,7 @@ import {
 } from '../utils/storage';
 import Button from './Button';
 import AppContext from '../context/AppContext';
+import testid from '../utils/dataTestIds';
 
 const Navbar = ({ role }) => {
   const [isLogout, setIsLogout] = useState(false);
