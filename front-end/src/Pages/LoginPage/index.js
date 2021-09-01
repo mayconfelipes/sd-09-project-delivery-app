@@ -44,7 +44,7 @@ const LoginPage = () => {
         </Label>
         <Button
           data-test-id={ testIds.id3 }
-          onClick={ loginUser(loginInfo) }
+          onClick={ () => loginUser(loginInfo) }
           disabled={ isValidInfo }
         >
           Login

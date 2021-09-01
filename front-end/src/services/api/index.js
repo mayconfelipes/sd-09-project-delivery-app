@@ -1,21 +1,19 @@
-import Axios from 'axios';
+import axios from 'axios';
 
 // export async function loginAxio(data) {
-//   const result = await Axios.post('https://localhost:3000/login', data);
+//   const result = await axios.post('https://localhost:3000/login', data);
 //   console.log('FRONT_END inciando login ', result);
 //   console.log(result);
 //   return result;
 // }
 
-const PostLogin = async (data) => {
+const PostLogin = async (userData) => {
   try {
     console.log('FRONT_Adicionando Login');
-    const result = await Axios.post('http://localhost:3001/login', data);
-    console.log('retorno data', result.status);
-    console.log('retorno aeeaeae', result);
+    const result = await axios.post('http://localhost:3001/login', userData);
     return result;
   } catch (error) {
-    console.error(error.message);
+    return error.response;
   }
 };
 
@@ -25,7 +23,7 @@ const PostLogin = async (data) => {
 const PostClient = async () => {
   try {
     console.log('FRONT_END Adicionando Usuario ');
-    const result = await Axios.post('http://localhost:3001/user');
+    const result = await axios.post('http://localhost:3001/user');
     return result;
   } catch (error) {
     console.error(error.message);
