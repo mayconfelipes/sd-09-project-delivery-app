@@ -31,6 +31,9 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.post('/login', validadeUserExists, login);
 
+app.get('/users/:name', usersControllers.getByName);
+app.get('/users', usersControllers.getAll);
+
 app.use(sendErrorMessage);
 
 module.exports = app;

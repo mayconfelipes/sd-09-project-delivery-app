@@ -1,7 +1,7 @@
 const { Users } = require('../../../database/models');
 
 const validateUserExists = async (req, res, next) => {
-  const { email } = req.body;
+  const { email } = req.params;
   const exists = await Users.findOne({ where: { email } });
   if (!exists) {
     return res

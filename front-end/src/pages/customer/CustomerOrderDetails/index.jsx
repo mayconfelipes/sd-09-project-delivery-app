@@ -17,12 +17,18 @@ const CustomerOrderDetails = () => {
   // const { params } = match;
   // const { id } = params;
   const index = 0;
+  
+  const sales = fetch('http://localhost:3001/products')
+  .then((res) => res.json())
+  .then((data) => setProducts(data));
+  
   return (
     <>
       <NavBar />
       <h1>Detalhe do Pedido</h1>
       <div className={ style.totalContainer }>
-        <InfoOrderDetails
+        {products.map(({ id, name, price, url_image: image }) => (
+          <InfoOrderDetails
           shouldOrderStatusApear={ false }
           dataTestIdOrderId="customer_order_details__element-order-details-label-order-id"
           dataTestIdSeller={ sellerTestId }
