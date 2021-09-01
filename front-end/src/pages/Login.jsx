@@ -36,13 +36,14 @@ function Login() {
   const validateUser = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios({
+      const { data: { user: { name, email: em, role, token } } } = await axios({
         method: 'post',
         url: 'http://localhost:3001/user/login',
         data: { email, password },
       });
+
+      localStorage.setItem('user', JSON.stringify({ name, email: em, role, token }));
       history.push('/customer/products');
-      return response;
     } catch (err) {
       setErrorMessage('Dados inválidos.');
     }
