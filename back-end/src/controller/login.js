@@ -3,7 +3,7 @@ const rescue = require('express-rescue');
 
 const router = express.Router();
 
-const service = require('../service/login');
+const service = require('../service');
 
 router.post('/', rescue(async (req, res, next) => {
   const user = await service.login(req.body);

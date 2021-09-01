@@ -2,7 +2,7 @@ const express = require('express');
 const rescue = require('express-rescue');
 
 const router = express.Router();
-const productService = require('../service/productService');
+const { productService } = require('../service');
 
 router.get('/', rescue(async (_req, res, next) => {
   const serviceResponse = await productService.getProducts();
