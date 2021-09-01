@@ -62,8 +62,12 @@ function Checkout() {
               <td data-testid={ testIds[22] + index }>{index + 1}</td>
               <td data-testid={ testIds[23] + index }>{item.name}</td>
               <td data-testid={ testIds[24] + index }>{item.quantity}</td>
-              <td data-testid={ testIds[25] + index }>{item.unitPrice}</td>
-              <td data-testid={ testIds[26] + index }>{item.subTotal}</td>
+              <td data-testid={ testIds[25] + index }>
+                {item.unitPrice.replace('.', ',')}
+              </td>
+              <td data-testid={ testIds[26] + index }>
+                {item.subTotal.replace('.', ',')}
+              </td>
               <td>
                 <LargeButton
                   buttonText="remover"
@@ -99,7 +103,7 @@ function Checkout() {
           onChange={ handleChange }
           labelText="Endereço"
           placeholderText="Seu endereço aqui"
-          data-TestId={ testIds[30] }
+          dataTestId={ testIds[30] }
         />
         <TextInput
           type="input"
@@ -107,7 +111,7 @@ function Checkout() {
           onChange={ handleChange }
           labelText="Número"
           placeholderText="1234"
-          data-TestId={ testIds[31] }
+          dataTestId={ testIds[31] }
         />
         <LargeButton
           buttonText="FINALIZAR PEDIDO"
