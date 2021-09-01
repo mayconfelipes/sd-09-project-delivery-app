@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import { useCart } from '../../contexts/CartContext';
 
 function ProductCard({ product }) {
   const [counter, setCounter] = useState(0);
+  const { totalPrice, setTotalPrice } = useCart();
   const increment = () => {
+    const price = Number(parseFloat(product.price).toFixed(2));
+    setTotalPrice(totalPrice + price);
     setCounter(counter + 1);
   };
 
   const decrement = () => {
     if (counter > 0) {
+      const price = Number(parseFloat(product.price).toFixed(2));
+      setTotalPrice(totalPrice - price);
       setCounter(counter - 1);
     } else {
       setCounter(0);
