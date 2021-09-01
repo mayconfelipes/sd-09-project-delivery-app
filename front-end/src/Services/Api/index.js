@@ -19,6 +19,10 @@ const PostLogin = async (data) => {
   }
 };
 
+/* 
+      "email": "fulana@deliveryapp.com",
+      "password": "fulana@123" */
+
 const PostClient = async () => {
   try {
     console.log('FRONT_END Adicionando Usuario ');
