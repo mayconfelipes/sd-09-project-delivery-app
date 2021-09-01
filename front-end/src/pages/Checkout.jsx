@@ -6,7 +6,7 @@ import TextInput from '../components/TextInput';
 import DropDownList from '../components/DropDownList';
 import api from '../services/api';
 import AppContext from '../context/AppContext';
-import testIds from '../utils/dataTestIds'; // mudar datatestids
+import testIds from '../utils/dataTestIds';
 import {
   setCarrinhoLocalStorage,
   getCarrinhoLocalStorage,
@@ -18,7 +18,7 @@ function Checkout() {
   const history = useHistory();
   const cartData = getCarrinhoLocalStorage();
   const [infoSale, setInfoSalle] = useState({
-    address: '', addressNumber: '',
+    address: '', addressNumber: '', seller: '',
   });
 
   const handleChange = ({ target: { name, value } }) => {
@@ -62,17 +62,13 @@ function Checkout() {
               <td data-testid={ testIds[22] + index }>{index + 1}</td>
               <td data-testid={ testIds[23] + index }>{item.name}</td>
               <td data-testid={ testIds[24] + index }>{item.quantity}</td>
-              <td data-testid={ testIds[25] + index }>
-                {item.unitPrice}
-              </td>
-              <td data-testid={ testIds[26] + index }>
-                {item.subTotal}
-              </td>
+              <td data-testid={ testIds[25] + index }>{item.unitPrice}</td>
+              <td data-testid={ testIds[26] + index }>{item.subTotal}</td>
               <td>
                 <LargeButton
                   buttonText="remover"
                   onClick={ () => handleRemove(item.productId) }
-                  data-testid={ testIds[27] + index }
+                  dataTestId={ testIds[27] + index }
                 />
               </td>
             </tr>
@@ -87,6 +83,16 @@ function Checkout() {
       </section>
       <section>
         <p>Detalhes e Endereço para Entrega</p>
+        <p>
+          {' '}
+          P.Vendedora Responsável:
+          <DropDownList
+            options={ options }
+            name="seller"
+            dataTestId={ testIds[29] }
+            onChange={ handleChange }
+          />
+        </p>
         <TextInput
           type="input"
           name="address"
@@ -99,15 +105,9 @@ function Checkout() {
           type="input"
           name="addressNumber"
           onChange={ handleChange }
-          labelText="Endereço"
-          placeholderText="Seu endereço aqui"
+          labelText="Número"
+          placeholderText="1234"
           data-TestId={ testIds[31] }
-        />
-        <DropDownList
-          options={ options }
-          name="seller"
-          dataTestId={ testIds[29] }
-          onChange={ handleChange }
         />
         <LargeButton
           buttonText="FINALIZAR PEDIDO"
