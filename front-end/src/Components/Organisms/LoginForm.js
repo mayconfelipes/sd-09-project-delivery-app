@@ -40,7 +40,6 @@ function LoginFormComponent({ title }) {
     setLoginForm({ ...loginForm, [name]: value });
   };
 
-  //  Teste
   const logIn = async () => {
     const response = await userLogin({ email: login, password });
     if (response.message) {

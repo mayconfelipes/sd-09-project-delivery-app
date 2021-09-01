@@ -1,48 +1,82 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
-import { useCart } from '../../../contexts/CartContext';
+import React, { useState } from 'react';
+import { useCart } from '../../../Contexts/CartContext';
 import './style.css';
 
 function ProductCard({ product }) {
   const [counter, setCounter] = useState(0);
-  const { totalPrice, setTotalPrice } = useCart();
+  const { totalPrice, setTotalPrice, setCartItems, cartItems } = useCart();
+
   const increment = () => {
     const price = Number(parseFloat(product.price).toFixed(2));
     setTotalPrice(totalPrice + price);
+    if (counter === 0) {
+      setCartItems([...cartItems, { ...product, quantity: 1 }]);
+    } else {
+      const currentProductIndex = cartItems.findIndex(({ id }) => id === product.id);
+      cartItems[currentProductIndex].quantity = counter + 1;
+      setCartItems(cartItems);
+    }
     setCounter(counter + 1);
   };
 
   const decrement = () => {
     if (counter > 0) {
-      const price = Number(parseFloat(product.price).toFixed(2));
-      setTotalPrice(totalPrice - price);
-      setCounter(counter - 1);
+      if (counter === 1) {
+        const filteredCartItems = cartItems.filter(({ id }) => id !== product.id);
+        setCartItems(filteredCartItems);
+        const price = Number(parseFloat(product.price).toFixed(2));
+        setTotalPrice(totalPrice - price);
+        setCounter(0);
+      } else {
+        const currentProductIndex = cartItems.findIndex(({ id }) => id === product.id);
+        cartItems[currentProductIndex].quantity = counter - 1;
+        setCartItems(cartItems);
+        const price = Number(parseFloat(product.price).toFixed(2));
+        setTotalPrice(totalPrice - price);
+        setCounter(counter - 1);
+      }
     } else {
       setCounter(0);
     }
   };
 
-  const manuallyCounter = (quantity) => {
-    if (quantity < 0) { return; }
+  const manuallyCounter = (inputValue) => {
+    if (inputValue === '') { inputValue = 0; }
 
-    if (quantity === '') { quantity = 0; }
+    if (inputValue < 0) { return; }
 
-    const difference = parseFloat(quantity) - parseFloat(counter);
+    if (inputValue === 0) {
+      const filteredCartItems = cartItems.filter(({ id }) => id !== product.id);
+      setCartItems(filteredCartItems);
+      setCounter(0);
+    }
+
+    const difference = parseFloat(inputValue) - parseFloat(counter);
 
     const price = Number(parseFloat(product.price).toFixed(2));
 
     if (difference > 0) {
+      if (inputValue === 0) {
+        const filteredCartItems = cartItems.filter(({ id }) => id !== product.id);
+        setCartItems(filteredCartItems);
+        setCounter(0);
+      }
+      if (counter === 0) {
+        setCartItems([...cartItems, { ...product, quantity: inputValue }]);
+      } else {
+        const currentProductIndex = cartItems.findIndex(({ id }) => id === product.id);
+        cartItems[currentProductIndex].quantity = inputValue;
+        setCartItems(cartItems);
+      }
       const priceToAdd = price * difference;
       setTotalPrice(totalPrice + priceToAdd);
     } else {
       const priceToSubtract = price * difference;
       setTotalPrice(totalPrice + priceToSubtract);
     }
-    setCounter(quantity);
+    setCounter(Number(inputValue));
   };
-
-  useEffect(() => {
-  }, [product.url_image]);
 
   const convertDotToComma = (string) => string.replace(/\./g, ',');
 
@@ -58,7 +92,7 @@ function ProductCard({ product }) {
       <input
         type="number"
         data-testid={ `customer_products__input-card-quantity-${product.id}` }
-        onChange={ (e) => manuallyCounter(e.target.value) }
+        onChange={ (e) => manuallyCounter(+e.target.value) }
         value={ counter }
       />
       <button
