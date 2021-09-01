@@ -59,20 +59,20 @@ function Checkout() {
         <tbody>
           {cartData.map((item, index) => (
             <tr key={ index }>
-              <td data-testid={ `${testIds[22]}${index}` }>{index + 1}</td>
-              <td data-testid={ `${testIds[23]}${index}` }>{item.name}</td>
-              <td data-testid={ `${testIds[24]}${index}` }>{item.quantity}</td>
-              <td data-testid={ `${testIds[25]}${index}` }>
+              <td data-testid={ testIds[22] + index }>{index + 1}</td>
+              <td data-testid={ testIds[23] + index }>{item.name}</td>
+              <td data-testid={ testIds[24] + index }>{item.quantity}</td>
+              <td data-testid={ testIds[25] + index }>
                 {item.unitPrice}
               </td>
-              <td data-testid={ `${testIds[26]}${index}` }>
+              <td data-testid={ testIds[26] + index }>
                 {item.subTotal}
               </td>
               <td>
                 <LargeButton
                   buttonText="remover"
                   onClick={ () => handleRemove(item.productId) }
-                  data-testid={ `${testIds[27]}${index}` }
+                  data-testid={ testIds[27] + index }
                 />
               </td>
             </tr>
@@ -88,7 +88,7 @@ function Checkout() {
       <section>
         <p>Detalhes e Endereço para Entrega</p>
         <TextInput
-          type="text"
+          type="input"
           name="address"
           onChange={ handleChange }
           labelText="Endereço"
@@ -96,7 +96,7 @@ function Checkout() {
           data-TestId={ testIds[30] }
         />
         <TextInput
-          type="text"
+          type="input"
           name="addressNumber"
           onChange={ handleChange }
           labelText="Endereço"
