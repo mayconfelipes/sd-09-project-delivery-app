@@ -1,15 +1,29 @@
-const boom = require('@hapi/boom');
-const md5 = require('md5');
-const { user } = require('../../database/models');
+const boom = require("@hapi/boom");
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
+const md5 = require("md5");
+const { user } = require("../../database/models");
 
-const login = async ({ email, password }) => {
-    console.log(email, password);
-    const loginUser = await user.findOne({ where: { email } });
-    console.log(md5(password));
-     if (!loginUser || loginUser.password !== md5(password)) {
-         throw boom.notFound('Invalid data');
-     }
-    return loginUser;
+const createToken = (email) => {
+  const secret = fs
+    .readFileSync("jwt.evaluation.key", { encoding: "utf-8" })
+    .trim();
+
+  const token = jwt.sign(email, secret);
+
+  return token;
 };
 
-module.exports = { login };
+const login = async ({ email, password }) => {
+  const loginUser = await user.findOne({ where: { email } });
+
+  if (!loginUser || loginUser.password !== md5(password)) {
+    throw boom.notFound("Invalid data");
+  }
+
+  const token = createToken(email);
+
+  return { token, ...loginUser.dataValues };
+};
+
+module.exports = { login, createToken };

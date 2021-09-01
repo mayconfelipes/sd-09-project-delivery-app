@@ -1,53 +1,34 @@
 import React, { createContext, useState } from 'react';
 import { node } from 'prop-types';
+import { fetchToLogin, fetchToRegister } from '../services/api';
 
 export const LoginContext = createContext();
 
 export const LoginProvider = ({ children }) => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [invalidUser, setInvalidUser] = useState('');
   const [redirectTo, setRedirectTo] = useState(false);
 
-  const fetchToLogin = () => {
-    const body = {
-      email,
-      password,
-    };
-
-    const myHeadersToLogin = {
-      // 'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    };
-
-    fetch('http://localhost:3001/login', {
-      headers: myHeadersToLogin,
-      method: 'POST',
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        console.log(response);
-        if (response.message) {
-          setInvalidUser(true);
-        } else {
-          console.log(response);
-          setRedirectTo(true);
-          localStorage.setItem('User', JSON.stringify(response));
-        }
-      });
-  };
-
   const handleClickLogin = async () => {
     console.log('to aq');
-    await fetchToLogin();
+    await fetchToLogin(email, password, setInvalidUser, setRedirectTo);
+  };
+
+  const handleClickRegister = async () => {
+    console.log('request /register');
+    await fetchToRegister(name, email, password, setInvalidUser);
   };
 
   const contextValue = { email,
     setEmail,
+    name,
+    setName,
     password,
     setPassword,
     handleClickLogin,
+    handleClickRegister,
     invalidUser,
     redirectTo,
   };
