@@ -1,9 +1,14 @@
 import { node } from 'prop-types';
+<<<<<<< HEAD
 import React, { createContext, useState } from 'react';
+=======
+import { fetchToLogin, fetchToRegister } from '../services/api';
+>>>>>>> b80bfd10e03aebc2df878b433c5f6c7f30271177
 
 export const LoginContext = createContext();
 
 export const LoginProvider = ({ children }) => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [invalidUser, setInvalidUser] = useState('');
@@ -11,6 +16,7 @@ export const LoginProvider = ({ children }) => {
   const [role, setRole] = useState('');
   const [cart, setCart] = useState([]);
 
+<<<<<<< HEAD
   const fetchToLogin = () => {
     const body = {
       email,
@@ -43,14 +49,27 @@ export const LoginProvider = ({ children }) => {
 
   const handleClickLogin = async () => {
     await fetchToLogin();
+=======
+  const handleClickLogin = async () => {
+    console.log('to aq');
+    await fetchToLogin(email, password, setInvalidUser, setRedirectTo);
+  };
+
+  const handleClickRegister = async () => {
+    console.log('request /register');
+    await fetchToRegister({ name, email, password }, setInvalidUser, setRedirectTo);
+>>>>>>> b80bfd10e03aebc2df878b433c5f6c7f30271177
   };
 
   const contextValue = {
     email,
     setEmail,
+    name,
+    setName,
     password,
     setPassword,
     handleClickLogin,
+    handleClickRegister,
     invalidUser,
     redirectTo,
     cart,

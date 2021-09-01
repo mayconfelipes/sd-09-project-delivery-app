@@ -5,6 +5,7 @@ import { LoginProvider } from './context/loginContext';
 import Login from './pages/Login';
 import Products from './pages/Products';
 //  import rockGlass from './images/rockGlass.svg';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Switch>
           <Route path="/customer/products" component={ Products } />
           <Route path="/login" component={ Login } />
+          <Route path="/register" component={ Register } />
           <Route
             exact
             path="/"

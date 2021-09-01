@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { LoginContext } from '../context/loginContext';
 import '../css/login.css';
 
@@ -15,9 +15,10 @@ const Login = () => {
   } = useContext(LoginContext);
 
   const [disableButton, setDisable] = useState(false);
+  const history = useHistory();
 
   const verifyInputs = () => {
-    const emailRegex = /^[\w]+@([\w]+\.)+[\w]{2,4}$/gi;
+    const emailRegex = /\S+@\S+\.\S+/;
     const passwordLength = 6;
     const isValid = email.match(emailRegex) && password.length >= passwordLength;
     if (isValid) setDisable(false);
@@ -27,22 +28,22 @@ const Login = () => {
   const errorMsg = () => (
     <p data-testid="common_login__element-invalid-email">Email ou Senha Inválidos</p>);
 
-  const chosseRouteToRedirect = () => {
+  const chooseRouteToRedirect = () => {
     const userString = localStorage.getItem('User');
     const user = JSON.parse(userString);
     switch (user.role) {
-      case 'customer': {
-        return <Redirect to="/customer/products" />;
-      }
-      case 'admim': {
-        return <Redirect to="/administrador" />;
-      }
-      case 'seller': {
-        return <Redirect to="/vendedor" />;
-      }
-      default: {
-        console.log('Role inválida');
-      }
+    case 'customer': {
+      return <Redirect to="/customer/products" />;
+    }
+    case 'admin': {
+      return <Redirect to="/administrador" />;
+    }
+    case 'seller': {
+      return <Redirect to="/vendedor" />;
+    }
+    default: {
+      console.log('Role inválida');
+    }
     }
   };
 
@@ -89,10 +90,11 @@ const Login = () => {
           id="register"
           className="register"
           data-testid="common_login__button-register"
+          onClick={ () => history.push('/register') }
         >
           Ainda não tenho conta
         </button>
-        { redirectTo && chosseRouteToRedirect() }
+        { redirectTo && chooseRouteToRedirect() }
       </div>
     </section>
   );

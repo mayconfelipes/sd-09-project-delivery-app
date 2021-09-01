@@ -9,11 +9,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const Login = require('./routes/Login');
-const Products = require('./routes/Products');
+const { loginRouter } = require('./routes');
+const { registerRouter } = require('./routes');
 
-app.use(Login);
-app.use(Products);
+app.use('/', loginRouter);
+app.use('/', registerRouter);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use(error);
