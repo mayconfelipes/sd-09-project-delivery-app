@@ -18,8 +18,8 @@ const Login = () => {
 
   const buttonAble = () => {
     const MIN_CHARACTERS = 6;
-    const check = /^[\S.]+@[a-z]+\.\w{2,3}$/g;
-    if (check.test(email) && password.length >= MIN_CHARACTERS) {
+    const check = RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email);
+    if (check && password.length >= MIN_CHARACTERS) {
       return true;
     }
     return false;
