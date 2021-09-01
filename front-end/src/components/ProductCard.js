@@ -11,7 +11,7 @@ const ProductCard = (props) => {
       </h2>
       <img
         data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-        src={ product.url_image }
+        src={ product.urlImage }
         alt={ product.name }
       />
       <h2 data-testid={ `customer_products__element-card-title-${product.id}` }>

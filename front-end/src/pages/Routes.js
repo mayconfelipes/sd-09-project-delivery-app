@@ -4,7 +4,6 @@ import Login from './Login';
 import ClientProducts from './ClientProducts';
 import Register from './Register';
 
-
 const Routes = () => (
   <BrowserRouter>
     <Switch>
