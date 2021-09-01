@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import fetchGET from '../services/fetchGET';
 import ItensDetailsOrder from '../components/ItensDetailsOrder';
+import socket from '../utils/socket';
 
 class Order extends React.Component {
   constructor() {
@@ -9,6 +10,7 @@ class Order extends React.Component {
 
     this.state = {
       allInfo: [],
+      statusP: '',
     };
 
     this.fetchAPI = this.fetchAPI.bind(this);
@@ -27,6 +29,7 @@ class Order extends React.Component {
 
     this.setState({
       allInfo: filterResult,
+      statusP: filterResult.status,
     });
   }
 
@@ -45,11 +48,20 @@ class Order extends React.Component {
     return newDate;
   }
 
-  buttonCustomer(role) {
+  updateStatus(status) {
+    const { allInfo: { id } } = this.state;
+    socket.emit('updateStatus', { id, status });
+    this.setState({
+      statusP: status,
+    });
+  }
+
+  buttonCustomer(role, status) {
     return (
       <button
         type="button"
-        disabled="true"
+        disabled={ status !== 'Em Trânsito' }
+        onClick={ () => this.updateStatus('Entregue') }
         data-testid={ `${role}_order_details__button-delivery-check` }
       >
         MARCAR COMO ENTREGUE
@@ -57,18 +69,21 @@ class Order extends React.Component {
     );
   }
 
-  buttonSeller(role) {
+  buttonSeller(role, status) {
     return (
       <div>
         <button
           type="button"
+          disabled={ status !== 'Pendente' }
+          onClick={ () => this.updateStatus('Preparando') }
           data-testid={ `${role}_order_details__button-preparing-check` }
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
-          disabled="true"
+          disabled={ status !== 'Preparando' }
+          onClick={ () => this.updateStatus('Em Trânsito') }
           data-testid={ `${role}_order_details__button-dispatch-check` }
         >
           SAIU PARA ENTREGA
@@ -92,14 +107,20 @@ class Order extends React.Component {
   }
 
   render() {
-    const { allInfo } = this.state;
+    const { allInfo, statusP } = this.state;
     const { role } = JSON.parse(localStorage.user);
 
     if (allInfo.length === 0) {
       return <p>Loading...</p>;
     }
 
-    const { id, saleDate, status, products, totalPrice } = allInfo;
+    socket.on('newStatus', (status) => {
+      this.setState({
+        statusP: status,
+      });
+    });
+
+    const { id, saleDate, products, totalPrice } = allInfo;
 
     const newDate = this.dateFormat(saleDate);
     return (
@@ -128,11 +149,11 @@ class Order extends React.Component {
                 `${role}_order_details__element-order-details-label-delivery-status`
               }
             >
-              { status }
+              { statusP }
             </p>
           </div>
-          { role === 'customer' && this.buttonCustomer(role) }
-          { role === 'seller' && this.buttonSeller(role) }
+          { role === 'customer' && this.buttonCustomer(role, statusP) }
+          { role === 'seller' && this.buttonSeller(role, statusP) }
         </div>
         <table>
           <thead>
