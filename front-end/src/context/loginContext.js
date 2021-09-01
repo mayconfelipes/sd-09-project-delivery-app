@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react';
 import { node } from 'prop-types';
+import React, { createContext, useState } from 'react';
 import { fetchToLogin, fetchToRegister } from '../services/api';
 
 export const LoginContext = createContext();
@@ -10,6 +10,8 @@ export const LoginProvider = ({ children }) => {
   const [password, setPassword] = useState('');
   const [invalidUser, setInvalidUser] = useState('');
   const [redirectTo, setRedirectTo] = useState(false);
+  const [role, setRole] = useState('');
+  const [cart, setCart] = useState([]);
 
   const handleClickLogin = async () => {
     console.log('to aq');
@@ -21,7 +23,8 @@ export const LoginProvider = ({ children }) => {
     await fetchToRegister({ name, email, password }, setInvalidUser, setRedirectTo);
   };
 
-  const contextValue = { email,
+  const contextValue = {
+    email,
     setEmail,
     name,
     setName,
@@ -31,6 +34,10 @@ export const LoginProvider = ({ children }) => {
     handleClickRegister,
     invalidUser,
     redirectTo,
+    cart,
+    setCart,
+    role,
+    setRole,
   };
 
   return (

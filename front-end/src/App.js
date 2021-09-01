@@ -1,8 +1,10 @@
 import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
-import { Route, Switch, Redirect } from 'react-router-dom';
 import { LoginProvider } from './context/loginContext';
 import Login from './pages/Login';
+import Products from './pages/Products';
+//  import rockGlass from './images/rockGlass.svg';
 import Register from './pages/Register';
 
 function App() {
@@ -10,7 +12,7 @@ function App() {
     <LoginProvider>
       <div className="App">
         <Switch>
-          <Route path="/produtos" component={ Login } />
+          <Route path="/customer/products" component={ Products } />
           <Route path="/login" component={ Login } />
           <Route path="/register" component={ Register } />
           <Route

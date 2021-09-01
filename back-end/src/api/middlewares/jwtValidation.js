@@ -3,7 +3,7 @@ const boom = require('@hapi/boom');
 const rescue = require('express-rescue');
 const fs = require('fs');
 
-const jtwValidate = rescue(async (req, res, next) => {
+const jwtValidate = rescue(async (req, res, next) => {
   const token = req.headers.authorization;
   const secret = fs.readFileSync('jwt.evaluation.key', { encoding: 'utf-8' }).trim();
   const jwtConfig = {
@@ -25,4 +25,4 @@ const jtwValidate = rescue(async (req, res, next) => {
   }
 });
 
-module.exports = { jtwValidate };
+module.exports = { jwtValidate };

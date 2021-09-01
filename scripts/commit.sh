@@ -12,7 +12,7 @@ theMsg="[MAIN-GROUP-6][${upperBorF}][${upperFlux}][${upperTheMsg}]"
 
 git commit -m "$theMsg"
 
-read -p "Foi commitado: > $theMsg <. Enviar ao gitHub? " yOrN
+read -p "Foi commitado: > $theMsg <. Enviar ao gitHub? (y/n) " yOrN
 
 if [[ $yOrN == "y" ]]; then
   git push

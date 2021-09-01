@@ -26,15 +26,10 @@ const Login = () => {
   };
 
   const errorMsg = () => (
-    <p
-      data-testid="common_login__element-invalid-email"
-    >
-      Email ou Senha Inválidos
-    </p>
-  );
+    <p data-testid="common_login__element-invalid-email">Email ou Senha Inválidos</p>);
 
   const chooseRouteToRedirect = () => {
-    const userString = localStorage.getItem('User');
+    const userString = localStorage.getItem('user');
     const user = JSON.parse(userString);
     switch (user.role) {
     case 'customer': {
