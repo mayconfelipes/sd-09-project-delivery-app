@@ -5,7 +5,7 @@ const { UNAUTHORIZED_STATUS } = require('../httpStatus');
 
 require('dotenv').config();
 
-const { JWT_SECRET } = process.env;
+const JWT_SECRET = 'secret_key';
 
 const validateToken = async (req, _res, next) => {
   try {

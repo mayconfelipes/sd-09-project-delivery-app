@@ -7,7 +7,7 @@ const { sendErrorMessage } = require('./middwares/errors');
 const { products } = require('./controllers/products');
 const usersControllers = require('./controllers/users');
 const salesControllers = require('./controllers/sales');
-const validadeToken = require('./middwares/validators/validateToken');
+const { validateToken } = require('./middwares/validators/validateToken');
 
 const app = express();
 app.use(bodyParser.json());
@@ -33,9 +33,9 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.post('/login', validadeUserExists, login);
 
-app.post('/sales', validadeToken, salesControllers.create);
+app.post('/sales', validateToken, salesControllers.create);
 
-app.get('/sales/:id', validadeToken, salesControllers.getById);
+app.get('/sales/:id', validateToken, salesControllers.getById);
 
 app.use(sendErrorMessage);
 

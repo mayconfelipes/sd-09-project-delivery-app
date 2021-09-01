@@ -69,7 +69,7 @@ const getById = async (id) => {
     throw messageError(NOT_FOUND_STATUS, USER_NOT_EXIST);
   }
 
-  return user;
+  return user.dataValues;
 };
 
 const getByName = async (name) => {
@@ -79,7 +79,7 @@ const getByName = async (name) => {
     throw messageError(NOT_FOUND_STATUS, USER_NOT_EXIST);
   }
 
-  return user;
+  return user.dataValues;
 };
 
 module.exports = {

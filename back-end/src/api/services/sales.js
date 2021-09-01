@@ -3,51 +3,28 @@ const salesProductsServices = require('./salesProduct');
 const usersServices = require('./users');
 const { messageError } = require('../middwares/errors');
 
-const { SALE_NOT_CREATED, SALE_NOT_EXIST } = require('../middwares/errorMessages');
+const { 
+  SALE_NOT_CREATED,
+  SALE_NOT_EXIST,
+  SALE_PRODUCT_NOT_CREATED } = require('../middwares/errorMessages');
 
 const { INTERNAL_ERROR_STATUS, NOT_FOUND_STATUS } = require('../middwares/httpStatus');
 
-const createProducts = async (saleId, products) => {
-  const productsSale = [];
-  products.forEach((produtc) => {
-    const { productId, quantity } = produtc;
+const createObject = (sale, products) => {
+  const { id, userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status,
+    saleDate } = sale;
 
-    const newProductSale = salesProductsServices.create({
-      saleId,
-      productId,
-      quantity,
-
-    });
-
-    productsSale.push(newProductSale);
-  });
-
-  return productsSale;
-};
-
-const create = async (sale, login) => {
-  const { seller, totalPrice, deliveryAddress, deliveryNumber, status, products } = sale;
-  const { name } = login;
-
-  const saleUser = await usersServices.getByName(name);
-  const saleSeller = await usersServices.getByName(seller);
-
-  const newSale = await Sales.create({
-    userId: saleUser.id,
-    sellerId: saleSeller.id,
+  return ({
+    id,
+    userId,
+    sellerId,
     totalPrice,
     deliveryAddress,
     deliveryNumber,
+    saleDate,
     status,
-  });
-
-  if (!newSale) {
-    throw messageError(INTERNAL_ERROR_STATUS, SALE_NOT_CREATED);
-  }
-  
-  const newProductsSale = await createProducts(saleUser.id, products);
-
-  return ({ newSale, products: newProductsSale });
+    products,
+   });
 };
 
 const getById = async (id) => {
@@ -56,6 +33,52 @@ const getById = async (id) => {
   if (!sale) {
     throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
   }
+
+  return sale;
+};
+
+const createProducts = async (saleId, products) => {
+  products.forEach((product) => {
+    const { productId, quantity } = product;
+
+    const newProductSale = salesProductsServices.create({
+      saleId,
+      productId,
+      quantity,
+
+    });
+   
+    if (!newProductSale) {
+      throw messageError(INTERNAL_ERROR_STATUS, SALE_PRODUCT_NOT_CREATED);
+    }
+  });
+};
+
+const create = async (sale, login) => {
+  const { seller, products } = sale;
+  const { name } = login.data;
+
+  const saleUser = await usersServices.getByName(name);
+
+  const saleSeller = await usersServices.getByName(seller);
+
+  const newSale = await Sales.create({ userId: saleUser.id, 
+    sellerId: saleSeller.id,
+    totalPrice: sale.totalPrice,
+    deliveryAddress: sale.deliveryAddress,
+    deliveryNumber: sale.deliveryNumber,
+    status: 'Pendente',
+  });
+
+  if (!newSale) {
+    throw messageError(INTERNAL_ERROR_STATUS, SALE_NOT_CREATED);
+  }
+
+  await createProducts(newSale.id, products);
+
+  const fullSale = await getById(newSale.id);
+
+  return createObject(fullSale);
 };
 
 module.exports = {

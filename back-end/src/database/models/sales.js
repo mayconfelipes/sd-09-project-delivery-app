@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       type: DataTypes.INTEGER,
     },
-    user_id: {
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       }
     },
-    seller_id: {
+    sellerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -26,19 +26,19 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       }
     },
-    total_price: {
+    totalPrice: {
       type: DataTypes.DECIMAL(9, 2),
       allowNull: false,
     },
-    delivery_address: {
+    deliveryAddress: {
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    delivery_number: {
+    deliveryNumber: {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    sale_date: {
+    saleDate: {
       type: DataTypes.DATE,
       defaultValue: Sequelize.NOW,
       allowNull: false,
@@ -51,6 +51,7 @@ module.exports = (sequelize, DataTypes) => {
   { 
     tableName: 'sales',
     timestamps: false,
+    underscored: true,
   });
 
   SalesModel.associate = (models) => {

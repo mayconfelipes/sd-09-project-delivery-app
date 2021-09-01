@@ -1,15 +1,16 @@
-const { SalesProduts } = require('../../database/models');
+const { SalesProducts } = require('../../database/models');
 
 const { messageError } = require('../middwares/errors');
 
-const { SALE_PRODUCT_NOT_CREATED } = require('../middwares/errorMessages');
+const { SALE_PRODUCT_NOT_CREATED, SALE_PRODUCT_NOT_EXIST } = require('../middwares/errorMessages');
 
 const { INTERNAL_ERROR_STATUS } = require('../middwares/httpStatus');
+const { NOT_FOUND_STATUS } = require('../../../../../sd-09-project-blogs-api/middwares/httpStatus');
 
 const create = async (saleProduct) => {
   const { saleId, productId, quantity } = saleProduct;
 
-  const newSaleProduct = await SalesProduts.create({
+  const newSaleProduct = await SalesProducts.create({
     saleId,
     productId,
     quantity,
@@ -22,6 +23,15 @@ const create = async (saleProduct) => {
   return newSaleProduct;
 };
 
+const getBySaleId = async (saleId) => {
+  const products = await SalesProducts.findAll({ where: { saleId } });
+
+  if (!products) {
+    throw messageError(NOT_FOUND_STATUS, SALE_PRODUCT_NOT_EXIST);
+  }
+};
+
 module.exports = {
   create,
+  getBySaleId,
 };
