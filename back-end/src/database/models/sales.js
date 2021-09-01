@@ -1,7 +1,5 @@
 'use strict';
 
-const { Sequelize } = require("../../../../../sd-09-project-blogs-api/models");
-
 module.exports = (sequelize, DataTypes) => {
   const SalesModel = sequelize.define('Sales', {
     id: {
