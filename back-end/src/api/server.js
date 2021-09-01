@@ -36,5 +36,4 @@ app.get('/sales_products', salesProductsController.getAll);
 app.get('/sales/:id', salesController.getById);
 app.get('/sales/', salesController.getAll);
 
-
 http.listen(PORT, () => console.log('App listening on PORT %s', PORT));
