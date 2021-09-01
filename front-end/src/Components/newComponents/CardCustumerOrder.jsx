@@ -2,17 +2,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// import React, { useState, useEffect } from 'react';
-// import { useCart } from '../../contexts/CartContext';
-
-// function CardCustumerOrder({ product }) {
 function CardCustumerOrder(selectOrder) {
   const { selectOrder: userOrder } = selectOrder;
   const { id, status, saleDate, totalPrice } = userOrder;
-  console.log(id);
-  console.log(status);
-  console.log(saleDate);
-  console.log(totalPrice);
 
   function ajustData(data) {
     console.log(data);
