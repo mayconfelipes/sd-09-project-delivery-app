@@ -15,17 +15,18 @@ const Checkout = () => {
   const { totalPrice, setCartQuantity, cartQuantity } = useGlobalContext();
   const [sellerName, setSellerName] = useState([]);
   const [saleData, setSaledata] = useState({
-    seller: 'Fulana1',
+    seller: 'Fulana Pereira',
     address: '',
     addresNumber: '',
   });
-  const id = 1;
+
+  const { id: prodId } = 1;
 
   useEffect(() => {
     const { token } = JSON.parse(localStorage.getItem('user'));
     getRegister('seller', token).then((data) => setSellerName(data));
   }, []);
-  console.log(sellerName);
+  console.log(Object.values(sellerName)[0]);
 
   const onClickRemoveItem = (itemId) => {
     const one = 1;
@@ -38,16 +39,32 @@ const Checkout = () => {
   };
 
   const onClickAddSaleInfo = async () => {
-    const { userName } = JSON.parse(localStorage.getItem('user'));
     const { seller, address, addresNumber } = saleData;
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const localitems = JSON.parse(localStorage.getItem('cart'));
+    const products = [];
+    localitems.map(({ quantity, id }) => (
+      products.push({ productId: id, quantity })
+    ));
+    const totprice = totalPrice.replace(',', '.');
     await sales(
       {
-        userId: userName,
-        sellerId: seller,
-        totalPrice,
+        token,
+        seller,
+        totalPrice: parseFloat(totprice),
+        deliveryNumber: addresNumber,
         deliveryAddress: address,
-        deliveryNumber: addresNumber },
+        products,
+      },
     );
+    console.log({
+      token,
+      seller,
+      totalPrice,
+      deliveryNumber: addresNumber,
+      deliveryAddress: address,
+      products,
+    });
   };
 
   function handleInputChange(event) {
@@ -124,10 +141,10 @@ const Checkout = () => {
             data-testid="customer_checkout__select-seller"
             id="orderData"
           >
-            <option value="Fulana1">Fulana1</option>
-            <option value="Fulana2">Fulana2</option>
-            <option value="Fulana3">Fulana3</option>
-            <option value="Fulana4">Fulana4</option>
+            {Object.values(sellerName)[0] && Object.values(sellerName)[0]
+              .map(({ name }) => (
+                <option key={ Math.random() } value={ name }>{ name }</option>
+              ))}
           </select>
         </label>
         <Input
@@ -143,7 +160,7 @@ const Checkout = () => {
           onHandleChange={ handleInputChange }
         />
         <div className={ style.checkoutButton }>
-          <Link to={ `/customer/orders/${id}` }>
+          <Link to={ `/customer/orders/${prodId}` }>
             <PrimaryButton
               dataTestId="customer_checkout__button-submit-order"
               onLoginClick={ onClickAddSaleInfo }

@@ -18,7 +18,7 @@ const register = (name, email, password, role) => {
   }).then((response) => response.json());
 };
 
-const getRegister = async (role, Auth) => fetch(`http://localhost:3001/register/:${role}`, {
+const getRegister = async (role, Auth) => fetch(`http://localhost:3001/register/?role=${role}`, {
   method: 'GET',
   headers: {
     Accept: AppJson,

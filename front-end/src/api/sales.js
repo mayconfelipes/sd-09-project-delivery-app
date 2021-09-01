@@ -1,11 +1,11 @@
 const sales = async ({
-  userId, sellerId, totalPrice, deliveryAddress, deliveryNumber }) => {
+  seller, totalPrice, deliveryAddress, deliveryNumber, products, Auth }) => {
   const body = JSON.stringify({
-    userId,
-    sellerId,
+    seller,
     totalPrice,
-    deliveryAddress,
     deliveryNumber,
+    deliveryAddress,
+    products,
   });
 
   return fetch('http://localhost:3001/sales', {
@@ -13,6 +13,7 @@ const sales = async ({
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      Authorization: Auth,
     },
     body,
   }).then((response) => response.json());
