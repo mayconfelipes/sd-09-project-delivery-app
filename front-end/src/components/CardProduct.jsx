@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 // import '../styles/CardProduct.css';
+import Context from '../context/Context';
 
 function CardProduct({ product }) {
   const { name, urlImage, price, id } = product;
   const [value, setValue] = useState(0);
 
+  const { addProduct, removeProduct } = useContext(Context);
+
   const handleChange = (e) => {
     const { name: operation } = e.target;
     if (operation.includes('add')) {
       setValue(value + 1);
+      addProduct(product);
     } else if (value > 0) {
       setValue(value - 1);
+      removeProduct(product);
     }
   };
 

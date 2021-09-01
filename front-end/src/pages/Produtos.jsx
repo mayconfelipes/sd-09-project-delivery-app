@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import CardProduct from '../components/CardProduct';
 import Header from '../components/Header';
+import Provider from '../context/Provider';
 
 const Produtos = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState('');
   const userData = JSON.parse(localStorage.getItem('user'));
-  // console.log(userData);
+
   useEffect(
     () => {
       if (userData) {
@@ -37,7 +38,7 @@ const Produtos = () => {
     />);
   }
   return (
-    <>
+    <Provider>
       <Header />
       <section>
         {
@@ -46,7 +47,7 @@ const Produtos = () => {
           )
         }
       </section>
-    </>
+    </Provider>
   );
 };
 
