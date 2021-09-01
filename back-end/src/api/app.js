@@ -3,6 +3,10 @@ const express = require('express');
 const cors = require('cors');
 const User = require('./controllers/users');
 const Product = require('./controllers/products');
+
+const http = require('http');
+const { Server } = require('socket.io');
+
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
@@ -10,6 +14,16 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+const server = http.createServer(app);
+const io = new Server(server, { cors: { origin: '*' } });
+
+require('../api/sockets')(io);
+
+app.use((_req, res, next) => {
+  res.io = io;
+  next();
+});
 
 // const io = require('socket.io')(httpServer, {
 //   cors: {
@@ -32,4 +46,4 @@ app.use(errorMiddleware);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
-module.exports = app;
+module.exports = server;
