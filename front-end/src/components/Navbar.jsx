@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import './css/navbar.css';
+// import './css/navbar.css';
 
 function Navbar() {
   const { name } = JSON.parse(localStorage.getItem('user'));

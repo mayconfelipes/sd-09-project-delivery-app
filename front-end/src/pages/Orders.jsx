@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import AppContext from '../hooks/context';
-
-import '../App.css';
+// import '../App.css';
 
 function Orders() {
   const { sales, getSales } = useContext(AppContext);
