@@ -1,11 +1,11 @@
-const { createHash } = require('crypto');
 const { User } = require('../../database/models');
 
 const generateToken = require('../middlewares/tokenGenerator');
+const encryptPassword = require('../middlewares/encryptPassword');
 const errorTypes = require('../utils/errorTypes');
 
 const login = async (email, password) => {
-  const cryptoPassword = createHash('md5').update(password).digest('hex');
+  const cryptoPassword = encryptPassword(password);
 
   const foundUserData = await User.findOne({ where: { email, password: cryptoPassword } });
 
