@@ -11,8 +11,8 @@ const PostLogin = async (data) => {
   try {
     console.log('FRONT_Adicionando Login');
     const result = await Axios.post('http://localhost:3001/login', data);
-    const responseData = await result.json();
-    console.log(responseData);
+    console.log('result.code', result.code);
+    console.log('result', result);
     return result;
   } catch (error) {
     console.error(error.message);
