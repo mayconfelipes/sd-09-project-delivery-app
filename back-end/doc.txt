@@ -130,8 +130,8 @@ Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0LCJuYW1
 body =>
 
 {
-    "id": 1,
-    "status": "Em trânsito"
+  "id": 1,
+  "status": "Em trânsito"
 }
 
 response =>
@@ -144,6 +144,29 @@ response =>
     "status": "Em trânsito",
     "saleDate": "2021-08-30T01:59:12.000Z",
     "userId": 1,
+    "sellerId": 2
+  }
+}
+
+FIND BY USER ID: GET http://localhost:3001/sale/byUserId
+
+body =>
+
+{
+  "userId": 1
+}
+
+response =>
+
+{
+  "sale": {
+    "id": 1,
+    "userId": 1,
+    "totalPrice": "257.50",
+    "deliveryAddress": "Rua teste",
+    "deliveryNumber": "10",
+    "status": "Pendente",
+    "saleDate": "2021-09-01T20:35:23.000Z",
     "sellerId": 2
   }
 }

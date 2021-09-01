@@ -12,14 +12,30 @@ function NavBar() {
         <button
           type="button"
           onClick={ () => history.push('/customer/products') }
+          data-testid="customer_products__element-navbar-link-products"
         >
           Produtos
         </button>
-        <button type="button">Meus Pedidos</button>
+        <button
+          data-testid="customer_products__element-navbar-link-orders"
+          type="button"
+        >
+          Meus Pedidos
+        </button>
       </span>
       <span>
-        <button type="button">{ name }</button>
-        <button type="button">Sair</button>
+        <button
+          data-testid="customer_products__element-navbar-user-full-name"
+          type="button"
+        >
+          {name}
+        </button>
+        <button
+          data-testid="customer_products__element-navbar-link-logout"
+          type="button"
+        >
+          Sair
+        </button>
       </span>
     </nav>
   );
