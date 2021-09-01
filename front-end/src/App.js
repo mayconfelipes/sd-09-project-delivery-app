@@ -17,10 +17,10 @@ function App() {
     <GlobalProvider>
       <Router>
         <Switch>
+          <Route path="/customer/products" component={ CustumerProducts } />
           <Route exact path="/">
             <Redirect to="/login" />
           </Route>
-          <Route exact path="/customer/products" component={ CustumerProducts } />
           <Route exact path="/register" component={ Register } />
           <Route path="/login" component={ Login } />
         </Switch>

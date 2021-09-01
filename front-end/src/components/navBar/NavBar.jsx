@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useStyle from './navBar.style';
 
 export default function NavBar() {
-  const userInfos = JSON.parse(localStorage.getItem('userData'));
+  const userInfos = JSON.parse(localStorage.getItem('user'));
 
   const classes = useStyle();
 
@@ -46,7 +46,7 @@ export default function NavBar() {
         </button>
         <button
           type="button"
-          data-testid=" customer_products__element-navbar-link-logout"
+          data-testid="customer_products__element-navbar-link-logout"
           className={ classes.optionsNavBar }
           style={ { backgroundColor: '#056CF9', width: '20%', fontWeight: '400' } }
           onClick={ () => {

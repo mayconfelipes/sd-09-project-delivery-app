@@ -37,7 +37,7 @@ function Login() {
     }
     console.log(responseLogin);
     if (responseLogin.token) {
-      localStorage.setItem('userData', JSON.stringify(responseLogin));
+      localStorage.setItem('user', JSON.stringify(responseLogin));
       history.push('/customer/products');
     }
   };
