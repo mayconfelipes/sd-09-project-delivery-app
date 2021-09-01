@@ -22,7 +22,22 @@ const registerController = async (req, res, next) => {
   return res.status(201).json({ token, ...result });
 }; 
 
+const getAllUsers = async (_req, res, _next) => {
+  const result = await userService.getAllUsers();
+
+  return res.status(200).json(result);
+};
+
+const removeUserById = async (req, res, _next) => {
+  const { userId } = req.body;
+  await userService.removeUserById(userId);
+
+  return res.status(200).end();
+};
+
 module.exports = {
   loginController,
   registerController,
+  getAllUsers,
+  removeUserById,
 };

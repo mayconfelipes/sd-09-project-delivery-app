@@ -30,7 +30,19 @@ const registerService = async (newUserData) => {
   return { id: result.dataValues.id, name: nome, email, role };
 };
 
+const getAllUsers = async () => {
+  const userList = await user.findAll({ attributes: { exclude: ['password'] } });
+
+  return userList;
+};
+
+const removeUserById = async (userId) => {
+  await user.destroy({ where: { id: userId } });
+};
+
 module.exports = {
   loginService,
   registerService,
+  getAllUsers,
+  removeUserById,
 };

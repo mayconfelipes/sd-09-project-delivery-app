@@ -3,12 +3,14 @@ import api from '../services/api';
 import TextInput from '../components/TextInput';
 import LargeButton from '../components/LargeButton';
 import DropDownList from '../components/DropDownList';
+import UsersTable from '../components/UsersTable';
 import dataTestIds from '../utils/dataTestIds';
 
 function Admin() {
   const [newUserData, setNewUserData] = useState({
     nome: '', email: '', password: '', role: '',
   });
+  const [usersList, setUsersList] = useState([]);
   const [disableButton, setDisableButton] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
 
@@ -38,12 +40,27 @@ function Admin() {
     setDisableButton(false);
   };
 
+  const getAllUsers = async () => {
+    const myList = await api.getAllUsers();
+    setUsersList(myList);
+  };
+
   useEffect(() => {
     verifyNewUserCredentials();
   }, [newUserData]);
 
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
   const handleChange = ({ target: { name, value } }) => {
     setNewUserData({ ...newUserData, [name]: value });
+  };
+
+  const handleRemoveClick = async (event) => {
+    const userId = event.target.value;
+    await api.removeUserById(userId);
+    await getAllUsers();
   };
 
   const cleanFields = () => {
@@ -65,6 +82,7 @@ function Admin() {
       setErrorMessage(result.error.message);
     }
     cleanFields();
+    await getAllUsers();
   };
 
   const errorDivMessage = (
@@ -123,9 +141,8 @@ function Admin() {
         />
         { errorMessage && errorDivMessage }
       </section>
-      <section>
-        <p>Aqui fica a lista de usuarios</p>
-      </section>
+      <h2>Lista de Usuários</h2>
+      <UsersTable list={ usersList } handleRemove={ handleRemoveClick } />
     </main>
   );
 }
