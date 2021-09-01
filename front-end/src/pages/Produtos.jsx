@@ -7,12 +7,11 @@ const Produtos = () => {
   const [products, setProducts] = useState([]);
   useEffect(
     () => {
-      const PRODUCTS_ENDPOINT = 'http://localhost:3001/api/customer/products';
+      const PRODUCTS_ENDPOINT = 'http://localhost:3001/api/products';
       const fetchData = async () => {
-        await axios.get(PRODUCTS_ENDPOINT).then((d) => {
-          console.log(d);
-          setProducts(d.data);
-        });
+        await axios.get(PRODUCTS_ENDPOINT).then((d) => (
+          setProducts(d.data)
+        ));
       };
       fetchData();
     }, [],

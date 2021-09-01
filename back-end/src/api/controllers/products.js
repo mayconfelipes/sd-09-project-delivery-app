@@ -1,9 +1,9 @@
-const { customerService } = require('../services');
+const { productsService } = require('../services');
 
 module.exports = {
   async getAll(_req, res, next) {
     try {
-      const response = await customerService.findAll();
+      const response = await productsService.findAll();
 
       res.status(200).json(response);
     } catch (err) {
