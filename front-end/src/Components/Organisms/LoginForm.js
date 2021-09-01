@@ -43,10 +43,19 @@ function LoginFormComponent({ title }) {
   //  Teste
   const logIn = async () => {
     const response = await userLogin({ email: login, password });
-    return response.message
-      ? setErrorMessage({
+    if (response.message) {
+      return setErrorMessage({
         message: 'Login ou senha inválidos! :(',
-      }) : history.push(`/${response.role}/products`);
+      });
+    }
+    localStorage.setItem('user', JSON.stringify(response));
+    if (response.role === 'customer') {
+      history.push('/customer/products');
+    } else if (response.role === 'seller') {
+      history.push('/seller/orders');
+    } else {
+      history.push('/admin');
+    }
   };
 
   return (
