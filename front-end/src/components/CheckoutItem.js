@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function productItem({ product, index }) {
+export default function CheckoutItem({ product, index }) {
   const removeProduct = () => true;
 
   const {
@@ -56,11 +56,12 @@ export default function productItem({ product, index }) {
   );
 }
 
-productItem.propTypes = {
+CheckoutItem.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
     price: PropTypes.string.isRequired,
   }).isRequired,
+  index: PropTypes.number.isRequired,
 };

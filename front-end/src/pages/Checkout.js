@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 // import Header from '../components/Header';
-import ProductItem from '../components/ProductItem';
+import CheckoutItem from '../components/CheckoutItem';
 import Customer from '../context/customerContext';
 
 const Checkout = () => {
@@ -20,7 +20,7 @@ const Checkout = () => {
       </div>
       <div className="cart-row">
         {shoppingCart.map((product, index) => (
-          <ProductItem key={ product.id } index={ index } product={ product } />
+          <CheckoutItem key={ product.id } index={ index } product={ product } />
         ))}
       </div>
       <div
