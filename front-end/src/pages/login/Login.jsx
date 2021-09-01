@@ -17,6 +17,22 @@ function Login() {
     setIsButtonDisabled(!isDisabled);
   }, [email, password]);
 
+  const validRole = (role) => {
+    switch (role) {
+    case 'seller':
+      history.push('/seller/orders');
+      break;
+    case 'customer':
+      history.push('/customer/products');
+      break;
+    case 'administrator':
+      console.log('adm');
+      break;
+    default:
+      break;
+    }
+  };
+
   const canUserLogin = async () => {
     const loginBody = { email, password };
     const responseLogin = await loginAPI(loginBody);
@@ -26,7 +42,7 @@ function Login() {
     console.log(responseLogin);
     if (responseLogin.token) {
       localStorage.setItem('userData', JSON.stringify(responseLogin));
-      history.push('/customer/products');
+      validRole(responseLogin.role);
     }
   };
 

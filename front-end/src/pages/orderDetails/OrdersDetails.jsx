@@ -1,12 +1,12 @@
 import React from 'react';
-import NavBar from '../../components/navBar/NavBar';
-import OrdersDetails from '../../components/orders/OrdersDetails';
+// import NavBar from '../../components/navBar/NavBar';
+import Details from '../../components/orders/Details';
 
 export default function SellerOrders() {
   return (
     <div>
-      <NavBar />
-      <OrdersDetails />
+      {/* <NavBar /> */}
+      <Details />
     </div>
   );
 }

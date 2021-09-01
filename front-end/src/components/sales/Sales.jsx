@@ -1,56 +1,68 @@
-import React from 'react';
-// import salesAPI from "../../services/salesAPI";
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import salesAPI from '../../services/salesAPI';
+import formatDate from '../../services/formatDate';
 
-const MockSalesDB = [
-  {
-    id: 32,
-    total_price: 200,
-    delivery_address: 'Bica de Pedra, Bairro Pompéia, 420',
-    sale_date: '20/04/20',
-    status: 'PREPARANDO',
-  },
-  {
-    id: 143,
-    total_price: 10000,
-    delivery_address: 'Alphaville, Bairro Leblon, 420',
-    sale_date: '20/04/20',
-    status: 'ENTREGUE',
-  },
-];
-
-export default function Sales() {
-  return MockSalesDB.map((sale) => (
-    <section key={ sale.id } className="card-sale">
-      <p data-testid="seller_orders__element-order-id-">Pedido</p>
-      {sale.id}
-
+const renderSales = (MockSalesDB, click) => (
+  MockSalesDB.map((sale) => (
+    <button
+      id={ sale.id }
+      type="button"
+      key={ sale.id }
+      className="card-sale"
+      onClick={ click(sale.id) }
+    >
+      <p data-testid={ `seller_orders__element-order-id-${sale.id}` }>
+        {`Pedido: ${sale.id}`}
+      </p>
       <div
         className="status-sale"
-        data-testid="seller_orders__element-delivery-status-"
+        data-testid={ `seller_orders__element-delivery-status-${sale.id}` }
       >
         {sale.status}
       </div>
 
       <div
         className="date-sale"
-        data-testid="seller_orders__element-order-date-"
+        data-testid={ `seller_orders__element-order-date-${sale.id}` }
       >
-        {sale.date}
+        {formatDate(sale.saleDate)}
       </div>
       <div
         className="total-price"
-        data-testid="seller_orders__element-card-price-"
+        data-testid={ `seller_orders__element-card-price-${sale.id}` }
       >
         R$
-        {sale.total_price}
+        {sale.totalPrice}
       </div>
 
       <div
         className="address-sale"
-        data-testid="seller_orders__element-card-address-"
+        data-testid={ `seller_orders__element-card-address-${sale.id}` }
       >
-        {sale.delivery_address}
+        {`${sale.deliveryAddress}, ${sale.deliveryNumber}`}
       </div>
-    </section>
-  ));
+    </button>
+  ))
+);
+
+export default function Sales() {
+  const history = useHistory();
+
+  const [MockSalesDB, setMockSalesDB] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const userInfos = JSON.parse(localStorage.getItem('userData'));
+    salesAPI({ sellerId: userInfos.id })
+      .then((response) => {
+        setMockSalesDB(response);
+        setIsLoading(false);
+      });
+  }, []);
+
+  const handleClick = (id) => () => history.push(`/seller/orders/${id}`);
+
+  return isLoading ? <p>Loading...</p> : renderSales(MockSalesDB, handleClick);
 }
