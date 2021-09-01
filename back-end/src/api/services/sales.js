@@ -10,23 +10,6 @@ const {
 
 const { INTERNAL_ERROR_STATUS, NOT_FOUND_STATUS } = require('../middwares/httpStatus');
 
-const createObject = (sale, products) => {
-  const { id, userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status,
-    saleDate } = sale;
-
-  return ({
-    id,
-    userId,
-    sellerId,
-    totalPrice,
-    deliveryAddress,
-    deliveryNumber,
-    saleDate,
-    status,
-    products,
-   });
-};
-
 const getById = async (id) => {
   const sale = await Sales.findByPk(id);
 
@@ -78,7 +61,7 @@ const create = async (sale, login) => {
 
   const fullSale = await getById(newSale.id);
 
-  return createObject(fullSale);
+  return fullSale;
 };
 
 module.exports = {
