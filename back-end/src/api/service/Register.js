@@ -1,6 +1,6 @@
 const boom = require('@hapi/boom');
 const md5 = require('md5');
-const { createToken } = require('../service/Login');
+const { createToken } = require('./Login');
 
 const registerVerify = require('./utils/registerSchema');
 const { user } = require('../../database/models');
