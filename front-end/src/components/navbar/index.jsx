@@ -27,6 +27,7 @@ const Navbar = ({ abas, user }) => {
       >
         Sair
       </button>
+
     </nav>
   );
 };
