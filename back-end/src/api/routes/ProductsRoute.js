@@ -1,10 +1,10 @@
 const express = require('express');
 const { getAllP, getPById } = require('../controllers/ProductsController');
-const { jtwValidate } = require('../middlewares/jwtValidation');
+const { jwtValidate } = require('../middlewares/jwtValidation');
 
 const router = express.Router();
 
-router.get('/customer/products', getAllP);
-router.get('/customer/products:id', jtwValidate, getPById);
+router.get('/', jwtValidate, getAllP);
+router.get('/:id', jwtValidate, getPById);
 
 module.exports = router;

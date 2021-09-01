@@ -11,10 +11,12 @@ app.use(cors());
 
 const { loginRouter } = require('./routes');
 const { registerRouter } = require('./routes');
+const productsRouter = require('./routes/ProductsRoute');
 
 app.use('/', loginRouter);
 app.use('/', registerRouter);
+app.use('/customer/products', productsRouter);
 
-app.get('/coffee', (_req, res) => res.status(418).end());
+// app.get('/coffee', (_req, res) => res.status(418).end());
 app.use(error);
 module.exports = app;

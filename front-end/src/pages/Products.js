@@ -7,7 +7,9 @@ import './Products.css';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const { role, token, name } = useContext(LoginContext);
+  const { role, name } = useContext(LoginContext);
+  const user = JSON.parse(localStorage.getItem('User'));
+  const { token } = user;
   async function getData() {
     const myInit = {
       method: 'GET',
@@ -19,7 +21,7 @@ const Products = () => {
     };
     await fetch('http://localhost:3001/customer/products', myInit)
       .then((response) => response.json())
-      .then((data) => setProducts(data.products))
+      .then((data) => console.log(data, setProducts([])))
       .catch((err) => console.log(err));
   }
 

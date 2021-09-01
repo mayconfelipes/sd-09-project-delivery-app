@@ -4,6 +4,7 @@
 const { getAllProducts, getProductById } = require('../service/productsServices');
 
 const getAllP = async (_req, res) => {
+  console.log('getAllP');
   const result = await getAllProducts();
   return res.status(200).json({ products: result });
 };
