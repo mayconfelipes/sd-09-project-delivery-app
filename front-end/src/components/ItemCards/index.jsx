@@ -4,7 +4,7 @@ import Button from '../Button';
 
 const ItemCard = ({ list }) => (
   list.length ? (
-    <div>
+    <div className="card-item">
       { list.map(({ id, name, price, urlImage }) => (
         <div key={ id }>
           <img
