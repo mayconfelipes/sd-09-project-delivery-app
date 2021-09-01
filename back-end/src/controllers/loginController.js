@@ -10,6 +10,11 @@ const jwtConfig = {
 
 const secret = 'secret_key';
 
+const payload = (user) => {
+  const { name, email, role } = user;
+  return ({ name, email, role });
+};
+
 const login = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -19,7 +24,7 @@ const login = async (req, res) => {
     }
       const encPassword = md5(password);
       if (encPassword === exists.password) {
-        const token = jwt.sign({ data: exists.displayName }, secret, jwtConfig);
+        const token = jwt.sign({ data: payload(exists) }, secret, jwtConfig);
         const { name, role } = exists;
         return res.status(200).json({ name, email, role, token });
       }

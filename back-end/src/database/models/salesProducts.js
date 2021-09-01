@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const SalesProductModel = sequelize.define('SalesProducts', {
-    sale_id: {
+    saleId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    product_id: {
+    productId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
   { 
     tableName: 'sales_products',
     timestamps: false,
+    underscored: true,
   });
 
   SalesProductModel.associate = (models) => {
