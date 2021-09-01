@@ -52,7 +52,7 @@ input::-webkit-inner-spin-button, .product-card-counter input::-webkit-outer-spi
   margin: 0;
 }
 
-.product-card-counter input[ type = "number" ] {
+.product-card-counter input {
   -moz-appearance: textfield;
 }
 
@@ -67,12 +67,12 @@ input::-webkit-inner-spin-button, .product-card-counter input::-webkit-outer-spi
   padding: 16px 18px 14px;
   text-align: center;
   text-decoration: none;
-	transition: all 0.1s;
+  transition: all 0.1s;
   width: 40px;
-	-moz-transition: all 0.1s;
+	/* -moz-transition: all 0.1s;
   -moz-box-shadow: 0 4px 0 #d35400;
   -webkit-box-shadow: 0 4px 0 #d35400;
-  -webkit-transition: all 0.1s;
+  -webkit-transition: all 0.1s; */
 }
 
 .product-card-counter button:first-of-type {
@@ -87,6 +87,6 @@ input::-webkit-inner-spin-button, .product-card-counter input::-webkit-outer-spi
   box-shadow: 0 2px 0 #d35400;
   position: relative;
   top: 4px;
-  -webkit-box-shadow: 0 2px 0 #d35400;
-  -moz-box-shadow: 0 2px 0 #d35400;
+  /* -webkit-box-shadow: 0 2px 0 #d35400;
+  -moz-box-shadow: 0 2px 0 #d35400; */
 }
