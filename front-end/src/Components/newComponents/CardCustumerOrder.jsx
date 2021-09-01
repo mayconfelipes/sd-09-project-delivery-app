@@ -1,5 +1,6 @@
 // import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // import React, { useState, useEffect } from 'react';
 // import { useCart } from '../../contexts/CartContext';
@@ -22,7 +23,7 @@ function CardCustumerOrder(selectOrder) {
   }
 
   return (
-    <div>
+    <Link to={ `/customer/orders/${id}` }>
       <div data-testid={ `customer_orders__element-order-id-${id}` }>
         Pedido
         { id }
@@ -36,7 +37,7 @@ function CardCustumerOrder(selectOrder) {
       <div>
         { totalPrice }
       </div>
-    </div>
+    </Link>
   );
 }
 
