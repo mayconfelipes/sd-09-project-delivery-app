@@ -12,7 +12,7 @@ const route = 'customer_products';
 function ProductCard({ product: { id, name, price, urlImage } }) {
   // const [inputValue, setInputValue] = useState(0);
   const [quantity, setQuantity] = useState(0);
-  const { updateQuantity } = useContext(CustomerContext);
+  const { updateCart } = useContext(CustomerContext);
 
   // const handleChange = ({ target }) => {
   //   setState({ ...state, [target.name]: target.value });
@@ -20,7 +20,7 @@ function ProductCard({ product: { id, name, price, urlImage } }) {
 
   useEffect(() => {
     if (quantity >= 0) {
-      updateQuantity(id, quantity, price);
+      updateCart(id, name, price, quantity);
     }
   }, [id, quantity, price]);
 

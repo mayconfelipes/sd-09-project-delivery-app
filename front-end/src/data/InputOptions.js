@@ -33,3 +33,21 @@ export const itemQty = (id) => ({
   label: null,
   testId: `card-quantity-${id}`,
 });
+
+export const address = {
+  id: 'address',
+  name: 'address',
+  type: 'text',
+  placeholder: null,
+  label: 'Endereço',
+  testId: 'address',
+};
+
+export const addressNumber = {
+  id: 'addressNumber',
+  name: 'addressNumber',
+  type: 'text',
+  placeholder: null,
+  label: 'Número',
+  testId: 'addressNumber',
+};

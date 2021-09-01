@@ -5,17 +5,42 @@ import { number } from 'prop-types';
 
 const route = 'customer_checkout';
 
-function CheckoutTable() {
+function CheckoutTable({ cart }) {
   return (
     <section>
       <h1>TABELA DE CHECKOUT</h1>
-      <p data-testid={ `${route}__element-order-table-item-number-${id}` }>item number</p>
-      <p data-testid={ `${route}__element-order-table-name-${id}` }>name</p>
-      <p data-testid={ `${route}__element-order-table-quantity-${id}` }>quantity</p>
-      <p data-testid={ `${route}__element-order-table-unit-price-${id}` }>unit price</p>
-      <p data-testid={ `${route}__element-order-table-sub-total-${id}` }>sub total</p>
-      <p data-testid={ `${route}__element-order-table-remove-${id}` }>remove</p>
-
+      <table>
+        <tr>
+          <th>item number</th>
+          <th>name</th>
+          <th>quantity</th>
+          <th>unit price</th>
+          <th>sub total</th>
+          <th>remove</th>
+        </tr>
+        { cart.map(({ id, name, price, quantity }, index) => (
+          <tr key={ id }>
+            <td data-testid={ `${route}__element-order-table-item-number-${index}` }>
+              { index + 1 }
+            </td>
+            <td data-testid={ `${route}__element-order-table-name-${index}` }>
+              { name }
+            </td>
+            <td data-testid={ `${route}__element-order-table-quantity-${index}` }>
+              { quantity }
+            </td>
+            <td data-testid={ `${route}__element-order-table-unit-price-${index}` }>
+              { `${price}`.replace(/\./, ',') }
+            </td>
+            <td data-testid={ `${route}__element-order-table-sub-total-${index}` }>
+              { `${(quantity * price).toFixed(2)}`.replace(/\./, ',') }
+            </td>
+            <td data-testid={ `${route}__element-order-table-remove-${index}` }>
+              remove
+            </td>
+          </tr>
+        ))}
+      </table>
     </section>
   );
 }

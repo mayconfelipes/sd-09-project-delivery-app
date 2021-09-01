@@ -22,3 +22,8 @@ export const rmItemBtn = (id) => ({
   name: `card-rm-item-${id}`,
   label: '-',
 });
+
+export const submitOrder = {
+  name: 'submit-order',
+  label: 'FINALIZAR PEDIDO',
+};

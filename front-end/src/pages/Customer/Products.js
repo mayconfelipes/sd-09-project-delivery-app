@@ -13,7 +13,14 @@ const route = 'customer_products';
 function Products() {
   const [products, setProducts] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
-  const { total } = useContext(CustomerContext);
+  const { total, cartItems } = useContext(CustomerContext);
+
+  const handleClick = () => {
+    setShouldRedirect(true);
+    localStorage.cart = JSON.stringify(Object.values(cartItems)
+      .filter(({ quantity }) => quantity > 0));
+    localStorage.total = JSON.stringify(total);
+  };
 
   useEffect(() => {
     getProducts().then((data) => setProducts(data));
@@ -28,7 +35,7 @@ function Products() {
       <button
         data-testid={ `${route}__button-cart` }
         type="button"
-        onClick={ () => setShouldRedirect(true) }
+        onClick={ handleClick }
         disabled={ total === '0.00' }
       >
         Ver Carrinho R$
