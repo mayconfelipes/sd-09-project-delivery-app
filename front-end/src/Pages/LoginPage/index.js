@@ -9,39 +9,55 @@ import {
   Wrapper,
 } from '../../Components';
 import assets from '../../Assets';
+import testIds from '../../utils/testIds';
+import useLoginInfo from '../../hooks/useLoginInfo';
+import { PostLogin } from '../../Services/Api';
 
-const testIds = {
-  emailInput: 'common_login__input-email',
-  passwordInput: 'common_login__input-password',
-  loginButton: 'common_login__button-login',
-  registerButton: 'common_login__button-register',
-  errorMessage: 'common_login__element-invalid-email',
-};
-
-const LoginPage = () => (
-  <Container>
-    <Image src={ assets.images.logo } />
-    <AppTitle>AppTitle</AppTitle>
-    <Wrapper>
-      <Label>
-        Campo
-        <Input type="email" data-testId={ testIds.emailInput } />
-      </Label>
-      <Label>
-        Campo
-        <Input type="password" data-testId={ testIds.passwordInput } />
-      </Label>
-      <Button data-testId={ testIds.loginButton }>
-        Login
-      </Button>
-      <Button data-testId={ testIds.registerButton }>
-        Ainda não tenho conta
-      </Button>
-      <Wrapper data-testId={ testIds.errorMessage }>
-        Mensagem de erro
+const LoginPage = () => {
+  const [loginInfo, handleFieldsChange] = useLoginInfo();
+  const loginUser = (data) => () => {
+    PostLogin(data);
+  };
+  return (
+    <Container>
+      <Image src={ assets.images.logo } />
+      <AppTitle>AppTitle</AppTitle>
+      <Wrapper>
+        <Label>
+          Campo
+          <Input
+            type="email"
+            name="email"
+            value={ loginInfo.email }
+            data-test-id={ testIds.id1 }
+            onChange={ handleFieldsChange }
+          />
+        </Label>
+        <Label>
+          Campo
+          <Input
+            type="password"
+            name="password"
+            value={ loginInfo.password }
+            data-test-id={ testIds.id2 }
+            onChange={ handleFieldsChange }
+          />
+        </Label>
+        <Button
+          data-test-id={ testIds.id3 }
+          onClick={ loginUser(loginInfo) }
+        >
+          Login
+        </Button>
+        <Button data-test-id={ testIds.id4 }>
+          Ainda não tenho conta
+        </Button>
+        <Wrapper data-test-id={ testIds.id5 }>
+          Mensagem de erro
+        </Wrapper>
       </Wrapper>
-    </Wrapper>
-  </Container>
-);
+    </Container>
+  );
+};
 
 export default LoginPage;

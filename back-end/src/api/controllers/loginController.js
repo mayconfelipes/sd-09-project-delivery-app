@@ -11,7 +11,7 @@ loginController.post('/', loginValidator, rescue(async (req, res, next) => {
   const { email, password } = req.body;
 
   const { error, token } = await loginService.login(email, password);
-
+console.log(email, password);
   if (error) {
     return next(error);
   }
