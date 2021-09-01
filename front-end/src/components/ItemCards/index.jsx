@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import Button from '../Button';
 // import { useDeliveryContext } from '../../context/deliveryProvider';
 
 const ItemCard = ({ list }) => {
   // const { allProducts } = useDeliveryContext();
+  const history = useHistory();
   const [cart, setCart] = useState({});
   console.log(cart);
   const incrementQuantity = (id, name, price) => {
@@ -40,6 +42,10 @@ const ItemCard = ({ list }) => {
     });
 
     return parseFloat(total, 2).toFixed(2);
+  };
+
+  const handleRedirect = () => {
+    history.push('/customer/checkout');
   };
 
   return list.length ? (
@@ -84,10 +90,18 @@ const ItemCard = ({ list }) => {
           </div>
         </div>
       )) }
-      <Button
-        testid="customer_products__button-cart"
-        data={ `Ver Carrinho:  R$${totalPrice()}` }
-      />
+      <button
+        type="button"
+        data-testid="customer_products__button-cart"
+        onClick={ handleRedirect }
+      >
+        Ver Carrinho:  R$
+        <p
+          data-testid="customer_products__checkout-bottom-value"
+        >
+          { totalPrice().toString().replace(/\./, ',') }
+        </p>
+      </button>
     </div>
   ) : <p>Loading</p>;
 };
