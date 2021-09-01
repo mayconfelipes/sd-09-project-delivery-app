@@ -1,5 +1,5 @@
 const usersServices = require('../services/users');
-const { CREATED_STATUS } = require('../middwares/httpStatus');
+const { CREATED_STATUS, OK_STATUS } = require('../middwares/httpStatus');
 
 const create = async (req, res, next) => {
   try {
@@ -13,6 +13,19 @@ const create = async (req, res, next) => {
   }
 };
 
+const getByRole = async (req, res, next) => {
+  try {
+    const { role } = req.body;
+
+    const users = await usersServices.getByRole(role);
+
+    res.status(OK_STATUS).json({ users });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   create,
+  getByRole,
 };
