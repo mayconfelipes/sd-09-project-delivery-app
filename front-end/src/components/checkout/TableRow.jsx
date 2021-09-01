@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TableRow = ({ item, product }) => {
+const TableRow = ({ item, product, onclick }) => {
   const { name, unitPrice, quantity, subTotal } = product;
   return (
     <tr>
@@ -21,7 +21,9 @@ const TableRow = ({ item, product }) => {
         { subTotal }
       </td>
       <td data-testid={ `customer_checkout__element-order-table-remove-${item}` }>
-        <button type="button">Remover</button>
+        <button type="button" onClick={ () => onclick(item) }>
+          Remover
+        </button>
       </td>
     </tr>
   );
@@ -35,6 +37,7 @@ TableRow.propTypes = {
     quantity: PropTypes.number,
     subTotal: PropTypes.number,
   }).isRequired,
+  onclick: PropTypes.func.isRequired,
 };
 
 export default TableRow;

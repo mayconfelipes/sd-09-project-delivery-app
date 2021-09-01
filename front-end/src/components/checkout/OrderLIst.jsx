@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // import { useDeliveryContext } from '../../context/deliveryProvider';
 import TableRow from './TableRow';
@@ -12,10 +12,6 @@ const OrderLIst = () => {
     'Sub-total',
     'Remover item',
   ];
-
-  // const { allProducts } = useDeliveryContext();
-
-  // const { name, unitPrice, quantity, subTotal } = cart[i];
 
   const teste = [
     {
@@ -32,6 +28,22 @@ const OrderLIst = () => {
     },
   ];
 
+  const [products, setProducts] = useState(teste);
+
+  // const { allProducts } = useDeliveryContext();
+
+  // const { name, unitPrice, quantity, subTotal } = cart[i];
+
+  const handleRemoveProduct = (indexItem) => {
+    console.log('index > ', indexItem);
+    const tmpProducts = products;
+
+    const updatedProducts = tmpProducts.filter((_product, index) => index !== indexItem);
+    console.log('[prevProducts] > ', products);
+    console.log('[currentProducts] > ', updatedProducts);
+    setProducts(updatedProducts);
+  };
+
   return (
     <div className="order-list-container">
       <table className="order-table">
@@ -41,8 +53,13 @@ const OrderLIst = () => {
           </tr>
         </thead>
         <tbody>
-          {teste.map((product, index) => (
-            <TableRow key={ index } item={ index } product={ product } />
+          {products.map((product, index) => (
+            <TableRow
+              key={ index }
+              item={ index }
+              product={ product }
+              onclick={ handleRemoveProduct }
+            />
           ))}
         </tbody>
       </table>
