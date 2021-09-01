@@ -7,13 +7,14 @@ function ProductsTable({ listItems, testIds }) {
 
   return (
     <table>
-      <thead />
-      <tbody>
+      <thead>
         <tr>
           { rows.map((item, index) => (
-            <td key={ index }>{ item }</td>
+            <th key={ index }>{ item }</th>
           )) }
         </tr>
+      </thead>
+      <tbody>
         { listItems.map((item, index) => (
           <tr key={ index }>
             <td data-testid={ `${testIds[0]}${index}` }>{ index + 1 }</td>
