@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory, Link } from 'react-router-dom';
 import InputText from '../Molecules/InputText';
 import Text from '../Atoms/Text';
+import Title from '../Atoms/Title';
 import Button from '../Atoms/Button';
-import { LoginForm } from '../styles';
+import { FormElement } from '../styles';
 import validation from '../../validation/userValidation';
 import { userLogin } from '../../services/api';
 
-// const notFound = 404;
-// const statusOk = 200;
-
-function LoginFormComponent() {
+function LoginFormComponent({ title }) {
   const inicialFormData = {
     login: '',
     password: '',
@@ -41,16 +40,27 @@ function LoginFormComponent() {
     setLoginForm({ ...loginForm, [name]: value });
   };
 
+  //  Teste
   const logIn = async () => {
     const response = await userLogin({ email: login, password });
-    return response.message
-      ? setErrorMessage({
+    if (response.message) {
+      return setErrorMessage({
         message: 'Login ou senha inválidos! :(',
-      }) : history.push(`/${response.role}/products`);
+      });
+    }
+    localStorage.setItem('user', JSON.stringify(response));
+    if (response.role === 'customer') {
+      history.push('/customer/products');
+    } else if (response.role === 'seller') {
+      history.push('/seller/orders');
+    } else {
+      history.push('/admin');
+    }
   };
 
   return (
-    <LoginForm>
+    <FormElement>
+      <Title>{title}</Title>
       <InputText
         name="login"
         placeholder="email@trybe.com.br"
@@ -82,8 +92,12 @@ function LoginFormComponent() {
       {errorMessage.message
         ? <Text testId="common_login__element-invalid-email">{errorMessage.message}</Text>
         : null}
-    </LoginForm>
+    </FormElement>
   );
 }
+
+LoginFormComponent.propTypes = {
+  title: PropTypes.string,
+}.isRequired;
 
 export default LoginFormComponent;

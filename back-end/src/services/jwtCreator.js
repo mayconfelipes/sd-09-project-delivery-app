@@ -1,8 +1,9 @@
 require('dotenv').config();
+const fs = require('fs');
 const jwt = require('jsonwebtoken');
 
 const jwtCreator = ({ name, email, role }) => {
-  const secret = process.env.JWT_SECRET;
+  const secret = fs.readFileSync('jwt.evaluation.key', { encoding: 'utf-8' }).trim();
   const jwtConfig = {
     expiresIn: '7d',
     algorithm: 'HS256',
