@@ -6,6 +6,7 @@ import AppContext from './context';
 
 function Provider({ children }) {
   const [user, setUser] = useState({});
+  const [sales, setSales] = useState({});
   const [products, setProducts] = useState([]);
   const [productsCart, setProductsCart] = useState({});
   const [loading, setLoading] = useState(true);
@@ -45,6 +46,22 @@ function Provider({ children }) {
     }
   };
 
+  const getSales = async () => {
+    response.data = [{
+      deliveryNumber: '0001',
+      Status: 'Pendente',
+      saleDate: '01/09/2021',
+      id: '01',
+    }];
+
+    try {
+      const response = await axios.get('');
+      setSales(response.data);
+    } catch (error) {
+      console.logo(error);
+    }
+  };
+
   const setUserInLocalStorage = (data) => {
     localStorage.setItem('user', JSON.stringify(data));
   };
@@ -54,6 +71,9 @@ function Provider({ children }) {
     setUser,
     signIn,
     getProducts,
+    getSales,
+    setSales,
+    sales,
     products,
     setUserInLocalStorage,
     productsCart,
