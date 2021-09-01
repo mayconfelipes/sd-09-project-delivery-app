@@ -18,7 +18,7 @@ const verifyJWT = (token) => jwt.verify(token, JWT_SECRET, (error, decoded) => {
 module.exports = {
   access: {
     name: 'access token',
-    expiration: [15, 's'],
+    expiration: [15, 'm'],
     create(payload) {
       return createJWT(payload, this.expiration);
     },
