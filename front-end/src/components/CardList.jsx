@@ -59,6 +59,8 @@ const CardList = () => {
           classStyleImage="bt-cart-img"
         />
 
+        <span className="format-total">R$</span>
+
         <Button
           id="btn-total-cart"
           dataTestId={ testid[21] }
