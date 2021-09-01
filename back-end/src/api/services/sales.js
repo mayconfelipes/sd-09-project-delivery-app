@@ -1,6 +1,11 @@
 const { sale, sequelize } = require('../../database/models');
 const schemaForSale = require('../../schema/sale');
 
+const getItemPrice = async (id) => {
+  const { price } = await ProductServices.findById(id);
+  return price;
+};
+
 const getTotalPrice = async (data) => {
   const pricesPromises = data.map(async ({ id, quantity }) => {
     const price = await getItemPrice(id);
