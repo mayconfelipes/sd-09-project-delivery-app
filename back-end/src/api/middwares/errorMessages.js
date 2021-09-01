@@ -4,6 +4,7 @@ const SALE_PRODUCT_NOT_CREATED = 'Venda de produtos não pode ser criada';
 const SALE_PRODUCT_NOT_EXIST = 'Essa venda não possui produtos cadastrados';
 const SALE_NOT_CREATED = 'Venda não pode ser criada';
 const SALE_NOT_EXIST = 'Venda não existente';
+const SALE_NOT_UPDATED = 'Venda não atualizada';
 const TOKEN_INVALID = 'Token expirado ou inválido';
 const TOKEN_NOT_FOUND = 'Token não encontrado';
 const USER_NOT_CREATED = 'Usuário não pode ser criado';
@@ -16,6 +17,7 @@ module.exports = {
   SALE_PRODUCT_NOT_EXIST,
   SALE_NOT_EXIST,
   SALE_NOT_CREATED,
+  SALE_NOT_UPDATED,
   TOKEN_INVALID,
   TOKEN_NOT_FOUND,
   USER_NOT_CREATED,

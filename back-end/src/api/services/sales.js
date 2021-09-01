@@ -6,7 +6,8 @@ const { messageError } = require('../middwares/errors');
 const { 
   SALE_NOT_CREATED,
   SALE_NOT_EXIST,
-  SALE_PRODUCT_NOT_CREATED } = require('../middwares/errorMessages');
+  SALE_PRODUCT_NOT_CREATED, 
+  SALE_NOT_UPDATED} = require('../middwares/errorMessages');
 
 const { INTERNAL_ERROR_STATUS, NOT_FOUND_STATUS } = require('../middwares/httpStatus');
 
@@ -64,7 +65,32 @@ const create = async (sale, login) => {
   return fullSale;
 };
 
+const update = async (id, sale) => {
+  const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status } = sale;
+ 
+  const saleUser = await usersServices.getById(userId);
+
+  const saleSeller = await usersServices.getById(sellerId);
+
+  const updateSale = await Sales.update({ userId: saleUser.id, 
+    sellerId: saleSeller.id,
+    totalPrice,
+    deliveryAddress,
+    deliveryNumber,
+    status,
+  }, { where: id });
+
+  if (!updateSale) {
+    throw messageError(INTERNAL_ERROR_STATUS, SALE_NOT_UPDATED);
+  }
+
+  const fullSale = await getById(id);
+
+  return fullSale;
+};
+
 module.exports = {
   create,
   getById,
+  update,
 };
