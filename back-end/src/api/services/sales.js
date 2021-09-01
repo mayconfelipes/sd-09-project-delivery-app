@@ -2,7 +2,6 @@ const Joi = require('joi');
 
 const { Sale, SalesProduct, Product } = require('../../database/models');
 const { InvalidArgumentError } = require('../errors');
-const productsService = require('./products');
 
 const STATUS_CHOICES = [
   'Pendente',
@@ -70,8 +69,6 @@ module.exports = {
   },
   async getById(id) {
     const { dataValues: sale } = await Sale.findOne({ where: { id } });
-    const SPArray = await SalesProduct.findAll({ where: { saleId: id } });
-    const salesProducts = SPArray.map(({ dataValues }) => dataValues);
 
     return retriveSaleSerializer(sale);
   },
