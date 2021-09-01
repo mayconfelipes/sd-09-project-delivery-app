@@ -6,7 +6,7 @@ import Orders from './pages/Orders';
 import Checkout from './pages/Checkout';
 import Products from './pages/Products';
 import Notfound from './pages/Notfound';
-import './App.css';
+// import './App.css';
 
 function App() {
   return (

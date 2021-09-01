@@ -22,7 +22,7 @@
 - 21: customer_products__button-cart
 - 22: customer_checkout__element-order-table-item-number-\<index>
 - 23: customer_checkout__element-order-table-name-\<index>
-- 24: cusctomer_checkout__element-order-table-quantity-\<index>
+- 24: customer_checkout__element-order-table-quantity-\<index>
 - 25: customer_checkout__element-order-table-unit-price-\<index>
 - 26: customer_checkout__element-order-table-sub-total-\<index>
 - 27: customer_checkout__element-order-table-remove-\<index>
@@ -76,3 +76,4 @@
 -
 -
 - 78: admin_manage__input-password
+- 79: customer_products__checkout-bottom-value

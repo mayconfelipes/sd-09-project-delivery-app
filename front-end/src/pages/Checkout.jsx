@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import AppContext from '../hooks/context';
 import Navbar from '../components/Navbar';
 import styles from '../css/Checkout.module.css';
-import '../App.css';
+// import '../App.css';
 
 function Checkout() {
   // const { productsCart } = useContext(AppContext);
