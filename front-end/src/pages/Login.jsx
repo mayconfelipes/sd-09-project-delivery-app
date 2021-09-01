@@ -22,6 +22,7 @@ function Login() {
       </button>
       <button
         type="button"
+        className="sign-btn"
         data-testid="common_login__button-register"
         onClick={ () => history.push('/register') }
       >
