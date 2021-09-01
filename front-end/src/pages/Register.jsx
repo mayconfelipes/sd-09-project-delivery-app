@@ -33,7 +33,7 @@ function Register() {
   async function registerUser() {
     try {
       const { name, email, password } = signupValues;
-      const request = await axios({
+      await axios({
         method: 'post',
         url: 'http://localhost:3001/user',
         data: {
@@ -42,8 +42,8 @@ function Register() {
           password,
         },
       });
-      const { data } = request;
-      localStorage.setItem('user', JSON.stringify(data));
+      // const { data } = request;
+      // localStorage.setItem('user', JSON.stringify(data));
       history.push('/customer/products');
     } catch (e) {
       setErrorMessage('Usuario já cadastrado');
