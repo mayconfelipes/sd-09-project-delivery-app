@@ -33,13 +33,13 @@ function Checkout() {
     total += subtotal;
   };
 
+  const formatPrice = (price) => price.replace(/\./ig, ',');
+
   const calcSubTotal = (price, quantity) => {
     const subtotal = Number(price * quantity);
     calcTotalPrice(subtotal);
-    return subtotal;
+    return formatPrice(subtotal.toFixed(2));
   };
-
-  const formatPrice = (price) => price.replace(/\./ig, ',');
 
   const createSpan = (dataTestId, value) => (
     <span
@@ -77,7 +77,7 @@ function Checkout() {
         <div
           data-testid="customer_checkout__element-order-total-price"
         >
-          {`Total: R$ ${total.toFixed(2)}`}
+          { formatPrice(total.toFixed(2)) }
         </div>
       </section>
       <section className={ styles.formCheckoutContainer }>

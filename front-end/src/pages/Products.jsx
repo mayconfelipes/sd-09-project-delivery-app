@@ -1,10 +1,10 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import jwt from 'jsonwebtoken';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../hooks/context';
 import Navbar from '../components/Navbar';
-// import '../App.css';
 import ProductCard from '../components/ProductCard';
+// import '../App.css';
 
 const SECRET_KEY = 'minhachavesecreta';
 
@@ -16,6 +16,7 @@ function Products() {
     loading } = useContext(AppContext);
 
   const router = useHistory();
+  const [disable, setDisable] = useState(true);
   let total = 0;
 
   const test = useCallback(() => getProducts(), [getProducts]);
@@ -28,7 +29,6 @@ function Products() {
     if (!localStorage.getItem('user')) {
       return router.push('/');
     }
-    console.log('oi');
     const { token } = JSON.parse(localStorage.getItem('user'));
     try {
       jwt.verify(token, SECRET_KEY);
@@ -48,7 +48,9 @@ function Products() {
     productsKeys.forEach((product) => {
       total += productsCart[product].quantity * Number(productsCart[product].price);
     });
-    console.log(total);
+    if (total > 0 && disable) {
+      setDisable(false);
+    }
     return total.toFixed(2).toString().replace(/\./ig, ',');
   };
 
@@ -81,6 +83,7 @@ function Products() {
         type="button"
         className="button-cart"
         onClick={ handleClick }
+        disabled={ disable }
       >
         <span
           data-testid="customer_products__checkout-bottom-value"
