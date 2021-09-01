@@ -18,6 +18,8 @@ const CardList = () => {
   const [isError, setIsError] = useState(false);
   const [isRedirectCart, setIsRedirectCart] = useState(false);
 
+  const TOTALZERADO = totalCart === '0,00';
+
   const fetchProducts = async () => {
     // requisição para o Backend
     const productsAll = await Api.getAllProducts(getTokenLocalStorage());
@@ -42,21 +44,32 @@ const CardList = () => {
 
   return (
     <div>
-      <img
-        src={ imageCart }
-        alt="Imagem de um carrinho de compras, com detalhes em verde"
-        data-testid={ 21 }
-      />
+      <div className="btn-cart">
+        <Button
+          id="btn-total-cart"
+          dataTestId={ testid[76] }
+          buttonText={ totalCart }
+          onClick={ () => {
+            setIsRedirectCart(true);
+          } }
+          isDisabled={ TOTALZERADO }
+          classStyle="btn-invisivel"
+          src={ imageCart }
+          alt="Imagem de um carrinho de compras, com detalhes em verde"
+          classStyleImage="bt-cart-img"
+        />
 
-      <Button
-        id="btn-total-cart"
-        dataTestId={ testid[76] } // testando datatestid teste 16
-        buttonText={ totalCart }
-        onClick={ () => {
-          setIsRedirectCart(true);
-        } }
-        isDisabled={ totalCart === '0,00' }
-      />
+        <Button
+          id="btn-total-cart"
+          dataTestId={ testid[21] }
+          buttonText={ totalCart }
+          onClick={ () => {
+            setIsRedirectCart(true);
+          } }
+          isDisabled={ TOTALZERADO }
+          classStyle={ TOTALZERADO ? 'btn-cart-desabled' : 'btn-cart-total' }
+        />
+      </div>
 
       <div className="list-products">
         {productData.map((product, index) => (
