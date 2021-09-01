@@ -9,14 +9,6 @@ try {
 }
 };
 
-// user_id: DataTypes.INTEGER,
-// seller_id: DataTypes.INTEGER,
-// total_price: DataTypes.DOUBLE,
-// delivery_address: DataTypes.STRING,
-// delivery_number: DataTypes.STRING,
-// sale_date: DataTypes.DATE,
-// status: DataTypes.STRING
-
 const saveOrder = async (req, res, next) => {
   try {
     const orderData = req.body;

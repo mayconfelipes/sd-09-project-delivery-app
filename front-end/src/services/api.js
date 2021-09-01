@@ -117,6 +117,21 @@ const getAllSales = (token) => {
     .catch((err) => err);
 };
 
+// pega todos vendedores
+const getAllVendors = (token) => {
+  const endpoint = `${URL}/vendors`;
+  return fetch(endpoint, {
+    method: 'GET',
+    headers: {
+      'Content-Type': CONTENT,
+      authorization: token,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
 export default {
   loginUser,
   registerUser,
@@ -126,4 +141,5 @@ export default {
   getAllProducts,
   saveOrder,
   getAllSales,
+  getAllVendors,
 };

@@ -18,7 +18,7 @@ function Checkout() {
   const history = useHistory();
   const cartData = getCarrinhoLocalStorage();
   const [infoSale, setInfoSalle] = useState({
-    address: '', addressNumber: '', seller: '',
+    deliveryAddress: '', deliveryNumber: '', sellerId: '',
   });
 
   const handleChange = ({ target: { name, value } }) => {
@@ -33,14 +33,20 @@ function Checkout() {
     setCarrinhoLocalStorage(RemoveCartData);
     setTotalCart(getTotalCartLocalStorage());
   }
-  const handleClick = async () => {
-    const orderdata = JSON.parse(localStorage.getItem('orderData'));
-    const result = await api.saveOrder(orderdata);
+  const handleSubmit = async () => {
+    // cartData + infoSale + user(localstorage)
+    // const { id, token } = JSON.parse(localStorage.getItem('user'));
+    // const { deliveryAddress, deliveryNumber, sellerId } = infoSale;
+    const saleData = totalCart;
+    const result = await api.saveOrder(saleData);
     if (result.error) { console.error(`tratar erro ${result.error}`); }
     history.push(`/customer/order/${result.id}`); // conferir esse id
   };
 
-  const options = ['vendor1', 'vendor2', 'vendor3'];// buscar vendedores
+  const getVendorList = async () => {
+    const options = await api.getAllVendors(); // ['vendor1', 'vendor2', 'vendor3']
+    return options;
+  };
 
   return (
     <main>
@@ -91,15 +97,15 @@ function Checkout() {
           {' '}
           P.Vendedora Responsável:
           <DropDownList
-            options={ options }
-            name="seller"
+            options={ getVendorList() }
+            name="sellerId"
             dataTestId={ testIds[29] }
             onChange={ handleChange }
           />
         </p>
         <TextInput
           type="input"
-          name="address"
+          name="deliveryAddress"
           onChange={ handleChange }
           labelText="Endereço"
           placeholderText="Seu endereço aqui"
@@ -107,7 +113,7 @@ function Checkout() {
         />
         <TextInput
           type="input"
-          name="addressNumber"
+          name="deliveryNumber"
           onChange={ handleChange }
           labelText="Número"
           placeholderText="1234"
@@ -116,7 +122,7 @@ function Checkout() {
         <LargeButton
           buttonText="FINALIZAR PEDIDO"
           // isDisabled={ disableButton }
-          onClick={ handleClick }
+          onClick={ handleSubmit }
           dataTestId={ testIds[32] }
         />
       </section>
