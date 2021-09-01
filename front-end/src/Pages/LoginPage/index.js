@@ -14,7 +14,7 @@ import useLoginInfo from '../../hooks/useLoginInfo';
 import { PostLogin } from '../../Services/Api';
 
 const LoginPage = () => {
-  const [loginInfo, handleFieldsChange] = useLoginInfo();
+  const { loginInfo, handleFieldsChange, isValidInfo } = useLoginInfo();
   const loginUser = (data) => () => {
     PostLogin(data);
   };
@@ -46,6 +46,7 @@ const LoginPage = () => {
         <Button
           data-test-id={ testIds.id3 }
           onClick={ loginUser(loginInfo) }
+          disabled={ isValidInfo }
         >
           Login
         </Button>

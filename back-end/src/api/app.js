@@ -7,9 +7,9 @@ const errorHandler = require('./middlewares/errorHandler');
 const app = express();
 app.use(bodyParser);
 
-var options = {
+const options = {
   origin: 'http://localhost:3000',
-}
+};
 
 app.use(cors(options));
 

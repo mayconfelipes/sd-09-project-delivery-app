@@ -19,8 +19,7 @@ const PostLogin = async (data) => {
   }
 };
 
-/* 
-      "email": "fulana@deliveryapp.com",
+/*    "email": "fulana@deliveryapp.com",
       "password": "fulana@123" */
 
 const PostClient = async () => {
