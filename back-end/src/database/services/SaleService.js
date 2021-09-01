@@ -1,5 +1,5 @@
 const { sale: Sale, salesProduct: SalesProduct } = require('../models');
-const erroHelper = require('../../utils/errorHelper');
+const errorHelper = require('../../utils/errorHelper');
 
 const sequelizeDataSale = (data) => {
   const newData = {
@@ -23,7 +23,7 @@ const checkOut = async ({ sale: saleData, products: productsData }) => {
 
     return sale;
   } catch (_error) {
-    throw erroHelper(400, '"data" conflict');
+    throw errorHelper(400, '"data" conflict');
   }
 };
 
