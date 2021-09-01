@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/CardProduct.css';
 
 function CardProduct({ product }) {
   const { name, urlImage, price, id } = product;
+  const [value, setValue] = useState(
+
+  );
 
   const formatedPrice = (price_) => price_.replace('.', ',');
 
@@ -23,22 +26,25 @@ function CardProduct({ product }) {
         <span data-testid={ `customer_products__element-card-title-${id}` }>
           { name }
         </span>
-        <button type="button">-</button>
+        <button
+          type="button"
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          onClick={ () => setValue(value - 1) }
+        >
+          -
+        </button>
+
         <input
           type="text"
           data-testid={ `customer_products__input-card-quantity-${id}` }
+          value={ value }
         />
         <button
           type="button"
           data-testid={ `customer_products__button-card-add-item-${id}` }
+          onClick={ () => setValue(value + 1) }
         >
           +
-        </button>
-        <button
-          type="button"
-          data-testid={ `customer_products__button-card-rm-item-${id}` }
-        >
-          -
         </button>
       </div>
     </div>
