@@ -1,9 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button';
+// import { useDeliveryContext } from '../../context/deliveryProvider';
 
-const ItemCard = ({ list }) => (
-  list.length ? (
+const ItemCard = ({ list }) => {
+  // const { allProducts } = useDeliveryContext();
+  const [cart, setCart] = useState({});
+  console.log(cart);
+  const incrementQuantity = (id, name, price) => {
+    if (!cart[id]) {
+      return setCart({ ...cart, [id]: { id, name, price, quantity: 1 } });
+    }
+
+    setCart({ ...cart, [id]: { ...cart[id], quantity: cart[id].quantity += 1 } });
+  };
+
+  const decrementQuantity = (id) => {
+    if (!cart[id] || cart[id].quantity <= 1) {
+      const { [id]: _, ...newCart } = cart;
+      return setCart({ ...newCart });
+    }
+
+    setCart({ ...cart,
+      [id]: { ...cart[id], quantity: Math.max(0, cart[id].quantity -= 1) } });
+  };
+
+  const inputQuantity = (id, name, price, { target: { value } }) => {
+    if (!cart[id]) {
+      return setCart({ ...cart, [id]: { id, name, price, quantity: Number(value) } });
+    }
+
+    setCart({ ...cart, [id]: { ...cart[id], quantity: Number(value) } });
+  };
+
+  const totalPrice = () => {
+    let total = 0;
+    Object.keys(cart).forEach((key) => {
+      total += cart[key].quantity * Number(cart[key].price);
+    });
+
+    return parseFloat(total, 2).toFixed(2);
+  };
+
+  return list.length ? (
     <div className="card-item">
       { list.map(({ id, name, price, urlImage }) => (
         <div key={ id }>
@@ -22,19 +61,22 @@ const ItemCard = ({ list }) => (
             </div>
             <div>
               <Button
+                onclick={ () => incrementQuantity(id, name, price) }
                 data="+"
                 testid={ `customer_products__button-card-add-item-${id}` }
               />
             </div>
             <div>
               <input
-                type="text"
-                value="0"
+                type="number"
+                value={ !cart[id] ? 0 : cart[id].quantity }
                 data-testid={ `customer_products__input-card-quantity-${id}` }
+                onChange={ (event) => inputQuantity(id, name, price, event) }
               />
             </div>
             <div>
               <Button
+                onclick={ () => decrementQuantity(id) }
                 data="-"
                 testid={ `customer_products__button-card-rm-item-${id}` }
               />
@@ -42,12 +84,13 @@ const ItemCard = ({ list }) => (
           </div>
         </div>
       )) }
-      <div data-testid="customer_products__button-cart">
-        <Button data="Ver carrinho" />
-      </div>
+      <Button
+        testid="customer_products__button-cart"
+        data={ `Ver Carrinho:  R$${totalPrice()}` }
+      />
     </div>
-  ) : <p>Loading</p>
-);
+  ) : <p>Loading</p>;
+};
 
 export default ItemCard;
 
