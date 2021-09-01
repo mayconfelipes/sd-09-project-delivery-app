@@ -21,7 +21,7 @@ module.exports = {
         references: {
           model: 'users',
           key: 'id',
-        }
+        },
       },
       total_price: {
         allowNull: false,
@@ -42,14 +42,6 @@ module.exports = {
       status: {
         allowNull: false,
         type: Sequelize.STRING(50)
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
       }
     });
   },

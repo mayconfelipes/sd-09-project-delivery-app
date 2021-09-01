@@ -12,10 +12,10 @@ const userLogin = async (req, res, next) => {
     const userIsValid = await users.findOne({ where: { email } });
     const md5Hash = hashMd5(password);
     if (!userIsValid || userIsValid.password !== md5Hash) {
-      const invalidFields = errorObj('Invalid fields', notFound);
-      return next(invalidFields);
+      return next(errorObj('Invalid fields', notFound));
     }
     const objToReturnForResponseOk = {
+      id: userIsValid.id,
       name: userIsValid.name,
       email: userIsValid.email,
       role: userIsValid.role,
