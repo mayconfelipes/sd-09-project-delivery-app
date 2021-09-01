@@ -1,6 +1,6 @@
 const rescue = require('express-rescue');
 const loginVerify = require('../service/utils/loginSchema');
-const loginService = require('../service/Login');
+const loginService = require('../service/LoginServices');
 
 const login = rescue(async (req, res, next) => {
   const { error } = loginVerify.validate(req.body);

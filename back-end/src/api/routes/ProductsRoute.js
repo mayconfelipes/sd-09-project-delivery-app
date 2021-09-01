@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllP, getPById } = require('../controllers/Products');
+const { getAllP, getPById } = require('../controllers/ProductsController');
 const { jtwValidate } = require('../middlewares/jwtValidation');
 
 const router = express.Router();
