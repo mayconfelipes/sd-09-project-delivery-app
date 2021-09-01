@@ -154,7 +154,7 @@ describe(requirement(14), () => {
   );
 });
 
-describe.only(requirement(15), () => {
+describe(requirement(15), () => {
   const itemList = action.customer.getRandomProducts();
   showCurrentCart(itemList, requirement(15));
 
@@ -163,6 +163,7 @@ describe.only(requirement(15), () => {
   const randomItem3 = itemList.cart[Math.round(itemList.cart.length - 1)];
 
   const addItem = async (productId, quantity) => {
+    console.log(quantity);
     await expect(page).toClickOnElement({
       selector:
         customerProductsPage.button.card.addItem +
