@@ -9,12 +9,12 @@ const sales = require('./controllers/saleController');
 routes.post('/login', rescue(logins.login));
 
 routes.post('/user', rescue(users.create));
-routes.get('/user', rescue(users.findAll));
 
 routes.get('/products', rescue(products.findAll));
 routes.get('/images/:image', rescue(images.getImage));
 
 routes.post('/sales', rescue(sales.create));
 routes.get('/sales', rescue(sales.findAll));
+routes.get('/sales/:id', rescue(sales.findById));
 
 module.exports = routes;
