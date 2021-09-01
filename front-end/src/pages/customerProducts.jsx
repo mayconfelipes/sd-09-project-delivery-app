@@ -12,7 +12,7 @@ const CustomerProducts = () => {
 
   useEffect(() => {
     getProducts().then((response) => setProducts(response));
-  }, []);
+  });
 
   return (
     <div>
