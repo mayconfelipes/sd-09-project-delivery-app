@@ -41,14 +41,16 @@ const Produtos = () => {
   return (
     <Provider>
       <Header />
-      <section>
-        {
-          products.map(
-            (Produto) => <CardProduct product={ Produto } key={ Produto.id } />,
-          )
-        }
+      <main>
+        <section className="products">
+          {
+            products.map(
+              (Produto) => <CardProduct product={ Produto } key={ Produto.id } />,
+            )
+          }
+        </section>
         <Button name="Ver carrinho: " />
-      </section>
+      </main>
     </Provider>
   );
 };

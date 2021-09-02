@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-// import '../styles/CardProduct.css';
+import '../styles/CardProduct.css';
 import Context from '../context/Context';
 
 function CardProduct({ product }) {
@@ -24,21 +24,26 @@ function CardProduct({ product }) {
   const formatedPrice = (price_) => price_.replace('.', ',');
 
   return (
-    <div>
-      <div data-testid={ `customer_products__element-card-price-${id}` }>
+    <div className="product__card">
+      <span
+        data-testid={ `customer_products__element-card-price-${id}` }
+        className="product__card__price"
+      >
         { formatedPrice(price) }
-      </div>
+      </span>
+      <img
+        src={ urlImage }
+        alt="Bebida"
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
+        className="product__card__image"
+      />
+      <h2
+        data-testid={ `customer_products__element-card-title-${id}` }
+        className="product__card__title"
+      >
+        { name }
+      </h2>
       <div>
-        <img
-          src={ urlImage }
-          alt="Bebida"
-          data-testid={ `customer_products__img-card-bg-image-${id}` }
-        />
-      </div>
-      <div>
-        <span data-testid={ `customer_products__element-card-title-${id}` }>
-          { name }
-        </span>
         <button
           type="button"
           name="rm-button"

@@ -1,6 +1,38 @@
-div {
-  height: 180px;
-  width: 150px;
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product__card {
+  height: 300px;
+  width: 200px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 5px;
+  border: 1px solid grey;
+  padding: 1px;
+}
+
+.product__card__price {
+  position: absolute;
+  z-index: 1000;
+  top: 10px;
+  left: 10px;
+}
+
+.product__card__image {
+  height: 65%;
+  max-width: 100%;
+}
+
+.product__card__title {
+  font-size: 1rem;
 }
 
 input {
