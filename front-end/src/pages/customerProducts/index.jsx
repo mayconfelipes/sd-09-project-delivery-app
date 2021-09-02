@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import Navbar from '../../components/navbar';
 import context from '../../context';
 import CardProduct from '../../components/cardProduct';
@@ -10,6 +11,7 @@ const Products = () => {
   const {
     cart: { totalValue }, catalog, setCatalog, loading, setLoading,
   } = useContext(context);
+  const [redirect, setRedirect] = useState(false);
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -35,6 +37,7 @@ const Products = () => {
   const { name } = JSON.parse(localStorage.getItem('user'));
   return (
     <S.Container>
+      { redirect && <Redirect to="/customer/checkout" /> }
       <Navbar abas={ paginas } user={ name } />
       <h1>Produtos</h1>
       <S.List>
@@ -51,7 +54,12 @@ const Products = () => {
               />))
         }
       </S.List>
-      <span>{ `VER CARRINHO: ${formatPrice(totalValue)}` }</span>
+      <button
+        type="button"
+        onClick={ () => setRedirect(true) }
+      >
+        { `VER CARRINHO: ${formatPrice(totalValue)}` }
+      </button>
     </S.Container>
   );
 };
