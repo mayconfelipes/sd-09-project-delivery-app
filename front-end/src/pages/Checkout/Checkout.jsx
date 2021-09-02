@@ -2,22 +2,43 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import CheckoutItem from '../../components/CheckoutItem';
+import connectBack from '../../utills/axiosConfig';
+
 
 const Checkout = () => {
   const [price, setTotalPrice] = useState(0);
   const [cartItens, setCartItens] = useState([]);
   const [sellers, setSellers] = useState([]);
   const history = useHistory();
+  const [sellerInfo, setSellerInfo] = useState({
+    name: '',
+    address: '',
+    addressNumber: '',
+  });
 
   const fetchSellers = async () => {
     try {
       const response = await fetch('http://localhost:3001/sellers');
       const sellersResponse = await response.json();
+      console.log(sellersResponse);
       setSellers(sellersResponse);
     } catch (error) {
       console.error(error);
     }
   };
+
+  const postSale =  () => {
+    connectBack
+    .post('/customer/orders', { email, password })
+    .then((response) => {
+      console.log('LOGOU', response.data.user);
+      saveTokenLocalStorage(response.data.user);
+      redirectCostummer();
+    })
+    .catch((error) => {
+      console.log(error);
+      setInvalidLogin(true);
+  }
 
   useEffect(() => {
     const getItens = JSON.parse(localStorage.getItem('products'));
@@ -50,7 +71,7 @@ const Checkout = () => {
           {cartItens.map((item, index) => (<CheckoutItem
             key={ index + item.item.name }
             cartItem={ item.item }
-            order={ index }
+            order={ index + 1 }
             cartItens={ cartItens }
             setCartItens={ setCartItens }
           />))}
@@ -67,10 +88,17 @@ const Checkout = () => {
       <div>
         <label htmlFor="sellers">
           P. Vendedora Responsável
-          <select className="sellers">
+          <select
+            value={ sellerInfo.name }
+            className="sellers"
+            onChange={ ({ target }) => setSellerInfo(
+              { ...sellerInfo, name: target.value },
+            ) }
+          >
+            <option value="null">Nome</option>
             {sellers.map((seller) => (
               <option key={ seller.id } value={ seller.name }>{seller.name}</option>))}
-            <option value="fulana">FULANA</option>
+            {/* <option value="fulana">FULANA</option> */}
           </select>
         </label>
         <label htmlFor="address">
@@ -78,8 +106,12 @@ const Checkout = () => {
           <input
             type="text"
             className="address"
+            value={ sellerInfo.address }
             placeholder="Travessa Terceira da Castanheira, Bairro Muruci"
             data-testid="customer_checkout__input-address"
+            onChange={ ({ target }) => setSellerInfo(
+              { ...sellerInfo, address: target.value },
+            ) }
           />
         </label>
         <label htmlFor="address-number">
@@ -88,7 +120,11 @@ const Checkout = () => {
             type="text"
             className="address-number"
             placeholder="198"
+            value={ sellerInfo.addressNumber }
             data-testid="customer_checkout__input-addressNumber"
+            onChange={ ({ target }) => setSellerInfo(
+              { ...sellerInfo, addressNumber: target.value },
+            ) }
           />
         </label>
       </div>
