@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import TableProducts from '../Components/TableProducts';
+import NavBar from '../Components/NavBar';
 // import { useHistory } from 'react-router-dom';
 import api from '../services/api';
-// import Provider from '../context/Provider';
 
 function Checkout() {
   // const { cart, setCart } = useContext(Provider);
@@ -76,7 +76,7 @@ function Checkout() {
 
   return (
     <div>
-      {/* <NavBar /> */}
+      <NavBar />
       <h2>Finalizar pedido</h2>
       <TableProducts products={ products } />
       <h1 className="tp" data-testid="customer_checkout__element-order-total-price">

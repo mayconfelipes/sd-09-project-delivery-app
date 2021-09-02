@@ -7,7 +7,7 @@ function TableProducts({ products }) {
   };
 
   const productsTbobyRender = () => products.map((product, index) => (
-    <tr key={ `${product.id}` }>
+    <tr data-testid={ `element-order-table-name-${index}` } key={ `${product.id}` }>
       <td data-testid={ `customer_checkout__element-order-table-item-number-${index}` }>
         {index + 1}
       </td>

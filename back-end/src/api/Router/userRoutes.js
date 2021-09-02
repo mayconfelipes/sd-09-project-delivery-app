@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.post('/login', [User.login]);
 router.post('/', [User.register]);
-router.get('/', [User.findAll]);
 router.post('/admin', validateToken, [User.register]);
 router.get('/', [User.getAllUsers]);
 
