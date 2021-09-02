@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+// axios usar get na rota /seller -> pegar vendedores
 
 const AddressDetails = () => {
-  console.log('oi');
+  const [address, setAddress] = useState({
+    vendedor: 'Luiza',
+    rua: '',
+    numero: '',
+  });
+
   return (
     <div className="order-list-container">
       <label htmlFor="responsible-seller">
