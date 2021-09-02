@@ -31,13 +31,6 @@ export default function Cards({ cardInfos, retrieveSumFromChild }) {
     setCurrentPriceSum(newPriceSum);
   };
 
-  const sumValueOfProductsBlur = (quantity) => {
-    const newPriceSum = price * ((currentQuantityToBuy + quantity) / 2);
-    const calculateSum = newPriceSum - currentPriceSum;
-    retrieveSumFromChild(calculateSum);
-    setCurrentPriceSum(newPriceSum);
-  };
-
   return (
     <div
       style={ {
@@ -57,7 +50,7 @@ export default function Cards({ cardInfos, retrieveSumFromChild }) {
         R$
         {' '}
         <span data-testid={ `customer_products__element-card-price-${id}` }>
-          {price}
+          {price.split('.').join(',')}
         </span>
       </p>
       <div
@@ -137,12 +130,11 @@ export default function Cards({ cardInfos, retrieveSumFromChild }) {
             } }
             data-testid={ `customer_products__input-card-quantity-${id}` }
             value={ currentQuantityToBuy }
-            type="number"
+            // type="number"
             onChange={ (e) => {
               setCurrentQuantityToBuy(Number(e.target.value));
-            } }
-            onBlur={ (e) => {
-              sumValueOfProductsBlur(Number(e.target.value));
+              console.log('entrou aqui');
+              sumValueOfProducts(Number(e.target.value));
             } }
           />
           <button
