@@ -75,3 +75,118 @@
 .hidden {
   display: none;
 }
+
+.products {
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: auto;
+  width: 95%;
+}
+
+.productCard {
+  align-items: center;
+  border: 1px solid rgb(198, 198, 198);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  height: 300px;
+  margin: 10px 10px;
+  text-align: center;
+  width: 180px;
+}
+
+.productHeader {
+  align-items: center;
+  background-color: rgb(129, 196, 142);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.price {
+  align-self: flex-start;
+  background-color: rgba(196, 196, 196, 0.783);
+  border-radius: 3px;
+  font-size: 20px;
+  margin: 0;
+  padding: 5px;
+  position: relative;
+}
+
+.quantityBtn {
+  display: flex;
+}
+
+.quantityInput {
+  width: 25px;
+}
+
+.navBar {
+  background-color: rgb(7, 97, 48);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.leftHeader {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  height: 50px;
+  justify-content: space-between;
+  padding-left: 3%;
+  width: 25%;
+}
+
+.noUnderline {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.rightHeader {
+  align-items: center;
+  background-color: #4e1e94;
+  color: white;
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  height: 50px;
+  justify-content: space-between;
+  padding-left: 15px;
+  width: 35%;
+}
+
+.rightHeader button {
+  align-self: flex-end;
+  background-color: #056CF9;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  height: 100%;
+  padding-right: 5%;
+  width: 25%;
+}
+
+.cartBtn {
+  background-color: rgb(7, 97, 48);
+  border: none;
+  border-radius: 5px;
+  bottom: 5%;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px;
+  position: fixed;
+  right: 8%;
+}

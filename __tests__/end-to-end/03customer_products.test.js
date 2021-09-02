@@ -30,7 +30,7 @@ beforeEach(async () => {
   });
 });
 
-describe.only(requirement(11), () => {
+describe(requirement(11), () => {
   test("O avaliador testará a existência dos data-testids referentes ao navbar", async () => {
     await expect(page).toFindElement(
       customerProductsPage.element.navbar.links.products
@@ -47,7 +47,7 @@ describe.only(requirement(11), () => {
   });
 });
 
-describe.only(requirement(12), () => {
+describe(requirement(12), () => {
   const cardIds = products.state01.map((el) => el.id);
 
   test("O avaliador testará os data-testids referentes aos card de cada produto",
@@ -107,7 +107,7 @@ describe(requirement(13), () => {
   })
 });
 
-describe.only(requirement(14), () => {
+describe(requirement(14), () => {
   const cards = products.state01;
 
   test("O avaliador testará se os dados de cada card condizem com os dados esperados",
