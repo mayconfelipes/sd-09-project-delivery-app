@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.STRING,
     sale_date: DataTypes.DATE,
     updated_At: DataTypes.DATE,
-  }, { timestamp: false });
+  }, { timestamps: false });
 
   Sale.associate = (models) => {
     Sale.belongsTo(models.user, { as: 'user', foreignKey: 'user_id'});
