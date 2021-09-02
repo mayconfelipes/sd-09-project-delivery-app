@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import TableProducts from '../Components/TableProducts';
+// import { useHistory } from 'react-router-dom';
 import api from '../services/api';
 // import Provider from '../context/Provider';
 
@@ -15,6 +17,7 @@ function Checkout() {
     saleDate: Date.now() });
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState([]);
+  // const history = useHistory();
 
   useEffect(() => {
     api.get('product').then((res) => setProducts(res.data));
@@ -24,55 +27,6 @@ function Checkout() {
   console.log(user);
   console.log(products);
   console.log(salesDetails);
-
-  const removeProductOnClick = (id) => {
-    setProducts(products.filter((product) => id !== product.id));
-  };
-
-  const productsTbobyRender = () => products.map((product, index) => (
-    <tr key={ `${product.id}` }>
-      <td data-testid={ `customer_checkout__element-order-table-item-number-${index}` }>
-        {index + 1}
-      </td>
-      <td data-testid={ `customer_checkout__element-order-table-name-${index}` }>
-        {product.name}
-      </td>
-      <td data-testid={ `customer_checkout__element-order-table-quantity-${index}` }>
-        Quantidade carrinho
-      </td>
-      <td data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }>
-        {product.price}
-      </td>
-      <td data-testid={ `checkout__element-order-table-sub-total-${index}` }>
-        Sub total carrinho
-      </td>
-      <td>
-        <button
-          type="button"
-          data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-          onClick={ () => removeProductOnClick(product.id) }
-        >
-          Remover
-        </button>
-      </td>
-    </tr>
-  ));
-
-  const cartTableRender = () => (
-    <table>
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor unitário</th>
-          <th>Sub-total</th>
-          <th>Remover item</th>
-        </tr>
-      </thead>
-      <tbody>{ productsTbobyRender() }</tbody>
-    </table>
-  );
 
   const dropDownSellers = () => (
     <select value="Fulana Pereira" data-testid="customer_checkout__select-seller">
@@ -115,10 +69,16 @@ function Checkout() {
     </table>
   );
 
+  const finishOrder = async () => {
+    await api.post('/sale', salesDetails);
+    // history.push(`/customer/orders${sale.id}`);
+  };
+
   return (
     <div>
+      {/* <NavBar /> */}
       <h2>Finalizar pedido</h2>
-      {cartTableRender()}
+      <TableProducts products={ products } />
       <h1 className="tp" data-testid="customer_checkout__element-order-total-price">
         {`Total: R$ ${products.length === 0 ? 0.00 : products[0].price}`}
       </h1>
@@ -126,9 +86,10 @@ function Checkout() {
       <h3>Detalhes do pedido para entrega</h3>
       {detailsAndAdressRender()}
       <button
+        className="checkoutBtn"
         data-testid="customer_checkout__button-submit-order"
         type="button"
-        onClick={ () => api.post('/sale', salesDetails) }
+        onClick={ finishOrder }
       >
         FINALIZAR PEDIDO
       </button>

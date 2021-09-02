@@ -14,8 +14,9 @@ function App() {
         </Route>
         <Route path="/login" component={ Login } />
         <Route path="/register" component={ Register } />
-        <Route path="/checkout" component={ Checkout } />
         <Route path="/customer/products" component={ Products } />
+        <Route path="/customer/checkout" component={ Checkout } />
+        <Route path="/customer/orders/:id" component={ Checkout } />
       </Switch>
     </BrowserRouter>
   );
