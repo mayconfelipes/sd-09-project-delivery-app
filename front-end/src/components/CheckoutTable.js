@@ -29,7 +29,7 @@ export default function CheckoutTable() {
       <tbody className="cart-row">
         {shoppingCart.length ? shoppingCart.map((product, index) => (
           <CheckoutItem key={ product.id } index={ index } product={ product } />
-        )) : 'Apenas teias de aranha em seu carrinho...'}
+        )) : <tr><td>Apenas teias de aranha em seu carrinho...</td></tr>}
         <tr
           data-testid="customer_checkout__element-order-total-price"
         >

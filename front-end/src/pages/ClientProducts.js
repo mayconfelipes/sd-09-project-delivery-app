@@ -26,10 +26,7 @@ const ClientProducts = () => {
   }, [shoppingCart, setTotalPrice, cartBtn]);
 
   useEffect(() => {
-    const loadProducts = async () => {
-      await setProducts(token);
-    };
-    loadProducts();
+    setProducts(token);
   }, [token, setProducts]);
 
   function handleCheckout() {

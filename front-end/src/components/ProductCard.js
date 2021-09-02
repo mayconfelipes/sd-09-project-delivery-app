@@ -2,18 +2,20 @@ import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Customer from '../context/customerContext';
 
-const ProductCard = (props) => {
-  const { product } = props;
+const ProductCard = ({ product }) => {
   const { shoppingCart, setShoppingCart } = useContext(Customer);
   const [negativeNumError, setNegativeNumError] = useState(false);
   const negativeNumErrorMsg = 'Quantity must be greater than zero';
 
   useEffect(() => {
+    const foundProduct = shoppingCart.find((cartItem) => cartItem.id === product.id);
     const quantityInput = document.getElementById(`quantity-${product.id}`);
-    if (quantityInput) {
+    if (foundProduct) {
+      quantityInput.value = foundProduct.quantity;
+    } else {
       quantityInput.value = 0;
     }
-  }, [product.id]);
+  }, [product.id, shoppingCart]);
 
   const priceWithComma = `${(Math.round(product.price * 100) / 100).toFixed(2)}`
     .split('.').join(',');

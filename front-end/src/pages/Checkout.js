@@ -1,26 +1,31 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import Header from '../components/Header';
+import Header from '../components/Header';
 import CheckoutTable from '../components/CheckoutTable';
 import Customer from '../context/customerContext';
 import useOrder from '../hooks/useOrder';
+import useSellers from '../hooks/useSellers';
 
 const Checkout = () => {
+  const { token, email } = JSON.parse(localStorage.getItem('user'));
   const {
     shoppingCart,
-    customer,
-    sellers,
   } = useContext(Customer);
 
   const History = useHistory();
 
   const [order, setOrder] = useOrder();
+  const [sellers, setSellers] = useSellers();
 
   useEffect(() => {
-    if (order.id) {
-      History.push(`/customer/orders/${order.id}`);
+    if (order.saleId) {
+      History.push(`/customer/orders/${order.saleId}`);
     }
   }, [shoppingCart, order, History]);
+
+  useEffect(() => {
+    setSellers(token);
+  }, []);
 
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
@@ -28,14 +33,15 @@ const Checkout = () => {
 
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <h2>Finalizar Pedido</h2>
       <CheckoutTable />
       <h3>Detalhes e Endereço para Entrega</h3>
       <form
-        onSubmit={
-          (e) => setOrder(e, {
-            email: customer.email,
+        onSubmit={ (e) => {
+          e.preventDefault();
+          setOrder({
+            email,
             deliveryAddress,
             deliveryNumber,
             sellerId,
@@ -43,10 +49,11 @@ const Checkout = () => {
               ((acc, curr) => acc + ((+curr.price) * curr.quantity)), 0,
             ),
             products: shoppingCart
-              .map(({ id, name, urlimage, ...product }) => product),
-            token: customer.token,
-          })
-        }
+              .map(({ name, urlImage, price, ...product }) => (
+                { productId: product.id, quantity: product.quantity })),
+            token,
+          });
+        } }
       >
         <label htmlFor="sellerId">
           P. Vendedora Responsável
@@ -58,7 +65,7 @@ const Checkout = () => {
             onChange={ ({ target: { value } }) => setSellerId(value) }
           >
             <option>Selecione uma opção</option>
-            {sellers.map((seller) => (
+            {(!sellers) ? null : !sellers.message && sellers.map((seller) => (
               <option key={ seller.id } value={ seller.id }>
                 {seller.name}
               </option>

@@ -4,10 +4,9 @@ import axios from 'axios';
 export default function useOrder() {
   const [order, setOrderData] = useState({});
 
-  async function setOrder(evt, payload) {
-    evt.preventDefault();
+  async function setOrder(payload) {
     const { token, ...data } = payload;
-
+    console.log(data);
     try {
       const response = await axios({
         method: 'post',
@@ -16,9 +15,7 @@ export default function useOrder() {
         data,
       });
       setOrderData(response.data);
-      console.log(response);
     } catch (error) {
-      console.log(error.response.data);
       setOrderData(error.response);
     }
   }
