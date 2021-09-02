@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import NavBar from '../../components/navBar/NavBar';
 import Cards from '../../components/cards/Cards';
 import useStyle from './custumerProducts.style';
@@ -10,6 +10,8 @@ export default function MainPage() {
   const classes = useStyle();
   const [sumOfProducts, setSumOfProducts] = useState(0);
   const { productsList, setProductsList } = useContext(GlobalContext);
+
+  const history = useHistory();
 
   useEffect(() => {
     async function fetchProducts() {
@@ -42,27 +44,29 @@ export default function MainPage() {
         }
       </div>
 
+      {/* <Link
+        to="/customer/checkout"
+        style={ { textDecoration: 'none', color: 'white' } }
+        className={ classes.textLink }
+      > */}
       <button
         type="button"
         disabled={ sumOfProducts.toFixed(2).split('.').join(',') === '0,00' }
         className={ classes.sumContainer }
         data-testid="customer_products__button-cart"
+        onClick={ () => {
+          history.push('/customer/checkout');
+        } }
       >
-        <Link
-          to="/customer/checkout"
-          style={ { textDecoration: 'none', color: 'white' } }
-          className={ classes.textLink }
+        <span>Ver Carrinho: R$</span>
+        <p
+          data-testid="customer_products__checkout-bottom-value"
+          className={ classes.textSum }
         >
-          <span>Ver Carrinho: R$</span>
-          <p
-            data-testid="customer_products__checkout-bottom-value"
-            className={ classes.textSum }
-          >
-            {sumOfProducts.toFixed(2).split('.').join(',')}
-          </p>
-        </Link>
+          {sumOfProducts.toFixed(2).split('.').join(',')}
+        </p>
       </button>
-
+      {/* </Link> */}
     </div>
   );
 }
