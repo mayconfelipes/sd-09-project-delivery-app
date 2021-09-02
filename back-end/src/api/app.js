@@ -10,6 +10,7 @@ const Router = require('./Router');
 const { handleError } = require('../middlewares');
 
 app.use(bodyParser);
+app.use(express.static('public')); 
 
 app.use('/coffee', Router.coffeeRoutes);
 app.use('/user', Router.userRoutes);
