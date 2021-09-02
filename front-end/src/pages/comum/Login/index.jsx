@@ -21,7 +21,6 @@ const Login = () => {
   const [isDataValid, setIsDataValid] = useState(true);
 
   const [role, setRole] = useState('');
-  console.log(role);
 
   function handleInputChange(event) {
     event.preventDefault();

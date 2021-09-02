@@ -1,5 +1,5 @@
 const sales = async ({
-  seller, totalPrice, deliveryAddress, deliveryNumber, products, Auth }) => {
+  seller, totalPrice, deliveryAddress, deliveryNumber, products, token }) => {
   const body = JSON.stringify({
     seller,
     totalPrice,
@@ -13,7 +13,7 @@ const sales = async ({
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: Auth,
+      Authorization: token,
     },
     body,
   }).then((response) => response.json());

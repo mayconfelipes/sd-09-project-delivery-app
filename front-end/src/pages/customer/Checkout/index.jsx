@@ -1,32 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import DescriptionsBar from '../../../components/DescriptionsBar';
 import Navbar from '../../../components/Navbar';
 import PrimaryButton from '../../../components/PrimaryButton';
 import Input from '../../../components/Input';
 import GridOrderDetails from '../../../components/GridOrderDetails';
-import { getRegister } from '../../../api/register';
 import useGlobalContext from '../../../context/GlobalStateProvider';
 import sales from '../../../api/sales';
 import style from './checkout.module.scss';
 
 const Checkout = () => {
-  const { totalPrice, setCartQuantity, cartQuantity } = useGlobalContext();
-  const [sellerName, setSellerName] = useState([]);
-  const [saleData, setSaledata] = useState({
-    seller: 'Fulana Pereira',
+  const { totalPrice, setCartQuantity, cartQuantity, sellerName } = useGlobalContext();
+  const [saleId, setSaleId] = useState(0);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [selectedSeller, setSelectedSeller] = useState('');
+  const [saleData, setSaleData] = useState({
     address: '',
     addresNumber: '',
   });
 
-  const { id: prodId } = 1;
-
   useEffect(() => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    getRegister('seller', token).then((data) => setSellerName(data));
-  }, []);
-  console.log(Object.values(sellerName)[0]);
+    if (sellerName.length > 0) {
+      setSelectedSeller(sellerName[0].name);
+    }
+  }, [sellerName]);
 
   const onClickRemoveItem = (itemId) => {
     const one = 1;
@@ -39,42 +37,39 @@ const Checkout = () => {
   };
 
   const onClickAddSaleInfo = async () => {
-    const { seller, address, addresNumber } = saleData;
+    const { address, addresNumber } = saleData;
     const { token } = JSON.parse(localStorage.getItem('user'));
-    const localitems = JSON.parse(localStorage.getItem('cart'));
+    const localItems = JSON.parse(localStorage.getItem('cart'));
     const products = [];
-    localitems.map(({ quantity, id }) => (
-      products.push({ productId: id, quantity })
-    ));
-    const totprice = totalPrice.replace(',', '.');
-    await sales(
+    if (localItems.length) {
+      localItems.map(({ quantity, id }) => (
+        products.push({ productId: id, quantity })
+      ));
+    }
+    const totPrice = totalPrice.replace(',', '.');
+    const priceToNumber = Math.round(parseFloat(totPrice) * 100) / 100;
+    const { id } = await sales(
       {
         token,
-        seller,
-        totalPrice: parseFloat(totprice),
+        seller: selectedSeller,
+        totalPrice: priceToNumber,
         deliveryNumber: addresNumber,
         deliveryAddress: address,
         products,
       },
     );
-    console.log({
-      token,
-      seller,
-      totalPrice,
-      deliveryNumber: addresNumber,
-      deliveryAddress: address,
-      products,
-    });
+    setSaleId(id);
+    setShouldRedirect(true);
   };
 
   function handleInputChange(event) {
-    event.preventDefault();
     const { name, value } = event.target;
-    setSaledata({ ...saleData, [name]: value });
+    setSaleData({ ...saleData, [name]: value });
   }
 
   return (
     <>
+      {shouldRedirect && <Redirect to={ `/customer/orders/${saleId}` } />}
       <Navbar />
       <h1>Finalizar Pedido</h1>
       <div className={ style.totalContainer }>
@@ -136,12 +131,12 @@ const Checkout = () => {
         <label htmlFor="orderData">
           P. Vendedora Responsável
           <select
-            onChange={ handleInputChange }
             name="seller"
-            data-testid="customer_checkout__select-seller"
             id="orderData"
+            data-testid="customer_checkout__select-seller"
+            onChange={ ({ target: { value } }) => setSelectedSeller(value) }
           >
-            {Object.values(sellerName)[0] && Object.values(sellerName)[0]
+            {sellerName.length && sellerName
               .map(({ name }) => (
                 <option key={ Math.random() } value={ name }>{ name }</option>
               ))}
@@ -160,14 +155,12 @@ const Checkout = () => {
           onHandleChange={ handleInputChange }
         />
         <div className={ style.checkoutButton }>
-          <Link to={ `/customer/orders/${prodId}` }>
-            <PrimaryButton
-              dataTestId="customer_checkout__button-submit-order"
-              onLoginClick={ onClickAddSaleInfo }
-            >
-              FINALIZAR PEDIDO
-            </PrimaryButton>
-          </Link>
+          <PrimaryButton
+            dataTestId="customer_checkout__button-submit-order"
+            onLoginClick={ onClickAddSaleInfo }
+          >
+            FINALIZAR PEDIDO
+          </PrimaryButton>
         </div>
       </form>
     </>

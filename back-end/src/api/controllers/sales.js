@@ -4,6 +4,7 @@ const salesServices = require('../services/sales');
 const create = async (req, res, next) => {
   try {
     const sale = req.body;
+    console.log(sale);
     const { login } = req;
     const newSale = await salesServices.create(sale, login);
 
