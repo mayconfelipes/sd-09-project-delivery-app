@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import CardProduct from '../components/CardProduct';
 import Header from '../components/Header';
 import Provider from '../context/Provider';
+import Button from '../components/button';
 
 const Produtos = () => {
   const [products, setProducts] = useState([]);
@@ -46,6 +47,7 @@ const Produtos = () => {
             (Produto) => <CardProduct product={ Produto } key={ Produto.id } />,
           )
         }
+        <Button name="Ver carrinho: " />
       </section>
     </Provider>
   );
