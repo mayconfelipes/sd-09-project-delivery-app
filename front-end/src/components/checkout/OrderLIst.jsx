@@ -39,12 +39,12 @@ const OrderLIst = () => {
   }, []);
 
   const handleRemoveProduct = (indexItem) => {
-    console.log('index > ', indexItem);
+    // console.log('index > ', indexItem);
     const tmpProducts = products;
 
     const updatedProducts = tmpProducts.filter((_product, index) => index !== indexItem);
-    console.log('[prevProducts] > ', products);
-    console.log('[currentProducts] > ', updatedProducts);
+    // console.log('[prevProducts] > ', products);
+    // console.log('[currentProducts] > ', updatedProducts);
     setProducts(updatedProducts);
     calculateTotalPrice(updatedProducts);
   };

@@ -1,28 +1,39 @@
-// import React, { useState } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
+// import React from 'react';
 import PropTypes from 'prop-types';
 // axios usar get na rota /seller -> pegar vendedores
 
 const AddressDetails = ({ names }) => {
-  /* const [address, setAddress] = useState({
-    vendedor: 'Luiza',
-    rua: '',
+  const [address, setAddress] = useState({
+    vendedor: 'Default',
+    address: '',
     numero: '',
-  }); */
+  });
 
-  console.log('oi');
+  const handleInputChange = ({ target }) => {
+    console.log('target >', target);
+    const { name, value } = target;
+
+    setAddress({ ...address, [name]: value });
+  };
+
+  console.log('address > ', address);
 
   return (
     <div className="order-list-container">
-      <label htmlFor="responsible-seller">
+      <label htmlFor="seller">
         P. vendedora Responsavel:
         <select
-          type="text"
-          name="responsible-seller"
-          id="responsible-seller"
+          id="seller"
+          name="vendedor"
+          value={ address.vendedor }
+          onChange={ handleInputChange }
           data-testid="customer_checkout__select-seller"
         >
-          {names.map((name, i) => <option key={ i }>{ name }</option>)}
+          <option value="selecio-vendedor">selecio-vendedor</option>
+          {names.map((name, i) => (
+            <option key={ i } value={ name }>{ name }</option>
+          ))}
         </select>
       </label>
       <label htmlFor="address">
@@ -30,8 +41,10 @@ const AddressDetails = ({ names }) => {
         <input
           type="text"
           id="address"
-          // value={}
+          name="address"
+          value={ address.address }
           placeholder="Rua Ze da pinga"
+          onChange={ handleInputChange }
           data-testid="customer_checkout__input-address"
         />
       </label>
@@ -40,8 +53,10 @@ const AddressDetails = ({ names }) => {
         <input
           type="text"
           id="address-number"
-          // value={}
+          name="numero"
+          value={ address.numero }
           placeholder="051"
+          onChange={ handleInputChange }
           data-testid="customer_checkout__input-addressNumber"
         />
       </label>
