@@ -21,6 +21,9 @@ function Checkout() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const dataSend = detailsForm;
+    // Preciso do id do pedido cadastrado, logo ele precisa ser retornado na req
+    // const idLastOrder = response.data.order.id;
+    // useHistory().push(`/customer/orders/${idLastOrder}`);
     console.log(dataSend);
   };
 
