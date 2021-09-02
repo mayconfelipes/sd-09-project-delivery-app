@@ -1,8 +1,9 @@
 // import React, { useState } from 'react';
 import React from 'react';
+import PropTypes from 'prop-types';
 // axios usar get na rota /seller -> pegar vendedores
 
-const AddressDetails = () => {
+const AddressDetails = ({ names }) => {
   /* const [address, setAddress] = useState({
     vendedor: 'Luiza',
     rua: '',
@@ -21,8 +22,7 @@ const AddressDetails = () => {
           id="responsible-seller"
           data-testid="customer_checkout__select-seller"
         >
-          <option value="">Luiza</option>
-          <option value="">Maria</option>
+          {names.map((name, i) => <option key={ i }>{ name }</option>)}
         </select>
       </label>
       <label htmlFor="address">
@@ -47,6 +47,10 @@ const AddressDetails = () => {
       </label>
     </div>
   );
+};
+
+AddressDetails.propTypes = {
+  names: PropTypes.arrayOf().isRequired,
 };
 
 export default AddressDetails;
