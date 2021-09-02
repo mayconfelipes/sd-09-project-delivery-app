@@ -1,4 +1,6 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+
 import {
   AppTitle,
   Button,
@@ -8,53 +10,59 @@ import {
   Label,
   Wrapper,
 } from '../../Components';
-import assets from '../../Assets';
+import assets from '../../assets';
 import testIds from '../../utils/testIds';
 import useLoginInfo from '../../hooks/useLoginInfo';
-import { PostLogin } from '../../Services/Api';
+import useLoginApi from '../../hooks/useLoginApi';
+import paths from '../../Routes/paths';
 
 const LoginPage = () => {
-  const [loginInfo, handleFieldsChange] = useLoginInfo();
-  const loginUser = (data) => () => {
-    PostLogin(data);
-  };
+  const { loginInfo, handleFieldsChange, isValidInfo } = useLoginInfo();
+  const { isValidLogin, loginUser } = useLoginApi();
+  const shouldRenderError = isValidLogin === false;
+
+  if (isValidLogin) return <Redirect to={ paths.customerProducts } />;
+
   return (
     <Container>
       <Image src={ assets.images.logo } />
       <AppTitle>AppTitle</AppTitle>
       <Wrapper>
         <Label>
-          Campo
+          E-mail
           <Input
             type="email"
             name="email"
             value={ loginInfo.email }
-            data-test-id={ testIds.id1 }
+            data-testid={ testIds.id1 }
             onChange={ handleFieldsChange }
           />
         </Label>
         <Label>
-          Campo
+          Senha
           <Input
             type="password"
             name="password"
             value={ loginInfo.password }
-            data-test-id={ testIds.id2 }
+            data-testid={ testIds.id2 }
             onChange={ handleFieldsChange }
           />
         </Label>
         <Button
-          data-test-id={ testIds.id3 }
-          onClick={ loginUser(loginInfo) }
+          data-testid={ testIds.id3 }
+          onClick={ () => loginUser(loginInfo) }
+          disabled={ isValidInfo }
         >
           Login
         </Button>
-        <Button data-test-id={ testIds.id4 }>
+        <Button data-testid={ testIds.id4 }>
           Ainda não tenho conta
         </Button>
-        <Wrapper data-test-id={ testIds.id5 }>
-          Mensagem de erro
-        </Wrapper>
+        { shouldRenderError && (
+          <Wrapper data-testid={ testIds.id5 }>
+            Mensagem de erro
+          </Wrapper>
+        )}
       </Wrapper>
     </Container>
   );
