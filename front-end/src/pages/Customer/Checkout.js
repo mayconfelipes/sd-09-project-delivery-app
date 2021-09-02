@@ -20,9 +20,12 @@ function Checkout() {
     return sum;
   }, 0).toFixed(2);
 
-  useEffect(async () => {
-    const data = await getUsers();
-    setSellers(data.filter(({ role }) => role === 'seller'));
+  useEffect(() => {
+    const fechData = async () => {
+      const data = await getUsers();
+      setSellers(data.filter(({ role }) => role === 'seller'));
+    };
+    fechData();
   }, []);
 
   const handleChange = ({ target: { name, value } }) => {
