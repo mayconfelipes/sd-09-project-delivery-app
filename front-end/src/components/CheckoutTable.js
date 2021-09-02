@@ -16,7 +16,7 @@ export default function CheckoutTable() {
 
   return (
     <table>
-      <thead className="cart-row">
+      <thead>
         <tr>
           <th className="grow-1">Item</th>
           <th className="grow-3">Descrição</th>
@@ -26,7 +26,7 @@ export default function CheckoutTable() {
           <th className="grow-1">Remover Item</th>
         </tr>
       </thead>
-      <tbody className="cart-row">
+      <tbody>
         {shoppingCart.length ? shoppingCart.map((product, index) => (
           <CheckoutItem key={ product.id } index={ index } product={ product } />
         )) : <tr><td>Apenas teias de aranha em seu carrinho...</td></tr>}
