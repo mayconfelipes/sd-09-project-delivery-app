@@ -21,7 +21,6 @@ function Registration() {
     setState({ ...state, [target.name]: target.value });
   };
 
-
   const handleRegister = async () => createUser({ name, email, password })
     .then((data) => setApiResponse(data));
 
