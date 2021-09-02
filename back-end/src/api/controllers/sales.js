@@ -11,6 +11,7 @@ const getById = async (req, res) => {
   res.status(201).send(allSales);
 };
 
+
 module.exports = {
   getAll,
   getById,

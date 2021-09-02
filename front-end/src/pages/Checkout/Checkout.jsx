@@ -27,10 +27,12 @@ const Checkout = () => {
 
   const postSale = () => {
     const { address, addressNumber, id } = sellerInfo;
-    const { email } = JSON.parse(localStorage.getItem('user'));
+    const { email, token } = JSON.parse(localStorage.getItem('user'));
     connectBack
       .post('/customer/orders',
-        { address, addressNumber, sellerId: id, totalPrice: price, userEmail: email })
+        { body:
+          { address, addressNumber, sellerId: id, totalPrice, userEmail: email } },
+        { headers: { Authorization: token } })
       .then((responseId) => {
         history.push(`/customer/orders/${responseId}`);
       })
