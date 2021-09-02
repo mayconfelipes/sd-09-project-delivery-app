@@ -51,7 +51,7 @@ function OrderDetail() {
         <span
           data-testid={ `${startIdEL}details-label-order-date` }
         >
-          { ajustData(sale.saleDate.split('T')[0]) }
+          { ajustData(sale.saleDate) }
         </span>
         <span
           data-testid={ `${startIdEL}details-label-delivery-status` }
@@ -68,11 +68,16 @@ function OrderDetail() {
     </div>
   );
 
-  const renderTableBody = () => (
+  function calcSubtotal(unites, value) {
+    const result = unites * value;
+    return ajustPrice(result.toFixed(2));
+  }
 
+  const renderTableBody = () => (
     sale.product.map((prod, index = 0) => (
       <tr
         key={ prod.id }
+        data-testid="customer_order_details__button-delivery-check"
       >
         <td data-testid={ `${startIdEL}table-item-number-${index}` }>
           {prod.id}
@@ -89,7 +94,7 @@ function OrderDetail() {
         <td
           data-testid={ `${startIdEL}table-sub-total-${index}` }
         >
-          { prod.salesProduct.quantity * prod.price }
+          { calcSubtotal(prod.salesProduct.quantity, prod.price) }
         </td>
       </tr>
     ))
@@ -112,8 +117,15 @@ function OrderDetail() {
     </table>
   );
 
-  const totalValue = () => sale.product
-    .reduce((acc, curr) => acc + (curr.salesProduct.quantity * curr.price), 0);
+  const totalValueRender = () => (
+    <span data-testid={ `${startIdEL}total-price` }>
+      { ajustPrice(sale.totalPrice)}
+    </span>
+
+  );
+
+  // const totalValue = () => sale.product
+  //   .reduce((acc, curr) => acc + (curr.salesProduct.quantity * curr.price), 0);
   return (
     <div>
       <NavBar />
@@ -122,11 +134,7 @@ function OrderDetail() {
       {sale && renderTableHeader()}
       <div>
         valor Total:
-        <span
-          data-testid={ `${startIdEL}total-price` }
-        >
-          { sale && totalValue()}
-        </span>
+        {sale && totalValueRender()}
       </div>
     </div>
   );
