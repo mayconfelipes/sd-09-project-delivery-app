@@ -18,14 +18,6 @@ const ProductCard = (props) => {
   const priceWithComma = `${(Math.round(product.price * 100) / 100).toFixed(2)}`
     .split('.').join(',');
 
-  // function handleNegativeNum(e) {
-  //   if (!((e.key > 95 && e.key < 106)
-  //   || (e.key > 47 && e.key < 58)
-  //   || (e.key === 8))) {
-  //     return null;
-  //   }
-  // }
-
   function handleRemoveProduct(e) {
     e.preventDefault();
     const { id, name, price, urlImage } = product;
@@ -37,10 +29,10 @@ const ProductCard = (props) => {
         id,
         name,
         price,
-        url_image: urlImage,
+        urlImage,
         quantity: currentQuantity - 1,
       };
-      const cart = shoppingCart.filter((p) => p.id !== id);
+      const cart = shoppingCart.filter((item) => item.id !== id);
       cart.push(prod);
       setShoppingCart(cart);
     }
@@ -56,10 +48,10 @@ const ProductCard = (props) => {
       id,
       name,
       price,
-      url_image: urlImage,
+      urlImage,
       quantity: currentQuantity + 1,
     };
-    const cart = shoppingCart.filter((p) => p.id !== id);
+    const cart = shoppingCart.filter((item) => item.id !== id);
     cart.push(prod);
     setShoppingCart(cart);
   }
@@ -75,10 +67,10 @@ const ProductCard = (props) => {
       id,
       name,
       price,
-      url_image: urlImage,
+      urlImage,
       quantity: currentQuantity,
     };
-    const cart = shoppingCart.filter((p) => p.id !== id);
+    const cart = shoppingCart.filter((item) => item.id !== id);
     cart.push(prod);
     setShoppingCart(cart);
   }

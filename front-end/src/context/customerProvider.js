@@ -3,22 +3,9 @@ import PropTypes from 'prop-types';
 import Customer from './customerContext';
 
 function CustomerProvider({ children }) {
-  const [shoppingCart, setShoppingCart] = useState([
-  // {
-    // id: 1,
-    // name: 'Stella Artois',
-    // price: '11.00',
-    // url_image: 'none',
-    // quantity: 2,
-  // },
-  ]);
+  const [shoppingCart, setShoppingCart] = useState([]);
 
-  const [sellers, setSellers] = useState([
-    {
-      // id: 1,
-      // name: 'Jeca Tatu',
-    },
-  ]);
+  const [sellers, setSellers] = useState([]);
 
   const data = {
     shoppingCart,
