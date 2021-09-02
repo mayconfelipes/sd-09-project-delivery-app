@@ -14,8 +14,12 @@ const Products = () => {
   const fetchProducts = async () => {
     setLoading(true);
     const { token } = JSON.parse(localStorage.getItem('user'));
-
     const result = await getProducts(token);
+
+    result.forEach((elem) => {
+      elem.price = parseFloat(elem.price);
+    });
+
     setCatalog(result);
     setLoading(false);
   };

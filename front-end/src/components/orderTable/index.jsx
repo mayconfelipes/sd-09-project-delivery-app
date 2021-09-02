@@ -15,7 +15,6 @@ const OrderTable = () => {
   const { cart } = useContext(context);
   // const { cart, setCart } = useContext(context);
   const { products } = cart;
-  console.log(products);
   return (
     <table>
       <thead>
