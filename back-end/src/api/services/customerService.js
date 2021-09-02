@@ -11,7 +11,7 @@ const getAll = async () => {
     return { error };
   }
 
-  return products;
+  return { products };
 };
 
 module.exports = { getAll };

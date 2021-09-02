@@ -4,10 +4,9 @@ const { User } = require('../../database/models');
 const { unauthorized } = require('../utils/httpStatusCodes');
 const readSecret = require('./readSecret');
 
-const secret = readSecret();
-
 const validateJWT = async (req, res, next) => {
   const token = req.headers.authorization;
+  const secret = await readSecret();
 
   if (!token) {
     return res.status(unauthorized).json({ message: 'Token not found' });
