@@ -14,13 +14,12 @@ function CartTotal({ testId, text, className }) {
   }, [currentOrder]);
 
   return (
-    <div>
-      <h1 data-testid={ testId } className={ className }>
-        {
-          `${text}${currentOrderTotal.toString().replace('.', ',')}`
-        }
-      </h1>
-    </div>
+    <h1 data-testid={ testId } className={ className }>
+      {
+        `${text}${currentOrderTotal.toString().replace('.', ',')}`
+      }
+    </h1>
+
   );
 }
 

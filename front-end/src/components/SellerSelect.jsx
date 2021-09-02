@@ -8,9 +8,10 @@ function SellerSelect() {
     setSelectedSeller(allSellers[0].name);
   }, []);
   return (
-    <label htmlFor="sellers" data-testid="customer_checkout__select-seller">
+    <label htmlFor="sellers">
       Pessoa Vendedora Responsável
       <select
+        data-testid="customer_checkout__select-seller"
         name="sellers"
         onChange={ (e) => setSelectedSeller(e.target.value) }
       >

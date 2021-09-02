@@ -3,10 +3,11 @@ import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Login from './pages/LoginPage';
 import Product from './pages/customerProducts';
-import CustomerOrders from './pages/customerOrders';
+import CustomersOrders from './pages/CustomersOrders';
 import Register from './pages/Register';
 import ProductsProvider from './context/ProductsProvider';
 import Checkout from './pages/Checkout';
+// import OrderDetails from './pages/OrderDetails';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
           <Route path="/login" component={ Login } />
           <Route path="/customer/products" component={ Product } />
           <Route path="/register" component={ Register } />
-          <Route path="/customer/orders/1" component={ CustomerOrders } />
+          {/* <Route path="/customer/orders/:id" component={ OrderDetails } /> */}
+          <Route path="/customer/orders" component={ CustomersOrders } />
           <Route path="/customer/checkout" component={ Checkout } />
         </Switch>
       </ProductsProvider>

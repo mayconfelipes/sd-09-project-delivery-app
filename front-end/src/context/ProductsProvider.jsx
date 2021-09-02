@@ -7,16 +7,32 @@ import ProductsContext from './ProductsContext';
 const ProductsProvider = ({ children }) => {
   const history = useHistory();
 
+  const ordersArray = [
+    {
+      id: 1,
+      saleDate: '01/01/2021',
+      status: 'Em preparo',
+      totalPrice: '123.00',
+    },
+    {
+      id: 2,
+      saleDate: '02/02/2021',
+      status: 'Pendente',
+      totalPrice: '789.00',
+    },
+  ];
+
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentOrder, setCurrentOrder] = useState([]);
   const [currentOrderTotal, setCurrentOrderTotal] = useState(0);
   const [orderAddress, setOrderAddress] = useState('');
   const [orderAddressNumber, setOrderAddressNumber] = useState('');
-  const [allOrders, setAllOrders] = useState([]);
+  const [allOrders, setAllOrders] = useState(ordersArray);
   const [userInfo, setUserInfo] = useState({});
   const [allSellers, setSellers] = useState([]);
   const [selectedSeller, setSelectedSeller] = useState('');
+
   function removeItemFromCart(itemIndex) {
     const newCart = currentOrder.filter((item, index) => index !== itemIndex);
     return setCurrentOrder(newCart);
@@ -81,6 +97,15 @@ const ProductsProvider = ({ children }) => {
     }
   };
 
+  const getOrders = async () => {
+    try {
+      const orders = await api.getOrders(userInfo.id);
+      setAllOrders(orders);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const context = {
     users,
     products,
@@ -109,6 +134,7 @@ const ProductsProvider = ({ children }) => {
     getSellers,
     removeItemFromCart,
     submitOrder,
+    getOrders,
   };
 
   return (

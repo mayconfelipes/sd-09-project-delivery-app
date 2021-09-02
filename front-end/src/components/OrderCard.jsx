@@ -1,19 +1,39 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import '../styles/ordersTag.css';
 import PropTypes from 'prop-types';
 
 function OrderCard({ order }) {
   const { id, saleDate, status, totalPrice } = order;
   console.log(order);
   return (
-    <div>
-      <ul>
-        <li className="order-card-id">{ `Número do pedido: ${id}` }</li>
-        <li className="order-card-saledate">{ `Data da compra: ${saleDate}` }</li>
-        <li className="order-card-status">{ `Status: ${status}` }</li>
-        <li className="order-card-totalprice">{ `Valor: ${totalPrice}` }</li>
-      </ul>
-    </div>
+    <tr className="order-card">
+      <Link to={ `/customer/orders/${id}` }>
+        <td
+          data-testid={ `customer_orders__element-order-id-${id}` }
+          className="order-card-id"
+        >
+          { id }
+        </td>
+        <td
+          data-testid={ `customer_orders__element-order-date-${id}` }
+          className="order-card-data"
+        >
+          { saleDate }
+        </td>
+        <td
+          data-testid={ `customer_orders__element-delivery-status-${id}` }
+          className="order-card-status"
+        >
+          { status }
+        </td>
+        <td
+          className="order-card-total"
+        >
+          { `R$${totalPrice.replace('.', ',')}` }
+        </td>
+      </Link>
+    </tr>
   );
 }
 

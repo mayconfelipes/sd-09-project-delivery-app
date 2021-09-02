@@ -1,27 +1,13 @@
-import React, { useEffect, useContext } from 'react';
-// import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import OrderCard from '../components/OrderCard';
-// import { Link } from 'react-router-dom';
-import context from '../services/context';
+import ProductsContext from '../context/ProductsContext';
+import '../styles/ordersTag.css';
+
 // import * as api from '../services/api';
 
 function CustomersOrders() {
   // const { userInfo, allUsersOrders, setUsersOrders } = useContext(context);
-  const { allOrders, setAllOrders } = useContext(context);
-  const ordersArray = [
-    {
-      id: 1,
-      saleDate: '01/01/2021',
-      status: 'Em preparo',
-      totalPrice: '123.00',
-    },
-    {
-      id: 2,
-      saleDate: '02/02/2021',
-      status: 'Pendente',
-      totalPrice: '789.00',
-    },
-  ];
+  const { allOrders } = useContext(ProductsContext);
 
   // useEffect(() => {
   //   async function getOrders() {
@@ -32,21 +18,25 @@ function CustomersOrders() {
   //   getOrders();
   // });
 
-  useEffect(() => {
-    setAllOrders(ordersArray);
-  }, []);
-
   return (
-    <section>
-      {
-        allOrders.map((order) => (
-          <OrderCard
-            order={ order }
-            key={ order.id }
-          />
-        ))
-      }
-    </section>
+    <table>
+      <tr>
+        <th>Pedido</th>
+        <th>Data</th>
+        <th>Status</th>
+        <th>Valor</th>
+      </tr>
+      <tbody>
+        {
+          allOrders.map((order) => (
+            <OrderCard
+              key={ order.id }
+              order={ order }
+            />
+          ))
+        }
+      </tbody>
+    </table>
   );
 }
 

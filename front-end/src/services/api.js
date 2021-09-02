@@ -21,11 +21,11 @@ export const loginUser = async (email, password) => {
   return loggedUser;
 };
 
-export const getOrders = async () => {
-  const orders = await axios
-    .get('/customer/orders');
-  return orders;
-};
+// export const getOrders = async () => {
+//   const orders = await axios
+//     .get('/customer/orders');
+//   return orders;
+// };
 
 export const getProducts = async () => {
   const products = await axios
@@ -44,3 +44,9 @@ export const getSellers = async () => {
 //     .post(`${baseURL}/newOrder`, orderObj);
 //   return newOrder;
 // };
+
+export const getOrders = async (userId) => {
+  const orders = await axios
+    .get(`${baseURL}/customer/orders`, { userId });
+  return orders;
+};

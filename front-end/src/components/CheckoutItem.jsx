@@ -21,7 +21,7 @@ function CheckoutItem({ orderItem, index }) {
       </td>
       <td
         className="checkout-item-quantity"
-        data-testid={ `cutomer_checkout__element-order-table-quantity-${index}` }
+        data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
       >
         { quantity }
       </td>

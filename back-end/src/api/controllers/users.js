@@ -35,7 +35,8 @@ const getAllUsers = async (req, res, next) => {
 
 const getOrders = async (req, res, next) => {
   try {
-    const usersOrders = await Sale.getOrders();
+    const { userId } = req.body;
+    const usersOrders = await Sale.getOrders(userId);
     return res.status(200).json(usersOrders);
   } catch (error) {
     return next(error);
@@ -49,7 +50,7 @@ const getSellers = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-}
+};
 
 module.exports = {
   loginUser,

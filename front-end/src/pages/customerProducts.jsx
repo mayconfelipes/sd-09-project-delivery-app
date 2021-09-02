@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import ProductsContext from '../context/ProductsContext';
 import NavBarCustomer from '../components/navBarCustomer';
-import CartTotal from '../components/CartTotal';
+// import CartTotal from '../components/CartTotal';
 import '../styles/customerProducts.css';
 
 const CustomerProducts = () => {
@@ -15,7 +15,7 @@ const CustomerProducts = () => {
     getSellers,
     products,
     setCurrentOrder,
-    currentOrder,
+    // currentOrder,
     setCurrentOrderTotal,
     currentOrderTotal,
   } = useContext(ProductsContext);
@@ -23,9 +23,10 @@ const CustomerProducts = () => {
   // const history = useHistory();
 
   useEffect(() => {
-    getProducts();
-    getSellers();
-    setIsLoading(false);
+    Promise.all([
+      getProducts(),
+      getSellers(),
+    ]).then(() => setIsLoading(false));
   }, []);
 
   const changeQttByInput = () => {
@@ -49,8 +50,10 @@ const CustomerProducts = () => {
     let value = Number(selector.value);
     if (getBtn.textContent === '+') {
       value += 1;
+      selector.value = value;
     } else if (value >= 1) {
       value -= 1;
+      selector.value = value;
     }
 
     const index = order.findIndex((item) => item.id === product[0].id);
@@ -64,15 +67,14 @@ const CustomerProducts = () => {
     } else {
       order[index].quantity = value;
     }
-    setOrder(order);
-    setCurrentOrder(order);
-    setCurrentOrderTotal(currentOrder
-      .reduce((acc, cur) => acc + (cur.quantity * cur.price), 0).toFixed(2));
-
-    console.log(order);
-
-    selector.value = value;
+    const newOrder = order.filter((item) => item.quantity > 0);
+    const orderTotalValue = newOrder
+      .reduce((acc, cur) => acc + (cur.quantity * cur.price), 0).toFixed(2);
+    setOrder(newOrder);
+    setCurrentOrder(newOrder);
+    setCurrentOrderTotal(orderTotalValue);
   };
+
   if (redirectToCheckout) return <Redirect to="/customer/checkout" />;
   return !isLoading
     ? (
@@ -112,7 +114,7 @@ const CustomerProducts = () => {
                       data-testid={
                         `customer_products__button-card-rm-item-${product.id}`
                       }
-                      onClick={ changeQtt }
+                      onClick={ (e) => changeQtt(e) }
                     >
                       -
                     </button>
@@ -132,7 +134,7 @@ const CustomerProducts = () => {
                       data-testid={
                         `customer_products__button-card-add-item-${product.id}`
                       }
-                      onClick={ changeQtt }
+                      onClick={ (e) => changeQtt(e) }
                     >
                       +
                     </button>
@@ -148,13 +150,11 @@ const CustomerProducts = () => {
           data-testid="customer_products__button-cart"
           disabled={ currentOrderTotal <= 0 }
           onClick={ () => setRedirect(true) }
+          className="ver_carrinho"
         >
-          <CartTotal
-            testId="customer_products__checkout-bottom-value"
-            text=""
-            className="ver_carrinho"
-          />
-          { currentOrderTotal }
+          <span data-testid="customer_products__checkout-bottom-value">
+            { currentOrderTotal.toString().replace('.', ',') }
+          </span>
         </button>
       </div>) : <span>Carregando...</span>;
 };
