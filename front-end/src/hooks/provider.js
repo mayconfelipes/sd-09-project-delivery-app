@@ -74,6 +74,7 @@ function Provider({ children }) {
   };
 
   const sendSale = async (sale) => {
+    console.log(sale);
     const {
       sellerId,
       totalPrice,
@@ -86,8 +87,11 @@ function Provider({ children }) {
       const response = await axios.post('http://localhost:3001/sales', {
         sellerId, totalPrice, deliveryAddress, deliveryNumber, productCart,
       }, {
-        headers: { token: user.token },
+        headers: { authorization: user.token },
       });
+
+      console.log(response.data);
+
       setSaleId(response.data);
       const { id } = response.data;
       router.push(`/customer/orders/${id}`);

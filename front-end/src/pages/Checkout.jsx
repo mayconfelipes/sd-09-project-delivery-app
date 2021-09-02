@@ -29,14 +29,16 @@ function Checkout() {
 
   const handleOptionsChange = ({ target }) => {
     const { name, value } = target;
-    setDetailsForm({ ...detailsForm, [name]: value.id });
+    setDetailsForm({ ...detailsForm, [name]: value });
   };
 
-  const handleSubmit = (e, totalPrice) => {
+  const handleSubmit = (e, totalPriceString) => {
     e.preventDefault();
-    setDetailsForm({ ...detailsForm, totalPrice });
+    const totalPrice = Number(totalPriceString);
+    setDetailsForm({ ...detailsForm });
     const dataSend = detailsForm;
-    sendSale(dataSend);
+    console.log(dataSend);
+    sendSale({ ...dataSend, totalPrice });
   };
 
   const itemNumber = (index) => {
@@ -49,6 +51,7 @@ function Checkout() {
   };
 
   const formatPrice = (price) => price.replace(/\./ig, ',');
+  const reformatPrice = (price) => price.replace(/,/ig, '.');
 
   const calcSubTotal = (price, quantity) => {
     const subtotal = Number(price * quantity);
@@ -127,7 +130,7 @@ function Checkout() {
           <button
             type="submit"
             data-testid="customer_checkout__button-submit-order"
-            onClick={ (e) => handleSubmit(e, formatPrice(total.toFixed(2))) }
+            onClick={ (e) => handleSubmit(e, reformatPrice(total.toFixed(2))) }
           >
             Finalizar Pedido
           </button>
