@@ -35,7 +35,6 @@ const OrderLIst = () => {
   };
 
   useEffect(() => {
-    // const newProducts = ;
     setProducts(convertCartToArray());
   }, []);
 
@@ -47,7 +46,7 @@ const OrderLIst = () => {
     console.log('[prevProducts] > ', products);
     console.log('[currentProducts] > ', updatedProducts);
     setProducts(updatedProducts);
-    // calculateTotalPrice(updatedProducts);
+    calculateTotalPrice(updatedProducts);
   };
 
   console.log('TOTAL > ', total);

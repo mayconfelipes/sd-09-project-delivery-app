@@ -35,7 +35,7 @@ TableRow.propTypes = {
   item: PropTypes.number.isRequired,
   product: PropTypes.shape({
     name: PropTypes.string,
-    price: PropTypes.number,
+    price: PropTypes.string,
     quantity: PropTypes.number,
   }).isRequired,
   onclick: PropTypes.func.isRequired,
