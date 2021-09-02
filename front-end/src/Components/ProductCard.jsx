@@ -9,15 +9,17 @@ function ProductCard({
   updateTotalPrice,
   addToCart,
   removeFromCart,
+  changeTotalPrice,
 }) {
   const [quantity, setQuantity] = useState(0);
 
   return (
     <div>
       <h6 data-testid={ `customer_products__element-card-price-${id}` }>
-        {price}
+        {price.toString().replace(/\./, ',') }
       </h6>
       <img
+        width="50px"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ urlImage }
         alt="Product"
@@ -34,15 +36,21 @@ function ProductCard({
               if (quantity !== 0) {
                 updateTotalPrice('subtract', price);
                 setQuantity(quantity - 1);
+                removeFromCart({ id, price });
               }
-              removeFromCart({ id, price });
             } }
           >
             -
           </button>
-          <p data-testid={ `customer_products__input-card-quantity-${id}` }>
-            {quantity}
-          </p>
+          <input
+            data-testid={ `customer_products__input-card-quantity-${id}` }
+            value={ quantity }
+            onChange={ ({ target: { value } }) => {
+              setQuantity(value);
+              changeTotalPrice(value * price);
+              addToCart({ id, name, price: price * value });
+            } }
+          />
           <button
             type="button"
             data-testid={ `customer_products__button-card-add-item-${id}` }

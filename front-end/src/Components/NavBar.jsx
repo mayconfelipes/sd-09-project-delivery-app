@@ -30,6 +30,10 @@ function NavBar() {
         <button
           data-testid="customer_products__element-navbar-link-logout"
           type="button"
+          onClick={ () => {
+            localStorage.removeItem('user');
+            history.push('/login');
+          } }
         >
           Sair
         </button>
