@@ -21,6 +21,8 @@ function Provider({ children }) {
   const [theme, setTheme] = useState(Light);
   const [enableButton, setEnableButton] = useState(false);
   const [cart, setCart] = useState(DEFAULT_CART);
+  const [catalog, setCatalog] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const contextValue = {
     form,
@@ -33,6 +35,10 @@ function Provider({ children }) {
     setEnableButton,
     cart,
     setCart,
+    catalog,
+    setCatalog,
+    loading,
+    setLoading,
   };
 
   return (

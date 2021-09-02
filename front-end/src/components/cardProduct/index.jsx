@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import context from '../../context';
 import formatPrice from '../../services/formatPrice';
+import * as S from './styled';
 
 const CardProduct = ({ image, name, price, id }) => {
   const { cart, setCart } = useContext(context);
@@ -30,7 +31,7 @@ const CardProduct = ({ image, name, price, id }) => {
   };
 
   return (
-    <div>
+    <S.Card>
       <span data-testid={ `customer_products__element-card-price-${id}` }>
         { formatPrice(price) }
       </span>
@@ -40,26 +41,29 @@ const CardProduct = ({ image, name, price, id }) => {
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
       <span data-testid={ `customer_products__element-card-title-${id}` }>{ name }</span>
-      <button
-        type="button"
-        name="decrease"
-        onClick={ updateCart }
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
-      >
-        -
-      </button>
-      <span data-testid={ `customer_products__input-card-quantity-${id}` }>
-        { quantity }
-      </span>
-      <button
-        type="button"
-        onClick={ updateCart }
-        name="increase"
-        data-testid={ `customer_products__button-card-add-item-${id} ` }
-      >
-        +
-      </button>
-    </div>
+      <S.ButtonsDiv>
+
+        <button
+          type="button"
+          name="decrease"
+          onClick={ updateCart }
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+        >
+          -
+        </button>
+        <span data-testid={ `customer_products__input-card-quantity-${id}` }>
+          { quantity }
+        </span>
+        <button
+          type="button"
+          onClick={ updateCart }
+          name="increase"
+          data-testid={ `customer_products__button-card-add-item-${id} ` }
+        >
+          +
+        </button>
+      </S.ButtonsDiv>
+    </S.Card>
   );
 };
 

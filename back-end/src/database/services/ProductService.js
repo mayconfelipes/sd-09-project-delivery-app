@@ -6,9 +6,6 @@ const getAll = async () => {
   return products;
 };
 
-const teste = getAll();
-console.log(teste);
-
 const getById = async (id) => {
   const product = await Product.findByPk(id);
 
