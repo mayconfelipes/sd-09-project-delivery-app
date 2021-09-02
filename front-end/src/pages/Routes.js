@@ -13,11 +13,11 @@ const Routes = () => (
         <Redirect to="/login" />
       </Route>
       <Route path="/login" component={ Login } />
+      <Route path="/register" component={ Register } />
       <CustomerProvider>
         <Route path="/customer/checkout" component={ Checkout } />
         <Route path="/customer/products" component={ ClientProducts } />
       </CustomerProvider>
-      <Route path="/register" component={ Register } />
     </Switch>
   </BrowserRouter>
 );
