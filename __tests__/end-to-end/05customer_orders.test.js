@@ -39,8 +39,8 @@ beforeEach(async () => {
     await toReturnDataWith(database, {
       nonTest: true,
       query: [
-        sales.query, 
-        "WHERE user_id = ?", 
+        sales.query,
+        "WHERE user_id = ?",
         "LIMIT ?"
       ].join(" "),
       values: [3, 10],
