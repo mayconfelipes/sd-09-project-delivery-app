@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 // import React from 'react';
 import PropTypes from 'prop-types';
+import { useDeliveryContext } from '../../context/deliveryProvider';
 // axios usar get na rota /seller -> pegar vendedores
 
 const AddressDetails = ({ names }) => {
-  const [address, setAddress] = useState({
-    vendedor: 'Default',
-    address: '',
-    numero: '',
-  });
+  const { address, setAddress } = useDeliveryContext();
 
   const handleInputChange = ({ target }) => {
     console.log('target >', target);

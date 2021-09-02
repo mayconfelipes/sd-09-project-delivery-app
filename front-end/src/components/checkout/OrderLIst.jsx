@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDeliveryContext } from '../../context/deliveryProvider';
-// import { useDeliveryContext } from '../../context/deliveryProvider';
 import TableRow from './TableRow';
 
 const OrderLIst = () => {
@@ -13,10 +12,7 @@ const OrderLIst = () => {
     'Remover item',
   ];
 
-  const [products, setProducts] = useState([]);
-  const [total, setTotal] = useState(0);
-
-  const { cart } = useDeliveryContext();
+  const { cart, products, setProducts, total, setTotal } = useDeliveryContext();
 
   const calculateTotalPrice = (array) => {
     let totalPrice = 0;
@@ -39,12 +35,9 @@ const OrderLIst = () => {
   }, []);
 
   const handleRemoveProduct = (indexItem) => {
-    // console.log('index > ', indexItem);
     const tmpProducts = products;
 
     const updatedProducts = tmpProducts.filter((_product, index) => index !== indexItem);
-    // console.log('[prevProducts] > ', products);
-    // console.log('[currentProducts] > ', updatedProducts);
     setProducts(updatedProducts);
     calculateTotalPrice(updatedProducts);
   };

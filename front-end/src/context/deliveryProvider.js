@@ -11,6 +11,15 @@ export const DeliveryProvider = ({ children }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [cart, setCart] = useState({});
 
+  const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState(0);
+
+  const [address, setAddress] = useState({
+    vendedor: 'Default',
+    address: '',
+    numero: '',
+  });
+
   const getProductCallBack = useCallback(async () => {
     try {
       const response = await api.get('/products');
@@ -31,6 +40,12 @@ export const DeliveryProvider = ({ children }) => {
     allProducts,
     cart,
     setCart,
+    products,
+    setProducts,
+    total,
+    setTotal,
+    address,
+    setAddress,
   };
 
   return (

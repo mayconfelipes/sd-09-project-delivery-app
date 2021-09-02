@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+import qs from 'qs';
 
+import { useDeliveryContext } from '../../context/deliveryProvider';
 import OrderLIst from '../../components/checkout/OrderLIst';
 import AddressDetails from '../../components/checkout/AddressDetails';
 import Header from '../../components/Header';
@@ -8,6 +11,8 @@ import './style.css';
 
 const Checkout = () => {
   const [sellers, setSellers] = useState([]);
+
+  const { address, products, total } = useDeliveryContext();
 
   const getSellers = async () => {
     const fetchSellers = await api.get('/seller')
@@ -24,6 +29,34 @@ const Checkout = () => {
     getSellers();
   }, []);
 
+  // const { totalPrice, deliveryNumber, deliveryAddress, name, products } = req.body;
+
+  const handeClick = async () => {
+    console.log('click');
+
+    const data = {
+      totalPrice: Number(total.toFixed(2)),
+      deliveryNumber: address.numero,
+      deliveryAddress: address.address,
+      name: address.vendedor,
+      products,
+    };
+
+    const { token } = JSON.parse(localStorage.getItem('user'));
+
+    const headers = { 'Content-Type': 'application/json', authorization: token };
+
+    await api.post('/sales', {
+      headers,
+      data: qs.stringify(data),
+    })
+      .then((response) => console.log('response > ', response))
+      .catch((err) => console.log(err));
+
+    // console.log('data > ', data);
+    console.log('token > ', token);
+  };
+
   return (
     <div className="checkout-container">
       <header>
@@ -39,6 +72,7 @@ const Checkout = () => {
         type="button"
         className="finalize-order"
         data-testid="customer_checkout__button-submit-order"
+        onClick={ handeClick }
       >
         FINALIZAR PEDIDO
       </button>
