@@ -1,5 +1,5 @@
-const { Sale } = require('../models');
-const erroHelper = require('../../utils/errorHelper');
+const { sale: Sale, salesProduct: SalesProduct } = require('../models');
+const errorHelper = require('../../utils/errorHelper');
 
 const sequelizeDataSale = (data) => {
   const newData = {
@@ -15,17 +15,24 @@ const sequelizeDataSale = (data) => {
   return newData;
 };
 
-const checkOut = async (data) => {
-  console.log(data);
-  const newData = sequelizeDataSale(data);
-
+const checkOut = async ({ sale: saleData, products: productsData }) => {
+  const newDataSale = sequelizeDataSale(saleData);
   try {
-    const { dataValues: sale } = await Sale.create(newData);
+    const { dataValues: sale } = await Sale.create(newDataSale);
+    await saleProductsSave(sale.id, productsData);
 
     return sale;
   } catch (_error) {
-    throw erroHelper(400, '"data" conflict');
+    throw errorHelper(400, '"data" conflict');
   }
+};
+
+const saleProductsSave = async (saleId, productsData) => {
+  console.log(saleId, productsData);
+  productsData.forEach(async ({ productId, quantity }) => {
+    const teste = await SalesProduct.create({ sale_id: saleId, product_id: productId, quantity });
+    console.log(teste);
+  });
 };
 
 module.exports = {

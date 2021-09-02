@@ -51,6 +51,7 @@ const CardProduct = ({ image, name, price, id }) => {
         src={ image }
         alt={ `bebida: ${image}` }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
+        width="20px"
       />
       <span data-testid={ `customer_products__element-card-title-${id}` }>{ name }</span>
       <S.ButtonsDiv>
@@ -63,9 +64,12 @@ const CardProduct = ({ image, name, price, id }) => {
         >
           -
         </button>
-        <span data-testid={ `customer_products__input-card-quantity-${id}` }>
-          { quantity }
-        </span>
+        <input
+          type="number"
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          value={ quantity }
+          onChange={ ({ target }) => setQuantity(target.value) }
+        />
         <button
           type="button"
           onClick={ updateCart }

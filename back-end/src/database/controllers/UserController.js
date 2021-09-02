@@ -7,7 +7,7 @@ const login = rescue(async(req, res) => {
   const user = await User.login(email, password);
 
   return res.status(200).json(user);
-}); 
+});
 
 const register = rescue(async(req, res) => {
   const { name, email, password } = req.body;
