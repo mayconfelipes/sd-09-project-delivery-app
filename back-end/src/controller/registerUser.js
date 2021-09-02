@@ -3,7 +3,7 @@ const rescue = require('express-rescue');
 
 const router = express.Router();
 
-const service = require('../service/registerUser');
+const service = require('../service');
 const validateUser = require('../middlewares/validateUser');
 
 router.post('/', [
