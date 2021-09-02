@@ -1,11 +1,105 @@
+.details-order-seller-container  {
+  margin: 10px auto;
+  max-width: 60rem;
+}
+
+.details-order-seller-container  {
+  max-width: 85vw;
+  margin: 20px auto
+}
+
 .details-order-container {
-  padding: 10px;
+  border: 2px solid rgba(128, 128, 128, 0.473);
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+}
+
+.details-order-container section {
+  background-color: #EAF1EF;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 5px;
+}
+
+.render-info-pedidos {
+  align-self: center;
+  font-weight: 900;
+}
+
+.status-details {
+  background-color: #87D53C;
+  border-radius: 5px;
+  padding: 2px 10px;
+}
+
+.details-order-container section button {
+  background-color: #44C18C;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 900;
+  padding: 5px 20px;
+  margin-right: 5px;
+}
+
+.details-order-container section button:nth-child(2) {
+  background-color: #236B51;
+
+}
+
+.pendente {
+  background-color: #D4C63C;
+}
+
+.entregue {
+  background-color: #456DF9;
+}
+
+.details-order-container h3 {
+  margin-left: auto;
 }
 
 .details-order-container span {
   margin-right: 1rem;
 }
 
-li {
+.details-order-container ul {
+  padding: 10px;
+  flex-grow: 1;
+}
+
+.list-item-header {
+  display: flex;
+  padding: 10px 10px 0;
+}
+
+.list-item-header span {
+  text-align: center;
+}
+
+.list-item-header span:nth-child(2){
+  flex-grow: 1;
+}
+
+.list-item-header span:nth-child(3), span:nth-child(4), span:nth-child(5) {
+  width: 6rem;
+}
+
+.details-order-container li {
   list-style-type: none;
+}
+
+.details-order-container p {
+  align-self: flex-end;
+  background-color: #236B51;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 900;
+  padding: 10px;
+  margin: 1rem;
+  min-width: 12rem;
+  text-align: center;
 }

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import CardOrderList from '../../components/CardOrderList';
+import NavBarSeller from '../../components/NavbarSeller';
 import api from '../../service/axiosApi';
+import './OrdersSeller.css';
 
 const OrdersSeller = () => {
   const [orders, setOrders] = useState([]);
@@ -14,9 +16,14 @@ const OrdersSeller = () => {
   }, [token]);
 
   return (
-    <div className="order-details-container">
-      <p>lista de vendas</p>
-      { orders.map((order, index) => <CardOrderList order={ order } key={ index } />) }
+    <div>
+      <NavBarSeller />
+      <div className="order-list-container">
+        <section className="order-container">
+          { orders
+            .map((order, index) => <CardOrderList order={ order } key={ index } />) }
+        </section>
+      </div>
     </div>
   );
 };

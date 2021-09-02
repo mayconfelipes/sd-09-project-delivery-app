@@ -1,11 +1,15 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.order-list-container {
+  display: flex;
 }
 
-.order-details-container {
+.order-list-container section {
+  margin-left: 100px;
+  display: flex;
+}
+
+.order-container {
   display: flex;
   flex-wrap: wrap;
-  width: 99vw;
+  margin: 1rem ;
+  width: 60rem;
 }
