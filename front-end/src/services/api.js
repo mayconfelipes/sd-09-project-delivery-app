@@ -71,13 +71,16 @@ export const getImg = async (token, imgPath) => {
 };
 
 export const saleById = async (id, token) => {
-  const request = await fetch(`http://localhost:3001/sale/${id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': APP_JSON,
-      Authorization: token,
-    },
-  });
+  const request = await fetch(`http://localhost:3001/sale/${id}`, options('GET', null, token));
   const response = await request.json();
+
+  // const request = await fetch(`http://localhost:3001/sale/${id}`, {
+  //   method: 'GET',
+  //   headers: {
+  //     'Content-Type': APP_JSON,
+  //     Authorization: token,
+  //   },
+  // });
+  // const response = await request.json();
   return response;
 };

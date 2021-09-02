@@ -7,11 +7,12 @@ function OrderDetail() {
   const [sale, setSale] = useState();
   const { location: { pathname } } = useHistory();
   const orderId = pathname.split('orders/')[1];
-  const dataTest = 'customer_order_details__element-order-details-label-delivery-status';
-  const tabId = 'customer_order_details__element-order-table-item-number-';
-  const tabName = 'customer_order_details__element-order-table-name-';
-  const tabQtt = 'customer_order_details__element-order-table-quantity-';
-  const tabSubtotal = 'customer_order_details__element-order-table-sub-total-';
+  // const dataTest = 'customer_order_details__element-order-details-label-delivery-status';
+  // const tabId = 'customer_order_details__element-order-table-item-number-';
+  // const tabName = 'customer_order_details__element-order-table-name-';
+  // const tabQtt = 'customer_order_details__element-order-table-quantity-';
+  // const tabSubtotal = 'customer_order_details__element-order-table-sub-total-';
+  const startIdEL = 'customer_order_details__element-order-';
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem('user'));
     const orderInfo = async () => {
@@ -21,47 +22,74 @@ function OrderDetail() {
     orderInfo();
   }, [orderId]);
 
+  function ajustData(data) {
+    const limit = 2;
+    let newData = data.split('T', limit);
+    newData = newData[0].split('-', limit + 1);
+    return newData.reverse().join('/');
+  }
+
+  function ajustPrice(price) {
+    const newPrice = price.replace('.', ',');
+    return newPrice;
+  }
   const renderInfo = () => (
     <div>
       <p>
         {'Pedido '}
         <span
-          data-testid="customer_order_details__element-order-details-label-order-id"
+          data-testid={ `${startIdEL}details-label-order-id` }
         >
           {sale.id}
         </span>
         {' P. Vendedora: '}
         <span
-          data-testid="customer_order_details__element-order-details-label-seller-name"
+          data-testid={ `${startIdEL}details-label-seller-name` }
         >
           {sale.seller.name}
         </span>
         <span
-          data-testid="customer_order_details__element-order-details-label-order-date"
+          data-testid={ `${startIdEL}details-label-order-date` }
         >
-          {sale.saleDate.split('T')[0]}
+          { ajustData(sale.saleDate.split('T')[0]) }
         </span>
         <span
-          data-testid={ dataTest }
+          data-testid={ `${startIdEL}details-label-delivery-status` }
         >
           {sale.status}
         </span>
-        <button type="button">Marcar Como Entregue</button>
+        <button
+          type="button"
+          data-testid="customer_order_details__button-delivery-check"
+        >
+          Marcar Como Entregue
+        </button>
       </p>
     </div>
   );
 
   const renderTableBody = () => (
-    sale.product.map((prod) => (
-      <tr key={ prod.id }>
-        <td data-testid={ tabId + prod.id }>{prod.id}</td>
-        <td data-testid={ tabName + prod.id }>{prod.name}</td>
-        <td data-testid={ tabQtt + prod.id }>{prod.salesProduct.quantity}</td>
-        <td>{prod.price}</td>
+
+    sale.product.map((prod, index = 0) => (
+      <tr
+        key={ prod.id }
+      >
+        <td data-testid={ `${startIdEL}table-item-number-${index}` }>
+          {prod.id}
+        </td>
+        <td data-testid={ `${startIdEL}table-name-${index}` }>
+          {prod.name}
+        </td>
+        <td data-testid={ `${startIdEL}table-quantity-${index}` }>
+          {prod.salesProduct.quantity}
+        </td>
+        <td data-testid={ `${startIdEL}table-unit-price-${index}` }>
+          { ajustPrice(prod.price)}
+        </td>
         <td
-          data-testid={ tabSubtotal + prod.id }
+          data-testid={ `${startIdEL}table-sub-total-${index}` }
         >
-          {prod.salesProduct.quantity * prod.price}
+          { prod.salesProduct.quantity * prod.price }
         </td>
       </tr>
     ))
@@ -86,7 +114,6 @@ function OrderDetail() {
 
   const totalValue = () => sale.product
     .reduce((acc, curr) => acc + (curr.salesProduct.quantity * curr.price), 0);
-
   return (
     <div>
       <NavBar />
@@ -95,7 +122,11 @@ function OrderDetail() {
       {sale && renderTableHeader()}
       <div>
         valor Total:
-        <span>{sale && totalValue()}</span>
+        <span
+          data-testid={ `${startIdEL}total-price` }
+        >
+          { sale && totalValue()}
+        </span>
       </div>
     </div>
   );
