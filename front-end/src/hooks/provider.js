@@ -10,7 +10,8 @@ function Provider({ children }) {
   const [products, setProducts] = useState([]);
   const [productsCart, setProductsCart] = useState({});
   const [loading, setLoading] = useState(true);
-  const [saleId, setSaleId] = useState(true);
+  const [saleId, setSaleId] = useState({});
+  const [sellersId, setSellersId] = useState([]);
   const router = useHistory();
 
   const signIn = async (email, password) => {
@@ -18,24 +19,6 @@ function Provider({ children }) {
       const response = await axios.post('http://localhost:3001/login', { email, password });
       setUser(response.data);
       router.push('/customer/products');
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const sendSale = async (sale) => {
-    const { 
-      userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, productCart,
-    } = sale
-
-    try {
-      const response = await axios.post('http://localhost:3001/sales', { 
-        userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, productCart,
-      });
-      setSaleId(response.data);
-      // const { id } = response.data
-      let id = 1
-      router.push(`localhost:3000/customer/orders/${id}`);
     } catch (error) {
       console.log(error);
     }
@@ -65,6 +48,15 @@ function Provider({ children }) {
     }
   };
 
+  const getSellersId = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/seller');
+      setSellersId(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getSales = async () => {
     response.data = [{
       deliveryNumber: '0001',
@@ -78,6 +70,29 @@ function Provider({ children }) {
       setSales(response.data);
     } catch (error) {
       console.logo(error);
+    }
+  };
+
+  const sendSale = async (sale) => {
+    const {
+      sellerId,
+      totalPrice,
+      deliveryAddress,
+      deliveryNumber,
+      productCart,
+    } = sale;
+
+    try {
+      const response = await axios.post('http://localhost:3001/sales', {
+        sellerId, totalPrice, deliveryAddress, deliveryNumber, productCart,
+      }, {
+        headers: { token: user.token },
+      });
+      setSaleId(response.data);
+      const { id } = response.data;
+      router.push(`localhost:3000/customer/orders/${id}`);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -101,7 +116,9 @@ function Provider({ children }) {
     setProductCartInLocalStorage,
     sendSale,
     saleId,
-    setSaleId,
+    setSellersId,
+    getSellersId,
+    sellersId,
   };
 
   return (
