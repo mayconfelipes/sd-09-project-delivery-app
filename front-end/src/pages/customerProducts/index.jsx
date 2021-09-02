@@ -28,7 +28,7 @@ const Products = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [setCatalog, setLoading]);
 
   const paginas = [
     'PRODUTOS /customer_products__element-navbar-link-products',
