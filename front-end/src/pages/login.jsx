@@ -50,7 +50,7 @@ const Login = () => {
       history.push('/seller/products');
       break;
     case 'administrator':
-      history.push('/administrator/manage');
+      history.push('/admin/manage');
       break;
     default:
       break;
@@ -64,8 +64,9 @@ const Login = () => {
     await axios.post(LOGIN_URL, payload)
       .then(
         (response) => {
-          const { token, user: { name, role } } = response.data;
+          const { token, user: { name, role, id } } = response.data;
           const user = {
+            id,
             name,
             email,
             role,

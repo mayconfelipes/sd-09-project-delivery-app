@@ -10,7 +10,7 @@ const ROLE_CHOICES = [
     name: 'Vendedor',
   },
   {
-    value: 'admin',
+    value: 'administrator',
     name: 'Administrador',
   },
 ];
