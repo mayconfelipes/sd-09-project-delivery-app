@@ -1,5 +1,5 @@
 const { verify } = require('./jwt');
-const { User } = require('../../models');
+const { user: User } = require('../../models');
 
 module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
