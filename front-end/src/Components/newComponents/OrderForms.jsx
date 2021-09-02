@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { getSellers, closeOrder } from '../../services/api';
 import { CartContext } from '../../Contexts/CartContext';
 
 export default function OrderForms() {
-  const history = useHistory();
+  // const history = useHistory();
   const { totalPrice, cartItems } = useContext(CartContext);
 
   const sellersSimulator = [
@@ -24,6 +24,7 @@ export default function OrderForms() {
   ];
 
   const [sellers, setSellers] = useState(sellersSimulator);
+  const [vraw, setVraw] = useState('');
   const [userInfo, setUserInfo] = useState({
     seller: sellers[0].id, address: '', number: '',
   });
@@ -57,8 +58,8 @@ export default function OrderForms() {
     const response = await closeOrder(orderInfo); // retorna { saleId }
 
     console.log(orderInfo, response);
-
-    return !response.message && history.push(`/customer/orders/${response.saleId || 0}`);
+    setVraw(response.saleId);
+    console.log(vraw);
   };
 
   return (
@@ -106,12 +107,14 @@ export default function OrderForms() {
             />
           </label>
         </div>
-        <button
-          type="submit"
-          data-testid="customer_checkout__button-submit-order"
-        >
-          FINALIZAR PEDIDO
-        </button>
+        <Link to={ `/customer/orders/${vraw}` }>
+          <button
+            type="submit"
+            data-testid="customer_checkout__button-submit-order"
+          >
+            FINALIZAR PEDIDO
+          </button>
+        </Link>
       </form>
     </section>
   );

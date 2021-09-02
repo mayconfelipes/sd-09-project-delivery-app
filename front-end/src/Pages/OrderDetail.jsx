@@ -74,25 +74,25 @@ function OrderDetail() {
   }
 
   const renderTableBody = () => (
-    sale.product.map((prod, index = 0) => (
+    sale.product.map((prod, i) => (
       <tr
         key={ prod.id }
         data-testid="customer_order_details__button-delivery-check"
       >
-        <td data-testid={ `${startIdEL}table-item-number-${index}` }>
+        <td data-testid={ `${startIdEL}table-item-number-${i}` }>
           {prod.id}
         </td>
-        <td data-testid={ `${startIdEL}table-name-${index}` }>
+        <td data-testid={ `${startIdEL}table-name-${i}` }>
           {prod.name}
         </td>
-        <td data-testid={ `${startIdEL}table-quantity-${index}` }>
+        <td data-testid={ `${startIdEL}table-quantity-${i}` }>
           {prod.salesProduct.quantity}
         </td>
-        <td data-testid={ `${startIdEL}table-unit-price-${index}` }>
+        <td data-testid={ `${startIdEL}table-unit-price-${i}` }>
           { ajustPrice(prod.price)}
         </td>
         <td
-          data-testid={ `${startIdEL}table-sub-total-${index}` }
+          data-testid={ `${startIdEL}table-sub-total-${i}` }
         >
           { calcSubtotal(prod.salesProduct.quantity, prod.price) }
         </td>
