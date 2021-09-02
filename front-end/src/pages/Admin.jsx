@@ -5,6 +5,7 @@ import LargeButton from '../components/LargeButton';
 import DropDownList from '../components/DropDownList';
 import UsersTable from '../components/UsersTable';
 import dataTestIds from '../utils/dataTestIds';
+import Navbar from '../components/Navbar';
 
 function Admin() {
   const [newUserData, setNewUserData] = useState({
@@ -14,6 +15,7 @@ function Admin() {
   const [disableButton, setDisableButton] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
 
+  const adminData = JSON.parse(localStorage.getItem('user'));
   // verifica se pode fazer o cadastro
   const verifyNewUserCredentials = () => {
     const { nome, email, password, role } = newUserData;
@@ -100,6 +102,7 @@ function Admin() {
   const options = ['customer', 'seller', 'administrator'];
   return (
     <main>
+      <Navbar role={ adminData.role } />
       <section>
         <p>Cadastrar novo usuário</p>
         <TextInput
