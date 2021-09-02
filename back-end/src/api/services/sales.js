@@ -40,11 +40,11 @@ const createProducts = async (saleId, products) => {
 
 const create = async (sale, login) => {
   const { seller, products } = sale;
-  const { name } = login.data;
+  const { id } = login.data;
 
-  const saleUser = await usersServices.getByName(name);
+  const saleUser = await usersServices.getById(id);
 
-  const saleSeller = await usersServices.getByName(seller);
+  const saleSeller = await usersServices.getById(seller);
 
   const newSale = await Sales.create({ userId: saleUser.id, 
     sellerId: saleSeller.id,
