@@ -29,9 +29,11 @@ app.get('/sale/:id', tokenValidController.checkUser, salesController.getById);
 app.put('/sale/status', tokenValidController.checkUser, salesController.updateSaleStatus);
 
 app.use((err, _req, res, _next) => {
+  console.log(err);
   if (err.status) return res.status(err.status).json({ message: err.message });
   return res.status(500).json({ message: err.message });
 });
 
 app.listen(port);
+
 console.log(`pai ta on na porta ${port}`);

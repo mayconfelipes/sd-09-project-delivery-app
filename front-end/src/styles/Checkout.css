@@ -1,0 +1,8 @@
+.order-details-address form {
+  display: flex;
+}
+
+.order-details-address form div label {
+  display: flex;
+  flex-direction: column;
+}

@@ -59,14 +59,14 @@ function NavBar() {
       >
         <Link
           style={ navigationStyle }
-          to="/products"
+          to="/customer/products"
           data-testid="customer_products__element-navbar-link-products"
         >
           <span>Produtos</span>
         </Link>
         <Link
           style={ navigationStyle }
-          to="/orders"
+          to="/customer/orders"
           data-testid="customer_products__element-navbar-link-orders"
         >
           <span>Meus pedidos</span>

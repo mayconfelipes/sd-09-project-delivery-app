@@ -19,7 +19,7 @@ const login = async ({ email, password }) => {
   if (bdPass !== encriptedPassword) throw passwordNotFound;
 
   const token = jwtCreator({ name, email, role });
-  return { name, email, role, token };
+  return { userId: selectUser.id, name, email, role, token };
 };
 
 module.exports = {
