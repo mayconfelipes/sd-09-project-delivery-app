@@ -1,40 +1,93 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 // import Header from '../components/Header';
 import CheckoutTable from '../components/CheckoutTable';
 import Customer from '../context/customerContext';
+import useOrder from '../hooks/useOrder';
 
 const Checkout = () => {
   const {
+    shoppingCart,
+    customer,
     sellers,
   } = useContext(Customer);
+
+  const History = useHistory();
+
+  const [order, setOrder] = useOrder();
+
+  useEffect(() => {
+    if (order.id) {
+      History.push(`/customer/orders/${order.id}`);
+    }
+  }, [shoppingCart, order, History]);
+
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
+  const [sellerId, setSellerId] = useState('');
 
   return (
     <>
       {/* <Header /> */}
       <h2>Finalizar Pedido</h2>
       <CheckoutTable />
-      <form>
-        <h3>Detalhes e Endereço para Entrega</h3>
-        <label htmlFor="select-seler">
+      <h3>Detalhes e Endereço para Entrega</h3>
+      <form
+        onSubmit={
+          (e) => setOrder(e, {
+            email: customer.email,
+            deliveryAddress,
+            deliveryNumber,
+            sellerId,
+            totalPrice: shoppingCart.reduce(
+              ((acc, curr) => acc + ((+curr.price) * curr.quantity)), 0,
+            ),
+            products: shoppingCart
+              .map(({ id, name, urlimage, ...product }) => product),
+            token: customer.token,
+          })
+        }
+      >
+        <label htmlFor="sellerId">
           P. Vendedora Responsável
-          <select id="select-seller" data-testid="customer_checkout__select-seller">
+          <select
+            id="sellerId"
+            data-testid="customer_checkout__select-seller"
+            name="sellerId"
+            value={ sellerId }
+            onChange={ ({ target: { value } }) => setSellerId(value) }
+          >
+            <option>Selecione uma opção</option>
             {sellers.map((seller) => (
-              <option key={ seller.id }>
+              <option key={ seller.id } value={ seller.id }>
                 {seller.name}
               </option>
             ))}
           </select>
         </label>
-        <label htmlFor="address">
+        <label htmlFor="deliveryAddress">
           Endereço
-          <input id="address" data-testid="customer_checkout__input-address" />
+          <input
+            id="deliveryAddress"
+            name="deliveryAddress"
+            data-testid="customer_checkout__input-address"
+            value={ deliveryAddress }
+            onChange={ ({ target: { value } }) => setDeliveryAddress(value) }
+          />
         </label>
-        <label htmlFor="number">
+        <label htmlFor="deliveryNumber">
           Número
-          <input id="number" data-testid="customer_checkout__input-addressNumber" />
+          <input
+            type="number"
+            id="deliveryNumber"
+            name="deliveryNumber"
+            data-testid="customer_checkout__input-addressNumber"
+            value={ deliveryNumber }
+            onChange={ ({ target: { value } }) => setDeliveryNumber(value) }
+          />
         </label>
         <button
-          type="button"
+          type="submit"
           data-testid="customer_checkout__button-submit-order"
         >
           FINALIZAR PEDIDO

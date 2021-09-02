@@ -3,7 +3,7 @@ import CheckoutItem from './CheckoutItem';
 import Customer from '../context/customerContext';
 import useTotalPrice from '../hooks/utils/useTotalPrice';
 
-export default function CheckouTable() {
+export default function CheckoutTable() {
   const {
     shoppingCart,
   } = useContext(Customer);
