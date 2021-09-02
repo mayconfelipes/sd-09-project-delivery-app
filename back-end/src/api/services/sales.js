@@ -7,7 +7,7 @@ const {
   SALE_NOT_CREATED,
   SALE_NOT_EXIST,
   SALE_PRODUCT_NOT_CREATED, 
-  SALE_NOT_UPDATED} = require('../middwares/errorMessages');
+  SALE_NOT_UPDATED } = require('../middwares/errorMessages');
 
 const { INTERNAL_ERROR_STATUS, NOT_FOUND_STATUS } = require('../middwares/httpStatus');
 
@@ -78,7 +78,7 @@ const update = async (id, sale) => {
     deliveryAddress,
     deliveryNumber,
     status,
-  }, { where: id });
+  }, { where: { id } });
 
   if (!updateSale) {
     throw messageError(INTERNAL_ERROR_STATUS, SALE_NOT_UPDATED);
