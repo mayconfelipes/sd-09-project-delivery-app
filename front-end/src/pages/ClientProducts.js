@@ -30,14 +30,14 @@ const ClientProducts = () => {
     if (cartBtn && shoppingCart.length === 0) {
       cartBtn.disabled = true;
     }
-  }, [shoppingCart, setTotalPrice]);
+  }, [shoppingCart, setTotalPrice, cartBtn]);
 
   useEffect(() => {
     const loadProducts = async () => {
       await setProducts(token);
     };
     loadProducts();
-  }, [token]);
+  }, [token, setProducts]);
 
   function handleCheckout() {
     History.push('/customer/checkout');
