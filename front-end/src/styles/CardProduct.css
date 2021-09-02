@@ -1,22 +1,22 @@
 .product__card {
-  height: 300px;
-  width: 200px;
-  margin: 10px;
+  align-items: center;
+  border: 1px solid grey;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
+  height: 300px;
   justify-content: center;
-  align-items: center;
-  position: relative;
-  border-radius: 5px;
-  border: 1px solid grey;
+  margin: 10px;
   padding: 1px;
+  position: relative;
+  width: 200px;
 }
 
 .product__card__price {
-  position: absolute;
-  z-index: 1000;
-  top: 10px;
   left: 10px;
+  position: absolute;
+  top: 10px;
+  z-index: 1000;
 }
 
 .product__card__image {
@@ -29,14 +29,12 @@
 }
 
 .product__card__price__input {
-  width: 1.1em;
   text-align: center;
+  width: 1.1em;
 }
 
 .product__card__price__input::-webkit-inner-spin-button,
 .product__card__price__input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   margin: 0;
 }

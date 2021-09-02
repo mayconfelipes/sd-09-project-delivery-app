@@ -3,14 +3,14 @@
 }
 
 .products__list {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: center;
 }
 
 .products__cart__button {
+  bottom: 25px;
   position: fixed;
   right: 25px;
-  bottom: 25px;
 }
