@@ -27,20 +27,17 @@ export const getProducts = () => axios.get(`${url}/product`)
 
 export const getSalesBySeller = (id) => axios.get(`${url}/sale/seller/${id}`, {
   headers: { authorization: JSON.parse(localStorage.user).token },
-})
-  .then(({ data }) => data)
+}).then(({ data }) => data)
   .catch((error) => error.response.data);
 
 export const getSale = (id) => axios.get(`${url}/sale/${id}`, {
   headers: { authorization: JSON.parse(localStorage.user).token },
-})
-  .then(({ data }) => data)
+}).then(({ data }) => data)
   .catch((error) => error.response.data);
 
 export const createSale = (body) => axios.post(`${url}/sale`, body, {
   headers: { authorization: JSON.parse(localStorage.user).token },
-})
-  .then(({ data }) => data)
+}).then(({ data }) => data)
   .catch((error) => error.response.data);
 
 export const getUsers = () => axios.get(`${url}/user`)

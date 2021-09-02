@@ -25,19 +25,19 @@ function Login() {
     setApiResponse,
     setLoginErrorMessage,
   } = useContext(LoginContext);
-  const [state, setState] = useState({ emailInput: '', passwordInput: '' });
+  const [state, setState] = useState({ email: '', password: '' });
   const [canRedirect, setCanRedirect] = useState(false);
   const [path, setPath] = useState('');
 
-  const handleChange = ({ target: { name, value } }) => {
-    setState({ ...state, [name]: value });
+  const handleChange = ({ target: { type, value } }) => {
+    setState({ ...state, [type]: value });
   };
 
-  const { emailInput, passwordInput } = state;
+  const { email, password } = state;
 
   const handleLogin = async () => {
     const response = await login(
-      emailInput, passwordInput, setApiResponse, setLoginErrorMessage,
+      email, password, setApiResponse, setLoginErrorMessage,
     );
 
     if (response.token) {
@@ -61,8 +61,8 @@ function Login() {
         ...loginButton,
         onClick: handleLogin,
         route,
-        disabled: !validateEmail(emailInput)
-          || passwordInput.length < PASS_MIN_LENGTH,
+        disabled: !validateEmail(email)
+          || password.length < PASS_MIN_LENGTH,
       })}
       <Link to="/register">
         { createButton({ ...registerButton, onClick: () => {}, route }) }
