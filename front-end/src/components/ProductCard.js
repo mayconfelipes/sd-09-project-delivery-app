@@ -18,45 +18,32 @@ const ProductCard = (props) => {
   const priceWithComma = `${(Math.round(product.price * 100) / 100).toFixed(2)}`
     .split('.').join(',');
 
-  function handleRemoveProduct(e) {
+  function handleQuantityBtn(e, action) {
     e.preventDefault();
     const { id, name, price, urlImage } = product;
     const quantityInput = document.getElementById(`quantity-${id}`);
     const currentQuantity = Number(quantityInput.value) || 0;
-    if (currentQuantity >= 1) {
-      quantityInput.value = currentQuantity - 1;
-      const prod = {
-        id,
-        name,
-        price,
-        urlImage,
-        quantity: currentQuantity - 1,
-      };
-      const cart = shoppingCart.filter((item) => item.id !== id);
-      cart.push(prod);
-      setShoppingCart(cart);
+    let newQuantity = currentQuantity;
+    if (action === 'add') {
+      newQuantity = currentQuantity + 1;
     }
-  }
-
-  function handleAddProduct(e) {
-    e.preventDefault();
-    const { id, name, price, urlImage } = product;
-    const quantityInput = document.getElementById(`quantity-${id}`);
-    const currentQuantity = Number(quantityInput.value) || 0;
-    quantityInput.value = currentQuantity + 1;
+    if (action === 'remove' && currentQuantity >= 1) {
+      newQuantity = currentQuantity - 1;
+    }
+    quantityInput.value = newQuantity;
     const prod = {
       id,
       name,
       price,
       urlImage,
-      quantity: currentQuantity + 1,
+      quantity: newQuantity,
     };
     const cart = shoppingCart.filter((item) => item.id !== id);
     cart.push(prod);
     setShoppingCart(cart);
   }
 
-  function handleChangeQuantity(e) {
+  function handleQuantityInput(e) {
     const { id, name, price, urlImage } = product;
     const currentQuantity = e.target.value;
     if (currentQuantity < 0) {
@@ -97,7 +84,7 @@ const ProductCard = (props) => {
           <button
             data-testid={ `customer_products__button-card-rm-item-${product.id}` }
             type="button"
-            onClick={ handleRemoveProduct }
+            onClick={ (e) => handleQuantityBtn(e, 'remove') }
           >
             -
           </button>
@@ -107,12 +94,12 @@ const ProductCard = (props) => {
             data-testid={ `customer_products__input-card-quantity-${product.id}` }
             type="number"
             min="0"
-            onChange={ handleChangeQuantity }
+            onChange={ handleQuantityInput }
           />
           <button
             data-testid={ `customer_products__button-card-add-item-${product.id}` }
             type="button"
-            onClick={ handleAddProduct }
+            onClick={ (e) => handleQuantityBtn(e, 'add') }
           >
             +
           </button>
