@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
+import status from '../utils/status';
 
 const Login = () => {
   const { state } = useLocation();
@@ -40,6 +41,22 @@ const Login = () => {
     [email, password],
   );
 
+  const redirectUser = (role) => {
+    switch (role) {
+    case 'customer':
+      history.push('/customer/products');
+      break;
+    case 'seller':
+      history.push('/seller/products');
+      break;
+    case 'administrator':
+      history.push('/administrator/manage');
+      break;
+    default:
+      break;
+    }
+  };
+
   const handleLogin = async () => {
     const LOGIN_URL = 'http://localhost:3001/api/login';
     const payload = { email, password };
@@ -55,10 +72,15 @@ const Login = () => {
             token,
           };
           localStorage.setItem('user', JSON.stringify(user));
-
-          history.push('/customer/products');
+          redirectUser(user.role);
         },
-        () => setError('Credenciais inválidas'),
+        ({ response: { status: errorStatus } }) => {
+          if (errorStatus === status.HTTP_500_INTERNAL_SERVER_ERROR) {
+            setError('Algo deu errado!');
+          } else {
+            setError('Credenciais inválidas');
+          }
+        },
       );
   };
 
