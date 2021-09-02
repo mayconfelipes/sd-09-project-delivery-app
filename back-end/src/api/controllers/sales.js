@@ -42,9 +42,5 @@ const update = async (req, res, next) => {
 module.exports = {
   create,
   getById,
-<<<<<<< HEAD
-};
-=======
   update,
 };
->>>>>>> dd3c0ed29205931d7be395d9bb44d2e8984223f0
