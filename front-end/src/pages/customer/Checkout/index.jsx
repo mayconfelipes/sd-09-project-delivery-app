@@ -8,10 +8,11 @@ import Input from '../../../components/Input';
 import GridOrderDetails from '../../../components/GridOrderDetails';
 import useGlobalContext from '../../../context/GlobalStateProvider';
 import sales from '../../../api/sales';
+import { getRegister } from '../../../api/register';
 import style from './checkout.module.scss';
 
 const Checkout = () => {
-  const { totalPrice, setCartQuantity, cartQuantity, sellerName } = useGlobalContext();
+  const { totalPrice, setCartQuantity, cartQuantity } = useGlobalContext();
   const [saleId, setSaleId] = useState(0);
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [selectedSeller, setSelectedSeller] = useState('');
@@ -19,12 +20,20 @@ const Checkout = () => {
     address: '',
     addresNumber: '',
   });
+  const [sellerName, setSellerName] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (sellerName.length > 0) {
-      setSelectedSeller(sellerName[0].name);
+    const localItem = JSON.parse(localStorage.getItem('user'));
+    if (localItem) {
+      const { token } = localItem;
+      getRegister('seller', token).then((data) => {
+        setSellerName(data);
+        setSelectedSeller(data[0].id);
+        setIsLoading(false);
+      });
     }
-  }, [sellerName]);
+  }, []);
 
   const onClickRemoveItem = (itemId) => {
     const one = 1;
@@ -67,15 +76,16 @@ const Checkout = () => {
     setSaleData({ ...saleData, [name]: value });
   }
 
-  return (
-    <>
-      {shouldRedirect && <Redirect to={ `/customer/orders/${saleId}` } />}
-      <Navbar />
-      <h1>Finalizar Pedido</h1>
-      <div className={ style.totalContainer }>
-        <GridOrderDetails shouldRemoveItemApear />
-        <div className={ style.barContainer }>
-          {JSON.parse(localStorage.getItem('cart'))
+  if (!isLoading) {
+    return (
+      <>
+        {shouldRedirect && <Redirect to={ `/customer/orders/${saleId}` } />}
+        <Navbar />
+        <h1>Finalizar Pedido</h1>
+        <div className={ style.totalContainer }>
+          <GridOrderDetails shouldRemoveItemApear />
+          <div className={ style.barContainer }>
+            {JSON.parse(localStorage.getItem('cart'))
           && JSON.parse(localStorage.getItem('cart')).map((
             { id: itemId, description, quantity, price }, index,
           ) => {
@@ -114,56 +124,60 @@ const Checkout = () => {
               }
             />);
           })}
-        </div>
-        <PrimaryButton>
-          Total: R$
-          {' '}
-          <span
-            data-testid="customer_checkout__element-order-total-price"
-          >
-            {totalPrice}
-          </span>
-        </PrimaryButton>
-      </div>
-      <h2>Detalhes e Endereço para a Entrega</h2>
-
-      <form className={ style.formDataContainer }>
-        <label htmlFor="orderData">
-          P. Vendedora Responsável
-          <select
-            name="seller"
-            id="orderData"
-            data-testid="customer_checkout__select-seller"
-            onChange={ ({ target: { value } }) => setSelectedSeller(value) }
-          >
-            {sellerName.length && sellerName
-              .map(({ name }) => (
-                <option key={ Math.random() } value={ name }>{ name }</option>
-              ))}
-          </select>
-        </label>
-        <Input
-          inputName="address"
-          labelDescription="Endereço"
-          dataTestId="customer_checkout__input-address"
-          onHandleChange={ handleInputChange }
-        />
-        <Input
-          inputName="addresNumber"
-          labelDescription="Número"
-          dataTestId="customer_checkout__input-addressNumber"
-          onHandleChange={ handleInputChange }
-        />
-        <div className={ style.checkoutButton }>
-          <PrimaryButton
-            dataTestId="customer_checkout__button-submit-order"
-            onLoginClick={ onClickAddSaleInfo }
-          >
-            FINALIZAR PEDIDO
+          </div>
+          <PrimaryButton>
+            Total: R$
+            {' '}
+            <span
+              data-testid="customer_checkout__element-order-total-price"
+            >
+              {totalPrice}
+            </span>
           </PrimaryButton>
         </div>
-      </form>
-    </>
+        <h2>Detalhes e Endereço para a Entrega</h2>
+
+        <form className={ style.formDataContainer }>
+          <label htmlFor="orderData">
+            P. Vendedora Responsável
+            <select
+              name="seller"
+              id="orderData"
+              data-testid="customer_checkout__select-seller"
+              onChange={ ({ target: { value } }) => setSelectedSeller(value) }
+            >
+              {sellerName.length && sellerName
+                .map(({ name, id }) => (
+                  <option key={ Math.random() } value={ id }>{ name }</option>
+                ))}
+            </select>
+          </label>
+          <Input
+            inputName="address"
+            labelDescription="Endereço"
+            dataTestId="customer_checkout__input-address"
+            onHandleChange={ handleInputChange }
+          />
+          <Input
+            inputName="addresNumber"
+            labelDescription="Número"
+            dataTestId="customer_checkout__input-addressNumber"
+            onHandleChange={ handleInputChange }
+          />
+          <div className={ style.checkoutButton }>
+            <PrimaryButton
+              dataTestId="customer_checkout__button-submit-order"
+              onLoginClick={ onClickAddSaleInfo }
+            >
+              FINALIZAR PEDIDO
+            </PrimaryButton>
+          </div>
+        </form>
+      </>
+    );
+  }
+  return (
+    <p>Loading...</p>
   );
 };
 

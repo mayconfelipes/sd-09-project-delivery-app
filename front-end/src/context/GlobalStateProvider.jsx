@@ -3,8 +3,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import P from 'prop-types';
 import GlobalContext from './context';
 
-import { getRegister } from '../api/register';
-
 export const GlobalStateProvider = ({ children }) => {
   const [cartQuantity, setCartQuantity] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -35,15 +33,6 @@ export const GlobalStateProvider = ({ children }) => {
     setTotalPrice(number.replace('.', ','));
   }, [cartQuantity, itemId]);
 
-  const [sellerName, setSellerName] = useState([]);
-  useEffect(() => {
-    const localItem = JSON.parse(localStorage.getItem('user'));
-    if (localItem) {
-      const { token } = localItem;
-      getRegister('seller', token).then((data) => setSellerName(data));
-    }
-  }, [itemId]);
-
   return (
     <GlobalContext.Provider
       value={
@@ -51,8 +40,7 @@ export const GlobalStateProvider = ({ children }) => {
           setCartQuantity,
           cartQuantity,
           totalPrice,
-          setItemId,
-          sellerName }
+          setItemId }
       }
     >
       { children }

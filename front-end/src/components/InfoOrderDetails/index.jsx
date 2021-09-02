@@ -39,11 +39,16 @@ const InfoOrderDetails = ({
 export default InfoOrderDetails;
 
 InfoOrderDetails.propTypes = {
-  shouldSellerApear: P.bool.isRequired,
-  shouldOrderStatusApear: P.bool.isRequired,
+  shouldSellerApear: P.bool,
+  shouldOrderStatusApear: P.bool,
   dataTestIdOrderId: P.string.isRequired,
   dataTestIdSeller: P.string.isRequired,
   dataTestIdOrderDate: P.string.isRequired,
   dataTestIdDeliveryStatus: P.string.isRequired,
   dataTestIdDeliveryCheck: P.string.isRequired,
+};
+
+InfoOrderDetails.defaultProps = {
+  shouldSellerApear: false,
+  shouldOrderStatusApear: false,
 };
