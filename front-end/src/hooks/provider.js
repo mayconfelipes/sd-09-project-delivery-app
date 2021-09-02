@@ -10,6 +10,8 @@ function Provider({ children }) {
   const [products, setProducts] = useState([]);
   const [productsCart, setProductsCart] = useState({});
   const [loading, setLoading] = useState(true);
+  const [saleId, setSaleId] = useState({});
+  const [sellersId, setSellersId] = useState([]);
   const router = useHistory();
 
   const signIn = async (email, password) => {
@@ -46,6 +48,15 @@ function Provider({ children }) {
     }
   };
 
+  const getSellersId = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/seller');
+      setSellersId(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getSales = async () => {
     response.data = [{
       deliveryNumber: '0001',
@@ -58,6 +69,33 @@ function Provider({ children }) {
       setSales(response.data);
     } catch (error) {
       console.logo(error);
+    }
+  };
+
+  const sendSale = async (sale) => {
+    console.log(sale);
+    const {
+      sellerId,
+      totalPrice,
+      deliveryAddress,
+      deliveryNumber,
+      productCart,
+    } = sale;
+
+    try {
+      const response = await axios.post('http://localhost:3001/sales', {
+        sellerId, totalPrice, deliveryAddress, deliveryNumber, productCart,
+      }, {
+        headers: { authorization: user.token },
+      });
+
+      console.log(response.data);
+
+      setSaleId(response.data);
+      const { id } = response.data;
+      router.push(`/customer/orders/${id}`);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -79,6 +117,11 @@ function Provider({ children }) {
     setProductsCart,
     loading,
     setProductCartInLocalStorage,
+    sendSale,
+    saleId,
+    setSellersId,
+    getSellersId,
+    sellersId,
   };
 
   return (
