@@ -1,7 +1,7 @@
 const { Sale, SalesProduct, Product } = require('../database/models');
 
-const checkoutNewSale = async (saleData, productCart) => {
-  const newSale = await Sale.create(saleData);
+const checkoutNewSale = async (data, productCart) => {
+  const newSale = await Sale.create(data);
   const products = [];
 
   productCart.forEach((item) => products.push(Product.findOne({ where: { name: item.name } })));
