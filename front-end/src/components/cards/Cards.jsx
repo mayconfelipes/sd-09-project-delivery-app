@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addToLocal, clearWithZero } from '../../services/products';
 
@@ -40,7 +40,6 @@ export default function Cards({ cardInfos, retrieveSumFromChild }) {
         boxShadow: '1px 5px 5px 1px #848484',
       } }
     >
-      <ToastContainer />
       <p
         style={ {
           position: 'absolute',
@@ -107,7 +106,6 @@ export default function Cards({ cardInfos, retrieveSumFromChild }) {
             data-testid={ `customer_products__button-card-rm-item-${id}` }
             onClick={ () => {
               if (currentQuantityToBuy <= 0) {
-                toast('Não é permitido números negativos!');
                 return setCurrentQuantityToBuy(0);
               }
               setCurrentQuantityToBuy(currentQuantityToBuy - 1);

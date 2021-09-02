@@ -14,6 +14,7 @@ export default function MainPage() {
   const history = useHistory();
 
   useEffect(() => {
+    console.log('entrou aqui');
     async function fetchProducts() {
       const data = await API.fetchProducts();
       setProductsList(data);
