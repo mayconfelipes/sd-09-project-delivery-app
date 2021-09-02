@@ -58,26 +58,29 @@ export const getProducts = async (token) => {
   return response;
 };
 
-// trabalhando
 export const getCostumerOrders = async (token) => {
   const request = await fetch('http://localhost:3001/sale', options('GET', null, token));
   const response = await request.json();
   return response;
-
-//   const request = await fetch('http://localhost:3001/sale', {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': APP_JSON,
-//       Authorization: token,
-//     },
-//   });
-//   const response = await request.json();
-//   return response;
 };
-// trabalhando
 
 export const getImg = async (token, imgPath) => {
   const request = await fetch(imgPath, options('GET', null, token));
   const response = await request.json();
+  return response;
+};
+
+export const saleById = async (id, token) => {
+  const request = await fetch(`http://localhost:3001/sale/${id}`, options('GET', null, token));
+  const response = await request.json();
+
+  // const request = await fetch(`http://localhost:3001/sale/${id}`, {
+  //   method: 'GET',
+  //   headers: {
+  //     'Content-Type': APP_JSON,
+  //     Authorization: token,
+  //   },
+  // });
+  // const response = await request.json();
   return response;
 };

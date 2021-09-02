@@ -24,6 +24,7 @@ export default function OrderForms() {
   ];
 
   const [sellers, setSellers] = useState(sellersSimulator);
+  // const [vraw, setVraw] = useState('');
   const [userInfo, setUserInfo] = useState({
     seller: sellers[0].id, address: '', number: '',
   });
@@ -58,7 +59,10 @@ export default function OrderForms() {
 
     console.log(orderInfo, response);
 
-    return !response.message && history.push(`/customer/orders/${response.saleId || 0}`);
+    return !response.message && history.push(`/customer/orders/${response.saleId}`);
+
+    // setVraw(response.saleId);
+    // console.log(vraw);
   };
 
   return (
