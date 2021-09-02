@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import ProductsContext from '../context/ProductsContext';
 import NavBarCustomer from '../components/navBarCustomer';
 import CartTotal from '../components/CartTotal';
@@ -7,19 +7,26 @@ import '../styles/customerProducts.css';
 
 const CustomerProducts = () => {
   const [order, setOrder] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [redirectToCheckout, setRedirect] = useState(false);
+
   const {
     getProducts,
-    setProducts,
+    getSellers,
     products,
     setCurrentOrder,
     currentOrder,
     setCurrentOrderTotal,
+    currentOrderTotal,
   } = useContext(ProductsContext);
 
+  // const history = useHistory();
+
   useEffect(() => {
-    getProducts().then((response) => setProducts(response));
-    setOrder(currentOrder);
-  });
+    getProducts();
+    getSellers();
+    setIsLoading(false);
+  }, []);
 
   const changeQttByInput = () => {
     console.log('Olá');
@@ -66,88 +73,90 @@ const CustomerProducts = () => {
 
     selector.value = value;
   };
+  if (redirectToCheckout) return <Redirect to="/customer/checkout" />;
+  return !isLoading
+    ? (
+      <div>
+        <NavBarCustomer textProp="produtos" />
 
-  return (
-    <div>
-      <NavBarCustomer textProp="produtos" />
-
-      <div className="container_cards">
-        {
-          products.map((product, index) => (
-            <div className="product_card" key={ index }>
-              <div
-                className="card_price"
-                data-testid={ `customer_products__element-card-price-${product.id}` }
-              >
-                { product.price.replace('.', ',') }
-              </div>
-
-              <img
-                src={ product.urlImage }
-                alt={ `Imagem de ${product.name}` }
-                data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-                className="image"
-              />
-
-              <div className="product_card__footer">
-                <p
-                  className="product_name"
-                  data-testid={ `customer_products__element-card-title-${product.id}` }
+        <div className="container_cards">
+          {
+            products.map((product, index) => (
+              <div className="product_card" key={ index }>
+                <div
+                  className="card_price"
+                  data-testid={ `customer_products__element-card-price-${product.id}` }
                 >
-                  { product.name }
-                </p>
+                  { product.price.replace('.', ',') }
+                </div>
 
-                <div className="quantity">
-                  <button
-                    className={ `decremento-${product.id}` }
-                    type="button"
-                    data-testid={ `customer_products__button-card-rm-item-${product.id}` }
-                    onClick={ changeQtt }
+                <img
+                  src={ product.urlImage }
+                  alt={ `Imagem de ${product.name}` }
+                  data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+                  className="image"
+                />
+
+                <div className="product_card__footer">
+                  <p
+                    className="product_name"
+                    data-testid={ `customer_products__element-card-title-${product.id}` }
                   >
-                    -
-                  </button>
-                  <input
-                    type="Number"
-                    min="0"
-                    // value="0"
-                    className={ `${product.name}` }
-                    data-testid={
-                      `customer_products__input-card-quantity-${product.id}`
-                    }
-                    onChange={ changeQttByInput }
-                  />
-                  <button
-                    className={ `incremento-${product.id}` }
-                    type="button"
-                    data-testid={
-                      `customer_products__button-card-add-item-${product.id}`
-                    }
-                    onClick={ changeQtt }
-                  >
-                    +
-                  </button>
+                    { product.name }
+                  </p>
+
+                  <div className="quantity">
+                    <button
+                      className={ `decremento-${product.id}` }
+                      type="button"
+                      data-testid={
+                        `customer_products__button-card-rm-item-${product.id}`
+                      }
+                      onClick={ changeQtt }
+                    >
+                      -
+                    </button>
+                    <input
+                      type="Number"
+                      min="0"
+                      defaultValue="0"
+                      className={ `${product.name}` }
+                      data-testid={
+                        `customer_products__input-card-quantity-${product.id}`
+                      }
+                      onChange={ changeQttByInput }
+                    />
+                    <button
+                      className={ `incremento-${product.id}` }
+                      type="button"
+                      data-testid={
+                        `customer_products__button-card-add-item-${product.id}`
+                      }
+                      onClick={ changeQtt }
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        }
-      </div>
+            ))
+          }
+        </div>
 
-      <Link
-        to="/customer/checkout"
-      //   className="ver_carrinho"
-      //   data-testid="customer_products__checkout-bottom-value"
-      // >
-      //   <span>{ `Ver carrinho: R$${currentOrderTotal}`}</span>
-      >
-        <CartTotal
-          testId="customer_products__checkout-bottom-value"
-          text=""
-          className="ver_carrinho"
-        />
-      </Link>
-    </div>
-  );
+        <button
+          type="button"
+          data-testid="customer_products__button-cart"
+          disabled={ currentOrderTotal <= 0 }
+          onClick={ () => setRedirect(true) }
+        >
+          <CartTotal
+            testId="customer_products__checkout-bottom-value"
+            text=""
+            className="ver_carrinho"
+          />
+          { currentOrderTotal }
+        </button>
+      </div>) : <span>Carregando...</span>;
 };
 
 export default CustomerProducts;

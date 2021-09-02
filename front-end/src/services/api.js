@@ -27,6 +27,20 @@ export const getOrders = async () => {
   return orders;
 };
 
-// export const getSellers = async () => {
+export const getProducts = async () => {
+  const products = await axios
+    .get(`${baseURL}/products`);
+  return products;
+};
 
-// }
+export const getSellers = async () => {
+  const { data } = await axios
+    .get(`${baseURL}/sellers`);
+  return data;
+};
+
+// export const postNewOrder = async (orderObj) => {
+//   const newOrder = await axios
+//     .post(`${baseURL}/newOrder`, orderObj);
+//   return newOrder;
+// };

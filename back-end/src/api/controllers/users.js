@@ -42,9 +42,19 @@ const getOrders = async (req, res, next) => {
   }
 };
 
+const getSellers = async (req, res, next) => {
+  try {
+    const sellers = await User.getSellers();
+    return res.status(200).json(sellers);
+  } catch (error) {
+    return next(error);
+  }
+}
+
 module.exports = {
   loginUser,
   registerUser,
   getAllUsers,
   getOrders,
+  getSellers,
 };

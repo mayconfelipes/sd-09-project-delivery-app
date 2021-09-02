@@ -28,6 +28,7 @@ app.get('/users', User.getAllUsers);
 app.get('/customer/products', User.getAllUsers);
 app.get('/customer/orders', User.getOrders);
 app.get('/products', Product.getAllProducts);
+app.get('/sellers', User.getSellers);
 
 app.use(errorMiddleware);
 

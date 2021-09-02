@@ -45,10 +45,16 @@ const getAllUsers = async () => {
   return allUsers.map((user) => user.dataValues);
 };
 
+const getSellers = async () => {
+  const sellers = await User.findAll({ where: { role: 'seller' } });
+  return sellers;
+};
+
 module.exports = {
   loginUser,
   registerUser,
   getAllUsers,
+  getSellers,
 };
 
 // =======================================

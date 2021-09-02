@@ -1,32 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import * as api from '../services/api';
 import ProductsContext from './ProductsContext';
 
-// const testOrder = [
-//   {
-//     id: 1,
-//     name: 'Skol lata 250ml',
-//     price: 2.20,
-//     quantity: 2,
-//   },
-//   {
-//     id: 2,
-//     name: 'Heineken 600ml',
-//     price: 7.50,
-//     quantity: 3,
-//   },
-// ];
-const sellers = [
-  {
-    name: 'Luciano',
-    id: 1,
-  },
-  {
-    name: 'Natália',
-    id: 2,
-  },
-];
 const ProductsProvider = ({ children }) => {
   const history = useHistory();
 
@@ -38,7 +15,7 @@ const ProductsProvider = ({ children }) => {
   const [orderAddressNumber, setOrderAddressNumber] = useState('');
   const [allOrders, setAllOrders] = useState([]);
   const [userInfo, setUserInfo] = useState({});
-  const [allSellers, setSellers] = useState(sellers);
+  const [allSellers, setSellers] = useState([]);
   const [selectedSeller, setSelectedSeller] = useState('');
   function removeItemFromCart(itemIndex) {
     const newCart = currentOrder.filter((item, index) => index !== itemIndex);
@@ -57,18 +34,30 @@ const ProductsProvider = ({ children }) => {
       products: currentOrder,
     };
     console.log(orderObject);
-    return history.push('/customer/orders/1');
+    // const newOrder = api.postNewOrder(orderObject);
+    // return history.push(`/customer/orders/${newOrder.id}`);
+    return history.push('/customer/order/1');
   }
   const [order, setOrder] = useState([]);
 
+  // const getProducts = async () => {
+  //   try {
+  //     const getFromDB = await fetch('http://localhost:3001/products');
+  //     const respDB = await getFromDB.json();
+  //     setProducts(respDB);
+  //     return respDB;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   const getProducts = async () => {
     try {
-      const getFromDB = await fetch('http://localhost:3001/products');
-      const respDB = await getFromDB.json();
-      setProducts(respDB);
-      return respDB;
-    } catch (err) {
-      console.log(err);
+      const { data } = await api.getProducts();
+      console.log(data);
+      setProducts(data);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -83,16 +72,17 @@ const ProductsProvider = ({ children }) => {
     }
   };
 
-  // const getSellers = async () => {
-  //   const getFromDB = await fetch
-  // }
+  const getSellers = async () => {
+    try {
+      const sellers = await api.getSellers();
+      setSellers(sellers);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const context = {
-    getProducts,
-    getUsers,
-    setUsers,
     users,
-    setProducts,
     products,
     currentOrder,
     currentOrderTotal,
@@ -102,18 +92,23 @@ const ProductsProvider = ({ children }) => {
     allOrders,
     allSellers,
     selectedSeller,
+    order,
+    setUsers,
+    setProducts,
     setCurrentOrder,
+    setCurrentOrderTotal,
     setOrderAddress,
     setOrderAddressNumber,
     setUserInfo,
     setAllOrders,
-    removeItemFromCart,
     setSellers,
     setSelectedSeller,
-    setCurrentOrderTotal,
-    submitOrder,
     setOrder,
-    order,
+    getProducts,
+    getUsers,
+    getSellers,
+    removeItemFromCart,
+    submitOrder,
   };
 
   return (

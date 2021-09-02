@@ -6,16 +6,6 @@ function CheckoutItem({ orderItem, index }) {
   const { removeItemFromCart } = useContext(ProductsContext);
   const { name, price, quantity } = orderItem;
   return (
-    // <div className="checkout-item-container">
-    //   <table>
-    //     <tr>
-    //       <th>Item</th>
-    //       <th>Descrição</th>
-    //       <th>Quantidade</th>
-    //       <th>Valor Unitário</th>
-    //       <th>Subtotal</th>
-    //       <th>Remover do Carrinho</th>
-    //     </tr>
     <tr>
       <td
         className="checkout-order-item"
@@ -67,7 +57,7 @@ function CheckoutItem({ orderItem, index }) {
 CheckoutItem.propTypes = {
   orderItem: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,

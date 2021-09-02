@@ -8,20 +8,22 @@ function SellerSelect() {
     setSelectedSeller(allSellers[0].name);
   }, []);
   return (
-    <select
-      onChange={ (e) => setSelectedSeller(e.target.value) }
-    >
-      Pessoa Vendedora Responsável:
-      { allSellers.map((seller) => (
-        <option
-          value={ seller.name }
-          key={ seller.id }
-          data-testid="customer_checkout__select-seller"
-        >
-          { seller.name }
-        </option>
-      ))}
-    </select>
+    <label htmlFor="sellers" data-testid="customer_checkout__select-seller">
+      Pessoa Vendedora Responsável
+      <select
+        name="sellers"
+        onChange={ (e) => setSelectedSeller(e.target.value) }
+      >
+        { allSellers.map((seller) => (
+          <option
+            value={ seller.name }
+            key={ seller.id }
+          >
+            { seller.name }
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }
 
