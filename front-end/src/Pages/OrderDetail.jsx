@@ -61,6 +61,7 @@ function OrderDetail() {
         <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
+          disabled
         >
           Marcar Como Entregue
         </button>
