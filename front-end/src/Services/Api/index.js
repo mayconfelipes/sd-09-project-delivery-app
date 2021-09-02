@@ -19,18 +19,19 @@ const PostLogin = async (data) => {
   }
 };
 
-/* 
+/*
       "email": "fulana@deliveryapp.com",
       "password": "fulana@123" */
 
-const PostClient = async () => {
+const PostRegister = async (data) => {
   try {
     console.log('FRONT_END Adicionando Usuario ');
-    const result = await Axios.post('http://localhost:3001/user');
+    const result = await Axios.post('http://localhost:3001/register', data);
+    console.log(result);
     return result;
   } catch (error) {
     console.error(error.message);
   }
 };
 
-export { PostClient, PostLogin };
+export { PostRegister, PostLogin };
