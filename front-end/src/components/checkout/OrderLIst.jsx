@@ -13,36 +13,29 @@ const OrderLIst = () => {
     'Remover item',
   ];
 
-  const teste = [
-    {
-      name: 'cerveja Skol',
-      unitPrice: 5.00,
-      quantity: 3,
-      subTotal: 15.00,
-    },
-    {
-      name: 'cerveja Stela',
-      unitPrice: 10.00,
-      quantity: 2,
-      subTotal: 20.00,
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState(0);
 
-  const [products, setProducts] = useState(teste);
+  const { cart } = useDeliveryContext();
 
-  const { cart/* setCart */ } = useDeliveryContext();
+  const calculateTotalPrice = (array) => {
+    let totalPrice = 0;
+    array.forEach(({ quantity, price }) => {
+      totalPrice += quantity * Number(price);
+    });
 
-  // const { name, unitPrice, quantity, subTotal } = cart[i];
+    setTotal(totalPrice);
+  };
 
   const convertCartToArray = () => {
-    // const productsList = [];
     const productsList = Object.keys(cart).map((product) => cart[product]);
     console.log(productsList);
+    calculateTotalPrice(productsList);
     return productsList;
   };
 
   useEffect(() => {
-    // convertCartToArray();
+    // const newProducts = ;
     setProducts(convertCartToArray());
   }, []);
 
@@ -54,7 +47,10 @@ const OrderLIst = () => {
     console.log('[prevProducts] > ', products);
     console.log('[currentProducts] > ', updatedProducts);
     setProducts(updatedProducts);
+    // calculateTotalPrice(updatedProducts);
   };
+
+  console.log('TOTAL > ', total);
 
   return (
     <div className="order-list-container">
@@ -79,7 +75,7 @@ const OrderLIst = () => {
         className="order-price"
         data-testid="customer_checkout__element-order-total-price"
       >
-        Total: R$ 50, 00
+        { `R$ ${(total.toFixed(2)).replace(/\./, ',')}` }
       </span>
     </div>
   );

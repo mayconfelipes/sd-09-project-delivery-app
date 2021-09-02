@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 const TableRow = ({ item, product, onclick }) => {
   const { name, price, quantity } = product;
+  const subTotal = quantity * Number(price);
+
   return (
     <tr>
       <td data-testid={ `customer_checkout__element-order-table-item-number-${item}` }>
@@ -18,7 +20,7 @@ const TableRow = ({ item, product, onclick }) => {
         { price }
       </td>
       <td data-testid={ `customer_checkout__element-order-table-sub-total-${item}` }>
-        { quantity * Number(price) }
+        { subTotal.toString().replace(/\./, ',') }
       </td>
       <td data-testid={ `customer_checkout__element-order-table-remove-${item}` }>
         <button type="button" onClick={ () => onclick(item) }>
