@@ -95,6 +95,8 @@ describe(requirement(13), () => {
   });
 
   test("O avaliador testará se o local storage contém um token válido", async () => {
+    console.log(jwtKey);
+    console.log((await localStorage(page, "user")).token);
     expect(
       !!jwt.verify((await localStorage(page, "user")).token, jwtKey)
     ).toEqual(true);

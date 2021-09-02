@@ -44,7 +44,7 @@ const Products = () => {
         {
           loading
             ? <p>Loading</p>
-            : catalog.map(({ name: productName, price, url_image: urlImage, id }) => (
+            : catalog.map(({ name: productName, price, urlImage, id }) => (
               <CardProduct
                 key={ id }
                 image={ urlImage }

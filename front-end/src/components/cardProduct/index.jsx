@@ -51,6 +51,7 @@ const CardProduct = ({ image, name, price, id }) => {
         src={ image }
         alt={ `bebida: ${image}` }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
+        width="20px"
       />
       <span data-testid={ `customer_products__element-card-title-${id}` }>{ name }</span>
       <S.ButtonsDiv>
