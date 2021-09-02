@@ -87,18 +87,17 @@ const getAllProducts = (token) => {
 };
 
 // checkout feature
-const saveOrder = (orderData) => {
+const saveOrder = (orderData, listItens) => {
   const endpoint = `${URL}/customer/checkout`;
   return fetch(endpoint, {
     method: 'POST',
     headers: {
       'Content-Type': CONTENT,
-      authorization: token,
     },
-    body: JSON.stringify({ orderData }),
+    body: JSON.stringify({ orderData, listItens }),
   })
     .then((response) => response.json())
-    .then((data) => data) // conferir
+    .then((data) => data)
     .catch((err) => err);
 };
 
