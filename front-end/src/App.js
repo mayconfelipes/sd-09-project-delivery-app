@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { Login, Register, AdminManage, SellerOrders, SellerOrdersDetails,
+import { Route, Switch } from 'react-router-dom';
+import { Home, Login, Register, AdminManage, SellerOrders, SellerOrdersDetails,
   CustomerCheckout, CustomerOrders, CustomerOrdersDetails, CustomerProducts,
 } from './pages';
 import GlobalStyle from './GlobalStyle';
@@ -10,9 +10,10 @@ function App() {
     <>
       <GlobalStyle />
       <Switch>
-        <Route exact path="/">
+        {/* <Route exact path="/">
           <Redirect to="/login" />
-        </Route>
+        </Route> */}
+        <Route exact path="/" component={ Home } />
         <Route path="/login" component={ Login } />
         <Route path="/register" component={ Register } />
         <Route path="/customer/products" component={ CustomerProducts } />

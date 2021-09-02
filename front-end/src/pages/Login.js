@@ -28,7 +28,6 @@ function Login() {
   const [state, setState] = useState({ email: '', password: '' });
   const [canRedirect, setCanRedirect] = useState(false);
   const [path, setPath] = useState('');
-  // const user = JSON.parse(localStorage.user) || {};
 
   const handleChange = ({ target: { type, value } }) => {
     setState({ ...state, [type]: value });
@@ -47,8 +46,6 @@ function Login() {
       return setCanRedirect(true);
     }
   };
-
-  // if (user && user.token) return redirectPath[user.role];
 
   if (canRedirect) return redirectPath[path];
 

@@ -1,8 +1,11 @@
-const { Sale, SalesProduct } = require('../../database/models');
+const { Sale, SalesProduct, User, Product } = require('../../database/models');
 const error = require('../utils/generateError');
 
-// const include = [{ model: User, as: 'user', attributes: { exclude: ['password'] } },
-//   { model: Category, as: 'categories', through: { attributes: [] } }];
+const include = [
+  { model: User, as: 'user', attributes: { exclude: ['password'] } },
+  { model: User, as: 'seller', attributes: { exclude: ['password'] } },
+  { model: Product, as: 'products', through: { attributes: ['quantity'] } },
+];
 
 const saleNotFound = '"sale" not found';
 
@@ -15,12 +18,12 @@ const create = async ({ cart, ...sale }) => {
 };
 
 const findAll = async () => {
-  const data = await Sale.findAll();
+  const data = await Sale.findAll({ include });
   return data;
 };
 
 const findOne = async ({ id }) => {
-  const data = await Sale.findOne({ where: { id } });
+  const data = await Sale.findOne({ where: { id }, include });
   if (!data) throw error('notFound', saleNotFound);
   return data;
 };
