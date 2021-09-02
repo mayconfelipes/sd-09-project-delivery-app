@@ -1,9 +1,13 @@
 import React from 'react';
-import './App.css';
 import Routes from './Routes';
+import Provider from './context/Provider';
 
 function App() {
-  return <Routes />;
+  return (
+    <Provider>
+      <Routes />
+    </Provider>
+  );
 }
 
 export default App;

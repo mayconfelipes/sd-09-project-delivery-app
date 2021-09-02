@@ -5,6 +5,7 @@ const { User } = require('../../database/models');
 module.exports = async (req, _res, next) => {
   try {
     const token = req.headers.authorization;
+
     if (!token) throw new JWTError('Token not found');
 
     const { iat, exp, ...payload } = tokens.access.verify(token);
