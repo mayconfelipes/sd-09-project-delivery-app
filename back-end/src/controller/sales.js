@@ -1,5 +1,6 @@
 const express = require('express');
 const rescue = require('express-rescue');
+
 const router = express.Router();
 const service = require('../service');
 const validateJwt = require('../middlewares/validateJwt');
@@ -25,11 +26,11 @@ router.post('/', [
       deliveryAddress,
       deliveryNumber,
       status,
-      saleDate
+      saleDate,
     }, productCart);
   
     res.status(201).json(sale);
   }),
-])
+]);
 
 module.exports = router;

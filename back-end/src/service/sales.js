@@ -1,7 +1,6 @@
 const { Sale, SalesProduct, Product } = require('../database/models');
 
 const checkoutNewSale = async (data, productCart) => {
-
   const newSale = await Sale.create(data);
   const products = [];
 

@@ -1,6 +1,6 @@
 const path = require('path');
-const jwt = require('jsonwebtoken');
 const { User } = require('../database/models');
+const jwt = require('jsonwebtoken');
 
 const SECRET_KEY = require('fs')
 .readFileSync(
