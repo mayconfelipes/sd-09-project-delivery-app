@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 // import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom';
 import registerAPI from '../../services/registerAPI';
 import useStyle from './registerPage.style';
+import GlobalContext from '../../context/GlobalContext';
+import API from '../../services/loginAPI';
 
 export default function Register() {
   const [error, setError] = useState(false);
@@ -11,6 +13,7 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { setProductsList } = useContext(GlobalContext);
 
   const classes = useStyle();
   const history = useHistory();
@@ -19,7 +22,9 @@ export default function Register() {
     const registerBody = { name, email, password };
     const responseRegister = await registerAPI(registerBody);
     if (responseRegister.token) {
-      localStorage.setItem('userData', JSON.stringify(responseRegister));
+      localStorage.setItem('user', JSON.stringify(responseRegister));
+      const data = await API.fetchProducts();
+      setProductsList(data);
       return history.push('/customer/products');
     }
     if (responseRegister.message) {

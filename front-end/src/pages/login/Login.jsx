@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import loginAPI from '../../services/loginAPI';
+import API from '../../services/loginAPI';
+import GlobalContext from '../../context/GlobalContext';
 
 function Login() {
+  const { productsList, setProductsList } = useContext(GlobalContext);
   const [isValidFields, setIsValidFields] = useState(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [email, setEmail] = useState('');
@@ -17,15 +19,25 @@ function Login() {
     setIsButtonDisabled(!isDisabled);
   }, [email, password]);
 
+  useEffect(() => {
+    async function fetchProducts() {
+      const data = await API.fetchProducts();
+      setProductsList(data);
+    }
+    if (productsList.length === 0) {
+      fetchProducts();
+    }
+  }, [productsList, setProductsList]);
+
   const canUserLogin = async () => {
     const loginBody = { email, password };
-    const responseLogin = await loginAPI(loginBody);
+    const responseLogin = await API.loginAPI(loginBody);
     if (responseLogin.message === 'Invalid fields') {
       return setIsValidFields(false);
     }
     console.log(responseLogin);
     if (responseLogin.token) {
-      localStorage.setItem('userData', JSON.stringify(responseLogin));
+      localStorage.setItem('user', JSON.stringify(responseLogin));
       history.push('/customer/products');
     }
   };
