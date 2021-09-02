@@ -60,6 +60,11 @@
   margin-right: 1rem;
 }
 
+.details-order-container span:nth-child(2) {
+  margin-right: 1rem;
+  font-weight: 300;
+}
+
 .details-order-container ul {
   flex-grow: 1;
   padding: 10px;
