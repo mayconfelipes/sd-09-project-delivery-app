@@ -5,6 +5,7 @@ import OrderTable from '../../components/orderTable';
 const CheckOut = () => {
   const { cart } = useContext(Context);
   console.log(cart);
+
   return (
     <div>
       <p>Blá, blá</p>

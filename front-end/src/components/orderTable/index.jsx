@@ -1,10 +1,6 @@
 import React, { useContext } from 'react';
-// import {
-//   Table, TableBody, TableCell,
-//   TableContainer, TableHead, TableRow,
-//   TextField, Grid, Button, Paper
-// } from '@material-ui/core';
-import context from '../../context';
+import Context from '../../context';
+import formatPrice from '../../services/formatPrice';
 
 const headers = [
   'Item', 'Descrição', 'Quantidade',
@@ -12,24 +8,38 @@ const headers = [
 ];
 
 const OrderTable = () => {
-  const { cart } = useContext(context);
-  // const { cart, setCart } = useContext(context);
-  const { products } = cart;
-  console.log(products);
+  const { cart, setCart } = useContext(Context);
+  const { products, totalValue } = cart;
+
+  const removeProduct = ({ target }) => {
+    const newCart = cart;
+    const indexToRemove = newCart
+      .products.findIndex((prod) => prod.id === Number(target.name));
+    const itemToRemove = newCart.products.find((prod) => prod.id === Number(target.name));
+    newCart.totalValue = totalValue - (itemToRemove.price * itemToRemove.quantity);
+    newCart.products.splice(indexToRemove, 1);
+    setCart(newCart);
+  };
+
   return (
     <table>
       <thead>
-        { headers.map((item) => (<td key={ item }>{ item }</td>)) }
+        { headers.map((item) => (<th key={ item }>{ item }</th>)) }
       </thead>
       <tbody>
         {
           products.map((item) => (
             <tr key={ item.id }>
-              {
-                item.map((elem) => (
-                  <td key={ elem }>{ elem }</td>
-                ))
-              }
+              <td>{item.id}</td>
+              <td>{item.name}</td>
+              <td>{item.quantity}</td>
+              <td>{formatPrice(item.price)}</td>
+              <td>{formatPrice(item.price * item.quantity)}</td>
+              <td>
+                <button type="button" name={ item.id } onClick={ removeProduct }>
+                  REMOVER
+                </button>
+              </td>
             </tr>
           ))
         }
