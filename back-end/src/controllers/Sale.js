@@ -24,7 +24,7 @@ const update = rescue(async (req, res) => {
 });
 
 const findByUserId = rescue(async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req.params;
 
   const sale = await Sale.findByUserId(userId);
 

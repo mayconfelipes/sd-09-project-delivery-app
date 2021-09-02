@@ -148,9 +148,9 @@ response =>
   }
 }
 
-FIND BY USER ID: GET http://localhost:3001/sale/byUserId
+FIND BY USER ID: GET http://localhost:3001/sale/byUserId/:userId
 
-body =>
+params =>
 
 {
   "userId": 1
@@ -161,7 +161,7 @@ response =>
 {
   "sale": {
     "id": 1,
-    "userId": 1,
+    "userId": 5,
     "totalPrice": "257.50",
     "deliveryAddress": "Rua teste",
     "deliveryNumber": "10",
