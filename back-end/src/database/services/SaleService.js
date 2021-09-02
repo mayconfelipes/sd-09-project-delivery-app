@@ -16,7 +16,6 @@ const sequelizeDataSale = (data) => {
 };
 
 const checkOut = async (data) => {
-  console.log(data);
   const newData = sequelizeDataSale(data);
 
   try {

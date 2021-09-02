@@ -14,7 +14,17 @@ const detailProducts = async (req, res) => {
   return res.status(200).json(product);
 };
 
+const createProduct = async (req, res) => {
+  const { productData } = req.body;
+  const { file } = req;
+  
+  const newData = { ...productData, file }
+  const newProduct = await Product.createNew(newData);
+
+  return res.status(201).json(newProduct);
+}
 module.exports = {
   listProducts,
   detailProducts,
+  createProduct,
 };
