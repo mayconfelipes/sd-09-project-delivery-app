@@ -63,14 +63,17 @@ const CardProduct = ({ image, name, price, id }) => {
         >
           -
         </button>
-        <span data-testid={ `customer_products__input-card-quantity-${id}` }>
-          { quantity }
-        </span>
+        <input
+          type="number"
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          value={ quantity }
+          onChange={ ({ target }) => setQuantity(target.value) }
+        />
         <button
           type="button"
           onClick={ updateCart }
           name="increase"
-          data-testid={ `customer_products__button-card-add-item-${id} ` }
+          data-testid={ `customer_products__button-card-add-item-${id}` }
         >
           +
         </button>
