@@ -40,7 +40,6 @@ function LoginFormComponent({ title }) {
     setLoginForm({ ...loginForm, [name]: value });
   };
 
-  //  Teste
   const logIn = async () => {
     const response = await userLogin({ email: login, password });
     if (response.message) {
@@ -48,7 +47,11 @@ function LoginFormComponent({ title }) {
         message: 'Login ou senha inválidos! :(',
       });
     }
+<<<<<<< HEAD
     localStorage.setItem('userInfo', JSON.stringify(response));
+=======
+    localStorage.setItem('user', JSON.stringify(response));
+>>>>>>> fe817610676dc1434daac1cb47a74ff241746e55
     if (response.role === 'customer') {
       history.push('/customer/products');
     } else if (response.role === 'seller') {
