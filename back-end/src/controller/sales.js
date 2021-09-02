@@ -2,20 +2,34 @@ const express = require('express');
 const rescue = require('express-rescue');
 
 const router = express.Router();
-
 const service = require('../service');
+const validateJwt = require('../middlewares/validateJwt');
 
-router.post('/', rescue(async (req, res, _next) => {
-  const { 
-    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, productCart,
-  } = req.body;
-  const status = 'Pendente';
+router.post('/', [
+  validateJwt,
+  rescue(async (req, res, _next) => {
+    const { 
+      sellerId, totalPrice, deliveryAddress, deliveryNumber, productCart,
+    } = req.body;
 
-  const sale = await service.sales.checkoutNewSale({
-    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status,
-  }, productCart);
+    const userId = req.user;
+  
+    const status = 'Pendente';
 
-  res.status(201).json(sale);
-}));
+    const saleDate = new Date();
+  
+    const sale = await service.sales.checkoutNewSale({
+      userId,
+      sellerId,
+      totalPrice,
+      deliveryAddress,
+      deliveryNumber,
+      status,
+      saleDate,
+    }, productCart);
+  
+    res.status(201).json(sale);
+  }),
+]);
 
 module.exports = router;

@@ -18,6 +18,7 @@ app.use('/login', controllers.login);
 app.use('/products', controllers.products);
 app.use('/register', controllers.registerUser);
 app.use('/sales', controllers.sales);
+app.use('/seller', controllers.seller);
 
 app.use(middlewares.error);
 
