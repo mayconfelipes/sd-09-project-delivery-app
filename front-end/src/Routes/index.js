@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import {
   HomePage,
   Login,
-  Register,
   NotFound,
 } from '../Pages';
 import Products from '../Pages/CustomerPages/Products';
