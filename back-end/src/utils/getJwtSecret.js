@@ -6,6 +6,5 @@ module.exports = () => {
     
     return data;
   });
-  const secretKey = file.slice(12, (file.length - 2));
-  return secretKey;
+  return file;
 };

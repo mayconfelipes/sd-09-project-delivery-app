@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 const Navbar = ({ abas, user }) => {
-  console.log('lint eu te amo');
+  const [redirect, setRediret] = useState(false);
+  const logOut = () => {
+    localStorage.clear();
+    setRediret(true);
+  };
   return (
     <nav>
-      {abas.map((aba) => {
-        console.log('lint');
-        return (
-          <a
-            data-testid={ aba.split('/')[1] }
-            key={ aba }
-            href="##"
-          >
-            { aba.split('/')[0] }
-          </a>);
-      })}
+      {abas.map((aba) => (
+        <a
+          data-testid={ aba.split('/')[1] }
+          key={ aba }
+          href="##"
+        >
+          { aba.split('/')[0] }
+        </a>))}
       <span
         data-testid="customer_products__element-navbar-user-full-name"
       >
@@ -24,10 +26,11 @@ const Navbar = ({ abas, user }) => {
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
+        onClick={ logOut }
       >
         Sair
       </button>
-
+      { redirect && <Redirect to="/" /> }
     </nav>
   );
 };

@@ -50,11 +50,9 @@ const Login = () => {
       <LoginButton
         type="button"
         data-testid="common_login__button-register"
-        // onClick={ logOn }
       >
         <Register
           to="/register"
-          // data-testid="common_login__button-register"
         >
           REGISTER
         </Register>
