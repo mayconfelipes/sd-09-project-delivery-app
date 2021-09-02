@@ -3,6 +3,7 @@ import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import Login from './Login';
 import CustomerProvider from '../context/customerProvider';
 import Checkout from './Checkout';
+import ClientProducts from './ClientProducts';
 import Register from './Register';
 
 const Routes = () => (
@@ -16,6 +17,9 @@ const Routes = () => (
         <Route path="/customer/checkout" component={ Checkout } />
       </CustomerProvider>
       <Route path="/register" component={ Register } />
+      <CustomerProvider>
+        <Route path="/customer/products" component={ ClientProducts } />
+      </CustomerProvider>
     </Switch>
   </BrowserRouter>
 );

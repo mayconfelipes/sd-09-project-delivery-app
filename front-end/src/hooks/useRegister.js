@@ -10,11 +10,11 @@ export default function useRegister() {
     try {
       const response = await axios({
         method: 'post',
-        url: 'http://localhost:3001/user',
+        url: 'http://localhost:3001/users/register',
         data: payload,
       });
       setData({ register: true });
-      localStorage.setItem('token', JSON.stringify(response.data));
+      localStorage.setItem('user', JSON.stringify(response.data));
     } catch (error) {
       setData(error.response.data);
       console.log(error.response.data);

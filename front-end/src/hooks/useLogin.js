@@ -18,5 +18,5 @@ export default function useLogin() {
     }
   }
 
-  return [setLogin, data];
+  return [data, setLogin];
 }

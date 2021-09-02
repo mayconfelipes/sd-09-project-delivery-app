@@ -1,6 +1,6 @@
 const md5 = require('md5');
 const { User } = require('../../database/models');
-const { generateToken } = require('./utils/tokenValidate');
+const { generateToken, isValidToken } = require('./utils/tokenValidate');
 const { isValidUserFields } = require('./utils/userValidate');
 
 const create = async (user) => {
@@ -15,6 +15,13 @@ const create = async (user) => {
   return result;
 };
 
+const getSellers = async (authorization) => {
+  isValidToken(authorization);
+  const result = User.findAll({ where: { role: 'seller' } });
+  return result;
+};
+
 module.exports = {
   create,
+  getSellers,
 };
