@@ -1,0 +1,40 @@
+.navbar-seller-container {
+  align-items: center;
+  background-color: #236b51;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+.navbar-seller-container a {
+  align-items: center;
+  background-color: #44c18c;
+  display: flex;
+  height: 100%;
+  padding: 0 40px;
+}
+
+.navbar-seller-container div {
+  color: white;
+  display: flex;
+  height: 100%;
+}
+
+.navbar-seller-container div a {
+  background-color: #421980;
+  color: white;
+  display: flex;
+  padding-right: 0;
+}
+
+.navbar-seller-container div a button {
+  align-items: center;
+  background-color: #456df9;
+  border: none;
+  color: white;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 5rem;
+}

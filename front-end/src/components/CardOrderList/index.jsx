@@ -20,32 +20,42 @@ const CardOrderList = ({ order }) => {
     });
   });
 
+  const renderDateAndPrice = () => (
+    <div className="render-date-price">
+      <p
+        data-testid={
+          `seller_orders__element-order-date-${order.id}`
+        }
+      >
+        { moment(order.sale_date).format('L')}
+      </p>
+      <p data-testid={ `seller_orders__element-card-price-${order.id}` }>
+        { `R$ ${order.totalPrice}` }
+      </p>
+    </div>
+  );
+
   return (
     // eslint-disable-next-line react/react-in-jsx-scope
     <Link to={ `/seller/orders/${order.id}` }>
       <div className="card-order">
-        <p data-testid={ `seller_orders__element-order-id-${order.id}` }>
-          Pedido &nbsp;
+        <p
+          data-testid={ `seller_orders__element-order-id-${order.id}` }
+          className="number-order"
+        >
+          Pedido
+          <br />
           { order.id }
         </p>
-        <div>
+        <div className="card-order-info">
           <section>
-            <p
+            <div
               data-testid={ `seller_orders__element-delivery-status-${order.id}` }
-              className="status-container"
+              className={ `status-container ${orderStatus}` }
             >
-              { orderStatus }
-            </p>
-            <p
-              data-testid={
-                `seller_orders__element-order-date-${order.id}`
-              }
-            >
-              { moment(order.sale_date).format('L')}
-            </p>
-            <p data-testid={ `seller_orders__element-card-price-${order.id}` }>
-              { order.totalPrice }
-            </p>
+              { orderStatus.toUpperCase() }
+            </div>
+            { renderDateAndPrice() }
           </section>
           <section className="card-order-address">
             <span

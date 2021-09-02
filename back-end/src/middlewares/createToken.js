@@ -5,7 +5,7 @@ const fs = require('fs').promises;
 const pathJWT = path.resolve(__dirname, '..', '..', 'jwt.evaluation.key');
 
 const jwtConfig = {
-  expiresIn: '1d',
+  expiresIn: '7d',
   algorithm: 'HS256',
 };
 

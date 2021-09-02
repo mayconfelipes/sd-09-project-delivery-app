@@ -1,10 +1,11 @@
 import React from 'react';
 import { shape, number } from 'prop-types';
+import './ProductCardList.css';
 
 const ProductCardlist = ({ product, index }) => {
   console.log(index);
   return (
-    <li>
+    <li className="li-detail-order">
       <span
         data-testid={ `seller_order_details__element-order-table-item-number-${index}` }
       >
@@ -21,12 +22,12 @@ const ProductCardlist = ({ product, index }) => {
       <span
         data-testid={ `seller_order_details__element-order-table-unit-price-${index}` }
       >
-        { product.price }
+        { `R$ ${product.price}` }
       </span>
       <span
         data-testid={ `seller_order_details__element-order-table-sub-total-${index}` }
       >
-        { parseFloat(product.SalesProducts.quantity * product.price).toFixed(2) }
+        { `R$ ${parseFloat(product.SalesProducts.quantity * product.price).toFixed(2)}` }
       </span>
     </li>
   );
