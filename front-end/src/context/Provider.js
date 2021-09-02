@@ -28,10 +28,13 @@ export default function Provider({ children }) {
     }
   };
 
+  const clearCart = () => setProducts([]);
+
   const value = {
     products,
     addProduct,
     removeProduct,
+    clearCart,
   };
 
   return (

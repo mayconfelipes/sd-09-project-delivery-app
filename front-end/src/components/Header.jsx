@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import Button from './button';
 import '../styles/header.css';
+import Context from '../context/Context';
 
 const Header = () => {
+  const { clearCart } = useContext(Context);
+
   const [userLogout, setUserLogout] = useState(false);
   const userData = JSON.parse(localStorage.getItem('user'));
-  const handleClick = () => {
-    localStorage.removeItem('user');
+  const cleanUp = () => {
+    clearCart();
+    localStorage.clear();
     setUserLogout(true);
   };
 
@@ -29,11 +32,14 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-      <Button
+      <button
+        type="button"
         name="Sair"
         data-testid="customer_products__element-navbar-link-logout"
-        onClick={ () => handleClick() }
-      />
+        onClick={ cleanUp }
+      >
+        Sair
+      </button>
     </header>
   );
 };
