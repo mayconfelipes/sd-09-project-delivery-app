@@ -5,6 +5,7 @@ import AppContext from '../hooks/context';
 
 function Orders() {
   const { sales, getSales } = useContext(AppContext);
+  console.log(sales, getSales);
 
   useEffect(() => {
     getSales();

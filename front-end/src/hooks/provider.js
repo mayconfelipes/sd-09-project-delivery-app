@@ -53,9 +53,8 @@ function Provider({ children }) {
       saleDate: '01/09/2021',
       id: '01',
     }];
-
     try {
-      const response = await axios.get('');
+      const response = await axios.get('http://localhost:3000/customer/orders');
       setSales(response.data);
     } catch (error) {
       console.logo(error);
