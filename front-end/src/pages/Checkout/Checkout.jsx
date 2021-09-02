@@ -4,14 +4,13 @@ import NavBar from '../../components/NavBar';
 import CheckoutItem from '../../components/CheckoutItem';
 import connectBack from '../../utills/axiosConfig';
 
-
 const Checkout = () => {
   const [price, setTotalPrice] = useState(0);
   const [cartItens, setCartItens] = useState([]);
   const [sellers, setSellers] = useState([]);
   const history = useHistory();
   const [sellerInfo, setSellerInfo] = useState({
-    name: '',
+    id: '',
     address: '',
     addressNumber: '',
   });
@@ -20,25 +19,24 @@ const Checkout = () => {
     try {
       const response = await fetch('http://localhost:3001/sellers');
       const sellersResponse = await response.json();
-      console.log(sellersResponse);
+      console.log('AQUI AQUI', sellersResponse);
       setSellers(sellersResponse);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const postSale =  () => {
+  const postSale = () => {
+    const { address, addressNumber, id } = sellerInfo;
     connectBack
-    .post('/customer/orders', { email, password })
-    .then((response) => {
-      console.log('LOGOU', response.data.user);
-      saveTokenLocalStorage(response.data.user);
-      redirectCostummer();
-    })
-    .catch((error) => {
-      console.log(error);
-      setInvalidLogin(true);
-  }
+      .post('/customer/orders', { address, addressNumber, id, totalPrice: price })
+      .then((responseId) => {
+        history.push(`/customer/orders/${responseId}`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     const getItens = JSON.parse(localStorage.getItem('products'));
@@ -71,7 +69,7 @@ const Checkout = () => {
           {cartItens.map((item, index) => (<CheckoutItem
             key={ index + item.item.name }
             cartItem={ item.item }
-            order={ index + 1 }
+            order={ index }
             cartItens={ cartItens }
             setCartItens={ setCartItens }
           />))}
@@ -89,15 +87,16 @@ const Checkout = () => {
         <label htmlFor="sellers">
           P. Vendedora Responsável
           <select
-            value={ sellerInfo.name }
+            value={ sellerInfo.id }
             className="sellers"
             onChange={ ({ target }) => setSellerInfo(
-              { ...sellerInfo, name: target.value },
+              { ...sellerInfo, id: target.value },
             ) }
+            data-testid="customer_checkout__select-seller"
           >
             <option value="null">Nome</option>
             {sellers.map((seller) => (
-              <option key={ seller.id } value={ seller.name }>{seller.name}</option>))}
+              <option key={ seller.id } value={ seller.id }>{seller.name}</option>))}
             {/* <option value="fulana">FULANA</option> */}
           </select>
         </label>
@@ -128,7 +127,11 @@ const Checkout = () => {
           />
         </label>
       </div>
-      <button data-testid="customer_checkout__button-submit-order" type="submit">
+      <button
+        data-testid="customer_checkout__button-submit-order"
+        type="submit"
+        onClick={ postSale }
+      >
         Finalizar Pedido
       </button>
       <section />

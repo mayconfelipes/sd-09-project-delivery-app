@@ -7,23 +7,29 @@ const CheckoutItem = (props) => {
 
   const removeOrder = () => {
     const newItens = cartItens.filter((item) => item.item.name !== name);
-    console.log(newItens, 'NOVO ITENS');
     setCartItens(newItens);
+  };
+  const brazilianPrice = (value) => {
+    const minN = 3;
+    if (typeof value === 'number') value = value.toFixed(2);
+    const newPrice = value.toString().replace('.', ',');
+    if (newPrice.length === minN) return `${newPrice}0`;
+    return newPrice;
   };
   return (
     <li>
       <p data-testid={ `customer_checkout__element-order-table-item-number-${order}` }>
-        {order}
+        {order + 1}
       </p>
       <p data-testid={ `customer_checkout__element-order-table-name-${order}` }>{name}</p>
       <p data-testid={ `customer_checkout__element-order-table-quantity-${order}` }>
         {quant}
       </p>
       <p data-testid={ `customer_checkout__element-order-table-unit-price-${order}` }>
-        {price}
+        {brazilianPrice(price)}
       </p>
       <p data-testid={ `customer_checkout__element-order-table-sub-total-${order}` }>
-        {totalProduct}
+        {brazilianPrice(totalProduct)}
       </p>
       <button
         type="button"
