@@ -9,12 +9,12 @@ import {
 } from '../../Components';
 import testIds from '../../utils/testIds';
 import useRegisterInfo from '../../hooks/useRegisterInfo';
-import { PostRegister } from '../../Services/Api';
+import requestApi from '../../services/api';
 
 const RegisterPage = () => {
   const [registerInfo, handleFieldsChange] = useRegisterInfo();
   const registerUser = (data) => () => {
-    PostRegister(data);
+    requestApi({ method: 'post', data, endpoint: 'register' });
   };
   return (
     <Container>
