@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import NavBar from '../components/NavBar';
-// import axios from 'axios';
 
 function CustomerOrders() {
   const orderId = 1;

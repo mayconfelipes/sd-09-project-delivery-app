@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.post('/', [validateToken, Sale.register]);
 router.put('/', [validateToken, Sale.update]);
+router.get('/byUserId', [Sale.findByUserId]);
 
 module.exports = router;
