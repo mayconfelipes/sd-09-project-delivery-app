@@ -9,7 +9,7 @@ const saleNotFound = '"sale" not found';
 const create = async ({ cart, ...sale }) => {
   const data = await Sale.create(sale);
   const saleId = data.id;
-  cart.forEach(({ productId, quantity }) =>
+  cart.forEach(async ({ productId, quantity }) =>
     SalesProduct.create({ saleId, productId, quantity }));
   return data;
 };

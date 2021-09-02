@@ -13,7 +13,7 @@ const saleValidator = Joi.object({
   totalPrice: Joi.number().required(),
   deliveryAddress: Joi.string().required(),
   deliveryNumber: Joi.string().required(),
-  // saleDate: Joi.date(),
+  saleDate: Joi.date(),
   status: Joi.string(),
   cart: Joi.array().required(),
 });
