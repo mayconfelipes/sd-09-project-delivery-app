@@ -12,8 +12,12 @@ module.exports = {
         type: Sequelize.INTEGER,
         field: 'user_id',
       },
+      sellerId: {
+        type: Sequelize.INTEGER,
+        field: 'seller_id',
+      },
       totalPrice: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL(10,2),
         field: 'total_price',
       },
       deliveryAddress: {

@@ -8,7 +8,6 @@ const validateJwt = require('../middlewares/validateJwt');
 router.post('/', [
   validateJwt,
   rescue(async (req, res, _next) => {
-    console.log(req.body);
     const { 
       sellerId, totalPrice, deliveryAddress, deliveryNumber, productCart,
     } = req.body;
