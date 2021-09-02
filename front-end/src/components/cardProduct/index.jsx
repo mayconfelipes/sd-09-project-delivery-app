@@ -70,7 +70,7 @@ const CardProduct = ({ image, name, price, id }) => {
           type="button"
           onClick={ updateCart }
           name="increase"
-          data-testid={ `customer_products__button-card-add-item-${id} ` }
+          data-testid={ `customer_products__button-card-add-item-${id}` }
         >
           +
         </button>

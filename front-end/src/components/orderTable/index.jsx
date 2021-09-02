@@ -37,7 +37,7 @@ const OrderTable = () => {
               <td>{formatPrice(item.price * item.quantity)}</td>
               <td>
                 <button type="button" name={ item.id } onClick={ removeProduct }>
-                  REMOVER
+                  REMOVE
                 </button>
               </td>
             </tr>
