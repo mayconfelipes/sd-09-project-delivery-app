@@ -4,22 +4,22 @@ import PropTypes from 'prop-types';
 export const CustomerContext = createContext();
 
 export function CustomerProvider({ children }) {
-  const [productsQty, setProductsQty] = useState({});
+  const [cartItems, setCartItems] = useState({});
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    setTotal(() => Object.values(productsQty)
+    setTotal(() => Object.values(cartItems)
       .reduce((sum, { quantity, price }) => {
         sum += (quantity * price);
         return sum;
       }, 0));
-  }, [productsQty]);
+  }, [cartItems]);
 
-  const updateQuantity = (id, quantity, price) => {
-    setProductsQty({ ...productsQty, [id]: { quantity, price } });
+  const updateCart = (id, name, price, quantity) => {
+    setCartItems({ ...cartItems, [id]: { id, name, price, quantity } });
   };
 
-  const contextData = { productsQty, updateQuantity, total: total.toFixed(2) };
+  const contextData = { cartItems, updateCart, total: total.toFixed(2) };
 
   return (
     <CustomerContext.Provider value={ contextData }>

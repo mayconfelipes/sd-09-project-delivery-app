@@ -6,29 +6,23 @@ import validateEmail from '../utils/validateEmail';
 import { NAME_MIN_LENGTH, PASS_MIN_LENGTH } from '../utils/validationNumbers';
 import { emailOptions, nameOptions, passwordOptions } from '../data/InputOptions';
 import { finishRegisterButton } from '../data/ButtonOptions';
-import { register } from '../services/api';
+import { createUser } from '../services/api';
 import ErrorMessage from '../components/ErrorMessage';
 import FormSection from '../components/StyledComponents/FormSection';
 
 const route = 'common_register';
 
 function Registration() {
-  const [state, setState] = useState({
-    nameInput: '', emailInput: '', passwordInput: '',
-  });
+  const [state, setState] = useState({ name: '', email: '', password: '' });
   const [apiResponse, setApiResponse] = useState({});
+  const { name, email, password } = state;
 
-  const handleChange = ({ target: { name, value } }) => {
-    setState({ ...state, [name]: value });
+  const handleChange = ({ target }) => {
+    setState({ ...state, [target.name]: target.value });
   };
 
-  const { nameInput, emailInput, passwordInput } = state;
-
-  const handleRegister = async () => {
-    const response = await register(nameInput, emailInput, passwordInput);
-
-    return setApiResponse(response);
-  };
+  const handleRegister = async () => createUser({ name, email, password })
+    .then((data) => setApiResponse(data));
 
   if (apiResponse.id) return <Redirect to="/customer/products" />;
 
@@ -42,9 +36,9 @@ function Registration() {
         ...finishRegisterButton,
         onClick: handleRegister,
         route,
-        disabled: nameInput.length < NAME_MIN_LENGTH
-          || !validateEmail(emailInput)
-          || passwordInput.length < PASS_MIN_LENGTH,
+        disabled: name.length < NAME_MIN_LENGTH
+          || !validateEmail(email)
+          || password.length < PASS_MIN_LENGTH,
       }) }
       { apiResponse.message && <ErrorMessage route={ route } field="_register" /> }
     </FormSection>

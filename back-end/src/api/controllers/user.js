@@ -48,6 +48,13 @@ route.post('/admin', [
   }),
 ]);
 
+route.get('/role', [
+  rescue(async (req, res) => {
+    const usersList = await User.findByRole(req.body);
+    res.status(200).json(usersList);
+  }),
+]);
+
 route.get('/:id', [
   rescue(async (req, res) => {
     const user = await User.findOne(req.params);

@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-// import { Context } from '../context';
 import Navbar from '../../components/Navbar';
 import ProductCard from '../../components/Customer/ProductCard';
 import { getProducts } from '../../services/api';
-// import { createButton } from '../../utils/creators';
-// import { cartButton } from '../../data/ButtonOptions';
 import { CustomerContext } from '../../context/CustomerContext';
 
 const route = 'customer_products';
@@ -13,7 +10,14 @@ const route = 'customer_products';
 function Products() {
   const [products, setProducts] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
-  const { total } = useContext(CustomerContext);
+  const { total, cartItems } = useContext(CustomerContext);
+
+  const handleClick = () => {
+    setShouldRedirect(true);
+    localStorage.cart = JSON.stringify(Object.values(cartItems)
+      .filter(({ quantity }) => quantity > 0));
+    localStorage.total = JSON.stringify(total);
+  };
 
   useEffect(() => {
     getProducts().then((data) => setProducts(data));
@@ -28,7 +32,7 @@ function Products() {
       <button
         data-testid={ `${route}__button-cart` }
         type="button"
-        onClick={ () => setShouldRedirect(true) }
+        onClick={ handleClick }
         disabled={ total === '0.00' }
       >
         Ver Carrinho R$
