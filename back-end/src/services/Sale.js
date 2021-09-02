@@ -62,8 +62,8 @@ const update = async ({ id, status }) => {
   };
 };
 
-const findByUserId = async (userId) => {
-  const sale = await Sale.findOne({ where: { userId } });
+const findAllByUserId = async (userId) => {
+  const sale = await Sale.findAll({ where: { userId } });
 
   if (!sale) throw generateError(404, 'Venda não encontrada');
 
@@ -75,5 +75,5 @@ const findByUserId = async (userId) => {
 module.exports = {
   register,
   update,
-  findByUserId,
+  findAllByUserId,
 };

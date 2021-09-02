@@ -148,7 +148,7 @@ response =>
   }
 }
 
-FIND BY USER ID: GET http://localhost:3001/sale/byUserId/:userId
+FIND ALL BY USER ID: GET http://localhost:3001/sale/byUserId/:userId
 
 params =>
 

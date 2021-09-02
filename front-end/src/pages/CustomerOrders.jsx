@@ -1,69 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import NavBar from '../components/NavBar';
+import SaleCard from '../components/SaleCard';
 
 function CustomerOrders() {
   const history = useHistory();
-  const cardClick = () => history.push(`localhost:3000/customer/orders/${orderId}`);
+  const [orders, setOrders] = useState([]);
+  const [errorMessage, setErrorMessage] = useState();
 
-  const [orders, setOrders] = useState();
-
-  const getOrders = async () => {
-    // const user = localStorage.getItem('user');
-    // const { id } = JSON.parse(user);
+  const fetchOrders = async () => {
+    const user = localStorage.getItem('user');
+    const { id } = JSON.parse(user);
 
     try {
       const salesByUserId = await axios({
         method: 'get',
-        url: 'http://localhost:3001/sale/byUserId/1',
+        url: `http://localhost:3001/sale/byUserId/${id}`,
       });
-      return salesByUserId;
+      return salesByUserId.data.sale;
     } catch (err) {
-      console.log(err);
+      setErrorMessage('Não há pedidos.');
     }
   };
 
   useEffect(() => {
-    getOrders()
-      .then((response) => setOrders(response.data))
-      .catch((err) => console.log(err));
+    const getOrders = async () => {
+      setOrders(await fetchOrders());
+    };
+    getOrders();
   }, []);
 
   return (
     <>
+      { console.log('FOI') }
       <NavBar />
-
       <div className="order-cards">
-        { !orders ? <p>Não há pedidos.</p>
-          : orders.forEach((sale) => (
+        <p>{errorMessage}</p>
+        { !orders ? ''
+          : orders.map((sale, key) => (
             <div
               className="order-card"
               role="button"
               tabIndex="0"
-              onKeyPress={ cardClick }
-              onClick={ cardClick }
+              onKeyPress={ () => history
+                .push(`/customer/orders/${sale.id}`) }
+              onClick={ () => history.push(`/customer/orders/${sale.id}`) }
+              key={ key }
             >
-              <p
-                data-testid={ `customer_orders__element-order-id-${sale.orderId}` }
-              >
-                Pedido
-                <span>{ sale.orderNumber }</span>
-              </p>
-              <p
-                data-testid={ `customer_orders__element-delivery-status-${sale.orderId}` }
-              >
-                { sale.orderStatus }
-              </p>
-              <p
-                data-testid={ `customer_orders__element-order-date-${sale.orderId}` }
-              >
-                { sale.orderDate }
-              </p>
-              <p>
-                R$
-                { sale.orderTotalValue }
-              </p>
+              <SaleCard
+                saleId={ sale.id }
+                deliveryNumber={ sale.id }
+                status={ sale.status }
+                saleDate={ sale.saleDate }
+                totalPrice={ sale.totalPrice }
+              />
             </div>
           ))}
       </div>
