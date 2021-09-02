@@ -5,7 +5,7 @@ import CheckoutItem from '../../components/CheckoutItem';
 import connectBack from '../../utills/axiosConfig';
 
 const Checkout = () => {
-  const [price, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [cartItens, setCartItens] = useState([]);
   const [sellers, setSellers] = useState([]);
   const history = useHistory();
@@ -19,7 +19,6 @@ const Checkout = () => {
     try {
       const response = await fetch('http://localhost:3001/sellers');
       const sellersResponse = await response.json();
-      console.log('AQUI AQUI', sellersResponse);
       setSellers(sellersResponse);
     } catch (error) {
       console.error(error);
@@ -28,8 +27,10 @@ const Checkout = () => {
 
   const postSale = () => {
     const { address, addressNumber, id } = sellerInfo;
+    const { email } = JSON.parse(localStorage.getItem('user'));
     connectBack
-      .post('/customer/orders', { address, addressNumber, id, totalPrice: price })
+      .post('/customer/orders',
+        { address, addressNumber, sellerId: id, totalPrice: price, userEmail: email })
       .then((responseId) => {
         history.push(`/customer/orders/${responseId}`);
       })
@@ -53,13 +54,20 @@ const Checkout = () => {
     fetchSellers();
   }, []);
 
+  useEffect(() => {
+    const newProductsStorage = cartItens.reduce((acc, currItem) => {
+      const { item: { name, totalProduct, price, quant } } = currItem;
+      return { ...acc, [name]: { totalProduct, price, quant } };
+    }, {});
+    localStorage.setItem('products', JSON.stringify(newProductsStorage));
+  }, [cartItens]);
+
   const brazilianPrice = () => {
     const minN = 3;
-    const newPrice = price.toString().replace('.', ',');
+    const newPrice = totalPrice.toString().replace('.', ',');
     if (newPrice.length === minN) return `${newPrice}0`;
     return newPrice;
   };
-
   return (
     <div>
       <NavBar />
@@ -72,6 +80,7 @@ const Checkout = () => {
             order={ index }
             cartItens={ cartItens }
             setCartItens={ setCartItens }
+            setTotalPrice={ setTotalPrice }
           />))}
         </ul>
         <button
