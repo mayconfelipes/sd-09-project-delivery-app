@@ -7,27 +7,39 @@ function CardCustumerOrder(selectOrder) {
   const { id, status, saleDate, totalPrice } = userOrder;
 
   function ajustData(data) {
-    console.log(data);
     const limit = 2;
     let newData = data.split('T', limit);
     newData = newData[0].split('-', limit + 1);
     return newData.reverse().join('/');
   }
 
+  function ajustPrice(price) {
+    const newPrice = price.replace('.', ',');
+    return newPrice;
+  }
+
   return (
     <Link to={ `/customer/orders/${id}` }>
-      <div data-testid={ `customer_orders__element-order-id-${id}` }>
+      <div>
         Pedido
-        { id }
-      </div>
-      <div data-testid={ `customer_orders__element-delivery-status-${id}` }>
-        { status }
-      </div>
-      <div data-testid={ `customer_orders__element-order-date-${id}` }>
-        { ajustData(saleDate) }
+        <span data-testid={ `customer_orders__element-order-id-${id}` }>
+          { id }
+        </span>
       </div>
       <div>
-        { totalPrice }
+        <span data-testid={ `customer_orders__element-delivery-status-${id}` }>
+          { status }
+        </span>
+      </div>
+      <div>
+        <span data-testid={ `customer_orders__element-order-date-${id}` }>
+          { ajustData(saleDate) }
+        </span>
+      </div>
+      <div>
+        <span data-testid={ `customer_orders__element-card-price-${id}` }>
+          { ajustPrice(totalPrice) }
+        </span>
       </div>
     </Link>
   );

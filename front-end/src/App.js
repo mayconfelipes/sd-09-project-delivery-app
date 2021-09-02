@@ -17,7 +17,12 @@ function App() {
         <Route path="/customer/orders" component={ CustumeOrders } />
         {/* trabalhando */}
 
-        <Route path="/login" component={ Login } />
+        <Route
+          path="/login"
+          component={ !localStorage.getItem('user')
+            ? Login
+            : () => <Redirect to="/customer/products" /> }
+        />
         <Route path="/register" component={ Register } />
         <Route exact path="/">
           <Redirect to="/login" />
