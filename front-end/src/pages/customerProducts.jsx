@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import ProductsContext from '../context/ProductsContext';
 import NavBarCustomer from '../components/navBarCustomer';
 import '../styles/customerProducts.css';
@@ -9,16 +10,46 @@ const CustomerProducts = () => {
     setProducts,
     products,
     setOrder,
+    order,
   } = useContext(ProductsContext);
 
-  const newOrder = [];
+  const newOrder = [...order];
+  let localValue = 0;
+
+  const calcTotal = () => {
+    if (!newOrder) return 0;
+
+    if (newOrder) {
+      localValue = newOrder.reduce(
+        (acc, cur) => acc + (cur.quantity * cur.price), 0,
+      );
+    }
+
+    return localValue;
+  };
 
   useEffect(() => {
     getProducts().then((response) => setProducts(response));
   }, []);
 
-  const changeQttByInput = () => {
-    console.log('Olá');
+  const changeQttByInput = ({ currentTarget }) => {
+    const product = products.filter((item) => item.name === currentTarget.className);
+    const index = newOrder.findIndex((item) => item.id === product[0].id);
+    const itemExists = newOrder.find((item) => item.id === product[0].id);
+
+    const value = Number(currentTarget.value);
+    if (index < 0 || !itemExists) {
+      newOrder.push({
+        id: product[0].id,
+        quantity: value,
+        price: Number(product[0].price),
+      });
+    } else {
+      newOrder[index].quantity = value;
+    }
+
+    setOrder(newOrder);
+    localStorage.setItem('order', JSON.stringify(newOrder));
   };
 
   const changeQtt = ({ target }) => {
@@ -41,16 +72,20 @@ const CustomerProducts = () => {
     }
 
     const index = newOrder.findIndex((item) => item.id === product[0].id);
+    const itemExists = newOrder.find((item) => item.id === product[0].id);
 
-    if (index < 0) {
-      newOrder.push({ id: product[0].id, quantity: value });
+    if (index < 0 || !itemExists) {
+      newOrder.push({
+        id: product[0].id,
+        quantity: value,
+        price: Number(product[0].price),
+      });
     } else {
       newOrder[index].quantity = value;
     }
 
     setOrder(newOrder);
-
-    console.log(newOrder);
+    localStorage.setItem('order', JSON.stringify(newOrder));
 
     selector.value = value;
   };
@@ -97,7 +132,6 @@ const CustomerProducts = () => {
                   <input
                     type="Number"
                     min="0"
-                    // value="0"
                     className={ `${product.name}` }
                     data-testid={
                       `customer_products__input-card-quantity-${product.id}`
@@ -121,12 +155,17 @@ const CustomerProducts = () => {
         }
       </div>
 
-      <div
-        className="ver_carrinho"
-        data-testid="customer_products__checkout-bottom-value"
-      >
-        <span>Ver carrinho: R$ 0,00</span>
-      </div>
+      <Link to="/checkout">
+        <button
+          type="button"
+          className="ver_carrinho"
+          data-testid="customer_products__button-cart"
+        >
+          <span data-testid="customer_products__checkout-bottom-value">
+            { calcTotal().toFixed(2).toString().replace('.', ',') }
+          </span>
+        </button>
+      </Link>
     </div>
   );
 };

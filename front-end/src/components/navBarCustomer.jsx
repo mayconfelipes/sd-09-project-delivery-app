@@ -14,6 +14,7 @@ function NavBarCustomer(props) {
 
   const logout = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('order');
   };
 
   function setOrders() {
