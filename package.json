@@ -10,7 +10,7 @@
     "pm2": "cross-env ./node_modules/.bin/pm2",
     "jest": "cross-env ./node_modules/.bin/jest",
     "start": "cross-env ./scripts/prepare-for-test.sh",
-    "stop": "cross-env (pm2 stop all && pm2 delete all) | grep 'PM2'",
+    "stop": "cross-env pm2 stop all && pm2 delete all | grep 'PM2'",
     "dev": "cross-env ./scripts/prepare-for-dev.sh",
     "dev:prestart": "cross-env ./scripts/prestart-dev.sh",
     "db:reset": "cross-env ./scripts/reset-db-dev.sh",
