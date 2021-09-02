@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const rescue = require('express-rescue');
 const User = require('../services/User');
+const { User: UserModel } = require('../database/models');
 
 const login = rescue(async (req, res) => {
   const { email, password } = req.body;
@@ -24,7 +25,13 @@ const register = rescue(async (req, res) => {
   return res.status(201).json(response);
 });
 
+const findAll = rescue(async (_req, res) => {
+  const users = await UserModel.findAll();
+  res.status(200).json(users);
+});
+
 module.exports = {
   login,
   register,
+  findAll,
 };
