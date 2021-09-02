@@ -39,7 +39,6 @@ function Login() {
       customer: '/customer/products',
       seller: '/seller/orders',
       administrator: '/admin/manage',
-
     };
 
     try {
@@ -49,7 +48,7 @@ function Login() {
         data: { email, password },
       });
       const { data } = response;
-      localStorage.setItem('user', JSON.stringify(data));
+      localStorage.setItem('user', JSON.stringify(data.user));
       history.push(redirectRole[data.user.role]);
     } catch (err) {
       setErrorMessage('Dados inválidos.');
