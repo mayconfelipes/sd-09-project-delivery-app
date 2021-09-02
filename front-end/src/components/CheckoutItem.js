@@ -40,14 +40,16 @@ export default function CheckoutItem({ product, index }) {
         data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
       >
         R$
-        { price }
+        { `${(Math.round(price * 100) / 100).toFixed(2)}`
+          .split('.').join(',') }
       </td>
       <td
         className="quaternary grow-1"
         data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
       >
         R$
-        { price * quantity }
+        { `${(Math.round((price * quantity) * 100) / 100).toFixed(2)}`
+          .split('.').join(',') }
       </td>
       <td>
         <button
