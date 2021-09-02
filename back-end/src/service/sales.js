@@ -15,6 +15,9 @@ const checkoutNewSale = async (saleData, productCart) => {
   return newSale;
 };
 
+const getByPk = async (id) => await Sale.findByPk(id);
+
 module.exports = {
   checkoutNewSale,
+  getByPk,
 };

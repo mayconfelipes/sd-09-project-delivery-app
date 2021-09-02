@@ -6,7 +6,7 @@ const router = express.Router();
 const service = require('../service');
 
 router.post('/', rescue(async (req, res, _next) => {
-  const { 
+  const {
     userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, productCart,
   } = req.body;
   const status = 'Pendente';
@@ -15,7 +15,18 @@ router.post('/', rescue(async (req, res, _next) => {
     userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status,
   }, productCart);
 
-  res.status(201).json(sale);
+  return res.status(201).json(sale);
 }));
+
+router.get('/:id', [
+  rescue(async (req, res, next) => {
+    const { id } = req.params;
+    const sale = service.sales.getByPk(id);
+    if (!sale) {
+      return next({ statusCode: 404, message: 'sale not found' });
+    }
+    return res.status(200).json(sale);
+  })
+]);
 
 module.exports = router;
