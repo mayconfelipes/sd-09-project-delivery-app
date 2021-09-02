@@ -28,15 +28,19 @@ app.get('/products', products);
 const validadeUserExists = require('./middwares/validators/validadeUserExists');
 const login = require('../controllers/loginController');
 
-app.post('/register', usersControllers.create);
-
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.post('/login', validadeUserExists, login);
 
+app.post('/register', usersControllers.create);
+
+app.get('/register', validateToken, usersControllers.getByRole);
+
 app.post('/sales', validateToken, salesControllers.create);
 
 app.get('/sales/:id', validateToken, salesControllers.getById);
+
+app.put('/sales/:id', validateToken, salesControllers.update);
 
 app.use(sendErrorMessage);
 

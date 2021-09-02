@@ -25,7 +25,21 @@ const getById = async (req, res, next) => {
   }
 };
 
+const update = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const sale = req.body;
+
+    const updateSale = await salesServices.update(id, sale);
+
+    return res.status(OK_STATUS).json(updateSale);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   create,
   getById,
+  update,
 };
