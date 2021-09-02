@@ -5,13 +5,22 @@ const CardProduct = (props) => {
   const { product: { id, name, price, urlImage }, setChanged } = props;
   // const { setChanged } = props;
   const prefix = 'customer_products__';
-  const [quantity, setQuantity] = useState(0);
+
+  const quantityLocal = (prodName) => {
+    const item = JSON.parse(localStorage.getItem('products'));
+    if (item[prodName]) return item[prodName].quant;
+    return 0;
+  };
+
+  const [quantity, setQuantity] = useState(quantityLocal(name));
 
   const setProducts = (quant, productName) => {
     const totalProduct = quant * price;
     const getProducts = JSON.parse(localStorage.getItem('products'));
-    const currentProducts = { ...getProducts, [productName]: totalProduct };
-    console.log(currentProducts);
+    const currentProducts = { ...getProducts,
+      [productName]: {
+        totalProduct, price, quant,
+      } };
     localStorage
       .setItem('products', JSON.stringify(currentProducts));
   };
