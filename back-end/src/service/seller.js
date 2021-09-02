@@ -8,7 +8,7 @@ const findSeller = async () => {
 
   if (!sellers) return { error: 'sellers_not_found' };
 
-  return sellers
+  return sellers;
 };
 
 module.exports = {

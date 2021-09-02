@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 const { User } = require('../database/models');
 
 const SECRET_KEY = require('fs')

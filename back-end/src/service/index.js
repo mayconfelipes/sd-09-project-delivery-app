@@ -1,5 +1,5 @@
 const login = require('./login');
-const seller = require('./seller')
+const seller = require('./seller');
 const registerUser = require('./registerUser');
 const productService = require('./productService');
 const sales = require('./sales');
