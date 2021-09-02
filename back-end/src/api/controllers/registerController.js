@@ -20,4 +20,3 @@ registerController.post('/', registerValidator, rescue(async (req, res, next) =>
 }));
 
 module.exports = registerController;
-// test

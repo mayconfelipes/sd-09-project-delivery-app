@@ -1,22 +1,37 @@
-import axios from 'axios';
+import Axios from 'axios';
 
-const PostLogin = async (userData) => {
-  try {
-    const result = await axios.post('http://localhost:3001/login', userData);
-    return result;
-  } catch (error) {
-    return error.response;
-  }
-};
+// export async function loginAxio(data) {
+//   const result = await Axios.post('https://localhost:3000/login', data);
+//   console.log('FRONT_END inciando login ', result);
+//   console.log(result);
+//   return result;
+// }
 
-const PostClient = async () => {
+const PostLogin = async (data) => {
   try {
-    console.log('FRONT_END Adicionando Usuario ');
-    const result = await axios.post('http://localhost:3001/user');
+    console.log('FRONT_Adicionando Login');
+    const result = await Axios.post('http://localhost:3001/login', data);
+    console.log('result.code', result.code);
+    console.log('result', result);
     return result;
   } catch (error) {
     console.error(error.message);
   }
 };
 
-export { PostClient, PostLogin };
+/*
+      "email": "fulana@deliveryapp.com",
+      "password": "fulana@123" */
+
+const PostRegister = async (data) => {
+  try {
+    console.log('FRONT_END Adicionando Usuario ');
+    const result = await Axios.post('http://localhost:3001/register', data);
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export { PostRegister, PostLogin };

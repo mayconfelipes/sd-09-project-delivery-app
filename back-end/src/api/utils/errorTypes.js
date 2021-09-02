@@ -7,4 +7,8 @@ module.exports = {
     message: 'Name or email already in use',
     code: 'conflict',
   },
+  noProductsFound: {
+    message: 'No Products Found',
+    code: 'notFound',
+  },
 };
