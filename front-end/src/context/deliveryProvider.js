@@ -9,6 +9,7 @@ export const DeliveryProvider = ({ children }) => {
     password: '',
   });
   const [allProducts, setAllProducts] = useState([]);
+  const [cart, setCart] = useState({});
 
   const getProductCallBack = useCallback(async () => {
     try {
@@ -28,6 +29,8 @@ export const DeliveryProvider = ({ children }) => {
     userData,
     setUserData,
     allProducts,
+    cart,
+    setCart,
   };
 
   return (

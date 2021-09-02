@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { useDeliveryContext } from '../../context/deliveryProvider';
 // import { useDeliveryContext } from '../../context/deliveryProvider';
 import TableRow from './TableRow';
 
@@ -30,9 +30,21 @@ const OrderLIst = () => {
 
   const [products, setProducts] = useState(teste);
 
-  // const { allProducts } = useDeliveryContext();
+  const { cart/* setCart */ } = useDeliveryContext();
 
   // const { name, unitPrice, quantity, subTotal } = cart[i];
+
+  const convertCartToArray = () => {
+    // const productsList = [];
+    const productsList = Object.keys(cart).map((product) => cart[product]);
+    console.log(productsList);
+    return productsList;
+  };
+
+  useEffect(() => {
+    // convertCartToArray();
+    setProducts(convertCartToArray());
+  }, []);
 
   const handleRemoveProduct = (indexItem) => {
     console.log('index > ', indexItem);

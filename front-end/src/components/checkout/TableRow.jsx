@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TableRow = ({ item, product, onclick }) => {
-  const { name, unitPrice, quantity, subTotal } = product;
+  const { name, price, quantity } = product;
   return (
     <tr>
       <td data-testid={ `customer_checkout__element-order-table-item-number-${item}` }>
@@ -15,10 +15,10 @@ const TableRow = ({ item, product, onclick }) => {
         { quantity }
       </td>
       <td data-testid={ `customer_checkout__element-order-table-unit-price-${item}` }>
-        { unitPrice }
+        { price }
       </td>
       <td data-testid={ `customer_checkout__element-order-table-sub-total-${item}` }>
-        { subTotal }
+        { quantity * Number(price) }
       </td>
       <td data-testid={ `customer_checkout__element-order-table-remove-${item}` }>
         <button type="button" onClick={ () => onclick(item) }>
@@ -33,9 +33,8 @@ TableRow.propTypes = {
   item: PropTypes.number.isRequired,
   product: PropTypes.shape({
     name: PropTypes.string,
-    unitPrice: PropTypes.number,
+    price: PropTypes.number,
     quantity: PropTypes.number,
-    subTotal: PropTypes.number,
   }).isRequired,
   onclick: PropTypes.func.isRequired,
 };
