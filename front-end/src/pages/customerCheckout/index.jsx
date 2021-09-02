@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Context from '../../context';
+import OrderTable from '../../components/orderTable';
 
 const CheckOut = () => {
   const { cart } = useContext(Context);
@@ -7,6 +8,7 @@ const CheckOut = () => {
   return (
     <div>
       <p>Blá, blá</p>
+      <OrderTable />
     </div>
   );
 };

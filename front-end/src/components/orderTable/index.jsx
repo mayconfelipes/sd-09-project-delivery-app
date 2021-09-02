@@ -15,6 +15,7 @@ const OrderTable = () => {
   const { cart } = useContext(context);
   // const { cart, setCart } = useContext(context);
   const { products } = cart;
+  console.log(products);
   return (
     <table>
       <thead>
@@ -22,10 +23,10 @@ const OrderTable = () => {
       </thead>
       <tbody>
         {
-          products.forEach((product, index) => (
-            <tr key={ `Line - ${index}` }>
+          products.map((item) => (
+            <tr key={ item.id }>
               {
-                product.map((elem) => (
+                item.map((elem) => (
                   <td key={ elem }>{ elem }</td>
                 ))
               }
