@@ -5,6 +5,7 @@ import CardProduct from '../components/CardProduct';
 import Header from '../components/Header';
 import Provider from '../context/Provider';
 import Button from '../components/button';
+import '../styles/Produtos.css';
 
 const Produtos = () => {
   const [products, setProducts] = useState([]);
@@ -41,15 +42,15 @@ const Produtos = () => {
   return (
     <Provider>
       <Header />
-      <main>
-        <section className="products">
+      <main className="products__page">
+        <section className="products__list">
           {
             products.map(
               (Produto) => <CardProduct product={ Produto } key={ Produto.id } />,
             )
           }
         </section>
-        <Button name="Ver carrinho: " />
+        <Button className="products__cart__button" name="Ver carrinho: " />
       </main>
     </Provider>
   );
