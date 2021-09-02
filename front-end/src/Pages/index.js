@@ -5,3 +5,5 @@ export { default as Register } from './Register';
 // trabalhando
 export { default as CustumeOrders } from './CustumerOrders';
 // trabalhando
+
+export { default as Checkout } from './Checkout';
