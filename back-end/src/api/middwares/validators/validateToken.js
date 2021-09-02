@@ -2,10 +2,9 @@ const jwt = require('jsonwebtoken');
 const { messageError } = require('../errors');
 const { TOKEN_INVALID, TOKEN_NOT_FOUND } = require('../errorMessages');
 const { UNAUTHORIZED_STATUS } = require('../httpStatus');
+const { jwtRead } = require('./jwtRead');
 
 require('dotenv').config();
-
-const JWT_SECRET = 'secret_key';
 
 const validateToken = async (req, _res, next) => {
   try {
@@ -18,8 +17,10 @@ const validateToken = async (req, _res, next) => {
     } catch (err) {
       return next(err);
     }
+    
+    const secret = await jwtRead();
 
-    const payload = jwt.verify(token, JWT_SECRET);
+    const payload = jwt.verify(token, secret);
 
     req.login = payload;
     next();

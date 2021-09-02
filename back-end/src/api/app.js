@@ -40,6 +40,8 @@ app.post('/sales', validateToken, salesControllers.create);
 
 app.get('/sales/:id', validateToken, salesControllers.getById);
 
+app.put('/sales/:id', validateToken, salesControllers.update);
+
 app.use(sendErrorMessage);
 
 module.exports = app;
