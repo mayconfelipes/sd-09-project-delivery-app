@@ -11,6 +11,7 @@ const productController = require('./controllers/product');
 const salesProductsController = require('./controllers/salesProducts');
 const salesController = require('./controllers/sales');
 const sellersController = require('./controllers/sellers');
+const {validateToken} = require('../../middleware/validateToken');
 
 const images = path.join(__dirname, '..', '..', 'public');
 // const io = require('socket.io')(http, {
@@ -32,6 +33,7 @@ app.use(express.static(images));
 app.post('/login', userController.findUser);
 app.post('/register', userController.registerUser);
 app.post('/admin/register', adminController.registerUser);
+app.post('/customer/orders',validateToken, salesController.registerSale)
 app.get('/products', productController.getAllProducts);
 app.get('/sales_products', salesProductsController.getAll);
 app.get('/sales/:id', salesController.getById);

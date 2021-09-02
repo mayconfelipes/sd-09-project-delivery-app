@@ -116,7 +116,7 @@ describe(requirement(18), () => {
   });
 });
 
-describe.only(requirement(19), () => {
+describe(requirement(19), () => {
   test(`O avaliador tentará realizar a remoção de itens validando-os na tabela`, async () => {
     const { productsToExclude, newCart } = cartReduced(itemList);
 
@@ -149,7 +149,7 @@ describe(requirement(20), () => {
   });
 });
 
-describe(requirement(21), () => {
+describe.only(requirement(21), () => {
   test("O avaliador testará se, após realizado o checkout, as alterações constarão no banco de dados", async () => {
     const { saleId, saleDate } = await action.customer.checkoutNewSale(
       page,

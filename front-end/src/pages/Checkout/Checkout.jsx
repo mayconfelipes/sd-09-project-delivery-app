@@ -28,13 +28,14 @@ const Checkout = () => {
   const postSale = () => {
     const { address, addressNumber, id } = sellerInfo;
     const { email, token } = JSON.parse(localStorage.getItem('user'));
+    const data = { address, addressNumber, sellerId: id, totalPrice, userEmail: email }; // const headers = JSON.stringify({ Authorization: token });
     connectBack
       .post('/customer/orders',
-        { body:
-          { address, addressNumber, sellerId: id, totalPrice, userEmail: email } },
+        { data },
         { headers: { Authorization: token } })
-      .then((responseId) => {
-        history.push(`/customer/orders/${responseId}`);
+      .then((response) => {
+        console.log(response.data.id);
+        history.push(`/customer/orders/${response.data.id}`);
       })
       .catch((error) => {
         console.log(error);

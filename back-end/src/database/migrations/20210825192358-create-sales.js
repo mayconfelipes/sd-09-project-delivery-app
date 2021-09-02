@@ -30,7 +30,7 @@ module.exports = {
       },
       sale_date: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
       },
     });
   },
