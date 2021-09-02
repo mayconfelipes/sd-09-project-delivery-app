@@ -1,9 +1,4 @@
 .details-order-seller-container {
-  margin: 10px auto;
-  max-width: 60rem;
-}
-
-.details-order-seller-container {
   margin: 20px auto;
   max-width: 85vw;
 }
@@ -79,7 +74,7 @@
   text-align: center;
 }
 
-.list-item-header span:nth-child( 3 ), span:nth-child( 4 ), span:nth-child( 5 ) {
+.list-item-header span:nth-child( 5 ), span:nth-child( 4 ), span:nth-child( 3 ) {
   width: 6rem;
 }
 
@@ -100,7 +95,7 @@
   font-size: 1.3rem;
   font-weight: 900;
   margin: 1rem;
-  padding: 10px;
   min-width: 12rem;
+  padding: 10px;
   text-align: center;
 }
