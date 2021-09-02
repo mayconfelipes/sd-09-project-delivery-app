@@ -59,6 +59,7 @@ function Register() {
           <input
             type="text"
             name="name"
+            className="input-element"
             data-testid="common_register__input-name"
             placeholder="Seu nome"
             value={ signupValues.name }
@@ -71,6 +72,7 @@ function Register() {
           <input
             type="text"
             name="email"
+            className="input-element"
             placeholder="seu-email@site.com.br"
             data-testid="common_register__input-email"
             value={ signupValues.email }
@@ -83,6 +85,7 @@ function Register() {
             <input
               type={ revealPass ? 'password' : 'text' }
               name="password"
+              className="input-element"
               placeholder="**********"
               data-testid="common_register__input-password"
               value={ signupValues.password }
@@ -102,6 +105,7 @@ function Register() {
         <button
           type="button"
           data-testid="common_register__button-register"
+          className="sign-btn"
           disabled={ disableBtn }
           onClick={ registerUser }
         >

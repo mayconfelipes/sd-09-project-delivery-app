@@ -35,15 +35,22 @@ function Login() {
 
   const validateUser = async (e) => {
     e.preventDefault();
+    const redirectRole = {
+      customer: '/customer/products',
+      seller: '/seller/orders',
+      administrator: '/admin/manage',
+
+    };
+
     try {
-      const { data: { user: { name, email: em, role, token } } } = await axios({
+      const response = await axios({
         method: 'post',
         url: 'http://localhost:3001/user/login',
         data: { email, password },
       });
-
-      localStorage.setItem('user', JSON.stringify({ name, email: em, role, token }));
-      history.push('/customer/products');
+      const { data } = response;
+      localStorage.setItem('user', JSON.stringify(data));
+      history.push(redirectRole[data.user.role]);
       return response;
     } catch (err) {
       setErrorMessage('Dados inválidos.');
@@ -82,6 +89,7 @@ function Login() {
       </form>
       <button
         type="button"
+        className="sign-btn"
         data-testid="common_login__button-register"
         onClick={ () => history.push('/register') }
       >

@@ -33,21 +33,20 @@ code {
   flex-direction: column;
 }
 
-.signup-container input {
+.input-element {
   border: 1px solid #c6c6c6;
   border-radius: 10px;
   padding: 10px;
   width: 200px;
 }
 
-.signup-container > button {
+.sign-btn {
   background: #036b52;
   border: transparent;
   border-radius: 10px;
   color: #fff;
   cursor: pointer;
   font-size: 18px;
-  margin-top: 10px;
   padding: 10px 20px;
   transition: 0.2s;
 }
@@ -98,6 +97,89 @@ table, th, td {
   text-align: center;
 }
 
+.admin-navbar {
+  align-items: center;
+  background-color: #036b52;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.page-title {
+  background-color: #2fc18c;
+  font-weight: 600;
+  padding: 25px;
+}
+
+.admin {
+  background-color: #421981;
+  color: #fff;
+  font-weight: 400;
+}
+
+.logout-btn {
+  background-color: #056cf9;
+  border: transparent;
+  color: #fff;
+  cursor: pointer;
+  height: 50px;
+  padding: 10px 40px;
+}
+
+.logout-btn:hover {
+  filter: brightness(0.85);
+}
+
+.admin-form fieldset {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+}
+
+select {
+  border: 1px solid #c6c6c6;
+  border-radius: 10px;
+  padding: 10px;
+  width: 200px;
+}
+
+table {
+  margin: auto;
+}
+
+table tr th {
+  font-size: 17px;
+  padding: 10px 100px;
+}
+
+table tr td {
+  padding: 10px;
+  text-align: center;
+}
+
+.delete-btn {
+  background-color: #fff;
+  border: transparent;
+  cursor: pointer;
+}
+
+.delete-btn em {
+  color: #a0a0a0;
+  font-size: 18px;
+  transition: 0.2s;
+}
+
+.delete-btn em:hover {
+  filter: brightness(0.5);
+}
+
+.hide-message {
+  opacity: 0;
+}
+
 @keyframes fade {
   from {
     opacity: 0;
@@ -115,7 +197,8 @@ table, th, td {
   margin-bottom: 32px;
 }
 
-.login-form input, .login-form button {
+.login-form input,
+.login-form button {
   padding: 4px 8px;
 }
 

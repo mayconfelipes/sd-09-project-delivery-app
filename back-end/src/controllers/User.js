@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const rescue = require('express-rescue');
 const User = require('../services/User');
-const { User: UserModel } = require('../database/models');
 
 const login = rescue(async (req, res) => {
   const { email, password } = req.body;
@@ -9,8 +8,9 @@ const login = rescue(async (req, res) => {
   const response = await User.login(email, password);
 
   const payload = response;
-  const secret = process.env.JWT_SECRET;
-  const config = { algorithm: 'HS256' };
+  const secret = process.env.JWT_SECRET || 'secret_key';
+
+  const config = { algorithm: 'HS256', expiresIn: '30m' };
 
   const token = jwt.sign(payload, secret, config);
 
@@ -18,20 +18,20 @@ const login = rescue(async (req, res) => {
 });
 
 const register = rescue(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
 
-  const response = await User.register({ name, email, password });
+  const response = await User.register({ name, email, password, role });
 
   return res.status(201).json(response);
 });
 
-const findAll = rescue(async (_req, res) => {
-  const users = await UserModel.findAll();
-  res.status(200).json(users);
+const getAllUsers = rescue(async (req, res) => {
+  const response = await User.getAllUsers();
+  return res.status(200).json(response);
 });
 
 module.exports = {
   login,
   register,
-  findAll,
+  getAllUsers,
 };
