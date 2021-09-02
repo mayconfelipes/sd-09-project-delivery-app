@@ -5,7 +5,7 @@ import styles from '../css/Checkout.module.css';
 // import '../App.css';
 
 function Checkout() {
-  // const { productsCart } = useContext(AppContext);
+  const { sendSale } = useContext(AppContext);
   const INITIAL_STATE = { seller: '', address: '', numberHouse: '' };
   const [detailsForm, setDetailsForm] = useState(INITIAL_STATE);
   let total = 0;
@@ -21,7 +21,7 @@ function Checkout() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const dataSend = detailsForm;
-    console.log(dataSend);
+    sendSale(dataSend)
   };
 
   const itemNumber = (index) => {

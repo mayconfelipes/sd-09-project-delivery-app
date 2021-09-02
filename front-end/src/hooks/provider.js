@@ -10,6 +10,7 @@ function Provider({ children }) {
   const [products, setProducts] = useState([]);
   const [productsCart, setProductsCart] = useState({});
   const [loading, setLoading] = useState(true);
+  const [saleId, setSaleId] = useState(true);
   const router = useHistory();
 
   const signIn = async (email, password) => {
@@ -17,6 +18,24 @@ function Provider({ children }) {
       const response = await axios.post('http://localhost:3001/login', { email, password });
       setUser(response.data);
       router.push('/customer/products');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const sendSale = async (sale) => {
+    const { 
+      userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, productCart,
+    } = sale
+
+    try {
+      const response = await axios.post('http://localhost:3001/sales', { 
+        userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, productCart,
+      });
+      setSaleId(response.data);
+      // const { id } = response.data
+      let id = 1
+      router.push(`localhost:3000/customer/orders/${id}`);
     } catch (error) {
       console.log(error);
     }
@@ -80,6 +99,9 @@ function Provider({ children }) {
     setProductsCart,
     loading,
     setProductCartInLocalStorage,
+    sendSale,
+    saleId,
+    setSaleId,
   };
 
   return (
