@@ -1,26 +1,34 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import jwt from 'jsonwebtoken';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import AppContext from '../hooks/context';
 import Navbar from '../components/Navbar';
-import '../App.css';
+import ProductCard from '../components/ProductCard';
+// import '../App.css';
 
-const SECRET_KEY = 'minhachavesecreta';
+const SECRET_KEY = 'minhachavesecreta'; // Retirar essa chave depois
 
 function Products() {
-  const { products, getProducts } = useContext(AppContext);
-
-  useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+  const {
+    products,
+    getProducts,
+    productsCart,
+    loading } = useContext(AppContext);
 
   const router = useHistory();
+  const [disable, setDisable] = useState(true);
+  let total = 0;
+
+  const test = useCallback(() => getProducts(), [getProducts]);
+
+  useEffect(() => {
+    test();
+  }, [test]);
 
   useEffect(() => {
     if (!localStorage.getItem('user')) {
       return router.push('/');
     }
-
     const { token } = JSON.parse(localStorage.getItem('user'));
     try {
       jwt.verify(token, SECRET_KEY);
@@ -28,7 +36,32 @@ function Products() {
       localStorage.removeItem('user');
       router.push('/');
     }
-  });
+  }, [router]);
+
+  const handleClick = () => {
+    localStorage.setItem('productCart', JSON.stringify(productsCart));
+    router.push('/customer/checkout');
+  };
+
+  const totalPrice = () => {
+    const productsKeys = Object.keys(productsCart);
+    productsKeys.forEach((product) => {
+      total += productsCart[product].quantity * Number(productsCart[product].price);
+    });
+    if (total > 0 && disable) {
+      setDisable(false);
+    }
+    return total.toFixed(2).toString().replace(/\./ig, ',');
+  };
+
+  if (loading || !products.length) {
+    return (
+      <div className="main">
+        <Navbar />
+        <main><h1>loading...</h1></main>
+      </div>
+    );
+  }
 
   return (
     <div className="main">
@@ -37,58 +70,27 @@ function Products() {
         <ul className="main--products">
           {
             products.map(({ name, urlImage, price, id }, index) => (
-              <li
-                key={ index }
-                className="main--products"
-              >
-                <h4
-                  data-testid={ `customer_products__element-card-title-${id}` }
-                >
-                  {name}
-                </h4>
-                <img
-                  className="main--img"
-                  src={ urlImage }
-                  alt={ name }
-                  data-testid={ `customer_products__img-card-bg-image-${id}` }
-                />
-                <h1
-                  data-testid={ `customer_products__element-card-price-${id}` }
-                >
-                  {price.replace(/\./ig, ',')}
-                </h1>
-                <div className="main--add-item-btn">
-                  <button
-                    data-testid={ `customer_products__button-card-rm-item-${id}` }
-                    type="button"
-                  >
-                    -
-                  </button>
-                  <input
-                    type="number"
-                    data-testid={ `customer_products__input-card-quantity-${id}` }
-                    value={ 0 }
-                  />
-                  <button
-                    data-testid={ `customer_products__button-card-add-item-${id}` }
-                    type="button"
-                  >
-                    +
-                  </button>
-                </div>
-              </li>))
+              <ProductCard
+                key={ name }
+                product={ { name, urlImage, price, id, index } }
+              />
+            ))
           }
         </ul>
       </main>
-      <Link to="/customer/checkout">
-        <button
+      <button
+        data-testid="customer_products__button-cart"
+        type="button"
+        className="button-cart"
+        onClick={ handleClick }
+        disabled={ disable }
+      >
+        <span
           data-testid="customer_products__checkout-bottom-value"
-          type="button"
-          className="button-cart"
         >
-          Carrinho
-        </button>
-      </Link>
+          { totalPrice() }
+        </span>
+      </button>
     </div>
   );
 }

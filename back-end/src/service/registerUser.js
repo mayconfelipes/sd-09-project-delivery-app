@@ -19,6 +19,4 @@ const registerUser = async ({ name, email, password: passwordUser }) => {
   return { ...userWithOutPassword, token };
 };
 
-module.exports = {
-  registerUser,
-};
+module.exports = registerUser;

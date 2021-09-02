@@ -6,8 +6,10 @@ import AppContext from './context';
 
 function Provider({ children }) {
   const [user, setUser] = useState({});
+  const [sales, setSales] = useState({});
   const [products, setProducts] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const [productsCart, setProductsCart] = useState({});
+  const [loading, setLoading] = useState(true);
   const router = useHistory();
 
   const signIn = async (email, password) => {
@@ -20,13 +22,43 @@ function Provider({ children }) {
     }
   };
 
+  const setProductCartInLocalStorage = (data) => {
+    localStorage.setItem('productCart', JSON.stringify(data));
+  };
+
   const getProducts = async () => {
     if (products.length) return;
     try {
       const response = await axios.get('http://localhost:3001/products');
       setProducts(response.data);
+      const productObject = {};
+      response.data.forEach(({ name, price }) => {
+        productObject[name] = { name, quantity: 0, price };
+      });
+      setProductsCart(productObject);
+      if (!JSON.parse(localStorage.getItem('productCart'))) {
+        setLoading(false);
+        return setProductCartInLocalStorage(productObject);
+      }
+      setLoading(false);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const getSales = async () => {
+    response.data = [{
+      deliveryNumber: '0001',
+      Status: 'Pendente',
+      saleDate: '01/09/2021',
+      id: '01',
+    }];
+
+    try {
+      const response = await axios.get('');
+      setSales(response.data);
+    } catch (error) {
+      console.logo(error);
     }
   };
 
@@ -39,8 +71,15 @@ function Provider({ children }) {
     setUser,
     signIn,
     getProducts,
+    getSales,
+    setSales,
+    sales,
     products,
     setUserInLocalStorage,
+    productsCart,
+    setProductsCart,
+    loading,
+    setProductCartInLocalStorage,
   };
 
   return (
