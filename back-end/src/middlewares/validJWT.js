@@ -7,21 +7,24 @@ const validJWT = async (req, _res, next) => {
   const token = req.headers.authorization;
 
   if (!token) throw invalidData('Token not found', UNAUTHORIZED);
-
-  const validVerifyToken = await verifyToken(token);
-
-  if (validVerifyToken.message) throw invalidData(validVerifyToken.message, UNAUTHORIZED);
-
-  const { id, user } = validVerifyToken;
-  const { email, role, name } = user;
-
-  req.user = {
-    id,
-    role,
-    email,
-    name,
-  };
-  next();
+  try {
+    const validVerifyToken = await verifyToken(token);
+    
+    if (validVerifyToken.message) throw invalidData(validVerifyToken.message, UNAUTHORIZED);
+  
+    const { id, user } = validVerifyToken;
+    const { email, role, name } = user;
+  
+    req.user = {
+      id,
+      role,
+      email,
+      name,
+    };
+    next();
+  } catch (error) {
+    return next(error);
+  }
 };
 
 module.exports = validJWT;

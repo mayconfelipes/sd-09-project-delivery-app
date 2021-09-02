@@ -4,8 +4,9 @@ import moment from 'moment';
 import io from '../../socket';
 import api from '../../service/axiosApi';
 import NotFound from '../../components/NotFound';
-import './DetailsOrderSeller.css';
 import ProductCardlist from '../../components/ProductCardList';
+import './DetailsOrderSeller.css';
+import NavBarSeller from '../../components/NavbarSeller';
 
 const DetailsOrderSeller = (props) => {
   const {
@@ -40,54 +41,90 @@ const DetailsOrderSeller = (props) => {
 
   const dataTestButtonPrepare = 'seller_order_details__button-preparing-check';
   const dataTestButtonSend = 'seller_order_details__button-dispatch-check';
+  const dTidStatus = 'seller_order_details__element-order-details-label-delivery-status';
 
   if (orderStatus === '') return <NotFound />;
 
+  const renderInfoPedidos = () => (
+    <div className="render-info-pedidos">
+      <span>
+        PEDIDO:
+        {order.id}
+      </span>
+      <span
+        data-testid="seller_order_details__element-order-details-label-order-date"
+      >
+        { moment(order.sale_date).format('L')}
+      </span>
+      <span
+        data-testid={ dTidStatus }
+        className={ `status-details ${orderStatus}` }
+      >
+        {orderStatus.toUpperCase()}
+      </span>
+    </div>
+  );
+
+  const renderButtosStatus = () => (
+    <div>
+      <button
+        data-testid={ dataTestButtonPrepare }
+        name="Preparando"
+        type="submit"
+        onClick={ handleStatus }
+      >
+        PREPARAR PEDIDO
+      </button>
+      <button
+        data-testid={ dataTestButtonSend }
+        name="Em Trânsito"
+        type="submit"
+        onClick={ handleStatus }
+      >
+        SAIU PARA ENTREGA
+      </button>
+    </div>
+  );
+
   return (
     <div>
-      <div className="details-order-container">
-        <span>
-          PEDIDO:
-          {order.id}
-        </span>
-        <span
-          data-testid="seller_order_details__element-order-details-label-order-date"
-        >
-          { moment(order.sale_date).format('L')}
-        </span>
-        <span
-          data-testid="seller_order_details__element-order-details-label-delivery-status"
-        >
-          {orderStatus}
-        </span>
-        <button
-          data-testid={ dataTestButtonPrepare }
-          name="Preparando"
-          type="submit"
-          onClick={ handleStatus }
-        >
-          PREPARAR PEDIDO
-        </button>
-        <button
-          data-testid={ dataTestButtonSend }
-          name="Em Trânsito"
-          type="submit"
-          onClick={ handleStatus }
-        >
-          SAIU PARA ENTREGA
-        </button>
-        <ul>
-          { (order) && order.product
-            .map((prod, i) => (
-              <ProductCardlist product={ prod } key={ i } index={ i + 1 } />
-            )) }
-        </ul>
-        <p data-testid="seller_order_details__element-order-total-price">
-          Total: &nbsp;
-          { order.totalPrice }
-        </p>
+      <NavBarSeller />
+      <div className="details-order-seller-container">
+        <h3>Detralhe do Pedido</h3>
+        <div className="details-order-container">
+          <section>
+            { renderInfoPedidos() }
+            { renderButtosStatus() }
+          </section>
+          <li className="list-item-header">
+            <span>
+              item
+            </span>
+            <span>
+              Descrição
+            </span>
+            <span>
+              Quantidade
+            </span>
+            <span>
+              Valor Unitário
+            </span>
+            <span>
+              Sub-total
+            </span>
+          </li>
+          <ul>
+            { (order) && order.product
+              .map((prod, i) => (
+                <ProductCardlist product={ prod } key={ i } index={ i + 1 } />
+              )) }
+          </ul>
+          <p data-testid="seller_order_details__element-order-total-price">
+            Total: &nbsp;
+            { `R$ ${order.totalPrice}` }
+          </p>
+        </div>
       </div>
-
     </div>
   );
 };
