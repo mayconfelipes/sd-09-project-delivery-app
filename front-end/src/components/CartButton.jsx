@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 const CartButton = ({ totalPrice }) => {
   const history = useHistory();
-  console.log('TOTAL PRICE', totalPrice);
   const brazilianPrice = (price) => {
     const minN = 3;
     const newPrice = price.toString().replace('.', ',');

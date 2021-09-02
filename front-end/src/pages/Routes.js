@@ -11,6 +11,7 @@ import Admin from './Admin/Admin';
 import Products from './Products/Products';
 import Seller from './Seller/Seller';
 import Details from './Seller/Details/Details';
+import Checkout from './Checkout/Checkout';
 
 function Routes() {
   return (
@@ -20,7 +21,8 @@ function Routes() {
         <Route exact path="/admin/manage" component={ Admin } />
         <Route exact path="/seller/orders" component={ Seller } />
         <Route path="/seller/orders/:id" component={ Details } />
-        <Route path="/customer/checkout" component={ Products } />
+        <Route path="/customer/orders/:id" component={ Checkout } />
+        <Route path="/customer/checkout" component={ Checkout } />
         <Route path="/customer/products" component={ Products } />
         <Route path="/login" component={ Login } />
         <Redirect from="/" to="/login" />

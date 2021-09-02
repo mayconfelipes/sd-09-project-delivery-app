@@ -13,7 +13,6 @@ const Products = () => {
     try {
       const response = await fetch('http://localhost:3001/products');
       const drinks = await response.json();
-      console.log(drinks);
       setProducts(drinks);
     } catch (error) {
       console.error(error);
@@ -26,7 +25,7 @@ const Products = () => {
   useEffect(() => {
     const cartItens = JSON.parse(localStorage.getItem('products'));
     const currPrice = Object.entries(cartItens)
-      .reduce((acc, curr) => acc + curr[1], 0).toFixed(2);
+      .reduce((acc, curr) => acc + curr[1].totalProduct, 0).toFixed(2);
     setTotalPrice(currPrice);
   }, [changed]);
 
