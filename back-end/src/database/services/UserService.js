@@ -16,15 +16,12 @@ const encodedPassword = (password) => {
 
 const login = async (email, password) => {
   try {
-    console.log(password);
     const encryptedPassword = encodedPassword(password);
-    console.log(encryptedPassword);
     const { dataValues: user } = await User.findOne({
       where: { email, password: encryptedPassword }
     });
 
     const { password: userPassword, ...payload } = user;
-    console.log(payload);
     const token = sign(payload);
 
     return { token, payload };

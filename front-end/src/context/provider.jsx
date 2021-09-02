@@ -10,12 +10,19 @@ const DEFAULT_FORM = {
   redirect: false,
 };
 
+const DEFAULT_CART = {
+  totalValue: 0.00,
+  products: [],
+};
+
 function Provider({ children }) {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [register, setRegister] = useState(false);
   const [theme, setTheme] = useState(Light);
   const [enableButton, setEnableButton] = useState(false);
-  const [totalValueCart, setTotalValueCart] = useState(0);
+  const [cart, setCart] = useState(DEFAULT_CART);
+  const [catalog, setCatalog] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const contextValue = {
     form,
@@ -26,8 +33,12 @@ function Provider({ children }) {
     setTheme,
     enableButton,
     setEnableButton,
-    totalValueCart,
-    setTotalValueCart,
+    cart,
+    setCart,
+    catalog,
+    setCatalog,
+    loading,
+    setLoading,
   };
 
   return (

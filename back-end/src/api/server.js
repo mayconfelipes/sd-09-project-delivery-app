@@ -1,4 +1,6 @@
-const port = process.env.PORT || 3003;
+require('dotenv').config();
+
+const port = process.env.API_PORT || 3003;
 const app = require('./app');
 
 app.listen(port);
