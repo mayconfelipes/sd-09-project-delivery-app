@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+
 import Input from '../components/input';
+import validators from '../utils/registrationValidation';
 
 function Registro() {
   const [name, setName] = useState('');
@@ -14,15 +16,9 @@ function Registro() {
 
   useEffect(
     () => {
-      const NAME_MIN_LENGTH = 12;
-      const PASSWORD_MIN_LENGTH = 6;
-      const EMAIL_REGEX = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/igm;
+      const userData = { name, email, password };
 
-      const isValidName = name.length >= NAME_MIN_LENGTH;
-      const isValidPassword = password.length >= PASSWORD_MIN_LENGTH;
-      const isValidEmail = EMAIL_REGEX.test(email);
-
-      if (isValidName && isValidPassword && isValidEmail) {
+      if (validators.isValid(userData)) {
         setDisabled(false);
       } else {
         setDisabled(true);

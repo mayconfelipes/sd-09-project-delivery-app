@@ -15,7 +15,6 @@ module.exports = {
   async getAll(req, res, next) {
     try {
       const { role } = req.user;
-      console.log(role);
 
       if (role !== 'administrator') {
         throw new PermissionError('Operation not allowed');

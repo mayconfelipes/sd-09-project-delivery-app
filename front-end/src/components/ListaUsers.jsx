@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router';
 import { string, number } from 'prop-types';
 import axios from 'axios';
+
+import status from '../utils/status';
 
 const ROLE_CHOICES = {
   customer: 'Cliente',
@@ -11,6 +14,7 @@ const ROLE_CHOICES = {
 export default function ListaUsers({ token, userId }) {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(
     () => {
@@ -23,22 +27,39 @@ export default function ListaUsers({ token, userId }) {
         await axios.get(GET_USERS_ENDPOINT, config)
           .then(
             ({ data }) => {
-              const filteredUsers = data.filter(({ id }) => id !== userId);
+              const filteredUsers = data.filter(({ role }) => role !== 'administrator');
               setUsers(filteredUsers);
             },
-            () => setError('Falha ao listar usuários.'),
+            ({ response: { status: errorStatus } }) => {
+              if (errorStatus === status.HTTP_401_UNAUTHORIZED) {
+                setRedirect(true);
+              } else {
+                setError('Falha ao listar usuários.');
+              }
+            },
           );
       };
       fetchUsers();
     }, [token, userId],
   );
 
+  if (redirect) {
+    return (<Redirect
+      to={ {
+        pathname: '/login',
+        state: {
+          error: 'Sessão expirada',
+        },
+      } }
+    />);
+  }
+
   return (
     <section>
       <h2>Lista de usuários</h2>
       {
         error.length > 0
-        || <span>{ error }</span>
+        && <span>{ error }</span>
       }
       <table>
         <thead>
