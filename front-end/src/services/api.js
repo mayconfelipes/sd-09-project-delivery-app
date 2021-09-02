@@ -38,3 +38,29 @@ export const getSales = async (token) => {
   const response = await request.json();
   return response;
 };
+
+export const getSaleById = async (token, id) => {
+  const request = await fetch(`http://localhost:3001/sale/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': APP_SCHEMA,
+      Authorization: token,
+    },
+  });
+  const response = await request.json();
+  return response;
+};
+
+export const editStatusOrder = async (token, { id, status }) => {
+  const body = { saleId: `${id}`, status: `${status}` };
+  const request = await fetch('http://localhost:3001/sale/status', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': APP_SCHEMA,
+      Authorization: token,
+    },
+    body: JSON.stringify(body),
+  });
+  const response = await request.json();
+  return response;
+};
