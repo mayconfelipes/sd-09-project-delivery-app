@@ -4,7 +4,6 @@ import { LoginContext } from '../context/loginContext';
 import './ProductsCard.css';
 
 const ProductsCard = ({ product }) => {
-  console.log(product);
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart } = useContext(LoginContext);
   const { id, name, price, url_image: urlImage } = product;
@@ -41,8 +40,7 @@ const ProductsCard = ({ product }) => {
         className="card_price"
         data-testid={ `customer_products__element-card-price-${id}` }
       >
-        R$
-        { price.toFixed(2).toString().replace('.', ',') }
+        { price.replace('.', ',') }
       </div>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
