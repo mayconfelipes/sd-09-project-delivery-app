@@ -90,7 +90,7 @@ function Provider({ children }) {
       });
       setSaleId(response.data);
       const { id } = response.data;
-      router.push(`localhost:3000/customer/orders/${id}`);
+      router.push(`/customer/orders/${id}`);
     } catch (error) {
       console.log(error);
     }
