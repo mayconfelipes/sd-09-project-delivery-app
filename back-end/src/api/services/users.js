@@ -2,6 +2,8 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const { Users } = require('../../database/models');
 const { messageError } = require('../middwares/errors');
+const { jwtRead } = require('../middwares/validators/jwtRead');
+
 const {
   INTERNAL_ERROR_STATUS,
   CONFLICT_STATUS,
@@ -38,8 +40,6 @@ const jwtConfig = {
   expiresIn: 600000,
 };
 
-const secret = 'secret_key';
-
 const create = async (user) => {
   const { name, email, password, role } = user;
 
@@ -48,7 +48,7 @@ const create = async (user) => {
 
   const md5Password = crypto.createHash('md5').update(password).digest('hex').toString();
 
-  const newUser = Users.create({ 
+  const newUser = await Users.create({ 
     name,
     email,
     password: md5Password,
@@ -59,7 +59,10 @@ const create = async (user) => {
     throw messageError(INTERNAL_ERROR_STATUS, USER_NOT_CREATED);
   }
 
-  return jwt.sign({ data: { name, email, role } }, secret, jwtConfig);
+  const secret = await jwtRead();
+  const { id } = newUser.dataValues;
+
+  return jwt.sign({ data: { id, name, email, role } }, secret, jwtConfig);
 };
 
 const getById = async (id) => {

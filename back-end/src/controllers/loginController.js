@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 const { Users } = require('../database/models');
+const { jwtRead } = require('../api/middwares/validators/jwtRead');
 require('dotenv').config();
  
 const jwtConfig = {
@@ -8,11 +9,9 @@ const jwtConfig = {
   expiresIn: 600000,
 };
 
-const secret = 'secret_key';
-
 const payload = (user) => {
-  const { name, email, role } = user;
-  return ({ name, email, role });
+  const { id, name, email, role } = user;
+  return ({ id, name, email, role });
 };
 
 const login = async (req, res) => {
@@ -24,6 +23,8 @@ const login = async (req, res) => {
     }
       const encPassword = md5(password);
       if (encPassword === exists.password) {
+        const secret = await jwtRead();
+
         const token = jwt.sign({ data: payload(exists) }, secret, jwtConfig);
         const { name, role } = exists;
         return res.status(200).json({ name, email, role, token });
