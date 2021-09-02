@@ -110,13 +110,13 @@ const validateProductItens = async ({ cart = [], totalPrice }) => {
   return true;
 }
 
-describe.only(requirement(18), () => {
+describe(requirement(18), () => {
   test("O avaliador testará se os itens contidos na venda correspondem aos itens do checkout", async () => {
     expect(await validateProductItens(itemList)).toBeTruthy();
   });
 });
 
-describe(requirement(19), () => {
+describe.only(requirement(19), () => {
   test(`O avaliador tentará realizar a remoção de itens validando-os na tabela`, async () => {
     const { productsToExclude, newCart } = cartReduced(itemList);
 

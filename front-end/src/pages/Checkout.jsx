@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-// import AppContext from '../hooks/context';
 import Navbar from '../components/Navbar';
 import styles from '../css/Checkout.module.css';
 // import '../App.css';
 
 function Checkout() {
-  // const { productsCart } = useContext(AppContext);
   const INITIAL_STATE = { seller: '', address: '', numberHouse: '' };
   const [detailsForm, setDetailsForm] = useState(INITIAL_STATE);
-  let total = 0;
 
-  const orders = Object.values(JSON.parse(localStorage.getItem('productCart')))
+  const ordersFromStorage = Object.values(JSON.parse(localStorage.getItem('productCart')))
     .filter(({ quantity }) => quantity > 0);
+  const [orders, setOrders] = useState(ordersFromStorage);
+
+  let total = 0;
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -41,6 +41,15 @@ function Checkout() {
     return formatPrice(subtotal.toFixed(2));
   };
 
+  const removeItem = (name) => {
+    const order = orders.filter((item) => item.name === name);
+    total -= Number(order.price * order.quantity);
+
+    const arr = orders.filter((item) => item.name !== name);
+    localStorage.setItem('productCart', JSON.stringify(arr));
+    setOrders(arr);
+  };
+
   const createSpan = (dataTestId, value) => (
     <span
       data-testid={ `customer_checkout__element-order-table-${dataTestId}` }
@@ -49,14 +58,12 @@ function Checkout() {
     </span>
   );
 
-  console.log(orders);
-
   return (
     <div className="main">
       <Navbar />
       <section className={ styles.productsContainer }>
         <h3>Finalizar Pedido</h3>
-        { orders.map(({ name, price, quantity }, index) => (
+        {orders.map(({ name, price, quantity }, index) => (
           <div
             key={ name }
             data-testid={ `element-order-table-name-${index}` }
@@ -69,6 +76,7 @@ function Checkout() {
             { createSpan(`sub-total-${index}`, calcSubTotal(price, quantity)) }
             <button
               type="button"
+              onClick={ () => removeItem(name) }
               data-testid={ `customer_checkout__element-order-table-remove-${index}` }
             >
               Remover
@@ -77,7 +85,7 @@ function Checkout() {
         <div
           data-testid="customer_checkout__element-order-total-price"
         >
-          { formatPrice(total.toFixed(2)) }
+          {formatPrice(total.toFixed(2))}
         </div>
       </section>
       <section className={ styles.formCheckoutContainer }>
