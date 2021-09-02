@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       price: {
-        type: Sequelize.DECIMAL(3, 2)
+        type: Sequelize.DECIMAL(4, 2)
       },
       urlImage: {
         type: Sequelize.STRING,

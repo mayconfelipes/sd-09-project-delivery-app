@@ -24,8 +24,16 @@ const getAllUsers = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
+const getAllSellers = async (req, res, next) => {
+  try {
+    const allSellers = await User.getAllSellers();
+    return res.status(200).json(allSellers);
+  } catch (err) { next(err); }
+};
+
 module.exports = {
   loginUser,
   registerUser,
   getAllUsers,
+  getAllSellers,
 };

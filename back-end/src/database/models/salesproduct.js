@@ -4,11 +4,17 @@ module.exports = (sequelize, DataTypes) => {
   },
   { timestamps: false, underscored: true, tableName: 'salesProducts' });
 
-  salesProduct.associate = (models) => {
-    models.Product.belongsToMany(models.Sale,
-      { as: 'sale', foreignKey: 'saleId', through: salesProduct, otherKey: 'productId' });
-    models.Sale.belongsToMany(models.Product,
-      { as: 'product', foreignKey: 'productId' , through: salesProduct, otherKey: 'saleId'})
+  // salesProduct.associate = (models) => {
+  //   models.Product.belongsToMany(models.Sale,
+  //     { as: 'sales', foreignKey: 'saleId', through: salesProduct, otherKey: 'productId' });
+  //   models.Sale.belongsToMany(models.Product,
+  //     { as: 'products', foreignKey: 'productId' , through: salesProduct, otherKey: 'saleId'});
+
+    salesProduct.associate = (models) => {
+      models.Product.belongsToMany(models.Sale,
+        { as: 'sales', through: salesProduct});
+      models.Sale.belongsToMany(models.Product,
+        { as: 'products', through: salesProduct});
   }
   return salesProduct;
 };

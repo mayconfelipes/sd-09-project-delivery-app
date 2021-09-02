@@ -41,14 +41,23 @@ const registerUser = async ({ name, email, password, role }) => {
 };
 
 const getAllUsers = async () => {
-  const allUsers = await User.findAll();
+  const allUsers = await User.findAll({ attributes: { exclude: ['password'] } });
   return allUsers.map((user) => user.dataValues);
+};
+
+const getAllSellers = async () => {
+  const allSellers = await User.findAll({
+    where: { role: 'seller' },
+    attributes: { exclude: ['password'] },
+  });
+  return allSellers.map((user) => user.dataValues);
 };
 
 module.exports = {
   loginUser,
   registerUser,
   getAllUsers,
+  getAllSellers,
 };
 
 // =======================================
