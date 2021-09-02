@@ -10,7 +10,7 @@ const route = 'customer_order_details';
 const label = 'element-order-details-label';
 
 function OrdersDetails() {
-  const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState({ products: [] });
   const [sellerName, setSellerName] = useState([]);
   // const user = JSON.parse(localStorage.user);
   const { id } = useParams();
@@ -30,7 +30,6 @@ function OrdersDetails() {
 
   return (
     <section>
-      <h1>DETALHES DO PEDIDO</h1>
       { console.log(order) }
       <p data-testid={ `${route}__${label}-order-id` }>{ order.id }</p>
       <p data-testid={ `${route}__${label}-seller-name` }>{ sellerName }</p>
@@ -38,8 +37,14 @@ function OrdersDetails() {
         { moment(order.saleDate).format('DD/MM/yyyy') }
       </p>
       <p data-testid={ `${route}__${label}-delivery-status` }>{ order.status }</p>
-      { createButton({ ...deliveryCheck, onclick: () => {}, route }) }
-      <OrderDetailsTable />
+      <OrderDetailsTable products={ order.products } />
+      { createButton({
+        ...deliveryCheck,
+        onclick: () => setOrder({ ...order, status: 'Entregue' }),
+        route,
+        disabled: order.status !== 'Em Trânsito',
+      }) }
+      <p data-testid={ `${route}__element-order-total-price` }>{ order.totalPrice }</p>
     </section>
   );
 }

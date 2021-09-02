@@ -24,7 +24,10 @@ function Registration() {
   const handleRegister = async () => createUser({ name, email, password })
     .then((data) => setApiResponse(data));
 
-  if (apiResponse.id) return <Redirect to="/customer/products" />;
+  if (apiResponse.id) {
+    localStorage.user = JSON.stringify(apiResponse);
+    return <Redirect to="/customer/products" />;
+  }
 
   return (
     <FormSection>

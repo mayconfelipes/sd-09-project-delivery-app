@@ -5,15 +5,27 @@ import { number } from 'prop-types';
 
 const route = 'customer_order_details';
 
-function OrderDetailsTable() {
+function OrderDetailsTable({ products }) {
+  console.log(products);
   return (
-    <section>
-      <h1>TABELA DE DETALHES DA VENDA</h1>
-      <p data-testid={ `${route}__element-card-title-{id}` }>item-number</p>
-      <p data-testid={ `${route}__element-order-table-name-{id}` }>name</p>
-      <p data-testid={ `${route}__element-order-table-quantity-{id}` }>quantity</p>
-      <p data-testid={ `${route}__element-order-table-sub-total-{id}` }>sub-total</p>
-    </section>
+    <table>
+      { products.map(({ id, name, price, SalesProduct }, index) => (
+        <tr key={ id }>
+          <td data-testid={ `${route}__element-card-title-${index}` }>
+            { index + 1 }
+          </td>
+          <td data-testid={ `${route}__element-order-table-name-${index}` }>
+            { name }
+          </td>
+          <td data-testid={ `${route}__element-order-table-quantity-${index}` }>
+            { SalesProduct.quantity }
+          </td>
+          <td data-testid={ `${route}__element-order-table-sub-total-${index}` }>
+            { price * SalesProduct.quantity }
+          </td>
+        </tr>
+      ))}
+    </table>
   );
 }
 
@@ -22,11 +34,3 @@ OrderDetailsTable.propTypes = {
 }.isRequired;
 
 export default OrderDetailsTable;
-// deliveryAddress: "sad"
-// deliveryNumber: "sad"
-// id: 1
-// saleDate: "2021-09-02T15:39:28.000Z"
-// sellerId: 2
-// status: "Pendente"
-// totalPrice: "21.60"
-// userId: 4
