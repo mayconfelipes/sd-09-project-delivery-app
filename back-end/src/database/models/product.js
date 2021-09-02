@@ -4,8 +4,7 @@ const product = (sequelize, DataTypes) => {
     price: DataTypes.DECIMAL,
 
     urlImage: DataTypes.STRING
-  }, { timestamps: false, underscored: true, tableName: 'Products' });
-
+  }, { timestamps: false, underscored: true });
 
   return product;
 };
