@@ -3,13 +3,13 @@
 }
 
 .order-list-container section {
-  margin-left: 100px;
   display: flex;
+  margin-left: 100px;
 }
 
 .order-container {
   display: flex;
   flex-wrap: wrap;
-  margin: 1rem ;
+  margin: 1rem;
   width: 60rem;
 }

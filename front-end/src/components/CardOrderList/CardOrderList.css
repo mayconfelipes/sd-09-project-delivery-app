@@ -22,7 +22,7 @@ a {
 
 .number-order {
   align-items: center;
-  background-color: #fff;
+  background-color: white;
   border-bottom: 1px solid rgba(65, 61, 61, 0.199);
   border-radius: 3px 0 0 3px;
   display: flex;
@@ -58,20 +58,20 @@ a {
 }
 
 .status-container {
-  background-color: #87D53C;
+  background-color: #87d53c;
   border-radius: 5px;
-  padding: 20px 20px;
   margin: 0 0.5rem 0.5rem 0;
+  padding: 20px;
   text-align: center;
   width: 10rem;
 }
 
 .pendente {
-  background-color: #D4C63C;
+  background-color: #d4c63c;
 }
 
 .entregue {
-  background-color: #456DF9;
+  background-color: #456df9;
 }
 
 .date-and-value {
