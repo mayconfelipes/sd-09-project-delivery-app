@@ -34,4 +34,5 @@ app.use((err, _req, res, _next) => {
 });
 
 app.listen(port);
+
 console.log(`pai ta on na porta ${port}`);
