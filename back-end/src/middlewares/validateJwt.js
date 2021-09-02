@@ -1,13 +1,12 @@
 const path = require('path');
 const jwt = require('jsonwebtoken');
-const { User } = require('../database/models');
-
 const SECRET_KEY = require('fs')
 .readFileSync(
   path.join(__dirname, '..', '..', 'jwt.evaluation.key'),
   { encoding: 'utf-8' },
-)
-.trim();
+).trim();
+
+const { User } = require('../database/models');
 
 module.exports = async (req, _res, next) => {
   const { token } = req.headers;
