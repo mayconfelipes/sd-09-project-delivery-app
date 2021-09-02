@@ -6,7 +6,7 @@ import './Products.css';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const user = JSON.parse(localStorage.getItem('User'));
+  const user = JSON.parse(localStorage.getItem('user'));
   const { token, role, name } = user;
 
   async function getData() {

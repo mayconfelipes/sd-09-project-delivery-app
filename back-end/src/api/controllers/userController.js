@@ -31,4 +31,4 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-module.exports = { listUsers, createUser, deleteUser, }
+module.exports = { listUsers, createUser, deleteUser };

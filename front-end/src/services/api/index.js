@@ -22,7 +22,7 @@ export const fetchToLogin = (email, password, setInvalidUser, setRedirectTo) => 
       if (response.message) {
         setInvalidUser(true);
       } else {
-        localStorage.setItem('User', JSON.stringify(response));
+        localStorage.setItem('user', JSON.stringify(response));
         setRedirectTo(true);
       }
     });
@@ -52,7 +52,7 @@ export const fetchToRegister = (payload, setInvalidUser, setRedirectTo) => {
         setInvalidUser(true);
       } else {
         console.log(response);
-        localStorage.setItem('User', JSON.stringify(response));
+        localStorage.setItem('user', JSON.stringify(response));
         setRedirectTo(true);
       }
     });

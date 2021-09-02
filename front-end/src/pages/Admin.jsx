@@ -13,7 +13,7 @@ const Admin = () => {
   const [disableButton, setDisable] = useState(true);
   const [deletedUser, setDeleteUser] = useState(false);
 
-  const user = JSON.parse(localStorage.getItem('User'));
+  const user = JSON.parse(localStorage.getItem('user'));
   const { token, role, name } = user;
 
   const verifyInputs = () => {
