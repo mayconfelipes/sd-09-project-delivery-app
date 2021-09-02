@@ -10,7 +10,7 @@ const jwtConfig = {
 
 const userLogin = (email, password) => {
   const validData = validatorJoi.verifierSchemaLogin(email, password);
-  const teste = process.env.JWT_SECRET || 'secret';
+  const teste = process.env.JWT_SECRET || 'secret_key';
   if (validData.message) return validData;
 
   const token = jwt.sign({ email, password }, teste, jwtConfig);

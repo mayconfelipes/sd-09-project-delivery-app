@@ -16,6 +16,7 @@ const saveOneUser = async (name, email, password, role) => {
   const passHashed = md5HashCreate(password);
   const roleValue = role || 'customer';
   const userCreated = await users.create({ name, email, password: passHashed, role: roleValue });
+  console.log(userCreated.dataValues, '<<<userCreated.dataValues');
   return userCreated.dataValues;
 };
 
