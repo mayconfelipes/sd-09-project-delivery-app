@@ -14,7 +14,7 @@ function ProductCard({ product: { id, name, price, urlImage } }) {
     if (quantity >= 0) {
       updateCart(id, name, price, quantity);
     }
-  }, [id, quantity, price]);
+  }, [id, name, quantity, price]);
 
   const onClick = ({ target }) => {
     if (target.name.includes('add')) setQuantity(() => (quantity + 1));
