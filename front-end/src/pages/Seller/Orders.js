@@ -12,8 +12,8 @@ function Orders() {
 
   useEffect(() => {
     const getSales = async () => {
-      const response = await getSalesBySeller(apiResponse.id);
-      setSales(response);
+      const data = await getSalesBySeller(apiResponse.id);
+      setSales(data);
     };
 
     getSales();

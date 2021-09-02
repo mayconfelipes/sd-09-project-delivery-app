@@ -27,3 +27,8 @@ export const submitOrder = {
   name: 'submit-order',
   label: 'FINALIZAR PEDIDO',
 };
+
+export const deliveryCheck = {
+  name: 'delivery-check',
+  label: 'MARCAR COMO ENTREGUE',
+};

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { LoginContext } from '../../context/LoginContext';
 import { createButton } from '../../utils/creators';
-import { getSale } from '../../services/api';
+import { getSaleByid } from '../../services/api';
 import Navbar from '../../components/Seller/Navbar';
 
 const route = 'seller_order_details';
@@ -14,7 +14,7 @@ function OrdersDetails() {
 
   useEffect(() => {
     const getSaleWithId = async () => {
-      const response = await getSale(id);
+      const response = await getSaleByid(id);
       setSale(response);
     };
 
