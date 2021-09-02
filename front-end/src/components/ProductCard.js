@@ -19,6 +19,7 @@ const ProductCard = (props) => {
     .split('.').join(',');
 
   function handleQuantityBtn(e, action) {
+    setNegativeNumError(false);
     e.preventDefault();
     const { id, name, price, urlImage } = product;
     const quantityInput = document.getElementById(`quantity-${id}`);
@@ -44,6 +45,7 @@ const ProductCard = (props) => {
   }
 
   function handleQuantityInput(e) {
+    setNegativeNumError(false);
     const { id, name, price, urlImage } = product;
     const currentQuantity = e.target.value;
     if (currentQuantity < 0) {
