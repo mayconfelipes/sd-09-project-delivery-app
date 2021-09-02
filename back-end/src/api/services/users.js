@@ -16,7 +16,7 @@ const searchUser = async (email, password) => {
 const loginUser = async ({ email, password }) => {
   const passwordMD5 = crypto.createHash('md5').update(password).digest('hex');
   const loggedUser = await searchUser(email, passwordMD5);
-  if (!loggedUser) throw newError(404, 'User not found');
+  if (!loggedUser) throw newError(404, 'Incorrect user or password');
   loggedUser.token = await newToken(loggedUser);
   return loggedUser;
 };
@@ -45,10 +45,16 @@ const getAllUsers = async () => {
   return allUsers.map((user) => user.dataValues);
 };
 
+const getSellers = async () => {
+  const sellers = await User.findAll({ where: { role: 'seller' } });
+  return sellers;
+};
+
 module.exports = {
   loginUser,
   registerUser,
   getAllUsers,
+  getSellers,
 };
 
 // =======================================

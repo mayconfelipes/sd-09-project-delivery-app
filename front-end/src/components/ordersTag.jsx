@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import ProductsContext from '../context/ProductsContext';
 import '../styles/ordersTag.css';
 
-function CustomerProducts() {
+function OrderTag() {
+  const { allOrders, getOrders } = useContext(ProductsContext);
+
+  useEffect(() => {
+    getOrders();
+  }, [allOrders]);
   return (
     <div className="container_status_cards">
       <div className="status_card">
@@ -35,4 +41,4 @@ function CustomerProducts() {
   );
 }
 
-export default CustomerProducts;
+export default OrderTag;
