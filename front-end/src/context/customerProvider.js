@@ -7,6 +7,8 @@ function CustomerProvider({ children }) {
 
   const [sellers, setSellers] = useState([]);
 
+  const [customer, setCustomer] = useState({});
+
   const data = {
     customer,
     setCustomer,

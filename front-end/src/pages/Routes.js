@@ -15,11 +15,9 @@ const Routes = () => (
       <Route path="/login" component={ Login } />
       <CustomerProvider>
         <Route path="/customer/checkout" component={ Checkout } />
-      </CustomerProvider>
-      <Route path="/register" component={ Register } />
-      <CustomerProvider>
         <Route path="/customer/products" component={ ClientProducts } />
       </CustomerProvider>
+      <Route path="/register" component={ Register } />
     </Switch>
   </BrowserRouter>
 );
