@@ -1,22 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { number } from 'prop-types';
-// import { Redirect } from 'react-router-dom';
-// import { Context } from '../context';
 import { createButton } from '../../utils/creators';
 import { addItemBtn, rmItemBtn } from '../../data/ButtonOptions';
-// import { itemQty } from '../../data/InputOptions';
 import { CustomerContext } from '../../context/CustomerContext';
 
 const route = 'customer_products';
 
 function ProductCard({ product: { id, name, price, urlImage } }) {
-  // const [inputValue, setInputValue] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const { updateCart } = useContext(CustomerContext);
-
-  // const handleChange = ({ target }) => {
-  //   setState({ ...state, [target.name]: target.value });
-  // };
 
   useEffect(() => {
     if (quantity >= 0) {

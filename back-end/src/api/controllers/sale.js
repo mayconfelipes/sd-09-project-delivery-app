@@ -3,7 +3,7 @@ const rescue = require('express-rescue');
 const Joi = require('joi');
 const Sale = require('../services/sale');
 const validate = require('../middlewares/validate');
-// const validateToken = require('../middlewares/validateToken');
+const validateToken = require('../middlewares/validateToken');
 
 const route = express.Router();
 
@@ -13,19 +13,10 @@ const saleValidator = Joi.object({
   totalPrice: Joi.number().required(),
   deliveryAddress: Joi.string().required(),
   deliveryNumber: Joi.string().required(),
-  saleDate: Joi.date().required(),
-  status: Joi.string().required(),
-  productId: Joi.number().required(),
-  quantity: Joi.number().required(),
+  // saleDate: Joi.date(),
+  status: Joi.string(),
+  cart: Joi.array().required(),
 });
-
-route.post('/', [
-  validate(saleValidator),
-  rescue(async (req, res) => {
-    const sale = await Sale.create(req.body);
-    res.status(201).json(sale);
-  }),
-]);
 
 route.get('/', [
   rescue(async (_req, res) => {
@@ -34,7 +25,15 @@ route.get('/', [
   }),
 ]);
 
-// route.use(validateToken);
+route.use(validateToken);
+
+route.post('/', [
+  validate(saleValidator),
+  rescue(async (req, res) => {
+    const sale = await Sale.create(req.body);
+    res.status(201).json(sale);
+  }),
+]);
 
 route.get('/:id', [
   rescue(async (req, res) => {

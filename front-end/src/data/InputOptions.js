@@ -1,6 +1,6 @@
 export const emailOptions = {
-  id: 'emailInput',
-  name: 'emailInput',
+  id: 'email',
+  name: 'email',
   type: 'email',
   placeholder: 'seu-email@site.com.br',
   label: 'Email',
@@ -8,8 +8,8 @@ export const emailOptions = {
 };
 
 export const passwordOptions = {
-  id: 'passwordInput',
-  name: 'passwordInput',
+  id: 'password',
+  name: 'password',
   type: 'password',
   placeholder: '******',
   label: 'Senha',
@@ -17,8 +17,8 @@ export const passwordOptions = {
 };
 
 export const nameOptions = {
-  id: 'nameInput',
-  name: 'nameInput',
+  id: 'name',
+  name: 'name',
   type: 'text',
   placeholder: 'Seu nome',
   label: 'Nome',

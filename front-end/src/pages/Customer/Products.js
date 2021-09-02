@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-// import { Context } from '../context';
 import Navbar from '../../components/Navbar';
 import ProductCard from '../../components/Customer/ProductCard';
 import { getProducts } from '../../services/api';
-// import { createButton } from '../../utils/creators';
-// import { cartButton } from '../../data/ButtonOptions';
 import { CustomerContext } from '../../context/CustomerContext';
 
 const route = 'customer_products';

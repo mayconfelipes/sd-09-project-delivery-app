@@ -6,10 +6,11 @@ const error = require('../utils/generateError');
 
 const saleNotFound = '"sale" not found';
 
-const create = async ({ productId, quantity, ...sale }) => {
+const create = async ({ cart, ...sale }) => {
   const data = await Sale.create(sale);
   const saleId = data.id;
-  await SalesProduct.create({ saleId, productId, quantity });
+  cart.forEach(({ productId, quantity }) =>
+    SalesProduct.create({ saleId, productId, quantity }));
   return data;
 };
 
@@ -38,7 +39,6 @@ const destroy = async ({ id }) => {
 
 const findBySeller = async ({ id }) => {
   const data = await Sale.findAll({ where: { sellerId: id } });
-
   return data;
 };
 
