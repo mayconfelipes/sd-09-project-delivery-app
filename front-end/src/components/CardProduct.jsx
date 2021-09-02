@@ -1,7 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/CardProduct.css';
+import debounce from 'lodash.debounce';
 import Context from '../context/Context';
+
+const DEFAULT_TIMEOUT = 300;
 
 function CardProduct({ product }) {
   const { name, urlImage, price, id } = product;
@@ -19,6 +22,27 @@ function CardProduct({ product }) {
       setValue(quantity);
       removeProduct({ ...product, quantity });
     }
+  };
+
+  const updateGlobalState = (quantity, prevValue) => {
+    if (quantity > prevValue) {
+      addProduct({ ...product, quantity });
+    } else {
+      removeProduct({ ...product, quantity });
+    }
+  };
+
+  const debouncedUpdate = useCallback(
+    debounce(updateGlobalState, DEFAULT_TIMEOUT),
+    [],
+  );
+
+  const handleTypedChange = (e) => {
+    const { value: quantity } = e.target;
+    const prevValue = value;
+
+    setValue(quantity);
+    debouncedUpdate(quantity, prevValue);
   };
 
   const formatedPrice = (price_) => price_.replace('.', ',');
@@ -54,10 +78,11 @@ function CardProduct({ product }) {
         </button>
 
         <input
-          type="text"
+          type="number"
           data-testid={ `customer_products__input-card-quantity-${id}` }
           value={ value }
-          readOnly
+          onChange={ handleTypedChange }
+          className="product__card__price__input"
         />
         <button
           type="button"

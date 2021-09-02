@@ -3,14 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import CardProduct from '../components/CardProduct';
 import Header from '../components/Header';
-import Provider from '../context/Provider';
-import Button from '../components/button';
+import CartButton from '../components/CartButton';
 import '../styles/Produtos.css';
 
 const Produtos = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState('');
-  const userData = JSON.parse(localStorage.getItem('user'));
+  const [userData] = useState(JSON.parse(localStorage.getItem('user')));
 
   useEffect(
     () => {
@@ -30,7 +29,7 @@ const Produtos = () => {
     }, [userData],
   );
   if (!userData || error) {
-    localStorage.removeItem('user');
+    localStorage.clear();
     return (<Redirect
       to={ {
         pathname: '/login',
@@ -40,7 +39,7 @@ const Produtos = () => {
     />);
   }
   return (
-    <Provider>
+    <>
       <Header />
       <main className="products__page">
         <section className="products__list">
@@ -50,9 +49,12 @@ const Produtos = () => {
             )
           }
         </section>
-        <Button className="products__cart__button" name="Ver carrinho: " />
+        <CartButton
+          className="products__cart__button"
+          data-testid="customer_products__button-cart"
+        />
       </main>
-    </Provider>
+    </>
   );
 };
 

@@ -28,6 +28,15 @@
   font-size: 1rem;
 }
 
-input {
-  width: 20px;
+.product__card__price__input {
+  width: 1.1em;
+  text-align: center;
+}
+
+.product__card__price__input::-webkit-inner-spin-button,
+.product__card__price__input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
 }
