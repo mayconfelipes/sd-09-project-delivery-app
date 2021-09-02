@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import salesAPI from '../../services/salesAPI';
 import formatDate from '../../services/formatDate';
 
-const renderSales = (MockSalesDB, click) => (
+const renderSales = (MockSalesDB, click, user) => (
   MockSalesDB.map((sale) => (
     <button
       id={ sale.id }
@@ -12,19 +12,19 @@ const renderSales = (MockSalesDB, click) => (
       className="card-sale"
       onClick={ click(sale.id) }
     >
-      <p data-testid={ `seller_orders__element-order-id-${sale.id}` }>
+      <p data-testid={ `${user}_orders__element-order-${sale.id}` }>
         {`Pedido: ${sale.id}`}
       </p>
       <div
         className="status-sale"
-        data-testid={ `seller_orders__element-delivery-status-${sale.id}` }
+        data-testid={ `${user}_orders__element-delivery-status-${sale.id}` }
       >
         {sale.status}
       </div>
 
       <div
         className="date-sale"
-        data-testid={ `seller_orders__element-order-date-${sale.id}` }
+        data-testid={ `${user}_orders__element-order-date-${sale.id}` }
       >
         {formatDate(sale.saleDate)}
       </div>
@@ -48,6 +48,9 @@ const renderSales = (MockSalesDB, click) => (
 
 export default function Sales() {
   const history = useHistory();
+  const location = useLocation();
+
+  const user = location.pathname.includes('seller') ? 'seller' : 'customer';
 
   const [MockSalesDB, setMockSalesDB] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -55,14 +58,23 @@ export default function Sales() {
   useEffect(() => {
     setIsLoading(true);
     const userInfos = JSON.parse(localStorage.getItem('userData'));
-    salesAPI({ sellerId: userInfos.id })
-      .then((response) => {
-        setMockSalesDB(response);
-        setIsLoading(false);
-      });
-  }, []);
 
-  const handleClick = (id) => () => history.push(`/seller/orders/${id}`);
+    if (user === 'seller') {
+      salesAPI({ sellerId: userInfos.id }, user)
+        .then((response) => {
+          setMockSalesDB(response);
+          setIsLoading(false);
+        });
+    } else {
+      salesAPI({ userId: userInfos.id }, user)
+        .then((response) => {
+          setMockSalesDB(response);
+          setIsLoading(false);
+        });
+    }
+  }, [user]);
 
-  return isLoading ? <p>Loading...</p> : renderSales(MockSalesDB, handleClick);
+  const handleClick = (id) => () => history.push(`/${user}/orders/${id}`);
+
+  return isLoading ? <p>Loading...</p> : renderSales(MockSalesDB, handleClick, user);
 }

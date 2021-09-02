@@ -1,10 +1,13 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import useStyle from './navBar.style';
 
 export default function NavBar() {
   const userInfos = JSON.parse(localStorage.getItem('userData'));
 
   const classes = useStyle();
+
+  const history = useHistory();
 
   return (
     <div className={ classes.root }>
@@ -24,6 +27,7 @@ export default function NavBar() {
           data-testid="customer_products__element-navbar-link-orders"
           className={ classes.optionsNavBar }
           style={ { backgroundColor: '#036B52' } }
+          onClick={ () => history.push('/customer/orders') }
         >
           MEUS PEDIDOS
         </button>

@@ -2,7 +2,7 @@ const URLBase = 'http://localhost:3001';
 
 const salesOrdersAPI = async (params) => {
   try {
-    const URL = `${URLBase}/sales/details/${params}`;
+    const URL = `${URLBase}/seller/details/${params}`;
     const requestOptions = {
       method: 'GET',
     };

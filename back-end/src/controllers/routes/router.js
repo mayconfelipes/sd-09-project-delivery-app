@@ -13,7 +13,7 @@ router.use('/register', registerController);
 
 router.use('/login', loginController);
 
-router.use('/sales', salesOrdersController);
+router.use('/seller', salesOrdersController);
 
 router.use('/customer', customerOrders);
 

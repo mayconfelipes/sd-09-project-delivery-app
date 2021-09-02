@@ -1,8 +1,8 @@
 const URLBase = 'http://localhost:3001';
 
-const salesOrdersAPI = async (saleBody) => {
+const salesOrdersAPI = async (saleBody, user) => {
   try {
-    const URL = `${URLBase}/sales/orders`;
+    const URL = `${URLBase}/${user}/orders`;
     const requestOptions = {
       mode: 'cors',
       method: 'POST',
