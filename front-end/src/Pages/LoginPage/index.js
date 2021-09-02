@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   AppTitle,
   Button,
@@ -14,6 +15,7 @@ import useLoginInfo from '../../hooks/useLoginInfo';
 import { PostLogin } from '../../Services/Api';
 
 const LoginPage = () => {
+  const history = useHistory();
   const [loginInfo, handleFieldsChange] = useLoginInfo();
   const loginUser = (data) => () => {
     PostLogin(data);
@@ -24,7 +26,7 @@ const LoginPage = () => {
       <AppTitle>AppTitle</AppTitle>
       <Wrapper>
         <Label>
-          Campo
+          E-mail:
           <Input
             type="email"
             name="email"
@@ -34,7 +36,7 @@ const LoginPage = () => {
           />
         </Label>
         <Label>
-          Campo
+          Senha:
           <Input
             type="password"
             name="password"
@@ -49,7 +51,12 @@ const LoginPage = () => {
         >
           Login
         </Button>
-        <Button data-test-id={ testIds.id4 }>
+        <Button
+          data-testid={ testIds.id4 }
+          onClick={ () => {
+            history.push('/register');
+          } }
+        >
           Ainda não tenho conta
         </Button>
         <Wrapper data-test-id={ testIds.id5 }>
