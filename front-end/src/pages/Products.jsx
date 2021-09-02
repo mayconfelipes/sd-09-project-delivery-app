@@ -14,19 +14,37 @@ function Products() {
     const currTotalPrice = totalPrice;
 
     if (action === 'subtract') {
-      setTotalPrice(currTotalPrice - parseFloat(productPrice));
+      setTotalPrice(
+        parseFloat((currTotalPrice - parseFloat(productPrice)).toFixed(2)),
+      );
     } else {
-      setTotalPrice(currTotalPrice + parseFloat(productPrice));
+      setTotalPrice(
+        parseFloat((currTotalPrice + parseFloat(productPrice)).toFixed(2)),
+      );
     }
+  };
+
+  const chengeTotalPrice = (price) => {
+    setTotalPrice(price);
   };
 
   const addToCart = ({ id, name, price }) => {
     const existentProduct = cart.find((product) => product.id === id);
 
+    console.log(price);
     if (!existentProduct) {
-      setCart([...cart, { id, name, price: parseFloat(price) }]);
+      setCart([
+        ...cart,
+        {
+          id,
+          name,
+          price: parseFloat(parseFloat(price).toFixed(2)),
+          quantity: 1,
+        },
+      ]);
     } else {
-      existentProduct.price += parseFloat(price);
+      existentProduct.price += parseFloat(parseFloat(price).toFixed(2));
+      existentProduct.quantity += 1;
     }
   };
 
@@ -35,14 +53,18 @@ function Products() {
 
     const existentProduct = cart.find((product) => product.id === id);
 
-    if (existentProduct.price === parseFloat(price)) {
+    if (existentProduct.price === parseFloat(parseFloat(price).toFixed(2))) {
       const cartArr = [...cart];
 
-      cartArr.splice(cartArr.findIndex((product) => product.id === id), 1);
+      cartArr.splice(
+        cartArr.findIndex((product) => product.id === id),
+        1,
+      );
 
       setCart(cartArr);
     } else {
-      existentProduct.price -= parseFloat(price);
+      existentProduct.price -= parseFloat(parseFloat(price).toFixed(2));
+      existentProduct.quantity -= 1;
     }
   };
 
@@ -74,18 +96,25 @@ function Products() {
               updateTotalPrice={ updateTotalPrice }
               addToCart={ addToCart }
               removeFromCart={ removeFromCart }
+              changeTotalPrice={ chengeTotalPrice }
             />
           </li>
         ))}
       </ul>
       <button
+        disabled={ cart.length === 0 }
+        data-testid="customer_products__button-cart"
         type="button"
         onClick={ () => {
           localStorage.setItem('cart', JSON.stringify(cart));
           history.push('/customer/checkout');
         } }
       >
-        Checkout
+        Ver Carrinho: R$
+        {' '}
+        <span data-testid="customer_products__checkout-bottom-value">
+          { totalPrice.toString().replace(/\./, ',') }
+        </span>
       </button>
     </>
   );
