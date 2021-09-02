@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const url = 'http://localhost:3001';
-const token = { headers: { authorization: JSON.parse(localStorage.user).token } };
 
 export const login = async (email, password, successCb, errorCb) => {
   const body = { email, password };
@@ -26,15 +25,21 @@ export const getProducts = () => axios.get(`${url}/product`)
   .then(({ data }) => data)
   .catch((error) => error.response.data);
 
-export const getSalesBySeller = (id) => axios.get(`${url}/sale/seller/${id}`, token)
+export const getSalesBySeller = (id) => axios.get(`${url}/sale/seller/${id}`, {
+  headers: { authorization: JSON.parse(localStorage.user).token },
+})
   .then(({ data }) => data)
   .catch((error) => error.response.data);
 
-export const getSale = (id) => axios.get(`${url}/sale/${id}`, token)
+export const getSale = (id) => axios.get(`${url}/sale/${id}`, {
+  headers: { authorization: JSON.parse(localStorage.user).token },
+})
   .then(({ data }) => data)
   .catch((error) => error.response.data);
 
-export const createSale = (body) => axios.post(`${url}/sale`, body, token)
+export const createSale = (body) => axios.post(`${url}/sale`, body, {
+  headers: { authorization: JSON.parse(localStorage.user).token },
+})
   .then(({ data }) => data)
   .catch((error) => error.response.data);
 
