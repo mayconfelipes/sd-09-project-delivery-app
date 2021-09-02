@@ -33,8 +33,13 @@
   width: 1.1em;
 }
 
-.product__card__price__input::-webkit-inner-spin-button,
+.product__card__price__input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
 .product__card__price__input::-webkit-outer-spin-button {
   appearance: none;
   margin: 0;
 }
+
