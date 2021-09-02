@@ -27,8 +27,8 @@ const validateCOD = async ({COD, SOD, situation, status, deliveryBtnDisabled, cu
       await expect(COD).toGetTextFromElement(
         customerOrdersPage.element.card.deliveryStatus + `[data-testid$='-${saleId}']`,
         status
-      );     
-    }
+    );     
+  }
 
     await COD.waitForTimeout(1000);
     await SOD.bringToFront();
