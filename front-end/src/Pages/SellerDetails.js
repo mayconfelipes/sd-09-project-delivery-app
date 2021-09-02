@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import NavBar from '../Components/Organisms/NabBar';
-import { editStatusOrder, getSaleById } from '../services/api';
+import { editStatusOrder, saleById } from '../services/api';
 import { formatDate, formatPrice } from '../services/functions';
 
 function SellerDetails() {
@@ -20,7 +20,8 @@ function SellerDetails() {
 
   const allDataIds = (key, index) => {
     const dataIds = {
-      deliveryStatus: 'seller_order_details__element-order-details-label-delivery-status',
+      deliveryStatus:
+        'seller_order_details__element-order-details-label-delivery-status',
       orderDate: 'seller_order_details__element-order-details-label-order-date',
       preparing: 'seller_order_details__button-preparing-check',
       dispatch: 'seller_order_details__button-dispatch-check',
@@ -36,20 +37,19 @@ function SellerDetails() {
   };
 
   const changeStatusOrder = async ({ target: { textContent } }) => {
-    const status = (textContent === 'Preparar Pedido') ? 'Preparando' : 'Em Trânsito';
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    const request = await editStatusOrder(userInfo.token, { id, status });
-    if (request.message === 'Preparando'
-    || request.message === 'Em Trânsito') {
+    const status = textContent === 'Preparar Pedido' ? 'Preparando' : 'Em Trânsito';
+    const user = JSON.parse(localStorage.getItem('user'));
+    const request = await editStatusOrder(user.token, { id, status });
+    if (request.message === 'Preparando' || request.message === 'Em Trânsito') {
       setDetailsOrder({ ...detailsOrder, status: request.message });
     }
   };
 
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    setName(userInfo.name);
+    const user = JSON.parse(localStorage.getItem('user'));
+    setName(user.name);
     const getSaleDetails = async () => {
-      const request = await getSaleById(userInfo.token, id);
+      const request = await saleById(id, user.token);
       setDetailsOrder(request);
     };
     getSaleDetails();
@@ -74,7 +74,9 @@ function SellerDetails() {
                 <button
                   type="button"
                   data-tesid={ allDataIds('preparing') }
-                  disabled={ detailsOrder.status !== 'Pendente' ? 'disabled' : '' }
+                  disabled={
+                    detailsOrder.status !== 'Pendente' ? 'disabled' : ''
+                  }
                   onClick={ changeStatusOrder }
                 >
                   Preparar Pedido
@@ -84,7 +86,9 @@ function SellerDetails() {
                 <button
                   type="button"
                   data-testid={ allDataIds('dispatch') }
-                  disabled={ detailsOrder.status !== 'Preparando' ? 'disabled' : '' }
+                  disabled={
+                    detailsOrder.status !== 'Preparando' ? 'disabled' : ''
+                  }
                   onClick={ changeStatusOrder }
                 >
                   Saiu para Entrega
@@ -102,17 +106,25 @@ function SellerDetails() {
                 </tr>
               </thead>
               <tbody>
-                { detailsOrder.product.map((product, index) => {
+                {detailsOrder.product.map((product, index) => {
                   const { id: idProduct, name: nameProduct, price } = product;
-                  const { salesProduct: { quantity } } = product;
+                  const {
+                    salesProduct: { quantity },
+                  } = product;
                   const indexMap = index + 1;
-                  totalOrder += (price * quantity);
+                  totalOrder += price * quantity;
 
                   return (
                     <tr key={ idProduct }>
-                      <td data-testid={ allDataIds('item', indexMap) }>{indexMap}</td>
-                      <td data-testid={ allDataIds('name', indexMap) }>{nameProduct}</td>
-                      <td data-testid={ allDataIds('quantity', indexMap) }>{quantity}</td>
+                      <td data-testid={ allDataIds('item', indexMap) }>
+                        {indexMap}
+                      </td>
+                      <td data-testid={ allDataIds('name', indexMap) }>
+                        {nameProduct}
+                      </td>
+                      <td data-testid={ allDataIds('quantity', indexMap) }>
+                        {quantity}
+                      </td>
                       <td data-testid={ allDataIds('price', indexMap) }>
                         {formatPrice(price)}
                       </td>

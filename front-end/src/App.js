@@ -1,6 +1,15 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Products, Login, Register, Checkout, CustumeOrders, OrderDetail, SellerOrders, SellerDetails } from './Pages';
+import {
+  Products,
+  Login,
+  Register,
+  Checkout,
+  CustumeOrders,
+  OrderDetail,
+  SellerOrders,
+  SellerDetails,
+} from './Pages';
 
 import './App.css';
 import { CartProvider } from './Contexts/CartContext';
