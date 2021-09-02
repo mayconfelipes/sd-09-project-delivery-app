@@ -20,7 +20,7 @@ function App() {
             ? Login
             : () => <Redirect to="/customer/products" /> }
         />
-        
+
         <Route path="/register" component={ Register } />
         <Route exact path="/">
           <Redirect to="/login" />
