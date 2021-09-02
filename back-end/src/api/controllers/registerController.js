@@ -2,11 +2,12 @@ const express = require('express');
 const rescue = require('express-rescue');
 
 const registerService = require('../services/registerService');
+const registerValidator = require('../middlewares/registerValidator'); 
 const { created } = require('../utils/httpStatusCodes');
 
 const registerController = express.Router();
 
-registerController.post('/', rescue(async (req, res, next) => {
+registerController.post('/', registerValidator, rescue(async (req, res, next) => {
   const { name, email, password, role } = req.body;
   
   const { error, createdUser } = await registerService.register(name, email, password, role);
