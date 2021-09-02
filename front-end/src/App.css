@@ -110,6 +110,12 @@
   width: 100%;
 }
 
+.quantityError {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 200;
+}
+
 .price {
   align-self: flex-start;
   background-color: rgba(196, 196, 196, 0.783);

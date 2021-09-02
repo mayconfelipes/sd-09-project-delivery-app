@@ -117,7 +117,7 @@ const ProductCard = (props) => {
             +
           </button>
         </div>
-        <p>
+        <p className="quantityError">
           { negativeNumError && negativeNumErrorMsg }
         </p>
       </div>
