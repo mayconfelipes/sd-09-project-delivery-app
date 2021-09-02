@@ -14,13 +14,6 @@ const ClientProducts = () => {
   const History = useHistory();
   const cartBtn = document.getElementById('cart-btn');
 
-  let renderProducts;
-  if (products.length > 0) {
-    renderProducts = products.map(
-      (prod) => <ProductCard key={ prod.id } product={ prod } />,
-    );
-  }
-
   useEffect(() => {
     setTotalPrice(shoppingCart);
     localStorage.setItem('cart', JSON.stringify(shoppingCart));
@@ -33,10 +26,7 @@ const ClientProducts = () => {
   }, [shoppingCart, setTotalPrice, cartBtn]);
 
   useEffect(() => {
-    const loadProducts = async () => {
-      await setProducts(token);
-    };
-    loadProducts();
+    setProducts(token);
   }, [token, setProducts]);
 
   function handleCheckout() {
@@ -44,10 +34,12 @@ const ClientProducts = () => {
   }
 
   return (
-    <div>
+    <>
       <Header />
       <div className="products">
-        { renderProducts }
+        { products.length && products.map(
+          (prod) => <ProductCard key={ prod.id } product={ prod } />,
+        ) }
       </div>
       <button
         id="cart-btn"
@@ -63,7 +55,7 @@ const ClientProducts = () => {
           { totalPrice }
         </span>
       </button>
-    </div>
+    </>
   );
 };
 
