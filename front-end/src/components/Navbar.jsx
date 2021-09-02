@@ -15,6 +15,21 @@ const Navbar = ({ role }) => {
   const [isLogout, setIsLogout] = useState(false);
   const { setTotalCart } = useContext(AppContext);
 
+  const fildsByRole = {
+    customer: {
+      option1: 'MEUS PEDIDOS',
+      link: '/customer/orders',
+    },
+    seller: {
+      option1: 'PEDIDOS',
+      link: '/seller/orders',
+    },
+    adminstrator: {
+      option1: 'GERENCIAR USUÁRIOS',
+      link: '/admin/manage',
+    },
+  };
+
   if (isLogout) {
     removeUserDataLocalStorage();
     removeCarrinhoLocalStorage();
@@ -34,19 +49,21 @@ const Navbar = ({ role }) => {
             to="/customer/products"
           />
         )}
+
         <LinkNavbar
           dataTestId={ testid[12] }
-          text="MEUS PEDIDOS"
+          text={ `${fildsByRole[role].option1}` }
           classStyle="navbar-link navbar-link-green"
-          to={ `/${role}/orders` }
+          to={ `${fildsByRole[role].link}` }
         />
+
       </div>
       <div className="nav-display-flex">
         <div
           data-testid={ testid[13] }
           className="navbar-link navbar-link-purple"
         >
-          {getNameLocalStorage()}
+          {role === 'administrator' ? 'DeliveryApp Admin' : getNameLocalStorage()}
         </div>
         <Button
           dataTestId={ testid[14] }

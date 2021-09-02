@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #0fa36b;
+  background-color: rgba(3, 107, 82, 1);
   display: flex;
   justify-content: space-between;
 }
@@ -28,7 +28,7 @@
 }
 
 .navbar-link-green {
-  background-color: #3AA856;
+  background-color: rgba(3, 107, 82, 1);
   color: #ffffff;
 }
 
@@ -37,7 +37,12 @@
 }
 
 .navbar-link-blue {
-  background: #4688F0;
+  background: rgba(5, 108, 249, 1);
+  color: #ffffff;
+}
+
+.navbar-active {
+  background-color: rgba(47, 193, 140, 1);
   color: #ffffff;
 }
 
@@ -46,7 +51,7 @@
 }
 
 .navbar-link-purple {
-  background-color:#7B4CDF;
+  background-color: rgba(66, 25, 129, 1);
   color: #ffffff;
 }
 
@@ -82,6 +87,20 @@
   height: 35px;
   width: 35px;
 }
+
+.card-price {
+  position: absolute;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin-left: 20px;
+  margin-top: 8px;
+  font-weight: 700;
+  font-size: 1.5em;
+  background: rgba( 242, 255, 252, 0.75 );
+
+  
+}
+
 .card-button-left {
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;

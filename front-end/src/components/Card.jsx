@@ -6,7 +6,7 @@ import testid from '../utils/dataTestIds';
 const Card = ({ id, price, title, image }) => (
   <div className="card-product">
     <div>
-      <span data-testid={ `${testid[16]}${id}` }>
+      <span className="card-price" data-testid={ `${testid[16]}${id}` }>
         {parseFloat(price).toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL',
