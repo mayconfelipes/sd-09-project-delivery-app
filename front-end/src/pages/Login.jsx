@@ -35,8 +35,8 @@ const Login = () => {
     case 'customer': {
       return <Redirect to="/customer/products" />;
     }
-    case 'admin': {
-      return <Redirect to="/administrador" />;
+    case 'administrator': {
+      return <Redirect to="/admin/manage" />;
     }
     case 'seller': {
       return <Redirect to="/vendedor" />;
