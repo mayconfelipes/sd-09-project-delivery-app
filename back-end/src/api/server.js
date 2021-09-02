@@ -32,7 +32,7 @@ app.use(express.static(images));
 app.post('/login', userController.findUser);
 app.post('/register', userController.registerUser);
 app.post('/admin/register', adminController.registerUser);
-//app.post('/customer/orders', adminController.registerSale)
+app.post('/customer/orders', salesController.registerSale)
 app.get('/products', productController.getAllProducts);
 app.get('/sales_products', salesProductsController.getAll);
 app.get('/sales/:id', salesController.getById);
