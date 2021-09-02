@@ -1,7 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Button({ buttonText, isDisabled, onClick, dataTestId, classStyle, id }) {
+function Button({
+  buttonText,
+  isDisabled,
+  onClick,
+  dataTestId,
+  classStyle,
+  id,
+  src,
+  alt,
+  classStyleImage,
+}) {
   return (
     <button
       type="button"
@@ -11,7 +21,11 @@ function Button({ buttonText, isDisabled, onClick, dataTestId, classStyle, id })
       className={ classStyle }
       id={ id }
     >
-      { buttonText }
+      {src !== '' && alt !== '' && (
+        <img src={ src } alt={ alt } className={ classStyleImage } />
+      ) }
+
+      {buttonText}
     </button>
   );
 }
@@ -23,6 +37,9 @@ Button.propTypes = {
   dataTestId: PropTypes.string,
   classStyle: PropTypes.string,
   id: PropTypes.string,
+  src: PropTypes.string,
+  alt: PropTypes.string,
+  classStyleImage: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -30,6 +47,9 @@ Button.defaultProps = {
   dataTestId: '',
   classStyle: '',
   id: '',
+  src: '',
+  alt: '',
+  classStyleImage: '',
 };
 
 export default Button;

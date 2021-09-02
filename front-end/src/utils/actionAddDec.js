@@ -1,5 +1,4 @@
-const { setCarrinhoLocalStorage, getTotalCartLocalStorage,
-  getCarrinhoLocalStorage } = require('./storage');
+const { setCarrinhoLocalStorage } = require('./storage');
 const dataTestId = require('./dataTestIds');
 
 const testid = dataTestId.default;
@@ -26,12 +25,6 @@ const setProductLocalStorage = (idProduct, qtdProduct) => {
       .toLocaleString(undefined, { minimumFractionDigits: 2, maximunFractionDigits: 2 }),
   };
   setCarrinhoLocalStorage(productData);
-  document.querySelector(`[data-testid='${testid[21]}']`)
-    .innerText = getTotalCartLocalStorage();
-
-  document.querySelector(`[data-testid='${testid[21]}']`)
-    .disabled = getCarrinhoLocalStorage()
-      .lenght > 0;
 };
 
 const decrement = (event, setQtdInputOnChange) => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import LinkNavbar from './LinkNavbar';
@@ -8,13 +8,33 @@ import {
   removeCarrinhoLocalStorage,
 } from '../utils/storage';
 import Button from './Button';
+import AppContext from '../context/AppContext';
+import testid from '../utils/dataTestIds';
 
 const Navbar = ({ role }) => {
   const [isLogout, setIsLogout] = useState(false);
+  const { setTotalCart } = useContext(AppContext);
+
+  const fildsByRole = {
+    customer: {
+      option1: 'MEUS PEDIDOS',
+      link: '/customer/orders',
+    },
+    seller: {
+      option1: 'PEDIDOS',
+      link: '/seller/orders',
+    },
+    administrator: {
+      option1: 'GERENCIAR USUÁRIOS',
+      link: '/admin/manage',
+    },
+  };
 
   if (isLogout) {
     removeUserDataLocalStorage();
     removeCarrinhoLocalStorage();
+    setTotalCart('0,00');
+
     return <Redirect to="/login" />;
   }
 
@@ -23,28 +43,30 @@ const Navbar = ({ role }) => {
       <div className="nav-display-flex">
         {role === 'customer' && (
           <LinkNavbar
-            dataTestId="customer_products__element-navbar-link-products"
+            dataTestId={ testid[11] }
             text="PRODUTOS"
             classStyle="navbar-link navbar-link-green"
             to="/customer/products"
           />
         )}
+
         <LinkNavbar
-          dataTestId="customer_products__element-navbar-link-orders"
-          text="MEUS PEDIDOS"
+          dataTestId={ testid[12] }
+          text={ `${fildsByRole[role].option1}` }
           classStyle="navbar-link navbar-link-green"
-          to={ `/${role}/orders` }
+          to={ `${fildsByRole[role].link}` }
         />
+
       </div>
       <div className="nav-display-flex">
         <div
-          data-testid="customer_products__element-navbar-user-full-name"
+          data-testid={ testid[13] }
           className="navbar-link navbar-link-purple"
         >
-          {getNameLocalStorage()}
+          {role === 'administrator' ? 'DeliveryApp Admin' : getNameLocalStorage()}
         </div>
         <Button
-          dataTestId="customer_products__element-navbar-link-logout"
+          dataTestId={ testid[14] }
           buttonText="Sair"
           classStyle="navbar-link navbar-link-blue"
           onClick={ () => setIsLogout(true) }

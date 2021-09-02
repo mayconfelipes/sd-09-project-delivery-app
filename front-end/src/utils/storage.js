@@ -28,15 +28,15 @@ const setCarrinhoLocalStorage = (productData) => {
   );
   if (index > INVALIDINDEX) {
     if (productData.quantity === 0) {
-      cart = cart.filter( // cart recebe só os qtd !== 0
+      cart = cart.filter(
         ({ productId }) => parseInt(productId,
           10) !== parseInt(productData.productId, 10),
       );
     } else {
-      cart[index] = productData; // subtitui os dados da posição, pelos atualizados
+      cart[index] = productData;
     }
   } else {
-    cart.push(productData); // insere no localStorage
+    cart.push(productData);
   }
   localStorage.setItem('carrinho', JSON.stringify(cart));
 };

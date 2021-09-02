@@ -14,4 +14,8 @@ deliveryRouter.post('/register', [
   deliveryController.registerController,
 ]);
 
+deliveryRouter.get('/', deliveryController.getAllUsers);
+
+deliveryRouter.delete('/', deliveryController.removeUserById);
+
 module.exports = deliveryRouter;

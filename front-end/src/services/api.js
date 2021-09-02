@@ -100,6 +100,33 @@ const getAllSales = (token) => {
     .catch((err) => err);
 };
 
+const getAllUsers = () => {
+  const endpoint = `${URL}/users/`;
+  return fetch(endpoint, {
+    method: 'GET',
+    headers: {
+      'Content-Type': CONTENT,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
+const removeUserById = (id) => {
+  const endpoint = `${URL}/users/`;
+  return fetch(endpoint, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': CONTENT,
+    },
+    body: JSON.stringify({ userId: id }),
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
 export default {
   loginUser,
   registerUser,
@@ -108,4 +135,6 @@ export default {
   getSaleItems,
   getAllProducts,
   getAllSales,
+  getAllUsers,
+  removeUserById,
 };

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
+import { getTotalCartLocalStorage } from '../utils/storage';
 
 function Provider({ children }) {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
-  const [totalCart, setTotalCart] = useState('0,00');
+  const [totalCart, setTotalCart] = useState(getTotalCartLocalStorage);
 
   const contextValue = {
     loading,
