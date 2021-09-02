@@ -74,7 +74,15 @@
   text-align: center;
 }
 
-.list-item-header span:nth-child( 5 ), span:nth-child( 4 ), span:nth-child( 3 ) {
+.list-item-header span:nth-child( 5 ) {
+  width: 6rem;
+}
+
+.list-item-header span:nth-child( 4 ) {
+  width: 6rem;
+}
+
+.list-item-header span:nth-child( 3 ) {
   width: 6rem;
 }
 
