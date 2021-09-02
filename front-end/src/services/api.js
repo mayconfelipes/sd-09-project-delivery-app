@@ -30,7 +30,7 @@ export const getSalesBySeller = (id) => axios.get(`${url}/sale/seller/${id}`, {
 }).then(({ data }) => data)
   .catch((error) => error.response.data);
 
-export const getSale = (id) => axios.get(`${url}/sale/${id}`, {
+export const getSaleByid = (id) => axios.get(`${url}/sale/${id}`, {
   headers: { authorization: JSON.parse(localStorage.user).token },
 }).then(({ data }) => data)
   .catch((error) => error.response.data);
@@ -42,4 +42,14 @@ export const createSale = (body) => axios.post(`${url}/sale`, body, {
 
 export const getUsers = () => axios.get(`${url}/user`)
   .then(({ data }) => data)
+  .catch((error) => error.response.data);
+
+export const getAllSales = () => axios.get(`${url}/sale`, {
+  headers: { authorization: JSON.parse(localStorage.user).token },
+}).then(({ data }) => data)
+  .catch((error) => error.response.data);
+
+export const getUserByid = (id) => axios.get(`${url}/user/${id}`, {
+  headers: { authorization: JSON.parse(localStorage.user).token },
+}).then(({ data }) => data)
   .catch((error) => error.response.data);
