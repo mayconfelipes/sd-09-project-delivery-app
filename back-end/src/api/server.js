@@ -8,6 +8,7 @@ const http = require('http').createServer(app);
 const userController = require('./controllers/users');
 const adminController = require('./controllers/admin');
 const productController = require('./controllers/product');
+const salesProductsController = require('./controllers/salesProducts');
 const salesController = require('./controllers/sales');
 const sellersController = require('./controllers/sellers');
 
@@ -32,6 +33,8 @@ app.post('/login', userController.findUser);
 app.post('/register', userController.registerUser);
 app.post('/admin/register', adminController.registerUser);
 app.get('/products', productController.getAllProducts);
+app.get('/sales_products', salesProductsController.getAll);
+app.get('/sales/:id', salesController.getById);
 app.get('/sales', salesController.getAll);
 app.get('/sellers', sellersController.getAllSellers);
 
