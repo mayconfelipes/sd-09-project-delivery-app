@@ -7,4 +7,4 @@ const getAllSellers = async (req, res) => {
 
 module.exports = {
   getAllSellers,
-}
+};
