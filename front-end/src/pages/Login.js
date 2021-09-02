@@ -5,12 +5,13 @@ import useLogin from '../hooks/useLogin';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [setLogin, login] = useLogin();
+  const [login, setLogin] = useLogin();
 
   const History = useHistory();
 
   useEffect(() => {
     if (login.login) {
+      console.log(login);
       History.push('/customer/products');
     }
   }, [login, History]);

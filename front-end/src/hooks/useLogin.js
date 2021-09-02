@@ -14,11 +14,11 @@ export default function useLogin() {
         data: payload,
       });
       setData({ login: true });
-      localStorage.setItem('token', JSON.stringify(response.data));
+      localStorage.setItem('user', JSON.stringify(response.data));
     } catch (error) {
       setData(error.response.data);
     }
   }
 
-  return [setLogin, data];
+  return [data, setLogin];
 }
