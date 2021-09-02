@@ -157,6 +157,14 @@ const Admin = () => {
     getUsers(token, setUsers);
   }, [createdUser, deletedUser]);
 
+  const renderErro = () => (
+    <p
+      data-testid="admin_manage__element-invalid-register"
+    >
+      Usuário já existe
+    </p>
+  );
+
   return (
     <div className="">
       <NavBar
@@ -165,7 +173,7 @@ const Admin = () => {
       />
       { renderForm() }
       { createdUser && <p>Usuário Criado</p>}
-      { error && <p>Usuário já existe</p>}
+      { error && renderErro() }
       { renderUserTable() }
     </div>
   );

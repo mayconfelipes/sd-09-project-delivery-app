@@ -97,8 +97,10 @@ export const createUser = (
   })
     .then((res) => res.json())
     .then((response) => {
-      console.log(response);
-      setCreatedUser(true);
+      if (response.token) {
+        setCreatedUser(true);
+      }
+      setError(true);
     })
     .catch(() => setError(true));
 };
