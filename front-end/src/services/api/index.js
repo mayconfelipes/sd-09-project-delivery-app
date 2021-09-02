@@ -1,37 +1,13 @@
-import Axios from 'axios';
+import axios from 'axios';
 
-// export async function loginAxio(data) {
-//   const result = await Axios.post('https://localhost:3000/login', data);
-//   console.log('FRONT_END inciando login ', result);
-//   console.log(result);
-//   return result;
-// }
-
-const PostLogin = async (data) => {
+const requestApi = async ({ method, endpoint, data }) => {
   try {
-    console.log('FRONT_Adicionando Login');
-    const result = await Axios.post('http://localhost:3001/login', data);
-    console.log('result.code', result.code);
-    console.log('result', result);
-    return result;
+    const url = `http://localhost:3001/${endpoint}`;
+    const response = await axios[method](url, data);
+    return response;
   } catch (error) {
-    console.error(error.message);
+    return error.response;
   }
 };
 
-/*
-      "email": "fulana@deliveryapp.com",
-      "password": "fulana@123" */
-
-const PostRegister = async (data) => {
-  try {
-    console.log('FRONT_END Adicionando Usuario ');
-    const result = await Axios.post('http://localhost:3001/register', data);
-    console.log(result);
-    return result;
-  } catch (error) {
-    console.error(error.message);
-  }
-};
-
-export { PostRegister, PostLogin };
+export default requestApi;

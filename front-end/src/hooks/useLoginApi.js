@@ -1,5 +1,5 @@
 import { useState, useCallback, useContext } from 'react';
-import { PostLogin } from '../services/api';
+import requestApi from '../services/api';
 import { AppContext } from '../context';
 
 const INVALID_USER_INFO_STATUS = 404;
@@ -10,7 +10,11 @@ const useLoginApi = () => {
 
   const loginUser = useCallback(
     async ({ email, password }) => {
-      const { status } = await PostLogin({ email, password });
+      const { status } = await requestApi({
+        method: 'post',
+        data: { email, password },
+        endpoint: 'login',
+      });
       const isInvalidUserInfo = status === INVALID_USER_INFO_STATUS;
       setValidLogin(!isInvalidUserInfo);
       setAuthentication(!isInvalidUserInfo);
