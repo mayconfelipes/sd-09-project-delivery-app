@@ -1,7 +1,16 @@
-const { sales } = require('../database/models');
+const { sales, salesProducts } = require('../database/models');
 
 const createSale = async (body) => {
-  const { dataValues } = await sales.create({ ...body });
+  const { products, ...allBody } = body;
+  const { dataValues } = await sales.create({ ...allBody });
+
+  await products.forEach((product) => {
+    salesProducts.create({
+      saleId: dataValues.id,
+      productId: product.id,
+      quantity: product.quantity,
+    });
+  });
 
   return dataValues;
 };

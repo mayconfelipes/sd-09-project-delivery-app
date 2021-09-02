@@ -1,19 +1,20 @@
 module.exports = (sequelize, DataTypes) => {
   const sales = sequelize.define('sales', {
-    total_price: DataTypes.DECIMAL(9,2),
-    delivery_address: DataTypes.STRING,
-    delivery_number: DataTypes.STRING,
-    sale_date: DataTypes.DATE,
-    status: DataTypes.STRING,
+    totalPrice: DataTypes.DECIMAL(9,2),
+    deliveryAddress: DataTypes.STRING,
+    deliveryNumber: DataTypes.STRING,
+    saleDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    status: { type: DataTypes.STRING, defaultValue: 'Pendente' },
   },
   {
     underscored: true,
     timestamps: false,
+    tableName: 'sales'
   });
 
   sales.associate = (models) => {
-    sales.belongsTo(models.users, { foreignKey: 'user_id', as: 'user' });
-    sales.belongsTo(models.users, { foreignKey: 'seller_id', as: 'seller' });
+    sales.belongsTo(models.users, { foreignKey: 'userId', as: 'user' });
+    sales.belongsTo(models.users, { foreignKey: 'sellerId', as: 'seller' });
   };
 
   return sales;

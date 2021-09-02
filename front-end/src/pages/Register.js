@@ -30,7 +30,7 @@ class Register extends React.Component {
     const { name, email, password } = this.state;
     const numberName = 12;
     const numberPassword = 6;
-    const validateEmail = /^[\S.]+@[a-z]+\.\w{2,3}$/g.test(email);
+    const validateEmail = /^[\S]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/g.test(email);
 
     if (validateEmail && password.length >= numberPassword && name.length >= numberName) {
       this.setState({
@@ -122,7 +122,6 @@ class Register extends React.Component {
         <Link to="/login">
           <button
             type="button"
-            data-testid="common_login__button-register"
           >
             Login
           </button>

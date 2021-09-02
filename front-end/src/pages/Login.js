@@ -12,7 +12,7 @@ class Login extends React.Component {
       password: '',
       toggleMessage: false,
       message: '',
-      redirect: false,
+      redirect: '',
     };
 
     this.fetchAPI = this.fetchAPI.bind(this);
@@ -29,7 +29,7 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const number = 6;
 
-    const validateEmail = /^[\S.]+@[a-z]+\.\w{2,3}$/g.test(email);
+    const validateEmail = /^[\S]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/g.test(email);
 
     if (validateEmail && password.length >= number) {
       this.setState({
@@ -50,7 +50,7 @@ class Login extends React.Component {
       localStorage.setItem('user', JSON.stringify(result));
       this.setState({
         toggleMessage: false,
-        redirect: true,
+        redirect: result.role,
       });
     } catch (error) {
       this.setState({
@@ -62,6 +62,16 @@ class Login extends React.Component {
 
   render() {
     const { email, password, toggleMessage, message, disabled, redirect } = this.state;
+    const user = JSON.parse(localStorage.getItem('user')) || {};
+
+    if (user.role === 'customer') {
+      return <Redirect to="/customer/products" />;
+    }
+
+    if (user.role === 'seller') {
+      return <Redirect to="/seller/orders" />;
+    }
+
     return (
       <div>
         <h3>Login</h3>
@@ -107,7 +117,8 @@ class Login extends React.Component {
             </button>
           </Link>
         </div>
-        { redirect && <Redirect to="/customer/products" /> }
+        { redirect === 'customer' && <Redirect to="/customer/products" /> }
+        { redirect === 'seller' && <Redirect to="/seller/orders" /> }
       </div>
     );
   }

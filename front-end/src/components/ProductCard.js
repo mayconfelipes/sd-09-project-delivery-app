@@ -116,7 +116,7 @@ class ProductCard extends React.Component {
             { product.price.replace(/\./, ',')}
           </p>
           <img
-            src={ product.url_image }
+            src={ product.urlImage }
             alt={ product.name }
             data-testid={ `customer_products__img-card-bg-image-${product.id}` }
             width="150px"

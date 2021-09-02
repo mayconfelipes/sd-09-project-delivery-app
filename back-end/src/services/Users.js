@@ -9,7 +9,7 @@ const createUser = async (body) => {
   const md5Password = crypto.createHash('md5').update(password).digest('hex');
   const { dataValues } = await users.create({ ...allBody, password: md5Password, role });
 
-  const { password: _, id: __, ...newUser } = dataValues;
+  const { password: _, ...newUser } = dataValues;
 
   const token = createToken(newUser);
 
@@ -36,7 +36,7 @@ const login = async ({ email, password }) => {
 
   if (!user) throw NOTFOUND;
 
-  const { password: _, id: __, ...loginUser } = user.dataValues;
+  const { password: _, ...loginUser } = user.dataValues;
 
   const token = createToken(loginUser);
 
@@ -44,7 +44,6 @@ const login = async ({ email, password }) => {
     ...loginUser,
     token,
   };
-  console.log(userToken);
 
   return userToken;
 };

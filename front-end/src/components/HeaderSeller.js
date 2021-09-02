@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-class HeaderCustomer extends React.Component {
+class HeaderSeller extends React.Component {
   constructor() {
     super();
 
@@ -33,20 +33,12 @@ class HeaderCustomer extends React.Component {
     return (
       <div>
         <nav>
-          <Link to="/customer/products">
-            <button
-              type="button"
-              data-testid="customer_products__element-navbar-link-products"
-            >
-              PRODUTOS
-            </button>
-          </Link>
-          <Link to="/customer/orders">
+          <Link to="/seller/orders">
             <button
               type="button"
               data-testid="customer_products__element-navbar-link-orders"
             >
-              MEUS PEDIDOS
+              PEDIDOS
             </button>
           </Link>
           <p
@@ -69,4 +61,4 @@ class HeaderCustomer extends React.Component {
   }
 }
 
-export default HeaderCustomer;
+export default HeaderSeller;
