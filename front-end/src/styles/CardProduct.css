@@ -1,8 +1,45 @@
-div {
-  height: 180px;
-  width: 150px;
+.product__card {
+  align-items: center;
+  border: 1px solid grey;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: center;
+  margin: 10px;
+  padding: 1px;
+  position: relative;
+  width: 200px;
 }
 
-input {
-  width: 20px;
+.product__card__price {
+  left: 10px;
+  position: absolute;
+  top: 10px;
+  z-index: 1000;
 }
+
+.product__card__image {
+  height: 65%;
+  max-width: 100%;
+}
+
+.product__card__title {
+  font-size: 1rem;
+}
+
+.product__card__price__input {
+  text-align: center;
+  width: 1.1em;
+}
+
+.product__card__price__input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.product__card__price__input::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+

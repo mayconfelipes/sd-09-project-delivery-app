@@ -1,0 +1,16 @@
+.products__page {
+  position: relative;
+}
+
+.products__list {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.products__cart__button {
+  bottom: 25px;
+  position: fixed;
+  right: 25px;
+}

@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Input from '../components/input';
-import Button from '../components/button';
 
 function Registro() {
   const [name, setName] = useState('');
@@ -100,13 +99,16 @@ function Registro() {
             onChange={ handleChange }
           />
         </div>
-        <Button
+        <button
+          type="button"
           className="btn btn-success"
           name="Cadastrar"
           data-testid="common_register__button-register"
           disabled={ disabled }
           onClick={ handleRegister }
-        />
+        >
+          Cadastrar
+        </button>
         {
           error.length > 0
             && (
