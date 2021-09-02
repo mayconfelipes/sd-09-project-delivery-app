@@ -1,11 +1,11 @@
-.details-order-seller-container  {
+.details-order-seller-container {
   margin: 10px auto;
   max-width: 60rem;
 }
 
-.details-order-seller-container  {
+.details-order-seller-container {
+  margin: 20px auto;
   max-width: 85vw;
-  margin: 20px auto
 }
 
 .details-order-container {
@@ -40,8 +40,8 @@
   border-radius: 5px;
   color: white;
   font-weight: 900;
-  padding: 5px 20px;
   margin-right: 5px;
+  padding: 5px 20px;
 }
 
 .details-order-container section button:nth-child( 2 ) {
@@ -66,8 +66,8 @@
 }
 
 .details-order-container ul {
-  padding: 10px;
   flex-grow: 1;
+  padding: 10px;
 }
 
 .list-item-header {
@@ -79,13 +79,14 @@
   text-align: center;
 }
 
-.list-item-header span:nth-child( 2 ){
-  flex-grow: 1;
-}
-
 .list-item-header span:nth-child( 3 ), span:nth-child( 4 ), span:nth-child( 5 ) {
   width: 6rem;
 }
+
+.list-item-header span:nth-child( 2 ) {
+  flex-grow: 1;
+}
+
 
 .details-order-container li {
   list-style-type: none;
@@ -98,8 +99,8 @@
   color: white;
   font-size: 1.3rem;
   font-weight: 900;
-  padding: 10px;
   margin: 1rem;
+  padding: 10px;
   min-width: 12rem;
   text-align: center;
 }
