@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProductsContext from './ProductsContext';
 
-const testOrder = [
-  {
-    id: 1,
-    name: 'Skol lata 250ml',
-    price: 2.20,
-    quantity: 2,
-  },
-  {
-    id: 2,
-    name: 'Heineken 600ml',
-    price: 7.50,
-    quantity: 3,
-  },
-];
+// const testOrder = [
+//   {
+//     id: 1,
+//     name: 'Skol lata 250ml',
+//     price: 2.20,
+//     quantity: 2,
+//   },
+//   {
+//     id: 2,
+//     name: 'Heineken 600ml',
+//     price: 7.50,
+//     quantity: 3,
+//   },
+// ];
 const sellers = [
   {
     name: 'Luciano',
@@ -27,9 +28,11 @@ const sellers = [
   },
 ];
 const ProductsProvider = ({ children }) => {
+  const history = useHistory();
+
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
-  const [currentOrder, setCurrentOrder] = useState(testOrder);
+  const [currentOrder, setCurrentOrder] = useState([]);
   const [currentOrderTotal, setCurrentOrderTotal] = useState(0);
   const [orderAddress, setOrderAddress] = useState('');
   const [orderAddressNumber, setOrderAddressNumber] = useState('');
@@ -54,6 +57,7 @@ const ProductsProvider = ({ children }) => {
       products: currentOrder,
     };
     console.log(orderObject);
+    return history.push('/customer/orders/1');
   }
   const [order, setOrder] = useState([]);
 

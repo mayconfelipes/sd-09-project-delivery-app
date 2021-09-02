@@ -1,22 +1,25 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductsContext from '../context/ProductsContext';
 import NavBarCustomer from '../components/navBarCustomer';
+import CartTotal from '../components/CartTotal';
 import '../styles/customerProducts.css';
 
 const CustomerProducts = () => {
+  const [order, setOrder] = useState([]);
   const {
     getProducts,
     setProducts,
     products,
-    setOrder,
+    setCurrentOrder,
+    currentOrder,
+    setCurrentOrderTotal,
   } = useContext(ProductsContext);
-
-  const newOrder = [];
 
   useEffect(() => {
     getProducts().then((response) => setProducts(response));
-  }, []);
+    setOrder(currentOrder);
+  });
 
   const changeQttByInput = () => {
     console.log('Olá');
@@ -34,6 +37,8 @@ const CustomerProducts = () => {
 
     const product = products.filter((item) => item.name === selector.className);
 
+    // value é a quantidade dentro dos inputs
+
     let value = Number(selector.value);
     if (getBtn.textContent === '+') {
       value += 1;
@@ -41,17 +46,23 @@ const CustomerProducts = () => {
       value -= 1;
     }
 
-    const index = newOrder.findIndex((item) => item.id === product[0].id);
+    const index = order.findIndex((item) => item.id === product[0].id);
 
     if (index < 0) {
-      newOrder.push({ id: product[0].id, quantity: value });
+      order.push({
+        id: product[0].id,
+        quantity: value,
+        price: product[0].price,
+        name: product[0].name });
     } else {
-      newOrder[index].quantity = value;
+      order[index].quantity = value;
     }
+    setOrder(order);
+    setCurrentOrder(order);
+    setCurrentOrderTotal(currentOrder
+      .reduce((acc, cur) => acc + (cur.quantity * cur.price), 0).toFixed(2));
 
-    setOrder(newOrder);
-
-    console.log(newOrder);
+    console.log(order);
 
     selector.value = value;
   };
@@ -124,12 +135,17 @@ const CustomerProducts = () => {
 
       <Link
         to="/customer/checkout"
-        className="ver_carrinho"
-        data-testid="customer_products__checkout-bottom-value"
+      //   className="ver_carrinho"
+      //   data-testid="customer_products__checkout-bottom-value"
+      // >
+      //   <span>{ `Ver carrinho: R$${currentOrderTotal}`}</span>
       >
-        <span>Ver carrinho: R$ 1.000,00</span>
+        <CartTotal
+          testId="customer_products__checkout-bottom-value"
+          text=""
+          className="ver_carrinho"
+        />
       </Link>
-      <span>Ver carrinho: R$ 0,00</span>
     </div>
   );
 };

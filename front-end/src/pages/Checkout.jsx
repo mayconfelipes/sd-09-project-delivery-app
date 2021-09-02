@@ -10,10 +10,24 @@ function Checkout() {
   const { currentOrder } = useContext(ProductsContext);
   return (
     <div>
-      Seu carrinho
-      { currentOrder.map((order, index) => (
-        <CheckoutItem orderItem={ order } index={ index } key={ index } />)) }
-      <CartTotal />
+      <table>
+        <tr>
+          <th>Item</th>
+          <th>Descrição</th>
+          <th>Quantidade</th>
+          <th>Valor Unitário</th>
+          <th>Subtotal</th>
+          <th>Remover do Carrinho</th>
+        </tr>
+        Seu carrinho
+        { currentOrder.map((order, index) => (
+          <CheckoutItem orderItem={ order } index={ index } key={ index } />)) }
+      </table>
+      <CartTotal
+        testId="customer_checkout__element-order-total-price"
+        text="Total do pedido"
+        className=""
+      />
       <OrderAddress />
       <ConfirmOrderButton />
       <Link to="/customer/products">Voltar</Link>

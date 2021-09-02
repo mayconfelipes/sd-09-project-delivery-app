@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import ProductsContext from '../context/ProductsContext';
 
-function CartTotal() {
+function CartTotal({ testId, text, className }) {
   const {
     currentOrder,
     setCurrentOrderTotal,
@@ -10,22 +10,24 @@ function CartTotal() {
 
   useEffect(() => {
     setCurrentOrderTotal(currentOrder
-      .reduce((acc, cur) => acc + (cur.quantity * cur.price), 0));
+      .reduce((acc, cur) => acc + (cur.quantity * cur.price), 0).toFixed(2));
   }, [currentOrder]);
 
   return (
     <div>
-      <h1 data-testid="customer_checkout__element-order-total-price">
+      <h1 data-testid={ testId } className={ className }>
         {
-          `Total do pedido: ${currentOrderTotal}`
+          `${text}${currentOrderTotal.toString().replace('.', ',')}`
         }
       </h1>
     </div>
   );
 }
 
-// CartTotal.propTypes = {
-//   total: PropTypes.number.isRequired,
-// };
+CartTotal.propTypes = {
+  testId: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
+};
 
 export default CartTotal;

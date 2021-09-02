@@ -9,12 +9,17 @@ function SellerSelect() {
   }, []);
   return (
     <select
-      data-testid="customer_checkout__select-seller"
       onChange={ (e) => setSelectedSeller(e.target.value) }
     >
       Pessoa Vendedora Responsável:
       { allSellers.map((seller) => (
-        <option value={ seller.name } key={ seller.id }>{ seller.name }</option>
+        <option
+          value={ seller.name }
+          key={ seller.id }
+          data-testid="customer_checkout__select-seller"
+        >
+          { seller.name }
+        </option>
       ))}
     </select>
   );

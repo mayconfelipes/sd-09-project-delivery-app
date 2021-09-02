@@ -27,6 +27,6 @@ export const getOrders = async () => {
   return orders;
 };
 
-export const getSellers = async () => {
-  
-}
+// export const getSellers = async () => {
+
+// }

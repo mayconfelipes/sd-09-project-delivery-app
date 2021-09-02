@@ -6,48 +6,61 @@ function CheckoutItem({ orderItem, index }) {
   const { removeItemFromCart } = useContext(ProductsContext);
   const { name, price, quantity } = orderItem;
   return (
-    <div className="checkout-item-container">
-      <div className="checkout-order-item">
-        <span
-          className="checkout-item-index"
-          data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
-        >
-          { index + 1}
-        </span>
-        <span
-          className="checkout-item-name"
-          data-testid={ `customer_checkout__element-order-table-name-${index}` }
-        >
-          { name }
-        </span>
-        <span
-          className="checkout-item-quantity"
-          data-testid={ `cutomer_checkout__element-order-table-quantity-${index}` }
-        >
-          { quantity }
-        </span>
-        <span
-          className="checkout-item-unit-price"
-          data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
-        >
-          { price }
-        </span>
-        <span
-          className="checkout-item-subtotal"
-          data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
-        >
-          { price * quantity }
-        </span>
+    // <div className="checkout-item-container">
+    //   <table>
+    //     <tr>
+    //       <th>Item</th>
+    //       <th>Descrição</th>
+    //       <th>Quantidade</th>
+    //       <th>Valor Unitário</th>
+    //       <th>Subtotal</th>
+    //       <th>Remover do Carrinho</th>
+    //     </tr>
+    <tr>
+      <td
+        className="checkout-order-item"
+        data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
+      >
+        { index + 1 }
+      </td>
+      <td
+        className="checkout-item-name"
+        data-testid={ `customer_checkout__element-order-table-name-${index}` }
+      >
+        { name }
+      </td>
+      <td
+        className="checkout-item-quantity"
+        data-testid={ `cutomer_checkout__element-order-table-quantity-${index}` }
+      >
+        { quantity }
+      </td>
+      <td
+        className="checkout-item-unit-price"
+        data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
+      >
+        { price.replace('.', ',') }
+      </td>
+      <td
+        className="checkout-item-subtotal"
+        data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
+      >
+        { (price * quantity).toFixed(2).replace('.', ',') }
+      </td>
+      <td
+        className="checkout-remove-item-button"
+        data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+      >
         <button
           type="button"
-          className="checkout-remove-item-button"
-          data-testid={ `customer_checkout__element-order-table-remove-${index}` }
           onClick={ () => removeItemFromCart(index) }
         >
           REMOVER
         </button>
-      </div>
-    </div>
+      </td>
+    </tr>
+  // </table>
+    // </div>
   );
 }
 
