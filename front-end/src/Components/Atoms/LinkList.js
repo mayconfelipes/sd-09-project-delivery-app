@@ -2,16 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListLinkElement } from '../styles';
 
-function ListLink({ children }) {
+function ListLink({ text, url }) {
   return (
     <ListLinkElement>
-      <a href="http://www.w3.org/">{children}</a>
+      <a href={ url }>{text}</a>
     </ListLinkElement>
   );
 }
 
 ListLink.propTypes = {
-  children: PropTypes.string,
+  text: PropTypes.string,
+  url: PropTypes.string,
 }.isRequired;
 
 export default ListLink;

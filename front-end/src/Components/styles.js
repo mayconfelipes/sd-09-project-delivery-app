@@ -26,7 +26,6 @@ export const ButtonElement = styled.button`
     }
     return null;
   }};
-
   color: ${({ styleColor }) => {
     if (root.button[styleColor]) {
       return root.button[styleColor].color;
@@ -50,7 +49,7 @@ export const InputElement = styled.input`
 `;
 
 export const ListLinkElement = styled.li`
-list-style: none;
+  list-style: none;
 `;
 
 export const OptionElement = styled.option``;
@@ -108,7 +107,11 @@ export const CardProductElement = styled.div``;
 
 export const CardStatusElement = styled.div``;
 
-export const NavBarElement = styled.div``;
+export const NavBarElement = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 export const ProductListElement = styled.ul``;
 

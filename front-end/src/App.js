@@ -1,6 +1,15 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Products, Login, Register, Checkout, CustumeOrders, OrderDetail } from './Pages';
+import {
+  Products,
+  Login,
+  Register,
+  Checkout,
+  CustumeOrders,
+  OrderDetail,
+  SellerOrders,
+  SellerDetails,
+} from './Pages';
 
 import './App.css';
 import { CartProvider } from './Contexts/CartContext';
@@ -13,6 +22,8 @@ function App() {
         <Route path="/customer/checkout" component={ Checkout } />
         <Route path="/customer/products" component={ Products } />
         <Route path="/customer/orders" component={ CustumeOrders } />
+        <Route path="/seller/orders/:id" component={ SellerDetails } />
+        <Route path="/seller/orders" component={ SellerOrders } />
 
         <Route
           path="/login"

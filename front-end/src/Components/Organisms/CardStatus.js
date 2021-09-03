@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import { CardStatusElement } from '../styles';
 import Text from '../Atoms/Text';
 
-function CardStatus({ children }) {
+function CardStatus({ sellerId, status, dateSeller, price, children }) {
   return (
     <CardStatusElement>
-      <Text>Pedido</Text>
-      <Text>{children}</Text>
-      <Text>Entregue</Text>
-      <Text>DD/MM/AA</Text>
-      <Text>R$ 00,00</Text>
-      <Text>{'< Endereco >'}</Text>
+      <div data-testid={ sellerId.testId }>
+        <Text>Pedido</Text>
+        <Text>{sellerId.id}</Text>
+      </div>
+      <Text testId={ status.testId }>{status.text}</Text>
+      <Text testId={ dateSeller.testId }>{dateSeller.text}</Text>
+      <Text testId={ price.testId }>{price.text}</Text>
+      <Text testId={ children.testId }>{children.text}</Text>
     </CardStatusElement>
   );
 }
