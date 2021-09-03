@@ -4,6 +4,8 @@ const checkoutNewSale = async (data, productCart) => {
   const newSale = await Sale.create(data);
   const products = [];
 
+  console.log(productCart);
+
   productCart.forEach((item) => products.push(Product.findOne({ where: { name: item.name } })));
 
   const productList = await Promise.all(products);
@@ -20,6 +22,7 @@ const getSale = async (id) => {
     where: { id },
     include: [{ model: Product, as: 'products' }],
   });
+  console.log(response);
   return response;
 };
 

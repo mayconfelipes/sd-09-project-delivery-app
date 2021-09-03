@@ -9,24 +9,44 @@ function OrderDetails() {
   const [order, setOrder] = useState({});
 
   useEffect(() => {
+    const milisseconds = 400;
     const getSale = async () => {
-      const response = await axios.get(`http://localhost:3001/sales/${id}`);
-      setOrder(response.data);
+      setTimeout(async () => {
+        const response = await axios.get(`http://localhost:3001/sales/${id}`);
+        setOrder(response.data);
+      }, milisseconds);
     };
 
     getSale();
   }, [id]);
 
+  const generateDataTestId = (flag) => (
+    `customer_order_details__element-order-details-label-${flag}`);
+
+  if (!order) return <p>loading...</p>;
+
   return (
     <section>
       <h1>Detalhes do pedido</h1>
-      <span>{id}</span>
+      <header>
+        <h1 data-testid={ generateDataTestId('order-id') }>PEDIDO 0003</h1>
+        <p data-testid={ generateDataTestId('seller-name') }>P. Vend: Fulana Pereira</p>
+        <p data-testid={ generateDataTestId('order-date') }>07/04/2021</p>
+        <p data-testid={ generateDataTestId('delivery-status') }>ENTREGUE</p>
+        <button
+          type="button"
+          data-testid="customer_order_details__button-delivery-check"
+        >
+          Marcar como entregue
+        </button>
+      </header>
       { order.products && order.products.map(({ name, quantity, price }, index) => (
         <OrderProducts
           key={ name }
           data={ { name, index, quantity, price } }
         />
       )) }
+      <p data-testid="customer_order_details__element-order-total-price">Total</p>
     </section>
   );
 }

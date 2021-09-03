@@ -6,6 +6,7 @@ function OrderProducts({ data }) {
   const { name, index, quantity, price } = data;
   const { user } = useContext(AppContext);
   console.log(user);
+  console.log(quantity);
 
   const createSpan = (dataTestId, value) => (
     <span
@@ -32,23 +33,8 @@ function OrderProducts({ data }) {
   //   return formatPrice(subtotal.toFixed(2));
   // };
 
-  const generateDataTestId = (flag) => (
-    `customer_order_details__element-order-details-label-${flag}`);
-
   return (
     <section>
-      <header>
-        <h1 data-testid={ generateDataTestId('order-id') }>PEDIDO 0003</h1>
-        <p data-testid={ generateDataTestId('seller-name') }>P. Vend: Fulana Pereira</p>
-        <p data-testid={ generateDataTestId('order-date') }>07/04/2021</p>
-        <p data-testid={ generateDataTestId('delivery-status') }>ENTREGUE</p>
-        <button
-          type="button"
-          data-testid="customer_order_details__button-delivery-check"
-        >
-          Marcar como entregue
-        </button>
-      </header>
       <main>
         { createSpan('item-number', itemNumber(index)) }
         { createSpan(`name-${index}`, name) }
@@ -56,7 +42,6 @@ function OrderProducts({ data }) {
         { createSpan(`unit-price-${index}`, price) }
         { createSpan(`sub-total-${index}`, price) }
       </main>
-      <p data-testid="customer_order_details__element-order-total-price">Total</p>
     </section>
   );
 }
