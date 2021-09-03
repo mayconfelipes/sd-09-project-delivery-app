@@ -20,9 +20,7 @@ router.post('/', rescue(async (req, res, next) => {
 
 router.get('/', [
   validateJwt,
-  rescue( async ( _req, res, _next) => {
-    return res.status(200).json(res.user);
-  })
+  rescue(async (_req, res, _next) => res.status(200).json(res.user)),
 ]);
 
 module.exports = router;

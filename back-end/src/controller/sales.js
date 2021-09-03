@@ -41,14 +41,14 @@ router.get('/:id', [
       return next({ statusCode: 404, message: 'sale not found' });
     }
     return res.status(200).json(sale);
-  })
+  }),
 ]);
 
 router.get('/', [
   validateJwt,
   rescue(async (req, res, next) => {
     const userId = req.user;
-    const response =  await service.sales.getSales(userId);
+    const response = await service.sales.getSales(userId);
     if (!response.length) {
       return next({ statusCode: 404, message: 'Sales not found' });
     }
