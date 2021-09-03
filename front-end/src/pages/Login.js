@@ -24,14 +24,6 @@ const Login = () => {
     return false;
   };
 
-  const handleLogin = () => {
-    setLogin({ email, password });
-  };
-
-  const handleRegister = () => {
-    History.push('/register');
-  };
-
   return (
     <div className="main">
       <img src="/logo192.png" alt="logotipo delivery-app" width="60px" />
@@ -64,7 +56,7 @@ const Login = () => {
           className="btn-primary"
           data-testid="common_login__button-login"
           disabled={ !buttonAble() }
-          onClick={ handleLogin }
+          onClick={ () => setLogin({ email, password }) }
         >
           Login
         </button>
@@ -72,7 +64,7 @@ const Login = () => {
           type="button"
           className="btn-register"
           data-testid="common_login__button-register"
-          onClick={ handleRegister }
+          onClick={ () => History.push('/register') }
         >
           Ainda não tenho conta
         </button>
