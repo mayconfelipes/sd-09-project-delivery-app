@@ -1,12 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { addToLocal, clearWithZero } from '../../services/products';
 
-export default function Cards(props) {
+export default function Cards({ cardInfos, retrieveSumFromChild }) {
   const [currentQuantityToBuy, setCurrentQuantityToBuy] = useState(0);
+  const [currentPriceSum, setCurrentPriceSum] = useState(0);
+  const { price, nameAndQuantityInMl, thumbNail, id } = cardInfos;
+  const minimumToRemove = -1;
+  const minimumToAdd = 1;
 
-  const { cardInfos: { price, nameAndQuantityInMl, thumbNail, id } } = props;
+  useEffect(() => {
+    const productObj = {
+      id, nameAndQuantityInMl, price, quantity: currentQuantityToBuy };
+    const saveToStorage = (objToSave) => {
+      addToLocal(objToSave);
+    };
+    saveToStorage(productObj);
+  }, [id, nameAndQuantityInMl, price, currentQuantityToBuy]);
+
+  useEffect(() => {
+    clearWithZero();
+  }, []);
+
+  const sumValueOfProducts = (quantity) => {
+    const newPriceSum = price * (currentQuantityToBuy + quantity);
+    const calculateSum = newPriceSum - currentPriceSum;
+    retrieveSumFromChild(calculateSum);
+    setCurrentPriceSum(newPriceSum);
+  };
+
   return (
     <div
       style={ {
@@ -16,24 +40,30 @@ export default function Cards(props) {
         boxShadow: '1px 5px 5px 1px #848484',
       } }
     >
-      <ToastContainer />
       <p
         style={ {
           position: 'absolute',
           margin: '10px 0 0 8px',
         } }
-        data-testid={ `customer_products__element-card-price-${id}` }
       >
         R$
         {' '}
-        {price}
+        <span data-testid={ `customer_products__element-card-price-${id}` }>
+          {price.split('.').join(',')}
+        </span>
       </p>
-      <div>
+      <div
+        style={ {
+          display: 'flex',
+          justifyContent: 'center',
+        } }
+      >
         <img
           data-testid={ `customer_products__img-card-bg-image-${id}` }
           style={ {
-            width: '100%',
-            height: 'auto',
+            width: 'auto',
+            height: '200px',
+            margin: '10px',
           } }
           src={ thumbNail }
           alt="Imagem de uma bebida"
@@ -76,10 +106,10 @@ export default function Cards(props) {
             data-testid={ `customer_products__button-card-rm-item-${id}` }
             onClick={ () => {
               if (currentQuantityToBuy <= 0) {
-                toast('Não é permitido números negativos!');
                 return setCurrentQuantityToBuy(0);
               }
               setCurrentQuantityToBuy(currentQuantityToBuy - 1);
+              sumValueOfProducts(minimumToRemove);
             } }
             type="button"
           >
@@ -96,8 +126,14 @@ export default function Cards(props) {
               height: '31px',
               textAlign: 'center',
             } }
+            data-testid={ `customer_products__input-card-quantity-${id}` }
             value={ currentQuantityToBuy }
-            onChange={ (e) => setCurrentQuantityToBuy(Number(e.target.value)) }
+            // type="number"
+            onChange={ (e) => {
+              setCurrentQuantityToBuy(Number(e.target.value));
+              console.log('entrou aqui');
+              sumValueOfProducts(Number(e.target.value));
+            } }
           />
           <button
             style={ {
@@ -113,7 +149,7 @@ export default function Cards(props) {
             data-testid={ `customer_products__button-card-add-item-${id}` }
             onClick={ () => {
               setCurrentQuantityToBuy(currentQuantityToBuy + 1);
-              console.log(currentQuantityToBuy);
+              sumValueOfProducts(minimumToAdd);
             } }
             type="button"
           >
@@ -126,12 +162,9 @@ export default function Cards(props) {
 }
 
 Cards.propTypes = {
-  cardInfos: PropTypes.arrayOf(
-    PropTypes.shape({
-      price: PropTypes.number.isRequired,
-      nameAndQuantityInMl: PropTypes.string.isRequired,
-      thumbNail: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-    }).isRequired,
-  ).isRequired,
-};
+  price: PropTypes.number,
+  nameAndQuantityInMl: PropTypes.string,
+  thumbNail: PropTypes.string,
+  id: PropTypes.number,
+  calculateSum: PropTypes.func,
+}.isRequired;
