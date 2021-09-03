@@ -23,14 +23,6 @@ const CheckoutCard = ({ cart, setCart }) => {
     setCart(newCart);
   };
 
-  // user_id: DataTypes.INTEGER, OK
-  // seller_id: DataTypes.INTEGER, OK
-  // total_price: DataTypes.DECIMAL, OK
-  // delivery_address: DataTypes.STRING, OK
-  // delivery_number: DataTypes.STRING, OK
-  // status: DataTypes.STRING, OK
-  // sale_date: DataTypes.DATE, x
-  // updated_At: DataTypes.DATE, x
   const submitOrder = async () => {
     const orderBody = {
       method: 'POST',
