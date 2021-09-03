@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import NavBar from '../components/NavBar';
-import ProductCard from '../components/ProductCard';
+import NavBar from '../Components/NavBar';
+import ProductCard from '../Components/ProductCard';
 
 function Products() {
   const history = useHistory();

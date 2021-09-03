@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router';
-import NavBar from '../components/NavBar';
-import SaleCard from '../components/SaleCard';
+import NavBar from '../Components/NavBar';
+import SaleCard from '../Components/SaleCard';
 
 function CustomerOrders() {
   const history = useHistory();
