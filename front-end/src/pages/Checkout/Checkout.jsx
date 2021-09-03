@@ -87,10 +87,11 @@ const Checkout = () => {
             setTotalPrice={ setTotalPrice }
           />))}
         </ul>
+        <p />
         <button
           type="button"
           data-testid="customer_checkout__element-order-total-price"
-          onClick={ () => history.push('/customer/orders/1') }
+          onClick={ () => history.push('/customer/orders/1}') }
         >
           {brazilianPrice()}
         </button>

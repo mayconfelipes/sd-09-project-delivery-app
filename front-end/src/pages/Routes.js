@@ -12,6 +12,7 @@ import Products from './Products/Products';
 import Seller from './Seller/Seller';
 import Details from './Seller/Details/Details';
 import Checkout from './Checkout/Checkout';
+import OrderDetails from './OrderDetails/OrderDetails';
 
 function Routes() {
   return (
@@ -21,7 +22,7 @@ function Routes() {
         <Route exact path="/admin/manage" component={ Admin } />
         <Route exact path="/seller/orders" component={ Seller } />
         <Route path="/seller/orders/:id" component={ Details } />
-        <Route path="/customer/orders/:id" component={ Checkout } />
+        <Route path="/customer/orders/:id" component={ OrderDetails } />
         <Route path="/customer/checkout" component={ Checkout } />
         <Route path="/customer/products" component={ Products } />
         <Route path="/login" component={ Login } />
