@@ -1,4 +1,4 @@
-'use strict';
+const models = require('../../database/models');
 
 module.exports = (sequelize, DataTypes) => {
   const UsersModel = sequelize.define('Users', {
@@ -32,9 +32,9 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  UsersModel.associate = (models) => {
-    models.Users.hasMany(models.Sales)
-  }
+  // UsersModel.associate = (models) => {
+  //   models.Users.hasMany(models.Sales)
+  // }
 
   return UsersModel;
 };

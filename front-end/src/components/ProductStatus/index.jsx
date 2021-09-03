@@ -18,6 +18,21 @@ const ProductStatus = ({
   const productOrderStyle = shouldAddressApear
     ? style.productOrderLarge : style.productOrder;
 
+  let orderCardStatus = null;
+  switch (orderStatus) {
+  case 'Pendente':
+    orderCardStatus = style.orangeOrder;
+    break;
+  case 'Preparando':
+    orderCardStatus = style.greenOrder;
+    break;
+  case 'Entregue':
+    orderCardStatus = style.blueOrder;
+    break;
+  default:
+    break;
+  }
+
   return (
     <div className={ style.productStatusContainer }>
       <div className={ productOrderStyle }>
@@ -28,7 +43,7 @@ const ProductStatus = ({
         <div className={ style.productData }>
           <p
             data-testid={ dataTestIdOrderStatus }
-            className={ style.productStatus }
+            className={ orderCardStatus }
           >
             {orderStatus}
           </p>

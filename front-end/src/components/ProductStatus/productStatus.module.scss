@@ -46,8 +46,7 @@
     .productData {
       display: flex;
 
-      .productStatus {
-        background-color: #d4c63c;
+      .orangeOrder, .greenOrder, .blueOrder {
         display: flex;
         align-items: center;
         font-weight: bold;
@@ -55,6 +54,18 @@
         margin: 0.5rem 0;
         padding: 4.2rem;
         width: 50%;
+      }
+
+      .orangeOrder {
+        background-color: #d4c63c;
+      }
+
+      .greenOrder {
+        background-color: #8cd940;
+      }
+
+      .blueOrder {
+        background-color: #40d9b4;
       }
     
       .productPrice {

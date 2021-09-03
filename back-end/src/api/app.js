@@ -36,11 +36,15 @@ app.post('/register', usersControllers.create);
 
 app.get('/register', validateToken, usersControllers.getByRole);
 
-app.post('/sales', validateToken, salesControllers.create);
+app.get('/sales/user', validateToken, salesControllers.getByUser);
 
-app.get('/sales/:id', validateToken, salesControllers.getById);
+app.get('/sales/getAll', validateToken, salesControllers.getAllSales);
+
+app.get('/sales/:id', validateToken, salesControllers.getAllById);
 
 app.put('/sales/:id', validateToken, salesControllers.update);
+
+app.post('/sales', validateToken, salesControllers.create);
 
 app.use(sendErrorMessage);
 
