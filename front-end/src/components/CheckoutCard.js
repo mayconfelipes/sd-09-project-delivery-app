@@ -135,9 +135,7 @@ const CheckoutCard = ({ cart, setCart }) => {
           <select
             value={ currSeller }
             onChange={ ({ target }) => {
-              // const theId = target.value.split('-')[0];
               setCurrSeller(target.value);
-              console.log((currSeller));
             } }
             data-testid="customer_checkout__select-seller"
             name="currSeller"
@@ -171,7 +169,7 @@ const CheckoutCard = ({ cart, setCart }) => {
         </label>
       </fieldset>
       {/* Fim ordem pt 02 */ }
-      <button type="submit" onClick={ console.log(submitOrder()) }>
+      <button type="submit" onClick={ submitOrder }>
         FINALIZAR PEDIDO
       </button>
     </div>
