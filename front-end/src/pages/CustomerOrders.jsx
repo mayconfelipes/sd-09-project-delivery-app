@@ -35,7 +35,7 @@ function CustomerOrders() {
     <>
       <NavBar />
       <div className="order-cards">
-        <p>{errorMessage}</p>
+        { errorMessage ? <p>{ errorMessage }</p> : '' }
         { !orders ? ''
           : orders.map((sale, key) => (
             <div

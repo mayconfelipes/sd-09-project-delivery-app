@@ -236,21 +236,80 @@ table tr td {
 /* CUSTOMER ORDERS */
 
 .order-cards {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
+  display: grid;
   justify-content: center;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+  margin: 0 auto;
   margin-top: 32px;
+  max-width: 60%;
 }
 
 .order-card {
-  background-color: #5ec59f;
-  border-radius: 4px;
+  display: flex;
+  gap: 8px;
+  text-align: center;
+  background-color: #eaf1ef;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.4);
   cursor: pointer;
+}
+
+.order-card-left {
+  display: flex;
+  align-items: center;
+  background-color: #fafafa;
+  height: 100%;
   padding: 8px 16px;
 }
 
+.order-card-left div p {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.order-card-left div p:nth-child(2) {
+  font-weight: 500;
+}
+
 .order-card:hover {
-  background-color: #1dbe83;
+  opacity: 0.8;
   transition: 0.2s ease-in-out;
+}
+
+.order-card-right {
+  display: flex;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: 700;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  gap: 8px
+}
+
+.order-card-left-half {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #d9ca40;
+  height: 100%;
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.order-card-right-half {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  width: 100%;
+}
+
+.order-card-right-half .order-half-content {
+  align-items: center;
+  padding: 8px 8px;
+  border-radius: 4px;
+  background-color: #f1fbf9;
 }

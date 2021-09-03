@@ -7,22 +7,41 @@ function SaleCard({
   saleDate,
   totalPrice,
 }) {
+  const sliceDate = 10;
   return (
     <>
-      <p data-testid={ `customer_orders__element-order-id-${saleId}` }>
-        Pedido&nbsp;
-        <span>{ saleId }</span>
-      </p>
-      <p data-testid={ `customer_orders__element-delivery-status-${saleId}` }>
-        { status }
-      </p>
-      <p data-testid={ `customer_orders__element-order-date-${saleId}` }>
-        { saleDate }
-      </p>
-      <p>
-        R$
-        { totalPrice }
-      </p>
+      <div className="order-card-left">
+        <div>
+          <p data-testid={ `customer_orders__element-order-id-${saleId}` }>
+            Pedido&nbsp;
+          </p>
+          <p>{ saleId }</p>
+        </div>
+      </div>
+
+      <div className="order-card-right">
+        <div className="order-card-left-half">
+          <p data-testid={ `customer_orders__element-delivery-status-${saleId}` }>
+            { status }
+          </p>
+        </div>
+        <div className="order-card-right-half">
+          <div className="order-half-content">
+            <p data-testid={ `customer_orders__element-order-date-${saleId}` }>
+              { saleDate
+                .slice(0, sliceDate)
+                .replaceAll('-', '')
+                .replace(/(\d{4})(\d{2})(\d{2})/, '$3/$2/$1') }
+            </p>
+          </div>
+          <div className="order-half-content">
+            <p>
+              R$
+              { totalPrice }
+            </p>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
