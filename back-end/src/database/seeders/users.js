@@ -17,7 +17,6 @@ module.exports = {
           email: 'fulana@deliveryapp.com',
           password: md5('fulana@123'),
           role: 'seller',
-          
         },
         {
           id: 3,

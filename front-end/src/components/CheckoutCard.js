@@ -56,7 +56,7 @@ const CheckoutCard = ({ cart, setCart }) => {
   };
 
   useEffect(() => {
-    console.log(getUsersRole(token, 'seller', setAllSellers()));
+    console.log(getUsersRole(token, 'seller', setAllSellers));
     getAllSellers();
   }, []);
 
