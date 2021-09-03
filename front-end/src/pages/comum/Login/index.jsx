@@ -20,7 +20,7 @@ const Login = () => {
 
   const [isDataValid, setIsDataValid] = useState(true);
 
-  const [role, setRole] = useState('seller');
+  const [role, setRole] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -57,9 +57,10 @@ const Login = () => {
   if (isLoading) return <p>Loading...</p>;
 
   const localItem = JSON.parse(localStorage.getItem('user'));
-  if (localItem && role !== 'seller' && role !== 'administrator') {
+  if (localItem && localItem.role === 'customer') {
     return <Redirect to="/customer/products" />;
   }
+
   return (
     <section className={ style.loginContainer }>
       { isLogged && <Redirect
