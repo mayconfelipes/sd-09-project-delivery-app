@@ -33,7 +33,6 @@ function CustomerOrders() {
 
   return (
     <>
-      { console.log('FOI') }
       <NavBar />
       <div className="order-cards">
         <p>{errorMessage}</p>

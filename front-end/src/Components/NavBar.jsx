@@ -6,6 +6,16 @@ function NavBar() {
 
   const { name } = JSON.parse(localStorage.getItem('user'));
 
+  const goToOrders = () => {
+    const redirectRole = {
+      customer: '/customer/orders',
+    };
+
+    const getUser = localStorage.getItem('user');
+    const user = JSON.parse(getUser);
+    return history.push(redirectRole[user.role]);
+  };
+
   return (
     <nav className="navbar-container">
       <span className="navbar-left">
@@ -19,6 +29,7 @@ function NavBar() {
         <button
           data-testid="customer_products__element-navbar-link-orders"
           type="button"
+          onClick={ goToOrders }
         >
           Meus Pedidos
         </button>
