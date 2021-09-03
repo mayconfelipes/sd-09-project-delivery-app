@@ -25,7 +25,16 @@ const getSales = async (id) => {
   return sales;
 };
 
+const getSale = async (id) => {
+  const response = await Sale.findOne({
+    where: { id },
+    include: [{ model: Product, as: 'products' }],
+  });
+  return response;
+};
+
 module.exports = {
   checkoutNewSale,
   getSales,
+  getSale,
 };

@@ -5,20 +5,33 @@ import styles from '../css/Checkout.module.css';
 // import '../App.css';
 
 function Checkout() {
-  const { sendSale, getSellersId, sellersId } = useContext(AppContext);
+  const {
+    sendSale,
+    getSellersId,
+    sellersId,
+    productsCart,
+    verifyUser,
+    updateFilteredCart,
+    filteredCart,
+    setFilteredCart,
+  } = useContext(AppContext);
 
   useEffect(() => {
-    getSellersId();
+    verifyUser();
+    updateFilteredCart();
   }, []);
 
-  const productCart = Object.values(JSON.parse(localStorage.getItem('productCart')))
-    .filter(({ quantity }) => quantity > 0);
+  // const productCart = Object.values(JSON.parse(localStorage.getItem('productCart')))
+  //   .filter(({ quantity }) => quantity > 0);
+  useEffect(() => {
+    getSellersId();
+  }, [getSellersId]);
 
   const INITIAL_STATE = {
     sellerId: 2,
     deliveryAddress: '',
     deliveryNumber: '',
-    productCart,
+    productsCart,
   };
 
   const [detailsForm, setDetailsForm] = useState(INITIAL_STATE);
@@ -39,7 +52,7 @@ function Checkout() {
     const totalPrice = Number(totalPriceString);
     setDetailsForm({ ...detailsForm });
     const dataSend = detailsForm;
-    sendSale({ ...dataSend, totalPrice });
+    sendSale({ ...dataSend, totalPrice, productCart: filteredCart });
   };
 
   const itemNumber = (index) => {
@@ -60,6 +73,17 @@ function Checkout() {
     return formatPrice(subtotal.toFixed(2));
   };
 
+  const removeItem = (name) => {
+    const cartStorage = JSON.parse(localStorage.getItem('productCart'));
+    cartStorage[name].quantity = 0;
+    localStorage.setItem('productCart', JSON.stringify(cartStorage));
+    const itemToRemove = filteredCart.filter((item) => item.name === name);
+    total -= Number(itemToRemove.price * itemToRemove.quantity);
+
+    const newFilteredCart = filteredCart.filter((item) => item.name !== name);
+    setFilteredCart(newFilteredCart);
+  };
+
   const createSpan = (dataTestId, value) => (
     <span
       data-testid={ `customer_checkout__element-order-table-${dataTestId}` }
@@ -73,7 +97,7 @@ function Checkout() {
       <Navbar />
       <section className={ styles.productsContainer }>
         <h3>Finalizar Pedido</h3>
-        { productCart.map(({ name, price, quantity }, index) => (
+        { filteredCart.map(({ name, price, quantity }, index) => (
           <div
             key={ name }
             data-testid={ `element-order-table-name-${index}` }
@@ -86,6 +110,7 @@ function Checkout() {
             { createSpan(`sub-total-${index}`, calcSubTotal(price, quantity)) }
             <button
               type="button"
+              onClick={ () => removeItem(name) }
               data-testid={ `customer_checkout__element-order-table-remove-${index}` }
             >
               Remover
@@ -94,7 +119,7 @@ function Checkout() {
         <div
           data-testid="customer_checkout__element-order-total-price"
         >
-          { formatPrice(total.toFixed(2)) }
+          {formatPrice(total.toFixed(2))}
         </div>
       </section>
       <section className={ styles.formCheckoutContainer }>

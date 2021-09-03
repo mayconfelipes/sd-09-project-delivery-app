@@ -10,8 +10,9 @@ function Provider({ children }) {
   const [products, setProducts] = useState([]);
   const [productsCart, setProductsCart] = useState({});
   const [loading, setLoading] = useState(true);
-  const [saleId, setSaleId] = useState({});
+  const [saleState, setSaleState] = useState({});
   const [sellersId, setSellersId] = useState([]);
+  const [filteredCart, setFilteredCart] = useState([]);
   const router = useHistory();
 
   const getLocalToken = () => JSON.parse(localStorage.getItem('user'));
@@ -93,6 +94,7 @@ function Provider({ children }) {
       });
 
       setSaleId(response.data);
+      setSaleState(response.data);
       const { id } = response.data;
       router.push(`/customer/orders/${id}`);
     } catch (error) {
@@ -102,6 +104,20 @@ function Provider({ children }) {
 
   const setUserInLocalStorage = (data) => {
     localStorage.setItem('user', JSON.stringify(data));
+  };
+
+  const verifyUser = () => {
+    const storage = JSON.parse(localStorage.getItem('user'));
+    if (!user.name && storage) {
+      setUser(storage);
+    }
+  };
+
+  const updateFilteredCart = () => {
+    const cartStorage = JSON.parse(localStorage.getItem('productCart'));
+    const filterCart = Object.values(cartStorage)
+      .filter(({ quantity }) => quantity > 0);
+    setFilteredCart(filterCart);
   };
 
   const contextValue = {
@@ -119,10 +135,14 @@ function Provider({ children }) {
     loading,
     setProductCartInLocalStorage,
     sendSale,
-    saleId,
+    saleState,
     setSellersId,
     getSellersId,
     sellersId,
+    verifyUser,
+    updateFilteredCart,
+    filteredCart,
+    setFilteredCart,
   };
 
   return (
