@@ -25,6 +25,7 @@
     "@testing-library/user-event": "12.8.3",
     "antd": "^4.16.13",
     "axios": "^0.21.1",
+    "date-fns": "^2.23.0",
     "eslint": "^7.32.0",
     "joi": "^17.4.2",
     "joy": "^0.1.1",
