@@ -15,6 +15,7 @@ function OrdersDetails() {
   const { apiResponse } = useContext(LoginContext);
   const [sale, setSale] = useState({ products: [] });
   const { id } = useParams();
+  // const saleStatus = ['Pendente', 'Preparando', 'Em Trânsito', 'Entregue'];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,14 +29,27 @@ function OrdersDetails() {
     <>
       <Navbar name={ apiResponse.name } />
       <section>
-        <p data-testid={ `${route}__${label}-delivery-status` }>
-          { sale.status }
+        <p data-testid={ `${route}__${label}-order-id-${sale.id}` }>
+          { `Pedido ${sale.id}` }
         </p>
         <p data-testid={ `${route}__${label}-order-date` }>
           { formatDate(sale.saleDate) }
         </p>
-        { createButton({ ...preparingCheck, onClick: () => {}, route }) }
-        { createButton({ ...dispatchCheck, onClick: () => {}, route }) }
+        <p data-testid={ `${route}__${label}-delivery-status` }>
+          { sale.status }
+        </p>
+        { createButton({
+          ...preparingCheck,
+          onclick: () => setSale({ ...sale, status: 'Preparando' }),
+          route,
+          disabled: sale.status !== 'Pendente',
+        }) }
+        { createButton({
+          ...dispatchCheck,
+          onclick: () => setSale({ ...sale, status: 'Em Trânsito' }),
+          route,
+          disabled: sale.status !== 'Preparando',
+        }) }
         <OrderDetailsTable products={ sale.products } />
         <p data-testid={ `${route}__element-order-total-price` }>
           { formatPrice(sale.totalPrice) }

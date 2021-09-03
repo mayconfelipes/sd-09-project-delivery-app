@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
 import { getAllSales } from '../../services/api';
 import { formatPrice, formatDate } from '../../utils/format';
 
@@ -19,6 +20,7 @@ function Orders() {
 
   return (
     <section>
+      <Navbar />
       <h1>MEUS PEDIDOS</h1>
       { orders.map(({ id, totalPrice, saleDate, status }) => (
         <Link key={ id } to={ `/customer/orders/${id}` }>
