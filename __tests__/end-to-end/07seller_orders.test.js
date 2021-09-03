@@ -118,7 +118,7 @@ describe(requirement(28), () => {
   });
 });
 
-describe.only(requirement(29), () => {
+describe(requirement(29), () => {
   test("O avaliador acessará a tela de detalhes do último pedido pela tela de pedidos, após o checkout do mesmo", async () => {
     const { saleId } = currentOrder;
 

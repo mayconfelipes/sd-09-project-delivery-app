@@ -93,7 +93,7 @@ function Provider({ children }) {
         headers: { authorization: token },
       });
 
-      setSaleId(response.data);
+      // setSaleId(response.data);
       setSaleState(response.data);
       const { id } = response.data;
       router.push(`/customer/orders/${id}`);
