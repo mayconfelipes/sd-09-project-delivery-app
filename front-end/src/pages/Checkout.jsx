@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import CheckoutTable from '../components/CheckoutTable';
 import Navbar from '../components/Navbar';
 import LargeButton from '../components/LargeButton';
 import TextInput from '../components/TextInput';
-import DropDownList from '../components/DropDownList';
+import DropDownList from '../components/DropDownCheckout';
 import api from '../services/api';
 import AppContext from '../context/AppContext';
 import testIds from '../utils/dataTestIds';
@@ -16,9 +16,12 @@ function Checkout() {
   const [disableButton, setDisableButton] = useState(true);
   const cartData = getCarrinhoLocalStorage();
   const [infoSale, setInfoSalle] = useState({
-    deliveryAddress: '', deliveryNumber: '', sellerName: '',
+    deliveryAddress: '', deliveryNumber: '', sellerId: '',
   });
   const [vendorList, setVendorList] = useState([]);
+  const [redirect, setRedirect] = useState(false);
+  const [idVenda, setIdVenda] = useState();
+
   const user = JSON.parse(localStorage.getItem('user'));
 
   const fetchVendorList = async () => {
@@ -26,11 +29,11 @@ function Checkout() {
     setVendorList(vendors);
   };
 
-  const getsSellerFromState = (sellerName) => {
-    const myVendor = vendorList.find((vendor) => vendor.name === sellerName);
-    // setInfoSalle({ ...infoSale, sellerId: myVendor.id });
-    return myVendor.id;
-  };
+  // const getsSellerFromState = (sellerName) => {
+  //   const myVendor = vendorList.find((vendor) => vendor.name === sellerName);
+  //   // setInfoSalle({ ...infoSale, sellerId: myVendor.id });
+  //   return myVendor.id;
+  // };
 
   const isDisabledButton = () => {
     const { deliveryAddress, sellerName, deliveryNumber } = infoSale;
@@ -52,23 +55,28 @@ function Checkout() {
   };
 
   const handleSubmit = async () => {
-    const sellerId = getsSellerFromState(infoSale.sellerName);
+    // const sellerId = getsSellerFromState(infoSale.sellerName);
     const saleData = { ...infoSale,
-      sellerId,
       userId: user.id,
       totalCart: totalCart.replace(',', '.') };
     console.log(saleData);
-    console.log(cartData);
-    const result = await api.saveOrder(saleData, cartData);
-    console.log(result);
+    const result = await api.saveOrder(saleData, cartData, user.token);
     if (result.error) { console.error(`Tratar erro: "${result.error.message}"`); }
-    // history.push(`/customer/orders/${result.id}`); // conferir esse id
+    // history.push(`/customer/orders/${result}`); // conferir esse id
+    setIdVenda(result);
+    setRedirect(true);
   };
 
-  const getVendorsNames = () => {
-    const result = vendorList.map((vendor) => (vendor.name));
-    return result;
-  };
+  // const getVendorsNames = () => {
+  //   const result = vendorList.map((vendor) => (vendor.name));
+  //   return result;
+  // };
+
+  if (redirect) {
+    return (
+      <Redirect to={ `/customer/orders/${idVenda}` } />
+    );
+  }
   return (
     <main>
       <Navbar role={ user.role } />
@@ -85,8 +93,8 @@ function Checkout() {
           {' '}
           P.Vendedora Responsável:
           <DropDownList
-            options={ getVendorsNames() }
-            name="sellerName"
+            options={ vendorList }
+            name="sellerId"
             dataTestId={ testIds[29] }
             onChange={ handleChange }
           />

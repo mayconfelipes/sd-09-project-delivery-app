@@ -3,7 +3,7 @@ const SalesProducts = (sequelize, DataTypes) => {
     saleId: DataTypes.INTEGER,
     productId: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER
-  }, { timestamps: false, underscored: true });
+  }, { timestamps: false, freezeTableName:true, underscored: true });
 
   //fazer associacao n:n
   newSalesProducts.associate = (models) => {

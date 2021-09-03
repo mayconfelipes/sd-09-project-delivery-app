@@ -10,7 +10,7 @@ module.exports = {
           delivery_address: 'Rua do Xablau',
           delivery_number: '50',
           sale_date: new Date('2021-08-01T19:58:00.000Z'),
-          status: 'PENDENTE',
+          status: 'Pendente',
         },
       ]
     );
