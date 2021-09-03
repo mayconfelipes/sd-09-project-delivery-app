@@ -1,8 +1,7 @@
 const ServiceSales = require('../services/ServiceSales');
 
 const sale = async (req, res, next) => {
-  console.log('req');
-  /* try {
+  try {
     const { totalPrice, deliveryNumber, deliveryAddress, name, products } = req.body;
 
     const { id: userId } = req.user;
@@ -12,9 +11,8 @@ const sale = async (req, res, next) => {
 
     res.status(200).json(newSale);
   } catch (error) {
-    console.log(error.message);
     next(error);
-  } */
+  }
 };
 
 const getSalesByUserId = async (req, res, next) => {

@@ -25,14 +25,14 @@ const OrderLIst = () => {
 
   const convertCartToArray = () => {
     const productsList = Object.keys(cart).map((product) => cart[product]);
-    console.log(productsList);
     calculateTotalPrice(productsList);
     return productsList;
   };
 
   useEffect(() => {
-    setProducts(convertCartToArray());
-  }, []);
+    const converted = convertCartToArray();
+    setProducts(converted);
+  });
 
   const handleRemoveProduct = (indexItem) => {
     const tmpProducts = products;

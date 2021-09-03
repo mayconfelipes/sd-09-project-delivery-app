@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-import qs from 'qs';
-
+import { useHistory } from 'react-router-dom';
 import { useDeliveryContext } from '../../context/deliveryProvider';
 import OrderLIst from '../../components/checkout/OrderLIst';
 import AddressDetails from '../../components/checkout/AddressDetails';
@@ -11,6 +9,7 @@ import './style.css';
 
 const Checkout = () => {
   const [sellers, setSellers] = useState([]);
+  const history = useHistory();
 
   const { address, products, total } = useDeliveryContext();
 
@@ -32,9 +31,7 @@ const Checkout = () => {
   // const { totalPrice, deliveryNumber, deliveryAddress, name, products } = req.body;
 
   const handeClick = async () => {
-    console.log('click');
-
-    const data = {
+    const body = {
       totalPrice: Number(total.toFixed(2)),
       deliveryNumber: address.numero,
       deliveryAddress: address.address,
@@ -44,13 +41,10 @@ const Checkout = () => {
 
     const { token } = JSON.parse(localStorage.getItem('user'));
 
-    const headers = { 'Content-Type': 'application/json', authorization: token };
-
-    await api.post('/sales', {
-      headers,
-      data: qs.stringify(data),
-    })
-      .then((response) => console.log('response > ', response))
+    api.post('/sales', body, { headers: { authorization: token } })
+      .then(({ data }) => {
+        history.push(`/customer/orders/${data.id}`);
+      })
       .catch((err) => console.log(err));
 
     // console.log('data > ', data);

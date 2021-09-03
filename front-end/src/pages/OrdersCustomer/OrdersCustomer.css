@@ -1,0 +1,15 @@
+.order-list-container {
+  display: flex;
+}
+
+.order-list-container section {
+  display: flex;
+  margin-left: 100px;
+}
+
+.order-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1rem;
+  width: 60rem;
+}
