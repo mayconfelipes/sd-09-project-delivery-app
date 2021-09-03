@@ -1,11 +1,16 @@
 const RepositorySales = require('../repositories/RepositorySales');
-const RepositoryUsers = require('../repositories/RepositoryUsers');
+// const RepositoryUsers = require('../repositories/RepositoryUsers');
 
-const sale = async ({ userId, totalPrice, deliveryNumber, deliveryAddress, name, products }) => {
-  const status = 'pendente';
+const sale = async ({
+  userId,
+  totalPrice,
+  deliveryNumber,
+  deliveryAddress,
+  sellerId,
+  products }) => {
+  const status = 'Pendente';
 
-  const findedSeller = await RepositoryUsers.getByName({ name });
-  const { id: sellerId } = findedSeller;
+  // const findedSeller = await RepositoryUsers.getById({ id: sellerId });
 
   const newSale = await RepositorySales
     .createSale({ userId, sellerId, totalPrice, deliveryNumber, deliveryAddress, status });

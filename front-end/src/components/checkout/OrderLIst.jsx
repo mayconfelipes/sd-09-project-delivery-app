@@ -32,7 +32,7 @@ const OrderLIst = () => {
   useEffect(() => {
     const converted = convertCartToArray();
     setProducts(converted);
-  });
+  }, []);
 
   const handleRemoveProduct = (indexItem) => {
     const tmpProducts = products;
@@ -41,8 +41,6 @@ const OrderLIst = () => {
     setProducts(updatedProducts);
     calculateTotalPrice(updatedProducts);
   };
-
-  console.log('TOTAL > ', total);
 
   return (
     <div className="order-list-container">

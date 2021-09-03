@@ -17,9 +17,7 @@ const Checkout = () => {
     const fetchSellers = await api.get('/seller')
       .then((response) => response.data);
 
-    // console.log(fetchSellers);
-
-    const sellersNames = fetchSellers.map(({ name }) => name);
+    const sellersNames = fetchSellers.map(({ id, name }) => ({ id, name }));
     setSellers(sellersNames);
     console.log('sellersNames > ', sellersNames);
   };
@@ -28,27 +26,22 @@ const Checkout = () => {
     getSellers();
   }, []);
 
-  // const { totalPrice, deliveryNumber, deliveryAddress, name, products } = req.body;
-
   const handeClick = async () => {
     const body = {
       totalPrice: Number(total.toFixed(2)),
       deliveryNumber: address.numero,
       deliveryAddress: address.address,
-      name: address.vendedor,
+      sellerId: address.vendedor,
       products,
     };
 
     const { token } = JSON.parse(localStorage.getItem('user'));
 
-    api.post('/sales', body, { headers: { authorization: token } })
-      .then(({ data }) => {
-        history.push(`/customer/orders/${data.id}`);
-      })
+    const response = await api.post('/sales', body, { headers: { authorization: token } })
+      .then(({ data }) => data)
       .catch((err) => console.log(err));
 
-    // console.log('data > ', data);
-    console.log('token > ', token);
+    history.push(`/customer/orders/${response.id}`);
   };
 
   return (

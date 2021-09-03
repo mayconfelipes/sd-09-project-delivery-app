@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import Button from '../Button';
@@ -6,6 +6,7 @@ import { useDeliveryContext } from '../../context/deliveryProvider';
 
 const ItemCard = ({ list }) => {
   const { cart, setCart } = useDeliveryContext();
+  const [isDataValid, setIsDataValid] = useState(true);
   const history = useHistory();
   // const [cart, setCart] = useState({});
   console.log(cart);
@@ -43,6 +44,16 @@ const ItemCard = ({ list }) => {
 
     return parseFloat(total, 2).toFixed(2);
   };
+
+  useEffect(() => {
+    console.log(Object.keys(cart).length);
+    if (Object.keys(cart).length > 0) {
+      setIsDataValid(false);
+      console.log(isDataValid);
+    } else {
+      setIsDataValid(true);
+    }
+  }, [isDataValid, cart]);
 
   const handleRedirect = () => {
     history.push('/customer/checkout');
@@ -94,6 +105,7 @@ const ItemCard = ({ list }) => {
         type="button"
         data-testid="customer_products__button-cart"
         onClick={ handleRedirect }
+        disabled={ isDataValid }
       >
         Ver Carrinho:  R$
         <p

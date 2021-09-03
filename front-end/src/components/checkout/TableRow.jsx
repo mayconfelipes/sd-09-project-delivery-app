@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 const TableRow = ({ item, product, onclick }) => {
   const { name, price, quantity } = product;
-  const subTotal = quantity * Number(price);
+  const subTotal = (quantity * Number(price)).toFixed(2);
+  const unitPrice = Number(price).toFixed(2).toString().replace(/\./, ',');
 
   return (
     <tr>
@@ -13,11 +14,11 @@ const TableRow = ({ item, product, onclick }) => {
       <td data-testid={ `customer_checkout__element-order-table-name-${item}` }>
         { name }
       </td>
-      <td data-testid={ `cutomer_checkout__element-order-table-quantity-${item}` }>
+      <td data-testid={ `customer_checkout__element-order-table-quantity-${item}` }>
         { quantity }
       </td>
       <td data-testid={ `customer_checkout__element-order-table-unit-price-${item}` }>
-        { price }
+        { unitPrice }
       </td>
       <td data-testid={ `customer_checkout__element-order-table-sub-total-${item}` }>
         { subTotal.toString().replace(/\./, ',') }
