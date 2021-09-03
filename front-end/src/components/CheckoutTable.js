@@ -1,12 +1,15 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import CheckoutItem from './CheckoutItem';
 import Customer from '../context/customerContext';
+import Seller from '../context/sellerContext';
 import useTotalPrice from '../hooks/utils/useTotalPrice';
 
 export default function CheckoutTable() {
-  const {
-    shoppingCart,
-  } = useContext(Customer);
+  const History = useHistory();
+  const context = useContext(History.location.pathname === 'customer'
+    ? Customer : Seller);
+  const { shoppingCart } = context;
 
   const [totalPrice, setTotalPrice] = useTotalPrice();
 

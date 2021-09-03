@@ -17,14 +17,22 @@ const Routes = () => (
       </Route>
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
-      <CustomerProvider>
-        <Route path="/customer/checkout" component={ Checkout } />
-        <Route path="/customer/products" component={ ClientProducts } />
-      </CustomerProvider>
-      <SellerProvider>
-        <Route path="/seller/orders/:id" component={ OrderDetail } />
-        <Route path="/seller/orders" component={ Orders } />
-      </SellerProvider>
+      <Route
+        path="/seller/orders/:id"
+        render={ () => <SellerProvider><OrderDetail /></SellerProvider> }
+      />
+      <Route
+        path="/seller/orders"
+        render={ () => <SellerProvider><Orders /></SellerProvider> }
+      />
+      <Route
+        path="/customer/checkout"
+        render={ () => <CustomerProvider><Checkout /></CustomerProvider> }
+      />
+      <Route
+        path="/customer/products"
+        render={ () => <CustomerProvider><ClientProducts /></CustomerProvider> }
+      />
     </Switch>
   </BrowserRouter>
 );

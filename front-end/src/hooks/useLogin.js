@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function useLogin() {
@@ -23,6 +23,13 @@ export default function useLogin() {
       setData(error.response.data);
     }
   }
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setData({ path: rolePath[user.role] });
+    }
+  }, [rolePath]);
 
   return [data, setLogin];
 }

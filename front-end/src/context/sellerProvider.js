@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Seller from './sellerContext';
 
 function SellerProvider({ children }) {
-  const [sales, setSales] = useState([]);
+  const [shoppingCart, setShoppingCart] = useState([]);
 
   const data = {
-    sales,
-    setSales,
+    shoppingCart,
+    setShoppingCart,
   };
   return (
     <Seller.Provider value={ data }>
