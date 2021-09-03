@@ -1,7 +1,7 @@
 const { format } = require('date-fns');
 const { sales, users, products, salesProducts } = require('../../database/models');
 
-const saleDate = format(new Date(), 'dd-MM-yyyy HH:mm:ss');
+const saleDate = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
 const getAll = async () => {
   const allSales = await sales.findAll();
   return allSales;
@@ -18,32 +18,29 @@ const getIdUser = async (userEmail) => {
  return userId.id;
 };
 
-const registerSale = async ({ address, addressNumber, sellerId, totalPrice, userEmail, cartItens }) => {
-  const userId = await getIdUser(userEmail);
-  // const deliveryAddress = address;
-  // const deliveryNumber = addressNumber;
-  // const newSale = await sales.create({
-  //   userId, 
-  //   sellerId, 
-  //   totalPrice,
-  //   deliveryAddress,
-  //   deliveryNumber,
-  //   saleDate,
-  // });
-  const newSale = await sales.create({
-    user_id: userId, 
-    seller_id: sellerId, 
-    total_price: totalPrice,
-    delivery_address: address,
-    delivery_number: addressNumber,
-    sale_date: saleDate,
-  });
-  const productArray = []
-  cartItens.forEach(({item}) => productArray.push(products.findOne({where: {name: item.name}})))
+const registerSalesProducts = async (cartItens, newSale) => {
+  const productArray = [];
+  cartItens.forEach(({ item }) => 
+  productArray.push(products.findOne({ where: { name: item.name } })));
   const idList = await Promise.all(productArray);
-  idList.forEach(({id}, index) => salesProducts.create({
-    sale_id: newSale.id, product_id: id, quantity: cartItens[index].item.quant,
+  idList.forEach(({ id }, index) => salesProducts.create({
+    saleId: newSale.id, productId: id, quantity: cartItens[index].item.quant,
   }));
+};
+
+const registerSale = async (
+  { address, addressNumber, sellerId, totalPrice, userEmail, cartItens }) => {
+  const userId = await getIdUser(userEmail);
+  const newSale = await sales.create({
+    userId, 
+    sellerId, 
+    totalPrice,
+    deliveryAddress: address,
+    deliveryNumber: addressNumber,
+    saleDate,
+    status: 'Pendente',
+  });
+  await registerSalesProducts(cartItens, newSale);
   return newSale;
 };
 module.exports = {
