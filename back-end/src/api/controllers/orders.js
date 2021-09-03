@@ -2,8 +2,8 @@ const ordersService = require('../services/orders');
 
 const getOneOrderById = async (req, res) => {
   const { id } = req.params;
-  const order = await ordersService.getOneOrderById(id)
-  return res.status(200).json(order)
+  const order = await ordersService.getOneOrderById(id);
+  return res.status(200).json(order);
 };
 
 const getAllOrdersByCustomerId = async (req, res) => {
