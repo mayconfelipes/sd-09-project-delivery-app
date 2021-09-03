@@ -8,6 +8,12 @@ function SaleCard({
   totalPrice,
 }) {
   const sliceDate = 10;
+  const statusClasses = (sts) => {
+    if (sts === 'Pendente') return 'pending';
+    if (sts === 'Preparando') return 'preparing';
+    if (sts === 'Entregue') return 'done';
+  };
+
   return (
     <>
       <div className="order-card-left">
@@ -20,7 +26,7 @@ function SaleCard({
       </div>
 
       <div className="order-card-right">
-        <div className="order-card-left-half">
+        <div className={ `order-card-left-half ${statusClasses(status)}` }>
           <p data-testid={ `customer_orders__element-delivery-status-${saleId}` }>
             { status }
           </p>
