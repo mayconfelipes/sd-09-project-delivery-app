@@ -41,62 +41,6 @@ const Checkout = () => {
             const totPrice = (Math.round(multPrice * 100) / 100).toFixed(2);
             const toStringNumber = totPrice.toString().replace('.', ',');
 
-            // return (
-            //   <div key={ itemId } className={ gridStyle }>
-            //     <span
-            //       className={ style.firstGrid }
-            //       data-testid={
-            //         `customer_checkout__element-order-table-item-number-${index}`
-            //       }
-            //     >
-            //       { id + 1 }
-
-            //     </span>
-            //     <span
-            //       className={ style.secondGrid }
-            //       data-testid={ `customer_checkout__element-order-table-name-${index}` }
-            //     >
-            //       { userOrProductName }
-            //     </span>
-            //     <span
-            //       className={ style.thirdGrid }
-            //       data-testid={
-            //         `customer_checkout__element-order-table-quantity-${index}`
-            //       }
-            //     >
-            //       { emailOrQuantity }
-            //     </span>
-            //     <span
-            //       className={ style.fourthGrid }
-            //       data-testid={
-            //         `customer_checkout__element-order-table-unit-price-${index}`
-            //       }
-            //     >
-            //       { userTypeOrValue }
-            //     </span>
-            //     <span
-            //       className={ style.fifthGrid }
-            //       data-testid={
-            //         `customer_checkout__element-order-table-sub-total-${index}`
-            //       }
-            //     >
-            //       { deleteOrPrice }
-            //     </span>
-            //     { shouldDeleteApear && (
-            //       <div className={ style.sixthGrid }>
-            //         <button
-            //           type="button"
-            //           onClick={ () => removeItem(itemId) }
-            //           data-testid={
-            //             `customer_checkout__element-order-table-remove-${index}`
-            //           }
-            //         >
-            //           Remover
-            //         </button>
-            //       </div>
-            //     ) }
-            //   </div>
-            // );
             return (<DescriptionsBar
               key={ Math.random() }
               id={ index }
