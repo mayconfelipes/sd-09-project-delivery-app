@@ -3,7 +3,7 @@ const rescue = require('express-rescue');
 const Joi = require('joi');
 const User = require('../services/user');
 const validate = require('../middlewares/validate');
-// const validateToken = require('../middlewares/validateToken');
+const validateToken = require('../middlewares/validateToken');
 const validateAdmin = require('../middlewares/validateAdmin');
 
 const route = express.Router();
@@ -12,6 +12,13 @@ const userValidator = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
+});
+
+const userRoleValidator = Joi.object({
+  name: Joi.string().required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required(),
+  role: Joi.string(),
 });
 
 route.post('/', [
@@ -37,13 +44,13 @@ route.get('/', [
   }),
 ]);
 
-// route.use(validateToken);
+route.use(validateToken);
 
 route.post('/admin', [
-  validate(userValidator),
+  validate(userRoleValidator),
   validateAdmin,
   rescue(async (req, res) => {
-    const user = await User.create(req.body, 'administrator');
+    const user = await User.create(req.body);
     res.status(201).json(user);
   }),
 ]);

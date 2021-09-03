@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-// import { Context } from '../context';
 import { createInput, createButton } from '../utils/creators';
-import validateEmail from '../utils/validateEmail';
-import { NAME_MIN_LENGTH, PASS_MIN_LENGTH } from '../utils/validationNumbers';
 import { emailOptions, nameOptions, passwordOptions } from '../data/InputOptions';
-import { finishRegisterButton } from '../data/ButtonOptions';
-import { createUser } from '../services/api';
+import { submitUser } from '../data/ButtonOptions';
+import { registerUser } from '../services/api';
 import ErrorMessage from '../components/ErrorMessage';
 import FormSection from '../components/StyledComponents/FormSection';
 
@@ -15,13 +12,12 @@ const route = 'common_register';
 function Registration() {
   const [state, setState] = useState({ name: '', email: '', password: '' });
   const [apiResponse, setApiResponse] = useState({});
-  const { name, email, password } = state;
 
-  const handleChange = ({ target }) => {
-    setState({ ...state, [target.name]: target.value });
+  const handleChange = ({ target: { name, value } }) => {
+    setState({ ...state, [name]: value });
   };
 
-  const handleRegister = async () => createUser({ name, email, password })
+  const onClick = async () => registerUser({ ...state })
     .then((data) => setApiResponse(data));
 
   if (apiResponse.id) {
@@ -29,20 +25,20 @@ function Registration() {
     return <Redirect to="/customer/products" />;
   }
 
+  const checkFormats = () => {
+    const nameFormat = /^[a-zA-ZÀ-ü ]{12}/g.test(state.name);
+    const emailFormat = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(state.email);
+    const passwordFormat = /[\w\D]{6}/g.test(state.password);
+    return nameFormat && emailFormat && passwordFormat;
+  };
+
   return (
     <FormSection>
       <h1>CADASTRO</h1>
       { createInput({ ...nameOptions, onChange: handleChange, route }) }
       { createInput({ ...emailOptions, onChange: handleChange, route }) }
       { createInput({ ...passwordOptions, onChange: handleChange, route }) }
-      { createButton({
-        ...finishRegisterButton,
-        onClick: handleRegister,
-        route,
-        disabled: name.length < NAME_MIN_LENGTH
-          || !validateEmail(email)
-          || password.length < PASS_MIN_LENGTH,
-      }) }
+      { createButton({ ...submitUser, onClick, route, disabled: !checkFormats() }) }
       { apiResponse.message && <ErrorMessage route={ route } field="_register" /> }
     </FormSection>
   );

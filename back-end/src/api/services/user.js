@@ -6,7 +6,7 @@ const error = require('../utils/generateError');
 const userNotFound = '"user" not found';
 const emailRegistered = 'Email already registered';
 
-const create = async ({ name, email, password }, role = 'customer') => {
+const create = async ({ name, email, password, role = 'customer' }) => {
   const userExists = await User.findOne({ where: { email } });
   if (userExists) throw error('conflict', emailRegistered);
   await User.create({ name, email, password: md5(password), role });

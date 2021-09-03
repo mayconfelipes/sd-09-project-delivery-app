@@ -1,3 +1,12 @@
+export const nameOptions = {
+  id: 'name',
+  name: 'name',
+  type: 'text',
+  placeholder: 'Seu nome',
+  label: 'Nome',
+  testId: 'name',
+};
+
 export const emailOptions = {
   id: 'email',
   name: 'email',
@@ -14,15 +23,6 @@ export const passwordOptions = {
   placeholder: '******',
   label: 'Senha',
   testId: 'password',
-};
-
-export const nameOptions = {
-  id: 'name',
-  name: 'name',
-  type: 'text',
-  placeholder: 'Seu nome',
-  label: 'Nome',
-  testId: 'name',
 };
 
 export const itemQty = (id) => ({

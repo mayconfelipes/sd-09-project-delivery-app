@@ -2,8 +2,7 @@ import axios from 'axios';
 
 const url = 'http://localhost:3001';
 
-export const login = async (email, password, successCb, errorCb) => {
-  const body = { email, password };
+export const login = async (body, successCb, errorCb) => {
   try {
     const { data } = await axios.post(`${url}/login`, body);
     errorCb('');
@@ -17,7 +16,16 @@ export const login = async (email, password, successCb, errorCb) => {
   }
 };
 
-export const createUser = (body) => axios.post(`${url}/user`, body)
+export const registerUser = (body) => axios.post(`${url}/user`, body)
+  .then(({ data }) => data)
+  .catch((error) => error.response.data);
+
+export const createUser = (body) => axios.post(`${url}/user/admin`, body, {
+  headers: { authorization: JSON.parse(localStorage.user).token },
+}).then(({ data }) => data)
+  .catch((error) => error.response.data);
+
+export const deleteUser = (id) => axios.delete(`${url}/user/${id}`)
   .then(({ data }) => data)
   .catch((error) => error.response.data);
 
