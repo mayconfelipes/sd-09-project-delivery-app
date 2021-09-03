@@ -24,7 +24,6 @@ app.use('/products', productRoute);
 app.use('/customer', authMiddleware, saleRoute);
 app.use('/allsellers', authMiddleware, allSellers);
 
-
 app.use(express.static(path.join(__dirname, '../', '../', 'public')));
 
 app.use(errorMiddleware);
