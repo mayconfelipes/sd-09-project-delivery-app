@@ -33,7 +33,18 @@ export const deliveryCheck = {
   label: 'MARCAR COMO ENTREGUE',
 };
 
+
 export const registerUser = {
   name: 'register',
   label: 'CADASTRAR',
+};
+
+export const preparingCheck = {
+  name: 'preparing-check',
+  label: 'PREPARAR PEDIDO',
+};
+
+export const dispatchCheck = {
+  name: 'dispatch-check',
+  label: 'SAIU PARA ENTREGA',
 };
