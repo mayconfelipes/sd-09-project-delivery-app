@@ -202,6 +202,14 @@ table tr td {
   padding: 4px 8px;
 }
 
+.checkout-container {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .checkoutBtn {
   background-color: #4CAF50;
   border: none;

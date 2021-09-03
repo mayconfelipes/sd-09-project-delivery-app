@@ -1,9 +1,21 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+// import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 
-function TableProducts({ products }) {
+function TableProducts() {
+  const [products, setProducts] = useState([]);
+  const totalPriceStorage = Number(localStorage.getItem('totalPrice'));
+
+  useEffect(() => {
+    setProducts(JSON.parse(localStorage.getItem('cart')));
+  }, [setProducts]);
+
   const removeProductOnClick = (id) => {
     setProducts(products.filter((product) => id !== product.id));
+    products.forEach((prod) => {
+      localStorage.setItem('totalPrice',
+        totalPriceStorage - (prod.unitPrice * prod.quantity));
+    });
+    localStorage.setItem('cart', products);
   };
 
   const productsTbobyRender = () => products.map((product, index) => (
@@ -15,13 +27,13 @@ function TableProducts({ products }) {
         {product.name}
       </td>
       <td data-testid={ `customer_checkout__element-order-table-quantity-${index}` }>
-        Quantidade carrinho
+        {product.quantity}
       </td>
       <td data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }>
-        {product.price}
+        {product.unitPrice}
       </td>
-      <td data-testid={ `checkout__element-order-table-sub-total-${index}` }>
-        Sub total carrinho
+      <td data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }>
+        {product.unitPrice * product.quantity}
       </td>
       <td>
         <button
@@ -54,11 +66,14 @@ function TableProducts({ products }) {
   return (
     <>
       { cartTableRender() }
+      <h1 className="tp" data-testid="customer_checkout__element-order-total-price">
+        {`Total: R$ ${totalPriceStorage}`}
+      </h1>
     </>
   );
 }
 
-TableProducts.propTypes = {
+/* TableProducts.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -68,6 +83,6 @@ TableProducts.propTypes = {
       subTotal: PropTypes.number,
     }),
   ).isRequired,
-};
+}; */
 
 export default TableProducts;

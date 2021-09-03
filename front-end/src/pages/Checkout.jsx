@@ -4,35 +4,26 @@ import NavBar from '../Components/NavBar';
 // import { useHistory } from 'react-router-dom';
 import api from '../services/api';
 
+const { id } = JSON.parse(localStorage.getItem('user'));
+
 function Checkout() {
-  // const { cart, setCart } = useContext(Provider);
-  // const [seller, setSeller] = ('Fulana Pereira');
+  const [sellers, setSellers] = useState([]);
+  const [totalPriceStorage, settotalPriceStorage] = useState(0);
   const [salesDetails, setSalesDetails] = useState({
-    userId: 1,
-    sellerId: 1,
-    totalPrice: 100,
+    userId: id,
+    sellerId: 2,
+    totalPrice: totalPriceStorage,
     deliveryAdress: '',
     deliveryNumber: 0,
     status: 'pendente',
-    saleDate: Date.now() });
-  const [products, setProducts] = useState([]);
-  const [user, setUser] = useState([]);
+  });
   // const history = useHistory();
+  console.log('detalhes', salesDetails);
 
   useEffect(() => {
-    api.get('product').then((res) => setProducts(res.data));
-    api.get('user').then((res) => setUser(res.data));
-  }, []);
-
-  console.log(user);
-  console.log(products);
-  console.log(salesDetails);
-
-  const dropDownSellers = () => (
-    <select value="Fulana Pereira" data-testid="customer_checkout__select-seller">
-      <option value="Fulana Pereira">Fulana Pereira</option>
-    </select>
-  );
+    settotalPriceStorage(Number(localStorage.getItem('totalPrice')));
+    api.get('user/seller').then((res) => setSellers(res.data));
+  }, [totalPriceStorage]);
 
   const detailsAndAdressRender = () => (
     <table>
@@ -45,13 +36,29 @@ function Checkout() {
       </thead>
       <tbody>
         <tr>
-          <td>{dropDownSellers()}</td>
+          <td>
+            <select
+              data-testid="customer_checkout__select-seller"
+              onClick={
+                ({ target }) => setSalesDetails({
+                  ...salesDetails, sellerId: target.value,
+                })
+              }
+            >
+              {sellers.map((seller) => (
+                <option key={ seller.id } value={ seller.id }>
+                  {seller.name}
+                </option>))}
+            </select>
+          </td>
           <td>
             <input
               data-testid="customer_checkout__input-address"
               type="text"
               onChange={
-                ({ target }) => setSalesDetails({ deliveryAdress: target.value })
+                ({ target }) => setSalesDetails({
+                  ...salesDetails, deliveryAdress: target.value,
+                })
               }
             />
           </td>
@@ -60,7 +67,9 @@ function Checkout() {
               data-testid="customer_checkout__input-addressNumber"
               type="text"
               onChange={
-                ({ target }) => setSalesDetails({ deliveryNumber: target.value })
+                ({ target }) => setSalesDetails({
+                  ...salesDetails, deliveryNumber: target.value,
+                })
               }
             />
           </td>
@@ -70,18 +79,17 @@ function Checkout() {
   );
 
   const finishOrder = async () => {
-    await api.post('/sale', salesDetails);
+    await api.post('sale', salesDetails);
+    const test = await api.get('sale');
+    console.log('xablau', test);
     // history.push(`/customer/orders${sale.id}`);
   };
 
   return (
-    <div>
+    <div className="checkout-container">
       <NavBar />
       <h2>Finalizar pedido</h2>
-      <TableProducts products={ products } />
-      <h1 className="tp" data-testid="customer_checkout__element-order-total-price">
-        {`Total: R$ ${products.length === 0 ? 0.00 : products[0].price}`}
-      </h1>
+      <TableProducts />
       <hr />
       <h3>Detalhes do pedido para entrega</h3>
       {detailsAndAdressRender()}
