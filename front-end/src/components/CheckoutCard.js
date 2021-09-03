@@ -9,8 +9,11 @@ const CheckoutCard = ({ cart, setCart }) => {
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [allSellers, setAllSellers] = useState([]);
-  // apenas para identificar o useRef sendo usado no preço total
-  const orderTotalPrice = useRef();
+  const orderTotalPrice = cart.reduce((acc, curr) => {
+    // é desnecessário transformar pra number, mas o lint tá mt phoda;
+    const operation = (acc + (curr.quantity * curr.price));
+    return Number(operation);
+  }, 0).toFixed(2);
   const removeProduct = ({ target }) => {
     const newCart = cart.filter((element) => {
       const currProdId = target.getAttribute('curr-prod-id');
@@ -51,14 +54,15 @@ const CheckoutCard = ({ cart, setCart }) => {
         authorization: token,
       },
       body: JSON.stringify({
-        sellerId: currSeller,
-        totalPrice,
+        sellerId: currSeller.split('-')[0],
+        totalPrice: orderTotalPrice,
         deliveryAddress: address,
         deliveryNumber: number,
         products: cart.map(({ id, quantity }) => ({ id, quantity })),
       }),
     };
-    await fetch('http://localhost:3001/customer/order', orderBody);
+    // await fetch('http://localhost:3001/customer/order', orderBody);
+    return orderBody;
   };
 
   useEffect(() => {
@@ -127,14 +131,10 @@ const CheckoutCard = ({ cart, setCart }) => {
         </tbody>
       </table>
       <h4
-        ref={ orderTotalPrice }
+        ref={ useRef() }
         data-testid="customer_checkout__element-order-total-price"
       >
-        { `Total Price: 
-    ${String((cart.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0)
-      .toFixed(2)))
-      .replace('.', ',')
-    }` }
+        { `Total Price: ${orderTotalPrice}` }
       </h4>
       {/* Fim da ordem pt 01 */ }
       {/* Começo ordem pt 02 - Endereços */ }
@@ -144,9 +144,10 @@ const CheckoutCard = ({ cart, setCart }) => {
           <p>Pessoa Vendedora Responsável:</p>
           <select
             value={ currSeller }
-            onChange={ (e) => {
-              setCurrSeller(e.target.value);
-              console.log(typeof (currSeller));
+            onChange={ ({ target }) => {
+              // const theId = target.value.split('-')[0];
+              setCurrSeller(target.value);
+              console.log((currSeller));
             } }
             data-testid="customer_checkout__select-seller"
             name="currSeller"
@@ -180,7 +181,9 @@ const CheckoutCard = ({ cart, setCart }) => {
         </label>
       </fieldset>
       {/* Fim ordem pt 02 */ }
-      <button type="submit" onClick={ submitOrder }>FINALIZAR PEDIDO</button>
+      <button type="submit" onClick={ console.log(submitOrder()) }>
+        FINALIZAR PEDIDO
+      </button>
     </div>
   );
 };
