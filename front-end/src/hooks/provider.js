@@ -12,6 +12,7 @@ function Provider({ children }) {
   const [loading, setLoading] = useState(true);
   const [saleState, setSaleState] = useState({});
   const [sellersId, setSellersId] = useState([]);
+  const [filteredCart, setFilteredCart] = useState([]);
   const router = useHistory();
 
   const signIn = async (email, password) => {
@@ -104,6 +105,20 @@ function Provider({ children }) {
     localStorage.setItem('user', JSON.stringify(data));
   };
 
+  const verifyUser = () => {
+    const storage = JSON.parse(localStorage.getItem('user'));
+    if (!user.name && storage) {
+      setUser(storage);
+    }
+  };
+
+  const updateFilteredCart = () => {
+    const cartStorage = JSON.parse(localStorage.getItem('productCart'));
+    const filterCart = Object.values(cartStorage)
+      .filter(({ quantity }) => quantity > 0);
+    setFilteredCart(filterCart);
+  };
+
   const contextValue = {
     user,
     setUser,
@@ -123,6 +138,10 @@ function Provider({ children }) {
     setSellersId,
     getSellersId,
     sellersId,
+    verifyUser,
+    updateFilteredCart,
+    filteredCart,
+    setFilteredCart,
   };
 
   return (
