@@ -47,6 +47,11 @@ function Login() {
     }
   };
 
+  if (localStorage.user) {
+    const user = JSON.parse(localStorage.user);
+    return redirectPath[user.role];
+  }
+
   if (canRedirect) return redirectPath[path];
 
   return (

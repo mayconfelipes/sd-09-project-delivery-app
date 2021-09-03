@@ -12,13 +12,11 @@ const label = 'element-order-details-label';
 function OrdersDetails() {
   const [order, setOrder] = useState({ products: [] });
   const [sellerName, setSellerName] = useState([]);
-  // const user = JSON.parse(localStorage.user);
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getSaleByid(id);
-      // console.log(data);
       const { name } = await getUserByid(data.sellerId);
       setOrder(data);
       setSellerName(name);
@@ -44,7 +42,9 @@ function OrdersDetails() {
         route,
         disabled: order.status !== 'Em Trânsito',
       }) }
-      <p data-testid={ `${route}__element-order-total-price` }>{ order.totalPrice }</p>
+      <p data-testid={ `${route}__element-order-total-price` }>
+        { `${order.totalPrice}`.replace(/\./, ',') }
+      </p>
     </section>
   );
 }

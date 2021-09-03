@@ -1,12 +1,11 @@
 import React from 'react';
-// import { Redirect } from 'react-router-dom';
-// import { Context } from '../context';
 
 const route = 'customer_products';
 const testid = `${route}__element-navbar`;
 
 function Navbar() {
   const clearStorage = () => { localStorage.user = ''; };
+
   return (
     <nav>
       <h1>NAVBAR</h1>

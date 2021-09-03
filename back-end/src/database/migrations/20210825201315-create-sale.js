@@ -22,7 +22,7 @@ module.exports = {
         onDelete: 'CASCADE',
       },
       totalPrice: {
-        type: Sequelize.DECIMAL(4, 2),
+        type: Sequelize.DECIMAL(9, 2),
         field: 'total_price',
       },
       deliveryAddress: {
