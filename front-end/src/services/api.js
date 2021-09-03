@@ -18,7 +18,7 @@ export const login = async (body, successCb, errorCb) => {
 
 export const registerUser = (body) => axios.post(`${url}/user`, body)
   .then(({ data }) => (data))
-  .catch((e) => ({ error: e.response.data }));
+  .catch((error) => error.response.data);
 
 export const createUser = (body) => axios.post(`${url}/user/admin`, body, {
   headers: { authorization: JSON.parse(localStorage.user).token },
