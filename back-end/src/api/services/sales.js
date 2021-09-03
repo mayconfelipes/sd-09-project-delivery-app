@@ -1,4 +1,4 @@
-const { Sales } = require('../../database/models');
+const { Sales, Products, Users } = require('../../database/models');
 const salesProductsServices = require('./salesProduct');
 const usersServices = require('./users');
 const { messageError } = require('../middwares/errors');
@@ -97,9 +97,41 @@ const update = async (id, sale) => {
   return fullSale;
 };
 
+// Busca vendas pelo id do usuário logado
+const getByUser = async (id) => {
+  const userId = id;
+  const sale = await Sales.findAll(
+    { include: [
+      { model: Products, as: 'products' },
+      { model: Users, as: 'seller' }, 
+    ] },
+    { where: { userId } }, 
+  );
+  if (!sale) {
+    throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
+  }
+  return sale;
+};
+
+// Busca todas as vendas
+const getAllSales = async () => {
+  const sale = await Sales.findAll(
+    { include: [
+      { model: Products, as: 'products' },
+      { model: Users, as: 'seller' }, 
+    ] }, 
+  );
+  if (!sale) {
+    throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
+  }
+  return sale;
+};
+
 module.exports = {
   create,
   getById,
   update,
   getAllById,
+  getByUser,
+  getAllSales,
 };

@@ -26,13 +26,13 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  ProductsModel.associate = (models) => {
-    models.Products.belongsToMany(models.Sales, {
-      through: models.SalesProducts,
-      foreignKey: 'product_id',
-      as: 'sales',
-      })
-  }
+  // ProductsModel.associate = (models) => {
+  //   models.Products.belongsToMany(models.Sales, {
+  //     through: models.SalesProducts,
+  //     foreignKey: 'product_id',
+  //     as: 'sales',
+  //     })
+  // }
 
   return ProductsModel;
 };
