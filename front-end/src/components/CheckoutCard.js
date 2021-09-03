@@ -119,7 +119,7 @@ const CheckoutCard = ({ cart, setCart }) => {
           data-testid="customer_checkout__element-order-total-price"
         >
           { ' ' }
-          { orderTotalPrice }
+          { orderTotalPrice.replace('.', ',') }
         </span>
       </h4>
       {/* Fim da ordem pt 01 */ }
