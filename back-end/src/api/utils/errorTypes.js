@@ -7,8 +7,12 @@ module.exports = {
     message: 'Name or email already in use',
     code: 'conflict',
   },
-  noProductsFound: {
-    message: 'No Products Found',
+  productsNotFound: {
+    message: 'No Products found',
+    code: 'notFound',
+  },
+  orderNotFound: {
+    message: 'No Order found with this ID',
     code: 'notFound',
   },
 };
