@@ -20,8 +20,16 @@ const findById = async (req, res) => {
   return res.status(200).json(result);
 };
 
+const updateStatus = async (req, res) => {
+  const { id, status } = req.body;
+  const { authorization } = req.headers;
+  const result = await sales.updateStatus({ id, status }, authorization);
+  return res.status(200).json(result);
+};
+
 module.exports = {
   create,
   findAll,
   findById,
+  updateStatus,
 };
