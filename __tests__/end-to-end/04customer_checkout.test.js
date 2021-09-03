@@ -116,7 +116,7 @@ describe(requirement(18), () => {
   });
 });
 
-describe.only(requirement(19), () => {
+describe(requirement(19), () => {
   test(`O avaliador tentará realizar a remoção de itens validando-os na tabela`, async () => {
     const { productsToExclude, newCart } = cartReduced(itemList);
 
@@ -134,7 +134,7 @@ describe.only(requirement(19), () => {
   });
 });
 
-describe.only(requirement(20), () => {
+describe(requirement(20), () => {
   test("O avaliador verificará se ao final do checkout o endereço da url contém o id do pedido", async () => {
     const { saleId } = await action.customer.checkoutNewSale(page, order);
     expect(typeof saleId).toBe("number");

@@ -9,24 +9,22 @@ function Checkout() {
     sendSale,
     getSellersId,
     sellersId,
-    setProductsCart,
     productsCart,
+    verifyUser,
+    updateFilteredCart,
+    filteredCart,
+    setFilteredCart,
   } = useContext(AppContext);
 
-  const [updating, setUpdating] = useState(false);
-
   useEffect(() => {
-    setProductsCart(JSON.parse(localStorage.getItem('productCart')));
-  }, [setProductsCart]);
+    verifyUser();
+    updateFilteredCart();
+  }, []);
 
   useEffect(() => {
     getSellersId();
-    setUpdating(false);
-  }, [getSellersId, setUpdating]);
+  }, [getSellersId]);
 
-  const filteredProductCarts = Object
-    .values(JSON.parse(localStorage.getItem('productCart')))
-    .filter(({ quantity }) => quantity > 0);
   const INITIAL_STATE = {
     sellerId: 2,
     deliveryAddress: '',
@@ -52,7 +50,7 @@ function Checkout() {
     setDetailsForm({ ...detailsForm });
     const dataSend = detailsForm;
     console.log(dataSend);
-    sendSale({ ...dataSend, totalPrice });
+    sendSale({ ...dataSend, totalPrice, productCart: filteredCart });
   };
 
   const itemNumber = (index) => {
@@ -74,14 +72,14 @@ function Checkout() {
   };
 
   const removeItem = (name) => {
-    const order = filteredProductCarts.filter((item) => item.name === name);
-    total -= Number(order.price * order.quantity);
+    const cartStorage = JSON.parse(localStorage.getItem('productCart'));
+    cartStorage[name].quantity = 0;
+    localStorage.setItem('productCart', JSON.stringify(cartStorage));
+    const itemToRemove = filteredCart.filter((item) => item.name === name);
+    total -= Number(itemToRemove.price * itemToRemove.quantity);
 
-    productsCart[name].quantity = 0;
-    localStorage.setItem('productCart', JSON.stringify(productsCart));
-
-    setProductsCart(productsCart);
-    setUpdating(true);
+    const newFilteredCart = filteredCart.filter((item) => item.name !== name);
+    setFilteredCart(newFilteredCart);
   };
 
   const createSpan = (dataTestId, value) => (
@@ -97,7 +95,7 @@ function Checkout() {
       <Navbar />
       <section className={ styles.productsContainer }>
         <h3>Finalizar Pedido</h3>
-        { !updating ? filteredProductCarts.map(({ name, price, quantity }, index) => (
+        { filteredCart.map(({ name, price, quantity }, index) => (
           <div
             key={ name }
             data-testid={ `element-order-table-name-${index}` }
@@ -115,7 +113,7 @@ function Checkout() {
             >
               Remover
             </button>
-          </div>)) : null}
+          </div>))}
         <div
           data-testid="customer_checkout__element-order-total-price"
         >
