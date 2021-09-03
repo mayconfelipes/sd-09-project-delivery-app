@@ -12,13 +12,11 @@ const getById = async (req, res) => {
 };
 
 const registerSale = async (req, res) => {
-  console.log(req.body.data)
-  const {address, addressNumber, sellerId, totalPrice, userEmail} = req.body.data;
+  const { address, addressNumber, sellerId, totalPrice, userEmail, cartItens } = req.body.data;
   const newSaleId = await sales
-    .registerSale({address, addressNumber, sellerId, totalPrice, userEmail});
+    .registerSale({ address, addressNumber, sellerId, totalPrice, userEmail, cartItens });
   return res.status(201).json(newSaleId);
 };
-
 
 module.exports = {
   getAll,

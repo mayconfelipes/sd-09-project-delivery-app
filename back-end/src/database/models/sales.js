@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     sale_date: { type: DataTypes.DATE, allowNull: false },
   },
   {
+    underscored: true,
     timestamps: false,
   });
   
