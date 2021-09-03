@@ -8,7 +8,7 @@ const tokens = require('../tokens');
 const ROLE_CHOICES = [
   'customer',
   'seller',
-  'admin',
+  'administrator',
 ];
 
 const UserSchema = Joi.object({
@@ -32,5 +32,11 @@ module.exports = {
     const token = tokens.access.create(userData);
 
     return { user: { ...userData }, token };
+  },
+  async getAll() {
+    return User.findAll();
+  },
+  async remove(id) {
+    return User.destroy({ where: { id } });
   },
 };
