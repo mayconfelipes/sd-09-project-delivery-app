@@ -86,8 +86,40 @@ const getAllProducts = (token) => {
     .catch((err) => err);
 };
 
+// checkout feature
+const saveOrder = (orderData, listItens, token) => {
+  const endpoint = `${URL}/customer/checkout`;
+  return fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': CONTENT,
+      authorization: token,
+    },
+    body: JSON.stringify({ orderData, listItens }),
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
+// main-group-3
 const getAllSales = (token) => {
   const endpoint = `${URL}/sales`;
+  return fetch(endpoint, {
+    method: 'GET',
+    headers: {
+      'Content-Type': CONTENT,
+      authorization: token,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
+// pega id e name de todos vendedores
+const getAllVendors = (token) => {
+  const endpoint = `${URL}/vendors`;
   return fetch(endpoint, {
     method: 'GET',
     headers: {
@@ -106,6 +138,7 @@ const getAllUsers = () => {
     method: 'GET',
     headers: {
       'Content-Type': CONTENT,
+      // authorization: token,
     },
   })
     .then((response) => response.json())
@@ -134,7 +167,9 @@ export default {
   getSaleById,
   getSaleItems,
   getAllProducts,
+  saveOrder,
   getAllSales,
+  getAllVendors,
   getAllUsers,
   removeUserById,
 };

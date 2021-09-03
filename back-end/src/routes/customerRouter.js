@@ -9,4 +9,6 @@ customerRouter.get('/products', [
   validateToken, productController.getAllProducts,
 ]);
 
+customerRouter.post('/checkout', productController.saveOrder);
+
 module.exports = customerRouter;
