@@ -8,7 +8,7 @@ const newOrder = async ({
   deliveryNumber,
   status,
 }) => {
-  const result = await ({
+  const result = await sale.create({
     userId,
     sellerId,
     totalPrice,
