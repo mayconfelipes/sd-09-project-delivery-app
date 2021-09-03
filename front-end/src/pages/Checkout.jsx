@@ -49,10 +49,6 @@ function Checkout() {
     const totalPrice = Number(totalPriceString);
     setDetailsForm({ ...detailsForm });
     const dataSend = detailsForm;
-    // Preciso do id do pedido cadastrado, logo ele precisa ser retornado na req
-    // const idLastOrder = response.data.order.id;
-    // useHistory().push(`/customer/orders/${idLastOrder}`);
-    console.log(dataSend);
     sendSale({ ...dataSend, totalPrice, productCart: filteredCart });
   };
 
