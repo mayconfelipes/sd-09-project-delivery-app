@@ -37,30 +37,30 @@ const OrderTable = () => {
       </thead>
       <tbody>
         {
-          products.map((item) => (
+          products.map((item, index) => (
             <tr key={ item.id }>
               <td
-                data-testid={ dataIdNumber + item.id }
+                data-testid={ dataIdNumber + index }
               >
-                {item.id}
+                {index}
               </td>
               <td
-                data-testid={ dataIdName + item.id }
+                data-testid={ dataIdName + index }
               >
                 {item.name}
               </td>
               <td
-                data-testid={ dataIdQuantity + item.id }
+                data-testid={ dataIdQuantity + index }
               >
                 {item.quantity}
               </td>
               <td
-                data-testid={ dataIdUnitPrice + item.id }
+                data-testid={ dataIdUnitPrice + index }
               >
                 {formatPrice(item.price)}
               </td>
               <td
-                data-testid={ dataIdSubTotal + item.id }
+                data-testid={ dataIdSubTotal + index }
               >
                 {formatPrice(item.price * item.quantity)}
               </td>
@@ -69,7 +69,7 @@ const OrderTable = () => {
                   type="button"
                   name={ item.id }
                   onClick={ removeProduct }
-                  data-testid={ dataIdRemove + item.id }
+                  data-testid={ dataIdRemove + index }
                 >
                   REMOVE
                 </button>
