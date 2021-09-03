@@ -1,16 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import AppContext from '../hooks/context';
 import Navbar from '../components/Navbar';
 import styles from '../css/Checkout.module.css';
 // import '../App.css';
 
 function Checkout() {
-  const INITIAL_STATE = { seller: '', address: '', numberHouse: '' };
-  const [detailsForm, setDetailsForm] = useState(INITIAL_STATE);
+  const {
+    sendSale,
+    getSellersId,
+    sellersId,
+    setProductsCart,
+    productsCart,
+  } = useContext(AppContext);
 
-  const ordersFromStorage = Object.values(JSON.parse(localStorage.getItem('productCart')))
+  const [updating, setUpdating] = useState(false);
+
+  useEffect(() => {
+    setProductsCart(JSON.parse(localStorage.getItem('productCart')));
+  }, [setProductsCart]);
+
+  useEffect(() => {
+    getSellersId();
+    setUpdating(false);
+  }, [getSellersId, setUpdating]);
+
+  const filteredProductCarts = Object
+    .values(JSON.parse(localStorage.getItem('productCart')))
     .filter(({ quantity }) => quantity > 0);
-  const [orders, setOrders] = useState(ordersFromStorage);
-
+  const INITIAL_STATE = {
+    sellerId: 2,
+    deliveryAddress: '',
+    deliveryNumber: '',
+    productsCart,
+  };
+  const [detailsForm, setDetailsForm] = useState(INITIAL_STATE);
   let total = 0;
 
   const handleChange = ({ target }) => {
@@ -18,10 +41,18 @@ function Checkout() {
     setDetailsForm({ ...detailsForm, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleOptionsChange = ({ target }) => {
+    const { name, value } = target;
+    setDetailsForm({ ...detailsForm, [name]: value });
+  };
+
+  const handleSubmit = (e, totalPriceString) => {
     e.preventDefault();
+    const totalPrice = Number(totalPriceString);
+    setDetailsForm({ ...detailsForm });
     const dataSend = detailsForm;
     console.log(dataSend);
+    sendSale({ ...dataSend, totalPrice });
   };
 
   const itemNumber = (index) => {
@@ -34,6 +65,7 @@ function Checkout() {
   };
 
   const formatPrice = (price) => price.replace(/\./ig, ',');
+  const reformatPrice = (price) => price.replace(/,/ig, '.');
 
   const calcSubTotal = (price, quantity) => {
     const subtotal = Number(price * quantity);
@@ -42,12 +74,14 @@ function Checkout() {
   };
 
   const removeItem = (name) => {
-    const order = orders.filter((item) => item.name === name);
+    const order = filteredProductCarts.filter((item) => item.name === name);
     total -= Number(order.price * order.quantity);
 
-    const arr = orders.filter((item) => item.name !== name);
-    localStorage.setItem('productCart', JSON.stringify(arr));
-    setOrders(arr);
+    productsCart[name].quantity = 0;
+    localStorage.setItem('productCart', JSON.stringify(productsCart));
+
+    setProductsCart(productsCart);
+    setUpdating(true);
   };
 
   const createSpan = (dataTestId, value) => (
@@ -63,7 +97,7 @@ function Checkout() {
       <Navbar />
       <section className={ styles.productsContainer }>
         <h3>Finalizar Pedido</h3>
-        {orders.map(({ name, price, quantity }, index) => (
+        { !updating ? filteredProductCarts.map(({ name, price, quantity }, index) => (
           <div
             key={ name }
             data-testid={ `element-order-table-name-${index}` }
@@ -81,7 +115,7 @@ function Checkout() {
             >
               Remover
             </button>
-          </div>))}
+          </div>)) : null}
         <div
           data-testid="customer_checkout__element-order-total-price"
         >
@@ -92,37 +126,37 @@ function Checkout() {
         <h3>Detalhes e Endereço para entrega</h3>
         <form>
           <select
-            id="seller"
-            name="seller"
-            value={ detailsForm.seller }
+            id="sellerId"
+            name="sellerId"
+            value={ detailsForm.sellerId }
             data-testid="customer_checkout__select-seller"
-            onChange={ handleChange }
+            onChange={ handleOptionsChange }
           >
-            <option value="fulana 1">Vendedora 1</option>
-            <option value="fulana 2">Vendedora 2</option>
-            <option value="fulana 3">Vendedora 3</option>
+            {sellersId.map(({ id, name }) => (
+              <option key={ id } value={ id }>{ name }</option>
+            ))}
           </select>
           <input
             type="text"
             data-testid="customer_checkout__input-address"
             placeholder="Seu endereço"
-            value={ detailsForm.address }
+            value={ detailsForm.deliveryAddress }
             onChange={ handleChange }
-            name="address"
+            name="deliveryAddress"
           />
           <input
             type="number"
             data-testid="customer_checkout__input-addressNumber"
             placeholder="Número da casa"
-            value={ detailsForm.numberHouse }
+            value={ detailsForm.deliveryNumber }
             onChange={ handleChange }
-            name="numberHouse"
+            name="deliveryNumber"
           />
 
           <button
             type="submit"
             data-testid="customer_checkout__button-submit-order"
-            onClick={ handleSubmit }
+            onClick={ (e) => handleSubmit(e, reformatPrice(total.toFixed(2))) }
           >
             Finalizar Pedido
           </button>
