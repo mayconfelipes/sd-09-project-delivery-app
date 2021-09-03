@@ -17,7 +17,7 @@ const CustomerProducts = () => {
   let localValue = 0;
 
   const calcTotal = () => {
-    if (!newOrder) return 0;
+    if (!newOrder) return localValue;
 
     if (newOrder) {
       localValue = newOrder.reduce(
@@ -155,7 +155,7 @@ const CustomerProducts = () => {
         }
       </div>
 
-      <Link to="/checkout">
+      <Link to="/customer/checkout">
         <button
           type="button"
           className="ver_carrinho"
@@ -171,3 +171,9 @@ const CustomerProducts = () => {
 };
 
 export default CustomerProducts;
+
+// Gerente: Com a intenção de se adequar as novas mudanças, foi anexado uma planilha com a designação de novos grupos de trabalho, a partir dos dados coletados e dos feedback dos clientes.
+
+// Chefe: Segue a lista de alterações feitas pela diretoria, leiam e executem conforme o documento.
+
+// Líder: Time, haverão mudanças nos processos da empresa, em breve haverá uma reunião para alinhamento das novas atividades e qualquer dúvida estarei a disposição. Após a reunião teremos nosso happy hour.
