@@ -36,6 +36,20 @@ const getByUser = async (id) => {
   return sale;
 };
 
+// Busca todas as vendas
+const getAllSales = async () => {
+  const sale = await Sales.findAll(
+    { include: [
+      { model: Products, as: 'products' },
+      { model: Users, as: 'seller' }, 
+    ] }, 
+  );
+  if (!sale) {
+    throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
+  }
+  return sale;
+};
+
 const createProducts = async (saleId, products) => {
   products.forEach((product) => {
     const { productId, quantity } = product;
@@ -83,4 +97,5 @@ module.exports = {
   create,
   getById,
   getByUser,
+  getAllSales,
 };

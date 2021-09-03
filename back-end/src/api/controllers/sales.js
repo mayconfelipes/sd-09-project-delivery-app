@@ -35,8 +35,18 @@ const getByUser = async (req, res, next) => {
   }
 };
 
+const getAllSales = async (req, res, next) => {
+  try {
+    const sale = await salesServices.getAllSales();
+    return res.status(OK_STATUS).json(sale);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   create,
   getById,
   getByUser,
+  getAllSales,
 };
