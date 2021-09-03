@@ -19,7 +19,7 @@ const getByRole = async (req, res, next) => {
 
     const users = await usersServices.getByRole(role);
 
-    res.status(OK_STATUS).json({ users });
+    res.status(OK_STATUS).send(users);
   } catch (err) {
     next(err);
   }

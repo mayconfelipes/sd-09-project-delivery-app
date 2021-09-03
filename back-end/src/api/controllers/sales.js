@@ -4,8 +4,9 @@ const salesServices = require('../services/sales');
 const create = async (req, res, next) => {
   try {
     const sale = req.body;
-    const { login } = req;
-    const newSale = await salesServices.create(sale, login);
+    const { id } = req.user.data;
+    const newSale = await salesServices.create(sale, id);
+    console.log(newSale);
 
     return res.status(CREATED_STATUS).json(newSale);
   } catch (err) {

@@ -22,5 +22,9 @@ const GridOrderDetails = ({ shouldRemoveItemApear = false }) => {
 export default GridOrderDetails;
 
 GridOrderDetails.propTypes = {
-  shouldRemoveItemApear: P.bool.isRequired,
+  shouldRemoveItemApear: P.bool,
+};
+
+GridOrderDetails.defaultProps = {
+  shouldRemoveItemApear: false,
 };

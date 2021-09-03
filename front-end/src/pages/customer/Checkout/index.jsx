@@ -1,19 +1,39 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import DescriptionsBar from '../../../components/DescriptionsBar';
 import Navbar from '../../../components/Navbar';
 import PrimaryButton from '../../../components/PrimaryButton';
 import Input from '../../../components/Input';
 import GridOrderDetails from '../../../components/GridOrderDetails';
-
 import useGlobalContext from '../../../context/GlobalStateProvider';
-
+import sales from '../../../api/sales';
+import { getRegister } from '../../../api/register';
 import style from './checkout.module.scss';
 
 const Checkout = () => {
   const { totalPrice, setCartQuantity, cartQuantity } = useGlobalContext();
-  const id = 1;
+  const [saleId, setSaleId] = useState(0);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [selectedSeller, setSelectedSeller] = useState('');
+  const [saleData, setSaleData] = useState({
+    address: '',
+    addresNumber: '',
+  });
+  const [sellerName, setSellerName] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const localItem = JSON.parse(localStorage.getItem('user'));
+    if (localItem) {
+      const { token } = localItem;
+      getRegister('seller', token).then((data) => {
+        setSellerName(data);
+        setSelectedSeller(data[0].id);
+        setIsLoading(false);
+      });
+    }
+  }, []);
 
   const onClickRemoveItem = (itemId) => {
     const one = 1;
@@ -25,14 +45,47 @@ const Checkout = () => {
     }
   };
 
-  return (
-    <>
-      <Navbar />
-      <h1>Finalizar Pedido</h1>
-      <div className={ style.totalContainer }>
-        <GridOrderDetails shouldRemoveItemApear />
-        <div className={ style.barContainer }>
-          {JSON.parse(localStorage.getItem('cart'))
+  const onClickAddSaleInfo = async () => {
+    const { address, addresNumber } = saleData;
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const localItems = JSON.parse(localStorage.getItem('cart'));
+    const products = [];
+    if (localItems.length) {
+      localItems.map(({ quantity, id }) => (
+        products.push({ productId: id, quantity })
+      ));
+    }
+    const totPrice = totalPrice.replace(',', '.');
+    const priceToNumber = Math.round(parseFloat(totPrice) * 100) / 100;
+    const { id } = await sales(
+      {
+        token,
+        seller: selectedSeller,
+        totalPrice: priceToNumber,
+        deliveryNumber: addresNumber,
+        deliveryAddress: address,
+        products,
+      },
+    );
+    setSaleId(id);
+    setShouldRedirect(true);
+  };
+
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    setSaleData({ ...saleData, [name]: value });
+  }
+
+  if (!isLoading) {
+    return (
+      <>
+        {shouldRedirect && <Redirect to={ `/customer/orders/${saleId}` } />}
+        <Navbar />
+        <h1>Finalizar Pedido</h1>
+        <div className={ style.totalContainer }>
+          <GridOrderDetails shouldRemoveItemApear />
+          <div className={ style.barContainer }>
+            {JSON.parse(localStorage.getItem('cart'))
           && JSON.parse(localStorage.getItem('cart')).map((
             { id: itemId, description, quantity, price }, index,
           ) => {
@@ -41,62 +94,6 @@ const Checkout = () => {
             const totPrice = (Math.round(multPrice * 100) / 100).toFixed(2);
             const toStringNumber = totPrice.toString().replace('.', ',');
 
-            // return (
-            //   <div key={ itemId } className={ gridStyle }>
-            //     <span
-            //       className={ style.firstGrid }
-            //       data-testid={
-            //         `customer_checkout__element-order-table-item-number-${index}`
-            //       }
-            //     >
-            //       { id + 1 }
-
-            //     </span>
-            //     <span
-            //       className={ style.secondGrid }
-            //       data-testid={ `customer_checkout__element-order-table-name-${index}` }
-            //     >
-            //       { userOrProductName }
-            //     </span>
-            //     <span
-            //       className={ style.thirdGrid }
-            //       data-testid={
-            //         `customer_checkout__element-order-table-quantity-${index}`
-            //       }
-            //     >
-            //       { emailOrQuantity }
-            //     </span>
-            //     <span
-            //       className={ style.fourthGrid }
-            //       data-testid={
-            //         `customer_checkout__element-order-table-unit-price-${index}`
-            //       }
-            //     >
-            //       { userTypeOrValue }
-            //     </span>
-            //     <span
-            //       className={ style.fifthGrid }
-            //       data-testid={
-            //         `customer_checkout__element-order-table-sub-total-${index}`
-            //       }
-            //     >
-            //       { deleteOrPrice }
-            //     </span>
-            //     { shouldDeleteApear && (
-            //       <div className={ style.sixthGrid }>
-            //         <button
-            //           type="button"
-            //           onClick={ () => removeItem(itemId) }
-            //           data-testid={
-            //             `customer_checkout__element-order-table-remove-${index}`
-            //           }
-            //         >
-            //           Remover
-            //         </button>
-            //       </div>
-            //     ) }
-            //   </div>
-            // );
             return (<DescriptionsBar
               key={ Math.random() }
               id={ index }
@@ -127,48 +124,60 @@ const Checkout = () => {
               }
             />);
           })}
+          </div>
+          <PrimaryButton>
+            Total: R$
+            {' '}
+            <span
+              data-testid="customer_checkout__element-order-total-price"
+            >
+              {totalPrice}
+            </span>
+          </PrimaryButton>
         </div>
-        <PrimaryButton>
-          Total: R$
-          {' '}
-          <span
-            data-testid="customer_checkout__element-order-total-price"
-          >
-            {totalPrice}
-          </span>
-        </PrimaryButton>
-      </div>
-      <h2>Detalhes e Endereço para a Entrega</h2>
+        <h2>Detalhes e Endereço para a Entrega</h2>
 
-      <form className={ style.formDataContainer }>
-        <label htmlFor="orderData">
-          P. Vendedora Responsável
-          <select data-testid="customer_checkout__select-seller" id="orderData">
-            <option value="Fulana1">Fulana1</option>
-            <option value="Fulana2">Fulana2</option>
-            <option value="Fulana3">Fulana3</option>
-            <option value="Fulana4">Fulana4</option>
-          </select>
-        </label>
-        <Input
-          labelDescription="Endereço"
-          dataTestId="customer_checkout__input-address"
-        />
-        <Input
-          labelDescription="Número"
-          dataTestId="customer_checkout__input-addressNumber"
-        />
-        <div className={ style.checkoutButton }>
-          <Link to={ `/customer/orders/${id}` }>
+        <form className={ style.formDataContainer }>
+          <label htmlFor="orderData">
+            P. Vendedora Responsável
+            <select
+              name="seller"
+              id="orderData"
+              data-testid="customer_checkout__select-seller"
+              onChange={ ({ target: { value } }) => setSelectedSeller(value) }
+            >
+              {sellerName.length && sellerName
+                .map(({ name, id }) => (
+                  <option key={ Math.random() } value={ id }>{ name }</option>
+                ))}
+            </select>
+          </label>
+          <Input
+            inputName="address"
+            labelDescription="Endereço"
+            dataTestId="customer_checkout__input-address"
+            onHandleChange={ handleInputChange }
+          />
+          <Input
+            inputName="addresNumber"
+            labelDescription="Número"
+            dataTestId="customer_checkout__input-addressNumber"
+            onHandleChange={ handleInputChange }
+          />
+          <div className={ style.checkoutButton }>
             <PrimaryButton
               dataTestId="customer_checkout__button-submit-order"
+              onLoginClick={ onClickAddSaleInfo }
             >
               FINALIZAR PEDIDO
             </PrimaryButton>
-          </Link>
-        </div>
-      </form>
-    </>
+          </div>
+        </form>
+      </>
+    );
+  }
+  return (
+    <p>Loading...</p>
   );
 };
 

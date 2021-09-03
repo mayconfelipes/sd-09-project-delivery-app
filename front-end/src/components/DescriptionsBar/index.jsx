@@ -75,10 +75,10 @@ const DescriptionsBar = ({
 export default DescriptionsBar;
 
 DescriptionsBar.propTypes = {
-  isAboutUser: P.bool.isRequired,
+  isAboutUser: P.string,
   shouldDeleteApear: P.bool.isRequired,
-  id: P.string.isRequired,
-  itemId: P.string.isRequired,
+  id: P.number.isRequired,
+  itemId: P.number,
   userOrProductName: P.string.isRequired,
   emailOrQuantity: P.number.isRequired,
   userTypeOrValue: P.string.isRequired,
@@ -88,6 +88,13 @@ DescriptionsBar.propTypes = {
   dataTestIdEmailOrQuantity: P.string.isRequired,
   dataTestIdUserTypeOrValue: P.string.isRequired,
   dataTestIdDeleteOrPrice: P.string.isRequired,
-  removeItem: P.func.isRequired,
-  dataTestIdRemove: P.string.isRequired,
+  removeItem: P.func,
+  dataTestIdRemove: P.string,
+};
+
+DescriptionsBar.defaultProps = {
+  isAboutUser: '',
+  itemId: 0,
+  removeItem: () => {},
+  dataTestIdRemove: '',
 };
