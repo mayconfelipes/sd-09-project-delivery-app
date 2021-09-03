@@ -25,7 +25,18 @@ const getById = async (req, res, next) => {
   }
 };
 
+const getByUser = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const sale = await salesServices.getByUser(id);
+    return res.status(OK_STATUS).json(sale);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   create,
   getById,
+  getByUser,
 };

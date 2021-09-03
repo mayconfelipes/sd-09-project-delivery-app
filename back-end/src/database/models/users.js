@@ -1,5 +1,7 @@
 'use strict';
 
+const models = require('../../database/models');
+
 module.exports = (sequelize, DataTypes) => {
   const UsersModel = sequelize.define('Users', {
     id: {
@@ -10,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: {
       allowNull: false,
-      unique: true,
       type: DataTypes.STRING(100),
     },
     email: {
@@ -32,9 +33,13 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  UsersModel.associate = (models) => {
-    models.Users.hasMany(models.Sales)
-  }
+  // UsersModel.associate = (models) => {
+  //   models.Users.belongsTo(models.Sales,
+  //     {
+  //       foreignKey: 'userId',
+  //       as: 'sales',
+  //     });
+  // }
 
   return UsersModel;
 };

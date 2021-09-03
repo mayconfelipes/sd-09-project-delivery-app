@@ -1,28 +1,31 @@
 'use strict';
 
+const models = require('../../database/models');
+
 module.exports = (sequelize, DataTypes) => {
   const SalesModel = sequelize.define('Sales', {
     id: {
       primaryKey: true,
-      allowNull: false,
       autoIncrement: true,
       type: DataTypes.INTEGER,
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      foreignKey: true,
       references: {
-        model: 'users',
+        model: 'Users',
         key: 'id',
-      }
+      },
     },
     sellerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      foreignKey: true,
       references: {
-        model: 'users',
+        model: 'Users',
         key: 'id',
-      }
+      },
     },
     totalPrice: {
       type: DataTypes.DECIMAL(9, 2),
@@ -53,14 +56,16 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   SalesModel.associate = (models) => {
-    models.Sales.belongsTo(models.Users, {
-      foreignKey: 'user_id',
-      target: 'user',
+
+    models.Sales.hasOne(models.Users, {
+      foreignKey: 'id',
+      as: 'seller',
     });
 
-    models.Sales.belongsTo(models.Users, {
-      foreignKey: 'seller_id',
-      target: 'seller',
+    models.Sales.belongsToMany(models.Products, { 
+      foreignKey: 'saleId',
+      as: 'products',
+      through: 'SalesProducts',
     });
   }
 

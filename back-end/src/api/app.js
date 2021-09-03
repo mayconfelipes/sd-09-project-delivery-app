@@ -36,6 +36,8 @@ app.post('/register', usersControllers.create);
 
 app.get('/register', validateToken, usersControllers.getByRole);
 
+app.get('/sales/user', validateToken, salesControllers.getByUser);
+
 app.post('/sales', validateToken, salesControllers.create);
 
 app.get('/sales/:id', validateToken, salesControllers.getById);
