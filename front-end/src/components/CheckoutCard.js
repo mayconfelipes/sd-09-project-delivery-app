@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router';
 import { getUsersRole } from '../services/api';
 import './CheckoutCard.css';
 
@@ -10,6 +11,8 @@ const CheckoutCard = ({ cart, setCart }) => {
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [allSellers, setAllSellers] = useState([]);
+  const history = useHistory();
+
   const orderTotalPrice = cart.reduce((acc, curr) => {
     // é desnecessário transformar pra number, mas o lint tá mt phoda;
     const operation = (acc + (curr.quantity * curr.price));
@@ -43,8 +46,13 @@ const CheckoutCard = ({ cart, setCart }) => {
         products: cart.map(({ id, quantity }) => ({ id, quantity })), // verificar se há necessidade de fazer o envio junto, assim já preenche o salesproducts
       }),
     };
-    await fetch('http://localhost:3001/customer/order', orderBody);
-    return orderBody;
+    const theSale = await fetch('http://localhost:3001/customer/order', orderBody)
+      .then((response) => response.json())
+      .then(({ saleId }) => {
+        setCart([]);
+        history.push(`customer/orders/${saleId}`);
+      });
+    console.log(theSale);
   };
 
   useEffect(() => {
