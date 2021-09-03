@@ -20,7 +20,7 @@ function App() {
       <Route exact path="/seller/orders" component={ Orders } />
       <Route exact path="/customer/products" component={ Products } />
       <Route exact path="/customer/checkout" component={ Checkout } />
-      <Route exact path="/customer/orders/:id" component={ OrderDetails } />
+      <Route exact path="/:role/orders/:id" component={ OrderDetails } />
       <Route exact path="/customer/orders" component={ Orders } />
       <Route path="/admin/manager" />
       <Route component={ Notfound } />

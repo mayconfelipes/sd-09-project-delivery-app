@@ -48,7 +48,7 @@ beforeEach(async () => {
   ).toBeTruthy();
 });
 
-describe.only(requirement(30), () => {
+describe(requirement(30), () => {
   test("O avaliador testará os data-testids referentes aos itens e demais elementos", async () => {
     await expect(page).toFindElement(
       sellerOrderDetailsPage.element.orderDetails.label.orderId

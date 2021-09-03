@@ -27,7 +27,25 @@ function OrderDetails() {
   const generateDataTestId = (flag) => (
     `${user.role}_order_details__element-order-details-label-${flag}`);
 
+  const generateDataTestIdButtons = (role, flag) => (
+    `${role}_order_details__button-${flag}`);
+
+  const renderButtonsSeller = ({ value, testId, disabled }) => (
+    <button
+      type="button"
+      data-testid={ generateDataTestIdButtons('seller', testId) }
+      disabled={ disabled }
+    >
+      {value}
+    </button>
+  );
+
   const maxLengthPad = 4;
+
+  const buttonsSeller = [
+    { value: 'Preparando o pedido', testId: 'preparing-check', disabled: false },
+    { value: 'Saiu para entrega', testId: 'dispatch-check', disabled: true },
+  ];
 
   if (!order || !user) return <p>loading...</p>;
 
@@ -51,13 +69,19 @@ function OrderDetails() {
           { format(new Date(order.sale.saleDate), 'dd/MM/yyyy') }
         </p>
         <p data-testid={ generateDataTestId('delivery-status') }>{ order.sale.status }</p>
-        <button
-          type="button"
-          data-testid={ `${user.role}_order_details__button-delivery-check` }
-          disabled="true"
-        >
-          Marcar como entregue
-        </button>
+        { user.role === 'customer' && (
+          <button
+            type="button"
+            data-testid={ `${user.role}_order_details__button-delivery-check` }
+            disabled="true"
+          >
+            Marcar como entregue
+          </button>
+        )}
+        { user.role === 'seller' && (
+          buttonsSeller
+            .map((value) => renderButtonsSeller(value))
+        ) }
       </header>
       { order.sale.products
       && order.sale.products.map(({ name, quantity, price }, index) => (
