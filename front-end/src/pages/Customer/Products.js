@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar';
 import ProductCard from '../../components/Customer/ProductCard';
 import { getProducts } from '../../services/api';
 import { CustomerContext } from '../../context/CustomerContext';
+import { formatPrice } from '../../utils/format';
 
 const route = 'customer_products';
 
@@ -37,7 +38,7 @@ function Products() {
       >
         Ver Carrinho R$
         <span data-testid="customer_products__checkout-bottom-value">
-          {`${total}`.replace(/\./, ',') }
+          { formatPrice(total) }
         </span>
       </button>
       { products.map((product) => (

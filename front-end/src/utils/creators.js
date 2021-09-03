@@ -44,3 +44,12 @@ export const createDropDown = (name, options, onChange, route) => (
       <option key={ el } value={ el }>{ el }</option>)) }
   </select>
 );
+
+export const createPrice = (name, price, route) => (
+  <>
+    <span>R$: </span>
+    <span data-testId={ `${route}__element-${name}` }>
+      { `${price}`.replace(/\./, ',') }
+    </span>
+  </>
+);

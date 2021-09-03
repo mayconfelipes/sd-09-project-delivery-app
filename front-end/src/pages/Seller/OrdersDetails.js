@@ -6,46 +6,39 @@ import { getSaleByid } from '../../services/api';
 import Navbar from '../../components/Seller/Navbar';
 import { dispatchCheck, preparingCheck } from '../../data/ButtonOptions';
 import OrderDetailsTable from '../../components/Seller/OrderDetailsTable';
+import { formatPrice, formatDate } from '../../utils/format';
 
 const route = 'seller_order_details';
+const label = 'element-order-details-label';
 
 function OrdersDetails() {
   const { apiResponse } = useContext(LoginContext);
+  const [sale, setSale] = useState({ products: [] });
   const { id } = useParams();
-  const [sale, setSale] = useState({});
 
   useEffect(() => {
-    const getSaleWithId = async () => {
-      const response = await getSaleByid(id);
-      setSale(response);
+    const fetchData = async () => {
+      const data = await getSaleByid(id);
+      setSale(data);
     };
-
-    getSaleWithId();
+    fetchData();
   }, [id]);
-
-  if (!sale) return <p>Carregando...</p>;
 
   return (
     <>
       <Navbar name={ apiResponse.name } />
       <section>
-        <h1>DETALHES DO PEDIDO</h1>
-        <p
-          data-testid={ `${route}__element-order-details-label-delivery-status` }
-        >
-          {sale.status}
+        <p data-testid={ `${route}__${label}-delivery-status` }>
+          { sale.status }
         </p>
-        <p data-testid={ `${route}__element-order-details-label-order-date` }>
-          {sale.saleDate}
+        <p data-testid={ `${route}__${label}-order-date` }>
+          { formatDate(sale.saleDate) }
         </p>
-        <h1>TABELA DE DETALHES DA VENDA</h1>
         { createButton({ ...preparingCheck, onClick: () => {}, route }) }
         { createButton({ ...dispatchCheck, onClick: () => {}, route }) }
-        { sale.products && sale.products.map((item, index) => (
-          <OrderDetailsTable item={ item } index={ index } key={ item.id } />
-        )) }
+        <OrderDetailsTable products={ sale.products } />
         <p data-testid={ `${route}__element-order-total-price` }>
-          {`R$ ${sale.totalPrice} `}
+          { formatPrice(sale.totalPrice) }
         </p>
       </section>
     </>

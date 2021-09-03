@@ -1,17 +1,15 @@
 import React from 'react';
 import { number } from 'prop-types';
-// import { Redirect } from 'react-router-dom';
-// import { Context } from '../context';
+import { formatPrice } from '../../utils/format';
 
 const route = 'customer_order_details';
 
 function OrderDetailsTable({ products }) {
-  console.log(products);
   return (
     <table>
       { products.map(({ id, name, price, SalesProduct }, index) => (
         <tr key={ id }>
-          <td data-testid={ `${route}__element-card-title-${index}` }>
+          <td data-testid={ `${route}__element-order-table-item-number-${index}` }>
             { index + 1 }
           </td>
           <td data-testid={ `${route}__element-order-table-name-${index}` }>
@@ -20,8 +18,11 @@ function OrderDetailsTable({ products }) {
           <td data-testid={ `${route}__element-order-table-quantity-${index}` }>
             { SalesProduct.quantity }
           </td>
+          <td data-testid={ `${route}__element-order-table-unit-price-${index}` }>
+            { formatPrice(price) }
+          </td>
           <td data-testid={ `${route}__element-order-table-sub-total-${index}` }>
-            { price * SalesProduct.quantity }
+            { formatPrice(price * SalesProduct.quantity) }
           </td>
         </tr>
       ))}

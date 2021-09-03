@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import { getAllSales } from '../../services/api';
+import { formatPrice, formatDate } from '../../utils/format';
 
 const route = 'customer_orders';
 
@@ -12,7 +12,6 @@ function Orders() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllSales();
-      console.log(data);
       setOrders(data.filter(({ userId }) => userId === user.id));
     };
     fetchData();
@@ -26,10 +25,10 @@ function Orders() {
           <p data-testid={ `${route}__element-order-id-${id}` }>{ id }</p>
           <p data-testid={ `${route}__element-delivery-status-${id}` }>{ status }</p>
           <p data-testid={ `${route}__element-order-date-${id}` }>
-            { moment(saleDate).format('DD/MM/yyyy') }
+            { formatDate(saleDate) }
           </p>
           <p data-testid={ `${route}__element-card-price-${id}` }>
-            { `${totalPrice}`.replace(/\./, ',') }
+            { formatPrice(totalPrice) }
           </p>
         </Link>
       )) }

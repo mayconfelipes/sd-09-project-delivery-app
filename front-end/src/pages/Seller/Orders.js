@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../../components/Seller/Navbar';
 import { LoginContext } from '../../context/LoginContext';
 import { getSalesBySeller } from '../../services/api';
+import { formatPrice, formatDate } from '../../utils/format';
 
 const route = 'seller_orders';
 
@@ -28,19 +29,19 @@ function Orders() {
           <div key={ sale.id }>
             <Link to={ `/seller/orders/${sale.id}` }>
               <p data-testid={ `${route}__element-order-id-${sale.id}` }>
-                {`Pedido ${sale.id}`}
+                { `Pedido ${sale.id}` }
               </p>
               <p data-testid={ `${route}__element-delivery-status-${sale.id}` }>
-                {sale.status}
+                { sale.status }
               </p>
               <p data-testid={ `${route}__element-order-date-${sale.id}` }>
-                {sale.saleDate}
+                { formatDate(sale.saleDate) }
               </p>
               <p data-testid={ `${route}__element-card-price-${sale.id}` }>
-                {`R$ ${sale.totalPrice}`}
+                { formatPrice(sale.totalPrice) }
               </p>
               <p data-testid={ `${route}__element-card-address-${sale.id}` }>
-                {`${sale.deliveryAddress}, ${sale.deliveryNumber}`}
+                { `${sale.deliveryAddress}, ${sale.deliveryNumber}` }
               </p>
             </Link>
           </div>
