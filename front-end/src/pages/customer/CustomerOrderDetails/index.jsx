@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import P from 'prop-types';
 
 import DescriptionsBar from '../../../components/DescriptionsBar';
@@ -17,6 +17,13 @@ const CustomerOrderDetails = () => {
   // const { params } = match;
   // const { id } = params;
   const index = 0;
+
+  useEffect(() => {
+    fetch('http://localhost:3001/seller')
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
+
   return (
     <>
       <NavBar />
@@ -32,29 +39,32 @@ const CustomerOrderDetails = () => {
         />
         <div className={ style.barContainer }>
           <GridOrderDetails />
-          <DescriptionsBar
-            id="1"
-            userOrProductName="Cerveja heineken"
-            emailOrQuantity="2"
-            userTypeOrValue="R$ 2,40"
-            deleteOrPrice="R$ 4,80"
-            shouldDeleteApear={ false }
-            dataTestIdId={
-              `customer_order_details__element-order-table-item-number-${index}`
-            }
-            dataTestIdUserOrProductName={
-              `customer_order_details__element-order-table-name-${index}`
-            }
-            dataTestIdEmailOrQuantity={
-              `customer_order_details__element-order-table-quantity-${index}`
-            }
-            dataTestIdUserTypeOrValue={
-              `customer_order_details__element-order-table-sub-total-${index}`
-            }
-            dataTestIdDeleteOrPrice={
-              `customer_order_details__element-order-total-price-${index}`
-            }
-          />
+          {products.map(({ id, name, price, totalPrice, quantity }) => (
+            <DescriptionsBar
+              id={ id }
+              userOrProductName={ name }
+              emailOrQuantity={ quantity }
+              userTypeOrValue={ price }
+              deleteOrPrice={ totalPrice }
+              shouldDeleteApear={ false }
+              key={ id }
+              dataTestIdId={
+                `customer_order_details__element-order-table-item-number-${index}`
+              }
+              dataTestIdUserOrProductName={
+                `customer_order_details__element-order-table-name-${index}`
+              }
+              dataTestIdEmailOrQuantity={
+                `customer_order_details__element-order-table-quantity-${index}`
+              }
+              dataTestIdUserTypeOrValue={
+                `customer_order_details__element-order-table-sub-total-${index}`
+              }
+              dataTestIdDeleteOrPrice={
+                `customer_order_details__element-order-total-price-${index}`
+              }
+            />))}
+          ;
         </div>
         <PrimaryButton>Total R$: 4,80</PrimaryButton>
       </div>
