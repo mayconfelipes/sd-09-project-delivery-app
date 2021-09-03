@@ -15,6 +15,16 @@ const checkoutNewSale = async (data, productCart) => {
   return newSale;
 };
 
+const getSales = async () => {
+  const sales = await Sale.findAll();
+
+  if(!sales) {
+    return { statusCode: 409, message: 'Não existe pedidos' }
+  };
+  return sales;
+};
+
 module.exports = {
   checkoutNewSale,
+  getSales,
 };

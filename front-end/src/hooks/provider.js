@@ -6,7 +6,7 @@ import AppContext from './context';
 
 function Provider({ children }) {
   const [user, setUser] = useState({});
-  const [sales, setSales] = useState({});
+  const [sales, setSales] = useState([]);
   const [products, setProducts] = useState([]);
   const [productsCart, setProductsCart] = useState({});
   const [loading, setLoading] = useState(true);
@@ -29,6 +29,7 @@ function Provider({ children }) {
   };
 
   const getProducts = async () => {
+    console.log('getProducts', user.token);
     if (products.length) return;
     try {
       const response = await axios.get('http://localhost:3001/products');
@@ -58,22 +59,18 @@ function Provider({ children }) {
   };
 
   const getSales = async () => {
-    response.data = [{
-      deliveryNumber: '0001',
-      Status: 'Pendente',
-      saleDate: '01/09/2021',
-      id: '01',
-    }];
     try {
-      const response = await axios.get('http://localhost:3000/customer/orders');
+      const response = await axios.get('http://localhost:3001/sales', {
+        headers: { authorization: user.token },
+      });
       setSales(response.data);
     } catch (error) {
-      console.logo(error);
+      console.log(error);
     }
   };
 
   const sendSale = async (sale) => {
-    console.log(sale);
+    console.log('sendsale', user.token);
     const {
       sellerId,
       totalPrice,

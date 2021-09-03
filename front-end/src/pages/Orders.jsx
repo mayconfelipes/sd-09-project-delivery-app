@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Navbar from '../components/Navbar';
 import AppContext from '../hooks/context';
 // import '../App.css';
 
 function Orders() {
   const { sales, getSales } = useContext(AppContext);
-  console.log(sales, getSales);
+  console.log(sales);
 
   useEffect(() => {
     getSales();
-  }, [getSales]);
+  }, []);
 
   return (
     <div className="main">
