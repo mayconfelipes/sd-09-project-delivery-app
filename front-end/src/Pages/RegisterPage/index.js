@@ -12,7 +12,7 @@ import useRegisterInfo from '../../hooks/useRegisterInfo';
 import { PostRegister } from '../../Services/Api';
 
 const RegisterPage = () => {
-  const [registerInfo, handleFieldsChange] = useRegisterInfo();
+  const [registerInfo, handleFieldsChange, isValidInfo] = useRegisterInfo();
   const registerUser = (data) => () => {
     PostRegister(data);
   };
@@ -53,6 +53,7 @@ const RegisterPage = () => {
         <Button
           data-testid={ testIds.id9 }
           onClick={ registerUser(registerInfo) }
+          disabled={ isValidInfo }
         >
           CADASTRAR
         </Button>
