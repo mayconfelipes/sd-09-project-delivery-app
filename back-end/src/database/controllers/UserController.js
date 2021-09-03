@@ -19,7 +19,6 @@ const register = rescue(async(req, res) => {
 
 const sellers = rescue(async(_req, res) => {
   const allSellers = await User.getAll();
-
   return res.status(200).json(allSellers);
 });
 

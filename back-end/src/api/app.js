@@ -22,7 +22,7 @@ app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/products', productRoute);
 app.use('/customer', authMiddleware, saleRoute);
-app.use('/allsellers', authMiddleware, saleRoute);
+app.use('/allsellers', authMiddleware, allSellers);
 
 
 app.use(express.static(path.join(__dirname, '../', '../', 'public')));

@@ -67,9 +67,9 @@ const register = async (name, email, password) => {
 };
 
 const getAll = async () => {
-  const allSellers = await Product.findAll({
+  const allSellers = await User.findAll({
     where: {
-      role: 'seller'
+      role: 'seller',
     }
   });
   return allSellers;
