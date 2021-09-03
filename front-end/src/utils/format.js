@@ -1,5 +1,5 @@
 import moment from 'moment';
 
-export const formatPrice = (price) => `${price}`.replace(/\./, ',').toFixed(2);
+export const formatPrice = (price) => `${price.toFixed(2)}`.replace(/\./, ',');
 
 export const formatDate = (date) => moment(date).format('DD/MM/yyyy');
