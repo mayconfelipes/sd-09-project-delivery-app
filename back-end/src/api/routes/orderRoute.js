@@ -4,6 +4,6 @@ const { jwtValidate } = require('../middlewares/jwtValidation');
 
 const router = express.Router();
 
-router.post('/order', jwtValidate, insertOrderInSale);
+router.post('/', jwtValidate, insertOrderInSale);
 
 module.exports = router;
