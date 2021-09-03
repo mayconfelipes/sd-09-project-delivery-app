@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../../context';
 import formatPrice from '../../services/formatPrice';
@@ -6,15 +6,16 @@ import * as S from './styled';
 
 const CardProduct = ({ image, name, price, id }) => {
   const { cart, setCart } = useContext(Context);
+  const [valeuInput, setValeuInput] = useState(0);
   const { totalValue, products } = cart;
   const [quantity, setQuantity] = useState(0);
 
   const updateCart = ({ target }) => {
     if (target.name === 'increase') {
-      const exists = products.findIndex((item) => item.id === id);
       const notExist = -1;
+      const exists = products.findIndex((item) => item.id === id);
 
-      setQuantity(quantity + 1);
+      setQuantity(parseFloat(quantity) + parseFloat(1));
 
       const newCart = { totalValue: totalValue + price, products };
 
@@ -42,8 +43,12 @@ const CardProduct = ({ image, name, price, id }) => {
     }
   };
 
+  useEffect(() => {
+    setValeuInput(quantity * price);
+  }, [quantity, valeuInput]);
+
   const updateQuantity = ({ target }) => {
-    console.log(target.value);
+    console.log('oi', target);
     if (typeof target.value !== 'string') return;
     const newValue = Number(target.value);
 
@@ -94,8 +99,10 @@ const CardProduct = ({ image, name, price, id }) => {
         <input
           type="number"
           data-testid={ `customer_products__input-card-quantity-${id}` }
-          value={ quantity }
+          name="input"
+          value={ quantity || 0 }
           onChange={ updateQuantity }
+          onKeyUp={ updateQuantity }
         />
         <button
           type="button"

@@ -11,6 +11,7 @@ const Products = () => {
   const {
     cart: { totalValue }, catalog, setCatalog, loading, setLoading,
   } = useContext(context);
+  const [disabled, setDisabled] = useState(true);
   const [redirect, setRedirect] = useState(false);
 
   const fetchProducts = async () => {
@@ -25,6 +26,10 @@ const Products = () => {
     setCatalog(result);
     setLoading(false);
   };
+
+  useEffect(() => {
+    setDisabled(totalValue === 0);
+  }, [totalValue]);
 
   useEffect(() => {
     fetchProducts();
@@ -58,9 +63,11 @@ const Products = () => {
         type="button"
         onClick={ () => setRedirect(true) }
         data-testid="customer_products__button-cart"
+        disabled={ disabled }
       >
+        <span> VER CARRINHO: </span>
         <span data-testid="customer_products__checkout-bottom-value">
-          { `VER CARRINHO: ${formatPrice(totalValue)}` }
+          { formatPrice(totalValue) }
         </span>
       </button>
     </S.Container>
