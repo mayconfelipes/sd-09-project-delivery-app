@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Customer from '../context/customerContext';
 import Seller from '../context/sellerContext';
 
-export default function CheckoutItem({ product, index, pathname }) {
+export default function CheckoutItem({ product, index, role }) {
   const { shoppingCart, setShoppingCart } = useContext(
-    pathname.includes('customer') ? Customer : Seller,
+    role === 'customer' ? Customer : Seller,
   );
 
   const removeProduct = () => {
@@ -54,6 +54,7 @@ export default function CheckoutItem({ product, index, pathname }) {
         { `${(Math.round((price * quantity) * 100) / 100).toFixed(2)}`
           .split('.').join(',') }
       </td>
+      { role === 'customer'}
       <td>
         <button
           className="secondary grow-1"
@@ -76,5 +77,5 @@ CheckoutItem.propTypes = {
     price: PropTypes.string.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
-  pathname: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired,
 };

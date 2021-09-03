@@ -7,8 +7,9 @@ import useTotalPrice from '../hooks/utils/useTotalPrice';
 
 export default function CheckoutTable() {
   const History = useHistory();
-  const { pathname } = History.location;
-  const context = useContext(pathname.includes('customer')
+  const path = History.location.pathname.split('/');
+  const role = path[1];
+  const context = useContext(role === 'customer'
     ? Customer : Seller);
 
   const { shoppingCart } = context;
@@ -37,7 +38,7 @@ export default function CheckoutTable() {
             key={ product.id }
             index={ index }
             product={ product }
-            pathname={ pathname }
+            role={ role }
           />
         )) : <tr><td>Apenas teias de aranha em seu carrinho...</td></tr>}
         <tr
