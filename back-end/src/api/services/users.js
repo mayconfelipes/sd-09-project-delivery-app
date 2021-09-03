@@ -16,7 +16,7 @@ const searchUser = async (email, password) => {
 const loginUser = async ({ email, password }) => {
   const passwordMD5 = crypto.createHash('md5').update(password).digest('hex');
   const loggedUser = await searchUser(email, passwordMD5);
-  if (!loggedUser) throw newError(404, 'User not found');
+  if (!loggedUser) throw newError(404, 'Incorrect user or password');
   loggedUser.token = await newToken(loggedUser);
   return loggedUser;
 };

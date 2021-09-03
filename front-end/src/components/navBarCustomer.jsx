@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../styles/navBarCustomer.css';
+// import '../styles/navBarCustomer.css';
 
 function NavBarCustomer(props) {
   const { textProp } = props;

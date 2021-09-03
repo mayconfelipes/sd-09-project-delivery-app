@@ -54,9 +54,10 @@
 }
 
 .quantity input {
+  appearance: none;
   margin: 5px;
   text-align: center;
-  width: 20px;
+  width: 30px;
 }
 
 /* === Page Customer Button For Shopping Cart === */

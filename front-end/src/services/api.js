@@ -20,3 +20,33 @@ export const loginUser = async (email, password) => {
     });
   return loggedUser;
 };
+
+// export const getOrders = async () => {
+//   const orders = await axios
+//     .get('/customer/orders');
+//   return orders;
+// };
+
+export const getProducts = async () => {
+  const products = await axios
+    .get(`${baseURL}/products`);
+  return products;
+};
+
+export const getSellers = async () => {
+  const { data } = await axios
+    .get(`${baseURL}/sellers`);
+  return data;
+};
+
+// export const postNewOrder = async (orderObj) => {
+//   const newOrder = await axios
+//     .post(`${baseURL}/newOrder`, orderObj);
+//   return newOrder;
+// };
+
+export const getOrders = async (userId) => {
+  const orders = await axios
+    .get(`${baseURL}/customer/orders`, { userId });
+  return orders;
+};
