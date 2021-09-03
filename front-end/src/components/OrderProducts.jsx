@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { string, number, shape } from 'prop-types';
+import AppContext from '../hooks/context';
 
 function OrderProducts({ data }) {
   const { name, index, quantity, price } = data;
+  const { user } = useContext(AppContext);
+  console.log(user);
+
   const createSpan = (dataTestId, value) => (
     <span
       data-testid={ `customer_order_details__element-order-table-${dataTestId}` }
