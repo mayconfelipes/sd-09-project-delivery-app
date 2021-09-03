@@ -8,7 +8,7 @@ export const registerButton = {
   label: 'Ainda não tenho conta',
 };
 
-export const finishRegisterButton = {
+export const submitUser = {
   name: 'register',
   label: 'CADASTRAR',
 };
@@ -31,4 +31,9 @@ export const submitOrder = {
 export const deliveryCheck = {
   name: 'delivery-check',
   label: 'MARCAR COMO ENTREGUE',
+};
+
+export const registerUser = {
+  name: 'register',
+  label: 'CADASTRAR',
 };

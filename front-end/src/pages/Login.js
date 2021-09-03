@@ -2,8 +2,6 @@ import React, { useState, useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { LoginContext } from '../context/LoginContext';
 import { createInput, createButton } from '../utils/creators';
-import validateEmail from '../utils/validateEmail';
-import { PASS_MIN_LENGTH } from '../utils/validationNumbers';
 import { emailOptions, passwordOptions } from '../data/InputOptions';
 import ErrorMessage from '../components/ErrorMessage';
 import { login } from '../services/api';
@@ -26,25 +24,26 @@ function Login() {
     setLoginErrorMessage,
   } = useContext(LoginContext);
   const [state, setState] = useState({ email: '', password: '' });
-  const [canRedirect, setCanRedirect] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
   const [path, setPath] = useState('');
 
   const handleChange = ({ target: { type, value } }) => {
     setState({ ...state, [type]: value });
   };
 
-  const { email, password } = state;
-
   const handleLogin = async () => {
-    const response = await login(
-      email, password, setApiResponse, setLoginErrorMessage,
-    );
-
+    const response = await login(state, setApiResponse, setLoginErrorMessage);
     if (response.token) {
       localStorage.user = JSON.stringify(response);
       setPath(response.role);
-      return setCanRedirect(true);
+      return setShouldRedirect(true);
     }
+  };
+
+  const checkFormats = () => {
+    const emailFormat = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(state.email);
+    const passwordFormat = /[\w\D]{6}/g.test(state.password);
+    return emailFormat && passwordFormat;
   };
 
   if (localStorage.user) {
@@ -52,7 +51,7 @@ function Login() {
     return redirectPath[user.role];
   }
 
-  if (canRedirect) return redirectPath[path];
+  if (shouldRedirect) return redirectPath[path];
 
   return (
     <FormSection>
@@ -66,8 +65,7 @@ function Login() {
         ...loginButton,
         onClick: handleLogin,
         route,
-        disabled: !validateEmail(email)
-          || password.length < PASS_MIN_LENGTH,
+        disabled: !checkFormats(),
       })}
       <Link to="/register">
         { createButton({ ...registerButton, onClick: () => {}, route }) }
