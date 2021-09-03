@@ -5,12 +5,13 @@
   margin: 15px;
   width: 300px;
 }
+
 .div_pedido {
   align-items: center;
   display: flex;
   flex-direction: column;
   width: 130px;
-  }
+}
 
 .data_valor {
   align-items: center;
