@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import Button from '../Button';
-// import { useDeliveryContext } from '../../context/deliveryProvider';
+import { useDeliveryContext } from '../../context/deliveryProvider';
 
 const ItemCard = ({ list }) => {
-  // const { allProducts } = useDeliveryContext();
+  const { cart, setCart } = useDeliveryContext();
   const history = useHistory();
-  const [cart, setCart] = useState({});
+  // const [cart, setCart] = useState({});
   console.log(cart);
   const incrementQuantity = (id, name, price) => {
     if (!cart[id]) {
