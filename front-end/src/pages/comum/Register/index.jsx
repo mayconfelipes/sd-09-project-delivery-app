@@ -5,7 +5,7 @@ import PrimaryButton from '../../../components/PrimaryButton';
 
 import style from './register.module.scss';
 
-import register from '../../../api/register';
+import { register } from '../../../api/register';
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -39,8 +39,9 @@ const Register = () => {
 
   const sendLoginRequest = async () => {
     const { nameInput, emailInput, passwordInput } = userData;
-    const role = 'user';
+    const role = 'customer';
     const { token } = await register(nameInput, emailInput, passwordInput, role);
+    localStorage.setItem('user', JSON.stringify({ name: nameInput, token }));
     if (token) setIsLoggedStatus(true);
     else setCadasterFailure(true);
   };

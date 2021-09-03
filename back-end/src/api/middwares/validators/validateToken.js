@@ -9,7 +9,7 @@ require('dotenv').config();
 const validateToken = async (req, _res, next) => {
   try {
     const token = req.headers.authorization;
-
+    console.log('entrei');
     try {
       if (!token) {
         throw messageError(UNAUTHORIZED_STATUS, TOKEN_NOT_FOUND);
@@ -17,15 +17,14 @@ const validateToken = async (req, _res, next) => {
     } catch (err) {
       return next(err);
     }
-    
-    const secret = await jwtRead();
 
-    const payload = jwt.verify(token, secret);
+    const payload = jwt.verify(token, jwtRead);
 
-    req.login = payload;
+    req.user = payload;
     next();
   } catch (err) {
     next(messageError(UNAUTHORIZED_STATUS, TOKEN_INVALID));
+    console.log('caí no erro');
   }
 };
 

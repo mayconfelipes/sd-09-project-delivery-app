@@ -59,10 +59,9 @@ const create = async (user) => {
     throw messageError(INTERNAL_ERROR_STATUS, USER_NOT_CREATED);
   }
 
-  const secret = await jwtRead();
   const { id } = newUser.dataValues;
 
-  return jwt.sign({ data: { id, name, email, role } }, secret, jwtConfig);
+  return jwt.sign({ data: { id, name, email, role } }, jwtRead, jwtConfig);
 };
 
 const getById = async (id) => {
