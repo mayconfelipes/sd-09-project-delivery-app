@@ -11,16 +11,18 @@ function CheckoutTable() {
 
   return (
     <div>
+      Seu carrinho
       <table>
-        Seu carrinho
-        <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Subtotal</th>
-          <th>Remover do Carrinho</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Subtotal</th>
+            <th>Remover do Carrinho</th>
+          </tr>
+        </thead>
         <tbody>
           { currentOrder.length === 0 ? <span>Seu carrinho está vazio</span>
             : currentOrder.map((order, index) => (
