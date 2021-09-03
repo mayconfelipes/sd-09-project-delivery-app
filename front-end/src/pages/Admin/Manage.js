@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UsersTable from '../../components/Admin/ManageUserTable';
 import Navbar from '../../components/Navbar';
-import { createUser } from '../../services/api';
+import { createUser, getUsers, deleteUser } from '../../services/api';
 import { createInput } from '../../utils/creators';
 import { nameOptions, emailOptions, passwordOptions } from '../../data/InputOptions';
 
@@ -10,14 +10,25 @@ const INITIAL_STATE = { name: '', email: '', password: '', role: 'customer' };
 
 function Manage() {
   const [state, setState] = useState(INITIAL_STATE);
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState(false);
   const options = ['customer', 'seller', 'administrator'];
+
+  const fetchData = () => getUsers().then((data) => setUsers(data));
+
+  const removeUser = (id) => deleteUser(id).then(() => fetchData());
+
+  useEffect(() => fetchData(), []);
 
   const handleChange = ({ target: { id, value } }) => {
     setState({ ...state, [id]: value });
   };
 
-  const onClick = () => {
-    createUser({ ...state });
+  const onClick = async () => {
+    const data = await createUser({ ...state });
+    if (data.error) return setError(true);
+    fetchData();
+    return setError(false);
   };
 
   const checkFormats = () => {
@@ -28,8 +39,12 @@ function Manage() {
   };
 
   return (
-    <section>
+    <>
       <Navbar />
+      { error && (
+        <p data-testid={ `${route}__element-invalid-register` }>
+          ERROR 409: E-mail já cadastrado
+        </p>)}
       { createInput({ ...nameOptions, onChange: handleChange, route }) }
       { createInput({ ...emailOptions, onChange: handleChange, route }) }
       { createInput({ ...passwordOptions, onChange: handleChange, route }) }
@@ -52,8 +67,8 @@ function Manage() {
       >
         CADASTRAR
       </button>
-      <UsersTable />
-    </section>
+      <UsersTable users={ users } removeUser={ removeUser } />
+    </>
   );
 }
 

@@ -1,17 +1,9 @@
-import React, { useEffect, useState } from 'react';
-// import { Redirect } from 'react-router-dom';
-// import { Context } from '../context';
-import { getUsers, deleteUser } from '../../services/api';
+import React from 'react';
+import { arrayOf, func } from 'prop-types';
 
 const route = 'admin_manage';
 
-function ManageUserTable() {
-  const [users, setUsers] = useState([]);
-
-  const fetchData = () => getUsers().then((data) => setUsers(data));
-
-  useEffect(() => fetchData(), []);
-
+function ManageUserTable({ users, removeUser }) {
   return (
     <table>
       <thead>
@@ -42,7 +34,7 @@ function ManageUserTable() {
               <button
                 data-testid={ `${route}__element-user-table-remove-${index}` }
                 type="button"
-                onClick={ () => deleteUser(id).then(() => fetchData()) }
+                onClick={ () => removeUser(id) }
               >
                 Excluir
               </button>
@@ -53,5 +45,10 @@ function ManageUserTable() {
     </table>
   );
 }
+
+ManageUserTable.propTypes = {
+  users: arrayOf,
+  removeUser: func,
+}.isRequired;
 
 export default ManageUserTable;
