@@ -9,6 +9,7 @@ const CheckOut = () => {
     'PRODUTOS /customer_products__element-navbar-link-products',
     'MEUS PEDIDOS/customer_products__element-navbar-link-orders',
   ];
+
   return (
     <div>
       <Navbar abas={ paginas } user={ name } />

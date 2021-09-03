@@ -16,7 +16,7 @@ const Navbar = ({ abas, user }) => {
         <a
           data-testid={ aba.split('/')[1] }
           key={ aba }
-          href="##"
+          href="/customer/products"
         >
           { aba.split('/')[0] }
         </a>))}

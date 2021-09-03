@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useLayoutEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Context from '../../context';
 import formatPrice from '../../services/formatPrice';
 
@@ -12,7 +12,7 @@ const OrderTable = () => {
   const { products, totalValue } = cart;
 
   const removeProduct = ({ target }) => {
-    const newCart = cart;
+    const newCart = { ...cart };
     const indexToRemove = newCart
       .products.findIndex((prod) => prod.id === Number(target.name));
     const itemToRemove = newCart.products.find((prod) => prod.id === Number(target.name));
@@ -21,11 +21,7 @@ const OrderTable = () => {
     setCart(newCart);
   };
 
-  useLayoutEffect(() => {
-    console.log('renderizei');
-  }, [cart]);
-
-  useEffect(() => {}, [cart, setCart, products, totalValue]);
+  useEffect(() => {}, [cart]);
 
   const dataIdNumber = 'customer_checkout__element-order-table-item-number-';
   const dataIdName = 'customer_checkout__element-order-table-name-';
