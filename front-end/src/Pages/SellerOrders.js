@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 // import CardStatus from '../Components/Organisms/CardStatus';
-import NavBar from '../Components/Organisms/NabBar';
+import NavBar from '../Components/newComponents/NabBarAdmin';
 import { getCostumerOrders } from '../services/api';
 
 function SellerOrders() {

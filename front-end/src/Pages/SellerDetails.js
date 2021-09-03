@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-import NavBar from '../Components/Organisms/NabBar';
+import NavBar from '../Components/newComponents/NabBarAdmin';
 import { editStatusOrder, saleById } from '../services/api';
 import { formatDate, formatPrice } from '../services/functions';
 
@@ -20,9 +20,10 @@ function SellerDetails() {
 
   const allDataIds = (key, index) => {
     const dataIds = {
+      orderId: 'seller_order_details__element-order-details-label-order-id',
+      orderDate: 'seller_order_details__element-order-details-label-order-date',
       deliveryStatus:
         'seller_order_details__element-order-details-label-delivery-status',
-      orderDate: 'seller_order_details__element-order-details-label-order-date',
       preparing: 'seller_order_details__button-preparing-check',
       dispatch: 'seller_order_details__button-dispatch-check',
       item: `seller_order_details__element-order-table-item-number-${index}`,
@@ -63,7 +64,10 @@ function SellerDetails() {
         {detailsOrder && (
           <>
             <ul>
-              <li>{`Pedido ${detailsOrder.id}`}</li>
+              <li>
+                Pedido
+                <span data-testid={ allDataIds('orderId') }>{detailsOrder.id}</span>
+              </li>
               <li data-testid={ allDataIds('orderDate') }>
                 {formatDate(detailsOrder.saleDate)}
               </li>
@@ -73,7 +77,7 @@ function SellerDetails() {
               <li>
                 <button
                   type="button"
-                  data-tesid={ allDataIds('preparing') }
+                  data-testid={ allDataIds('preparing') }
                   disabled={
                     detailsOrder.status !== 'Pendente' ? 'disabled' : ''
                   }
