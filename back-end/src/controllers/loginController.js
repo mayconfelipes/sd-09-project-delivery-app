@@ -23,9 +23,8 @@ const login = async (req, res) => {
     }
       const encPassword = md5(password);
       if (encPassword === exists.password) {
-        const secret = await jwtRead();
+        const token = jwt.sign({ data: payload(exists) }, jwtRead, jwtConfig);
 
-        const token = jwt.sign({ data: payload(exists) }, secret, jwtConfig);
         const { name, role } = exists;
         return res.status(200).json({ name, email, role, token });
       }

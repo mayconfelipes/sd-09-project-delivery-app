@@ -38,15 +38,13 @@ const createProducts = async (saleId, products) => {
   });
 };
 
-const create = async (sale, login) => {
+const create = async (sale, id) => {
   const { seller, products } = sale;
-  const { id } = login.data;
-
-  const saleUser = await usersServices.getById(id);
-
+  // const saleUser = await usersServices.getById(id);
+  // console.log('user', saleUser);
   const saleSeller = await usersServices.getById(seller);
 
-  const newSale = await Sales.create({ userId: saleUser.id, 
+  const newSale = await Sales.create({ userId: id, 
     sellerId: saleSeller.id,
     totalPrice: sale.totalPrice,
     deliveryAddress: sale.deliveryAddress,
@@ -62,7 +60,7 @@ const create = async (sale, login) => {
 
   const fullSale = await getById(newSale.id);
 
-  return fullSale;
+  return fullSale.dataValues;
 };
 
 const update = async (id, sale) => {
@@ -92,9 +90,5 @@ const update = async (id, sale) => {
 module.exports = {
   create,
   getById,
-<<<<<<< HEAD
-};
-=======
   update,
 };
->>>>>>> dd3c0ed29205931d7be395d9bb44d2e8984223f0
