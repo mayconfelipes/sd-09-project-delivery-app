@@ -25,7 +25,7 @@ const Navbar = ({ role }) => {
       option1: 'PEDIDOS',
       link: '/seller/orders',
     },
-    adminstrator: {
+    administrator: {
       option1: 'GERENCIAR USUÁRIOS',
       link: '/admin/manage',
     },
