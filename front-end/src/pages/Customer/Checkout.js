@@ -6,6 +6,7 @@ import { address, addressNumber } from '../../data/InputOptions';
 import { submitOrder } from '../../data/ButtonOptions';
 import { getUsers, createSale } from '../../services/api';
 import { createInput, createButton } from '../../utils/creators';
+import { formatPrice } from '../../utils/format';
 
 const route = 'customer_checkout';
 
@@ -61,7 +62,7 @@ function Checkout() {
       <p>
         R$
         <span data-testid={ `${route}__element-order-total-price` }>
-          { total.replace(/\./, ',') }
+          { formatPrice(total) }
         </span>
       </p>
       <select

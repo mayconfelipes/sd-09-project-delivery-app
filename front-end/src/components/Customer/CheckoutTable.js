@@ -1,5 +1,6 @@
 import React from 'react';
 import { number } from 'prop-types';
+import { formatPrice } from '../../utils/format';
 
 const route = 'customer_checkout';
 
@@ -31,10 +32,10 @@ function CheckoutTable({ cart, removeFn }) {
                 { quantity }
               </td>
               <td data-testid={ `${route}__element-order-table-unit-price-${index}` }>
-                { `${price}`.replace(/\./, ',') }
+                { formatPrice(price) }
               </td>
               <td data-testid={ `${route}__element-order-table-sub-total-${index}` }>
-                { `${(quantity * price).toFixed(2)}`.replace(/\./, ',') }
+                { formatPrice(quantity * price) }
               </td>
               <td>
                 <button

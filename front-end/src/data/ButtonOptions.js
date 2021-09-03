@@ -33,7 +33,6 @@ export const deliveryCheck = {
   label: 'MARCAR COMO ENTREGUE',
 };
 
-
 export const registerUser = {
   name: 'register',
   label: 'CADASTRAR',

@@ -3,6 +3,7 @@ import { number } from 'prop-types';
 import { createButton } from '../../utils/creators';
 import { addItemBtn, rmItemBtn } from '../../data/ButtonOptions';
 import { CustomerContext } from '../../context/CustomerContext';
+import { formatPrice } from '../../utils/format';
 
 const route = 'customer_products';
 
@@ -28,7 +29,7 @@ function ProductCard({ product: { id, name, price, urlImage } }) {
         { name }
       </h1>
       <p data-testid={ `${route}__element-card-price-${id}` }>
-        { price.replace(/\./, ',') }
+        { formatPrice(price) }
       </p>
       <img
         data-testid={ `${route}__img-card-bg-image-${id}` }
@@ -37,7 +38,6 @@ function ProductCard({ product: { id, name, price, urlImage } }) {
       />
       { createButton({ ...addItemBtn(id), onClick, route: `${route}` }) }
       { createButton({ ...rmItemBtn(id), onClick, route: `${route}` }) }
-      {/* { createInput({ ...itemQty(id), onChange: () => {}, route: `${route}` }) } */}
       <input
         data-testid={ `${route}__input-card-quantity-${id}` }
         name={ `card-quantity-${id}` }

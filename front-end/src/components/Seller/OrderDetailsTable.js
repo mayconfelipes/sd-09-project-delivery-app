@@ -1,36 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Redirect } from 'react-router-dom';
-// import { Context } from '../context';
+import { formatPrice } from '../../utils/format';
 
 const route = 'seller_order_details';
 
-function OrderDetailsTable({ item, index }) {
+function OrderDetailsTable({ products }) {
   return (
-    <section>
-      <p
-        data-testid={ `${route}__element-order-table-item-number-${index}` }
-      >
-        { index + 1 }
-      </p>
-      <p data-testid={ `${route}__element-order-table-name-${index}` }>{ item.name }</p>
-      <p
-        data-testid={ `${route}__element-order-table-quantity-${index}` }
-      >
-        { item.SalesProduct.quantity }
-      </p>
-      <p
-        data-testid={ `${route}__element-order-table-unit-price-${index}` }
-      >
-        { `R$ ${item.price}` }
-      </p>
-      <p
-        data-testid={ `${route}__element-order-table-sub-total-${index}` }
-      >
-        { `R$ ${item.SalesProduct.quantity * +item.price}` }
-      </p>
-
-    </section>
+    <table>
+      { products.map(({ id, name, price, SalesProduct }, index) => (
+        <tr key={ id }>
+          <td data-testid={ `${route}__element-order-table-item-number-${index}` }>
+            { index + 1 }
+          </td>
+          <td data-testid={ `${route}__element-order-table-name-${index}` }>
+            { name }
+          </td>
+          <td data-testid={ `${route}__element-order-table-quantity-${index}` }>
+            { SalesProduct.quantity }
+          </td>
+          <td data-testid={ `${route}__element-order-table-unit-price-${index}` }>
+            { formatPrice(price) }
+          </td>
+          <td data-testid={ `${route}__element-order-table-sub-total-${index}` }>
+            { formatPrice(price * SalesProduct.quantity) }
+          </td>
+        </tr>
+      ))}
+    </table>
   );
 }
 
