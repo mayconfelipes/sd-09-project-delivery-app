@@ -21,6 +21,16 @@ const getById = async (id) => {
   return sale;
 };
 
+const getAllById = async (id) => {
+  const sale = await Sales.findAll({ where: { userId: id } });
+
+  if (!sale) {
+    throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
+  }
+
+  return sale;
+};
+
 const createProducts = async (saleId, products) => {
   products.forEach((product) => {
     const { productId, quantity } = product;
@@ -91,4 +101,5 @@ module.exports = {
   create,
   getById,
   update,
+  getAllById,
 };

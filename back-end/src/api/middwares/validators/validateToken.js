@@ -9,7 +9,6 @@ require('dotenv').config();
 const validateToken = async (req, _res, next) => {
   try {
     const token = req.headers.authorization;
-    console.log('entrei');
     try {
       if (!token) {
         throw messageError(UNAUTHORIZED_STATUS, TOKEN_NOT_FOUND);
