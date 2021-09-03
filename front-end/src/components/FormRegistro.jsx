@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { string } from 'prop-types';
 import { Redirect } from 'react-router';
 import axios from 'axios';
 
@@ -28,7 +29,7 @@ const INITAL_FORM = {
   role: 'customer',
 };
 
-export default function FormRegistro() {
+export default function FormRegistro({ token }) {
   const { addUser } = useContext(UsersContext);
 
   const [user, setUser] = useState(INITAL_FORM);
@@ -62,8 +63,11 @@ export default function FormRegistro() {
 
   const handleUserRegistration = async () => {
     const POST_USER_ENDPOINT = 'http://localhost:3001/api/users/register';
+    const config = {
+      headers: { Authorization: `${token}` },
+    };
 
-    await axios.post(POST_USER_ENDPOINT, user)
+    await axios.post(POST_USER_ENDPOINT, user, config)
       .then(
         ({ data: { user: newUser } }) => {
           if (error) setError('');
@@ -94,7 +98,7 @@ export default function FormRegistro() {
       <h1>Cadastrar novo usuário</h1>
       {
         error.length > 0
-        && <span>{ error }</span>
+        && <span data-testid="admin_manage__element-invalid-register">{ error }</span>
       }
       <form>
         <label htmlFor="name-input">
@@ -143,3 +147,7 @@ export default function FormRegistro() {
     </section>
   );
 }
+
+FormRegistro.propTypes = {
+  token: string.isRequired,
+};
