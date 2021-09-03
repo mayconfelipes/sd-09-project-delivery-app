@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import HeaderSeller from '../components/HeaderSeller';
+import HeaderSeller from '../components/HeaderNav';
 import Orders from './Orders';
 import OrdersDetails from './OrdersDetails';
 
