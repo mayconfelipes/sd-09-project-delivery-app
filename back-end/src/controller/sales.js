@@ -35,7 +35,8 @@ router.post('/', [
 router.get('/:id', [
   rescue(async (req, res, next) => {
     const { id } = req.params;
-    const sale = service.sales.getByPk(id);
+    console.log(id);
+    const sale = await service.sales.getSale(id);
     if (!sale) {
       return next({ statusCode: 404, message: 'sale not found' });
     }

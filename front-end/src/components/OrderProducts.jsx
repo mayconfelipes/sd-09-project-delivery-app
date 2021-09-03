@@ -5,7 +5,7 @@ function OrderProducts({ data }) {
   const { name, index, quantity, price } = data;
   const createSpan = (dataTestId, value) => (
     <span
-      data-testid={ `customer_order_details__element-order-details-label-${dataTestId}` }
+      data-testid={ `customer_order_details__element-order-table-${dataTestId}` }
     >
       {value}
     </span>
@@ -29,7 +29,7 @@ function OrderProducts({ data }) {
   // };
 
   const generateDataTestId = (flag) => (
-    `ustomer_order_details__element-order-table-${flag}`);
+    `customer_order_details__element-order-details-label-${flag}`);
 
   return (
     <section>
@@ -52,6 +52,7 @@ function OrderProducts({ data }) {
         { createSpan(`unit-price-${index}`, price) }
         { createSpan(`sub-total-${index}`, price) }
       </main>
+      <p data-testid="customer_order_details__element-order-total-price">Total</p>
     </section>
   );
 }

@@ -10,7 +10,7 @@ function Provider({ children }) {
   const [products, setProducts] = useState([]);
   const [productsCart, setProductsCart] = useState({});
   const [loading, setLoading] = useState(true);
-  const [saleId, setSaleId] = useState({});
+  const [saleState, setSaleState] = useState({});
   const [sellersId, setSellersId] = useState([]);
   const router = useHistory();
 
@@ -92,7 +92,7 @@ function Provider({ children }) {
 
       console.log(response.data);
 
-      setSaleId(response.data);
+      setSaleState(response.data);
       const { id } = response.data;
       router.push(`/customer/orders/${id}`);
     } catch (error) {
@@ -119,7 +119,7 @@ function Provider({ children }) {
     loading,
     setProductCartInLocalStorage,
     sendSale,
-    saleId,
+    saleState,
     setSellersId,
     getSellersId,
     sellersId,

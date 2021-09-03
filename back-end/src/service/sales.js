@@ -15,9 +15,15 @@ const checkoutNewSale = async (data, productCart) => {
   return newSale;
 };
 
-const getByPk = async (id) => await Sale.findByPk(id);
+const getSale = async (id) => {
+  const response = await Sale.findOne({
+    where: { id },
+    include: [{ model: Product, as: 'products' }],
+  });
+  return response;
+};
 
 module.exports = {
   checkoutNewSale,
-  getByPk,
+  getSale,
 };
