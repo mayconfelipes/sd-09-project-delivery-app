@@ -9,10 +9,9 @@ export const getProducts = (token) => fetch(`${URL}products`, {
   .then((data) => data)
   .catch((err) => console.log(err));
 
-export const login = ({ email, password }) => fetch(`${URL}login`, {
-  body: {
-    email,
-    password,
+export const getAllSellers = (token) => fetch(`${URL}allsellers`, {
+  headers: {
+    Authorization: token,
   },
 })
   .then((response) => response.json())
