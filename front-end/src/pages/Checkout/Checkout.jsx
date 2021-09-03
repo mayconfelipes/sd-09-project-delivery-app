@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { format } from 'date-fns';
 import NavBar from '../../components/NavBar';
 import CheckoutItem from '../../components/CheckoutItem';
 import connectBack from '../../utills/axiosConfig';
@@ -14,6 +15,8 @@ const Checkout = () => {
     address: '',
     addressNumber: '',
   });
+  // const saleDate = moment().tz('Z').format().toISOString();
+  const saleDate = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
 
   const fetchSellers = async () => {
     try {
@@ -29,7 +32,13 @@ const Checkout = () => {
     const { address, addressNumber, id } = sellerInfo;
     const { email, token } = JSON.parse(localStorage.getItem('user'));
     const data = {
-      address, addressNumber, sellerId: id, totalPrice, userEmail: email, cartItens }; // const headers = JSON.stringify({ Authorization: token });
+      address,
+      addressNumber,
+      sellerId: id,
+      totalPrice,
+      userEmail: email,
+      cartItens,
+      saleDate };
     connectBack
       .post('/customer/orders',
         { data },
@@ -87,10 +96,11 @@ const Checkout = () => {
             setTotalPrice={ setTotalPrice }
           />))}
         </ul>
+        <p />
         <button
           type="button"
           data-testid="customer_checkout__element-order-total-price"
-          onClick={ () => history.push('/customer/orders/1') }
+          onClick={ () => history.push('/customer/orders/1}') }
         >
           {brazilianPrice()}
         </button>

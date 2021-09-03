@@ -208,7 +208,7 @@ describe.only(requirement(21), () => {
         quantity,
       })
     );
-
+      console.log(itemList)
     for (const item of salesProductsExpected) {
       await expect(database).toReturnDataWith({
         query: [salesProducts.query, "WHERE sale_id = ?"].join(" "),
