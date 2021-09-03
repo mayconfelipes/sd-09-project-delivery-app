@@ -12,7 +12,6 @@ const CheckOut = () => {
   return (
     <div>
       <Navbar abas={ paginas } user={ name } />
-      <p>Blá, blá</p>
       <OrderTable />
       <FormAdressFull />
     </div>

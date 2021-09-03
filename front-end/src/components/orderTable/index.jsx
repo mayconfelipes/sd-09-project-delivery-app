@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import Context from '../../context';
 import formatPrice from '../../services/formatPrice';
 
@@ -21,6 +21,12 @@ const OrderTable = () => {
     setCart(newCart);
   };
 
+  useLayoutEffect(() => {
+    console.log('renderizei');
+  }, [cart]);
+
+  useEffect(() => {}, [cart, setCart, products, totalValue]);
+
   const dataIdNumber = 'customer_checkout__element-order-table-item-number-';
   const dataIdName = 'customer_checkout__element-order-table-name-';
   const dataIdQuantity = 'cusctomer_checkout__element-order-table-quantity-';
@@ -38,27 +44,27 @@ const OrderTable = () => {
           products.map((item) => (
             <tr key={ item.id }>
               <td
-                data-testid={ dataIdNumber + id }
+                data-testid={ dataIdNumber + item.id }
               >
                 {item.id}
               </td>
               <td
-                data-testid={ dataIdName + id }
+                data-testid={ dataIdName + item.id }
               >
                 {item.name}
               </td>
               <td
-                data-testid={ dataIdQuantity + id }
+                data-testid={ dataIdQuantity + item.id }
               >
                 {item.quantity}
               </td>
               <td
-                data-testid={ dataIdUnitPrice + id }
+                data-testid={ dataIdUnitPrice + item.id }
               >
                 {formatPrice(item.price)}
               </td>
               <td
-                data-testid={ dataIdSubTotal + id }
+                data-testid={ dataIdSubTotal + item.id }
               >
                 {formatPrice(item.price * item.quantity)}
               </td>
@@ -67,7 +73,7 @@ const OrderTable = () => {
                   type="button"
                   name={ item.id }
                   onClick={ removeProduct }
-                  data-testid={ dataIdRemove + id }
+                  data-testid={ dataIdRemove + item.id }
                 >
                   REMOVE
                 </button>
