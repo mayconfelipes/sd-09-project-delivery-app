@@ -13,12 +13,14 @@ function Checkout() {
 
   const productCart = Object.values(JSON.parse(localStorage.getItem('productCart')))
     .filter(({ quantity }) => quantity > 0);
+
   const INITIAL_STATE = {
     sellerId: 2,
     deliveryAddress: '',
     deliveryNumber: '',
     productCart,
   };
+
   const [detailsForm, setDetailsForm] = useState(INITIAL_STATE);
   let total = 0;
 
@@ -37,7 +39,6 @@ function Checkout() {
     const totalPrice = Number(totalPriceString);
     setDetailsForm({ ...detailsForm });
     const dataSend = detailsForm;
-    console.log(dataSend);
     sendSale({ ...dataSend, totalPrice });
   };
 

@@ -4,6 +4,7 @@ const rescue = require('express-rescue');
 const router = express.Router();
 
 const service = require('../service');
+const validateJwt = require('../middlewares/validateJwt');
 
 router.post('/', rescue(async (req, res, next) => {
   const user = await service.login(req.body);
@@ -16,5 +17,12 @@ router.post('/', rescue(async (req, res, next) => {
   }
   return res.status(200).json(user);
 }));
+
+router.get('/', [
+  validateJwt,
+  rescue( async ( _req, res, _next) => {
+    return res.status(200).json(res.user);
+  })
+]);
 
 module.exports = router;
