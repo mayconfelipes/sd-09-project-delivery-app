@@ -1,19 +1,19 @@
 const { sale } = require('../../database/models');
 
-const newOrder = async ({
+const newOrder = async (
   userId,
   sellerId,
   totalPrice,
   deliveryAddress,
   deliveryNumber,
   status,
-}) => {
+) => {
   const result = await sale.create({
-    userId,
-    sellerId,
-    totalPrice,
-    deliveryAddress,
-    deliveryNumber,
+    user_id: userId,
+    seller_id: sellerId,
+    total_price: totalPrice,
+    delivery_address: deliveryAddress,
+    delivery_number: deliveryNumber,
     status,
   });
 

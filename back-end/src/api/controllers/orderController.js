@@ -8,14 +8,14 @@ const insertOrderInSale = rescue(async (req, res) => {
     deliveryAddress,
     deliveryNumber,
     status } = req.body;
+
   await newOrder(userId,
     sellerId,
     totalPrice,
     deliveryAddress,
     deliveryNumber,
     status);
-
-  res.status(201).json({ message: 'inserido', object: req.body });
+  console.log(req.body);
 });
 
 module.exports = { insertOrderInSale };
