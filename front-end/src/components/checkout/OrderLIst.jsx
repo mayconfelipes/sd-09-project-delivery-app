@@ -32,7 +32,7 @@ const OrderLIst = () => {
 
   useEffect(() => {
     setProducts(convertCartToArray());
-  }, [setProducts]);
+  }, [setProducts, convertCartToArray]);
 
   const handleRemoveProduct = (indexItem) => {
     const tmpProducts = products;
