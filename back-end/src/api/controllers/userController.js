@@ -12,19 +12,19 @@ const listUsers = async (_req, res, next) => {
 
 const listUsersBRole = async (req, res, next) => {
   try {
-    const {role} = req.params;
+    const { role } = req.params;
     const usersByRole = await userService.listUsersByRole(role);
-    return res.status(200).json(usersByRole);  
+    return res.status(200).json(usersByRole);
   } catch (e) {
-    next(e)
+    next(e);
   }
-}
+};
 
 const createUser = async (req, res, next) => {
   try {
     const { name, email, password, role } = req.body;
     const result = await registerService.registerNewUser({ name, email, password, role });
-    return res.status(201).json(result);  
+    return res.status(201).json(result);
   } catch (e) {
     next(e);
   }

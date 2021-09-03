@@ -14,7 +14,7 @@ const newOrder = async ({
     totalPrice,
     deliveryAddress,
     deliveryNumber,
-    status
+    status,
   });
 
   return result;

@@ -14,6 +14,8 @@ const insertOrderInSale = rescue(async (req, res) => {
     deliveryAddress,
     deliveryNumber,
     status);
+
+  res.status(201).json({ message: 'inserido', object: req.body });
 });
 
 module.exports = { insertOrderInSale };
