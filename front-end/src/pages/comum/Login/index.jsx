@@ -20,7 +20,9 @@ const Login = () => {
 
   const [isDataValid, setIsDataValid] = useState(true);
 
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('seller');
+
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleInputChange(event) {
     event.preventDefault();
@@ -49,10 +51,13 @@ const Login = () => {
     setRole(result.role);
     if (result.token) setIsLogged(true);
     else setInvalidLogin(true);
+    setIsLoading(true);
   };
 
+  if (isLoading) return <p>Loading...</p>;
+
   const localItem = JSON.parse(localStorage.getItem('user'));
-  if (localItem) {
+  if (localItem && role !== 'seller' && role !== 'administrator') {
     return <Redirect to="/customer/products" />;
   }
   return (
