@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 import OrderProducts from '../components/OrderProducts';
-// import AppContext from '../hooks/context';
 
 function OrderDetails() {
   const { id } = useParams();
-  const [order, setOrder] = useState({});
+  const [order, setOrder] = useState(null);
 
   useEffect(() => {
     const milisseconds = 400;
@@ -23,14 +23,26 @@ function OrderDetails() {
   const generateDataTestId = (flag) => (
     `customer_order_details__element-order-details-label-${flag}`);
 
+  const maxLengthPad = 4;
+
   if (!order) return <p>loading...</p>;
 
   return (
     <section>
+      <Navbar />
       <h1>Detalhes do pedido</h1>
       <header>
-        <h1 data-testid={ generateDataTestId('order-id') }>PEDIDO 0003</h1>
-        <p data-testid={ generateDataTestId('seller-name') }>P. Vend: Fulana Pereira</p>
+        <h1
+          data-testid={ generateDataTestId('order-id') }
+        >
+          { order.sale.id.toString().padStart(maxLengthPad, '0') }
+        </h1>
+        <p
+          data-testid={ generateDataTestId('seller-name') }
+        >
+          P. Vend:
+          { order.seller.name }
+        </p>
         <p data-testid={ generateDataTestId('order-date') }>07/04/2021</p>
         <p data-testid={ generateDataTestId('delivery-status') }>ENTREGUE</p>
         <button

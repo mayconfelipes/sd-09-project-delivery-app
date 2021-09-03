@@ -1,10 +1,8 @@
-const { Sale, SalesProduct, Product } = require('../database/models');
+const { Sale, SalesProduct, Product, User } = require('../database/models');
 
 const checkoutNewSale = async (data, productCart) => {
   const newSale = await Sale.create(data);
   const products = [];
-
-  console.log(productCart);
 
   productCart.forEach((item) => products.push(Product.findOne({ where: { name: item.name } })));
 
@@ -18,12 +16,14 @@ const checkoutNewSale = async (data, productCart) => {
 };
 
 const getSale = async (id) => {
-  const response = await Sale.findOne({
+  const sale = await Sale.findOne({
     where: { id },
     include: [{ model: Product, as: 'products' }],
   });
-  console.log(response);
-  return response;
+
+  const seller = await User.findByPk(sale.sellerId);
+
+  return { sale, seller };
 };
 
 module.exports = {
