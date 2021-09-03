@@ -23,6 +23,8 @@ function SellerOrders() {
     getAllSales();
   }, []);
 
+  // vraw ta dando ruim
+
   const salesRender = () => (
     sales.map((element) => (
       <Link to={ `/seller/orders/${element.id}` } key={ element.id }>
