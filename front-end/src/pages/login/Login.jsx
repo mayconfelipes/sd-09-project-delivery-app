@@ -50,11 +50,10 @@ function Login() {
     if (responseLogin.message === 'Invalid fields') {
       return setIsValidFields(false);
     }
-    console.log(responseLogin);
+    console.log('Resposta de login', responseLogin);
     if (responseLogin.token) {
-      validRole(responseLogin.role);
       localStorage.setItem('user', JSON.stringify(responseLogin));
-      history.push('/customer/products');
+      validRole(responseLogin.role);
     }
   };
 

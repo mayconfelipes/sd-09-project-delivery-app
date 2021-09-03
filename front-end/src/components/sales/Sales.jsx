@@ -51,24 +51,34 @@ export default function Sales() {
   const location = useLocation();
 
   const user = location.pathname.includes('seller') ? 'seller' : 'customer';
+  console.log(user);
 
   const [MockSalesDB, setMockSalesDB] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
-    const userInfos = JSON.parse(localStorage.getItem('userData'));
+    const userInfos = JSON.parse(localStorage.getItem('user'));
 
     if (user === 'seller') {
       salesAPI({ sellerId: userInfos.id }, user)
         .then((response) => {
           setMockSalesDB(response);
           setIsLoading(false);
+        })
+        .catch((error) => {
+          setMockSalesDB([]);
+          setIsLoading(false);
+          console.log(error);
         });
     } else {
       salesAPI({ userId: userInfos.id }, user)
         .then((response) => {
           setMockSalesDB(response);
+          setIsLoading(false);
+        }).catch((error) => {
+          console.log(error);
+          setMockSalesDB([]);
           setIsLoading(false);
         });
     }
