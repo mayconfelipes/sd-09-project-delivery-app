@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const { User } = require('../../database/models');
 const { unauthorized } = require('../utils/httpStatusCodes');
-const readSecret = require('./readSecret');
+const readSecret = require('../utils/readSecret');
 
 const validateJWT = async (req, res, next) => {
   const token = req.headers.authorization;

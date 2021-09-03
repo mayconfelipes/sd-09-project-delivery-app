@@ -17,7 +17,7 @@ const useRegisterInfo = () => {
 
   const handleFieldsChange = fieldChangeHandler(setRegisterInfo);
 
-  return [registerInfo, handleFieldsChange, isValidInfo];
+  return { registerInfo, handleFieldsChange, isValidInfo };
 };
 
 export default useRegisterInfo;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   AppTitle,
   Button,
@@ -9,13 +9,18 @@ import {
 } from '../../Components';
 import testIds from '../../utils/testIds';
 import useRegisterInfo from '../../hooks/useRegisterInfo';
-import { PostRegister } from '../../Services/Api';
+import useRegisterApi from '../../hooks/useRegisterApi';
+import { AppContext } from '../../context';
+import redirectByRole from '../../Routes/redirectByRole';
 
 const RegisterPage = () => {
-  const [registerInfo, handleFieldsChange, isValidInfo] = useRegisterInfo();
-  const registerUser = (data) => () => {
-    PostRegister(data);
-  };
+  const { registerInfo, handleFieldsChange, isValidInfo } = useRegisterInfo();
+  const { isValidRegistration, registerUser } = useRegisterApi();
+  const { user } = useContext(AppContext);
+  const shouldRenderError = isValidRegistration === false;
+
+  if (isValidRegistration) return redirectByRole(user.data.role);
+
   return (
     <Container>
       <AppTitle>Cadastro</AppTitle>
@@ -52,14 +57,18 @@ const RegisterPage = () => {
         </Label>
         <Button
           data-testid={ testIds.id9 }
-          onClick={ registerUser(registerInfo) }
+          onClick={ () => registerUser(registerInfo) }
           disabled={ isValidInfo }
         >
           CADASTRAR
         </Button>
-        <Wrapper data-testid={ testIds.id10 }>
-          Mensagem de erro
-        </Wrapper>
+        { shouldRenderError && (
+          <Wrapper
+            data-testid={ testIds.id10 }
+          >
+            Mensagem de erro
+          </Wrapper>
+        )}
       </Wrapper>
     </Container>
   );
