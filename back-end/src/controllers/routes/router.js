@@ -5,6 +5,7 @@ const loginController = require('../loginController');
 const productsController = require('../productsController');
 const imagesController = require('../imagesController');
 const salesOrdersController = require('../salesOrdersController');
+const getUsersController = require('../getUsersController');
 
 const router = express.Router();
 
@@ -16,5 +17,7 @@ router.use('/products', productsController);
 router.use('/images', imagesController);
 
 router.use('/sales', salesOrdersController);
+
+router.use('/users', getUsersController);
 
 module.exports = router;
