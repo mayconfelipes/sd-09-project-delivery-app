@@ -116,7 +116,7 @@ const getAllSales = (token) => {
     .catch((err) => err);
 };
 
-// pega todos vendedores
+// pega id e name de todos vendedores
 const getAllVendors = (token) => {
   const endpoint = `${URL}/vendors`;
   return fetch(endpoint, {
@@ -125,6 +125,34 @@ const getAllVendors = (token) => {
       'Content-Type': CONTENT,
       authorization: token,
     },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
+const getAllUsers = () => {
+  const endpoint = `${URL}/users/`;
+  return fetch(endpoint, {
+    method: 'GET',
+    headers: {
+      'Content-Type': CONTENT,
+      authorization: token,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
+const removeUserById = (id) => {
+  const endpoint = `${URL}/users/`;
+  return fetch(endpoint, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': CONTENT,
+    },
+    body: JSON.stringify({ userId: id }),
   })
     .then((response) => response.json())
     .then((data) => data)
@@ -141,4 +169,6 @@ export default {
   saveOrder,
   getAllSales,
   getAllVendors,
+  getAllUsers,
+  removeUserById,
 };

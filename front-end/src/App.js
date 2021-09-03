@@ -9,6 +9,7 @@ import Admin from './pages/Admin';
 import CustomerOrderDetails from './pages/CustomerOrderDetails';
 import SellerOrderDetails from './pages/SellerOrderDetails';
 import OrdersPage from './pages/OrdersPage';
+import NotFound from './pages/NotFound';
 
 import './App.css';
 
@@ -27,6 +28,7 @@ function App() {
       <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
       <Route path="/seller/orders" component={ OrdersPage } />
       <Route path="/admin/manage" component={ Admin } />
+      <Route component={ NotFound } />
     </Switch>
   );
 }

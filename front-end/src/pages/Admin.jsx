@@ -3,15 +3,19 @@ import api from '../services/api';
 import TextInput from '../components/TextInput';
 import LargeButton from '../components/LargeButton';
 import DropDownList from '../components/DropDownList';
+import UsersTable from '../components/UsersTable';
 import dataTestIds from '../utils/dataTestIds';
+import Navbar from '../components/Navbar';
 
 function Admin() {
   const [newUserData, setNewUserData] = useState({
     nome: '', email: '', password: '', role: '',
   });
+  const [usersList, setUsersList] = useState([]);
   const [disableButton, setDisableButton] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
 
+  const adminData = JSON.parse(localStorage.getItem('user'));
   // verifica se pode fazer o cadastro
   const verifyNewUserCredentials = () => {
     const { nome, email, password, role } = newUserData;
@@ -38,12 +42,27 @@ function Admin() {
     setDisableButton(false);
   };
 
+  const getAllUsers = async () => {
+    const myList = await api.getAllUsers();
+    setUsersList(myList);
+  };
+
   useEffect(() => {
     verifyNewUserCredentials();
   }, [newUserData]);
 
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
   const handleChange = ({ target: { name, value } }) => {
     setNewUserData({ ...newUserData, [name]: value });
+  };
+
+  const handleRemoveClick = async (event) => {
+    const userId = event.target.value;
+    await api.removeUserById(userId);
+    await getAllUsers();
   };
 
   const cleanFields = () => {
@@ -65,6 +84,7 @@ function Admin() {
       setErrorMessage(result.error.message);
     }
     cleanFields();
+    await getAllUsers();
   };
 
   const errorDivMessage = (
@@ -82,6 +102,7 @@ function Admin() {
   const options = ['customer', 'seller', 'administrator'];
   return (
     <main>
+      <Navbar role={ adminData.role } />
       <section>
         <p>Cadastrar novo usuário</p>
         <TextInput
@@ -123,9 +144,8 @@ function Admin() {
         />
         { errorMessage && errorDivMessage }
       </section>
-      <section>
-        <p>Aqui fica a lista de usuarios</p>
-      </section>
+      <h2>Lista de Usuários</h2>
+      <UsersTable list={ usersList } handleRemove={ handleRemoveClick } />
     </main>
   );
 }
