@@ -56,7 +56,6 @@ const CheckoutCard = ({ cart, setCart }) => {
   };
 
   useEffect(() => {
-    getAllSellers();
     getUsersRole(token, 'seller', setAllSellers);
   }, []);
 
