@@ -18,14 +18,14 @@ const RegisterPage = () => {
   };
   return (
     <Container>
-      <AppTitle>Cadrastro</AppTitle>
+      <AppTitle>Cadastro</AppTitle>
       <Wrapper>
         <Label>
           Nome
           <Input
-            type="string"
-            name="userName"
-            value={ registerInfo.userName }
+            type="text"
+            name="name"
+            value={ registerInfo.name }
             data-testid={ testIds.id6 }
             onChange={ handleFieldsChange }
           />

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import Joi from 'joi';
-
-const MIN_PASSWORD_LENGTH = 6;
+import { fieldChangeHandler } from '../utils/handlers';
+import { loginSchema, validateInfo } from '../utils/validateInfo';
 
 const useLoginInfo = () => {
   const [loginInfo, setLoginInfo] = useState(() => ({ email: '', password: '' }));
@@ -9,18 +8,12 @@ const useLoginInfo = () => {
 
   useEffect(
     () => {
-      const schema = Joi.object({
-        email: Joi.string().email({ tlds: { allow: false } }).required(),
-        password: Joi.string().min(MIN_PASSWORD_LENGTH).required(),
-      });
-      const { error } = schema.validate(loginInfo);
+      const { error } = validateInfo({ info: loginInfo, schema: loginSchema });
       setInfoValidation(!!error);
     }, [loginInfo],
   );
 
-  const handleFieldsChange = ({ target: { name, value } }) => {
-    setLoginInfo((currentState) => ({ ...currentState, [name]: value }));
-  };
+  const handleFieldsChange = fieldChangeHandler(setLoginInfo);
 
   return { loginInfo, handleFieldsChange, isValidInfo };
 };
