@@ -23,16 +23,18 @@ const update = rescue(async (req, res) => {
   return res.status(200).json(sale);
 });
 
-const findByUserId = rescue(async (req, res) => {
+const findAllByUserId = rescue(async (req, res) => {
   const { userId } = req.params;
 
-  const sale = await Sale.findByUserId(userId);
+  const sale = await Sale.findAllByUserId(userId);
 
   return res.status(200).json(sale);
 });
 
+// const getAll = rescue(async (req, res) => await Sale.findAll().toAr)
+
 module.exports = {
   register,
   update,
-  findByUserId,
+  findAllByUserId,
 };

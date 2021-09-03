@@ -1,5 +1,7 @@
-body {
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -182,4 +184,143 @@ table tr td {
 .login-form input,
 .login-form button {
   padding: 4px 8px;
+}
+
+/* NAV BAR */
+
+.navbar-container {
+  background-color: #036B52;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 100%;
+  color: #fafafa;
+}
+
+.navbar-container .navbar-left button, .navbar-container .navbar-right button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.navbar-container .navbar-left button, .navbar-container .navbar-right button, .navbar-container .navbar-right span  {
+  justify-content: center;
+  padding: 16px 32px;
+}
+
+.navbar-container .navbar-left :nth-child(2) {
+  background-color: #2FC18C;
+  color: #001813;
+}
+
+.navbar-container .navbar-right :nth-child(1) {
+  background-color: #421981;
+}
+
+.navbar-container .navbar-right :nth-child(2) {
+  background-color: #056CF9;
+  color: #fafafa;
+}
+.navbar-container .navbar-left button {
+  color: #fafafa;
+  text-transform: uppercase;
+}
+
+.navbar-container .navbar-right span {
+  color: #fafafa;
+  font-weight: 700;
+}
+
+/* CUSTOMER ORDERS */
+
+.order-cards {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+  margin: 0 auto;
+  margin-top: 32px;
+  max-width: 60%;
+}
+
+.order-card {
+  background-color: #eaf1ef;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  text-align: center;
+}
+
+.order-card-left {
+  align-items: center;
+  background-color: #fafafa;
+  display: flex;
+  height: 100%;
+  padding: 8px 16px;
+}
+
+.order-card-left div p {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.order-card-left div p:nth-child(2) {
+  font-weight: 500;
+}
+
+.order-card:hover {
+  opacity: 0.8;
+  transition: 0.2s ease-in-out;
+}
+
+.order-card-right {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  font-weight: 700;
+  gap: 8px;
+  justify-content: space-between;
+  padding: 8px;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.order-card-left-half {
+  align-items: center;
+  border-radius: 4px;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  padding: 8px 16px;
+  width: 100%;
+}
+
+.order-card-right-half {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  width: 100%;
+}
+
+.order-card-right-half .order-half-content {
+  align-items: center;
+  background-color: #f1fbf9;
+  border-radius: 4px;
+  padding: 8px 8px;
+}
+
+.pending {
+  background-color: #d9ca40;
+}
+
+.preparing {
+  background-color: #8cd940;
+}
+
+.done {
+  background-color: #3fd9b4;
 }
