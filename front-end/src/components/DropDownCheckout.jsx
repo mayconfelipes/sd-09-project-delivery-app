@@ -8,9 +8,9 @@ function DropDownList({ name, options, dataTestId, onChange }) {
       { options.map((option, key) => (
         <option
           key={ key }
-          value={ option }
+          value={ option.id }
         >
-          { option }
+          { option.name }
         </option>
       )) }
     </select>
@@ -20,7 +20,7 @@ function DropDownList({ name, options, dataTestId, onChange }) {
 DropDownList.propTypes = {
   name: PropTypes.string.isRequired,
   dataTestId: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

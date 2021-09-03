@@ -22,7 +22,7 @@ const dataTestIds = {
   21: 'customer_products__checkout-bottom-value',
   22: 'customer_checkout__element-order-table-item-number-',
   23: 'customer_checkout__element-order-table-name-',
-  24: 'cutomer_checkout__element-order-table-quantity-',
+  24: 'customer_checkout__element-order-table-quantity-',
   25: 'customer_checkout__element-order-table-unit-price-',
   26: 'customer_checkout__element-order-table-sub-total-',
   27: 'customer_checkout__element-order-table-remove-',

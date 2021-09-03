@@ -177,3 +177,36 @@
   top: 12.5%;
   z-index: 999;
 }
+
+.table-container {
+  table-layout: auto;
+  background: white;
+}
+
+.table-head {
+  background: white;
+}
+
+.table-body {
+  text-align: center;
+}
+
+.t-item {
+  background: #57bf71;
+}
+
+.t-desc {
+  background: #F2FFFC;
+}
+
+.t-quantity {
+  background: #036b52;
+}
+
+.t-price-un {
+  background: #421981;
+}
+
+.t-subtotal {
+  background: #056CF9;
+}
