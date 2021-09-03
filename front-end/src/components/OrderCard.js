@@ -1,13 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import socket from '../utils/socket';
 
 class OrderCard extends React.Component {
   constructor() {
     super();
 
+    this.state = {
+      statusP: '',
+    };
+
     this.dateFormat = this.dateFormat.bind(this);
     this.sellerAddress = this.sellerAddress.bind(this);
+    this.updateStatus = this.updateStatus.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateStatus();
+  }
+
+  updateStatus() {
+    const { sale } = this.props;
+    this.setState({
+      statusP: sale.status,
+    });
+
+    socket.on('newStatus', ({ id, status }) => {
+      if (Number(sale.id) === id) {
+        this.setState({
+          statusP: status,
+        });
+      }
+    });
   }
 
   dateFormat(date) {
@@ -38,6 +63,7 @@ class OrderCard extends React.Component {
 
   render() {
     const { sale, role } = this.props;
+    const { statusP } = this.state;
     const newDate = this.dateFormat(sale.saleDate);
 
     return (
@@ -53,7 +79,7 @@ class OrderCard extends React.Component {
             <p
               data-testid={ `${role}_orders__element-delivery-status-${sale.id}` }
             >
-              { sale.status }
+              { statusP }
             </p>
             <div>
               <p

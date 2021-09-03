@@ -19,6 +19,7 @@ class Order extends React.Component {
 
   componentDidMount() {
     this.fetchAPI();
+    this.updateSocket();
   }
 
   async fetchAPI() {
@@ -30,6 +31,17 @@ class Order extends React.Component {
     this.setState({
       allInfo: filterResult,
       statusP: filterResult.status,
+    });
+  }
+
+  updateSocket() {
+    const { match: { params } } = this.props;
+    socket.on('newStatus', ({ id, status }) => {
+      if (Number(params.id) === id) {
+        this.setState({
+          statusP: status,
+        });
+      }
     });
   }
 
@@ -113,12 +125,6 @@ class Order extends React.Component {
     if (allInfo.length === 0) {
       return <p>Loading...</p>;
     }
-
-    socket.on('newStatus', (status) => {
-      this.setState({
-        statusP: status,
-      });
-    });
 
     const { id, saleDate, products, totalPrice } = allInfo;
 
