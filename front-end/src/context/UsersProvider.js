@@ -11,7 +11,10 @@ export default function UsersProvider({ children }) {
     setUsers([...users, ...user]);
   };
 
-  const removeUser = (user) => setusers([user]);
+  const removeUser = (userId) => {
+    const remainingUsers = users.filter(({ id }) => id !== userId);
+    setUsers(remainingUsers);
+  };
 
   const value = {
     users,
