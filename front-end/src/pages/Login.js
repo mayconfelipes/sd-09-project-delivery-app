@@ -10,9 +10,8 @@ const Login = () => {
   const History = useHistory();
 
   useEffect(() => {
-    if (login.login) {
-      console.log(login);
-      History.push('/customer/products');
+    if (login.path) {
+      History.push(login.path);
     }
   }, [login, History]);
 
