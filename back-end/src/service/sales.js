@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Sale, SalesProduct, Product } = require('../database/models');
+const { Sale, SalesProduct, Product, User } = require('../database/models');
 
 const checkoutNewSale = async (data, productCart) => {
   const newSale = await Sale.create(data);

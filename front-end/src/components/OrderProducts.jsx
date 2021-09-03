@@ -3,14 +3,14 @@ import { string, number, shape } from 'prop-types';
 import AppContext from '../hooks/context';
 
 function OrderProducts({ data }) {
-  const { name, index, quantity, price } = data;
+  const { name, index, quantity, price, role } = data;
   const { user } = useContext(AppContext);
   console.log(user);
   console.log(quantity);
 
   const createSpan = (dataTestId, value) => (
     <span
-      data-testid={ `customer_order_details__element-order-table-${dataTestId}` }
+      data-testid={ `${role}_order_details__element-order-table-${dataTestId}` }
     >
       {value}
     </span>
@@ -49,6 +49,7 @@ function OrderProducts({ data }) {
 OrderProducts.propTypes = {
   data: shape({
     name: string.isRequired,
+    role: string.isRequired,
     price: number.isRequired,
     quantity: number.isRequired,
     index: number.isRequired,
