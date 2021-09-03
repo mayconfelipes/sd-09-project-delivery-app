@@ -11,6 +11,7 @@ const {
 
 const { INTERNAL_ERROR_STATUS, NOT_FOUND_STATUS } = require('../middwares/httpStatus');
 
+// Retorna a venda pelo id deola mesma
 const getById = async (id) => {
   const sale = await Sales.findAll(
     { include: [
@@ -45,7 +46,6 @@ const createProducts = async (saleId, products) => {
       saleId,
       productId,
       quantity,
-
     });
    
     if (!newProductSale) {
