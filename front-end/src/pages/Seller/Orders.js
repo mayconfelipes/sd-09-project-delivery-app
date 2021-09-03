@@ -1,28 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Seller/Navbar';
-import { LoginContext } from '../../context/LoginContext';
 import { getSalesBySeller } from '../../services/api';
 import { formatPrice, formatDate } from '../../utils/format';
 
 const route = 'seller_orders';
 
 function Orders() {
-  const { apiResponse } = useContext(LoginContext);
+  // const { apiResponse } = useContext(LoginContext);
   const [sales, setSales] = useState([]);
+  const user = JSON.parse(localStorage.user);
 
   useEffect(() => {
     const getSales = async () => {
-      const data = await getSalesBySeller(apiResponse.id);
+      const data = await getSalesBySeller(user.id);
       setSales(data);
     };
-
     getSales();
-  }, [apiResponse.id]);
+  }, []);
 
   return (
     <>
-      <Navbar name={ apiResponse.name } />
+      <Navbar name={ user.name } />
       <section>
         <h1>PEDIDOS</h1>
         { sales && sales.map((sale) => (

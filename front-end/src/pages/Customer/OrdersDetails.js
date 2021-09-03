@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
 import { getSaleByid, getUserByid } from '../../services/api';
 import OrderDetailsTable from '../../components/Customer/OrderDetailsTable';
 import { createButton } from '../../utils/creators';
@@ -26,7 +27,7 @@ function OrdersDetails() {
 
   return (
     <>
-      { console.log(order) }
+      <Navbar />
       <p data-testid={ `${route}__${label}-order-id` }>{ order.id }</p>
       <p data-testid={ `${route}__${label}-seller-name` }>{ sellerName }</p>
       <p data-testid={ `${route}__${label}-order-date` }>
