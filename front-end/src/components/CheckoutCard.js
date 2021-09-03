@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './CheckoutCard.css';
 
 const CheckoutCard = ({ cart, setCart }) => {
+  const userData = JSON.parse(localStorage.getItem('user'));
+  const { token } = userData;
   const [currSeller, setCurrSeller] = useState('');
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [allSellers, setAllSellers] = useState([]);
+  // apenas para identificar o useRef sendo usado no preço total
+  const orderTotalPrice = useRef();
   const removeProduct = ({ target }) => {
     const newCart = cart.filter((element) => {
       const currProdId = target.getAttribute('curr-prod-id');
@@ -15,21 +19,55 @@ const CheckoutCard = ({ cart, setCart }) => {
     setCart(newCart);
   };
 
-  const theHeaders = {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      authorization: token,
-    },
+  // const theHeaders = (postOrGet) => ({
+  //   method: postOrGet,
+  //   headers: {
+  //     Accept: 'application/json',
+  //     'Content-Type': 'application/json',
+  //     authorization: token,
+  //   },
+  // });
+
+  // const getAllSellers = async () => fetch('http://localhost:3001/customer/products', theHeaders('GET'))
+  //   .then((response) => response.json()).then((jsoned) => setAllSellers(jsoned));
+
+  const getAllSellers = () => setAllSellers(
+    [{ id: 1, name: 'Fulana Pereira' }, { id: 2, name: 'Fulana Pereira' }],
+  );
+  // user_id: DataTypes.INTEGER,
+  // seller_id: DataTypes.INTEGER,
+  // total_price: DataTypes.DECIMAL,
+  // delivery_address: DataTypes.STRING,
+  // delivery_number: DataTypes.STRING,
+  // status: DataTypes.STRING,
+  // sale_date: DataTypes.DATE,
+  // updated_At: DataTypes.DATE,
+  const submitOrder = async () => {
+    const orderBody = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+      body: JSON.stringify({
+        sellerId: currSeller,
+        totalPrice,
+        deliveryAddress: address,
+        deliveryNumber: number,
+        products: cart.map(({ id, quantity }) => ({ id, quantity })),
+      }),
+    };
+    await fetch('http://localhost:3001/customer/order', orderBody);
   };
-  // parei aqui, fará a requisição pra encontrar todos os sellers e povoar o array
-  // apenas para identificar o useRef sendo usado no preço total
-  const orderTotalPrice = useRef();
+
+  useEffect(() => {
+    getAllSellers();
+  }, []);
+
   return (
     /* A ordem pt 01 */
     <div className="CheckoutCard-wrapper-table">
-      {console.log(theHeaders)}
       <table className="CheckoutCard-table">
         <thead>
           <tr>
@@ -93,20 +131,23 @@ const CheckoutCard = ({ cart, setCart }) => {
         data-testid="customer_checkout__element-order-total-price"
       >
         { `Total Price: 
-        ${String((cart.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0)
+    ${String((cart.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0)
       .toFixed(2)))
       .replace('.', ',')
     }` }
       </h4>
       {/* Fim da ordem pt 01 */ }
-      {/* Começo ordem pt 02 */ }
+      {/* Começo ordem pt 02 - Endereços */ }
       <fieldset className="CheckoutCard-form-container">
         <legend>Detalhes do endereço</legend>
         <div className="Checkout-select-input">
-          <p>P/ Vendedora Responsável:</p>
+          <p>Pessoa Vendedora Responsável:</p>
           <select
             value={ currSeller }
-            onChange={ (e) => setCurrSeller(e.target.value) }
+            onChange={ (e) => {
+              setCurrSeller(e.target.value);
+              console.log(typeof (currSeller));
+            } }
             data-testid="customer_checkout__select-seller"
             name="currSeller"
           >
@@ -114,7 +155,7 @@ const CheckoutCard = ({ cart, setCart }) => {
               <option
                 key={ index }
               >
-                { element.id }
+                { `${element.id}-${element.name}` }
               </option>
             )) }
           </select>
@@ -137,9 +178,9 @@ const CheckoutCard = ({ cart, setCart }) => {
             type="text"
           />
         </label>
-        { console.log(allSellers, typeof (setAllSellers)) }
       </fieldset>
       {/* Fim ordem pt 02 */ }
+      <button type="submit" onClick={ submitOrder }>FINALIZAR PEDIDO</button>
     </div>
   );
 };
