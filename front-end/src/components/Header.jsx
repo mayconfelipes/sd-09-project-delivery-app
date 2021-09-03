@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import '../styles/header.css';
-import Context from '../context/Context';
+import Context from '../context/ProductsContext';
 
 const Header = () => {
   const { clearCart } = useContext(Context);
