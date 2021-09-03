@@ -6,7 +6,7 @@ const getProducts = async () => {
   const products = await Product.findAll();
 
   if (!products) {
-    const error = errorTypes.noProductsFound;
+    const error = errorTypes.productsNotFound;
 
     return { error };
   }
@@ -24,7 +24,7 @@ const getOrderById = async (id) => {
   const order = await Sale.findByPk(id);
 
   if (!order) {
-    const error = errorTypes.OrderNotFound;
+    const error = errorTypes.orderNotFound;
 
     return { error };
   }
