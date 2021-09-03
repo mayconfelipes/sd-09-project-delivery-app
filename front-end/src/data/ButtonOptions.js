@@ -32,3 +32,13 @@ export const deliveryCheck = {
   name: 'delivery-check',
   label: 'MARCAR COMO ENTREGUE',
 };
+
+export const preparingCheck = {
+  name: 'preparing-check',
+  label: 'PREPARAR PEDIDO',
+};
+
+export const dispatchCheck = {
+  name: 'dispatch-check',
+  label: 'SAIU PARA ENTREGA',
+};

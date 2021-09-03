@@ -41,7 +41,7 @@ const destroy = async ({ id }) => {
 };
 
 const findBySeller = async ({ id }) => {
-  const data = await Sale.findAll({ where: { sellerId: id } });
+  const data = await Sale.findAll({ where: { sellerId: id }, include });
   return data;
 };
 
