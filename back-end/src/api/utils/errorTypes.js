@@ -8,7 +8,11 @@ module.exports = {
     code: 'conflict',
   },
   noProductsFound: {
-    message: 'No Products Found',
+    message: 'No Products found',
+    code: 'notFound',
+  },
+  OrderNotFound: {
+    message: 'No Order found with this ID',
     code: 'notFound',
   },
 };

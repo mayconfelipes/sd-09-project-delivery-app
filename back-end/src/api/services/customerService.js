@@ -1,8 +1,8 @@
-const { Product } = require('../../database/models');
+const { Product, Sale } = require('../../database/models');
 
 const errorTypes = require('../utils/errorTypes');
 
-const getAll = async () => {
+const getProducts = async () => {
   const products = await Product.findAll();
 
   if (!products) {
@@ -14,4 +14,22 @@ const getAll = async () => {
   return { products };
 };
 
-module.exports = { getAll };
+const getOrders = async (id) => {
+  const orders = await Sale.findAll({ where: { id } });
+
+  return { orders };
+};
+
+const getOrderById = async (id) => {
+  const order = await Sale.findByPk(id);
+
+  if (!order) {
+    const error = errorTypes.OrderNotFound;
+
+    return { error };
+  }
+
+  return { order };
+};
+
+module.exports = { getProducts, getOrders, getOrderById };
