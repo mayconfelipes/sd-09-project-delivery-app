@@ -57,8 +57,11 @@ const Products = () => {
       <button
         type="button"
         onClick={ () => setRedirect(true) }
+        data-testid="customer_products__button-cart"
       >
-        { `VER CARRINHO: ${formatPrice(totalValue)}` }
+        <span data-testid="customer_products__checkout-bottom-value">
+          { `VER CARRINHO: ${formatPrice(totalValue)}` }
+        </span>
       </button>
     </S.Container>
   );

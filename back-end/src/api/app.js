@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors');
 
 const loginRoute = require('../routes/loginRoute');
+const allSellers = require('../routes/allSellers');
 const registerRoute = require('../routes/registerRoute');
 const productRoute = require('../routes/productRoute');
 const saleRoute = require('../routes/saleRoute');
@@ -21,6 +22,8 @@ app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/products', productRoute);
 app.use('/customer', authMiddleware, saleRoute);
+app.use('/allsellers', authMiddleware, saleRoute);
+
 
 app.use(express.static(path.join(__dirname, '../', '../', 'public')));
 

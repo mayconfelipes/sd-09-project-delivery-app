@@ -17,7 +17,14 @@ const register = rescue(async(req, res) => {
   return res.status(201).json({ token });
 });
 
+const sellers = rescue(async(_req, res) => {
+  const allSellers = await User.getAll();
+
+  return res.status(200).json(allSellers);
+});
+
 module.exports = {
   login,
   register,
+  sellers,
 };

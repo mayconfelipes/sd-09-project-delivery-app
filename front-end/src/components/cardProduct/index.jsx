@@ -42,6 +42,33 @@ const CardProduct = ({ image, name, price, id }) => {
     }
   };
 
+  const updateQuantity = ({ target }) => {
+    console.log(target.value);
+    if (typeof target.value !== 'string') return;
+    const newValue = Number(target.value);
+
+    const exists = products.findIndex((item) => item.id === id);
+    const notExist = -1;
+
+    const newCart = { totalValue: 0, products };
+
+    if (exists === notExist && quantity > 0) {
+      newCart.products = [
+        ...products,
+        { image, name, price, id, quantity: newValue },
+      ];
+    }
+
+    if (exists > notExist) newCart.products[exists].quantity = newValue;
+
+    newCart.products.forEach((elem) => {
+      newCart.totalValue += (elem.price * elem.quantity);
+    });
+
+    setQuantity(newValue);
+    setCart(newCart);
+  };
+
   return (
     <S.Card>
       <span data-testid={ `customer_products__element-card-price-${id}` }>
@@ -68,7 +95,7 @@ const CardProduct = ({ image, name, price, id }) => {
           type="number"
           data-testid={ `customer_products__input-card-quantity-${id}` }
           value={ quantity }
-          onChange={ ({ target }) => setQuantity(target.value) }
+          onChange={ updateQuantity }
         />
         <button
           type="button"

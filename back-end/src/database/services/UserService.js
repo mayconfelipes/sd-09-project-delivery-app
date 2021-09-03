@@ -66,7 +66,17 @@ const register = async (name, email, password) => {
   }
 };
 
+const getAll = async () => {
+  const allSellers = await Product.findAll({
+    where: {
+      role: 'seller'
+    }
+  });
+  return allSellers;
+};
+
 module.exports = {
   login,
   register,
+  getAll,
 };

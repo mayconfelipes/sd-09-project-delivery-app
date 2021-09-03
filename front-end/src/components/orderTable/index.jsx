@@ -21,6 +21,13 @@ const OrderTable = () => {
     setCart(newCart);
   };
 
+  const dataIdNumber = 'customer_checkout__element-order-table-item-number-';
+  const dataIdName = 'customer_checkout__element-order-table-name-';
+  const dataIdQuantity = 'cusctomer_checkout__element-order-table-quantity-';
+  const dataIdUnitPrice = 'customer_checkout__element-order-table-unit-price-';
+  const dataIdSubTotal = 'customer_checkout__element-order-table-sub-total-';
+  const dataIdRemove = 'customer_checkout__element-order-table-remove-';
+
   return (
     <table>
       <thead>
@@ -30,13 +37,38 @@ const OrderTable = () => {
         {
           products.map((item) => (
             <tr key={ item.id }>
-              <td>{item.id}</td>
-              <td>{item.name}</td>
-              <td>{item.quantity}</td>
-              <td>{formatPrice(item.price)}</td>
-              <td>{formatPrice(item.price * item.quantity)}</td>
+              <td
+                data-testid={ dataIdNumber + id }
+              >
+                {item.id}
+              </td>
+              <td
+                data-testid={ dataIdName + id }
+              >
+                {item.name}
+              </td>
+              <td
+                data-testid={ dataIdQuantity + id }
+              >
+                {item.quantity}
+              </td>
+              <td
+                data-testid={ dataIdUnitPrice + id }
+              >
+                {formatPrice(item.price)}
+              </td>
+              <td
+                data-testid={ dataIdSubTotal + id }
+              >
+                {formatPrice(item.price * item.quantity)}
+              </td>
               <td>
-                <button type="button" name={ item.id } onClick={ removeProduct }>
+                <button
+                  type="button"
+                  name={ item.id }
+                  onClick={ removeProduct }
+                  data-testid={ dataIdRemove + id }
+                >
                   REMOVE
                 </button>
               </td>
