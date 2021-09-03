@@ -6,7 +6,8 @@ const router = express.Router();
 const service = require('../service');
 
 router.post('/', rescue(async (req, res, next) => {
-  const user = await service.login(req.body);
+  const { email, password } = req.body;
+  const user = await service.login(email, password);
 
   if (user.error) {
     return next({
@@ -14,6 +15,7 @@ router.post('/', rescue(async (req, res, next) => {
       message: 'Not Found',
     });
   }
+  
   return res.status(200).json(user);
 }));
 

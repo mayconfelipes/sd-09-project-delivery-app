@@ -9,7 +9,9 @@ const validateUser = require('../middlewares/validateUser');
 router.post('/', [
   validateUser,
   rescue(async (req, res, _next) => {
-    const user = await service.registerUser(req.body);
+    const { name, email, password } = req.body;
+    
+    const user = await service.registerUser(name, email, password);
 
     return res.status(201).json(user);
   }),
