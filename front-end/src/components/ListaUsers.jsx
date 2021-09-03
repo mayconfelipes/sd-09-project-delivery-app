@@ -13,10 +13,6 @@ const ROLE_CHOICES = {
 };
 
 export default function ListaUsers({ token }) {
-  const config = {
-    headers: { Authorization: `${token}` },
-  };
-
   const { users, addUser, removeUser } = useContext(UsersContext);
 
   const [isFirstFecth, setFirstFetch] = useState(true);
@@ -36,6 +32,10 @@ export default function ListaUsers({ token }) {
       const GET_USERS_ENDPOINT = 'http://localhost:3001/api/users';
 
       const fetchUsers = async () => {
+        const config = {
+          headers: { Authorization: `${token}` },
+        };
+
         await axios.get(GET_USERS_ENDPOINT, config)
           .then(
             ({ data }) => {
@@ -51,11 +51,14 @@ export default function ListaUsers({ token }) {
       if (isFirstFecth) {
         fetchUsers();
       }
-    }, [addUser, config, isFirstFecth, token, users],
+    }, [addUser, isFirstFecth, token, users],
   );
 
   const handleDeletion = async (id) => {
     const DELETE_USER_ENDPOINT = `http://localhost:3001/api/users/${id}`;
+    const config = {
+      headers: { Authorization: `${token}` },
+    };
 
     await axios.delete(DELETE_USER_ENDPOINT, config)
       .then(
