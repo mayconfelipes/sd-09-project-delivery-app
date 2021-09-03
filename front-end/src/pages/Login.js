@@ -72,6 +72,10 @@ class Login extends React.Component {
       return <Redirect to="/seller/orders" />;
     }
 
+    if (user.role === 'administrator') {
+      return <Redirect to="/admin/manage" />;
+    }
+
     return (
       <div>
         <h3>Login</h3>
@@ -119,6 +123,7 @@ class Login extends React.Component {
         </div>
         { redirect === 'customer' && <Redirect to="/customer/products" /> }
         { redirect === 'seller' && <Redirect to="/seller/orders" /> }
+        { redirect === 'administrator' && <Redirect to="/admin/manage" />}
       </div>
     );
   }

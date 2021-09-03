@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-class HeaderSeller extends React.Component {
+class HeaderNav extends React.Component {
   constructor() {
     super();
 
     this.state = {
       name: '',
+      linkTo: '',
+      nameBtn: '',
     };
 
     this.userName = this.userName.bind(this);
@@ -18,10 +20,21 @@ class HeaderSeller extends React.Component {
   }
 
   userName() {
-    const user = localStorage.getItem('user');
-    this.setState({
-      name: JSON.parse(user).name,
-    });
+    const { name, role } = JSON.parse(localStorage.user);
+
+    if (role === 'seller') {
+      this.setState({
+        name,
+        linkTo: '/seller/orders',
+        nameBtn: 'PEDIDOS',
+      });
+    } else if (role === 'administrator') {
+      this.setState({
+        name,
+        linkTo: '/admin/manage',
+        nameBtn: 'GERENCIAR USUÁRIOS',
+      });
+    }
   }
 
   removeUser() {
@@ -29,20 +42,21 @@ class HeaderSeller extends React.Component {
   }
 
   render() {
-    const { name } = this.state;
+    const { name, linkTo, nameBtn } = this.state;
+
     return (
       <div>
         <nav>
-          <Link to="/seller/orders">
+          <Link to={ `${linkTo}` }>
             <button
               type="button"
               data-testid="customer_products__element-navbar-link-orders"
             >
-              PEDIDOS
+              { nameBtn }
             </button>
           </Link>
           <p
-            data-testid="seller-navbar-user-full-name"
+            data-testid="customer_products__element-navbar-user-full-name"
           >
             { name }
           </p>
@@ -50,7 +64,7 @@ class HeaderSeller extends React.Component {
             <button
               type="button"
               onClick={ this.removeUser }
-              data-testid="seller-navbar-link-logout"
+              data-testid="customer_products__element-navbar-link-logout"
             >
               Sair
             </button>
@@ -61,4 +75,4 @@ class HeaderSeller extends React.Component {
   }
 }
 
-export default HeaderSeller;
+export default HeaderNav;
