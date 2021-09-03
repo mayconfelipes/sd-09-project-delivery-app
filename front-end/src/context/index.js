@@ -5,9 +5,10 @@ export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [isAuthenticated, setAuthentication] = useState(() => false);
+  const [token, setToken] = useState(() => '');
 
   const context = {
-    auth: { isAuthenticated, setAuthentication },
+    auth: { isAuthenticated, setAuthentication, token, setToken },
   };
 
   return (
