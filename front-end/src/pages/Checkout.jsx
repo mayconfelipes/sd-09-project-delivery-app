@@ -9,7 +9,7 @@ function Checkout() {
 
   useEffect(() => {
     getSellersId();
-  }, []);
+  }, [getSellersId]);
 
   const productCart = Object.values(JSON.parse(localStorage.getItem('productCart')))
     .filter(({ quantity }) => quantity > 0);
