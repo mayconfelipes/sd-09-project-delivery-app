@@ -61,7 +61,7 @@ const Login = () => {
 
         <button
           type="button"
-          className="btn-login"
+          className="btn-primary"
           data-testid="common_login__button-login"
           disabled={ !buttonAble() }
           onClick={ handleLogin }

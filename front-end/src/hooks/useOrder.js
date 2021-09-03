@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 export default function useOrder() {
+  const History = useHistory();
   const [order, setOrderData] = useState({});
 
   async function setOrder(payload) {
@@ -20,5 +22,11 @@ export default function useOrder() {
     }
   }
 
-  return [order, setOrder];
+  useEffect(() => {
+    if (order.saleId) {
+      History.push(`/customer/orders/${order.saleId}`);
+    }
+  });
+
+  return [setOrder];
 }
