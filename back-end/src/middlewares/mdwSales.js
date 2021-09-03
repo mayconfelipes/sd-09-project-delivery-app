@@ -2,7 +2,8 @@ const {
   statusCode: { OK },
 } = require('../utils');
 const { sellerOrders, saleDetails } = require('../services/sellerOrders');
-// const { createSale } = require('../services/createSale');
+const { createSale } = require('../services/createSale');
+const { validatorJoi: { verifierSaleSchema }, getDate } = require('../utils');
 
 const mdwSales = async (req, res, next) => {
   try {
@@ -24,14 +25,27 @@ const mdwSalesDetails = async (req, res, next) => {
   }
 };
 
-// const mdwCreateSale = async (req, res, next) => {
-//   try {
-    // const { sellerId, userId, totalPrice, deliveryNumber, deliveryAddress } = req.body;
-    // const status = 'pendente';
-    // const createdSale = await createSale({sellerId, userId, totalPrice, deliveryNumber, deliveryAddress})
-  // } catch (error) {
-  //   return next(error);
-//   }
-// };
+const mdwCreateSale = async (req, res, next) => {
+  try {
+    const { sellerId, userId, totalPrice, deliveryNumber, deliveryAddress } = req.body;
+    const joiValidate = verifierSaleSchema(
+      { sellerId, userId, totalPrice, deliveryNumber, deliveryAddress },
+      );
 
-module.exports = { mdwSales, mdwSalesDetails };
+    if (joiValidate.error) return next(joiValidate.error);
+    const saleDate = getDate();
+    const status = 'pendente';
+    const createdSale = await createSale(
+      { sellerId, userId, totalPrice, deliveryNumber, deliveryAddress, status, saleDate },
+      );
+    return res.status(200).json(createdSale);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+module.exports = {
+  mdwSales,
+  mdwSalesDetails,
+  mdwCreateSale,
+};
