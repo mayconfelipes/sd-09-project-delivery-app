@@ -16,9 +16,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DECIMAL(10,2)
       },
-      url_image: {
+      urlImage: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        field: 'url_image'
       },
       // createdAt: {
       //   allowNull: false,

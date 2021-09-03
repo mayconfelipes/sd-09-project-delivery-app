@@ -1,28 +1,29 @@
-const { product, sale } = require('../database/models');
+const { product, sale, salesProducts } = require('../database/models');
 
 const getProductsAll = async () => {
   const products = await product.findAll({});
   return products;
 };
 
-const saveOrder = async (orderData) => {
+const saveOrder = async ({ orderData }) => {
   const formatedOrder = {
-    user_id: orderData.userId,
-    seller_id: orderData.sellerId,
-    total_price: orderData.totalCart,
-    delivery_address: orderData.deliveryAddress,
-    delivery_number: orderData.deliveryNumber,
-    sale_data: new Date(),
+    userId: orderData.userId,
+    sellerId: orderData.sellerId,
+    totalPrice: orderData.totalCart,
+    deliveryAddress: orderData.deliveryAddress,
+    deliveryNumber: orderData.deliveryNumber,
+    saleDate: new Date(),
     status: 'PENDENTE',
   };
   const order = await sale.create(formatedOrder);
- return order;
+ return order.id;
 };
 
-const createSalesProducts = async (order, listItens) => {
-  // const list =  listItens.map((item) => ({ sale_id: order.id, product_id: item.id, quantity: item.quantity }))
-  // await salesProducts.bulkCreate(list);
-  console.log(order, listItens);
+const createSalesProducts = async (orderId, listItens) => {
+  const list = listItens
+  .map((item) => ({ saleId: orderId, productId: item.productId, quantity: item.quantity }));
+  const createList = await salesProducts.bulkCreate(list);
+  return (createList);
 };
 
 module.exports = { getProductsAll, saveOrder, createSalesProducts };
