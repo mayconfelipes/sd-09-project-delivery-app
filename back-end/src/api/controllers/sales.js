@@ -6,19 +6,17 @@ const create = async (req, res, next) => {
     const sale = req.body;
     const { id } = req.user.data;
     const newSale = await salesServices.create(sale, id);
-    console.log(newSale);
-
     return res.status(CREATED_STATUS).json(newSale);
   } catch (err) {
     next(err);
   }
 };
 
-const getById = async (req, res, next) => {
+const getAllById = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { id } = req.user.data;
 
-    const sale = await salesServices.getById(id);
+    const sale = await salesServices.getAllById(id);
 
     return res.status(OK_STATUS).json(sale);
   } catch (err) {
@@ -39,8 +37,29 @@ const update = async (req, res, next) => {
   }
 };
 
+const getByUser = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const sale = await salesServices.getByUser(id);
+    return res.status(OK_STATUS).json(sale);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getAllSales = async (req, res, next) => {
+  try {
+    const sale = await salesServices.getAllSales();
+    return res.status(OK_STATUS).json(sale);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   create,
-  getById,
+  getAllById,
   update,
+  getByUser,
+  getAllSales,
 };

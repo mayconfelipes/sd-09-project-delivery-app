@@ -51,6 +51,10 @@ const Login = () => {
     else setInvalidLogin(true);
   };
 
+  const localItem = JSON.parse(localStorage.getItem('user'));
+  if (localItem) {
+    return <Redirect to="/customer/products" />;
+  }
   return (
     <section className={ style.loginContainer }>
       { isLogged && <Redirect

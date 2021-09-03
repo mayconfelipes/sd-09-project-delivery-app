@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import P from 'prop-types';
+import React from 'react';
+// import P from 'prop-types';
 
 import DescriptionsBar from '../../../components/DescriptionsBar';
 import GridOrderDetails from '../../../components/GridOrderDetails';
@@ -7,36 +7,19 @@ import InfoOrderDetails from '../../../components/InfoOrderDetails';
 import NavBar from '../../../components/Navbar';
 import PrimaryButton from '../../../components/PrimaryButton';
 import useGlobalContext from '../../../context/GlobalStateProvider';
-import { saleById } from '../../../api/sales';
 
 import style from './orderDetails.module.scss';
 
-const CustomerOrderDetails = ({ match }) => {
-  const { params } = match;
-  const { id: paramId } = params;
+const CustomerOrderDetails = () => {
+  // const { params } = match;
+  // const { id: paramId } = params;
 
   const { totalPrice } = useGlobalContext();
-  const [sale, setSale] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const sellerTestId = 'customer_order_details__element-order-details-label-seller-name';
   const dateTestId = 'customer_order_details__element-order-details-label-order-date';
   const statusTId = 'customer_order_details__element-order-details-label-delivery-status';
   const orderTestId = 'customer_order_details__element-order-details-label-order-id';
 
-  useEffect(() => {
-    const localItem = JSON.parse(localStorage.getItem('user'));
-    if (localItem) {
-      const { token } = localItem;
-      saleById(paramId, token).then((data) => {
-        setSale(data);
-        setIsLoading(false);
-      });
-    }
-  }, [paramId]);
-
-  console.log(sale);
-
-  if (isLoading) return <p>Loading...</p>;
   return (
     <>
       <NavBar />
@@ -97,10 +80,10 @@ const CustomerOrderDetails = ({ match }) => {
 
 export default CustomerOrderDetails;
 
-CustomerOrderDetails.propTypes = {
-  match: P.shape({
-    params: P.shape({
-      id: P.number,
-    }),
-  }).isRequired,
-};
+// CustomerOrderDetails.propTypes = {
+//   match: P.shape({
+//     params: P.shape({
+//       id: P.string,
+//     }),
+//   }).isRequired,
+// };
