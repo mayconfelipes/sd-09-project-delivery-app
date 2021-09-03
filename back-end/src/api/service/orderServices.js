@@ -22,7 +22,7 @@ const newOrder = async (
 
 const populateSaleProd = async (saleId, products) => {
   const newSaleProd = await salesProducts.bulkCreate(
-    products.map(item => ({ sale_id: saleId, product_id: item.id, quantity: item.quantity }))
+    products.map(item => ({ sale_id: saleId, product_id: item.id, quantity: item.quantity })),
   );
   return newSaleProd;
 };
