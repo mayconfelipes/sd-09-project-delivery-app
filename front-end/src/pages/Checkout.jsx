@@ -1,10 +1,42 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import Header from '../components/Header';
-import Button from '../components/button';
+import Context from '../context/Context';
 
 const Checkout = () => {
-  const i = 0;
-  console.log(i);
+  const { products, setProducts } = useContext(Context);
+  // const [seller, setSeller] = useState('');
+  const [address, setAddress] = useState('');
+  const [total, setTotal] = useState(JSON.parse(localStorage.getItem('total')) || 0);
+  const [addressNumber, setAddressNumber] = useState('');
+
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+    case 'address':
+      return setAddress(value);
+    case 'number':
+      return setAddressNumber(value);
+    default:
+      return '';
+    }
+  };
+
+  console.log(address, addressNumber);
+
+  // console.log(products);
+
+  const handleClick = (productId, productPrice, productQuantity) => {
+    const list = products.filter((product) => {
+      const listUpdated = product.id !== productId;
+      const result = total - productPrice * productQuantity;
+      setTotal(result);
+      localStorage.setItem('total', result);
+      return listUpdated;
+    });
+    console.log(list);
+    setProducts(list);
+    localStorage.setItem('products', JSON.stringify(list));
+  };
+
   return (
     <section className="checkout">
       <Header />
@@ -19,10 +51,41 @@ const Checkout = () => {
             <td>Subtotal</td>
             <td>Remover Item</td>
           </tr>
-          <tr>cervejas aqui</tr>
+          { products.map((product, index) => (
+            <tr key={ product.id }>
+              <td>
+                { index + 1 }
+              </td>
+              <td>
+                { product.name }
+              </td>
+              <td>
+                { product.quantity }
+              </td>
+              <td>
+                { product.price }
+              </td>
+              <td>
+                { parseFloat(product.price * product.quantity).toFixed(2) }
+              </td>
+              <td>
+                <button
+                  type="button"
+                  onClick={
+                    () => handleClick(product.id, product.price, product.quantity)
+                  }
+                >
+                  REMOVER
+                </button>
+              </td>
+            </tr>
+          )) }
 
         </table>
-        <span className="total">Total: R$ 1000</span>
+        <span className="total">
+          Total: R$
+          { parseFloat(total).toFixed(2) }
+        </span>
       </section>
       <span className="checkout-details">Detalhes e Endereço para Entrega</span>
       <section className="details">
@@ -41,22 +104,29 @@ const Checkout = () => {
           <input
             type="text"
             id="addressInput"
+            name="address"
             data-testid="customer_checkout__input-address"
+            onChange={ handleChange }
           />
         </label>
         <label htmlFor="number">
           Número
           <input
             type="text"
+            name="number"
             id="number"
             data-testid="customer_checkout__input-addressNumber"
+            onChange={ handleChange }
           />
         </label>
       </section>
-      <Button
+      <button
+        type="button"
         name="Finalizar pedido"
         data-testid="customer_checkout__button-submit-order"
-      />
+      >
+        Finalizar pedido
+      </button>
     </section>
   );
 };

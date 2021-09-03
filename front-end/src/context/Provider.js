@@ -31,6 +31,7 @@ export default function Provider({ children }) {
   const clearCart = () => setProducts([]);
 
   const value = {
+    setProducts,
     products,
     addProduct,
     removeProduct,
