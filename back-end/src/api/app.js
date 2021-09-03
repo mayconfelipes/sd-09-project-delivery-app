@@ -14,6 +14,7 @@ const { loginRouter } = require('./routes');
 const { registerRouter } = require('./routes');
 const { productsRouter } = require('./routes');
 const userRouter = require('./routes/userRoutes');
+const orderRouter = require('./routes/orderRoute');
 
 app.use(express.static(path.join(__dirname, '../..', 'src')));
 

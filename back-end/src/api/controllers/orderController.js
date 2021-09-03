@@ -1,4 +1,4 @@
-const { default: rescue } = require('express-rescue');
+const rescue = require('express-rescue');
 const { newOrder } = require('../service/orderServices');
 
 const insertOrderInSale = rescue(async (req, res) => {
