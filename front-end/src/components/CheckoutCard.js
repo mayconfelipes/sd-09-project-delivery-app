@@ -112,11 +112,15 @@ const CheckoutCard = ({ cart, setCart }) => {
           )) }
         </tbody>
       </table>
-      <h4
-        ref={ useRef() }
-        data-testid="customer_checkout__element-order-total-price"
-      >
-        { `Total Price: ${orderTotalPrice}` }
+      <h4>
+        Total a pagar:
+        <span
+          ref={ useRef() }
+          data-testid="customer_checkout__element-order-total-price"
+        >
+          { ' ' }
+          { orderTotalPrice }
+        </span>
       </h4>
       {/* Fim da ordem pt 01 */ }
       {/* Começo ordem pt 02 - Endereços */ }
@@ -161,7 +165,11 @@ const CheckoutCard = ({ cart, setCart }) => {
         </label>
       </fieldset>
       {/* Fim ordem pt 02 */ }
-      <button type="submit" onClick={ submitOrder }>
+      <button
+        data-testid="customer_checkout__button-submit-order"
+        type="submit"
+        onClick={ submitOrder }
+      >
         FINALIZAR PEDIDO
       </button>
     </div>
