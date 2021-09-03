@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Customer from '../context/customerContext';
+import Seller from '../context/sellerContext';
 
-export default function CheckoutItem({ product, index }) {
-  const { shoppingCart, setShoppingCart } = useContext(Customer);
+export default function CheckoutItem({ product, index, pathname }) {
+  const { shoppingCart, setShoppingCart } = useContext(
+    pathname.includes('customer') ? Customer : Seller,
+  );
 
   const removeProduct = () => {
     const newCart = shoppingCart.filter((item, listIndex) => listIndex !== index);
@@ -73,4 +76,5 @@ CheckoutItem.propTypes = {
     price: PropTypes.string.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
+  pathname: PropTypes.string.isRequired,
 };

@@ -7,8 +7,10 @@ import useTotalPrice from '../hooks/utils/useTotalPrice';
 
 export default function CheckoutTable() {
   const History = useHistory();
-  const context = useContext(History.location.pathname === 'customer'
+  const { pathname } = History.location;
+  const context = useContext(pathname.includes('customer')
     ? Customer : Seller);
+
   const { shoppingCart } = context;
 
   const [totalPrice, setTotalPrice] = useTotalPrice();
@@ -31,7 +33,12 @@ export default function CheckoutTable() {
       </thead>
       <tbody>
         {shoppingCart.length ? shoppingCart.map((product, index) => (
-          <CheckoutItem key={ product.id } index={ index } product={ product } />
+          <CheckoutItem
+            key={ product.id }
+            index={ index }
+            product={ product }
+            pathname={ pathname }
+          />
         )) : <tr><td>Apenas teias de aranha em seu carrinho...</td></tr>}
         <tr
           data-testid="customer_checkout__element-order-total-price"
