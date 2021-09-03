@@ -49,8 +49,8 @@ td:nth-child( 2 ) {
   border: none;
   border-radius: 5px;
   color: white;
-  font-weight: bold;
-  padding: 20px 0;
+  font-weight: 900;
   margin-top: 30px;
+  padding: 20px 0;
   width: 250px;
 }
