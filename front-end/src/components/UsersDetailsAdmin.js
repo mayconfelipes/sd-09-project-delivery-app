@@ -2,17 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import fetchDELETE from '../services/fetchDELETE';
+import socket from '../utils/socket';
 
 class UsersDetailsAdmin extends React.Component {
   constructor(props) {
     super(props);
 
-    this.removeUser = this.removeUser.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
   }
 
-  async removeUser() {
-    const { id } = this.props;
+  async deleteUser() {
+    const { user: { id } } = this.props;
     await fetchDELETE(`users/${id}`);
+    socket.emit('deleteUser');
   }
 
   render() {
@@ -34,7 +36,7 @@ class UsersDetailsAdmin extends React.Component {
           { name }
         </td>
         <td
-          data-testid={ `admin_manage__element-user-table-email${indexUser}` }
+          data-testid={ `admin_manage__element-user-table-email-${indexUser}` }
         >
           { email }
         </td>
@@ -48,7 +50,7 @@ class UsersDetailsAdmin extends React.Component {
         >
           <button
             type="button"
-            onClick={ this.removeUser }
+            onClick={ this.deleteUser }
           >
             Excluir
           </button>

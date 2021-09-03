@@ -21,13 +21,14 @@ class HeaderNav extends React.Component {
 
   userName() {
     const { name, role } = JSON.parse(localStorage.user);
+
     if (role === 'seller') {
       this.setState({
         name,
         linkTo: '/seller/orders',
         nameBtn: 'PEDIDOS',
       });
-    } else if (role === 'administrador') {
+    } else if (role === 'administrator') {
       this.setState({
         name,
         linkTo: '/admin/manage',
@@ -42,6 +43,7 @@ class HeaderNav extends React.Component {
 
   render() {
     const { name, linkTo, nameBtn } = this.state;
+
     return (
       <div>
         <nav>

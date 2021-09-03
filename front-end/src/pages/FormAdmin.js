@@ -4,33 +4,55 @@ import HeaderAdmin from '../components/HeaderNav';
 import fetchGET from '../services/fetchGET';
 import fetchPOST from '../services/fetchPOST';
 import UsersDetailsAdmin from '../components/UsersDetailsAdmin';
+import socket from '../utils/socket';
+
+const INITIAL_STATE = {
+  name: '',
+  email: '',
+  password: '',
+  role: 'customer',
+  toggleButton: true,
+};
 
 class FormAdmin extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       users: [],
       name: '',
       email: '',
       password: '',
-      role: '',
+      role: 'customer',
       toggleButton: true,
+      toggleMessage: true,
+      message: '',
     };
 
     this.table = this.table.bind(this);
     this.fetchAPI = this.fetchAPI.bind(this);
     this.toggleButton = this.toggleButton.bind(this);
     this.createUser = this.createUser.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.getAllUsers = this.getAllUsers.bind(this);
   }
 
   componentDidMount() {
     this.fetchAPI();
+    this.getAllUsers();
   }
 
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value }, () => this.toggleButton());
+  }
+
+  getAllUsers() {
+    socket.on('getUsers', (users) => {
+      this.setState({
+        users,
+      });
+    });
   }
 
   toggleButton() {
@@ -59,7 +81,19 @@ class FormAdmin extends React.Component {
 
   async createUser() {
     const { name, email, password, role } = this.state;
-    await fetchPOST('users', { name, email, password, role });
+    try {
+      await fetchPOST('users/admin', { name, email, password, role });
+      this.setState({
+        toggleMessage: false,
+      });
+    } catch (error) {
+      this.setState({
+        message: error.response.data.message,
+        toggleMessage: true,
+      });
+    }
+    this.fetchAPI();
+    this.setState(INITIAL_STATE);
   }
 
   table() {
@@ -69,17 +103,9 @@ class FormAdmin extends React.Component {
         <thead>
           <tr>
             <th>Item</th>
-          </tr>
-          <tr>
             <th>Nome</th>
-          </tr>
-          <tr>
             <th>Email</th>
-          </tr>
-          <tr>
             <th>Tipo</th>
-          </tr>
-          <tr>
             <th>Excluir</th>
           </tr>
         </thead>
@@ -97,17 +123,17 @@ class FormAdmin extends React.Component {
   }
 
   render() {
-    const { name, email, password, toggleButton } = this.state;
+    const { name, email, password, toggleButton, toggleMessage, message } = this.state;
     return (
       <div>
         <HeaderAdmin />
 
         <div id="form">
-          <label htmlFor="fullName">
+          <label htmlFor="name">
             Nome:
             <input
               type="text"
-              id="fullName"
+              id="name"
               data-testid="admin_manage__input-name"
               name="name"
               value={ name }
@@ -128,7 +154,7 @@ class FormAdmin extends React.Component {
           <label htmlFor="password">
             Senha:
             <input
-              type="text"
+              type="password"
               id="password"
               data-testid="admin_manage__input-password"
               name="password"
@@ -144,20 +170,24 @@ class FormAdmin extends React.Component {
               name="role"
               onChange={ this.handleChange }
             >
-              <option value="">Escolha o tipo</option>
-              <option value="administrador">P. Administradora</option>
+              <option value="customer">Escolha o tipo</option>
+              <option value="administrator">P. Administradora</option>
               <option value="seller">P. Vendedora</option>
               <option value="customer">Cliente</option>
             </select>
           </label>
-          <button
-            type="button"
-            data-testid="admin_manage__button-register"
-            disabled={ toggleButton }
-            onClick={ this.createUser }
-          >
-            CADASTRAR
-          </button>
+          <div>
+            <button
+              type="button"
+              data-testid="admin_manage__button-register"
+              disabled={ toggleButton }
+              onClick={ this.createUser }
+            >
+              CADASTRAR
+            </button>
+            { toggleMessage
+              && <p data-testid="admin_manage__element-invalid-register">{ message }</p>}
+          </div>
         </div>
 
         <div id="table">
