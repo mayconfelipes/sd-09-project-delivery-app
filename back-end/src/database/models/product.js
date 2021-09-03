@@ -2,7 +2,7 @@ const Product = (sequelize, DataTypes) => {
   const newProduct = sequelize.define('product', {
     name: DataTypes.STRING,
     price: DataTypes.DECIMAL(10,2),
-    urlImage: DataTypes.STRING
+    url_image: DataTypes.STRING
   },
   { timestamps: false });
 

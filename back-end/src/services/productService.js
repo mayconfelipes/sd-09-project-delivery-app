@@ -1,7 +1,10 @@
 const { product, sale, salesProducts } = require('../database/models');
 
 const getProductsAll = async () => {
+  console.log('estamos no getProductsAll no products service');
   const products = await product.findAll({});
+  console.log('vez o findALl');
+
   return products;
 };
 
@@ -16,7 +19,7 @@ const saveOrder = async ({ orderData }) => {
     status: 'PENDENTE',
   };
   const order = await sale.create(formatedOrder);
- return order.id;
+  return order.id;
 };
 
 const createSalesProducts = async (orderId, listItens) => {

@@ -74,7 +74,7 @@ function Checkout() {
       <Navbar role={ user.role } />
       <CheckoutTable cartData={ cartData } />
       <section>
-        <p data-TestId={ testIds[28] }>
+        <p data-testid={ testIds[28] }>
           Total: R$
           { totalCart }
         </p>

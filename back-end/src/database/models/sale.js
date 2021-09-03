@@ -7,7 +7,8 @@ const Sale = (sequelize, DataTypes) => {
     deliveryNumber: DataTypes.STRING,
     saleDate: DataTypes.DATE,
     status: DataTypes.STRING
-  }, { timestamps: false });
+  }, { timestamps: false, underscored: true}
+  );
 
   newSale.associate = (models) => {
     // Verificar o as: user para ver o que ele traz para a gente;

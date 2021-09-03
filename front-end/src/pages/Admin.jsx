@@ -134,7 +134,6 @@ function Admin() {
           name="role"
           dataTestId={ dataTestIds[68] }
           onChange={ handleChange }
-          isHidden="true"
         />
         <LargeButton
           buttonText="CADASTRAR"

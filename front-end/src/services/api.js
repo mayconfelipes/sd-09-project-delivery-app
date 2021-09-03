@@ -137,7 +137,7 @@ const getAllUsers = () => {
     method: 'GET',
     headers: {
       'Content-Type': CONTENT,
-      authorization: token,
+      // authorization: token,
     },
   })
     .then((response) => response.json())
