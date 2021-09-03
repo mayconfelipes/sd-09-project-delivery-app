@@ -1,5 +1,6 @@
 const BASE_URL = 'http://localhost:3001';
 const contentType = 'application/json';
+const POST = 'POST';
 
 export const fetchToLogin = (email, password, setInvalidUser, setRedirectTo) => {
   const body = {
@@ -13,7 +14,7 @@ export const fetchToLogin = (email, password, setInvalidUser, setRedirectTo) => 
 
   fetch(`${BASE_URL}/login`, {
     headers: myHeadersToLogin,
-    method: 'POST',
+    method: POST,
     body: JSON.stringify(body),
   })
     .then((res) => res.json())
@@ -42,7 +43,7 @@ export const fetchToRegister = (payload, setInvalidUser, setRedirectTo) => {
 
   fetch('http://localhost:3001/register', {
     headers: myHeadersToRegister,
-    method: 'POST',
+    method: POST,
     body: JSON.stringify(body),
   })
     .then((res) => res.json())
@@ -87,7 +88,7 @@ export const createUser = (
   };
 
   fetch('http://localhost:3001/users', {
-    method: 'POST',
+    method: POST,
     headers: {
       Accept: contentType,
       'Content-Type': contentType,

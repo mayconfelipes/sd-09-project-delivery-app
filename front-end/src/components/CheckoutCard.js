@@ -23,15 +23,12 @@ const CheckoutCard = ({ cart, setCart }) => {
     setCart(newCart);
   };
 
-  const getAllSellers = () => setAllSellers(
-    [{ id: 1, name: 'Fulana Pereira' }, { id: 2, name: 'Fulana Pereira' }],
-  );
   // user_id: DataTypes.INTEGER, OK
   // seller_id: DataTypes.INTEGER, OK
   // total_price: DataTypes.DECIMAL, OK
   // delivery_address: DataTypes.STRING, OK
   // delivery_number: DataTypes.STRING, OK
-  // status: DataTypes.STRING, x
+  // status: DataTypes.STRING, OK
   // sale_date: DataTypes.DATE, x
   // updated_At: DataTypes.DATE, x
   const submitOrder = async () => {
@@ -48,16 +45,19 @@ const CheckoutCard = ({ cart, setCart }) => {
         totalPrice: orderTotalPrice,
         deliveryAddress: address,
         deliveryNumber: number,
-        products: cart.map(({ id, quantity }) => ({ id, quantity })),
+        status: 'Pendente',
+        // saleDate: Date.now(), Já possui defaultValue
+        // updatedAt: Date.now(), Já possui defaultValue
+        // products: cart.map(({ id, quantity }) => ({ id, quantity })), // verificar se há necessidade de fazer o envio junto, assim já preenche o salesproducts
       }),
     };
-    // await fetch('http://localhost:3001/customer/order', orderBody);
+    await fetch('http://localhost:3001/customer/order', orderBody);
     return orderBody;
   };
 
   useEffect(() => {
-    console.log(getUsersRole(token, 'seller', setAllSellers));
     getAllSellers();
+    getUsersRole(token, 'seller', setAllSellers);
   }, []);
 
   return (
