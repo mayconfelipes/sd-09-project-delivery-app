@@ -16,7 +16,7 @@ const findUserExists = async (email, name) => {
 };
 
 const registerNewUser = async (payload) => {
-  const { name, email } = payload;
+  const { name, email, role } = payload;
   let { password } = payload;
   validateParams(name, email, password);
 
@@ -24,7 +24,7 @@ const registerNewUser = async (payload) => {
 
   password = md5(password);
 
-  const result = await user.create({ name, email, password, role: 'customer' });
+  const result = await user.create({ name, email, password, role });
 
   const token = createToken(email);
 

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
+import { getUsersRole } from '../services/api';
 import './CheckoutCard.css';
 
 const CheckoutCard = ({ cart, setCart }) => {
@@ -22,29 +23,17 @@ const CheckoutCard = ({ cart, setCart }) => {
     setCart(newCart);
   };
 
-  // const theHeaders = (postOrGet) => ({
-  //   method: postOrGet,
-  //   headers: {
-  //     Accept: 'application/json',
-  //     'Content-Type': 'application/json',
-  //     authorization: token,
-  //   },
-  // });
-
-  // const getAllSellers = async () => fetch('http://localhost:3001/customer/products', theHeaders('GET'))
-  //   .then((response) => response.json()).then((jsoned) => setAllSellers(jsoned));
-
   const getAllSellers = () => setAllSellers(
     [{ id: 1, name: 'Fulana Pereira' }, { id: 2, name: 'Fulana Pereira' }],
   );
-  // user_id: DataTypes.INTEGER,
-  // seller_id: DataTypes.INTEGER,
-  // total_price: DataTypes.DECIMAL,
-  // delivery_address: DataTypes.STRING,
-  // delivery_number: DataTypes.STRING,
-  // status: DataTypes.STRING,
-  // sale_date: DataTypes.DATE,
-  // updated_At: DataTypes.DATE,
+  // user_id: DataTypes.INTEGER, OK
+  // seller_id: DataTypes.INTEGER, OK
+  // total_price: DataTypes.DECIMAL, OK
+  // delivery_address: DataTypes.STRING, OK
+  // delivery_number: DataTypes.STRING, OK
+  // status: DataTypes.STRING, x
+  // sale_date: DataTypes.DATE, x
+  // updated_At: DataTypes.DATE, x
   const submitOrder = async () => {
     const orderBody = {
       method: 'POST',
@@ -54,6 +43,7 @@ const CheckoutCard = ({ cart, setCart }) => {
         authorization: token,
       },
       body: JSON.stringify({
+        userId: userData.id,
         sellerId: currSeller.split('-')[0],
         totalPrice: orderTotalPrice,
         deliveryAddress: address,
@@ -66,6 +56,7 @@ const CheckoutCard = ({ cart, setCart }) => {
   };
 
   useEffect(() => {
+    console.log(getUsersRole(token, 'seller', setAllSellers()));
     getAllSellers();
   }, []);
 
