@@ -42,8 +42,6 @@ const OrderLIst = () => {
     calculateTotalPrice(updatedProducts);
   };
 
-  console.log('TOTAL > ', total);
-
   return (
     <div className="order-list-container">
       <table className="order-table">

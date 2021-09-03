@@ -1,8 +1,6 @@
 import React from 'react';
-// import React from 'react';
 import PropTypes from 'prop-types';
 import { useDeliveryContext } from '../../context/deliveryProvider';
-// axios usar get na rota /seller -> pegar vendedores
 
 const AddressDetails = ({ names }) => {
   const { address, setAddress } = useDeliveryContext();
@@ -13,8 +11,6 @@ const AddressDetails = ({ names }) => {
 
     setAddress({ ...address, [name]: value });
   };
-
-  console.log('address > ', address);
 
   return (
     <div className="order-list-container">
@@ -27,10 +23,9 @@ const AddressDetails = ({ names }) => {
           onChange={ handleInputChange }
           data-testid="customer_checkout__select-seller"
         >
-          {names.map((name, i) => (
-            <option key={ i } value={ name }>{ name }</option>
+          {names.map(({ id, name }) => (
+            <option key={ id } value={ id }>{ name }</option>
           ))}
-          <option value="selecio-vendedor">selecio-vendedor</option>
         </select>
       </label>
       <label htmlFor="address">

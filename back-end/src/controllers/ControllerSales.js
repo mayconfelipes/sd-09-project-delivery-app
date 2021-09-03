@@ -2,14 +2,14 @@ const ServiceSales = require('../services/ServiceSales');
 
 const sale = async (req, res, next) => {
   try {
-    const { totalPrice, deliveryNumber, deliveryAddress, name, products } = req.body;
-    console.log(totalPrice, deliveryNumber, deliveryAddress, name, products)
+    const { totalPrice, deliveryNumber, deliveryAddress, sellerId, products } = req.body;
+
     const { id: userId } = req.user;
     
     const newSale = await ServiceSales
-      .sale({ userId, totalPrice, deliveryNumber, deliveryAddress, name, products });
+      .sale({ userId, totalPrice, deliveryNumber, deliveryAddress, sellerId, products });
 
-    res.status(200).json(newSale);
+    res.status(201).json(newSale);
   } catch (error) {
     next(error);
   }
