@@ -1,4 +1,5 @@
 const { sale } = require('../../database/models');
+const { salesProducts } = require('../../database/models');
 
 const newOrder = async (
   userId,
@@ -16,8 +17,15 @@ const newOrder = async (
     delivery_number: deliveryNumber,
     status,
   });
-
   return result;
 };
 
-module.exports = { newOrder };
+const populateSaleProd = async (saleId, products) => {
+  const newSaleProd = await salesProducts.bulkCreate(
+    products.map(item => ({ sale_id: saleId, product_id: item.id, quantity: item.quantity }))
+  );
+  return newSaleProd;
+};
+
+
+module.exports = { newOrder, populateSaleProd };

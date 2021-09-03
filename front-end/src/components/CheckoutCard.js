@@ -40,7 +40,7 @@ const CheckoutCard = ({ cart, setCart }) => {
         status: 'Pendente',
         // saleDate: Date.now(), Já possui defaultValue
         // updatedAt: Date.now(), Já possui defaultValue
-        // products: cart.map(({ id, quantity }) => ({ id, quantity })), // verificar se há necessidade de fazer o envio junto, assim já preenche o salesproducts
+        products: cart.map(({ id, quantity }) => ({ id, quantity })), // verificar se há necessidade de fazer o envio junto, assim já preenche o salesproducts
       }),
     };
     await fetch('http://localhost:3001/customer/order', orderBody);
