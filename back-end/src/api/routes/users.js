@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const { usersController } = require('../controllers');
-const { authentication } = require('../middlewares');
+const { authentication, authenticationAttempt } = require('../middlewares');
 
 // Criação de usuário
 router.post('/register', usersController.create);
@@ -10,6 +10,6 @@ router.post('/register', usersController.create);
 router.get('/', authentication, usersController.getAll);
 
 // Remoção de usuários
-router.delete('/:id', authentication, usersController.remove);
+router.delete('/:id', authenticationAttempt, usersController.remove);
 
 module.exports = router;
