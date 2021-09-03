@@ -4,6 +4,8 @@ import { LoginContext } from '../../context/LoginContext';
 import { createButton } from '../../utils/creators';
 import { getSaleByid } from '../../services/api';
 import Navbar from '../../components/Seller/Navbar';
+import { dispatchCheck, preparingCheck } from '../../data/ButtonOptions';
+import OrderDetailsTable from '../../components/Seller/OrderDetailsTable';
 
 const route = 'seller_order_details';
 
@@ -21,6 +23,8 @@ function OrdersDetails() {
     getSaleWithId();
   }, [id]);
 
+  if (!sale) return <p>Carregando...</p>;
+
   return (
     <>
       <Navbar name={ apiResponse.name } />
@@ -29,15 +33,19 @@ function OrdersDetails() {
         <p
           data-testid={ `${route}__element-order-details-label-delivery-status` }
         >
-          delivery status
+          {sale.status}
         </p>
         <p data-testid={ `${route}__element-order-details-label-order-date` }>
           {sale.saleDate}
         </p>
-        { createButton('preparing-check', 'preparing-check', () => {}, route) }
-        { createButton('dispatch-check', 'dispatch-check', () => {}, route) }
+        <h1>TABELA DE DETALHES DA VENDA</h1>
+        { createButton({ ...preparingCheck, onClick: () => {}, route }) }
+        { createButton({ ...dispatchCheck, onClick: () => {}, route }) }
+        { sale.products && sale.products.map((item, index) => (
+          <OrderDetailsTable item={ item } index={ index } key={ item.id } />
+        )) }
         <p data-testid={ `${route}__element-order-total-price` }>
-          {`R$ ${sale.totalPrice.replace(/\./, ',')}`}
+          {`R$ ${sale.totalPrice} `}
         </p>
       </section>
     </>
