@@ -49,7 +49,6 @@ function Checkout() {
     const totalPrice = Number(totalPriceString);
     setDetailsForm({ ...detailsForm });
     const dataSend = detailsForm;
-    console.log(dataSend);
     sendSale({ ...dataSend, totalPrice, productCart: filteredCart });
   };
 

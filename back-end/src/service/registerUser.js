@@ -12,7 +12,7 @@ const registerUser = async ({ name, email, password: passwordUser }) => {
     role: 'customer',
   });
 
-  const { id, password, ...userWithOutPassword } = user.dataValues;
+  const { id, password, createdAt, updateAt, ...userWithOutPassword } = user.dataValues;
 
   const token = generateToken(id);
 
