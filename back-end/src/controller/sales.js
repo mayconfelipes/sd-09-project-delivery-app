@@ -41,7 +41,7 @@ router.get('/:id', [
       return next({ statusCode: 404, message: 'sale not found' });
     }
     return res.status(200).json(sale);
-  })
+  }),
 ]);
 
 module.exports = router;
