@@ -31,7 +31,8 @@ const OrderLIst = () => {
   };
 
   useEffect(() => {
-    setProducts(convertCartToArray());
+    const converted = convertCartToArray();
+    setProducts(converted);
   }, [setProducts, convertCartToArray]);
 
   const handleRemoveProduct = (indexItem) => {
