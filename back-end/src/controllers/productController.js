@@ -13,7 +13,7 @@ const saveOrder = async (req, res, next) => {
   try {
     const { orderData, listItens } = req.body;
     const order = await productService.saveOrder({ orderData });
-    // console.log(orderData, listItens);     
+    console.log(listItens);     
     // await productService.createSalesProducts(order, listItens)
     return res.status(201).json(order);
   } catch (error) { return next(error); }

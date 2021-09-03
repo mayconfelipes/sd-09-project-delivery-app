@@ -53,15 +53,15 @@ function Checkout() {
 
   const handleSubmit = async () => {
     const sellerId = getsSellerFromState(infoSale.sellerName);
-    // console.log(cartData);
     const saleData = { ...infoSale,
       sellerId,
       userId: user.id,
       totalCart: totalCart.replace(',', '.') };
-    console.log(saleData, cartData);
+    console.log(saleData);
+    console.log(cartData);
     const result = await api.saveOrder(saleData, cartData);
     console.log(result);
-    // if (result.error) { console.error(`tratar erro ${result.error}`); }
+    if (result.error) { console.error(`Tratar erro: "${result.error.message}"`); }
     // history.push(`/customer/orders/${result.id}`); // conferir esse id
   };
 
@@ -71,7 +71,7 @@ function Checkout() {
   };
   return (
     <main>
-      <Navbar />
+      <Navbar role={ user.role } />
       <table>
         <thead>
           <tr>
