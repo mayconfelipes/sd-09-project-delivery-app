@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router';
 import axios from 'axios';
 
+import UsersContext from '../context/UsersContext';
 import validators from '../utils/registrationValidation';
 import status from '../utils/status';
 
@@ -28,6 +29,8 @@ const INITAL_FORM = {
 };
 
 export default function FormRegistro() {
+  const { addUser } = useContext(UsersContext);
+
   const [user, setUser] = useState(INITAL_FORM);
   const [error, setError] = useState('');
 
@@ -59,17 +62,13 @@ export default function FormRegistro() {
 
   const handleUserRegistration = async () => {
     const POST_USER_ENDPOINT = 'http://localhost:3001/api/users/register';
-    // const config = {
-    //   headers: { Authorization: `${token}` },
-    // };
-    console.log(user);
 
     await axios.post(POST_USER_ENDPOINT, user)
       .then(
-        (response) => {
-          console.log(response);
-          setUser(INITAL_FORM);
+        ({ data: { user: newUser } }) => {
           if (error) setError('');
+          addUser(newUser);
+          setUser(INITAL_FORM);
         },
         ({ response: { status: errorStatus } }) => {
           if (errorStatus === status.HTTP_401_UNAUTHORIZED) {
@@ -113,7 +112,7 @@ export default function FormRegistro() {
           Email
           <input
             type="email"
-            placeholder="Nome e sobrenome"
+            placeholder="email@example.com"
             name="email"
             id="email-input"
             data-testid="admin_manage__input-email"
@@ -124,7 +123,7 @@ export default function FormRegistro() {
           Senha
           <input
             type="password"
-            placeholder="Nome e sobrenome"
+            placeholder="******"
             name="password"
             id="password-input"
             data-testid="admin_manage__input-password"

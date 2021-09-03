@@ -2,7 +2,7 @@ import React, { useState, useContext, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/CardProduct.css';
 import debounce from 'lodash.debounce';
-import Context from '../context/Context';
+import Context from '../context/ProductsContext';
 
 const DEFAULT_TIMEOUT = 300;
 

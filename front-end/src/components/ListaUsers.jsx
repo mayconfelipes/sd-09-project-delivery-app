@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router';
-import { string, number } from 'prop-types';
+import { string } from 'prop-types';
 import axios from 'axios';
 
+import UsersContext from '../context/UsersContext';
 import status from '../utils/status';
 
 const ROLE_CHOICES = {
@@ -11,8 +12,10 @@ const ROLE_CHOICES = {
   administrator: 'Administrador',
 };
 
-export default function ListaUsers({ token, userId }) {
-  const [users, setUsers] = useState([]);
+export default function ListaUsers({ token }) {
+  const { users, addUser } = useContext(UsersContext);
+
+  const [isFirstFecth, setFirstFetch] = useState(true);
   const [error, setError] = useState('');
   const [redirect, setRedirect] = useState(false);
 
@@ -28,7 +31,8 @@ export default function ListaUsers({ token, userId }) {
           .then(
             ({ data }) => {
               const filteredUsers = data.filter(({ role }) => role !== 'administrator');
-              setUsers(filteredUsers);
+              if (filteredUsers.length !== users.length) addUser(...filteredUsers);
+              setFirstFetch(false);
             },
             ({ response: { status: errorStatus } }) => {
               if (errorStatus === status.HTTP_401_UNAUTHORIZED) {
@@ -39,8 +43,10 @@ export default function ListaUsers({ token, userId }) {
             },
           );
       };
-      fetchUsers();
-    }, [token, userId],
+      if (isFirstFecth) {
+        fetchUsers();
+      }
+    }, [addUser, isFirstFecth, token, users],
   );
 
   if (redirect) {
@@ -111,5 +117,4 @@ export default function ListaUsers({ token, userId }) {
 
 ListaUsers.propTypes = {
   token: string.isRequired,
-  userId: number.isRequired,
 };
