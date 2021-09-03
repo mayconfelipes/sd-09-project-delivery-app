@@ -1,20 +1,16 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import jwt from 'jsonwebtoken';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../hooks/context';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
-// import '../App.css';
-
-const SECRET_KEY = 'minhachavesecreta'; // Retirar essa chave depois
 
 function Products() {
   const {
     products,
     getProducts,
     productsCart,
-    loading } = useContext(AppContext);
-
+    loading,
+  } = useContext(AppContext);
   const router = useHistory();
   const [disable, setDisable] = useState(true);
   let total = 0;
@@ -29,14 +25,21 @@ function Products() {
     if (!localStorage.getItem('user')) {
       return router.push('/');
     }
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    try {
-      jwt.verify(token, SECRET_KEY);
-    } catch (error) {
-      localStorage.removeItem('user');
-      router.push('/');
-    }
-  }, [router]);
+    const verifyToken = async () => {
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      try {
+        await axios.get('http://localhost:3001/login', {
+          headers: { authorization: user.token },
+        });
+
+        router.push(`/${user.role}/products`);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    verifyToken();
+  }, []);
 
   const handleClick = () => {
     localStorage.setItem('productCart', JSON.stringify(productsCart));
@@ -88,7 +91,7 @@ function Products() {
         <span
           data-testid="customer_products__checkout-bottom-value"
         >
-          { totalPrice() }
+          { `R$: ${totalPrice()}` }
         </span>
       </button>
     </div>

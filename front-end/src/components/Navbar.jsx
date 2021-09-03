@@ -1,9 +1,10 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+// import { string } from 'prop-types';
 // import './css/navbar.css';
 
 function Navbar() {
-  const { name } = JSON.parse(localStorage.getItem('user'));
+  const { name, role } = JSON.parse(localStorage.getItem('user'));
   const router = useHistory();
 
   const handleClick = () => {
@@ -14,20 +15,30 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div>
-        <a
-          data-testid="customer_products__element-navbar-link-products"
-          href="/customer/products"
-        >
-          Produtos
-        </a>
+        { role === 'seller'
+          ? null
+          : (
+            <button
+              data-testid="customer_products__element-navbar-link-products"
+              type="button"
+              onClick={ () => router.push('/customer/products') }
+            >
+              Produtos
+            </button>
+          )}
       </div>
       <div>
-        <a
-          href="/customer/orders"
+        <Link
           data-testid="customer_products__element-navbar-link-orders"
+          to={ `/${role}/orders` }
         >
-          Meus Pedidos
-        </a>
+          <button
+            data-testid="customer_products__element-navbar-link-orders"
+            type="button"
+          >
+            Meus Pedidos
+          </button>
+        </Link>
       </div>
       <div data-testid="customer_products__element-navbar-user-full-name">
         <p>
@@ -36,7 +47,6 @@ function Navbar() {
       </div>
       <div>
         <button
-          href="/"
           type="button"
           data-testid="customer_products__element-navbar-link-logout"
           onClick={ handleClick }
@@ -47,5 +57,9 @@ function Navbar() {
     </nav>
   );
 }
+
+// Navbar.propTypes = {
+//   role: string.isRequired,
+// };
 
 export default Navbar;

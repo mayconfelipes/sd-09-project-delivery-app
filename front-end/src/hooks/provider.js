@@ -6,7 +6,7 @@ import AppContext from './context';
 
 function Provider({ children }) {
   const [user, setUser] = useState({});
-  const [sales, setSales] = useState({});
+  const [sales, setSales] = useState([]);
   const [products, setProducts] = useState([]);
   const [productsCart, setProductsCart] = useState({});
   const [loading, setLoading] = useState(true);
@@ -15,11 +15,15 @@ function Provider({ children }) {
   const [filteredCart, setFilteredCart] = useState([]);
   const router = useHistory();
 
+  const getLocalToken = () => JSON.parse(localStorage.getItem('user'));
+
   const signIn = async (email, password) => {
     try {
       const response = await axios.post('http://localhost:3001/login', { email, password });
       setUser(response.data);
-      router.push('/customer/products');
+      if (response.data) {
+        router.push('/customer/products');
+      }
     } catch (error) {
       console.log(error);
     }
@@ -58,24 +62,22 @@ function Provider({ children }) {
     }
   };
 
-  const getSales = async () => {
-    response.data = [{
-      deliveryNumber: '0001',
-      Status: 'Pendente',
-      saleDate: '01/09/2021',
-      id: '01',
-    }];
-
+  const getSaleById = async () => {
+    const userLocal = getLocalToken();
     try {
-      const response = await axios.get('');
+      const response = await axios.get('http://localhost:3001/sales', {
+        headers: { authorization: userLocal.token },
+      });
       setSales(response.data);
+      setUser(userLocal);
     } catch (error) {
-      console.logo(error);
+      setSales([]);
+      console.log(error);
     }
   };
 
   const sendSale = async (sale) => {
-    console.log(sale);
+    const { token } = getLocalToken();
     const {
       sellerId,
       totalPrice,
@@ -88,11 +90,10 @@ function Provider({ children }) {
       const response = await axios.post('http://localhost:3001/sales', {
         sellerId, totalPrice, deliveryAddress, deliveryNumber, productCart,
       }, {
-        headers: { authorization: user.token },
+        headers: { authorization: token },
       });
 
-      console.log(response.data);
-
+      // setSaleId(response.data);
       setSaleState(response.data);
       const { id } = response.data;
       router.push(`/customer/orders/${id}`);
@@ -124,7 +125,7 @@ function Provider({ children }) {
     setUser,
     signIn,
     getProducts,
-    getSales,
+    getSaleById,
     setSales,
     sales,
     products,

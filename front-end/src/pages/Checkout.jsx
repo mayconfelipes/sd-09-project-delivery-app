@@ -21,6 +21,8 @@ function Checkout() {
     updateFilteredCart();
   }, []);
 
+  // const productCart = Object.values(JSON.parse(localStorage.getItem('productCart')))
+  //   .filter(({ quantity }) => quantity > 0);
   useEffect(() => {
     getSellersId();
   }, [getSellersId]);
@@ -31,6 +33,7 @@ function Checkout() {
     deliveryNumber: '',
     productsCart,
   };
+
   const [detailsForm, setDetailsForm] = useState(INITIAL_STATE);
   let total = 0;
 

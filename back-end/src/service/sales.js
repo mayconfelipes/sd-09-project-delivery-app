@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Sale, SalesProduct, Product } = require('../database/models');
 
 const checkoutNewSale = async (data, productCart) => {
@@ -15,6 +16,15 @@ const checkoutNewSale = async (data, productCart) => {
   return newSale;
 };
 
+const getSales = async (id) => {
+  console.log(id);
+  const sales = await Sale.findAll({
+    where: { [Op.or]: [{ userId: id }, { sellerId: id }] },
+    include: [{ model: Product, as: 'products' }],
+  });
+  return sales;
+};
+
 const getSale = async (id) => {
   const response = await Sale.findOne({
     where: { id },
@@ -25,5 +35,6 @@ const getSale = async (id) => {
 
 module.exports = {
   checkoutNewSale,
+  getSales,
   getSale,
 };

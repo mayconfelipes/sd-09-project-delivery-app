@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import AppContext from '../hooks/context';
 
@@ -10,6 +10,23 @@ function Login() {
   const [notFoundError, setNotFoundError] = useState(false);
   const { setUser, setUserInLocalStorage } = useContext(AppContext);
   const router = useHistory();
+
+  useEffect(() => {
+    const verifyToken = async () => {
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      try {
+        await axios.get('http://localhost:3001/login', {
+          headers: { authorization: user.token },
+        });
+
+        router.push(`/${user.role}/products`);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    verifyToken();
+  }, []);
 
   const PASSWORD_LENGTH_EXPECTED = 6;
 
@@ -48,14 +65,19 @@ function Login() {
 
   const loginFunction = (e) => {
     e.preventDefault();
-
     axios.post('http://localhost:3001/login', {
       email,
       password,
     }).then((response) => {
       setUser(response.data);
       setUserInLocalStorage(response.data);
-      router.push('customer/products');
+      console.log(response.data.role);
+      if (response.data.role === 'seller') {
+        router.push('seller/orders');
+      }
+      if (response.data.role === 'customer') {
+        router.push('customer/products');
+      }
     }).catch(() => {
       setNotFoundError(true);
     });

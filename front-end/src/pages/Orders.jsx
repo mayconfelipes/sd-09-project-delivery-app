@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Navbar from '../components/Navbar';
+import SalesCard from '../components/SalesCard';
 import AppContext from '../hooks/context';
 // import '../App.css';
 
 function Orders() {
-  const { sales, getSales } = useContext(AppContext);
-
+  const { sales, getSaleById, user } = useContext(AppContext);
+  // const [user, setUser] = useState({});
   useEffect(() => {
-    getSales();
-  }, [getSales]);
+    // const userLocal = JSON.parse(localStorage.getItem('user'));
+    // setUser(userLocal);
+    getSaleById();
+  }, []);
 
   return (
     <div className="main">
@@ -16,28 +19,27 @@ function Orders() {
       <main>
         <ul>
           {
-            sales.map(({ deliveryNumber, status, saleDate, id }, index) => (
-              <li
-                key={ index }
-                className="main--sales"
-              >
-                <h4
-                  data-testid={ `customer_orders__element-order-id-${id}` }
-                >
-                  Pedido
-                  { deliveryNumber }
-                </h4>
-                <h4
-                  data-testid={ `customer_orders__element-delivery-status-${id}` }
-                >
-                  { status }
-                </h4>
-                <h4
-                  data-testid={ `customer_orders__element-order-date-${id}` }
-                >
-                  { saleDate }
-                </h4>
-              </li>))
+            sales.map(({
+              deliveryNumber,
+              deliveryAddress,
+              status,
+              saleDate,
+              id,
+              totalPrice },
+            index) => (
+              <SalesCard
+                role={ user.role }
+                key={ id }
+                sale={ {
+                  deliveryNumber,
+                  deliveryAddress,
+                  status,
+                  saleDate,
+                  id,
+                  totalPrice,
+                  index } }
+              />
+            ))
           }
         </ul>
       </main>
