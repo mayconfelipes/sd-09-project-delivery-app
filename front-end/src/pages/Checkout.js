@@ -12,10 +12,9 @@ const Checkout = () => {
         userType={ role }
         userName={ name }
       />
-      <footer>
-        <h3>Finalizar Pedido</h3>
+      <main>
         <CheckoutCard cart={ cart } setCart={ setCart } />
-      </footer>
+      </main>
     </div>
   );
 };

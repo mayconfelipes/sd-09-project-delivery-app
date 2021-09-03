@@ -12,7 +12,7 @@ app.use(cors());
 
 const { loginRouter } = require('./routes');
 const { registerRouter } = require('./routes');
-const productsRouter = require('./routes/ProductsRoute');
+const { productsRouter } = require('./routes');
 
 app.use(express.static(path.join(__dirname, '../..', 'src')));
 

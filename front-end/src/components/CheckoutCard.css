@@ -1,3 +1,7 @@
+:root {
+--input-sizes: 300px;
+}
+
 .CheckoutCard-wrapper-table {
   align-items: center;
   background-color: lightgrey;
@@ -24,4 +28,38 @@ th, td {
 
 tbody tr:nth-child( odd ) {
   background: #eee;
+}
+
+.CheckoutCard-form-container {
+  display: flex;
+  justify-content: space-around;
+  width: fit-content;
+}
+
+.CheckoutCard-form-container label {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.CheckoutCard-form-container input {
+  width: var(--input-sizes);
+}
+
+.CheckoutCard-form-container select {
+  width: var(--input-sizes);
+}
+
+.Checkout-select-input p {
+  margin: 0;
+  margin-top: 10px;
+}
+
+.Checkout-btn {
+  background-color: #036b52;
+  border-radius: 10px;
+  color: lightgray;
+  font-weight: 800;
+  height: 50px;
+  width: 200px;
 }
