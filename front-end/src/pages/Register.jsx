@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import ProductsContext from '../context/ProductsContext';
 import * as api from '../services/api';
 
 function Register() {
+  const { setUserInfo } = useContext(ProductsContext);
+
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -34,6 +37,7 @@ function Register() {
     try {
       const { data } = await api.registerUser(name, email, password);
       localStorage.setItem('user', JSON.stringify(data));
+      setUserInfo(data);
       history.push('/customer/products');
     } catch (error) {
       showUserAlreadyRegistered('User already registered');
