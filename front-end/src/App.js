@@ -1,12 +1,15 @@
 import React from 'react';
 import Routes from './Routes';
-import Provider from './context/Provider';
+import ProductsProvider from './context/ProductsProvider';
+import UsersProvider from './context/UsersProvider';
 
 function App() {
   return (
-    <Provider>
-      <Routes />
-    </Provider>
+    <ProductsProvider>
+      <UsersProvider>
+        <Routes />
+      </UsersProvider>
+    </ProductsProvider>
   );
 }
 

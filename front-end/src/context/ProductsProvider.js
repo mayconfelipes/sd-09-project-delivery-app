@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { func } from 'prop-types';
-import Context from './Context';
+import ProductsContext from './ProductsContext';
 
-export default function Provider({ children }) {
+export default function ProductsProvider({ children }) {
   const [products, setProducts] = useState([]);
 
   const updateProductList = (product) => {
@@ -38,12 +38,12 @@ export default function Provider({ children }) {
   };
 
   return (
-    <Context.Provider value={ value }>
+    <ProductsContext.Provider value={ value }>
       { children }
-    </Context.Provider>
+    </ProductsContext.Provider>
   );
 }
 
-Provider.propTypes = {
+ProductsProvider.propTypes = {
   children: func.isRequired,
 };
