@@ -5,7 +5,7 @@ const UNAUTHORIZED = 401;
 
 const validJWT = async (req, _res, next) => {
   const token = req.headers.authorization;
-  console.log(req.body)
+
   try {
     if (!token) throw invalidData('Token not found', UNAUTHORIZED);
     const validVerifyToken = await verifyToken(token);
