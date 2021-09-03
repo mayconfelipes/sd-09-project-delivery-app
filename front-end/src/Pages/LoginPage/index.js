@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 import {
   AppTitle,
@@ -20,7 +20,7 @@ const LoginPage = () => {
   const { loginInfo, handleFieldsChange, isValidInfo } = useLoginInfo();
   const { isValidLogin, loginUser } = useLoginApi();
   const shouldRenderError = isValidLogin === false;
-
+  const history = useHistory();
   if (isValidLogin) return <Redirect to={ paths.customerProducts } />;
 
   return (
@@ -55,11 +55,18 @@ const LoginPage = () => {
         >
           Login
         </Button>
-        <Button data-testid={ testIds.id4 }>
+        <Button
+          data-testid={ testIds.id4 }
+          onClick={ () => {
+            history.push('/register');
+          } }
+        >
           Ainda não tenho conta
         </Button>
         { shouldRenderError && (
-          <Wrapper data-testid={ testIds.id5 }>
+          <Wrapper
+            data-testid={ testIds.id5 }
+          >
             Mensagem de erro
           </Wrapper>
         )}

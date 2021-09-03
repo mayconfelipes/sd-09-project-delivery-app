@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import {
   HomePage,
   Login,
+  Register,
   NotFound,
 } from '../Pages';
 import Products from '../Pages/CustomerPages/Products';
@@ -13,6 +14,7 @@ const Routes = () => (
   <Switch>
     <PrivateRoute exact path={ paths.home } component={ HomePage } />
     <Route path={ paths.login } component={ Login } />
+    <Route path={ paths.register } component={ Register } />
     <Route path={ paths.customerProducts } component={ Products } />
     <Route component={ NotFound } />
   </Switch>

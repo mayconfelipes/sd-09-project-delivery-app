@@ -6,7 +6,7 @@ const { environment } = require("../constants");
 const scriptSuffix = environment === "test" ? "-test" : "-dev";
 
 const executeSequelize = async () => {
-  const { stderr } = await exec(`cross-env ./scripts/reset-db${scriptSuffix}.sh`);
+  const { stderr } = await exec(`./scripts/reset-db${scriptSuffix}.sh`);
   if (stderr) throw new Error(stderr);
   return true;
 };

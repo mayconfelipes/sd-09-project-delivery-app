@@ -26,7 +26,7 @@ const RegisterPage = () => {
             type="string"
             name="userName"
             value={ registerInfo.userName }
-            data-test-id={ testIds.id6 }
+            data-testid={ testIds.id6 }
             onChange={ handleFieldsChange }
           />
         </Label>
@@ -36,7 +36,7 @@ const RegisterPage = () => {
             type="email"
             name="email"
             value={ registerInfo.email }
-            data-test-id={ testIds.id7 }
+            data-testid={ testIds.id7 }
             onChange={ handleFieldsChange }
           />
         </Label>
@@ -46,17 +46,17 @@ const RegisterPage = () => {
             type="password"
             name="password"
             value={ registerInfo.password }
-            data-test-id={ testIds.id8 }
+            data-testid={ testIds.id8 }
             onChange={ handleFieldsChange }
           />
         </Label>
         <Button
-          data-test-id={ testIds.id9 }
+          data-testid={ testIds.id9 }
           onClick={ registerUser(registerInfo) }
         >
           CADASTRAR
         </Button>
-        <Wrapper data-test-id={ testIds.id10 }>
+        <Wrapper data-testid={ testIds.id10 }>
           Mensagem de erro
         </Wrapper>
       </Wrapper>
