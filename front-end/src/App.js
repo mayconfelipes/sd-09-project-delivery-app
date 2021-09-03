@@ -7,6 +7,7 @@ import NotFound from './pages/NotFound';
 import Register from './pages/Register';
 import Customer from './pages/Customer';
 import Seller from './pages/Seller';
+import FormAdmin from './pages/FormAdmin';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/register" component={ Register } />
       <Route path="/customer/" component={ Customer } />
       <Route path="/seller/" component={ Seller } />
+      <Route path="/admin/manage" component={ FormAdmin } />
       <Route component={ NotFound } />
     </Switch>
   );

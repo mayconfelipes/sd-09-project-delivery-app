@@ -54,7 +54,7 @@ class HeaderNav extends React.Component {
             </button>
           </Link>
           <p
-            data-testid="seller-navbar-user-full-name"
+            data-testid="customer_products__element-navbar-user-full-name"
           >
             { name }
           </p>
@@ -62,7 +62,7 @@ class HeaderNav extends React.Component {
             <button
               type="button"
               onClick={ this.removeUser }
-              data-testid="seller-navbar-link-logout"
+              data-testid="customer_products__element-navbar-link-logout"
             >
               Sair
             </button>
