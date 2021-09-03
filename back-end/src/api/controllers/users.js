@@ -26,4 +26,20 @@ module.exports = {
       next(err);
     }
   },
+  async remove(req, res, next) {
+    try {
+      const { role } = req.user;
+
+      if (role !== 'administrator') {
+        throw new PermissionError('Operation not allowed');
+      }
+
+      const { id } = req.params;
+      await usersService.remove(id);
+
+      res.status(204).send();
+    } catch (err) {
+      next(err);
+    }
+  },
 };

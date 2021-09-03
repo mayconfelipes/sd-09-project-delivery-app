@@ -36,4 +36,7 @@ module.exports = {
   async getAll() {
     return User.findAll();
   },
+  async remove(id) {
+    return User.destroy({ where: { id } });
+  },
 };
