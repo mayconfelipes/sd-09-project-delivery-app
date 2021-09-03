@@ -21,8 +21,8 @@ function ProductsTable({ cartData }) {
   }
 
   return (
-    <table>
-      <thead>
+    <table className="table-container">
+      <thead className="table-head">
         <tr>
           <th>Item</th>
           <th>Descrição</th>
@@ -32,16 +32,18 @@ function ProductsTable({ cartData }) {
           <th>Remover item</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="table-body">
         {cartData.map((item, index) => (
           <tr key={ index }>
-            <td data-testid={ testIds[22] + index }>{index + 1}</td>
-            <td data-testid={ testIds[23] + index }>{item.name}</td>
-            <td data-testid={ testIds[24] + index }>{item.quantity}</td>
-            <td data-testid={ testIds[25] + index }>
+            <td className="t-item" data-testid={ testIds[22] + index }>{index + 1}</td>
+            <td className="t-desc" data-testid={ testIds[23] + index }>{item.name}</td>
+            <td className="t-quantity" data-testid={ testIds[24] + index }>
+              {item.quantity}
+            </td>
+            <td className="t-price-un" data-testid={ testIds[25] + index }>
               {item.unitPrice.replace('.', ',')}
             </td>
-            <td data-testid={ testIds[26] + index }>
+            <td className="t-subtotal" data-testid={ testIds[26] + index }>
               {item.subTotal.replace('.', ',')}
             </td>
             <td>

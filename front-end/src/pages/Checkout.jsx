@@ -13,6 +13,7 @@ import { getCarrinhoLocalStorage } from '../utils/storage';
 function Checkout() {
   const { totalCart } = useContext(AppContext);
   // const history = useHistory();
+  const [disableButton, setDisableButton] = useState(true);
   const cartData = getCarrinhoLocalStorage();
   const [infoSale, setInfoSalle] = useState({
     deliveryAddress: '', deliveryNumber: '', sellerName: '',
@@ -31,9 +32,20 @@ function Checkout() {
     return myVendor.id;
   };
 
+  const isDisabledButton = () => {
+    const { deliveryAddress, sellerName, deliveryNumber } = infoSale;
+
+    if (deliveryAddress === '' || sellerName === '' || deliveryNumber === '') {
+      setDisableButton(true);
+      return;
+    }
+    setDisableButton(false);
+  };
+
   useEffect(() => {
+    isDisabledButton();
     fetchVendorList();
-  }, []);
+  }, [infoSale]);
 
   const handleChange = ({ target: { name, value } }) => {
     setInfoSalle({ ...infoSale, [name]: value });
@@ -97,7 +109,7 @@ function Checkout() {
         />
         <LargeButton
           buttonText="FINALIZAR PEDIDO"
-          // isDisabled={ disableButton }
+          isDisabled={ disableButton }
           onClick={ handleSubmit }
           dataTestId={ testIds[32] }
         />
