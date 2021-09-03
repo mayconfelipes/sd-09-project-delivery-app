@@ -16,7 +16,7 @@ registerController.post('/', registerValidator, rescue(async (req, res, next) =>
     return next(error);
   }
 
-  return res.status(created).json(`Usuário ${createdUser.dataValues.name} criado com sucesso`);
+  return res.status(created).json(`Usuário ${createdUser.dataValues.name} criado com sucesso!`);
 }));
 
 module.exports = registerController;
