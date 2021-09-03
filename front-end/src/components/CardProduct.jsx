@@ -41,8 +41,8 @@ function CardProduct({ product }) {
     const { value: quantity } = e.target;
     const prevValue = value;
 
-    setValue(quantity);
-    debouncedUpdate(quantity, prevValue);
+    setValue(Number(quantity));
+    debouncedUpdate(Number(quantity), prevValue);
   };
 
   const formatedPrice = (price_) => price_.replace('.', ',');
@@ -82,6 +82,7 @@ function CardProduct({ product }) {
           data-testid={ `customer_products__input-card-quantity-${id}` }
           value={ value }
           onChange={ handleTypedChange }
+          onClick={ (e) => e.target.select() }
           className="product__card__price__input"
         />
         <button
