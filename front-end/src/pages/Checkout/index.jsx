@@ -41,11 +41,11 @@ const Checkout = () => {
 
     const { token } = JSON.parse(localStorage.getItem('user'));
 
-    api.post('/sales', body, { headers: { authorization: token } })
-      .then(({ data }) => {
-        history.push(`/customer/orders/${data.id}`);
-      })
+    const response = await api.post('/sales', body, { headers: { authorization: token } })
+      .then(({ data }) => data)
       .catch((err) => console.log(err));
+    console.log(response);
+    history.push(`/customer/orders/${response.id}`);
 
     // console.log('data > ', data);
     console.log('token > ', token);

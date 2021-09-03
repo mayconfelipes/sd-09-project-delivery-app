@@ -5,6 +5,7 @@ const sale = async ({ userId, totalPrice, deliveryNumber, deliveryAddress, name,
   const status = 'pendente';
 
   const findedSeller = await RepositoryUsers.getByName({ name });
+  console.log(findedSeller);
   const { id: sellerId } = findedSeller;
 
   const newSale = await RepositorySales

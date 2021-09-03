@@ -15,7 +15,7 @@ export const DeliveryProvider = ({ children }) => {
   const [total, setTotal] = useState(0);
 
   const [address, setAddress] = useState({
-    vendedor: 'Default',
+    vendedor: 'Fulana Pereira',
     address: '',
     numero: '',
   });

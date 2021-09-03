@@ -3,7 +3,7 @@ const ServiceSales = require('../services/ServiceSales');
 const sale = async (req, res, next) => {
   try {
     const { totalPrice, deliveryNumber, deliveryAddress, name, products } = req.body;
-
+    console.log(totalPrice, deliveryNumber, deliveryAddress, name, products)
     const { id: userId } = req.user;
     
     const newSale = await ServiceSales

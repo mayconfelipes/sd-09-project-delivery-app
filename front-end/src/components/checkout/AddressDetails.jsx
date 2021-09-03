@@ -27,10 +27,10 @@ const AddressDetails = ({ names }) => {
           onChange={ handleInputChange }
           data-testid="customer_checkout__select-seller"
         >
-          <option value="selecio-vendedor">selecio-vendedor</option>
           {names.map((name, i) => (
             <option key={ i } value={ name }>{ name }</option>
           ))}
+          <option value="selecio-vendedor">selecio-vendedor</option>
         </select>
       </label>
       <label htmlFor="address">
