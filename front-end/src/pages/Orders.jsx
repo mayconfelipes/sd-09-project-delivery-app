@@ -6,7 +6,10 @@ import AppContext from '../hooks/context';
 
 function Orders() {
   const { sales, getSaleById, user } = useContext(AppContext);
+  // const [user, setUser] = useState({});
   useEffect(() => {
+    // const userLocal = JSON.parse(localStorage.getItem('user'));
+    // setUser(userLocal);
     getSaleById();
   }, []);
 

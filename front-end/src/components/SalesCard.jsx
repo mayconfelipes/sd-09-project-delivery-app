@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 import { string, number, shape } from 'prop-types';
 
 function SalesCard({ sale, role }) {
@@ -22,7 +23,7 @@ function SalesCard({ sale, role }) {
         className="main--sales"
       >
         <Link
-          to={ `/customer/orders/${id}` }
+          to={ `/${role}/orders/${id}` }
           data-testid={ `${role}_orders__element-order-id-${id}` }
         >
           <h4
@@ -40,7 +41,7 @@ function SalesCard({ sale, role }) {
         <h4
           data-testid={ `${role}_orders__element-order-date-${id}` }
         >
-          { saleDate }
+          { format(new Date(saleDate), 'dd/MM/yyyy') }
         </h4>
         <h4
           data-testid={ `${role}_orders__element-card-address-${id}` }
@@ -50,7 +51,7 @@ function SalesCard({ sale, role }) {
         <h4
           data-testid={ `${role}_orders__element-card-price-${id}` }
         >
-          { totalPrice }
+          { totalPrice.replace(/\./ig, ',') }
         </h4>
       </li>
     </div>

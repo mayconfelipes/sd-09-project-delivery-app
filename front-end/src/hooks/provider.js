@@ -62,13 +62,13 @@ function Provider({ children }) {
   };
 
   const getSaleById = async () => {
-    const { token } = getLocalToken();
+    const userLocal = getLocalToken();
     try {
       const response = await axios.get('http://localhost:3001/sales', {
-        headers: { authorization: token },
+        headers: { authorization: userLocal.token },
       });
-      console.log(response);
       setSales(response.data);
+      setUser(userLocal);
     } catch (error) {
       setSales([]);
       console.log(error);

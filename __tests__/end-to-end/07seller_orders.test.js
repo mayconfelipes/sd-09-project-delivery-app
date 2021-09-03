@@ -48,8 +48,8 @@ beforeEach(async () => {
     await toReturnDataWith(database, {
       nonTest: true,
       query: [
-        sales.query, 
-        "WHERE user_id = ?", 
+        sales.query,
+        "WHERE user_id = ?",
         "LIMIT ?"
       ].join(" "),
       values: [2, 10],
@@ -57,7 +57,7 @@ beforeEach(async () => {
   );
 });
 
-describe.only(requirement(27), () => {
+describe(requirement(27), () => {
   test("O avaliador ira testar se existem data-testids para até os dez primeiros itens contidos na tabela 'sales'", async () => {
     for (const { id } of orderList) {
       await expect(page).toFindElement(
@@ -118,7 +118,7 @@ describe(requirement(28), () => {
   });
 });
 
-describe(requirement(29), () => {
+describe.only(requirement(29), () => {
   test("O avaliador acessará a tela de detalhes do último pedido pela tela de pedidos, após o checkout do mesmo", async () => {
     const { saleId } = currentOrder;
 
