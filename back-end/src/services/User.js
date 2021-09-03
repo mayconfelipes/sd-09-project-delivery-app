@@ -64,9 +64,16 @@ const getAllUsers = async () => {
 
 const deleteUser = async (id) => User.destroy({ where: { id } });
 
+const getByRole = async (role) => {
+  const sellers = await User.findAll({ where: { role } });
+  // const sellersIdAndName = Object.values(sellers).map(({ id, name }) => [id, name]);
+  return sellers;
+};
+
 module.exports = {
   login,
   register,
   getAllUsers,
   deleteUser,
+  getByRole,
 };
