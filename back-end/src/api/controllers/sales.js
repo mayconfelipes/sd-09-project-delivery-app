@@ -12,9 +12,10 @@ const create = async (req, res, next) => {
   }
 };
 
+// RETORNA A VENDA BUSCANDO PELO ID
 const getAllById = async (req, res, next) => {
   try {
-    const { id } = req.user.data;
+    const { id } = req.params;
 
     const sale = await salesServices.getAllById(id);
 
@@ -49,16 +50,19 @@ const update = async (req, res, next) => {
   }
 };
 
+// RETORNA A COMPRAS DE UM CLIENTE PELO ID DO CLIENTE
 const getByUser = async (req, res, next) => {
   try {
-    const { id } = req.user;
+    const { id } = req.user.data;
     const sale = await salesServices.getByUser(id);
+    
     return res.status(OK_STATUS).json(sale);
   } catch (err) {
     next(err);
   }
 };
 
+// RETORNA TODAS AS VENDAS DO BANCO
 const getAllSales = async (req, res, next) => {
   try {
     const sale = await salesServices.getAllSales();
