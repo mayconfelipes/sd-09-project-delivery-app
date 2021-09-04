@@ -5,11 +5,9 @@ import { Link } from 'react-router-dom';
 import io from '../../socket';
 import './CardOrderList.css';
 
-// 48: 'seller_orders__element-order-id-',
-// 49: 'seller_orders__element-delivery-status-',
-// 50: 'seller_orders__element-order-date-',
-// 51: 'seller_orders__element-card-price-',
-// 52: 'seller_orders__element-card-address-',
+// 33: customer_orders__element-order-id-<id>
+// 34: customer_orders__element-delivery-status-<id>
+// 35: customer_orders__element-order-date-<id>
 
 const CardOrderListCustomer = ({ order }) => {
   const [orderStatus, setOrderStatus] = useState(order.status);
@@ -27,16 +25,15 @@ const CardOrderListCustomer = ({ order }) => {
           `customer_orders__element-order-date-${order.id}`
         }
       >
-        { moment(order.sale_date).format('L')}
+        { moment(order.sale_date).format('DD/MM/yyyy') }
       </p>
       <p data-testid={ `customer_orders__element-card-price-${order.id}` }>
-        { `R$ ${order.totalPrice}` }
+        { order.totalPrice.toString().replace(/\./, ',') }
       </p>
     </div>
   );
 
   return (
-    // eslint-disable-next-line react/react-in-jsx-scope
     <Link to={ `/customer/orders/${order.id}` }>
       <div className="card-order">
         <p
@@ -53,7 +50,7 @@ const CardOrderListCustomer = ({ order }) => {
               data-testid={ `customer_orders__element-delivery-status-${order.id}` }
               className={ `status-container ${orderStatus}` }
             >
-              { orderStatus.toUpperCase() }
+              { orderStatus }
             </div>
             { renderDateAndPrice() }
           </section>

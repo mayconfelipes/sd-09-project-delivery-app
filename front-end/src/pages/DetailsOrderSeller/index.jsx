@@ -17,7 +17,7 @@ const DetailsOrderSeller = (props) => {
   const [order, setOrder] = useState({});
   const [orderStatus, setOrderStatus] = useState('');
 
-  const { token } = JSON.parse(localStorage.getItem('user'));
+  const { token, role } = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     api
@@ -47,7 +47,7 @@ const DetailsOrderSeller = (props) => {
 
   const renderInfoPedidos = () => (
     <div className="render-info-pedidos">
-      <span>
+      <span data-testid="seller_order_details__element-order-details-label-order-id">
         PEDIDO:
         {order.id}
       </span>
@@ -116,7 +116,12 @@ const DetailsOrderSeller = (props) => {
           <ul>
             { (order) && order.product
               .map((prod, i) => (
-                <ProductCardlist product={ prod } key={ i } index={ i + 1 } />
+                <ProductCardlist
+                  role={ role }
+                  product={ prod }
+                  key={ i }
+                  index={ i + 1 }
+                />
               )) }
           </ul>
           <p data-testid="seller_order_details__element-order-total-price">

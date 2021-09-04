@@ -11,6 +11,8 @@ const NavBar = () => {
         <Link to="/customer/products">
           <li data-testid="customer_products__element-navbar-link-products">PRODUTOS</li>
         </Link>
+        <br />
+        <br />
         <Link to="/customer/orders">
           <li
             data-testid="customer_products__element-navbar-link-orders"
@@ -18,17 +20,24 @@ const NavBar = () => {
             MEUS PEDIDOS
           </li>
         </Link>
-        <Link to="/register">
+        <br />
+        <br />
+        <br />
+        <Link to="/customer/products">
           <li
             data-testid="customer_products__element-navbar-user-full-name"
           >
             { name }
           </li>
         </Link>
+        <br />
+        <br />
+        <br />
+        <br />
         <Link to="/login">
           <button
             type="button"
-            onClick={ () => localStorage.setItem('user', '') }
+            onClick={ () => localStorage.clear() }
             data-testid="customer_products__element-navbar-link-logout"
           >
             Sair

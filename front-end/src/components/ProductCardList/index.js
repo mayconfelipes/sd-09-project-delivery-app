@@ -1,31 +1,32 @@
 import React from 'react';
 import { shape, number } from 'prop-types';
 import './ProductCardList.css';
+import { stringify } from 'postcss';
 
-const ProductCardlist = ({ product, index }) => {
+const ProductCardlist = ({ product, index, role }) => {
   console.log(index);
   return (
     <li className="li-detail-order">
       <span
-        data-testid={ `seller_order_details__element-order-table-item-number-${index}` }
+        data-testid={ `${role}_order_details__element-order-table-item-number-${index}` }
       >
         { index }
       </span>
-      <span data-testid={ `seller_order_details__element-order-table-name-${index}` }>
+      <span data-testid={ `${role}_order_details__element-order-table-name-${index}` }>
         { product.name }
       </span>
       <span
-        data-testid={ `seller_order_details__element-order-table-quantity-${index}` }
+        data-testid={ `${role}_order_details__element-order-table-quantity-${index}` }
       >
         { product.SalesProducts.quantity }
       </span>
       <span
-        data-testid={ `seller_order_details__element-order-table-unit-price-${index}` }
+        data-testid={ `${role}_order_details__element-order-table-unit-price-${index}` }
       >
         { `R$ ${product.price}` }
       </span>
       <span
-        data-testid={ `seller_order_details__element-order-table-sub-total-${index}` }
+        data-testid={ `${role}_order_details__element-order-total-price-${index}` }
       >
         { `R$ ${parseFloat(product.SalesProducts.quantity * product.price).toFixed(2)}` }
       </span>
@@ -47,6 +48,7 @@ const ProductCardlist = ({ product, index }) => {
 ProductCardlist.propTypes = {
   product: shape().isRequired,
   index: number.isRequired,
+  role: stringify.isRequired,
 };
 
 export default ProductCardlist;

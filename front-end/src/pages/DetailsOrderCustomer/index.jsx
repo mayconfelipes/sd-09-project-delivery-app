@@ -16,8 +16,9 @@ const DetailsOrderCustomer = (props) => {
   } = props;
   const [order, setOrder] = useState({});
   const [orderStatus, setOrderStatus] = useState('');
+  const [disableButton, setDisableButton] = useState(true);
 
-  const { token } = JSON.parse(localStorage.getItem('user'));
+  const { token, role } = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     api
@@ -39,31 +40,38 @@ const DetailsOrderCustomer = (props) => {
     });
   });
 
-  const dataTestButtonSend = 'customer_order_details__button-delivery-check';
+  useEffect(() => {
+    if (orderStatus !== 'Pendente') {
+      return setDisableButton(false);
+    }
+
+    setDisableButton(true);
+  }, [orderStatus]);
+
   const dTidStat = 'customer_order_details__element-order-details-label-delivery-status';
 
   if (orderStatus === '') return <NotFound />;
 
   const renderInfoPedidos = () => (
     <div className="render-info-pedidos">
-      <span>
+      <span data-testid="customer_order_details__element-order-details-label-order-id">
         PEDIDO:
         {order.id}
       </span>
-      <span>
+      <span data-testid="customer_order_details__element-order-details-label-seller-name">
         P.Vend: &nbsp;
         { order.seller.name }
       </span>
       <span
-        data-testid="seller_order_details__element-order-details-label-order-date"
+        data-testid="customer_order_details__element-order-details-label-order-date"
       >
-        { moment(order.sale_date).format('L')}
+        { moment(order.sale_date).format('DD/MM/YYYY')}
       </span>
       <span
         data-testid={ dTidStat }
         className={ `status-details ${orderStatus}` }
       >
-        {orderStatus.toUpperCase()}
+        {orderStatus}
       </span>
     </div>
   );
@@ -71,9 +79,10 @@ const DetailsOrderCustomer = (props) => {
   const renderButtosStatus = () => (
     <div>
       <button
-        data-testid={ dataTestButtonSend }
+        data-testid="customer_order_details__button-delivery-check"
         name="entregue"
         type="submit"
+        disabled={ disableButton }
         onClick={ handleStatus }
       >
         MARCAR COMO ENTREGUE
@@ -85,7 +94,7 @@ const DetailsOrderCustomer = (props) => {
     <div>
       <NavBar />
       <div className="details-order-seller-container">
-        <h3>Detralhe do Pedido</h3>
+        <h3>Detalhe do Pedido</h3>
         <div className="details-order-container">
           <section>
             { renderInfoPedidos() }
@@ -111,12 +120,17 @@ const DetailsOrderCustomer = (props) => {
           <ul>
             { (order) && order.product
               .map((prod, i) => (
-                <ProductCardlist product={ prod } key={ i } index={ i + 1 } />
+                <ProductCardlist
+                  role={ role }
+                  product={ prod }
+                  key={ i }
+                  index={ i + 1 }
+                />
               )) }
           </ul>
-          <p data-testid="seller_order_details__element-order-total-price">
+          <p data-testid="customer_order_details__element-order-total-price">
             Total: &nbsp;
-            { `R$ ${order.totalPrice}` }
+            { order.totalPrice.toString().replace(/\./, ',') }
           </p>
         </div>
       </div>
