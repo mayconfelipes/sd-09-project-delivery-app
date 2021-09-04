@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Loading from '../../../components/Loading';
+import NavBar from '../../../components/NavBar';
 // import './Seller.css';
 
 const Details = () => {
@@ -84,6 +85,7 @@ const Details = () => {
   // ));
   return (
     <div>
+      <NavBar />
       {sale ? <>{renderTable(sale)}</> : (
         <Loading />
       )}

@@ -8,4 +8,3 @@ insert into sales_products(sale_id, product_id, quantity)  values(7, 6, 90);
 insert into sales_products(sale_id, product_id, quantity)  values(8, 11, 17);
 insert into sales_products(sale_id, product_id, quantity)  values(9, 11, 23);
 insert into sales_products(sale_id, product_id, quantity)  values(10, 11, 13);
-insert into sales_products(sale_id, product_id, quantity)  values(10, [11,12], [13,14]);

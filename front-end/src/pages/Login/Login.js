@@ -37,6 +37,7 @@ function Login() {
   const passwordChange = ({ target }) => {
     setPassword(target.value);
     verifyDisabled();
+    console.log(history);
   };
 
   const redirectCostummer = () => {

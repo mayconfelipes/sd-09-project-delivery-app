@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import './Seller.css';
+import NavBar from '../../components/NavBar';
 
 const Seller = () => {
   const [sales, setSales] = useState([]);
@@ -61,7 +62,7 @@ const Seller = () => {
               className="seller-itens"
               data-testid={ `${prefix}card-price-${item.id}` }
             />
-            R$ Uma senhora Bordoada.
+            {item.total_price}
           </div>
         </div>
       </section>
@@ -83,6 +84,7 @@ const Seller = () => {
 
   return (
     <div>
+      <NavBar />
       {sales ? <>{renderTable(sales)}</> : (
         <Loading />
       )}

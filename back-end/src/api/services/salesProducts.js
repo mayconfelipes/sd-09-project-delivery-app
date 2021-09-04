@@ -5,6 +5,14 @@ const getAll = async () => {
  return allSales;
 };
 
+const getById = async (id) => {
+  const sale = await salesProducts.findOne({
+    where: { id },
+  });
+  return sale;
+};
+
+
 module.exports = {
   getAll,
 };
