@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ProductsContext from '../context/ProductsContext';
 import NavBarCustomer from '../components/navBarCustomer';
 // import CartTotal from '../components/CartTotal';
@@ -9,7 +10,7 @@ import ProductCard from '../components/ProductCard';
 const CustomerProducts = () => {
   // const [order, setOrder] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [redirectToCheckout, setRedirect] = useState(false);
+  // const [redirectToCheckout, setRedirect] = useState(false);
 
   const {
     getProducts,
@@ -21,7 +22,7 @@ const CustomerProducts = () => {
     currentOrderTotal,
   } = useContext(ProductsContext);
 
-  // const history = useHistory();
+  const history = useHistory();
 
   useEffect(() => {
     Promise.all([
@@ -76,10 +77,10 @@ const CustomerProducts = () => {
   //   setCurrentOrderTotal(orderTotalValue);
   // };
 
-  if (redirectToCheckout) return <Redirect to="/customer/checkout" />;
+  // if (redirectToCheckout) return <Redirect to="/customer/checkout" />;
   return !isLoading
     ? (
-      <div>
+      <div className="products-page">
         <NavBarCustomer textProp="produtos" />
 
         <div className="container_cards">
@@ -92,10 +93,13 @@ const CustomerProducts = () => {
           type="button"
           data-testid="customer_products__button-cart"
           disabled={ currentOrderTotal <= 0 }
-          onClick={ () => setRedirect(true) }
+          onClick={ () => history.push('/customer/checkout') }
           className="ver_carrinho"
         >
-          <span data-testid="customer_products__checkout-bottom-value">
+          <span
+            className="total-value"
+            data-testid="customer_products__checkout-bottom-value"
+          >
             { currentOrderTotal > 0 ? currentOrderTotal.toString().replace('.', ',')
               : '0,00' }
           </span>

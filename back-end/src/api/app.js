@@ -29,7 +29,7 @@ app.get('/users', User.getAllUsers);
 app.get('/sellers', User.getAllSellers);
 app.get('/customer/products', User.getAllUsers);
 app.get('/products', Product.getAllProducts);
-app.get('/sellers', User.getSellers);
+app.get('/sellers', User.getAllSellers);
 
 app.post('/orders', Sale.newOrder);
 app.get('/orders/:orderId', Sale.getOrderById);

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import '../styles/navBarCustomer.css';
+import { Link } from 'react-router-dom';
+import '../styles/navBarCustomer.css';
 
 function NavBarCustomer(props) {
   const { textProp } = props;
@@ -64,13 +65,13 @@ function NavBarCustomer(props) {
           </div>
 
           <div className="navbar_sair">
-            <a
-              href="/login"
+            <Link
+              to="/login"
               data-testid="customer_products__element-navbar-link-logout"
               onClick={ () => logout() }
             >
               Sair
-            </a>
+            </Link>
           </div>
         </div>
       </nav>
