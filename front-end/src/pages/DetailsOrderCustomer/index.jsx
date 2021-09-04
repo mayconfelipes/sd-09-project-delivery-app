@@ -41,11 +41,11 @@ const DetailsOrderCustomer = (props) => {
   });
 
   useEffect(() => {
-    if (orderStatus !== 'Pendente') {
-      return setDisableButton(false);
+    if (orderStatus !== 'Em Trânsito') {
+      return setDisableButton(true);
     }
 
-    setDisableButton(true);
+    setDisableButton(false);
   }, [orderStatus]);
 
   const dTidStat = 'customer_order_details__element-order-details-label-delivery-status';
@@ -80,7 +80,7 @@ const DetailsOrderCustomer = (props) => {
     <div>
       <button
         data-testid="customer_order_details__button-delivery-check"
-        name="entregue"
+        name="Entregue"
         type="submit"
         disabled={ disableButton }
         onClick={ handleStatus }

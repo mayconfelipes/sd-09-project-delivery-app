@@ -16,6 +16,8 @@ const DetailsOrderSeller = (props) => {
   } = props;
   const [order, setOrder] = useState({});
   const [orderStatus, setOrderStatus] = useState('');
+  const [disableButtonDispatch, setDisableButtonDispatch] = useState(true);
+  const [disableButtonPrepare, setDisableButtonPrepare] = useState(true);
 
   const { token, role } = JSON.parse(localStorage.getItem('user'));
 
@@ -28,6 +30,22 @@ const DetailsOrderSeller = (props) => {
       })
       .catch((err) => console.log(err));
   }, [id, token]);
+
+  useEffect(() => {
+    if (orderStatus !== 'Preparando') {
+      return setDisableButtonDispatch(true);
+    }
+
+    setDisableButtonDispatch(false);
+  }, [orderStatus]);
+
+  useEffect(() => {
+    if (orderStatus !== 'Pendente') {
+      return setDisableButtonPrepare(true);
+    }
+
+    setDisableButtonPrepare(false);
+  }, [orderStatus]);
 
   const handleStatus = ({ target: { name } }) => {
     io.emit('updateOrders', { id: order.id, status: name });
@@ -54,13 +72,13 @@ const DetailsOrderSeller = (props) => {
       <span
         data-testid="seller_order_details__element-order-details-label-order-date"
       >
-        { moment(order.sale_date).format('L')}
+        { moment(order.sale_date).format('DD/MM/YYYY')}
       </span>
       <span
         data-testid={ dTidStatus }
         className={ `status-details ${orderStatus}` }
       >
-        {orderStatus.toUpperCase()}
+        {orderStatus}
       </span>
     </div>
   );
@@ -71,6 +89,7 @@ const DetailsOrderSeller = (props) => {
         data-testid={ dataTestButtonPrepare }
         name="Preparando"
         type="submit"
+        disabled={ disableButtonPrepare }
         onClick={ handleStatus }
       >
         PREPARAR PEDIDO
@@ -79,6 +98,7 @@ const DetailsOrderSeller = (props) => {
         data-testid={ dataTestButtonSend }
         name="Em Trânsito"
         type="submit"
+        disabled={ disableButtonDispatch }
         onClick={ handleStatus }
       >
         SAIU PARA ENTREGA
@@ -126,7 +146,7 @@ const DetailsOrderSeller = (props) => {
           </ul>
           <p data-testid="seller_order_details__element-order-total-price">
             Total: &nbsp;
-            { `R$ ${order.totalPrice}` }
+            { order.totalPrice.toString().replace(/\./, ',') }
           </p>
         </div>
       </div>
