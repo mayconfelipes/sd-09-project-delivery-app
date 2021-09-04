@@ -1,8 +1,9 @@
 const { User } = require('../../database/models');
 
-const generateToken = require('../middlewares/tokenGenerator');
+const generateToken = require('../utils/tokenGenerator');
 const encryptPassword = require('../middlewares/encryptPassword');
 const errorTypes = require('../utils/errorTypes');
+const filterUserData = require('../utils/filterUserData');
 
 const login = async (userEmail, password) => {
   const cryptoPassword = encryptPassword(password);
@@ -16,12 +17,12 @@ const login = async (userEmail, password) => {
 
     return { error };
   }
-  
-  const { password: _, name, email, role } = foundUserData.dataValues;
 
-  const token = await generateToken({ name, email, role });
+  const filteredUserData = await filterUserData(foundUserData);
 
-  return { token, name, email, role };
+  const token = await generateToken(filteredUserData);
+
+  return { token };
 };
 
 module.exports = { login };

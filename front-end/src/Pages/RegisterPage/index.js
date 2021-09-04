@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   AppTitle,
   Button,
@@ -9,24 +9,29 @@ import {
 } from '../../Components';
 import testIds from '../../utils/testIds';
 import useRegisterInfo from '../../hooks/useRegisterInfo';
-import { PostRegister } from '../../Services/Api';
+import useRegisterApi from '../../hooks/useRegisterApi';
+import { AppContext } from '../../context';
+import redirectByRole from '../../Routes/redirectByRole';
 
 const RegisterPage = () => {
-  const [registerInfo, handleFieldsChange] = useRegisterInfo();
-  const registerUser = (data) => () => {
-    PostRegister(data);
-  };
+  const { registerInfo, handleFieldsChange, isValidInfo } = useRegisterInfo();
+  const { isValidRegistration, registerUser } = useRegisterApi();
+  const { user } = useContext(AppContext);
+  const shouldRenderError = isValidRegistration === false;
+
+  if (isValidRegistration) return redirectByRole(user.data.role);
+
   return (
     <Container>
-      <AppTitle>Cadrastro</AppTitle>
+      <AppTitle>Cadastro</AppTitle>
       <Wrapper>
         <Label>
           Nome
           <Input
-            type="string"
-            name="userName"
-            value={ registerInfo.userName }
-            data-test-id={ testIds.id6 }
+            type="text"
+            name="name"
+            value={ registerInfo.name }
+            data-testid={ testIds.id6 }
             onChange={ handleFieldsChange }
           />
         </Label>
@@ -36,7 +41,7 @@ const RegisterPage = () => {
             type="email"
             name="email"
             value={ registerInfo.email }
-            data-test-id={ testIds.id7 }
+            data-testid={ testIds.id7 }
             onChange={ handleFieldsChange }
           />
         </Label>
@@ -46,19 +51,24 @@ const RegisterPage = () => {
             type="password"
             name="password"
             value={ registerInfo.password }
-            data-test-id={ testIds.id8 }
+            data-testid={ testIds.id8 }
             onChange={ handleFieldsChange }
           />
         </Label>
         <Button
-          data-test-id={ testIds.id9 }
-          onClick={ registerUser(registerInfo) }
+          data-testid={ testIds.id9 }
+          onClick={ () => registerUser(registerInfo) }
+          disabled={ isValidInfo }
         >
           CADASTRAR
         </Button>
-        <Wrapper data-test-id={ testIds.id10 }>
-          Mensagem de erro
-        </Wrapper>
+        { shouldRenderError && (
+          <Wrapper
+            data-testid={ testIds.id10 }
+          >
+            Mensagem de erro
+          </Wrapper>
+        )}
       </Wrapper>
     </Container>
   );

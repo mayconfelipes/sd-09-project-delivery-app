@@ -1,14 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { fieldChangeHandler } from '../utils/handlers';
+import { registerSchema, validateInfo } from '../utils/validateInfo';
 
 const useRegisterInfo = () => {
   const [registerInfo, setRegisterInfo] = useState(() => ({
-    userName: '', email: '', password: '',
+    name: '', email: '', password: '',
   }));
-  const handleFieldsChange = ({ target: { name, value } }) => {
-    setRegisterInfo((currentState) => ({ ...currentState, [name]: value }));
-  };
+  const [isValidInfo, setInfoValidation] = useState(() => false);
 
-  return [registerInfo, handleFieldsChange];
+  useEffect(
+    () => {
+      const { error } = validateInfo({ info: registerInfo, schema: registerSchema });
+      setInfoValidation(!!error);
+    }, [registerInfo],
+  );
+
+  const handleFieldsChange = fieldChangeHandler(setRegisterInfo);
+
+  return { registerInfo, handleFieldsChange, isValidInfo };
 };
 
 export default useRegisterInfo;
