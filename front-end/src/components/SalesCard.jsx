@@ -22,15 +22,18 @@ function SalesCard({ sale, role }) {
         key={ index }
         className="main--sales"
       >
-        <h4
-          data-testid={ `${role}_orders__element-order-id-${id}` }
-        >
-          Pedido
-          { id.toString().padStart(maxLenghPad, '0') }
-        </h4>
         <Link
           to={ `/${role}/orders/${id}` }
-          data-testid={ `${role}_orders__element-order-id-${id}` }
+        >
+          <h4
+            data-testid={ `${role}_orders__element-order-id-${id}` }
+          >
+            Pedido
+            { id.toString().padStart(maxLenghPad, '0') }
+          </h4>
+        </Link>
+        <Link
+          to={ `/${role}/orders/${id}` }
         >
           <h4
             data-testid={ `${role}_orders__element-delivery-status-${id}` }
