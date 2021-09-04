@@ -12,6 +12,17 @@ const {
 const { INTERNAL_ERROR_STATUS, NOT_FOUND_STATUS } = require('../middwares/httpStatus');
 
 const getById = async (id) => {
+  const sale = await Sales.findByPk(id);
+
+  if (!sale) {
+    throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
+  }
+
+  return sale;
+};
+
+// retorna a venda pelo id dela mesma
+const getSaleById = async (id) => {
   const sale = await Sales.findAll(
     { include: [
       { model: Products, as: 'products' },
@@ -135,7 +146,7 @@ const getAllSales = async () => {
 
 module.exports = {
   create,
-  getById,
+  getSaleById,
   update,
   getAllById,
   getByUser,
