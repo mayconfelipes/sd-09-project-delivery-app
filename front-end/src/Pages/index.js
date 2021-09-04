@@ -6,3 +6,4 @@ export { default as CustumeOrders } from './CustumerOrders';
 export { default as Checkout } from './Checkout';
 export { default as SellerOrders } from './SellerOrders';
 export { default as SellerDetails } from './SellerDetails';
+export { default as AdminManager } from './AdminManager';
