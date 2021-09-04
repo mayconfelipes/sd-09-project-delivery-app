@@ -88,7 +88,7 @@ code {
 
 table {
   border-collapse: collapse;
-  width: 100%;
+  width: 100vw;
 }
 
 table, th, td {
@@ -148,11 +148,12 @@ select {
 
 table {
   margin: auto;
+  width: 500px;
 }
 
 table tr th {
   font-size: 17px;
-  padding: 10px 100px;
+  padding: 10px;
 }
 
 table tr td {
@@ -208,6 +209,7 @@ table tr td {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 95vw;
 }
 
 .checkoutBtn {

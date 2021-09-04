@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+// import axios from 'axios';
 import TableProducts from '../Components/TableProducts';
 import NavBar from '../Components/NavBar';
-// import { useHistory } from 'react-router-dom';
 import api from '../services/api';
 
-const { id } = JSON.parse(localStorage.getItem('user'));
+const user = JSON.parse(localStorage.getItem('user'));
 
 function Checkout() {
   const [sellers, setSellers] = useState([]);
   const [totalPriceStorage, settotalPriceStorage] = useState(0);
   const [salesDetails, setSalesDetails] = useState({
-    userId: id,
+    userId: user.id,
     sellerId: 2,
-    totalPrice: totalPriceStorage,
-    deliveryAdress: '',
+    // totalPrice: totalPriceStorage,
+    deliveryAddress: '',
     deliveryNumber: 0,
-    status: 'pendente',
+    // status: 'pendente',
+    cart: localStorage.getItem('cart'),
   });
-  // const history = useHistory();
-  console.log('detalhes', salesDetails);
+  const history = useHistory();
 
   useEffect(() => {
     settotalPriceStorage(Number(localStorage.getItem('totalPrice')));
@@ -57,7 +58,7 @@ function Checkout() {
               type="text"
               onChange={
                 ({ target }) => setSalesDetails({
-                  ...salesDetails, deliveryAdress: target.value,
+                  ...salesDetails, deliveryAddress: target.value,
                 })
               }
             />
@@ -79,10 +80,20 @@ function Checkout() {
   );
 
   const finishOrder = async () => {
-    await api.post('sale', salesDetails);
-    const test = await api.get('sale');
+    /* axios.post('http://localhost:3001/sale',
+      salesDetails, {
+        headers: {
+          Authorization: user.token,
+        },
+      }); */
+    await api.post('sale', salesDetails, {
+      headers: {
+        Authorization: user.token,
+      },
+    });
+    const test = await api.get(`sale/byUserId/${user.id}`);
     console.log('xablau', test);
-    // history.push(`/customer/orders${sale.id}`);
+    history.push(`/customer/orders${salesDetails.sellerId}`);
   };
 
   return (

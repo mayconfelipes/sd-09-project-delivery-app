@@ -1,25 +1,29 @@
 // import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 function TableProducts() {
-  const [products, setProducts] = useState([]);
-  const totalPriceStorage = Number(localStorage.getItem('totalPrice'));
-
-  useEffect(() => {
-    setProducts(JSON.parse(localStorage.getItem('cart')));
-  }, [setProducts]);
+  const [totalPrice, setTotalPrice] = useState(
+    Number(localStorage.getItem('totalPrice')),
+  );
+  const [products, setProducts] = useState(JSON.parse(localStorage.getItem('cart')));
 
   const removeProductOnClick = (id) => {
     setProducts(products.filter((product) => id !== product.id));
     products.forEach((prod) => {
-      localStorage.setItem('totalPrice',
-        totalPriceStorage - (prod.unitPrice * prod.quantity));
+      if (id === prod.id) {
+        setTotalPrice(
+          Number(totalPrice - Number(prod.unitPrice * prod.quantity)).toFixed(2),
+        );
+      }
     });
-    localStorage.setItem('cart', products);
   };
 
   const productsTbobyRender = () => products.map((product, index) => (
-    <tr data-testid={ `element-order-table-name-${index}` } key={ `${product.id}` }>
+    <tr
+      style={ { maxWidth: '100vw' } }
+      data-testid={ `element-order-table-name-${index}` }
+      key={ `${product.id}` }
+    >
       <td data-testid={ `customer_checkout__element-order-table-item-number-${index}` }>
         {index + 1}
       </td>
@@ -33,7 +37,7 @@ function TableProducts() {
         {product.unitPrice}
       </td>
       <td data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }>
-        {product.unitPrice * product.quantity}
+        {Number(product.unitPrice * product.quantity).toFixed(2)}
       </td>
       <td>
         <button
@@ -48,7 +52,7 @@ function TableProducts() {
   ));
 
   const cartTableRender = () => (
-    <table>
+    <table style={ { maxWidth: '100vw' } }>
       <thead>
         <tr>
           <th>Item</th>
@@ -59,7 +63,7 @@ function TableProducts() {
           <th>Remover item</th>
         </tr>
       </thead>
-      <tbody>{ productsTbobyRender() }</tbody>
+      <tbody style={ { maxWidth: '100vw' } }>{ productsTbobyRender() }</tbody>
     </table>
   );
 
@@ -67,8 +71,10 @@ function TableProducts() {
     <>
       { cartTableRender() }
       <h1 className="tp" data-testid="customer_checkout__element-order-total-price">
-        {`Total: R$ ${totalPriceStorage}`}
+        {`Total: R$ ${Number(totalPrice).toFixed(2)}`}
       </h1>
+      { localStorage.setItem('cart', JSON.stringify(products)) }
+      { localStorage.setItem('totalPrice', totalPrice) }
     </>
   );
 }

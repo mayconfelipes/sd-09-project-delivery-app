@@ -5,6 +5,7 @@ function NavBar() {
   const history = useHistory();
 
   const { name } = JSON.parse(localStorage.getItem('user'));
+  // console.log('userrrr', user.name);
 
   return (
     <nav>
