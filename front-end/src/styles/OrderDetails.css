@@ -41,8 +41,7 @@
   padding: 4px 5px;
 }
 
-.btn-status:disabled, 
-.btn-status[ disabled ] {
+.btn-status:disabled, .btn-status[ disabled ] {
   background-color: rgb(204, 204, 204);
   border: 1px solid rgb(153, 153, 153);
   color: rgb(102, 102, 102);
