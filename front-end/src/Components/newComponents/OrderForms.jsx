@@ -10,11 +10,11 @@ export default function OrderForms() {
 
   const sellersSimulator = [
     {
-      id: 1,
-      name: 'Osvaldo',
+      id: 2,
+      name: 'Fulana Pereira',
     },
     {
-      id: 2,
+      id: 1,
       name: 'Tia da creche',
     },
     {
