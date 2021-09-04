@@ -10,28 +10,38 @@ const InfoOrderDetails = ({
   dataTestIdOrderDate,
   dataTestIdDeliveryStatus,
   dataTestIdDeliveryCheck,
+  order,
+  sellerName,
+  deliveryStatus,
+  date,
+  orderStatus,
+  deliveryCheck,
 }) => (
   <div className={ style.infoOrderDetails }>
     <p className={ style.span }>
       PEDIDO
-      <span data-testid={ dataTestIdOrderId }>0003</span>
-      ;
+      <span data-testid={ dataTestIdOrderId }>{order}</span>
     </p>
     {shouldSellerApear
     && (
       <p>
         P. Vend:
-        <span data-testid={ dataTestIdSeller }>Fulana 1</span>
+        <span data-testid={ dataTestIdSeller }>{sellerName}</span>
       </p>
     )}
-    <p data-testid={ dataTestIdOrderDate } className={ style.date }>21/08/2021</p>
-    <p data-testid={ dataTestIdDeliveryStatus } className={ style.status }>Entregue</p>
-    {shouldOrderStatusApear && <p className={ style.orderStatus }>PREPARAR PEDIDO</p>}
+    <p data-testid={ dataTestIdOrderDate } className={ style.date }>{date}</p>
+    <p
+      data-testid={ dataTestIdDeliveryStatus }
+      className={ style.status }
+    >
+      {deliveryStatus}
+    </p>
+    {shouldOrderStatusApear && <p className={ style.orderStatus }>{orderStatus}</p>}
     <p
       data-testid={ dataTestIdDeliveryCheck }
       className={ style.markAsDelivered }
     >
-      MARCAR COMO ENTREGUE
+      {deliveryCheck}
     </p>
   </div>
 );
@@ -46,6 +56,12 @@ InfoOrderDetails.propTypes = {
   dataTestIdOrderDate: P.string.isRequired,
   dataTestIdDeliveryStatus: P.string.isRequired,
   dataTestIdDeliveryCheck: P.string.isRequired,
+  order: P.string.isRequired,
+  sellerName: P.string.isRequired,
+  deliveryStatus: P.string.isRequired,
+  date: P.string.isRequired,
+  orderStatus: P.string.isRequired,
+  deliveryCheck: P.string.isRequired,
 };
 
 InfoOrderDetails.defaultProps = {

@@ -32,3 +32,21 @@ export const saleById = async (id, token) => fetch(`${fetchURL}sales/${id}`, {
     Authorization: token,
   },
 }).then((response) => response.json());
+
+export const getAllSales = async (token) => fetch(`${fetchURL}sales/getAll`, {
+  method: 'GET',
+  headers: {
+    Accept: appJson,
+    'Content-Type': appJson,
+    Authorization: token,
+  },
+}).then((response) => response.json());
+
+export const getOneSaleBySaleId = async (id, token) => fetch(`${fetchURL}sale/${id}`, {
+  method: 'GET',
+  headers: {
+    Accept: appJson,
+    'Content-Type': appJson,
+    Authorization: token,
+  },
+}).then((response) => response.json());

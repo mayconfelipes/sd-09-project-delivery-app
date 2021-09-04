@@ -40,6 +40,8 @@ app.get('/sales/user', validateToken, salesControllers.getByUser);
 
 app.get('/sales/getAll', validateToken, salesControllers.getAllSales);
 
+app.get('/sale/:id', validateToken, salesControllers.getSaleById);
+
 app.get('/sales/:id', validateToken, salesControllers.getAllById);
 
 app.put('/sales/:id', validateToken, salesControllers.update);
