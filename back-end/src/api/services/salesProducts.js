@@ -6,7 +6,7 @@ const getAll = async () => {
 };
 
 const getById = async (sale_id) => {
-  const sale = await salesProducts.findOne({
+  const sale = await salesProducts.findAll({
     where: { sale_id },
   });
   return sale;
