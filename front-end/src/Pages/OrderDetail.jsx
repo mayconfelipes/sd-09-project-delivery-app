@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { saleById } from '../services/api';
+import { saleById, editStatusOrder } from '../services/api';
 import NavBar from '../Components/newComponents/NabBar';
 
 function OrderDetail() {
   const [sale, setSale] = useState();
+  const [isDisabled, setIsDisabled] = useState(true);
   const { location: { pathname } } = useHistory();
   const orderId = pathname.split('orders/')[1];
-  // const dataTest = 'customer_order_details__element-order-details-label-delivery-status';
-  // const tabId = 'customer_order_details__element-order-table-item-number-';
-  // const tabName = 'customer_order_details__element-order-table-name-';
-  // const tabQtt = 'customer_order_details__element-order-table-quantity-';
-  // const tabSubtotal = 'customer_order_details__element-order-table-sub-total-';
   const startIdEL = 'customer_order_details__element-order-';
+
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem('user'));
     const orderInfo = async () => {
@@ -21,6 +18,10 @@ function OrderDetail() {
     };
     orderInfo();
   }, [orderId]);
+
+  useEffect(() => {
+    if (sale && sale.status === 'Em Trânsito') setIsDisabled(false);
+  }, [sale]);
 
   function ajustData(data) {
     const limit = 2;
@@ -33,6 +34,14 @@ function OrderDetail() {
     const newPrice = price.replace('.', ',');
     return newPrice;
   }
+
+  const handleClick = async () => {
+    const userInfo = JSON.parse(localStorage.getItem('user'));
+    await editStatusOrder(userInfo.token, { id: sale.id, status: 'Entregue' });
+    setIsDisabled(true);
+    setSale({ ...sale, status: 'Entregue' });
+  };
+
   const renderInfo = () => (
     <div>
       <p>
@@ -60,8 +69,9 @@ function OrderDetail() {
         </span>
         <button
           type="button"
+          onClick={ handleClick }
           data-testid="customer_order_details__button-delivery-check"
-          disabled
+          disabled={ isDisabled }
         >
           Marcar Como Entregue
         </button>
@@ -125,10 +135,9 @@ function OrderDetail() {
 
   );
 
-  // const totalValue = () => sale.product
-  //   .reduce((acc, curr) => acc + (curr.salesProduct.quantity * curr.price), 0);
   return (
     <div>
+      {console.log('se repetir é loop')}
       <NavBar />
       <h1>Detalhes do Pedido</h1>
       {sale && renderInfo()}

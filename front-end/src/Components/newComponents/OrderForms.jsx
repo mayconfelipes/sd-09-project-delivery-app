@@ -36,6 +36,7 @@ export default function OrderForms() {
   useEffect(() => {
     const fetchSellers = async () => {
       setSellers(await getSellers());
+      // console.log(sellers);
     };
 
     fetchSellers();
@@ -48,7 +49,7 @@ export default function OrderForms() {
       userId: JSON.parse(localStorage.getItem('user'))
         ? JSON.parse(localStorage.getItem('user')).userId
         : 0,
-      sellerId: userInfo.seller,
+      sellerId: sellers[0].id,
       totalPrice,
       deliveryAddress: userInfo.address,
       deliveryNumber: userInfo.number,
@@ -57,7 +58,7 @@ export default function OrderForms() {
 
     const response = await closeOrder(orderInfo); // retorna { saleId }
 
-    console.log(orderInfo, response);
+    console.log({ orderInfo, response }, sellers[0].id);
 
     return !response.message && history.push(`/customer/orders/${response.saleId}`);
 

@@ -9,6 +9,7 @@ import {
   OrderDetail,
   SellerOrders,
   SellerDetails,
+  AdminManager,
 } from './Pages';
 
 import './App.css';
@@ -24,6 +25,7 @@ function App() {
         <Route path="/customer/orders" component={ CustumeOrders } />
         <Route path="/seller/orders/:id" component={ SellerDetails } />
         <Route path="/seller/orders" component={ SellerOrders } />
+        <Route path="/admin/manage" component={ AdminManager } />
 
         <Route
           path="/login"
