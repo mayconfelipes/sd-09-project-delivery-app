@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import LinkNavbar from './LinkNavbar';
 import {
   removeUserDataLocalStorage,
@@ -14,6 +14,7 @@ import testid from '../utils/dataTestIds';
 const Navbar = ({ role }) => {
   const [isLogout, setIsLogout] = useState(false);
   const { setTotalCart } = useContext(AppContext);
+  const location = useLocation();
 
   const fildsByRole = {
     customer: {
@@ -45,7 +46,11 @@ const Navbar = ({ role }) => {
           <LinkNavbar
             dataTestId={ testid[11] }
             text="PRODUTOS"
-            classStyle="navbar-link navbar-link-green"
+            classStyle={ `navbar-link ${
+              location.pathname === '/customer/products'
+                ? 'navbar-link-active'
+                : 'navbar-link-green'
+            } ` }
             to="/customer/products"
           />
         )}
@@ -53,17 +58,22 @@ const Navbar = ({ role }) => {
         <LinkNavbar
           dataTestId={ testid[12] }
           text={ `${fildsByRole[role].option1}` }
-          classStyle="navbar-link navbar-link-green"
+          classStyle={ `navbar-link ${
+            location.pathname === fildsByRole[role].link
+              ? 'navbar-link-active'
+              : 'navbar-link-green'
+          } ` }
           to={ `${fildsByRole[role].link}` }
         />
-
       </div>
       <div className="nav-display-flex">
         <div
           data-testid={ testid[13] }
           className="navbar-link navbar-link-purple"
         >
-          {role === 'administrator' ? 'DeliveryApp Admin' : getNameLocalStorage()}
+          {role === 'administrator'
+            ? 'DeliveryApp Admin'
+            : getNameLocalStorage()}
         </div>
         <Button
           dataTestId={ testid[14] }
@@ -72,7 +82,8 @@ const Navbar = ({ role }) => {
           onClick={ () => setIsLogout(true) }
         />
       </div>
-    </nav>);
+    </nav>
+  );
 };
 
 Navbar.propTypes = {
