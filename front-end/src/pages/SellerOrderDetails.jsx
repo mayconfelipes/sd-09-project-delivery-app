@@ -3,7 +3,9 @@ import { useHistory } from 'react-router-dom';
 import '../css/CustomerOrderDetails.css';
 import dataTestIds from '../utils/dataTestIds';
 import api from '../services/api';
+import Navbar from '../components/Navbar';
 import ProductsTable from '../components/ProductsTable';
+import transformDate from '../utils/transformDate';
 
 function SellerOrderDetails() {
   // Ver como fazer um 'custom react Hook para reutilizar'
@@ -13,10 +15,13 @@ function SellerOrderDetails() {
 
   const [myOrder, setMyOrder] = useState([]);
   const [myItems, setMyItems] = useState([]);
+  const userData = JSON.parse(localStorage.getItem('user'));
 
   const getSale = async (id) => {
     const result = await api.getSaleById(id);
-    setMyOrder(result);
+    const newDate = transformDate(result.saleDate);
+    const newPrice = result.totalPrice.replace('.', ',');
+    setMyOrder({ ...result, saleDate: newDate, totalPrice: newPrice });
     return result;
   };
 
@@ -38,22 +43,49 @@ function SellerOrderDetails() {
     dataTestIds[63],
   ];
 
+  const clickChangeSaleStatus = async (event) => {
+    const status = event.target.value;
+    await api.changeOrderStatus(myOrder.id, status);
+    getSale(orderId);
+  };
+
   return (
     <div>
-      <div>
-        <p>Aqui é a NavBar</p>
-      </div>
+      <Navbar role={ userData.role } />
       <p>Detalhe do Pedido</p>
       <div>
-        <p>{ myOrder.id }</p>
-        <p data-testid={ dataTestIds[56] }>{ myOrder.sale_date }</p>
+        <p data-testid={ dataTestIds[54] }>{ myOrder.id }</p>
+        <p data-testid={ dataTestIds[56] }>{ myOrder.saleDate }</p>
         <p data-testid={ dataTestIds[55] }>{ myOrder.status }</p>
-        <p data-testid={ dataTestIds[57] }>PREPARAR PEDIDO</p>
-        <p data-testid={ dataTestIds[58] }>SAIU PARA ENTREGA</p>
+        <button
+          type="button"
+          data-testid={ dataTestIds[57] }
+          value="Preparando"
+          disabled={ myOrder.status !== 'Pendente' }
+          onClick={ clickChangeSaleStatus }
+        >
+          PREPARAR PEDIDO
+        </button>
+        <button
+          type="button"
+          data-testid={ dataTestIds[58] }
+          value="Em Trânsito"
+          disabled={ myOrder.status !== 'Preparando' }
+          onClick={ clickChangeSaleStatus }
+        >
+          SAIU PARA ENTREGA
+        </button>
       </div>
       <ProductsTable listItems={ myItems } testIds={ sellerDataTestIds } />
       <div>
-        <p>{ `R$${myOrder.total_price}` }</p>
+        <p>
+          R$
+          <span
+            data-testid={ dataTestIds[64] }
+          >
+            { `${myOrder.totalPrice}` }
+          </span>
+        </p>
       </div>
     </div>
   );

@@ -10,5 +10,6 @@ salesRouter.get('/', [
   validateJWT,
   salesController.getAllSalesController,
 ]);
+salesRouter.put('/:id', salesController.changeOrderStatus);
 
 module.exports = salesRouter;

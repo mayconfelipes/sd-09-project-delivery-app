@@ -25,8 +25,18 @@ const getAllSalesController = async (req, res, next) => {
   return res.status(200).json(result);
 };
 
+const changeOrderStatus = async (req, res, _next) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  await salesService.changeOrderStatus({ id, status });
+
+  res.status(200).end();
+};
+
 module.exports = {
   getAllSalesController,
   getSaleById,
   getSaleItems,
+  changeOrderStatus,
 };
