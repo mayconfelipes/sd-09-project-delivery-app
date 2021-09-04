@@ -9,8 +9,10 @@ function OrderDetails() {
   const { id } = useParams();
   const [order, setOrder] = useState(null);
   const [user, setUser] = useState(null);
+  const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
+    console.log('oi');
     const milisseconds = 400;
     const userLocal = JSON.parse(localStorage.getItem('user'));
     setUser(userLocal);
@@ -22,7 +24,14 @@ function OrderDetails() {
     };
 
     getSale();
-  }, [id]);
+  }, [id, updated]);
+
+  const handleClick = async (newStatus) => {
+    const milisseconds = 1000;
+    await axios.put(`http://localhost:3001/sales/${id}`, { newStatus });
+    setUpdated(true);
+    setTimeout(() => setUpdated(false), milisseconds);
+  };
 
   const generateDataTestId = (flag) => (
     `${user.role}_order_details__element-order-details-label-${flag}`);
@@ -30,29 +39,46 @@ function OrderDetails() {
   const generateDataTestIdButtons = (role, flag) => (
     `${role}_order_details__button-${flag}`);
 
-  const renderButtonsSeller = ({ value, testId, disabled }) => (
+  const renderButtonsSeller = ({ value, testId, disabled, newStatus }) => (
     <button
       type="button"
       data-testid={ generateDataTestIdButtons('seller', testId) }
       disabled={ disabled }
+      onClick={ () => handleClick(newStatus) }
     >
       {value}
+      { console.log(disabled) }
     </button>
   );
 
   const maxLengthPad = 4;
 
-  const buttonsSeller = [
-    { value: 'Preparando o pedido', testId: 'preparing-check', disabled: false },
-    { value: 'Saiu para entrega', testId: 'dispatch-check', disabled: true },
-  ];
-
   if (!order || !user) return <p>loading...</p>;
+
+  console.log(`Status: ${order.sale.status}`);
+  const buttonsSeller = [
+    {
+      value: 'Preparando o pedido',
+      testId: 'preparing-check',
+      disabled: order.sale.status === 'Preparando'
+      || order.sale.status === 'Em Trânsito'
+      || order.sale.status === 'Entregue',
+      newStatus: 'Preparando',
+    },
+    {
+      value: 'Saiu para entrega',
+      testId: 'dispatch-check',
+      disabled: order.sale.status === 'Pendente'
+      || order.sale.status !== 'Preparando',
+      newStatus: 'Em Trânsito',
+    },
+  ];
 
   return (
     <section>
       <Navbar />
       <h1>Detalhes do pedido</h1>
+      { updated && <span>Status atualizado :) </span> }
       <header>
         <h1
           data-testid={ generateDataTestId('order-id') }
@@ -73,7 +99,9 @@ function OrderDetails() {
           <button
             type="button"
             data-testid={ `${user.role}_order_details__button-delivery-check` }
-            disabled="true"
+            disabled={ order.sale.status === 'Preparando'
+            || order.sale.status === 'Pendente' }
+            onClick={ () => handleClick('Entregue') }
           >
             Marcar como entregue
           </button>

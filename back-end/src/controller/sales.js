@@ -56,4 +56,11 @@ router.get('/', [
   }),
 ]);
 
+router.put('/:id', rescue(async (req, res, _next) => {
+  const { id } = req.params;
+  const { newStatus } = req.body;
+  await service.sales.statusUpdate(id, newStatus);
+  return res.status(200).json({ message: 'status updated' });
+}));
+
 module.exports = router;
