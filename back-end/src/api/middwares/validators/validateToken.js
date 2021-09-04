@@ -6,9 +6,10 @@ const { jwtRead } = require('./jwtRead');
 
 require('dotenv').config();
 
-const validateToken = async (req, _res, next) => {
+const validateToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
+    console.log(token);
     try {
       if (!token) {
         throw messageError(UNAUTHORIZED_STATUS, TOKEN_NOT_FOUND);
@@ -18,7 +19,7 @@ const validateToken = async (req, _res, next) => {
     }
 
     const payload = jwt.verify(token, jwtRead);
-
+    
     req.user = payload;
     next();
   } catch (err) {

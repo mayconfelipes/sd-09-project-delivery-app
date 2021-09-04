@@ -4,31 +4,37 @@ import { Link } from 'react-router-dom';
 
 import NavBar from '../../../components/Navbar';
 import ProductStatus from '../../../components/ProductStatus';
-import { saleById } from '../../../api/sales';
+// import { saleById } from '../../../api/sales';
 import formatDate from '../../../util/formatDate';
 import style from './orders.module.scss';
 
 const CustomerOrders = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [sale, setSale] = useState([]);
+  const user = JSON.parse(localStorage.getItem('user'));
+  const { token } = user;
   useEffect(() => {
-    const localItem = JSON.parse(localStorage.getItem('user'));
-    if (localItem) {
-      const { token, id: userId } = localItem;
-      saleById(userId, token).then((data) => {
+    fetch('http://localhost:3001/sales/user', {
+      method: 'GET',
+      headers: new Headers({
+        Authorization: token,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
         setSale(data);
-        setIsLoading(false);
       });
-    }
-  }, []);
+    setIsLoading(false);
+  }, [token]);
 
-  console.log(sale);
+  console.log(sale[0]);
 
   if (isLoading) return <p>Loading...</p>;
   return (
     <>
       <NavBar />
       <div className={ style.productStatusContainer }>
+        { console.log(sale)}
         {sale.map(({ id, status, saleDate, totalPrice }) => {
           const newDate = formatDate(saleDate);
           const priceToString = totalPrice.toString().replace('.', ',');
