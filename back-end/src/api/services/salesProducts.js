@@ -5,14 +5,14 @@ const getAll = async () => {
  return allSales;
 };
 
-const getById = async (id) => {
+const getById = async (sale_id) => {
   const sale = await salesProducts.findOne({
-    where: { id },
+    where: { sale_id },
   });
   return sale;
 };
 
-
 module.exports = {
+  getById,
   getAll,
 };

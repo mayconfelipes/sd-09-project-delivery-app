@@ -4,8 +4,6 @@ module.exports = {
     await queryInterface.createTable('sales_products', {
       sale_id: {
         allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
         type: Sequelize.INTEGER
       },
       product_id: {
