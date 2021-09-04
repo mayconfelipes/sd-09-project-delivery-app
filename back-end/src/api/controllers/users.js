@@ -1,5 +1,4 @@
 const User = require('../services/users');
-const Sale = require('../services/sales');
 
 const loginUser = async (req, res, next) => {
   try {
@@ -33,29 +32,16 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
-const getOrders = async (req, res, next) => {
+const getAllSellers = async (req, res, next) => {
   try {
-    const { userId } = req.body;
-    const usersOrders = await Sale.getOrders(userId);
-    return res.status(200).json(usersOrders);
-  } catch (error) {
-    return next(error);
-  }
-};
-
-const getSellers = async (req, res, next) => {
-  try {
-    const sellers = await User.getSellers();
-    return res.status(200).json(sellers);
-  } catch (error) {
-    return next(error);
-  }
+    const allSellers = await User.getAllSellers();
+    return res.status(200).json(allSellers);
+  } catch (err) { next(err); }
 };
 
 module.exports = {
   loginUser,
   registerUser,
   getAllUsers,
-  getOrders,
-  getSellers,
+  getAllSellers,
 };

@@ -1,11 +1,20 @@
 /* === Page Customer Product Card === */
+.products-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  height: max-content;
+  padding-bottom: 5vh;
+  width: 100%;
+}
+
 .container_cards {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
   left: 100px;
-  position: absolute;
   top: 100px;
   width: 80vw;
 }
@@ -15,7 +24,7 @@
   border: 2px solid #727272;
   border-radius: 13px;
   display: flex;
-  height: 400px;
+  flex-direction: column;
   justify-content: center;
   position: relative;
   width: 310px;
@@ -32,25 +41,25 @@
 .image {
   align-self: center;
   height: 200px;
-  width: 190px;
+  margin: 50px 0;
 }
 
 .product_card__footer {
+  align-items: center;
   background: #727272;
   border-radius: 0 0 13px 13px;
   bottom: 0;
   color: aliceblue;
   display: flex;
+  flex-direction: column;
   height: 9vh;
   justify-content: center;
-  position: absolute;
   width: 100%;
 }
 
-.quantity {
-  bottom: 23px;
-  height: 20px;
-  position: absolute;
+.product_name {
+  line-height: 2.5;
+  margin: 0;
 }
 
 .quantity input {
@@ -70,7 +79,7 @@
   height: 6vh;
   position: fixed;
   right: 25px;
-  width: 265px;
+  width: 200px;
 }
 
 .ver_carrinho:hover {
@@ -81,4 +90,9 @@
   color: aliceblue;
   font-size: 1.3rem;
   margin-left: 15px;
+}
+
+.card_price:before, .total-value:before {
+  content: 'R$';
+  margin-right: 0.15em;
 }
