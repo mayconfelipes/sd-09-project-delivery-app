@@ -45,7 +45,7 @@ const getSaleById = async (id) => {
 };
 
 const getAllById = async (id) => {
-  const sale = await Sales.findAll({ where: { userId: id } });
+  const sale = await Sales.findAll({ where: { id } });
 
   if (!sale) {
     throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
