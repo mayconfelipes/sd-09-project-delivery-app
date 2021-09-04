@@ -3,7 +3,9 @@ import { useHistory } from 'react-router-dom';
 import '../css/CustomerOrderDetails.css';
 import dataTestIds from '../utils/dataTestIds';
 import api from '../services/api';
+import Navbar from '../components/Navbar';
 import ProductsTable from '../components/ProductsTable';
+import transformDate from '../utils/transformDate';
 
 function CustomerOrderDetails() {
   // Ver como fazer um 'custom react Hook para reutilizar'
@@ -11,12 +13,14 @@ function CustomerOrderDetails() {
   const { location: { pathname } } = history;
   const orderId = pathname.split('/')[3];
 
-  const [myOrder, setMyOrder] = useState([]);
+  const [myOrder, setMyOrder] = useState({});
   const [myItems, setMyItems] = useState([]);
-
+  const userData = JSON.parse(localStorage.getItem('user'));
   const getSale = async (id) => {
     const result = await api.getSaleById(id);
-    setMyOrder(result);
+    const newDate = transformDate(result.saleDate);
+    const newPrice = result.totalPrice.replace('.', ',');
+    setMyOrder({ ...result, saleDate: newDate, totalPrice: newPrice });
     return result;
   };
 
@@ -40,10 +44,7 @@ function CustomerOrderDetails() {
 
   return (
     <div>
-      <div>
-        <p>Aqui é a NavBar</p>
-      </div>
-
+      <Navbar role={ userData.role } />
       <p>Detalhe do Pedido</p>
       <div>
         <p data-testid={ dataTestIds[37] }>
@@ -53,17 +54,30 @@ function CustomerOrderDetails() {
           { myOrder['seller.name'] }
         </p>
         <p data-testid={ dataTestIds[39] }>
-          { myOrder.sale_date }
+          { myOrder.saleDate }
         </p>
         <p data-testid={ dataTestIds[40] }>
           { myOrder.status }
         </p>
         {/* Esse botão vai ter que ser utilizado na hora de fazer o socket */}
-        <p>Botão que vai marcar como entregue</p>
+        <button
+          type="button"
+          data-testid={ dataTestIds[47] }
+          disabled={ myOrder.status === 'Pendente' }
+        >
+          MARCAR COMO ENTREGUE
+        </button>
       </div>
       <ProductsTable listItems={ myItems } testIds={ customerDataTestIds } />
       <div>
-        <p>{ `R$${myOrder.total_price}` }</p>
+        <p>
+          R$
+          <span
+            data-testid={ dataTestIds[46] }
+          >
+            { `${myOrder.totalPrice}` }
+          </span>
+        </p>
       </div>
     </div>
   );

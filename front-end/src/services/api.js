@@ -160,6 +160,20 @@ const removeUserById = (id) => {
     .catch((err) => err);
 };
 
+const changeOrderStatus = (id, status) => {
+  const endpoint = `${URL}/sales/${id}`;
+  return fetch(endpoint, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': CONTENT,
+    },
+    body: JSON.stringify({ status }),
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+};
+
 export default {
   loginUser,
   registerUser,
@@ -172,4 +186,5 @@ export default {
   getAllVendors,
   getAllUsers,
   removeUserById,
+  changeOrderStatus,
 };
