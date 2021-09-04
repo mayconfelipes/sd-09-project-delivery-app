@@ -36,7 +36,7 @@ const getSale = async (id) => {
   return { sale, seller };
 };
 
-const statusUpdate = async (id, status) => await Sale.update({ status }, { where: { id } });
+const statusUpdate = async (id, status) => Sale.update({ status }, { where: { id } });
 
 module.exports = {
   checkoutNewSale,

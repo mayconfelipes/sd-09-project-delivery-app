@@ -55,13 +55,13 @@ afterEach(async () => {
   sellerContext = undefined;
 });
 
-describe(requirement(33), () => {
+describe.only(requirement(33), () => {
   test("O avaliador verificará se, ao alterar o status do pedido na tela da pessoa vendedora, o mesmo também é alterado na tela de detalhes do pedido do cliente após atualização das páginas", async () => {
     expect(await updateStatus({ situation: 1, COD: page, SOD: sellerPage, currentOrder })).toBeTruthy()
   });
 });
 
-describe(requirement(34), () => {
+describe.only(requirement(34), () => {
   test("O avaliador verificará se, ao alterar o status do pedido na tela da pessoa vendedora, o mesmo também é alterado na tela de pedidos do cliente após atualização das páginas", async () => {
     expect(await updateStatus({ situation: 2, COD: page, SOD: sellerPage, currentOrder })).toBeTruthy();
   });
