@@ -5,7 +5,7 @@ function SellerSelect() {
   const { allSellers, setSelectedSeller } = useContext(ProductsContext);
 
   useEffect(() => {
-    setSelectedSeller(allSellers[0].name);
+    setSelectedSeller(allSellers[0].id);
   }, []);
   return (
     <label htmlFor="sellers">
@@ -17,7 +17,7 @@ function SellerSelect() {
       >
         { allSellers.map((seller) => (
           <option
-            value={ seller.name }
+            value={ seller.id }
             key={ seller.id }
           >
             { seller.name }

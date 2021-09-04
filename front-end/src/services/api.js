@@ -39,11 +39,11 @@ export const getSellers = async () => {
   return data;
 };
 
-// export const postNewOrder = async (orderObj) => {
-//   const newOrder = await axios
-//     .post(`${baseURL}/newOrder`, orderObj);
-//   return newOrder;
-// };
+export const postNewOrder = async (orderObj, token) => {
+  const { data } = await axios
+    .post(`${baseURL}/orders`, orderObj, { headers: { Authorization: token } });
+  return data;
+};
 
 export const getOrders = async (userId) => {
   const orders = await axios

@@ -35,24 +35,36 @@ const ProductsProvider = ({ children }) => {
 
   function removeItemFromCart(itemIndex) {
     const newCart = currentOrder.filter((item, index) => index !== itemIndex);
+    const newOrderTotal = newCart
+      .reduce((acc, cur) => acc + (cur.quantity * cur.price), 0).toFixed(2);
+    setCurrentOrderTotal(newOrderTotal);
     return setCurrentOrder(newCart);
   }
 
-  function submitOrder() {
+  async function submitOrder() {
+    const productsList = currentOrder.map((item) => {
+      const reformedItem = item;
+      reformedItem.productId = item.id;
+      delete reformedItem.id;
+      delete reformedItem.name;
+      delete reformedItem.price;
+      return reformedItem;
+    });
     const orderObject = {
-      userInfo,
-      selectedSeller,
+      userId: userInfo.id,
+      sellerId: Number(selectedSeller),
       totalPrice: currentOrderTotal,
       deliveryAddress: orderAddress,
       deliveryNumber: orderAddressNumber,
       saleDate: new Date(),
       status: 'Pendente',
-      products: currentOrder,
+      products: productsList,
     };
     console.log(orderObject);
-    // const newOrder = api.postNewOrder(orderObject);
-    // return history.push(`/customer/orders/${newOrder.id}`);
-    return history.push('/customer/order/1');
+    const newOrder = await api.postNewOrder(orderObject, userInfo.token);
+    console.log(newOrder);
+    return history.push(`/customer/orders/${newOrder.id}`);
+    // return history.push('/customer/order/1');
   }
   const [order, setOrder] = useState([]);
 

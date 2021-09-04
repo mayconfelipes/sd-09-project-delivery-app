@@ -1,0 +1,169 @@
+.checkout-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 2vh;
+  height: max-content;
+  padding-bottom: 5vh;
+  width: 100%;
+}
+
+.products-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  height: max-content;
+  padding-bottom: 5vh;
+  width: 100%;
+}
+
+.empty-cart {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-self: center;
+}
+
+.cart {
+  flex-grow: 1;
+  height: 100%;
+  margin-top: 5rem;
+  width: 80%;
+}
+
+.cart-details {
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 2rem 1rem;
+  position: relative;
+  width: 100%;
+}
+
+.cart-details:before {
+  content: 'Finalizar Entrega';
+  left: 0;
+  position: absolute;
+  top: -1.5rem;
+}
+
+.cart-details table {
+  text-align: center;
+  width: 100%;
+}
+
+.cart-details table td {
+  padding: 0;
+}
+
+.cart-details table tbody tr {
+  line-height: 2.5;
+  overflow: hidden;
+}
+
+.checkout-order-item {
+  background-color: #2fc18c;
+}
+
+.checkout-item-name {
+  background-color: #f2fffc;
+  text-align: left;
+}
+
+.checkout-item-quantity {
+  background-color: #036b52;
+  color: white;
+}
+
+.checkout-item-unit-price {
+  background-color: #421981;
+  color: white;
+}
+
+.checkout-item-subtotal {
+  background-color: #056cf9;
+  color: white;
+}
+
+.checkout-remove-item-button button {
+  background-color: #2fc18c;
+  border: none;
+  font-family: sans-serif;
+  font-size: 1rem;
+  line-height: 2.5;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.checkout-remove-item-button button:hover {
+  background-color: #239068;
+  cursor: pointer;
+}
+
+.cart-total {
+  align-self: flex-end;
+  margin: 0;
+  width: max-content;
+}
+
+.delivery-details {
+  align-items: center;
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: space-around;
+  margin-top: 3rem;
+  position: relative;
+  width: 100%;
+}
+
+.delivery-details:before {
+  content: 'Detalhes e Endereço para Entrega';
+  left: 0;
+  position: absolute;
+  top: -1.5rem;
+}
+
+.delivery-info {
+  box-sizing: border-box;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-around;
+  margin-top: 1rem;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.delivery-info label {
+  display: flex;
+  flex-direction: column;
+}
+
+.delivery-info label:nth-of-type( 2 ) {
+  flex-grow: 1;
+}
+
+.confirm-order-button {
+  background-color: #036b52;
+  border: none;
+  color: white;
+  font-family: sans-serif;
+  font-size: 1rem;
+  line-height: 3;
+  margin: 0;
+  padding: 0 3em;
+  width: max-content;
+}
+
+.confirm-order-button:hover {
+  background-color: hsl(166, 95%, 25%);
+  cursor: pointer;
+}

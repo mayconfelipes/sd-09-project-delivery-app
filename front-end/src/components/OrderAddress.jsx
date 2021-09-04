@@ -5,7 +5,7 @@ import InputAddressNumber from './InputAddressNumber';
 
 function OrderAddress() {
   return (
-    <div>
+    <div className="delivery-info">
       <SellerSelect />
       <InputAddress />
       <InputAddressNumber />
