@@ -8,6 +8,7 @@ const InfoOrderDetails = ({
   dataTestIdOrderId,
   dataTestIdSeller,
   dataTestIdOrderDate,
+  dataTestIdPreparingCheck,
   dataTestIdDeliveryStatus,
   dataTestIdDeliveryCheck,
   order,
@@ -16,6 +17,7 @@ const InfoOrderDetails = ({
   date,
   orderStatus,
   deliveryCheck,
+  dispatchCheckDisabled,
 }) => (
   <div className={ style.infoOrderDetails }>
     <p className={ style.span }>
@@ -30,19 +32,30 @@ const InfoOrderDetails = ({
       </p>
     )}
     <p data-testid={ dataTestIdOrderDate } className={ style.date }>{date}</p>
-    <p
+    <button
+      type="button"
       data-testid={ dataTestIdDeliveryStatus }
       className={ style.status }
     >
       {deliveryStatus}
-    </p>
-    {shouldOrderStatusApear && <p className={ style.orderStatus }>{orderStatus}</p>}
-    <p
+    </button>
+    {shouldOrderStatusApear
+    && (
+      <button
+        type="button"
+        data-testid={ dataTestIdPreparingCheck }
+        className={ style.orderStatus }
+      >
+        {orderStatus}
+      </button>)}
+    <button
+      type="button"
       data-testid={ dataTestIdDeliveryCheck }
       className={ style.markAsDelivered }
+      disabled={ dispatchCheckDisabled }
     >
       {deliveryCheck}
-    </p>
+    </button>
   </div>
 );
 
@@ -55,6 +68,7 @@ InfoOrderDetails.propTypes = {
   dataTestIdSeller: P.string.isRequired,
   dataTestIdOrderDate: P.string.isRequired,
   dataTestIdDeliveryStatus: P.string.isRequired,
+  dataTestIdPreparingCheck: P.string.isRequired,
   dataTestIdDeliveryCheck: P.string.isRequired,
   order: P.string.isRequired,
   sellerName: P.string.isRequired,
@@ -62,6 +76,7 @@ InfoOrderDetails.propTypes = {
   date: P.string.isRequired,
   orderStatus: P.string.isRequired,
   deliveryCheck: P.string.isRequired,
+  dispatchCheckDisabled: P.bool.isRequired,
 };
 
 InfoOrderDetails.defaultProps = {

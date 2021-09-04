@@ -22,8 +22,6 @@ const Login = () => {
 
   const [role, setRole] = useState('');
 
-  const [isLoading, setIsLoading] = useState(false);
-
   function handleInputChange(event) {
     event.preventDefault();
     const { name, value } = event.target;
@@ -51,10 +49,7 @@ const Login = () => {
     setRole(result.role);
     if (result.token) setIsLogged(true);
     else setInvalidLogin(true);
-    setIsLoading(true);
   };
-
-  if (isLoading) return <p>Loading...</p>;
 
   const localItem = JSON.parse(localStorage.getItem('user'));
   if (localItem && localItem.role === 'customer') {

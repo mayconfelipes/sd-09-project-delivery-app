@@ -27,7 +27,12 @@ const SellerOrderDetails = ({ match }) => {
         });
     }
   }, [paramId]);
-  console.log(sale);
+
+  const idTestId = 'seller_order_details__element-order-details-label-order-id';
+  const dateTestId = 'seller_order_details__element-order-details-label-order-date';
+  const statusTId = 'seller_order_details__element-order-details-label-delivery-status';
+  const preparingCheckTestId = 'seller_order_details__button-preparing-check';
+  const dispatchCheckTestId = 'seller_order_details__button-dispatch-check';
   if (isLoading) return <p>Loading...</p>;
   return (
     <div>
@@ -37,63 +42,71 @@ const SellerOrderDetails = ({ match }) => {
         {sale.map(({ id, status, saleDate, totalPrice, products }, index) => {
           const newDate = formatDate(saleDate);
           const priceToString = totalPrice.toString().replace('.', ',');
-          return (
-            <div key={ index }>
-              <InfoOrderDetails
-                shouldSellerApear={ false }
-                shouldOrderStatusApear
-                order={ ` 000${id}` }
-                deliveryStatus={ status }
-                date={ newDate }
-                orderStatus="PREPARAR PEDIDO"
-                deliveryCheck="SAIU PARA ENTREGA"
-              />
-              <div key={ id } className={ style.barContainer }>
-                <GridOrderDetails />
-                {products.map(({ id: productId, name, price, SalesProducts }) => {
-                  const { quantity } = SalesProducts;
-                  const productsPrice = price * quantity;
-                  const priceRound = (Math.round(productsPrice * 100) / 100).toFixed(2);
-                  const totalPriceString = priceRound.toString().replace('.', ',');
-                  const priceString = price.toString().replace('.', ',');
-                  return (
-                    <DescriptionsBar
-                      key={ productId }
-                      id={ index }
-                      userOrProductName={ name }
-                      emailOrQuantity={ quantity }
-                      userTypeOrValue={ priceString }
-                      deleteOrPrice={ totalPriceString }
-                      shouldDeleteApear={ false }
-                      dataTestIdId={
-                        `seller_order_details__element-order-table-item-number-${id}`
-                      }
-                      dataTestIdUserOrProductName={
-                        `seller_order_details__element-order-table-name-${id}`
-                      }
-                      dataTestIdEmailOrQuantity={
-                        `seller_order_details__element-order-table-quantity-${id}`
-                      }
-                      dataTestIdUserTypeOrValue={
-                        `seller_order_details__element-order-table-unit-price-${id}`
-                      }
-                      dataTestIdDeleteOrPrice={
-                        `seller_order_details__element-order-table-sub-total-${id}`
-                      }
-                    />
-                  );
-                })}
+          if (id === Number(paramId)) {
+            return (
+              <div key={ index }>
+                <InfoOrderDetails
+                  shouldSellerApear={ false }
+                  shouldOrderStatusApear
+                  order={ ` 000${id}` }
+                  deliveryStatus={ status }
+                  date={ newDate }
+                  orderStatus="PREPARAR PEDIDO"
+                  deliveryCheck="SAIU PARA ENTREGA"
+                  dataTestIdOrderId={ idTestId }
+                  dataTestIdOrderDate={ dateTestId }
+                  dataTestIdDeliveryStatus={ statusTId }
+                  dataTestIdPreparingCheck={ preparingCheckTestId }
+                  dataTestIdDeliveryCheck={ dispatchCheckTestId }
+                  dispatchCheckDisabled
+                />
+                <div key={ id } className={ style.barContainer }>
+                  <GridOrderDetails />
+                  {products.map(({ id: productId, name, price, SalesProducts }) => {
+                    const { quantity } = SalesProducts;
+                    const productsPrice = price * quantity;
+                    const priceRound = (Math.round(productsPrice * 100) / 100).toFixed(2);
+                    const totalPriceString = priceRound.toString().replace('.', ',');
+                    const priceString = price.toString().replace('.', ',');
+                    return (
+                      <DescriptionsBar
+                        key={ productId }
+                        id={ index }
+                        userOrProductName={ name }
+                        emailOrQuantity={ quantity }
+                        userTypeOrValue={ priceString }
+                        deleteOrPrice={ totalPriceString }
+                        shouldDeleteApear={ false }
+                        dataTestIdId={
+                          `seller_order_details__element-order-table-item-number-${id}`
+                        }
+                        dataTestIdUserOrProductName={
+                          `seller_order_details__element-order-table-name-${id}`
+                        }
+                        dataTestIdEmailOrQuantity={
+                          `seller_order_details__element-order-table-quantity-${id}`
+                        }
+                        dataTestIdUserTypeOrValue={
+                          `seller_order_details__element-order-table-unit-price-${id}`
+                        }
+                        dataTestIdDeleteOrPrice={
+                          `seller_order_details__element-order-table-sub-total-${id}`
+                        }
+                      />
+                    );
+                  })}
+                </div>
+                <PrimaryButton
+                  dataTestId="seller_order_details__element-order-total-price"
+                >
+                  Total R$:
+                  {' '}
+                  {priceToString}
+                </PrimaryButton>
               </div>
-              <PrimaryButton
-                dataTestId="seller_order_details__element-order-total-price"
-              >
-                Total R$:
-                {' '}
-                {priceToString}
-
-              </PrimaryButton>
-            </div>
-          );
+            );
+          }
+          return null;
         })}
       </div>
     </div>

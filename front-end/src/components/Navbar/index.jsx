@@ -9,15 +9,19 @@ const NavBar = ({ orders, products }) => {
   const onLoginClick = () => {
     localStorage.removeItem('user');
   };
-
+  console.log(products);
   const route = products === 'PRODUTOS' ? '/customer/products' : '/seller/orders';
+  const testId = products === 'PRODUTOS'
+    ? ('customer_products__element-navbar-link-products')
+    : ('customer_products__element-navbar-link-orders');
+
   return (
     <nav className={ style.container }>
       <div
         className={ style.firsGrid }
       >
         <Link className={ style.customerProducts } to={ route }>
-          <p data-testid="customer_products__element-navbar-link-products">{products}</p>
+          <p data-testid={ testId }>{products}</p>
         </Link>
       </div>
       <div
