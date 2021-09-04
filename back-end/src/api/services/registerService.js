@@ -2,6 +2,8 @@ const { User } = require('../../database/models');
 
 const encryptPassword = require('../middlewares/encryptPassword');
 const errorTypes = require('../utils/errorTypes');
+const filterUserData = require('../utils/filterUserData');
+const generateToken = require('../utils/tokenGenerator');
 
 const register = async (name, email, password, role = 'customer') => {
   const cryptoPassword = encryptPassword(password);
@@ -14,9 +16,13 @@ const register = async (name, email, password, role = 'customer') => {
     return { error };
   }
   
-  const createdUser = await User.create({ name, email, password: cryptoPassword, role });
+  const filteredUserData = await filterUserData(
+    async () => User.create({ name, email, password: cryptoPassword, role }),
+  );
+  
+  const token = await generateToken(filteredUserData);
 
-  return { createdUser };
+  return { token };
 };
 
 module.exports = { register };

@@ -1,19 +1,35 @@
 import { useState, useCallback, useContext } from 'react';
-import { PostLogin } from '../services/api';
+import requestApi from '../services/api';
 import { AppContext } from '../context';
+import { storeUserData } from '../utils/storage';
+import decodeUserInfo from '../utils/decodeUserInfo';
 
-const INVALID_USER_INFO_STATUS = 404;
+const VALID_LOGIN_STATUS = 200;
 
 const useLoginApi = () => {
   const [isValidLogin, setValidLogin] = useState(() => null);
-  const { auth: { setAuthentication } } = useContext(AppContext);
+  const { auth: { setAuthentication }, user: { setUserData } } = useContext(AppContext);
 
   const loginUser = useCallback(
     async ({ email, password }) => {
-      const { status } = await PostLogin({ email, password });
-      const isInvalidUserInfo = status === INVALID_USER_INFO_STATUS;
-      setValidLogin(!isInvalidUserInfo);
-      setAuthentication(!isInvalidUserInfo);
+      const requestData = {
+        method: 'post',
+        data: { email, password },
+        endpoint: 'login',
+      };
+
+      const response = await requestApi(requestData);
+
+      const isValidLoginStatus = response.status === VALID_LOGIN_STATUS;
+
+      if (isValidLoginStatus) {
+        const userData = decodeUserInfo(response.data.token);
+        storeUserData(userData);
+        setUserData(userData);
+      }
+
+      setValidLogin(isValidLoginStatus);
+      setAuthentication(isValidLoginStatus);
     },
     [],
   );

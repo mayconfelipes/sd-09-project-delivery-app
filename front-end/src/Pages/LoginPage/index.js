@@ -1,5 +1,5 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import {
   AppTitle,
@@ -15,13 +15,17 @@ import testIds from '../../utils/testIds';
 import useLoginInfo from '../../hooks/useLoginInfo';
 import useLoginApi from '../../hooks/useLoginApi';
 import paths from '../../Routes/paths';
+import { AppContext } from '../../context';
+import redirectByRole from '../../Routes/redirectByRole';
 
 const LoginPage = () => {
   const { loginInfo, handleFieldsChange, isValidInfo } = useLoginInfo();
   const { isValidLogin, loginUser } = useLoginApi();
+  const { user } = useContext(AppContext);
   const shouldRenderError = isValidLogin === false;
+  const history = useHistory();
 
-  if (isValidLogin) return <Redirect to={ paths.customerProducts } />;
+  if (isValidLogin) return redirectByRole(user.data.role);
 
   return (
     <Container>
@@ -55,11 +59,18 @@ const LoginPage = () => {
         >
           Login
         </Button>
-        <Button data-testid={ testIds.id4 }>
+        <Button
+          data-testid={ testIds.id4 }
+          onClick={ () => {
+            history.push(paths.register);
+          } }
+        >
           Ainda não tenho conta
         </Button>
         { shouldRenderError && (
-          <Wrapper data-testid={ testIds.id5 }>
+          <Wrapper
+            data-testid={ testIds.id5 }
+          >
             Mensagem de erro
           </Wrapper>
         )}
