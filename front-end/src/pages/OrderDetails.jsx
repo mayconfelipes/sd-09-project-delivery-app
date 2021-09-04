@@ -4,15 +4,16 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import Navbar from '../components/Navbar';
 import OrderProducts from '../components/OrderProducts';
+import socket from '../utils/socket';
 
 function OrderDetails() {
   const { id } = useParams();
   const [order, setOrder] = useState(null);
   const [user, setUser] = useState(null);
   const [updated, setUpdated] = useState(false);
+  const [status, setStatus] = useState(null);
 
   useEffect(() => {
-    console.log('oi');
     const milisseconds = 400;
     const userLocal = JSON.parse(localStorage.getItem('user'));
     setUser(userLocal);
@@ -20,14 +21,16 @@ function OrderDetails() {
       setTimeout(async () => {
         const response = await axios.get(`http://localhost:3001/sales/${id}`);
         setOrder(response.data);
+        setStatus(response.data.sale.status);
       }, milisseconds);
     };
-
+    socket.on('newStatus', (newStatus) => setStatus(newStatus));
     getSale();
   }, [id, updated]);
 
   const handleClick = async (newStatus) => {
     const milisseconds = 1000;
+    socket.emit('updateStatus', newStatus);
     await axios.put(`http://localhost:3001/sales/${id}`, { newStatus });
     setUpdated(true);
     setTimeout(() => setUpdated(false), milisseconds);
@@ -47,7 +50,6 @@ function OrderDetails() {
       onClick={ () => handleClick(newStatus) }
     >
       {value}
-      { console.log(disabled) }
     </button>
   );
 
@@ -94,16 +96,21 @@ function OrderDetails() {
         <p data-testid={ generateDataTestId('order-date') }>
           { format(new Date(order.sale.saleDate), 'dd/MM/yyyy') }
         </p>
-        <p data-testid={ generateDataTestId('delivery-status') }>{ order.sale.status }</p>
+        <p data-testid={ generateDataTestId('delivery-status') }>
+          { !status ? order.sale.status : status }
+        </p>
         { user.role === 'customer' && (
           <button
             type="button"
             data-testid={ `${user.role}_order_details__button-delivery-check` }
-            disabled={ order.sale.status === 'Preparando'
-            || order.sale.status === 'Pendente' }
+            disabled={ !status
+            || status === 'Preparando'
+            || status === 'Pendente'
+            || status === 'Entregue' }
             onClick={ () => handleClick('Entregue') }
           >
             Marcar como entregue
+            { console.log(status, 'status') }
           </button>
         )}
         { user.role === 'seller' && (
