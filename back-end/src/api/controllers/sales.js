@@ -24,6 +24,18 @@ const getAllById = async (req, res, next) => {
   }
 };
 
+const getSaleById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const sale = await salesServices.getSaleById(id);
+
+    return res.status(OK_STATUS).json(sale);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const update = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -59,6 +71,7 @@ const getAllSales = async (req, res, next) => {
 module.exports = {
   create,
   getAllById,
+  getSaleById,
   update,
   getByUser,
   getAllSales,

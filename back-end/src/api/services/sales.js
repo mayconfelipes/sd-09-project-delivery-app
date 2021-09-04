@@ -38,6 +38,7 @@ const getSaleById = async (id) => {
   return sale;
 };
 
+// Pega todas as vendas pelo id do usuário
 const getAllById = async (id) => {
   const sale = await Sales.findAll({ where: { userId: id } });
 
