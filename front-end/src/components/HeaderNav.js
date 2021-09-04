@@ -47,28 +47,33 @@ class HeaderNav extends React.Component {
     return (
       <div>
         <nav>
-          <Link to={ `${linkTo}` }>
-            <button
-              type="button"
-              data-testid="customer_products__element-navbar-link-orders"
+          <div className="left-nav">
+            <Link to={ `${linkTo}` }>
+              <button
+                type="button"
+                data-testid="customer_products__element-navbar-link-orders"
+              >
+                { nameBtn }
+              </button>
+            </Link>
+          </div>
+          <div className="right-nav">
+            <p
+              className="name-nav"
+              data-testid="customer_products__element-navbar-user-full-name"
             >
-              { nameBtn }
-            </button>
-          </Link>
-          <p
-            data-testid="customer_products__element-navbar-user-full-name"
-          >
-            { name }
-          </p>
-          <Link to="/login">
-            <button
-              type="button"
-              onClick={ this.removeUser }
-              data-testid="customer_products__element-navbar-link-logout"
-            >
-              Sair
-            </button>
-          </Link>
+              { name }
+            </p>
+            <Link to="/login">
+              <button
+                type="button"
+                onClick={ this.removeUser }
+                data-testid="customer_products__element-navbar-link-logout"
+              >
+                Sair
+              </button>
+            </Link>
+          </div>
         </nav>
       </div>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import OrderCard from '../components/OrderCard';
 import fetchGET from '../services/fetchGET';
+import '../styles/Orders.css';
 
 class Orders extends React.Component {
   constructor() {
@@ -30,7 +31,7 @@ class Orders extends React.Component {
     const { role } = JSON.parse(localStorage.user);
 
     return (
-      <div>
+      <div className="allCards">
         { allSales.map((sale, index) => (
           <OrderCard
             key={ `${sale}${index}` }

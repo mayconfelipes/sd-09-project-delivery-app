@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import socket from '../utils/socket';
+import '../styles/Orders.css';
 
 class OrderCard extends React.Component {
   constructor() {
@@ -53,43 +54,64 @@ class OrderCard extends React.Component {
   sellerAddress() {
     const { sale } = this.props;
     return (
-      <p
-        data-testid={ `seller_orders__element-card-address-${sale.id}` }
-      >
-        {`${sale.deliveryAddress}, ${sale.deliveryNumber}` }
-      </p>
+      <div className="word-address">
+        <span>Rua: </span>
+        <span
+          data-testid={ `seller_orders__element-card-address-${sale.id}` }
+        >
+          {`${sale.deliveryAddress}, ${sale.deliveryNumber}` }
+        </span>
+      </div>
+    );
+  }
+
+  dateAndStatus() {
+    const { sale, role } = this.props;
+    const newDate = this.dateFormat(sale.saleDate);
+    return (
+      <div>
+        <p
+          className="word-date-price"
+          data-testid={ `${role}_orders__element-order-date-${sale.id}` }
+        >
+          { newDate }
+        </p>
+        <div className="word-date-price">
+          <span>R$ </span>
+          <span
+            data-testid={ `${role}_orders__element-card-price-${sale.id}` }
+          >
+            { sale.totalPrice.replace(/\./, ',') }
+          </span>
+        </div>
+      </div>
     );
   }
 
   render() {
     const { sale, role } = this.props;
     const { statusP } = this.state;
-    const newDate = this.dateFormat(sale.saleDate);
 
     return (
       <div>
-        <Link to={ `/${role}/orders/${sale.id}` }>
-          <p
-            data-testid={ `${role}_orders__element-order-id-${sale.id}` }
-          >
-            <span>Pedido:</span>
-            { sale.id }
-          </p>
-          <div>
+        <Link className="card" to={ `/${role}/orders/${sale.id}` }>
+          <div className="word-pedido">
+            <p>Pedido:</p>
             <p
-              data-testid={ `${role}_orders__element-delivery-status-${sale.id}` }
+              data-testid={ `${role}_orders__element-order-id-${sale.id}` }
             >
-              { statusP }
+              { sale.id }
             </p>
-            <div>
+          </div>
+          <div className="container-card">
+            <div className="card-up">
               <p
-                data-testid={ `${role}_orders__element-order-date-${sale.id}` }
+                className="word-status"
+                data-testid={ `${role}_orders__element-delivery-status-${sale.id}` }
               >
-                { newDate }
+                { statusP }
               </p>
-              <p data-testid={ `${role}_orders__element-card-price-${sale.id}` }>
-                { sale.totalPrice.replace(/\./, ',') }
-              </p>
+              { this.dateAndStatus() }
             </div>
             { role === 'seller' && this.sellerAddress() }
           </div>

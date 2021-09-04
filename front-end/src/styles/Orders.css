@@ -1,0 +1,63 @@
+.allCards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card {
+  border: 1px solid rgb(178, 187, 184);
+  box-shadow: 1px 1px 1px grey;
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+  text-decoration: none;
+  width: 310px;
+}
+
+.word-pedido {
+  align-items: center;
+  background-color: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  padding: 10px;
+}
+
+.word-pedido p {
+  margin: 0;
+}
+
+.container-card {
+  background-color: rgba(234, 241, 239, 1);
+  flex-grow: 2;
+}
+
+.card-up {
+  align-items: center;
+  display: flex; 
+}
+
+.word-status {
+  background-color: rgba(204, 184, 0, 0.75);
+  border-radius: 5px;
+  color: black;
+  margin: 6px;
+  padding: 28px;
+}
+
+.word-date-price {
+  background-color: white;
+  border-radius: 5px;
+  color: black;
+  margin: 0 0 5px 0;
+  padding: 5px;
+}
+
+.word-address {
+  color: black;
+  font-size: x-small;
+  padding: 5px;
+  text-align: end;
+}

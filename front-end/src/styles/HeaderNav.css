@@ -1,0 +1,43 @@
+nav {
+  background-color: rgba(3, 107, 82, 1);
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.left-nav {
+  display: flex;
+  height: 100%;
+}
+
+.left-nav button {
+  background-color: rgba(3, 107, 82, 1);
+  border: 0;
+  color: white;
+  height: 100%;
+  width: 150px;
+}
+
+.right-nav {
+  display: flex;
+  height: 100%;
+  width: 250px;
+}
+
+.right-nav button {
+  background-color: rgba(5, 108, 249, 1);
+  border: 0;
+  color: white;
+  height: 100%;
+  width: 70px;
+}
+
+.name-nav {
+  background-color: rgba(66, 25, 129, 1);
+  color: white;
+  margin: 0;
+  padding-top: 16px;
+  text-align: center;
+  width: 200px;
+}

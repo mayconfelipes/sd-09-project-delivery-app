@@ -1,0 +1,49 @@
+.ordersDetail {
+  margin: 0 30px 0 30px;
+}
+
+.order-detail-container {  
+  border: 1px solid rgb(178, 187, 184);
+  box-shadow: 1px 1px 1px grey;
+  padding-bottom: 42px;
+}
+
+.order-detail-up {
+  align-items: center;
+  background-color: #eaf1ef;
+  display: flex;
+  height: 32px;
+  justify-content: space-between;
+  padding: 0 2px 0 2px;
+}
+
+.order-sub-total {
+  background-color: rgba(5, 108, 249, 1);
+  border-radius: 0 5px 5px 0;
+  color: white;
+}
+
+.order-detail-down {
+  padding: 5px;
+}
+
+.status-color {
+  background-color: rgba(204, 184, 0, 0.75);
+  border-radius: 5px;
+  padding: 2px 5px 2px 5px;
+}
+
+.btn-status {
+  background-color: rgba(3, 107, 82, 1);
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  padding: 4px 5px 4px 5px;
+}
+
+.btn-status:disabled,
+.btn-status[disabled]{
+  background-color: rgb(204, 204, 204);
+  border: 1px solid rgb(153, 153, 153);
+  color: rgb(102, 102, 102);
+}

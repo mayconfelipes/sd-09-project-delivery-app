@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { productsAction, setTotalPriceAction } from '../actions/checkoutAction';
+import '../styles/Checkout.css';
+import '../styles/OrderDetails.css';
 
 class ItensDetails extends React.Component {
   constructor() {
@@ -35,31 +37,37 @@ class ItensDetails extends React.Component {
     return (
       <tr>
         <td
+          className="detail-item"
           data-testid={ `customer_checkout__element-order-table-item-number-${indexP}` }
         >
           { indexP + 1 }
         </td>
         <td
+          className="detail-name"
           data-testid={ `customer_checkout__element-order-table-name-${indexP}` }
         >
           { name }
         </td>
         <td
+          className="detail-quantity"
           data-testid={ `customer_checkout__element-order-table-quantity-${indexP}` }
         >
           { quantity }
         </td>
         <td
+          className="detail-valor"
           data-testid={ `customer_checkout__element-order-table-unit-price-${indexP}` }
         >
           { price.replace(/\./, ',') }
         </td>
         <td
+          className="detail-sub-total"
           data-testid={ `customer_checkout__element-order-table-sub-total-${indexP}` }
         >
           { (price * quantity).toFixed(2).replace(/\./, ',') }
         </td>
         <td
+          className="detail-remove"
           data-testid={ `customer_checkout__element-order-table-remove-${indexP}` }
         >
           <button type="button" onClick={ this.removeProduct }>Remover</button>

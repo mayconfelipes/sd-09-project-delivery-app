@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import fetchPOST from '../services/fetchPOST';
+import '../styles/Home.css';
 
 class Register extends React.Component {
   constructor() {
@@ -71,12 +72,14 @@ class Register extends React.Component {
       disabled,
       redirect } = this.state;
     return (
-      <div>
+      <div className="form">
         <h3>Cadastro</h3>
-        <div>
-          <label htmlFor="name">
-            Nome
+        <div className="form-container">
+          <label className="label-login" htmlFor="name">
+            <p className="word-label">Nome</p>
             <input
+              className="input-label"
+              placeholder="Colocar seu nome Completo"
               type="text"
               id="name"
               name="name"
@@ -85,9 +88,11 @@ class Register extends React.Component {
               data-testid="common_register__input-name"
             />
           </label>
-          <label htmlFor="email">
-            Email
+          <label className="label-login" htmlFor="email">
+            <p className="word-label">Email</p>
             <input
+              className="input-label"
+              placeholder="email@email.com"
               type="text"
               id="email"
               name="email"
@@ -96,9 +101,11 @@ class Register extends React.Component {
               data-testid="common_register__input-email"
             />
           </label>
-          <label htmlFor="password">
-            Senha
+          <label className="label-login" htmlFor="password">
+            <p className="word-label">Senha</p>
             <input
+              className="input-label"
+              placeholder="******"
               type="password"
               id="password"
               name="password"
@@ -108,6 +115,7 @@ class Register extends React.Component {
             />
           </label>
           <button
+            className="btn-login"
             type="button"
             data-testid="common_register__button-register"
             onClick={ this.fetchAPI }
@@ -115,17 +123,18 @@ class Register extends React.Component {
           >
             CADASTRAR
           </button>
+          <Link to="/login">
+            <button
+              className="btn-login"
+              type="button"
+            >
+              LOGIN
+            </button>
+          </Link>
         </div>
         { toggleMessage
           && <p data-testid="common_register__element-invalid_register">{ message }</p> }
         { redirect && <Redirect to="/customer/products" /> }
-        <Link to="/login">
-          <button
-            type="button"
-          >
-            Login
-          </button>
-        </Link>
       </div>
     );
   }

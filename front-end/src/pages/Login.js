@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import fetchPOST from '../services/fetchPOST';
+import '../styles/Home.css';
 
 class Login extends React.Component {
   constructor() {
@@ -77,12 +78,14 @@ class Login extends React.Component {
     }
 
     return (
-      <div>
+      <div className="form">
         <h3>Login</h3>
-        <div>
-          <label htmlFor="email">
-            Login
+        <div className="form-container">
+          <label className="label-login" htmlFor="email">
+            <p className="word-label">Login</p>
             <input
+              className="input-label"
+              placeholder="email@email.com"
               type="text"
               id="email"
               name="email"
@@ -91,9 +94,11 @@ class Login extends React.Component {
               data-testid="common_login__input-email"
             />
           </label>
-          <label htmlFor="password">
-            Password
+          <label className="label-login" htmlFor="password">
+            <p className="word-label">Password</p>
             <input
+              className="input-label"
+              placeholder="******"
               type="password"
               id="password"
               name="password"
@@ -103,6 +108,7 @@ class Login extends React.Component {
             />
           </label>
           <button
+            className="btn-login"
             type="button"
             data-testid="common_login__button-login"
             onClick={ this.fetchAPI }
@@ -114,6 +120,7 @@ class Login extends React.Component {
             && <p data-testid="common_login__element-invalid-email">{ message }</p> }
           <Link to="/register">
             <button
+              className="btn-register"
               type="button"
               data-testid="common_login__button-register"
             >

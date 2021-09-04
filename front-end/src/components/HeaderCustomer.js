@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/HeaderNav.css';
 
 class HeaderCustomer extends React.Component {
   constructor() {
@@ -33,36 +34,41 @@ class HeaderCustomer extends React.Component {
     return (
       <div>
         <nav>
-          <Link to="/customer/products">
-            <button
-              type="button"
-              data-testid="customer_products__element-navbar-link-products"
+          <div className="left-nav">
+            <Link to="/customer/products">
+              <button
+                type="button"
+                data-testid="customer_products__element-navbar-link-products"
+              >
+                PRODUTOS
+              </button>
+            </Link>
+            <Link to="/customer/orders">
+              <button
+                type="button"
+                data-testid="customer_products__element-navbar-link-orders"
+              >
+                MEUS PEDIDOS
+              </button>
+            </Link>
+          </div>
+          <div className="right-nav">
+            <p
+              className="name-nav"
+              data-testid="customer_products__element-navbar-user-full-name"
             >
-              PRODUTOS
-            </button>
-          </Link>
-          <Link to="/customer/orders">
-            <button
-              type="button"
-              data-testid="customer_products__element-navbar-link-orders"
-            >
-              MEUS PEDIDOS
-            </button>
-          </Link>
-          <p
-            data-testid="customer_products__element-navbar-user-full-name"
-          >
-            { name }
-          </p>
-          <Link to="/login">
-            <button
-              type="button"
-              onClick={ this.removeUser }
-              data-testid="customer_products__element-navbar-link-logout"
-            >
-              Sair
-            </button>
-          </Link>
+              { name }
+            </p>
+            <Link to="/login">
+              <button
+                type="button"
+                onClick={ this.removeUser }
+                data-testid="customer_products__element-navbar-link-logout"
+              >
+                Sair
+              </button>
+            </Link>
+          </div>
         </nav>
       </div>
     );

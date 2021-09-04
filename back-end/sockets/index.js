@@ -2,8 +2,8 @@ const Sales = require('../src/services/Sales');
 const Users = require('../src/services/Users');
 
 module.exports = (io) => io.on('connection', (socket) => {
-  socket.on('updateStatus', ({ id, status }) => {
-    io.emit('newStatus', { id, status });
+  socket.on('updateStatus', ({ id, status, rgb }) => {
+    io.emit('newStatus', { id, status, rgb });
     Sales.updateSale(id, { status });
   });
 
