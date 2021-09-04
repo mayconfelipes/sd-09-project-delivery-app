@@ -36,7 +36,7 @@
 
 .card-up {
   align-items: center;
-  display: flex; 
+  display: flex;
 }
 
 .word-status {
@@ -51,7 +51,7 @@
   background-color: white;
   border-radius: 5px;
   color: black;
-  margin: 0 0 5px 0;
+  margin: 0 0 5px;
   padding: 5px;
 }
 

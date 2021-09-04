@@ -1,14 +1,14 @@
-.form{
-  left:50%;
+.form {
+  left: 50%;
   margin-left: -175px;
   margin-top: -225px;
-  position:absolute;
-  top:50%;
+  position: absolute;
+  top: 50%;
 }
 
 .form-container {
   align-items: center;
-  background:rgba(234, 241, 239, 1);
+  background: rgba(234, 241, 239, 1);
   border: 1px solid rgb(178, 187, 184);
   display: flex;
   flex-direction: column;
@@ -18,15 +18,15 @@
 }
 
 .btn-login {
-  background:rgba(3, 107, 82, 1);
+  background: rgba(3, 107, 82, 1);
   color: white;
   font-size: large;
   height: 45px;
   width: 250px;
 }
 
-.btn-login:disabled,
-.btn-login[disabled]{
+.btn-login:disabled, 
+.btn-login[ disabled ] {
   background-color: rgb(204, 204, 204);
   border: 1px solid rgb(153, 153, 153);
   color: rgb(102, 102, 102);
@@ -50,7 +50,7 @@
   flex: 0;
   font-size: large;
   height: 32px;
-  margin: 0 0 8px 0;
+  margin: 0 0 8px;
   text-align: center;
   width: 250px;
 }

@@ -1,8 +1,8 @@
 .ordersDetail {
-  margin: 0 30px 0 30px;
+  margin: 0 30px;
 }
 
-.order-detail-container {  
+.order-detail-container {
   border: 1px solid rgb(178, 187, 184);
   box-shadow: 1px 1px 1px grey;
   padding-bottom: 42px;
@@ -14,7 +14,7 @@
   display: flex;
   height: 32px;
   justify-content: space-between;
-  padding: 0 2px 0 2px;
+  padding: 0 2px;
 }
 
 .order-sub-total {
@@ -30,7 +30,7 @@
 .status-color {
   background-color: rgba(204, 184, 0, 0.75);
   border-radius: 5px;
-  padding: 2px 5px 2px 5px;
+  padding: 2px 5px;
 }
 
 .btn-status {
@@ -38,11 +38,11 @@
   border: 0;
   border-radius: 5px;
   color: white;
-  padding: 4px 5px 4px 5px;
+  padding: 4px 5px;
 }
 
-.btn-status:disabled,
-.btn-status[disabled]{
+.btn-status:disabled, 
+.btn-status[ disabled ] {
   background-color: rgb(204, 204, 204);
   border: 1px solid rgb(153, 153, 153);
   color: rgb(102, 102, 102);

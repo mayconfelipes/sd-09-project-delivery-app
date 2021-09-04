@@ -1,5 +1,5 @@
 .checkout {
-  margin: 0 30px 0 30px;
+  margin: 0 30px;
 }
 
 .checkout-items {
@@ -71,7 +71,7 @@ table {
   border-radius: 0 5px 5px 0;
 }
 
-td button{
+td button {
   background-color: rgba(47, 193, 140, 1);
   border: 0;
   color: white;
