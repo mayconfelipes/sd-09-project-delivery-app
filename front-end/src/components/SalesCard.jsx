@@ -24,7 +24,6 @@ function SalesCard({ sale, role }) {
       >
         <Link
           to={ `/${role}/orders/${id}` }
-          data-testid={ `${role}_orders__element-order-id-${id}` }
         >
           <h4
             data-testid={ `${role}_orders__element-order-id-${id}` }
@@ -33,11 +32,15 @@ function SalesCard({ sale, role }) {
             { id.toString().padStart(maxLenghPad, '0') }
           </h4>
         </Link>
-        <h4
-          data-testid={ `${role}_orders__element-delivery-status-${id}` }
+        <Link
+          to={ `/${role}/orders/${id}` }
         >
-          { status }
-        </h4>
+          <h4
+            data-testid={ `${role}_orders__element-delivery-status-${id}` }
+          >
+            { status }
+          </h4>
+        </Link>
         <h4
           data-testid={ `${role}_orders__element-order-date-${id}` }
         >

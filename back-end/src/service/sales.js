@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Sale, SalesProduct, Product } = require('../database/models');
+const { Sale, SalesProduct, Product, User } = require('../database/models');
 
 const checkoutNewSale = async (data, productCart) => {
   const newSale = await Sale.create(data);
@@ -26,11 +26,14 @@ const getSales = async (id) => {
 };
 
 const getSale = async (id) => {
-  const response = await Sale.findOne({
+  const sale = await Sale.findOne({
     where: { id },
     include: [{ model: Product, as: 'products' }],
   });
-  return response;
+
+  const seller = await User.findByPk(sale.sellerId);
+
+  return { sale, seller };
 };
 
 module.exports = {
