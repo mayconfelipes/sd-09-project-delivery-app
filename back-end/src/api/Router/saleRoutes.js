@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post('/', [validateToken, Sale.register]);
 router.put('/', [validateToken, Sale.update]);
-router.get('/byUserId/:userId', [Sale.findByUserId]);
+router.get('/byUserId/:userId', [Sale.findAllByUserId]);
 
 module.exports = router;
