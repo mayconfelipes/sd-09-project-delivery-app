@@ -30,7 +30,7 @@ const CardOrderList = ({ order }) => {
         { moment(order.sale_date).format('L')}
       </p>
       <p data-testid={ `seller_orders__element-card-price-${order.id}` }>
-        { `R$ ${order.totalPrice}` }
+        { order.totalPrice.toString().replace(/\./, ',') }
       </p>
     </div>
   );
@@ -52,7 +52,7 @@ const CardOrderList = ({ order }) => {
               data-testid={ `seller_orders__element-delivery-status-${order.id}` }
               className={ `status-container ${orderStatus}` }
             >
-              { orderStatus.toUpperCase() }
+              { orderStatus }
             </div>
             { renderDateAndPrice() }
           </section>

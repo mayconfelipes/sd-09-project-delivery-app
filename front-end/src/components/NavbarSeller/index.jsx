@@ -11,7 +11,7 @@ const NavBarSeller = () => {
       <ul className="navbar-seller-container">
         <Link to="/seller/orders">
           <li
-            data-testid="seller_products__element-navbar-link-orders"
+            data-testid="customer_products__element-navbar-link-orders"
           >
             PEDIDOS
           </li>
@@ -19,7 +19,7 @@ const NavBarSeller = () => {
         <div>
           <Link to="/login">
             <li
-              data-testid="seller_products__element-navbar-user-full-name"
+              data-testid="customer_products__element-navbar-user-full-name"
             >
               { name }
             </li>
@@ -28,7 +28,7 @@ const NavBarSeller = () => {
             <button
               type="button"
               onClick={ () => localStorage.clear() }
-              data-testid="seller_products__element-navbar-link-logout"
+              data-testid="customer_products__element-navbar-link-logout"
             >
               Sair
             </button>
