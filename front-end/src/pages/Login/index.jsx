@@ -8,12 +8,23 @@ const Login = () => {
   const [isError, setError] = useState();
   const [redirect, setRedirect] = useState();
   const [isDataValid, setIsDataValid] = useState(true);
+  const [route, setRoute] = useState('');
   const { userData, setUserData } = useDeliveryContext();
 
   function handleInputChange({ target }) {
     const { name, value } = target;
     setUserData({ ...userData, [name]: value });
   }
+
+  useEffect(() => {
+    if (!JSON.parse(localStorage.getItem('user'))) return;
+    const { role } = JSON.parse(localStorage.getItem('user'));
+
+    if (role === 'customer') setRoute('/customer/products');
+    if (role === 'seller') setRoute('/seller/orders');
+    if (role === 'administrator') setRoute('/admin/manage');
+    setRedirect(true);
+  }, [route]);
 
   useEffect(() => {
     const { email, password } = userData;
@@ -27,10 +38,19 @@ const Login = () => {
     }
   }, [userData]);
 
+  const RedirectRole = ({ role }) => {
+    if (role === 'customer') setRoute('/customer/products');
+
+    if (role === 'seller') setRoute('/seller/orders');
+
+    if (role === 'administrator') setRoute('/admin/manage');
+  };
+
   const handleError = async () => {
     const data = userData;
     try {
       await api.post('/login', data).then((response) => {
+        RedirectRole(response.data);
         localStorage.setItem('user', JSON.stringify(response.data));
       });
       setRedirect(true);
@@ -85,7 +105,7 @@ const Login = () => {
         </Link>
       </form>
       { isError && <NotFound /> }
-      { redirect && <Redirect to="customer/products" /> }
+      { redirect && <Redirect to={ route } /> }
     </>
   );
 };

@@ -36,7 +36,6 @@ const CardOrderList = ({ order }) => {
   );
 
   return (
-    // eslint-disable-next-line react/react-in-jsx-scope
     <Link to={ `/seller/orders/${order.id}` }>
       <div className="card-order">
         <p

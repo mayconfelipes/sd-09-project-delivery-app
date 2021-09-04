@@ -14,6 +14,21 @@ const OrderLIst = () => {
 
   const { cart, products, setProducts, total, setTotal } = useDeliveryContext();
 
+  // const calculateTotalPrice = (array) => {
+  //   let totalPrice = 0;
+  //   array.forEach(({ quantity, price }) => {
+  //     totalPrice += quantity * Number(price);
+  //   });
+
+  //   setTotal(totalPrice);
+  // };
+
+  // const convertCartToArray = () => {
+  //   const productsList = Object.keys(cart).map((product) => cart[product]);
+  //   calculateTotalPrice(productsList);
+  //   return productsList;
+  // };
+
   const calculateTotalPrice = (array) => {
     let totalPrice = 0;
     array.forEach(({ quantity, price }) => {
@@ -23,16 +38,20 @@ const OrderLIst = () => {
     setTotal(totalPrice);
   };
 
-  const convertCartToArray = () => {
-    const productsList = Object.keys(cart).map((product) => cart[product]);
-    calculateTotalPrice(productsList);
-    return productsList;
-  };
-
+  // https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies
   useEffect(() => {
+    const convertCartToArray = () => {
+      const productsList = Object.keys(cart).map((product) => cart[product]);
+      return productsList;
+    };
+
     const converted = convertCartToArray();
+
+    const listTotal = converted
+      .reduce((acc, curr) => acc + (curr.quantity * Number(curr.price)), 0);
+    setTotal(listTotal);
     setProducts(converted);
-  }, []);
+  }, [cart, setProducts, setTotal]);
 
   const handleRemoveProduct = (indexItem) => {
     const tmpProducts = products;

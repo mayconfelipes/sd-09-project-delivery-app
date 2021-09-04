@@ -17,7 +17,7 @@ const NavBarSeller = () => {
           </li>
         </Link>
         <div>
-          <Link to="/register">
+          <Link to="/login">
             <li
               data-testid="seller_products__element-navbar-user-full-name"
             >
@@ -27,7 +27,7 @@ const NavBarSeller = () => {
           <Link to="/login">
             <button
               type="button"
-              onClick={ () => localStorage.setItem('user', '') }
+              onClick={ () => localStorage.clear() }
               data-testid="seller_products__element-navbar-link-logout"
             >
               Sair

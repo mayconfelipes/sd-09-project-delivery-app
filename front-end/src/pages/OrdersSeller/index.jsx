@@ -9,8 +9,6 @@ const OrdersSeller = () => {
   const { token } = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    console.log('Eu te odeio ESLINT');
-    console.log(token);
     api.get('/orders', { headers: { authorization: token } })
       .then((resp) => setOrders(resp.data));
   }, [token]);
