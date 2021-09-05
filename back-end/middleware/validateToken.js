@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const secret = 'secret';
 
 const validateToken = (req, res, next) => {
-  const {authorization: token} = req.headers;
+  const token = req.headers.authorization;
   if (!token) return res.status(401).json('token not found');
   jwt.verify(token, secret, (err, decoded) => {
     if (decoded) return next();
@@ -12,5 +12,5 @@ const validateToken = (req, res, next) => {
 };
 
 module.exports = {
-  validateToken
-}
+  validateToken,
+};
