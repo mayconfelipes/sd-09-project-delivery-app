@@ -9,9 +9,8 @@ const Orders = () => {
 
   const getOrders = () => {
     const { email } = JSON.parse(localStorage.getItem('user'));
-    connectBack.get('/customer/orders', { email })
+    connectBack.post('/customer/ordersAll', { email })
       .then((response) => {
-        console.log(response.data);
         setOrders(response.data);
       })
       .catch((error) => {
@@ -20,7 +19,7 @@ const Orders = () => {
   };
   useEffect(() => {
     getOrders();
-  }, [orders]);
+  }, []);
   console.log(orders);
   return (
     <div>

@@ -24,7 +24,7 @@ function Routes() {
         <Route exact path="/seller/orders" component={ Seller } />
         <Route path="/seller/orders/:id" component={ Details } />
         <Route path="/customer/orders/:id" component={ OrderDetails } />
-        <Route path="/customer/orders" component={ Orders } />
+        <Route exact path="/customer/orders" component={ Orders } />
         <Route path="/customer/checkout" component={ Checkout } />
         <Route path="/customer/products" component={ Products } />
         <Route path="/login" component={ Login } />
