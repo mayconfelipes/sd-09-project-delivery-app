@@ -6,14 +6,16 @@ import NavBar from '../../../components/NavBar';
 
 const Details = () => {
   const [sale, setSale] = useState();
-  // const prefixId = 'seller_orders__element-order-date-';
+
   const { id } = useParams();
-  const prefix = ' seller_orders__element-';
+  const prefixOrder = 'seller_order_details__element-order-details-label-';
+  const prefixTable = 'seller_order_details__element-order-table-';
   const fetchDetails = async (saleId) => {
     try {
-      const response = await fetch(`http://localhost:3001/sales/${saleId}`);
+      const response = await fetch(`http://localhost:3001/sales_products/${saleId}`);
       const saleById = await response.json();
       setSale(saleById);
+      console.log(saleById);
     } catch (error) {
       console.error(error);
     }
@@ -26,31 +28,27 @@ const Details = () => {
   // const redirectToDetails = (id) => {
   //   history.push(`/seller/orders/${id}`);
   // };
-  const renderTable = (obj) => (
-    <div>
-      <div data-test-id={ `${prefix}order-id` }>
-        { obj.id}
+  const renderTable = (arr) => arr.map((item, index) => (
+    <div key={ index }>
+      <div className="seller-data-e-preço">
+        <div className="seller-itens">
+          <div
+            className="seller-itens"
+            data-testid={ `${prefixTable}item-number${index}` }
+          />
+          {item.sale_id}
+        </div>
       </div>
-      <div>
-        { obj.user_id}
-      </div>
-      <div>
-        { obj.seller_id}
-      </div>
-      <div data-test-id={ `${prefix}card-price` }>
-        { obj.total_price}
-      </div>
-      <div data-test-id={ `${prefix}card-address` }>
-        { obj.delivery_address}
-      </div>
-      <div>
-        { obj.delivery_number}
-      </div>
-      <div data-test-id={ `${prefix}order-date` }>
-        { obj.sale_date}
-      </div>
+      <section className="seller-card-parte-de-baixo">
+        <div
+          className="seller-endereço"
+          data-testid={ `${prefixTable}card-address-${item.id}` }
+        >
+          {item.delivery_address}
+        </div>
+      </section>
     </div>
-  );
+  ));
 
   //   <div
   //     className="seller-card"
@@ -86,6 +84,29 @@ const Details = () => {
   return (
     <div>
       <NavBar />
+      <section className="seller-card-parte-de-cima">
+        <div className="seller-itens">
+          Nº
+          {id}
+        </div>
+        <div className="seller-itens">
+          <div
+            className="seller-itens"
+            data-testid={ `${prefixOrder}order-date` }
+          />
+          {/* {item.sale_date} */}
+        </div>
+        <div className="seller-itens">
+          <div
+            className="seller-itens"
+            data-testid={ `${prefixOrder}delivery-status` }
+          >
+            <div className="seller-page-status">
+              Pendente
+            </div>
+          </div>
+        </div>
+      </section>
       {sale ? <>{renderTable(sale)}</> : (
         <Loading />
       )}
