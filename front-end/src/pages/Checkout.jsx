@@ -80,6 +80,7 @@ function Checkout() {
   );
 
   const finishOrder = async () => {
+    console.log('token: ', user.token);
     /* axios.post('http://localhost:3001/sale',
       salesDetails, {
         headers: {

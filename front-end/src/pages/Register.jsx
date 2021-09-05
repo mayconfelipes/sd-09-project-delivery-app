@@ -43,7 +43,7 @@ function Register() {
         },
       });
       // const { data } = request;
-      // localStorage.setItem('user', JSON.stringify(data));
+      localStorage.setItem('user', JSON.stringify(data));
       history.push('/customer/products');
     } catch (e) {
       setErrorMessage('Usuario já cadastrado');
