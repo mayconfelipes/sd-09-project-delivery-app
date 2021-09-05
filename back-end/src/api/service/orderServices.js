@@ -27,5 +27,9 @@ const populateSaleProd = async (saleId, products) => {
   return newSaleProd;
 };
 
+const findOrderById = async (id) => {
+  const findIdOrder = await sale.findOne({ where: { id } });
+  return findIdOrder;
+};
 
-module.exports = { newOrder, populateSaleProd };
+module.exports = { newOrder, populateSaleProd, findOrderById };

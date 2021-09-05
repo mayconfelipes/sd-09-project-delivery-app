@@ -41,18 +41,16 @@ const CheckoutCard = ({ cart, setCart }) => {
         deliveryAddress: address,
         deliveryNumber: number,
         status: 'Pendente',
-        // saleDate: Date.now(), Já possui defaultValue
-        // updatedAt: Date.now(), Já possui defaultValue
-        products: cart.map(({ id, quantity }) => ({ id, quantity })), // verificar se há necessidade de fazer o envio junto, assim já preenche o salesproducts
+        products: cart.map(({ id, quantity }) => ({ id, quantity })),
       }),
     };
     const theSale = await fetch('http://localhost:3001/customer/order', orderBody)
       .then((response) => response.json())
-      .then(({ saleId }) => {
+      .then((jsoned) => {
         setCart([]);
-        history.push(`customer/orders/${saleId}`);
+        history.push(`customer/orders/${jsoned.id}`);
       });
-    console.log(theSale);
+    console.log('NÃO VER ISSO', theSale, history);
   };
 
   useEffect(() => {

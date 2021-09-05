@@ -1,5 +1,5 @@
 const rescue = require('express-rescue');
-const { newOrder, populateSaleProd } = require('../service/orderServices');
+const { newOrder, populateSaleProd, findOrderById } = require('../service/orderServices');
 
 const insertOrderInSale = rescue(async (req, res) => {
   const { userId,
@@ -20,7 +20,9 @@ const insertOrderInSale = rescue(async (req, res) => {
 
   await populateSaleProd(insertNewOrder.id, products);
 
-  res.status(201).json({ saleId: insertNewOrder.id });
+  const findById = await findOrderById(insertNewOrder.id);
+
+  res.status(201).json(findById);
 });
 
 module.exports = { insertOrderInSale };
