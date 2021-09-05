@@ -23,13 +23,13 @@ const registerSalesProducts = async (cartItens, newSale) => {
   cartItens.forEach(({ item }) => 
   productArray.push(products.findOne({ where: { name: item.name } })));
   const idList = await Promise.all(productArray);
-  const result = idList.map(({ id }, index) =>  salesProduct.create({
+  const result = idList.map(({ id }, index) => salesProduct.create({
     saleId: newSale.id, productId: id, quantity: cartItens[index].item.quant,
   }));
   try {
     await Promise.all(result);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 

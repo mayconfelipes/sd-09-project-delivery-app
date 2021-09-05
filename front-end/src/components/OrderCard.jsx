@@ -1,20 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const dataTestId = require('../utills/dataTestIds');
+
 const OrderCard = (props) => {
-  const { orderInfo } = props;
+  const { order } = props;
+  const { id, status, saleDate, totalPrice } = order;
   return (
     <div>
-      <p>{orderInfo}</p>
-      <p>status do pedido</p>
-      <p>data do pedido</p>
-      <p>Preço</p>
+      <p data-testid={ `${dataTestId[33] + id}` }>{id}</p>
+      <p data-testid={ `${dataTestId[34] + id}` }>{status}</p>
+      <p data-testid={ `${dataTestId[35] + id}` }>{saleDate}</p>
+      <p>{totalPrice}</p>
     </div>
   );
 };
 
 OrderCard.propTypes = {
-  ordersInfo: PropTypes.objectOf,
+  id: PropTypes.number,
+  status: PropTypes.string,
+  saleDate: PropTypes.string,
+  totalPrice: PropTypes.number,
 }.isRequired;
 
 export default OrderCard;
