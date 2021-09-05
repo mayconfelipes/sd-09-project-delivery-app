@@ -27,6 +27,26 @@ function Login() {
     setDisableButton(false);
   };
 
+  const userRedirect = {
+    customer: '/customer/products',
+    seller: '/seller/orders',
+    administrator: '/admin/manage',
+  };
+
+  const history = useHistory();
+
+  const verifyIfAlreadyLogged = () => {
+    const userData = JSON.parse(localStorage.getItem('user'));
+
+    if (userData !== null) {
+      history.push(userRedirect[userData.role]);
+    }
+  };
+
+  useEffect(() => {
+    verifyIfAlreadyLogged();
+  });
+
   useEffect(() => {
     verifyLoginCredentials();
   }, [loginData]);
@@ -35,25 +55,24 @@ function Login() {
     setLoginData({ ...loginData, [name]: value });
   };
 
-  const history = useHistory();
-
   const handleClick = async () => {
     const result = await api.loginUser(loginData);
     if (result.error) {
       setErrorMessage(result.error.message);
     } else {
       localStorage.setItem('user', JSON.stringify(result));
-      switch (result.role) {
-      case 'administrator':
-        history.push('/admin/manage');
-        break;
-      case 'seller':
-        history.push('/seller/orders');
-        break;
-      default:
-        history.push('/customer/products');
-        break;
-      }
+      history.push(userRedirect[result.role]);
+      // switch (result.role) {
+      // case 'administrator':
+      //   history.push('/admin/manage');
+      //   break;
+      // case 'seller':
+      //   history.push('/seller/orders');
+      //   break;
+      // default:
+      //   history.push('/customer/products');
+      //   break;
+      // }
     }
   };
 

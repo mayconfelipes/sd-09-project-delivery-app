@@ -42,6 +42,12 @@ function CustomerOrderDetails() {
     dataTestIds[45],
   ];
 
+  const clickChangeSaleStatus = async (event) => {
+    const status = event.target.value;
+    await api.changeOrderStatus(myOrder.id, status);
+    getSale(orderId);
+  };
+
   return (
     <div>
       <Navbar role={ userData.role } />
@@ -63,7 +69,9 @@ function CustomerOrderDetails() {
         <button
           type="button"
           data-testid={ dataTestIds[47] }
-          disabled={ myOrder.status === 'Pendente' }
+          disabled={ myOrder.status !== 'Em Trânsito' }
+          value="Entregue"
+          onClick={ clickChangeSaleStatus }
         >
           MARCAR COMO ENTREGUE
         </button>
