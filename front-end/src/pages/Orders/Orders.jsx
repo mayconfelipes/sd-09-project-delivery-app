@@ -17,9 +17,11 @@ const Orders = () => {
         console.log(error);
       });
   };
+
   useEffect(() => {
     getOrders();
   }, []);
+
   console.log(orders);
   return (
     <div>

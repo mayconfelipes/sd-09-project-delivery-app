@@ -22,6 +22,7 @@ const Products = () => {
   useEffect(() => {
     fetchDrinks();
   }, []);
+
   useEffect(() => {
     const cartItens = JSON.parse(localStorage.getItem('products'));
     const currPrice = Object.entries(cartItens)
