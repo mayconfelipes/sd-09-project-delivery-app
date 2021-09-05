@@ -2,15 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import dataTestIds from '../utils/dataTestIds';
+import transformDate from '../utils/transformDate';
 
 function OrderCard({ sale }) {
   const {
     role,
     id,
-    total_price: price,
-    delivery_address: adress,
-    delivery_number: addressNumber,
-    sale_date: date,
+    totalPrice: price,
+    deliveryAddress: adress,
+    deliveryNumber: addressNumber,
+    saleDate: date,
     status,
   } = sale;
 
@@ -60,12 +61,17 @@ function OrderCard({ sale }) {
                   : `${dataTestIds[35]}${id}`
               }
             >
-              { date }
+              { transformDate(date) }
             </p>
             <p
-              data-testid={ role === 'seller' && `${dataTestIds[51]}${id}` }
+              // data-testid={ role === 'seller' && `${dataTestIds[51]}${id}` }
+              data-testid={
+                role === 'seller'
+                  ? `${dataTestIds[51]}${id}`
+                  : `${dataTestIds[36]}${id}`
+              }
             >
-              { price }
+              { price.replace('.', ',') }
             </p>
           </div>
         </div>
@@ -79,10 +85,10 @@ OrderCard.propTypes = {
   sale: PropTypes.shape({
     role: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    total_price: PropTypes.number.isRequired,
-    delivery_address: PropTypes.string.isRequired,
-    delivery_number: PropTypes.number.isRequired,
-    sale_date: PropTypes.string.isRequired,
+    totalPrice: PropTypes.string.isRequired,
+    deliveryAddress: PropTypes.string.isRequired,
+    deliveryNumber: PropTypes.string.isRequired,
+    saleDate: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
   }).isRequired,
 };
