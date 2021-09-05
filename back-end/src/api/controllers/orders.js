@@ -8,7 +8,7 @@ const getOneOrderById = async (req, res) => {
 
 const getAllOrdersByCustomerId = async (req, res) => {
   const { email } = req.body;
-  console.log(email,req.body);
+  console.log(email, req.body);
   const allOrders = await ordersService.getAllOrdersByCustomerId(email);
   return res.status(200).json(allOrders);
 };

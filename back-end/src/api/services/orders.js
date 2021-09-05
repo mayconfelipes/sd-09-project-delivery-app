@@ -7,7 +7,7 @@ const getOneOrderById = async (id) => {
 
 const getAllOrdersByCustomerId = async (email) => {
   const userId = await users.findOne({ where: { email } });
-  const {id} = userId.dataValues;
+  const { id } = userId.dataValues;
   const allOrders = await sales.findAll({ where: { userId: id } });
   return allOrders;
 };
