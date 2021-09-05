@@ -149,7 +149,7 @@ describe(requirement(20), () => {
   });
 });
 
-describe.only(requirement(21), () => {
+describe(requirement(21), () => {
   test("O avaliador testará se, após realizado o checkout, as alterações constarão no banco de dados", async () => {
     const { saleId, saleDate } = await action.customer.checkoutNewSale(
       page,
@@ -208,7 +208,6 @@ describe.only(requirement(21), () => {
         quantity,
       })
     );
-      console.log(itemList)
     for (const item of salesProductsExpected) {
       await expect(database).toReturnDataWith({
         query: [salesProducts.query, "WHERE sale_id = ?"].join(" "),
