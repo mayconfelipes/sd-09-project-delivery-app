@@ -159,9 +159,7 @@ const CustomerOrderDetails = ({ match }) => {
               }
               return null;
             })}
-
         </div>
-
       </div>
     </>
   );
