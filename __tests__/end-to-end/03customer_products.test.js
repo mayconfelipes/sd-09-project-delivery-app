@@ -154,7 +154,7 @@ describe(requirement(14), () => {
   );
 });
 
-describe.only(requirement(15), () => {
+describe(requirement(15), () => {
   const itemList = action.customer.getRandomProducts();
   showCurrentCart(itemList, requirement(15));
 
@@ -239,7 +239,7 @@ describe.only(requirement(15), () => {
     );
   });
 
-  test.only("O avaliador testará o fluxo completo de adição de itens, validando o valor total de produtos", async () => {
+  test("O avaliador testará o fluxo completo de adição de itens, validando o valor total de produtos", async () => {
     expect(
       await action.customer.validateProductsTotalPrice(page, itemList)
     ).toBeTruthy();

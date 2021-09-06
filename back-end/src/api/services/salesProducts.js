@@ -5,9 +5,9 @@ const getAll = async () => {
  return allSales;
 };
 
-const getById = async (sale_id) => {
+const getById = async (saleId) => {
   const sale = await salesProducts.findAll({
-    where: { sale_id },
+    where: { saleId },
   });
   return sale;
 };

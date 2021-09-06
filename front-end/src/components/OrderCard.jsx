@@ -6,14 +6,16 @@ const dataTestId = require('../utills/dataTestIds');
 
 const OrderCard = (props) => {
   const history = useHistory();
-  const { order } = props;
+  const { order, index } = props;
+  const orderId = index + 1;
+  console.log(orderId);
   const { id, status, saleDate, totalPrice } = order;
   return (
     <div>
       <button type="button" onClick={ () => history.push(`/customer/orders/${id}`) }>
-        <p data-testid={ `${dataTestId[33] + id}` }>{id}</p>
-        <p data-testid={ `${dataTestId[34] + id}` }>{status}</p>
-        <p data-testid={ `${dataTestId[35] + id}` }>{saleDate}</p>
+        <p data-testid={ `${dataTestId[33] + orderId}` }>{orderId}</p>
+        <p data-testid={ `${dataTestId[34] + orderId}` }>{status}</p>
+        <p data-testid={ `${dataTestId[35] + orderId}` }>{saleDate}</p>
         <p>{totalPrice}</p>
       </button>
 
