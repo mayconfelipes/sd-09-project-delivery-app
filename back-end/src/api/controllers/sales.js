@@ -11,9 +11,11 @@ module.exports = {
       next(err);
     }
   },
-  async getAll(_req, res, next) {
+  async getAll(req, res, next) {
     try {
-      const response = await salesService.getAll();
+      const { id: userId, role } = req.user;
+
+      const response = await salesService.getAll(userId, role);
 
       res.status(200).json(response);
     } catch (err) {
