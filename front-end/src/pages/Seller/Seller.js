@@ -6,7 +6,7 @@ import NavBar from '../../components/NavBar';
 
 const Seller = () => {
   const [sales, setSales] = useState([]);
-  const prefixId = 'seller_orders__element-order-date-';
+  const prefixId = 'seller_orders__element-order-id-';
   const prefix = 'seller_orders__element-';
 
   const fetchDrinks = async () => {

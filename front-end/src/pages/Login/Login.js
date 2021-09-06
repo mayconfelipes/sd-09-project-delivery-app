@@ -15,7 +15,8 @@ function Login() {
   const [isDisabled, trueOrFalse] = useState(true);
   const [invalidLogin, setInvalidLogin] = useState(false);
   const history = useHistory();
-  const verifyIfIslogged = useCallback(() => {
+
+  const redirectCostumer = useCallback(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       const { role } = user;
@@ -27,8 +28,8 @@ function Login() {
   const passMin = 5;
 
   useEffect(() => {
-    verifyIfIslogged();
-  }, [verifyIfIslogged]);
+    redirectCostumer();
+  }, [redirectCostumer]);
 
   const verifyDisabled = () => {
     const re = /(.+)@(.+){2,}\.(.+){2,}/;
@@ -50,14 +51,6 @@ function Login() {
     verifyDisabled();
   };
 
-  const redirectCostummer = () => {
-    console.log(email);
-    if (email === 'adm@deliveryapp.com') {
-      history.push('/admin/manage');
-    } else {
-      history.push('/customer/products');
-    }
-  };
   const redirectRegister = () => {
     history.push('/register');
   };
@@ -68,7 +61,7 @@ function Login() {
       .then((response) => {
         console.log('LOGOU', response.data.user);
         saveTokenLocalStorage(response.data.user);
-        redirectCostummer();
+        redirectCostumer();
       })
       .catch((error) => {
         console.log(error);

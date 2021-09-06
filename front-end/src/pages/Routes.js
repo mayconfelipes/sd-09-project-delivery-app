@@ -30,6 +30,7 @@ function Routes() {
         <Route path="/login" component={ Login } />
         <Redirect from="/customer" to="/customer/products" />
         <Redirect from="/seller" to="/seller/orders" />
+        <Redirect from="/admin" to="/admin/manage" />
         <Redirect from="/" to="/login" />
       </Switch>
     </Router>
