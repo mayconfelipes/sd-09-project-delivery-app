@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/navbar';
 import * as S from './styled';
 import formValidator from '../../services/formValidator';
+import { registerUserByAdmin } from '../../services/fetchApi';
 
 const DEFAULT_DATA = {
   name: '',
@@ -14,6 +15,7 @@ const DEFAULT_DATA = {
 const AdminManage = () => {
   const [data, setData] = useState(DEFAULT_DATA);
   const [disableButton, setDisableButton] = useState(true);
+  const [insertResult, setInsertResult] = useState('');
   const { name, email, password, selectedRole, typeArray } = data;
 
   const paginas = [
@@ -33,6 +35,20 @@ const AdminManage = () => {
       ...data,
       selectedRole: value,
     });
+  };
+
+  const createNewUser = async () => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const roleTypes = {
+      Administrador: 'administrator',
+      Vendedor: 'seller',
+      Comprador: 'customer',
+    };
+
+    const userInfo = { name, email, password, role: roleTypes[selectedRole] };
+    const result = await registerUserByAdmin(token, userInfo);
+    console.log(result);
+    setInsertResult(result);
   };
 
   useEffect(() => {
@@ -85,9 +101,14 @@ const AdminManage = () => {
           type="button"
           data-testid="admin_manage__button-register"
           disabled={ disableButton }
+          onClick={ createNewUser }
         >
           CADASTRAR
         </button>
+        {
+          (insertResult !== '' && insertResult !== 'Cadastrado com sucesso')
+            && <p data-testid="admin_manage__element-invalid-register">Deu ruim</p>
+        }
       </S.FormNewUser>
     </div>
   );

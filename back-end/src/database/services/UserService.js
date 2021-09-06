@@ -89,14 +89,10 @@ const registerUserByAdmin = async (name, email, password, role) => {
 
     if (user) throw Error;
 
-    const { dataValues: newUser } = await User
+    await User
       .create({ name, email, password: encryptedPassword, role });
 
-    const { password: userPassword, ...payload } = newUser;
-
-    const token = sign(payload);
-
-    return token;
+    return;
   } catch (error) {
 
     throw errorHelper(409, '"Email" or "Name" already used');

@@ -25,7 +25,7 @@ const sellers = rescue(async(_req, res) => {
 const registerByAdmin = rescue(async(req, res) => {
   const { name, email, password, role } = req.body;
 
-  const token = await User.registerUserByAdmin(name, email, password, role);
+  await User.registerUserByAdmin(name, email, password, role);
 
   return res.status(201).json({ message: 'Cadastrado com sucesso' });
 });
