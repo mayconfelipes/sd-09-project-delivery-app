@@ -7,6 +7,7 @@ export const GlobalStateProvider = ({ children }) => {
   const [cartQuantity, setCartQuantity] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [itemId, setItemId] = useState(0);
+  const [localStatus, setLocalStatus] = useState('');
 
   useEffect(() => {
     setCartQuantity(cartQuantity);
@@ -40,7 +41,9 @@ export const GlobalStateProvider = ({ children }) => {
           setCartQuantity,
           cartQuantity,
           totalPrice,
-          setItemId }
+          setItemId,
+          localStatus,
+          setLocalStatus }
       }
     >
       { children }

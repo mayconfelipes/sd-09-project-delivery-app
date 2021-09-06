@@ -34,6 +34,7 @@ const Checkout = () => {
       });
     }
   }, []);
+  console.log(sellerName);
 
   const onClickRemoveItem = (itemId) => {
     const one = 1;
