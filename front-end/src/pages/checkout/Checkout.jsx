@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import CartItems from '../../components/cartItems/CartItems';
 import NavBar from '../../components/navBar/NavBar';
 import { createNewSale, createSalesProducts } from '../../services/salesAPI';
@@ -11,6 +12,8 @@ export default function Checkout() {
   const [currentIdSellerDropDown, setCurrentIdSellerDropDown] = useState(0);
   const [currentAddress, setCurrentAddress] = useState('');
   const [currentNumberAddress, setCurrentNumberAddress] = useState('');
+
+  const history = useHistory();
 
   useEffect(() => {
     const cartLocalStorage = JSON.parse(localStorage.getItem('productsAdded'));
@@ -62,6 +65,7 @@ export default function Checkout() {
       };
       await createSalesProducts(objectToCreateSalesProducts);
     });
+    history.push(`/customer/orders/${newSale.id}`);
   };
 
   return (
