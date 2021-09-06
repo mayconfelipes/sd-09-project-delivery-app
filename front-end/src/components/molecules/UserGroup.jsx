@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { AppContext } from '../../context';
 import { Label, Link, Wrapper } from '../atoms';
-// import generateKey from '../../utils/uniqueKeyGenerator';
 import { getThemeColor } from '../../styles/utils';
 import testIds from '../../utils/testIds';
 

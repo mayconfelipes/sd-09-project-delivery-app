@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { fieldChangeHandler } from '../utils/handlers';
 import { validateInfo } from '../utils/validateInfo';
 
-const useAuthFormValidation = ({ fields, validationSchema }) => {
+const useAuthFormInfo = ({ fields, validationSchema }) => {
   const initialState = fields.reduce(
     (accumulator, field) => ({ ...accumulator, [field]: '' }),
     {},
@@ -22,4 +22,4 @@ const useAuthFormValidation = ({ fields, validationSchema }) => {
   return { authInfo, handleFieldsChange, isValidInfo };
 };
 
-export default useAuthFormValidation;
+export default useAuthFormInfo;

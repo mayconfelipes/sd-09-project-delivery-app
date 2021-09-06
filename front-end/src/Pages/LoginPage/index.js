@@ -17,11 +17,11 @@ import { AppContext } from '../../context';
 import redirectByRole from '../../Routes/redirectByRole';
 import useAuthentication from '../../hooks/useAuthentication';
 import backendStatus from '../../utils/backendStatus';
-import useAuthFormValidation from '../../hooks/useAuthFormValidation';
+import useAuthFormInfo from '../../hooks/useAuthFormInfo';
 import { loginSchema } from '../../utils/validateInfo';
 
 const LoginPage = () => {
-  const { authInfo, handleFieldsChange, isValidInfo } = useAuthFormValidation({
+  const { authInfo, handleFieldsChange, isValidInfo } = useAuthFormInfo({
     fields: ['email', 'password'],
     validationSchema: loginSchema,
   });

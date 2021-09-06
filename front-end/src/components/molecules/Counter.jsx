@@ -17,6 +17,8 @@ const Counter = ({ className }) => {
   return (
     <Wrapper className={ className }>
       <Wrapper>
+      </Wrapper>
+      <Wrapper>
         <Button primary onClick={  }>-</Button>
         <Input type="text" value={ quantity } />
         <Button primary>+</Button>
