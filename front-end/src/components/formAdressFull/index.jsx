@@ -1,39 +1,60 @@
-import React, { useEffect, useState } from 'react';
-import { getAllSellers } from '../../services/fetchApi';
+import React, { useEffect, useState, useContext } from 'react';
+import { getAllSellers, sendOrder } from '../../services/fetchApi';
 import * as S from './styled';
+import Context from '../../context';
 
-const FormAdressFull = () => {
+const FormAddressFull = () => {
   const DEFAULT_FORM = {
     sellers: [{ name: 'Buscando vendedores', id: 'nenhum' }],
     selectedSeller: 'Buscando vendedores',
-    adress: '',
+    address: '',
     number: '',
   };
 
-  const [form, setForm] = useState(DEFAULT_FORM);
-  const { sellers, selectedSeller, adress, number } = form;
+  const { cart } = useContext(Context);
+  const [formOrder, setFormOrder] = useState(DEFAULT_FORM);
+  const { sellers, selectedSeller, address, number } = formOrder;
 
   const fetchAllSellers = async () => {
     const { token } = JSON.parse(localStorage.getItem('user'));
     const result = await getAllSellers(token);
-    setForm({
-      ...form,
+    setFormOrder({
+      ...formOrder,
       sellers: [...result],
+      selectedSeller: result[0].name,
     });
   };
 
-  const handleAdressInfo = ({ target: { name, value } }) => {
-    setForm({
-      ...form,
+  const handleAddressInfo = ({ target: { name, value } }) => {
+    setFormOrder({
+      ...formOrder,
       [name]: value,
     });
   };
 
   const handleSeller = ({ target: value }) => {
-    setForm({
-      ...form,
+    setFormOrder({
+      ...formOrder,
       selectedSeller: value,
     });
+  };
+
+  const submitOrder = async () => {
+    const seller = sellers.find((elem) => elem.name === selectedSeller);
+    const { token } = JSON.parse(localStorage.getItem('user'));
+
+    const order = {
+      sale: {
+        sellerId: seller.id,
+        deliveryAddress: address,
+        deliveryNumber: number,
+        totalPrice: cart.totalValue,
+      },
+      products: cart.products,
+    };
+
+    const id = await sendOrder(token, order);
+    console.log(id);
   };
 
   useEffect(() => {
@@ -41,7 +62,7 @@ const FormAdressFull = () => {
   }, []);
 
   return (
-    <S.ContainerFormAdressFull>
+    <S.ContainerFormAddressFull>
       <h1>Detalhes e Endereço para Entrega</h1>
       <S.Form>
         <S.Select
@@ -58,10 +79,10 @@ const FormAdressFull = () => {
         <input
           type="text"
           placeholder="Endereço completo"
-          name="adress"
-          value={ adress }
+          name="address"
+          value={ address }
           data-testId="customer_checkout__input-address"
-          onChange={ handleAdressInfo }
+          onChange={ handleAddressInfo }
         />
         <input
           type="number"
@@ -69,17 +90,18 @@ const FormAdressFull = () => {
           name="number"
           value={ number }
           data-testId="customer_checkout__input-addressNumber"
-          onChange={ handleAdressInfo }
+          onChange={ handleAddressInfo }
         />
       </S.Form>
       <button
         type="button"
         data-testId="customer_checkout__button-submit-order"
+        onClick={ submitOrder }
       >
         FINALIZAR PEDIDO
       </button>
-    </S.ContainerFormAdressFull>
+    </S.ContainerFormAddressFull>
   );
 };
 
-export default FormAdressFull;
+export default FormAddressFull;

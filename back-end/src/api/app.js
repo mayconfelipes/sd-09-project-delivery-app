@@ -2,6 +2,7 @@ const express = require('express');
 
 const path = require('path');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const loginRoute = require('../routes/loginRoute');
 const allSellers = require('../routes/allSellers');
@@ -14,6 +15,7 @@ const authMiddleware = require('../database/services/jwt/authMiddleware');
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
@@ -30,7 +32,6 @@ app.use(errorMiddleware);
 
 module.exports = app;
 
-// saveOrder
 // getSaleById
 // getAllSales - socket
 // changeOrderStatus - update sales

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ContainerFormAdressFull = styled.div`
+export const ContainerFormAddressFull = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
