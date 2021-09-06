@@ -12,12 +12,10 @@ import theme from './styles/theme';
 
 ReactDOM.render(
   <AppProvider>
-    <BrowserRouter>
-      <ThemeProvider theme={ theme }>
-        <GlobalStyle />
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
+    <ThemeProvider theme={ theme }>
+      <GlobalStyle />
+      <App />
+    </ThemeProvider>
   </AppProvider>,
   document.getElementById('root'),
 );

@@ -17,21 +17,15 @@ const colorNames = {
 
 const theme = {
   colors: {
-    schema: {
-      primary: colorNames.bangladeshGreen,
-      secondary: colorNames.mountainMeadow,
-      tertiary: colorNames.blueViolet,
-      quaternary: colorNames.brandeisBlue,
-    },
-    text: {
-      dark: colorNames.richBlack,
-      light: colorNames.brightGray,
-    },
-    order: {
-      delivered: colorNames.webAzure,
-      preparing: colorNames.kiwi,
-      pending: colorNames.sandstorm,
-    },
+    primary: colorNames.bangladeshGreen,
+    secondary: colorNames.mountainMeadow,
+    tertiary: colorNames.blueViolet,
+    quaternary: colorNames.brandeisBlue,
+    dark: colorNames.richBlack,
+    light: colorNames.brightGray,
+    delivered: colorNames.webAzure,
+    preparing: colorNames.kiwi,
+    pending: colorNames.sandstorm,
   },
 };
 

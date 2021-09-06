@@ -1,8 +1,9 @@
 import React, { useEffect, useContext } from 'react';
+import NavBar from '../../../components/organisms/NavBar';
 
 import { AppContext } from '../../../context';
 import requestApi from '../../../services/api';
-import testIds from '../../../utils/testIds';
+// import testIds from '../../../utils/testIds';
 
 const Products = () => {
   const { auth: { token } } = useContext(AppContext);
@@ -20,16 +21,7 @@ const Products = () => {
   }, [token]);
   return (
     <>
-      <header>
-        <nav>
-          <a href="/" data-testid={ testIds.id11 }>a</a>
-          <a href="/" data-testid={ testIds.id12 }>a</a>
-        </nav>
-        <div>
-          <div data-testid={ testIds.id13 }>a</div>
-          <a href="/" data-testid={ testIds.id14 }>a</a>
-        </div>
-      </header>
+      <NavBar />
       <main>
         a
       </main>
