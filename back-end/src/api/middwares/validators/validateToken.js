@@ -18,7 +18,7 @@ const validateToken = async (req, _res, next) => {
     }
 
     const payload = jwt.verify(token, jwtRead);
-
+    
     req.user = payload;
     next();
   } catch (err) {

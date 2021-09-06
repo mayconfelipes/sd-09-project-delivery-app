@@ -36,7 +36,11 @@ app.post('/register', usersControllers.create);
 
 app.get('/register', validateToken, usersControllers.getByRole);
 
-app.get('/sales/user', validateToken, salesControllers.getByUser);
+app.get('/sale/id', validateToken, salesControllers.getSaleById);
+
+app.get('/sale/:id', validateToken, salesControllers.getAllSalesById);
+
+// app.get('/sales/user', validateToken, salesControllers.getByUser);
 
 app.get('/sales/getAll', validateToken, salesControllers.getAllSales);
 

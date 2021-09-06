@@ -11,18 +11,17 @@ import style from './orders.module.scss';
 const CustomerOrders = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [sale, setSale] = useState([]);
+
   useEffect(() => {
     const localItem = JSON.parse(localStorage.getItem('user'));
     if (localItem) {
-      const { token, id: userId } = localItem;
-      saleById(userId, token).then((data) => {
-        setSale(data);
-        setIsLoading(false);
-      });
+      saleById(localItem.token)
+        .then((data) => {
+          setSale(data);
+          setIsLoading(false);
+        });
     }
   }, []);
-
-  console.log(sale);
 
   if (isLoading) return <p>Loading...</p>;
   return (
