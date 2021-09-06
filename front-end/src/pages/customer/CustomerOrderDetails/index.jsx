@@ -80,7 +80,7 @@ const CustomerOrderDetails = ({ match }) => {
   );
 
   if (isLoading) return <p>Loading...</p>;
-  console.log(sale);
+
   return (
     <>
       <NavBar />

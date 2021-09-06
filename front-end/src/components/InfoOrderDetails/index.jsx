@@ -17,7 +17,8 @@ const InfoOrderDetails = ({
   date,
   orderStatus,
   deliveryCheck,
-  dispatchCheckDisabled,
+  handleClickPreparing,
+  handleClickDelivering,
 }) => (
   <div className={ style.infoOrderDetails }>
     <p className={ style.span }>
@@ -50,6 +51,9 @@ const InfoOrderDetails = ({
         type="button"
         data-testid={ dataTestIdPreparingCheck }
         className={ style.orderStatus }
+        onClick={ handleClickPreparing }
+        disabled={ deliveryStatus === 'Preparando'
+        || deliveryStatus === 'Em Trânsito' || deliveryStatus === 'Entregue' }
       >
         {orderStatus}
       </button>)}
@@ -57,7 +61,9 @@ const InfoOrderDetails = ({
       type="button"
       data-testid={ dataTestIdDeliveryCheck }
       className={ style.markAsDelivered }
-      disabled={ dispatchCheckDisabled }
+      onClick={ handleClickDelivering }
+      disabled={ !deliveryStatus === 'Preparando' || deliveryStatus === 'Em Trânsito'
+      || deliveryStatus === 'Entregue' || deliveryStatus === 'Pendente' }
     >
       {deliveryCheck}
     </button>
@@ -70,21 +76,26 @@ InfoOrderDetails.propTypes = {
   shouldSellerApear: P.bool,
   shouldOrderStatusApear: P.bool,
   dataTestIdOrderId: P.string.isRequired,
-  dataTestIdSeller: P.string.isRequired,
+  dataTestIdSeller: P.string,
   dataTestIdOrderDate: P.string.isRequired,
   dataTestIdDeliveryStatus: P.string.isRequired,
   dataTestIdPreparingCheck: P.string.isRequired,
   dataTestIdDeliveryCheck: P.string.isRequired,
   order: P.string.isRequired,
-  sellerName: P.string.isRequired,
+  sellerName: P.string,
   deliveryStatus: P.string.isRequired,
   date: P.string.isRequired,
   orderStatus: P.string.isRequired,
   deliveryCheck: P.string.isRequired,
-  dispatchCheckDisabled: P.bool.isRequired,
+  handleClickPreparing: P.func,
+  handleClickDelivering: P.func,
 };
 
 InfoOrderDetails.defaultProps = {
   shouldSellerApear: false,
   shouldOrderStatusApear: false,
+  dataTestIdSeller: '',
+  sellerName: '',
+  handleClickPreparing: () => {},
+  handleClickDelivering: () => {},
 };

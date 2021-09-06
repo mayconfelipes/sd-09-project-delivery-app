@@ -9,7 +9,7 @@ const NavBar = ({ orders, products }) => {
   const onLoginClick = () => {
     localStorage.removeItem('user');
   };
-  console.log(products);
+
   const route = products === 'PRODUTOS' ? '/customer/products' : '/seller/orders';
   const testId = products === 'PRODUTOS'
     ? ('customer_products__element-navbar-link-products')
