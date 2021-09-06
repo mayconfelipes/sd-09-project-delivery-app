@@ -1,4 +1,5 @@
 const URLBase = 'http://localhost:3001';
+const applicationJson = 'application/json';
 
 const salesOrdersAPI = async (saleBody) => {
   try {
@@ -6,7 +7,7 @@ const salesOrdersAPI = async (saleBody) => {
     const requestOptions = {
       mode: 'cors',
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': applicationJson },
       body: JSON.stringify(saleBody),
     };
     const request = await fetch(URL, requestOptions);
@@ -22,4 +23,52 @@ const salesOrdersAPI = async (saleBody) => {
   }
 };
 
-export default salesOrdersAPI;
+const createNewSale = async (newSaleInfos) => {
+  try {
+    const URL = `${URLBase}/new/sale`;
+    const requestOptions = {
+      mode: 'cors',
+      method: 'POST',
+      headers: { 'Content-Type': applicationJson },
+      body: JSON.stringify(newSaleInfos),
+    };
+    const request = await fetch(URL, requestOptions);
+    const response = await request.json();
+    return response;
+  } catch (error) {
+    const errorObj = {
+      message: 'something bad happened here',
+      error: error.message,
+      status: 500,
+    };
+    console.log(errorObj);
+  }
+};
+
+const createSalesProducts = async (newSaleInfosForSalesProducts) => {
+  try {
+    const URL = `${URLBase}/new/sales-products`;
+    const requestOptions = {
+      mode: 'cors',
+      method: 'POST',
+      headers: { 'Content-Type': applicationJson },
+      body: JSON.stringify(newSaleInfosForSalesProducts),
+    };
+    const request = await fetch(URL, requestOptions);
+    const response = await request.json();
+    return response;
+  } catch (error) {
+    const errorObj = {
+      message: 'something bad happened here!',
+      error: error.message,
+      status: 500,
+    };
+    console.log(errorObj);
+  }
+};
+
+export {
+  createNewSale,
+  salesOrdersAPI,
+  createSalesProducts,
+};
