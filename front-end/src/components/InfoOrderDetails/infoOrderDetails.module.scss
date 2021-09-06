@@ -7,12 +7,12 @@ h1 {
   background-color: #eaf1ef;
   display: flex;
   align-items: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
   justify-content: space-between;
-  padding: 1rem;
 
   .span {
-    font-weight: bold
+    font-weight: bold;
+    margin-left: 3rem;
   }
 
   .date, .status, .markAsDelivered, .orderStatus  {
@@ -24,24 +24,28 @@ h1 {
 
   .date {
     background-color: #f1fbf9;
-    width: 15rem;
+    width: auto;
+  }
+
+  .status, .orderStatus, .markAsDelivered {
+    width:auto;
+    border: hidden;
+    font-size: 2.2rem;
+    margin-bottom: 4rem;
   }
 
   .status {
     background-color: #4dd5b1;
-    width: 17rem;
   }
 
   .orderStatus {
     background-color: #4bc18d;
     color: #fff;
-    width: 22rem;
   }
 
   .markAsDelivered {
     background-color: #256b52;
     color: #fff;
     font-weight: normal;
-    width: 30rem;
   }
 }
