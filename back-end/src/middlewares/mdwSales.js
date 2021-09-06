@@ -30,16 +30,16 @@ const mdwSalesDetails = async (req, res, next) => {
 
 const mdwCreateSale = async (req, res, next) => {
   try {
-    const { sellerId, userId, totalPrice, deliveryNumber, deliveryAddress } = req.body;
+    const { sellerId, userId, totalPrice, deliveryNumber, deliveryAddress, products } = req.body;
     const joiValidate = verifierSaleSchema({
       sellerId, userId, totalPrice, deliveryNumber, deliveryAddress,
     });
 
     if (joiValidate.error) return next(joiValidate.error);
     const saleDate = getDate();
-    const status = 'pendente';
+    const status = 'Pendente';
     const createdSale = await createSale(
-      { sellerId, userId, totalPrice, deliveryNumber, deliveryAddress, status, saleDate },
+      { sellerId, userId, totalPrice, deliveryNumber, deliveryAddress, status, saleDate }, products,
       );
     return res.status(201).json(createdSale);
   } catch (error) {

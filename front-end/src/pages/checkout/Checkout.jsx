@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import CartItems from '../../components/cartItems/CartItems';
 import NavBar from '../../components/navBar/NavBar';
-import { createNewSale, createSalesProducts } from '../../services/salesAPI';
+import { createNewSale /* createSalesProducts */ } from '../../services/salesAPI';
 import getUsers from '../../services/usersAPI';
 
 export default function Checkout() {
@@ -16,7 +16,7 @@ export default function Checkout() {
   const history = useHistory();
 
   useEffect(() => {
-    const cartLocalStorage = JSON.parse(localStorage.getItem('productsAdded'));
+    const productsAdded = JSON.parse(localStorage.getItem('productsAdded'));
     const totalPrice = JSON.parse(localStorage.getItem('totalPrice'));
     const getAllSellers = async () => {
       const users = await getUsers('seller');
@@ -24,11 +24,9 @@ export default function Checkout() {
       setCurrentIdSellerDropDown(users[0].id);
     };
     getAllSellers();
-    setCurrentCart(cartLocalStorage);
+    setCurrentCart(productsAdded);
     setCurrentTotalPrice(totalPrice);
   }, []);
-
-  console.log(currentIdSellerDropDown);
 
   const checkout = async (
     e,
@@ -37,7 +35,7 @@ export default function Checkout() {
   ) => {
     e.preventDefault();
     const userLocalStorageInfos = JSON.parse(localStorage.getItem('user'));
-    const cartLocalStorage = JSON.parse(localStorage.getItem('productsAdded'));
+    // const productsAdded = JSON.parse(localStorage.getItem('productsAdded'));
 
     const allUserInfosBackend = await getUsers(`${userLocalStorageInfos.role}`);
 
@@ -51,19 +49,21 @@ export default function Checkout() {
       totalPrice: currentTotalPrice,
       deliveryNumber: currentNumberAddressInput,
       deliveryAddress: currentAddressInput,
+      products: currentCart,
     };
 
     const userLocal = JSON.parse(localStorage.getItem('user'));
     const newSale = await createNewSale(objectToSaveNewSale, userLocal.token);
 
-    cartLocalStorage.forEach(async (item) => {
-      const objectToCreateSalesProducts = {
-        productId: item.id,
-        saleId: newSale.id,
-        quantity: item.quantity,
-      };
-      await createSalesProducts(objectToCreateSalesProducts, userLocal.token);
-    });
+    // productsAdded.forEach(async (item) => {
+    //   const objectToCreateSalesProducts = {
+    //     productId: item.id,
+    //     saleId: newSale.id,
+    //     quantity: item.quantity,
+    //   };
+    //   await createSalesProducts(objectToCreateSalesProducts, userLocal.token);
+    // });
+
     // localStorage.clear();
     localStorage.removeItem('productsAdded');
     localStorage.removeItem('totalPrice');
