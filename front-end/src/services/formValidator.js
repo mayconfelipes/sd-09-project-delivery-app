@@ -1,10 +1,12 @@
-const formValidator = (email, password, name) => {
+const formValidator = (email, password, name, role) => {
   const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
   const minNameLenght = 12;
   const minPasswordLenght = 6;
+  const roleTypes = ['Administrador', 'Vendedor', 'Comprador'];
 
   if (
-    (name && name.length < minNameLenght)
+    (role && !roleTypes.includes(role))
+    || (name && name.length < minNameLenght)
     || !emailRegex.test(email)
     || password.length < minPasswordLenght
   ) return false;
