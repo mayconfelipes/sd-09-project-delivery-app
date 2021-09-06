@@ -27,7 +27,9 @@ export default function Checkout() {
     setCurrentCart(cartLocalStorage);
     setCurrentTotalPrice(totalPrice);
   }, []);
+
   console.log(currentIdSellerDropDown);
+
   const checkout = async (
     e,
     currentAddressInput = currentAddress,
@@ -43,16 +45,8 @@ export default function Checkout() {
       (user) => user.name === userLocalStorageInfos.name,
     );
 
-    const sellerThatSold = sellers.filter(
-      (seller) => seller.id === currentIdSellerDropDown,
-    );
-
-    console.log(sellerThatSold, 'SELLER THAT SOLD');
-    console.log(currentIdSellerDropDown, 'CURRENT SELLER ID ');
-    console.log(userThatBoughtInfos, 'USER THAT BOUGHT');
-
     const objectToSaveNewSale = {
-      sellerId: sellerThatSold[0].id,
+      sellerId: currentIdSellerDropDown,
       userId: userThatBoughtInfos[0].id,
       totalPrice: currentTotalPrice,
       deliveryNumber: currentNumberAddressInput,
