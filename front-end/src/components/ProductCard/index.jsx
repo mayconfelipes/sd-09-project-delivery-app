@@ -32,7 +32,7 @@ const ProductCard = (
 
   useEffect(() => {
     const localItems = JSON.parse(localStorage.getItem('cart'));
-    if (localItems.length) {
+    if (localItems && localItems.length) {
       localItems.map((item) => item.id === id && setQuantity(item.quantity));
     }
   }, [id]);

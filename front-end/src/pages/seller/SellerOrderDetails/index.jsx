@@ -9,14 +9,16 @@ import PrimaryButton from '../../../components/PrimaryButton';
 import { getOneSaleBySaleId } from '../../../api/sales';
 import formatDate from '../../../util/formatDate';
 import style from './sellerOrderDetails.module.scss';
+import socket from '../../../api/socket';
+import useGlobalContext from '../../../context/GlobalStateProvider';
 
 const SellerOrderDetails = ({ match }) => {
+  const { localStatus, setLocalStatus } = useGlobalContext();
   const { params } = match;
   const { id: paramId } = params;
 
   const [isLoading, setIsLoading] = useState(true);
   const [sale, setSale] = useState([]);
-  const [localStatus, setLocalStatus] = useState('');
   const loc = JSON.parse(localStorage.getItem('deliveryStatus'));
   const [deliveryStatus, setDeliveryStatus] = useState(
     loc ? loc.deliveryStatus : 'Pendente',
@@ -36,8 +38,9 @@ const SellerOrderDetails = ({ match }) => {
   useEffect(() => {
     if (deliveryStatus) {
       localStorage.setItem('deliveryStatus', JSON.stringify(deliveryStatus));
+      socket.emit('statusChange', { id: paramId, status: deliveryStatus });
     }
-  }, [deliveryStatus]);
+  }, [deliveryStatus, paramId]);
 
   useEffect(() => {
     const local = JSON.parse(localStorage.getItem('deliveryStatus'));
@@ -56,10 +59,9 @@ const SellerOrderDetails = ({ match }) => {
       <NavBar orders="" products="PEDIDOS" />
       <h1>Detalhe do Pedido (Área vendedor)</h1>
       <div className={ style.totalContainer }>
-        {sale.map(({ id, status, saleDate, totalPrice, products }, index) => {
+        {sale.map(({ id, saleDate, totalPrice, products }, index) => {
           const newDate = formatDate(saleDate);
           const priceToString = totalPrice.toString().replace('.', ',');
-          console.log(status);
           if (id === Number(paramId)) {
             return (
               <div key={ index }>

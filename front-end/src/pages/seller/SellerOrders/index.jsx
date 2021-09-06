@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import P from 'prop-types';
 import { Link } from 'react-router-dom';
+import socket from '../../../api/socket';
 
 import NavBar from '../../../components/Navbar';
 import ProductStatus from '../../../components/ProductStatus';
@@ -8,10 +9,13 @@ import formatDate from '../../../util/formatDate';
 
 import { getAllSales } from '../../../api/sales';
 import style from './orders.module.scss';
+import useGlobalContext from '../../../context/GlobalStateProvider';
 
 const SellerOrders = () => {
   const [sales, setSales] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [newStatus, setNewStatus] = useState({});
+  const { localStatus } = useGlobalContext();
 
   useEffect(() => {
     const localItem = JSON.parse(localStorage.getItem('user'));
@@ -23,15 +27,23 @@ const SellerOrders = () => {
     }
   }, []);
 
+  useEffect(() => {
+    socket.on('statusChanged', (data) => {
+      setNewStatus(data);
+    });
+  }, [localStatus]);
+  console.log(newStatus);
+
   if (isLoading) return <p>Loading...</p>;
   return (
     <>
       <NavBar orders="" products="PEDIDOS" />
       <div className={ style.productStatusContainer }>
         {sales.map(({
-          id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber }) => {
+          id, saleDate, totalPrice, deliveryAddress, deliveryNumber }) => {
           const newDate = formatDate(saleDate);
           const priceToString = totalPrice.toString().replace('.', ',');
+          console.log(newStatus.id, id);
           return (
             <Link
               key={ id }
@@ -40,7 +52,7 @@ const SellerOrders = () => {
             >
               <ProductStatus
                 orderPrice={ `${priceToString}` }
-                orderStatus={ status }
+                orderStatus={ newStatus.id === id && newStatus.status }
                 orderDate={ newDate }
                 orderNumber={ `000${id}` }
                 orderAddress={ `${deliveryAddress}, ${deliveryNumber}` }
