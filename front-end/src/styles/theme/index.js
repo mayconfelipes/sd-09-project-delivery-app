@@ -8,9 +8,9 @@ const colorNames = {
   brandeisBlue: '#056cf9', // quaternary
   // Text
   richBlack: '#001813', // dark
-  brightGray: '#eaf1ef', // light
+  webAzure: '#f2fffc', // light
   // Order colors
-  webAzure: '#f2fffc', // delivered
+  caribbeanGreen: '#00cc9b', // delivered
   kiwi: '#8cd940', // preparing
   sandstorm: '#d9ca40', // pending
 };
@@ -22,8 +22,8 @@ const theme = {
     tertiary: colorNames.blueViolet,
     quaternary: colorNames.brandeisBlue,
     dark: colorNames.richBlack,
-    light: colorNames.brightGray,
-    delivered: colorNames.webAzure,
+    light: colorNames.webAzure,
+    delivered: colorNames.caribbeanGreen,
     preparing: colorNames.kiwi,
     pending: colorNames.sandstorm,
   },

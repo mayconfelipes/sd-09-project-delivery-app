@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { Link as RouterLink, NavLink as RouterNavLink } from 'react-router-dom';
+import { getThemeColor, setIfActive } from '../../styles/utils';
+import { navLinkThemes } from '../../styles/componentThemes';
 
 export const AppTitle = styled.h1``;
 
@@ -18,7 +20,9 @@ export const Link = styled(RouterLink)`
 `;
 
 export const NavLink = styled(RouterNavLink)`
-  ${(props) => console.log(props)}
+  text-decoration: none;
+  color: ${getThemeColor('light')}
+  ${setIfActive(navLinkThemes)}
 `;
 
 export const NavWrapper = styled.nav``;
