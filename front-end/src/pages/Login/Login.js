@@ -4,21 +4,27 @@ import { useHistory } from 'react-router-dom';
 
 import connectBack from '../../utills/axiosConfig';
 
+const saveTokenLocalStorage = (user) => {
+  localStorage.setItem('user', JSON.stringify(user));
+  localStorage.setItem('products', JSON.stringify({}));
+};
+
 function Login() {
   const [email, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, trueOrFalse] = useState(true);
   const [invalidLogin, setInvalidLogin] = useState(false);
+  const history = useHistory();
+  const verifyIfIslogged = useCallback(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      const { role } = user;
+      history.push(`/${role}`);
+    }
+  }, [history]);
 
   const prefix = 'common_login__';
   const passMin = 5;
-  const history = useHistory();
-
-  const verifyIfIslogged = useCallback(() => {
-    if (localStorage.getItem('user')) {
-      history.push('/customer/products');
-    }
-  }, [history]);
 
   useEffect(() => {
     verifyIfIslogged();
@@ -34,11 +40,6 @@ function Login() {
     setInvalidLogin(false);
   };
 
-  const saveTokenLocalStorage = (user) => {
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('products', JSON.stringify({}));
-  };
-
   const userChange = ({ target }) => {
     setUser(target.value);
     verifyDisabled();
@@ -47,7 +48,6 @@ function Login() {
   const passwordChange = ({ target }) => {
     setPassword(target.value);
     verifyDisabled();
-    console.log(history);
   };
 
   const redirectCostummer = () => {
