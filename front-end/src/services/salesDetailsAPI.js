@@ -1,13 +1,10 @@
 const URLBase = 'http://localhost:3001';
 
-const salesOrdersAPI = async (saleBody, user) => {
+const salesOrdersAPI = async (params) => {
   try {
-    const URL = `${URLBase}/${user}/orders`;
+    const URL = `${URLBase}/seller/details/${params}`;
     const requestOptions = {
-      mode: 'cors',
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(saleBody),
+      method: 'GET',
     };
     const request = await fetch(URL, requestOptions);
     const response = await request.json();
