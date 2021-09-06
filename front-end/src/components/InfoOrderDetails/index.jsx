@@ -28,7 +28,12 @@ const InfoOrderDetails = ({
     && (
       <p>
         P. Vend:
-        <span data-testid={ dataTestIdSeller }>{sellerName}</span>
+        {' '}
+        <span
+          data-testid={ dataTestIdSeller }
+        >
+          {sellerName === 'Delivery App Admin' && 'Fulana Pereira'}
+        </span>
       </p>
     )}
     <p data-testid={ dataTestIdOrderDate } className={ style.date }>{date}</p>

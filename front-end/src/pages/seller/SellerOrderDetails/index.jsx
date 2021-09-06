@@ -62,7 +62,9 @@ const SellerOrderDetails = ({ match }) => {
                 />
                 <div key={ id } className={ style.barContainer }>
                   <GridOrderDetails />
-                  {products.map(({ id: productId, name, price, SalesProducts }) => {
+                  {products.map((
+                    { id: productId, name, price, SalesProducts }, productIndex,
+                  ) => {
                     const { quantity } = SalesProducts;
                     const productsPrice = price * quantity;
                     const priceRound = (Math.round(productsPrice * 100) / 100).toFixed(2);
@@ -71,7 +73,7 @@ const SellerOrderDetails = ({ match }) => {
                     return (
                       <DescriptionsBar
                         key={ productId }
-                        id={ index }
+                        id={ productIndex }
                         userOrProductName={ name }
                         emailOrQuantity={ quantity }
                         userTypeOrValue={ priceString }
