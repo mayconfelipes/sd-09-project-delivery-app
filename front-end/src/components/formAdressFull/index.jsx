@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { Redirect } from 'react-router';
 import { getAllSellers, sendOrder } from '../../services/fetchApi';
 import * as S from './styled';
 import Context from '../../context';
@@ -13,6 +14,8 @@ const FormAddressFull = () => {
 
   const { cart } = useContext(Context);
   const [formOrder, setFormOrder] = useState(DEFAULT_FORM);
+  const [orderId, setOrderId] = useState(0);
+  const [redirect, setRedirect] = useState(false);
   const { sellers, selectedSeller, address, number } = formOrder;
 
   const fetchAllSellers = async () => {
@@ -53,8 +56,10 @@ const FormAddressFull = () => {
       products: cart.products,
     };
 
-    const id = await sendOrder(token, order);
-    console.log(id);
+    const { id } = await sendOrder(token, order);
+
+    setOrderId(id);
+    setRedirect(true);
   };
 
   useEffect(() => {
@@ -63,6 +68,9 @@ const FormAddressFull = () => {
 
   return (
     <S.ContainerFormAddressFull>
+      {
+        redirect && <Redirect to={ `/customer/orders/${orderId}` } />
+      }
       <h1>Detalhes e Endereço para Entrega</h1>
       <S.Form>
         <S.Select

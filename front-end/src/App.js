@@ -6,6 +6,7 @@ import Login from './pages/login';
 import Register from './pages/register';
 import Products from './pages/customerProducts';
 import CheckOut from './pages/customerCheckout';
+import Order from './pages/customerOrder';
 import GlobalStyle from './theme/globalStyle';
 import Context from './context/index';
 
@@ -16,6 +17,7 @@ function App() {
       <GlobalStyle />
       <BrowserRouter>
         <Switch>
+          <Route path="/customer/orders/:id" component={ Order } />
           <Route path="/customer/checkout" component={ CheckOut } />
           <Route path="/customer/products" component={ Products } />
           <Route path="/register" component={ Register } />
