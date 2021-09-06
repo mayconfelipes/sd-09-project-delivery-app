@@ -5,6 +5,7 @@ import CustomerProvider from '../context/customerProvider';
 import Checkout from './Checkout';
 import ClientProducts from './ClientProducts';
 import Register from './Register';
+import Admin from './Admin';
 
 const Routes = () => (
   <BrowserRouter>
@@ -14,6 +15,7 @@ const Routes = () => (
       </Route>
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
+      <Route path="/admin/manage" component={ Admin } />
       <CustomerProvider>
         <Route path="/customer/checkout" component={ Checkout } />
         <Route path="/customer/products" component={ ClientProducts } />
