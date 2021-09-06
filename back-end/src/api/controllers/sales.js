@@ -4,7 +4,7 @@ const newOrder = async (req, res, next) => {
   try {
     const order = req.body;
     const { id: userId } = req.user;
-    order['userId'] = userId;
+    order.userId = userId;
     const registeredOrder = await Sale.newOrder(order);
     return res.status(201).json(registeredOrder);
   } catch (err) { next(err); }
