@@ -14,6 +14,7 @@ const Seller = () => {
       const response = await fetch('http://localhost:3001/sales');
       const allSales = await response.json();
       setSales(allSales);
+      console.log(allSales);
     } catch (error) {
       console.error(error);
     }
@@ -45,7 +46,7 @@ const Seller = () => {
             data-testid={ `${prefix}delivery-status-${item.id}` }
           >
             <div className="seller-page-status">
-              Pendente
+              {item.status}
             </div>
           </div>
         </div>
@@ -55,14 +56,14 @@ const Seller = () => {
               className="seller-itens"
               data-testid={ `${prefix}order-date-${item.id}` }
             />
-            {item.sale_date}
+            {item.saleDate}
           </div>
           <div className="seller-itens">
             <div
               className="seller-itens"
               data-testid={ `${prefix}card-price-${item.id}` }
             />
-            {item.total_price}
+            {item.totalPrice}
           </div>
         </div>
       </section>
@@ -71,7 +72,10 @@ const Seller = () => {
           className="seller-endereço"
           data-testid={ `${prefix}card-address-${item.id}` }
         >
-          {item.delivery_address}
+          {item.deliveryAddress}
+          ,
+          {item.deliveryNumber}
+
         </div>
       </section>
     </div>
