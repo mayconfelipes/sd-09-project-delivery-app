@@ -36,7 +36,7 @@ const getSaleById = async (req, res, next) => {
   }
 };
 
-const update = async (req, res, next) => {
+/* const update = async (req, res, next) => {
   try {
     const { id } = req.params;
     const sale = req.body;
@@ -47,7 +47,7 @@ const update = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-};
+}; */
 
 // RETORNA A COMPRAS DE UM CLIENTE PELO ID DO CLIENTE
 // const getByUser = async (req, res, next) => {
@@ -87,7 +87,7 @@ module.exports = {
   create,
   getAllById,
   getSaleById,
-  update,
+  /* update, */
   getAllSalesById,
   // getByUser,
   getAllSales,
