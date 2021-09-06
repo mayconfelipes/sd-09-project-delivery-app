@@ -13,7 +13,6 @@ export default createGlobalStyle`
   html, body {
     font-family: Roboto, sans-serif;
     font-weight: 600;
-    text-transform: uppercase;
   }
 
   *, *:before, *:after {

@@ -5,8 +5,6 @@ export const setThemeFor = (elementTheme) => (props) => {
   return theme ? elementTheme[theme] : null;
 };
 
-export const setIfActive = (elementTheme) => ({ active }) => (active
-  ? elementTheme.active
-  : null);
+export const setIfActive = (activeStyle) => ({ active }) => active && activeStyle;
 
 export const getThemeColor = (colorName) => (props) => props.theme.colors[colorName];

@@ -19,7 +19,7 @@ export const buttonThemes = {
 
 export const navLinkThemes = {
   active: css`
-    background-color: ${getThemeColor('primary')};
-    color: ${getThemeColor('light')};
+    background-color: ${getThemeColor('secondary')};
+    color: ${getThemeColor('dark')};
   `,
 };

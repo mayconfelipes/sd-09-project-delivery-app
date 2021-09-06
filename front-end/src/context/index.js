@@ -16,7 +16,7 @@ export const AppProvider = ({ children }) => {
     request: { isFetching, toggleFetching },
     auth: { isAuthenticated, setAuthentication },
     user: { data: userData.data, setUserData },
-    token: { exp: userData.exp, iat: userData.iat },
+    token: { code: userData.token, exp: userData.exp, iat: userData.iat },
     pageItems: useMemo(() => getPageItemsByRole(role), [role]),
   };
 
