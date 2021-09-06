@@ -8,10 +8,11 @@ import formValidator from '../../services/formValidator';
 import Api from '../../services/api';
 
 const Login = () => {
-  const [registerOkay, setRegisterOkay] = useState(false);
+  const [registerOkay, setRegisterOkay] = useState({ redirect: false, role: '' });
   const [errorExist, setErrorExist] = useState(false);
   const { form, setForm, enableButton, setEnableButton } = useContext(context);
   const { email, password } = form;
+  const { role, redirect } = registerOkay;
 
   const fetchRegister = async () => {
     const result = await Api.post('/login', { email, password })
@@ -22,10 +23,10 @@ const Login = () => {
       });
     if (!result.Error) {
       const { token, payload } = result.data;
-      const { name, email: emailBack, role } = payload;
+      const { name, email: emailBack, role: userRole } = payload;
       localStorage
         .setItem('user', JSON.stringify({ name, email: emailBack, role, token }));
-      setRegisterOkay(true);
+      setRegisterOkay({ redirect: true, role: userRole });
     }
   };
 
@@ -36,7 +37,12 @@ const Login = () => {
 
   return (
     <Main>
-      { registerOkay && <Redirect to="/customer/products" /> }
+      {
+        (redirect && role === 'user') && <Redirect to="/customer/products" />
+      }
+      {
+        (redirect && role === 'administrator') && <Redirect to="/admin/manage" />
+      }
       <Logo src={ logo } alt="Ícone do aplicativo" />
       <FormRender />
       <LoginButton
