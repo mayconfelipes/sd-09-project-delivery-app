@@ -3,8 +3,8 @@ const Sale = require('../services/sales');
 const newOrder = async (req, res, next) => {
   try {
     const order = req.body;
-    // order.saleDate = new Date();
-    // order.status = 'pendente';
+    const { id: userId } = req.user;
+    order['userId'] = userId;
     const registeredOrder = await Sale.newOrder(order);
     return res.status(201).json(registeredOrder);
   } catch (err) { next(err); }
@@ -19,7 +19,8 @@ const getOrderById = async (req, res, next) => {
 
 const getAllOrders = async (req, res, next) => {
   try {
-    const allOrders = await Sale.getAllOrders(req.body.userId);
+    const { id } = req.user;
+    const allOrders = await Sale.getAllOrders(id);
     return res.status(200).json(allOrders);
   } catch (err) { next(err); }
 };

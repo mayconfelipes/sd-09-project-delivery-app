@@ -28,9 +28,9 @@ export const loginUser = async (email, password) => {
 // };
 
 export const getProducts = async () => {
-  const products = await axios
+  const { data } = await axios
     .get(`${baseURL}/products`);
-  return products;
+  return data;
 };
 
 export const getSellers = async () => {
@@ -45,8 +45,8 @@ export const postNewOrder = async (orderObj, token) => {
   return data;
 };
 
-export const getOrders = async (userId) => {
-  const orders = await axios
-    .get(`${baseURL}/customer/orders`, { userId });
-  return orders;
+export const getOrders = async (token) => {
+  const { data } = await axios
+    .get(`${baseURL}/orders`, { headers: { Authorization: token } });
+  return data;
 };

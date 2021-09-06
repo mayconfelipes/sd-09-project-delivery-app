@@ -11,7 +11,7 @@ function Checkout() {
   // return currentOrderTotal > 0 ? <CheckoutTable /> : <h1>Seu carrinho está vazio</h1>;
   return (
     <div className="checkout-page">
-      <NavBarCustomer textProp="produtos" />
+      <NavBarCustomer textProp="checkout" />
       <CheckoutTable />
     </div>
   );

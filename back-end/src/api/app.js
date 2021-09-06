@@ -5,6 +5,7 @@ const User = require('./controllers/users');
 const Product = require('./controllers/products');
 const Sale = require('./controllers/sales');
 const errorMiddleware = require('./middlewares/errorMiddleware');
+const auth = require('./middlewares/authMiddleware');
 
 const app = express();
 // const httpServer = http.createServer(app);
@@ -31,9 +32,9 @@ app.get('/customer/products', User.getAllUsers);
 app.get('/products', Product.getAllProducts);
 app.get('/sellers', User.getAllSellers);
 
-app.post('/orders', Sale.newOrder);
+app.post('/orders', auth, Sale.newOrder);
 app.get('/orders/:orderId', Sale.getOrderById);
-app.get('/orders', Sale.getAllOrders);
+app.get('/orders', auth, Sale.getAllOrders);
 app.get('/sales', Sale.getAllSales);
 app.put('/orders/:orderId', Sale.updateOrderStatus);
 

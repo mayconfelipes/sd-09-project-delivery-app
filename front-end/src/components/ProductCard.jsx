@@ -115,7 +115,6 @@ const ProductCard = ({ product }) => {
           <input
             type="number"
             min="0"
-            defaultValue="0"
             ref={ quantityInput }
             value={ quantityInput.current ? quantityInput.current.value : '0' }
             data-testid={

@@ -9,16 +9,6 @@
   width: 100%;
 }
 
-.products-page {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 2vh;
-  height: max-content;
-  padding-bottom: 5vh;
-  width: 100%;
-}
-
 .empty-cart {
   align-items: center;
   display: flex;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 // import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import ProductsContext from '../context/ProductsContext';
 import * as api from '../services/api';
 
@@ -41,51 +41,52 @@ function Login() {
     }
   };
 
-  return (
-    <div className="login-page">
-      <form>
-        <label htmlFor="login-input">
-          Login
-          <input
-            type="text"
-            name="login-input"
-            data-testid="common_login__input-email"
-            onChange={ (e) => setEmail(e.target.value) }
-          />
-        </label>
-        <label htmlFor="password-input">
-          Senha
-          <input
-            type="password"
-            name="password-input"
-            data-testid="common_login__input-password"
-            onChange={ (e) => setPassword(e.target.value) }
-          />
-        </label>
+  return localStorage.getItem('user') ? <Redirect to="/customer/products" />
+    : (
+      <div className="login-page">
+        <form>
+          <label htmlFor="login-input">
+            Login
+            <input
+              type="text"
+              name="login-input"
+              data-testid="common_login__input-email"
+              onChange={ (e) => setEmail(e.target.value) }
+            />
+          </label>
+          <label htmlFor="password-input">
+            Senha
+            <input
+              type="password"
+              name="password-input"
+              data-testid="common_login__input-password"
+              onChange={ (e) => setPassword(e.target.value) }
+            />
+          </label>
 
-        <button
-          type="button"
-          data-testid="common_login__button-login"
-          disabled={ !valid }
-          onClick={ () => loginUser() }
-        >
-          LOGIN
-        </button>
-
-        <Link to="/register">
           <button
             type="button"
-            data-testid="common_login__button-register"
+            data-testid="common_login__button-login"
+            disabled={ !valid }
+            onClick={ () => loginUser() }
           >
-            Ainda não tenho conta
+            LOGIN
           </button>
-        </Link>
-      </form>
-      <p data-testid="common_login__element-invalid-email">
-        { showInvalidLoginError }
-      </p>
-    </div>
-  );
+
+          <Link to="/register">
+            <button
+              type="button"
+              data-testid="common_login__button-register"
+            >
+              Ainda não tenho conta
+            </button>
+          </Link>
+        </form>
+        <p data-testid="common_login__element-invalid-email">
+          { showInvalidLoginError }
+        </p>
+      </div>
+    );
 }
 
 export default Login;

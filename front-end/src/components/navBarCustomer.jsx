@@ -26,12 +26,12 @@ function NavBarCustomer(props) {
     ) {
       return (
         <div className="navbar_pedidos">
-          <a
-            href="/customer/orders"
+          <Link
+            to="/customer/orders"
             data-testid="customer_products__element-navbar-link-orders"
           >
             MEUS PEDIDOS
-          </a>
+          </Link>
         </div>
       );
     }
@@ -44,12 +44,12 @@ function NavBarCustomer(props) {
           <div
             className="navbar_produtos"
           >
-            <a
+            <Link
               data-testid="customer_products__element-navbar-link-products"
-              href="/customer/products"
+              to="/customer/products"
             >
               PRODUTOS
-            </a>
+            </Link>
           </div>
 
           { setOrders() }

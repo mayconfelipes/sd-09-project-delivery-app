@@ -20,11 +20,13 @@ const CustomerProducts = () => {
     // // currentOrder,
     // setCurrentOrderTotal,
     currentOrderTotal,
+    setUserInfo,
   } = useContext(ProductsContext);
 
   const history = useHistory();
 
   useEffect(() => {
+    setUserInfo(JSON.parse(localStorage.getItem('user')));
     Promise.all([
       getProducts(),
       getSellers(),
