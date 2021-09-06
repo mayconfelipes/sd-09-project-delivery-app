@@ -14,14 +14,19 @@ module.exports = {
   },
   async getAll(req, res, next) {
     try {
-      const { role } = req.user;
+      const { role: userRole } = req.user;
 
-      if (role !== 'administrator') {
+      if (!['administrator', 'customer'].includes(userRole)) {
         throw new PermissionError('Operation not allowed');
       }
 
       const response = await usersService.getAll();
-      res.status(200).json(response);
+
+      if (userRole === 'customer') {
+        res.status(200).json(response.filter(({ role }) => role === 'seller'));
+      } else {
+        res.status(200).json(response);
+      }
     } catch (err) {
       next(err);
     }

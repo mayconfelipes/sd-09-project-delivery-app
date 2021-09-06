@@ -21,6 +21,8 @@ export default function Button({ ...rest }) {
     }, [products],
   );
 
+  localStorage.setItem('total', total);
+
   return (
     <button
       type="button"
