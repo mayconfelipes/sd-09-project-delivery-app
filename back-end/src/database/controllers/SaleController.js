@@ -8,6 +8,13 @@ const checkOut = rescue(async (req, res) => {
   return res.status(201).json({ id: sale});
 });
 
+const allSales = rescue(async (req, res) => {
+  const { payload: { id } } = req;
+  const sales = await Sale.allSalesBySellerId(id);
+  return res.status(201).json(sales);
+});
+
 module.exports = {
   checkOut,
+  allSales,
 };

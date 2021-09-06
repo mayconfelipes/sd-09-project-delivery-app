@@ -9,6 +9,7 @@ const allSellers = require('../routes/allSellers');
 const registerRoute = require('../routes/registerRoute');
 const productRoute = require('../routes/productRoute');
 const saleRoute = require('../routes/saleRoute');
+const sellerRoute = require('../routes/sellerRoute');
 
 const errorMiddleware = require('../utils/errorMiddleware');
 const authMiddleware = require('../database/services/jwt/authMiddleware');
@@ -25,6 +26,7 @@ app.use('/register', registerRoute);
 app.use('/products', productRoute);
 app.use('/customer', authMiddleware, saleRoute);
 app.use('/allsellers', authMiddleware, allSellers);
+app.use('/seller', authMiddleware, sellerRoute);
 
 app.use(express.static(path.join(__dirname, '../', '../', 'public')));
 

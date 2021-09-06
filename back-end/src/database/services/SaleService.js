@@ -35,6 +35,20 @@ const saleProductsSave = async (saleId, productsData) => {
   });
 };
 
+const allSalesBySellerId = async (id) => {
+  try {
+    const allSales = await Sale.findAll({
+      // where: { seller_id: id },
+    });
+    return allSales;
+  } catch (_error) {
+    throw errorHelper(409, '"data" conflict');
+  }
+};
+
+allSalesBySellerId()
+
 module.exports = {
   checkOut,
+  allSalesBySellerId
 };
