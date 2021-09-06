@@ -19,6 +19,21 @@ function Login() {
     setIsButtonDisabled(!isDisabled);
   }, [email, password]);
 
+  const validRole = (role) => {
+    switch (role) {
+    case 'seller':
+      history.push('/seller/orders');
+      break;
+    case 'customer':
+      history.push('/customer/products');
+      break;
+    case 'administrator':
+      console.log('adm');
+      break;
+    default:
+      break;
+    }
+  };
   useEffect(() => {
     async function fetchProducts() {
       const data = await API.fetchProducts();
@@ -35,10 +50,10 @@ function Login() {
     if (responseLogin.message === 'Invalid fields') {
       return setIsValidFields(false);
     }
-    console.log(responseLogin);
+    console.log('Resposta de login', responseLogin);
     if (responseLogin.token) {
       localStorage.setItem('user', JSON.stringify(responseLogin));
-      history.push('/customer/products');
+      validRole(responseLogin.role);
     }
   };
 
