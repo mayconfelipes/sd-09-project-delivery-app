@@ -66,7 +66,7 @@ const register = async (name, email, password) => {
   }
 };
 
-const getAll = async () => {
+const getAllSellers = async (token) => {
   const allSellers = await User.findAll({
     where: {
       role: 'seller',
@@ -78,5 +78,5 @@ const getAll = async () => {
 module.exports = {
   login,
   register,
-  getAll,
+  getAllSellers,
 };

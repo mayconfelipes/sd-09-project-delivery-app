@@ -29,3 +29,8 @@ app.use(express.static(path.join(__dirname, '../', '../', 'public')));
 app.use(errorMiddleware);
 
 module.exports = app;
+
+// saveOrder
+// getSaleById
+// getAllSales - socket
+// changeOrderStatus - update sales
