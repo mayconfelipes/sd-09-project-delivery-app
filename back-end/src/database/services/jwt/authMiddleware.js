@@ -6,6 +6,7 @@ module.exports = async (req, res, next) => {
 
   try {
     const payload = await verify(token);
+
     await User.findOne({ where: { email: payload.email } });
     req.payload = payload;
     next();

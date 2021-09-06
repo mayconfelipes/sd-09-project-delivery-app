@@ -66,6 +66,43 @@ const register = async (name, email, password) => {
   }
 };
 
+const registerUserByAdmin = async (name, email, password, role) => {
+  joiValidation(
+    Joi.object({
+      name: Joi.string().min(12).required(),
+      email: Joi.string().email({ tlds: false }).min(1).required(),
+      password: Joi.string().min(6).required(),
+      role: Joi.string().required(),
+    }),
+    { name, email, password, role },
+    409,
+  );
+  try {
+    const encryptedPassword = encodedPassword(password);
+    
+    const user = await User.findOne({
+      where: { [Op.or]: [
+        { email },
+        { name }
+      ]}
+    });
+
+    if (user) throw Error;
+
+    const { dataValues: newUser } = await User
+      .create({ name, email, password: encryptedPassword, role });
+
+    const { password: userPassword, ...payload } = newUser;
+
+    const token = sign(payload);
+
+    return token;
+  } catch (error) {
+
+    throw errorHelper(409, '"Email" or "Name" already used');
+  }
+};
+
 const getAllSellers = async (token) => {
   const allSellers = await User.findAll({
     where: {
@@ -78,5 +115,6 @@ const getAllSellers = async (token) => {
 module.exports = {
   login,
   register,
+  registerUserByAdmin,
   getAllSellers,
 };

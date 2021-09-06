@@ -48,7 +48,6 @@ const CardProduct = ({ image, name, price, id }) => {
   }, [quantity, valeuInput]);
 
   const updateQuantity = ({ target }) => {
-    console.log('oi', target);
     if (typeof target.value !== 'string') return;
     const newValue = Number(target.value);
 
