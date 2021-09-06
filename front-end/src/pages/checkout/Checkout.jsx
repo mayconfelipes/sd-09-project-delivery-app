@@ -54,6 +54,7 @@ export default function Checkout() {
     };
 
     const newSale = await createNewSale(objectToSaveNewSale);
+    const userLocal = JSON.parse(localStorage.getItem('user'));
 
     cartLocalStorage.forEach(async (item) => {
       const objectToCreateSalesProducts = {
@@ -61,8 +62,11 @@ export default function Checkout() {
         saleId: newSale.id,
         quantity: item.quantity,
       };
-      await createSalesProducts(objectToCreateSalesProducts);
+      await createSalesProducts(objectToCreateSalesProducts, userLocal.token);
     });
+    // localStorage.clear();
+    // localStorage.removeItem('productsAdded');
+    // localStorage.removeItem('totalPrice');
     history.push(`/customer/orders/${newSale.id}`);
   };
 

@@ -24,10 +24,10 @@ function App() {
           </Route>
           <Route path="/seller/orders/:id" component={ OrderDetails } />
           <Route path="/seller/orders" component={ SellerOrders } />
+          <Route exact path="/customer/orders/:id" component={ OrderDetails } />
           <Route path="/customer/orders" component={ SellerOrders } />
           <Route exact path="/customer/products" component={ CustumerProducts } />
           <Route exact path="/customer/checkout" component={ Checkout } />
-          <Route exact path="/customer/orders/:id" component={ SellerOrders } />
           <Route exact path="/register" component={ Register } />
           <Route path="/login" component={ Login } />
         </Switch>

@@ -45,13 +45,13 @@ const createNewSale = async (newSaleInfos) => {
   }
 };
 
-const createSalesProducts = async (newSaleInfosForSalesProducts) => {
+const createSalesProducts = async (newSaleInfosForSalesProducts, token) => {
   try {
     const URL = `${URLBase}/new/sales-products`;
     const requestOptions = {
       mode: 'cors',
       method: 'POST',
-      headers: { 'Content-Type': applicationJson },
+      headers: { 'Content-Type': applicationJson, authorization: `Bearer ${token}` },
       body: JSON.stringify(newSaleInfosForSalesProducts),
     };
     const request = await fetch(URL, requestOptions);

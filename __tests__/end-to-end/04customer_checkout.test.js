@@ -134,7 +134,7 @@ describe(requirement(19), () => {
   });
 });
 
-describe.only(requirement(20), () => {
+describe(requirement(20), () => {
   test("O avaliador verificará se ao final do checkout o endereço da url contém o id do pedido", async () => {
     const { saleId } = await action.customer.checkoutNewSale(page, order);
     expect(typeof saleId).toBe("number");
@@ -149,7 +149,7 @@ describe.only(requirement(20), () => {
   });
 });
 
-describe.only(requirement(21), () => {
+describe(requirement(21), () => {
   test("O avaliador testará se, após realizado o checkout, as alterações constarão no banco de dados", async () => {
     const { saleId, saleDate } = await action.customer.checkoutNewSale(
       page,
