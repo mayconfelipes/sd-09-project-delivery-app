@@ -23,13 +23,13 @@ const salesOrdersAPI = async (saleBody, user) => {
   }
 };
 
-const createNewSale = async (newSaleInfos) => {
+const createNewSale = async (newSaleInfos, token) => {
   try {
     const URL = `${URLBase}/new/sale`;
     const requestOptions = {
       mode: 'cors',
       method: 'POST',
-      headers: { 'Content-Type': applicationJson },
+      headers: { 'Content-Type': applicationJson, authorization: token },
       body: JSON.stringify(newSaleInfos),
     };
     const request = await fetch(URL, requestOptions);
@@ -51,7 +51,7 @@ const createSalesProducts = async (newSaleInfosForSalesProducts, token) => {
     const requestOptions = {
       mode: 'cors',
       method: 'POST',
-      headers: { 'Content-Type': applicationJson, authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': applicationJson, authorization: token },
       body: JSON.stringify(newSaleInfosForSalesProducts),
     };
     const request = await fetch(URL, requestOptions);
