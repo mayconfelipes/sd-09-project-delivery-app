@@ -8,15 +8,25 @@ const OrderCard = (props) => {
   const history = useHistory();
   const { order, index } = props;
   const orderId = index + 1;
-  console.log(orderId);
   const { id, status, saleDate, totalPrice } = order;
+  const split = saleDate.split('T')[0].split('-');
+  const formattedDate = `${split[2]}/${split[1]}/${split[0]}`;
+  const brazilianPrice = (value) => {
+    const minN = 3;
+    if (typeof value === 'number') value = value.toFixed(2);
+    const newPrice = value.toString().replace('.', ',');
+    if (newPrice.length === minN) return `${newPrice}0`;
+    return newPrice;
+  };
   return (
     <div>
       <button type="button" onClick={ () => history.push(`/customer/orders/${id}`) }>
         <p data-testid={ `${dataTestId[33] + orderId}` }>{orderId}</p>
         <p data-testid={ `${dataTestId[34] + orderId}` }>{status}</p>
-        <p data-testid={ `${dataTestId[35] + orderId}` }>{saleDate}</p>
-        <p>{totalPrice}</p>
+        <p data-testid={ `${dataTestId[35] + orderId}` }>{formattedDate}</p>
+        <p data-testid={ `customer_orders__element-card-price-${orderId}` }>
+          {brazilianPrice(totalPrice)}
+        </p>
       </button>
 
     </div>
