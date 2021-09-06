@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import CartItems from '../../components/cartItems/CartItems';
 import NavBar from '../../components/navBar/NavBar';
 import { createNewSale, createSalesProducts } from '../../services/salesAPI';
@@ -12,6 +13,8 @@ export default function Checkout() {
   const [currentAddress, setCurrentAddress] = useState('');
   const [currentNumberAddress, setCurrentNumberAddress] = useState('');
 
+  const history = useHistory();
+
   useEffect(() => {
     const cartLocalStorage = JSON.parse(localStorage.getItem('productsAdded'));
     const totalPrice = JSON.parse(localStorage.getItem('totalPrice'));
@@ -24,7 +27,7 @@ export default function Checkout() {
     setCurrentCart(cartLocalStorage);
     setCurrentTotalPrice(totalPrice);
   }, []);
-
+  console.log(currentIdSellerDropDown);
   const checkout = async (
     e,
     currentAddressInput = currentAddress,
@@ -44,6 +47,10 @@ export default function Checkout() {
       (seller) => seller.id === currentIdSellerDropDown,
     );
 
+    console.log(sellerThatSold, 'SELLER THAT SOLD');
+    console.log(currentIdSellerDropDown, 'CURRENT SELLER ID ');
+    console.log(userThatBoughtInfos, 'USER THAT BOUGHT');
+
     const objectToSaveNewSale = {
       sellerId: sellerThatSold[0].id,
       userId: userThatBoughtInfos[0].id,
@@ -62,6 +69,7 @@ export default function Checkout() {
       };
       await createSalesProducts(objectToCreateSalesProducts);
     });
+    history.push(`/customer/orders/${newSale.id}`);
   };
 
   return (
