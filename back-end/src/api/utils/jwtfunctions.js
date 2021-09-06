@@ -16,7 +16,7 @@ const newToken = async (payload) => {
 };
 
 const verifyToken = async (token) => {
-  const secret = await fs.readFile(secretPath, 'utf-8');
+  const secret = (await fs.readFile(secretPath, 'utf-8')).trim();
   return jwt.verify(token, secret);
 };
 

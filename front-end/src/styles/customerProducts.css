@@ -3,6 +3,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   gap: 2vh;
   height: max-content;
   padding-bottom: 5vh;
