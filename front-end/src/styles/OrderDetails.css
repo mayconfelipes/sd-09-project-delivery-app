@@ -1,0 +1,123 @@
+.order-details-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 2vh;
+  height: max-content;
+  padding-bottom: 5vh;
+  width: 100%;
+}
+
+.order-details {
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 2rem;
+  height: 100%;
+  justify-content: flex-start;
+  margin-top: 5rem;
+  position: relative;
+  width: 80%;
+}
+
+.order-details:before {
+  content: 'Detalhes do Pedido';
+  left: 0;
+  position: absolute;
+  top: -1.5rem;
+}
+
+.order-details-header {
+  background-color: #eaf1ef;
+  box-sizing: border-box;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  line-height: 2;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.order-details-header span {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0 1.25em;
+  width: max-content;
+}
+
+.order-details-header span:nth-of-type( 2 ) {
+  flex-grow: 1;
+}
+
+.order-details-header button {
+  background-color: #036b52;
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0 1.25em;
+  width: max-content;
+}
+
+.order-details-header button:hover {
+  background-color: hsl(166, 95%, 25%);
+  cursor: pointer;
+}
+
+.order-details-header button:disabled {
+  background-color: hsl(166, 95%, 25%);
+  cursor: not-allowed;
+}
+
+.order-details table {
+  box-sizing: border-box;
+  padding: 0 0.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+.order-details table td {
+  padding: 0;
+}
+
+.order-details table tbody tr {
+  line-height: 2.5;
+}
+
+.order-details-order-item {
+  background-color: #2fc18c;
+}
+
+.order-details-item-name {
+  background-color: #f2fffc;
+  text-align: left;
+}
+
+.order-details-item-quantity {
+  background-color: #036b52;
+  color: white;
+}
+
+.order-details-item-unit-price {
+  background-color: #421981;
+  color: white;
+}
+
+.order-details-item-subtotal {
+  background-color: #056cf9;
+  color: white;
+}
+
+.order-details-total {
+  align-self: flex-end;
+  background-color: #036b52;
+  border-radius: 0.5rem;
+  color: white;
+  justify-self: flex-end;
+  line-height: 2;
+  margin: 0 0.5rem 0.5rem;
+  padding: 0 1em;
+  width: max-content;
+}

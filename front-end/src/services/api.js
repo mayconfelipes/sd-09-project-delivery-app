@@ -50,3 +50,9 @@ export const getOrders = async (token) => {
     .get(`${baseURL}/orders`, { headers: { Authorization: token } });
   return data;
 };
+
+export const getOrderById = async (orderId, token) => {
+  const { data } = await axios
+    .get(`${baseURL}/orders/${orderId}`, { headers: { Authorization: token } });
+  return data;
+};

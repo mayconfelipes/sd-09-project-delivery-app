@@ -12,7 +12,8 @@ const newOrder = async (req, res, next) => {
 
 const getOrderById = async (req, res, next) => {
   try {
-    const orderById = await Sale.getOrderById(req.params.orderId);
+    const { id } = req.user;
+    const orderById = await Sale.getOrderById(req.params.orderId, id);
     return res.status(200).json(orderById);
   } catch (err) { next(err); }
 };
