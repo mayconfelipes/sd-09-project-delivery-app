@@ -7,15 +7,17 @@ const NavBar = () => {
   return (
     <nav>
       <ul>
-        <li data-testid={ `${prefix}link-products` }>
+        <li>
           <Link
+            data-testid={ `${prefix}-link-products` }
             to="/customer/products"
           >
             Produtos
           </Link>
         </li>
-        <li data-testid={ `${prefix}link-orders` }>
+        <li>
           <Link
+            data-testid={ `${prefix}link-orders` }
             to="/customer/orders"
           >
             Meus pedidos

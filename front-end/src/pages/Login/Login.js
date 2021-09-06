@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './Forms.css';
 import { useHistory } from 'react-router-dom';
 
@@ -13,6 +13,16 @@ function Login() {
   const prefix = 'common_login__';
   const passMin = 5;
   const history = useHistory();
+
+  const verifyIfIslogged = useCallback(() => {
+    if (localStorage.getItem('user')) {
+      history.push('/customer/products');
+    }
+  }, [history]);
+
+  useEffect(() => {
+    verifyIfIslogged();
+  }, [verifyIfIslogged]);
 
   const verifyDisabled = () => {
     const re = /(.+)@(.+){2,}\.(.+){2,}/;
