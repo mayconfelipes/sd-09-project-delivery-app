@@ -39,8 +39,7 @@ export const registerUserByAdmin = async (token, userInfo) => {
     },
     body: JSON.stringify({ ...userInfo }),
   })
-    .then((response) => response.json())
-    .then((data) => data)
+    .then((response) => response)
     .catch((err) => err);
 
   return code;
