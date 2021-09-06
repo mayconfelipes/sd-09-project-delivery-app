@@ -1,13 +1,11 @@
-const { sales, users } = require('../../database/models');
-const { format } = require('date-fns');
+// const { format } = require('date-fns');
+const { sales, users, products, salesProduct } = require('../../database/models');
 
-const time = format(new Date(), 'dd-MM-yyyy HH:mm:ss');
-
+// const saleDate = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
 const getAll = async () => {
   const allSales = await sales.findAll();
   return allSales;
 };
-
 const getById = async (id) => {
   const sale = await sales.findOne({
     where: { id },
@@ -16,23 +14,40 @@ const getById = async (id) => {
 };
 
 const getIdUser = async (userEmail) => {
- const userId = await users.findOne({ email: userEmail });
- return userId.dataValues.id
+ const userId = await users.findOne({ where: { email: userEmail } });
+ return userId.id;
 };
 
-const registerSale = async ({address, addressNumber, sellerId, totalPrice, userEmail}) => {
+const registerSalesProducts = async (cartItens, newSale) => {
+  const productArray = [];
+  cartItens.forEach(({ item }) => 
+  productArray.push(products.findOne({ where: { name: item.name } })));
+  const idList = await Promise.all(productArray);
+  const result = idList.map(({ id }, index) => salesProduct.create({
+    saleId: newSale.id, productId: id, quantity: cartItens[index].item.quant,
+  }));
+  try {
+    await Promise.all(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const registerSale = async (
+  { address, addressNumber, sellerId, totalPrice, userEmail, cartItens, saleDate }) => {
   const userId = await getIdUser(userEmail);
   const newSale = await sales.create({
-    user_id: userId, 
-    seller_id: sellerId, 
-    total_price: totalPrice,
-    delivery_address: address,
-    delivery_number: addressNumber,
-    sale_date: time,
+    userId, 
+    sellerId, 
+    totalPrice,
+    deliveryAddress: address,
+    deliveryNumber: addressNumber,
+    saleDate,
+    status: 'Pendente',
   });
-  return newSale.dataValues;
+  await registerSalesProducts(cartItens, newSale);
+  return newSale;
 };
-
 module.exports = {
   getAll,
   getById,

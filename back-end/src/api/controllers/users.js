@@ -29,7 +29,6 @@ const findUser = async (req, res) => {
 };
 
 const registerUser = async (req, res) => {
-  console.log(req);
   const { password, name, email, role } = req.body;
   const response = await userService.registerUser({ password, name, email, role });
   const token = tokenConfig(email);

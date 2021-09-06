@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 
 const CheckoutItem = (props) => {
   const { cartItem: { totalProduct, price, quant, name },
-    cartItens, setCartItens, order } = props;
+    cartItens, setCartItens, order, setTotalPrice } = props;
 
   const removeOrder = () => {
     const newItens = cartItens.filter((item) => item.item.name !== name);
     setCartItens(newItens);
+    const currPrice = newItens.reduce(
+      (acc, curr) => acc + curr.item.totalProduct, 0,
+    ).toFixed(2);
+    setTotalPrice(currPrice);
   };
   const brazilianPrice = (value) => {
     const minN = 3;

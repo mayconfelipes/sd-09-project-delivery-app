@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { format } from 'date-fns';
 import NavBar from '../../components/NavBar';
 import CheckoutItem from '../../components/CheckoutItem';
 import connectBack from '../../utills/axiosConfig';
 
 const Checkout = () => {
-  const [price, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [cartItens, setCartItens] = useState([]);
   const [sellers, setSellers] = useState([]);
   const history = useHistory();
@@ -14,12 +15,13 @@ const Checkout = () => {
     address: '',
     addressNumber: '',
   });
+  // const saleDate = moment().tz('Z').format().toISOString();
+  const saleDate = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
 
   const fetchSellers = async () => {
     try {
       const response = await fetch('http://localhost:3001/sellers');
       const sellersResponse = await response.json();
-      console.log('AQUI AQUI', sellersResponse);
       setSellers(sellersResponse);
     } catch (error) {
       console.error(error);
@@ -28,10 +30,22 @@ const Checkout = () => {
 
   const postSale = () => {
     const { address, addressNumber, id } = sellerInfo;
+    const { email, token } = JSON.parse(localStorage.getItem('user'));
+    const data = {
+      address,
+      addressNumber,
+      sellerId: id,
+      totalPrice,
+      userEmail: email,
+      cartItens,
+      saleDate };
     connectBack
-      .post('/customer/orders', { address, addressNumber, id, totalPrice: price })
-      .then((responseId) => {
-        history.push(`/customer/orders/${responseId}`);
+      .post('/customer/orders',
+        { data },
+        { headers: { Authorization: token } })
+      .then((response) => {
+        console.log(response.data.id);
+        history.push(`/customer/orders/${response.data.id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -53,13 +67,20 @@ const Checkout = () => {
     fetchSellers();
   }, []);
 
+  useEffect(() => {
+    const newProductsStorage = cartItens.reduce((acc, currItem) => {
+      const { item: { name, totalProduct, price, quant } } = currItem;
+      return { ...acc, [name]: { totalProduct, price, quant } };
+    }, {});
+    localStorage.setItem('products', JSON.stringify(newProductsStorage));
+  }, [cartItens]);
+
   const brazilianPrice = () => {
     const minN = 3;
-    const newPrice = price.toString().replace('.', ',');
+    const newPrice = totalPrice.toString().replace('.', ',');
     if (newPrice.length === minN) return `${newPrice}0`;
     return newPrice;
   };
-
   return (
     <div>
       <NavBar />
@@ -72,12 +93,14 @@ const Checkout = () => {
             order={ index }
             cartItens={ cartItens }
             setCartItens={ setCartItens }
+            setTotalPrice={ setTotalPrice }
           />))}
         </ul>
+        <p />
         <button
           type="button"
           data-testid="customer_checkout__element-order-total-price"
-          onClick={ () => history.push('/customer/orders/1') }
+          onClick={ () => history.push('/customer/orders/1}') }
         >
           {brazilianPrice()}
         </button>

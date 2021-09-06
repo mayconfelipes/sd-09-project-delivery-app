@@ -1,14 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
   const sales = sequelize.define('sales', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true,},
-    user_id: { type: DataTypes.INTEGER, foreignKey: true },
-    seller_id: { type: DataTypes.INTEGER, foreignKey: true, allowNull: false },
-    total_price: { type: DataTypes.INTEGER, allowNull: false },
-    delivery_address : { type: DataTypes.STRING, allowNull: false },
-    delivery_number: { type: DataTypes.STRING, allowNull: false },
-    sale_date: { type: DataTypes.DATE, allowNull: false },
+    userId: { type: DataTypes.INTEGER, foreignKey: true },
+    sellerId: { type: DataTypes.INTEGER, foreignKey: true, allowNull: false },
+    totalPrice: { type: DataTypes.DECIMAL(10,2), allowNull: false },
+    deliveryAddress : { type: DataTypes.STRING, allowNull: false },
+    deliveryNumber: { type: DataTypes.STRING, allowNull: false },
+    saleDate: { type: DataTypes.DATE, allowNull: false },
+    status: {type: DataTypes.STRING, allowNull: false}
   },
   {
+    underscored: true,
     timestamps: false,
   });
   
