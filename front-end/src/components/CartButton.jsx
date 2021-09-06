@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import '../styles/buttons.css';
-import Context from '../context/Context';
+import Context from '../context/ProductsContext';
 
 export default function Button({ ...rest }) {
   const { products } = useContext(Context);
@@ -20,6 +20,8 @@ export default function Button({ ...rest }) {
       setTotal(updatedTotal);
     }, [products],
   );
+
+  localStorage.setItem('total', total);
 
   return (
     <button

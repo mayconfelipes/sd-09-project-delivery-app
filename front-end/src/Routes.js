@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Checkout from './pages/Checkout';
+import Gerenciamento from './pages/Gerenciamento';
 import Login from './pages/login';
 import OrderDetails from './pages/OrderDetails';
 import Orders from './pages/Orders';
@@ -18,6 +19,7 @@ const Routes = () => (
     <Route exact path="/customer/orders" component={ Orders } />
     <Route exact path="/customer/orders/:id" component={ OrderDetails } />
     <Route exact path="/customer/checkout" component={ Checkout } />
+    <Route exact path="/admin/manage" component={ Gerenciamento } />
   </Switch>
 );
 
