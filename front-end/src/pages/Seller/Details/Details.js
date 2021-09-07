@@ -29,16 +29,16 @@ const Details = () => {
 
   const renderTable = (arr) => arr.map((item, index) => (
     <div key={ index }>
-      <section className="seller-card-parte-de-cima">
+      <section className="details-card-parte-de-cima">
         <div
           className="seller-itens"
           data-testid={ `${prefix}table-item-number${index}` }
         />
         {item.saleId}
       </section>
-      <section className="seller-card-parte-de-baixo">
+      <section className="details-card-parte-de-baixo">
         <div
-          className="seller-endereço"
+          className="details-endereço"
           data-testid={ `${prefix}table-card-address-${item.saleId}` }
         >
           {item.delivery_address}
@@ -56,7 +56,7 @@ const Details = () => {
 
       <NavBar />
       <div className="details-card">
-        <section className="seller-card-parte-de-cima">
+        <section className="details-card-parte-de-cima">
           <div className="seller-itens" data-testid={ `${prefix}details-label-order-id` }>
             Nº
             {id}
