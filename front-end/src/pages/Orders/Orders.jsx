@@ -27,9 +27,10 @@ const Orders = () => {
     <div>
       <NavBar />
       {orders.length >= 1 ? orders
-        .map((order) => (<OrderCard
+        .map((order, index) => (<OrderCard
           key={ order.id }
           order={ order }
+          index={ index }
         />))
         : <Loading />}
     </div>

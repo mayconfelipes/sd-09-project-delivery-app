@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import './Seller.css';
+import NavBar from '../../components/NavBar';
 
 const Seller = () => {
   const [sales, setSales] = useState([]);
-  const prefixId = 'seller_orders__element-order-date-';
+  const prefixId = 'seller_orders__element-order-id-';
   const prefix = 'seller_orders__element-';
 
   const fetchDrinks = async () => {
@@ -13,6 +14,7 @@ const Seller = () => {
       const response = await fetch('http://localhost:3001/sales');
       const allSales = await response.json();
       setSales(allSales);
+      console.log(allSales);
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +46,7 @@ const Seller = () => {
             data-testid={ `${prefix}delivery-status-${item.id}` }
           >
             <div className="seller-page-status">
-              Pendente
+              {item.status}
             </div>
           </div>
         </div>
@@ -54,14 +56,14 @@ const Seller = () => {
               className="seller-itens"
               data-testid={ `${prefix}order-date-${item.id}` }
             />
-            {item.sale_date}
+            {item.saleDate}
           </div>
           <div className="seller-itens">
             <div
               className="seller-itens"
               data-testid={ `${prefix}card-price-${item.id}` }
             />
-            R$ Uma senhora Bordoada.
+            {item.totalPrice}
           </div>
         </div>
       </section>
@@ -70,7 +72,10 @@ const Seller = () => {
           className="seller-endereço"
           data-testid={ `${prefix}card-address-${item.id}` }
         >
-          {item.delivery_address}
+          {item.deliveryAddress}
+          ,
+          {item.deliveryNumber}
+
         </div>
       </section>
     </div>
@@ -83,6 +88,7 @@ const Seller = () => {
 
   return (
     <div>
+      <NavBar />
       {sales ? <>{renderTable(sales)}</> : (
         <Loading />
       )}

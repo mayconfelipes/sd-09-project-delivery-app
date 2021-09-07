@@ -9,7 +9,7 @@ const NavBar = () => {
       <ul>
         <li>
           <Link
-            data-testid={ `${prefix}-link-products` }
+            data-testid={ `${prefix}link-products` }
             to="/customer/products"
           >
             Produtos

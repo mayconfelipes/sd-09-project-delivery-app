@@ -92,7 +92,7 @@ describe(requirement(30), () => {
   });
 });
 
-describe(requirement(31), () => {
+describe.only(requirement(31), () => {
   test("O avaliador testará testará se os dados condizem com o pedido", async () => {
     await expect(page).toFindElement(
       sellerOrderDetailsPage.button.preparingCheck.notDisabled

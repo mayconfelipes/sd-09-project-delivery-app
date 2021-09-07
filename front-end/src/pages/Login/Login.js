@@ -4,25 +4,32 @@ import { useHistory } from 'react-router-dom';
 
 import connectBack from '../../utills/axiosConfig';
 
+const saveTokenLocalStorage = (user) => {
+  localStorage.setItem('user', JSON.stringify(user));
+  localStorage.setItem('products', JSON.stringify({}));
+};
+
 function Login() {
   const [email, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, trueOrFalse] = useState(true);
   const [invalidLogin, setInvalidLogin] = useState(false);
-
-  const prefix = 'common_login__';
-  const passMin = 5;
   const history = useHistory();
 
-  const verifyIfIslogged = useCallback(() => {
-    if (localStorage.getItem('user')) {
-      history.push('/customer/products');
+  const redirectCostumer = useCallback(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      const { role } = user;
+      history.push(`/${role}`);
     }
   }, [history]);
 
+  const prefix = 'common_login__';
+  const passMin = 5;
+
   useEffect(() => {
-    verifyIfIslogged();
-  }, [verifyIfIslogged]);
+    redirectCostumer();
+  }, [redirectCostumer]);
 
   const verifyDisabled = () => {
     const re = /(.+)@(.+){2,}\.(.+){2,}/;
@@ -32,11 +39,6 @@ function Login() {
       trueOrFalse(true);
     }
     setInvalidLogin(false);
-  };
-
-  const saveTokenLocalStorage = (user) => {
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('products', JSON.stringify({}));
   };
 
   const userChange = ({ target }) => {
@@ -49,14 +51,6 @@ function Login() {
     verifyDisabled();
   };
 
-  const redirectCostummer = () => {
-    console.log(email);
-    if (email === 'adm@deliveryapp.com') {
-      history.push('/admin/manage');
-    } else {
-      history.push('/customer/products');
-    }
-  };
   const redirectRegister = () => {
     history.push('/register');
   };
@@ -67,7 +61,7 @@ function Login() {
       .then((response) => {
         console.log('LOGOU', response.data.user);
         saveTokenLocalStorage(response.data.user);
-        redirectCostummer();
+        redirectCostumer();
       })
       .catch((error) => {
         console.log(error);

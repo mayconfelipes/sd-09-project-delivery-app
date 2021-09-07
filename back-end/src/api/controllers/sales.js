@@ -7,8 +7,8 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
   const { id } = req.params;
-  const allSales = await sales.getById(id);
-  return res.status(201).send(allSales);
+  const sale = await sales.getById(id);
+  return res.status(201).send(sale);
 };
 
 const registerSale = async (req, res) => {

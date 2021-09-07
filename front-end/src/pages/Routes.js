@@ -28,6 +28,9 @@ function Routes() {
         <Route path="/customer/checkout" component={ Checkout } />
         <Route path="/customer/products" component={ Products } />
         <Route path="/login" component={ Login } />
+        <Redirect from="/customer" to="/customer/products" />
+        <Redirect from="/seller" to="/seller/orders" />
+        <Redirect from="/administrator" to="/admin/manage" />
         <Redirect from="/" to="/login" />
       </Switch>
     </Router>

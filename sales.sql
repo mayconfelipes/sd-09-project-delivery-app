@@ -7,4 +7,3 @@ insert into sales(id, user_id, seller_id, total_price, delivery_address, deliver
 insert into sales(id, user_id, seller_id, total_price, delivery_address, delivery_number, sale_date)  values( 7, 1, 33, 3, '999', '96184670,70 denovo', '35min atras');
 insert into sales(id, user_id, seller_id, total_price, delivery_address, delivery_number, sale_date)  values( 8, 1, 33, 3, '999', '97152870', '17min atras');
 insert into sales(id, user_id, seller_id, total_price, delivery_address, delivery_number, sale_date)  values( 9, 1, 33, 3, '999', '70707070', 'mes que vem');
-insert into sales(id, user_id, seller_id, total_price, delivery_address, delivery_number, sale_date)  values( 10, 1, 33, 3, '999', 'senaoconeguir,70 denovo', 'agora');
