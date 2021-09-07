@@ -9,10 +9,11 @@ const getOneOrderById = async (id) => {
   //   as:'selercon'}
   //   ],
   // });
-  const order = await sales.findOne({where: {id}});
+  const order = await sales.findOne({ where: { id } });
   // console.log(order.seller_id, 'adkaskask')
-  const userName = await users.findOne({where: {id: order.seller_id}})
-  return {id: order.id, saleDate: order.saleDate, status: order.status, sellerName: userName.name};
+  const userName = await users.findOne({ where: { id: order.seller_id } });
+  return { 
+    id: order.id, saleDate: order.saleDate, status: order.status, sellerName: userName.name };
 };
 
 const getAllOrdersByCustomerId = async (email) => {
