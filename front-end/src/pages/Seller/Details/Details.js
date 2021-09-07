@@ -4,12 +4,14 @@ import Loading from '../../../components/Loading';
 import NavBar from '../../../components/NavBar';
 
 const Details = () => {
-  const [sale, setSale] = useState();
+  const [sale, setSale] = useState('');
 
   const { id } = useParams();
   const prefixOrder = 'seller_order_details__element-order-details-label-';
   const prefixButton = 'seller_order_details__button-';
   const prefixTable = 'seller_order_details__element-order-table-';
+  const prefix = 'seller_order_details__element-order-';
+
   const fetchDetails = async (saleId) => {
     try {
       const response = await fetch(`http://localhost:3001/sales_products/${saleId}`);
@@ -126,7 +128,16 @@ const Details = () => {
       {sale ? <>{renderTable(sale)}</> : (
         <Loading />
       )}
+      <div className="seller-itens">
+        <div
+          className="seller-itens"
+          data-testid={ `${prefix}total-price` }
+        >
+          {sale && sale[0].sale.totalPrice}
+        </div>
+      </div>
     </div>
+
   );
 };
 
