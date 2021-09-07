@@ -40,6 +40,7 @@ const login = async (email, password) => {
 
 const register = async ({ name, email, password, role }) => {
   const { error } = RegisterSchema.validate({ name, email, password });
+  console.log('paso');
 
   if (error) throw generateError(422, error.message);
 
