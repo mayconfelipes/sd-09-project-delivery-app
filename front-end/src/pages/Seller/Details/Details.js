@@ -5,6 +5,7 @@ import NavBar from '../../../components/NavBar';
 
 const Details = () => {
   const [sale, setSale] = useState('');
+  const [checkDisable] = useState(true);
 
   const { id } = useParams();
   const prefixButton = 'seller_order_details__button-';
@@ -47,38 +48,11 @@ const Details = () => {
       </section>
     </div>
   ));
-
-  //   <div
-  //     className="seller-card"
-  //     key={ item.sale_id }
-  //     data-testid={ `${prefixId}${item.sale_id}` }
-  //     onClick={ () => redirectToDetails(item.sale_id) }
-  //     onKeyDown={ () => redirectToDetails(item.sale_id) }
-  //     role="link"
-  //     tabIndex={ 0 }
-  //   >
-  //     <div className="seller-itens">
-  //       Nº
-  //       {item.sale_id}
-  //     </div>
-  //     <div className="seller-itens">
-  //       <div className="seller-itens">
-  //         <p>
-  //           Produto:
-  //         </p>
-  //       </div>
-  //       {item.product_id}
-  //     </div>
-  //     <div className="seller-itens">
-  //       <div className="seller-itens">
-  //         <p>
-  //           Quantidade:
-  //         </p>
-  //       </div>
-  //       {item.quantity}
-  //     </div>
-  //   </div>
-  // ));
+  const getTotalPrice = (price) => price.split('.').join(',');
+  const getDate = (date) => {
+    const newDate = new Date(date);
+    return `0${newDate.getDate()}/0${newDate.getMonth() + 1}/${newDate.getFullYear()}`;
+  };
   return (
     <div>
       <NavBar />
@@ -91,8 +65,9 @@ const Details = () => {
           <div
             className="seller-itens"
             data-testid={ `${prefix}details-label-order-date` }
-          />
-          {/* {item.sale_date} */}
+          >
+            {sale && getDate(sale[0].sale.sale_date)}
+          </div>
         </div>
         <div className="seller-itens">
           <div
@@ -118,6 +93,7 @@ const Details = () => {
             type="button"
             className="seller-itens"
             data-testid={ `${prefixButton}dispatch-check` }
+            disabled={ checkDisable }
           >
             Saiu Para Entrega
           </button>
@@ -131,7 +107,7 @@ const Details = () => {
           className="seller-itens"
           data-testid={ `${prefix}total-price` }
         >
-          {sale && sale[0].sale.totalPrice}
+          {sale && getTotalPrice(sale[0].sale.totalPrice)}
         </div>
       </div>
     </div>
