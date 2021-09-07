@@ -47,6 +47,15 @@ const CardProduct = ({ image, name, price, id }) => {
     setValeuInput(quantity * price);
   }, [quantity, valeuInput]);
 
+  const initPage = () => {
+    const local = JSON.parse(localStorage.getItem('user'));
+    if (local.length > 0) setCart(local);
+  };
+
+  useEffect(() => {
+    initPage();
+  }, []);
+
   const updateQuantity = ({ target }) => {
     if (typeof target.value !== 'string') return;
     const newValue = Number(target.value);

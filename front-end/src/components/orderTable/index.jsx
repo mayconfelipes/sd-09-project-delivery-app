@@ -2,11 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import Context from '../../context';
 import formatPrice from '../../services/formatPrice';
 
-const headers = [
-  'Item', 'Descrição', 'Quantidade',
-  'Valor Unitário', 'Sub-total', 'Remover Item',
-];
-
 const OrderTable = () => {
   const { cart, setCart } = useContext(Context);
   const { products, totalValue } = cart;
@@ -19,9 +14,15 @@ const OrderTable = () => {
     newCart.totalValue = totalValue - (itemToRemove.price * itemToRemove.quantity);
     newCart.products.splice(indexToRemove, 1);
     setCart(newCart);
+    localStorage.setItem('cart', JSON.stringify(newCart));
   };
 
-  useEffect(() => {}, [cart]);
+  useEffect(() => {
+    const localCart = JSON.parse(localStorage.getItem('cart'));
+    setCart(localCart);
+    console.log('renderizei');
+    console.log(localCart);
+  }, [cart, setCart]);
 
   const dataIdNumber = 'customer_checkout__element-order-table-item-number-';
   const dataIdName = 'customer_checkout__element-order-table-name-';
@@ -33,7 +34,15 @@ const OrderTable = () => {
   return (
     <table>
       <thead>
-        { headers.map((item) => (<th key={ item }>{ item }</th>)) }
+        <tr>
+          <th>Item</th>
+          <th>Nome</th>
+          <th>Descrição</th>
+          <th>Quantidade</th>
+          <th>Valor Unitário</th>
+          <th>Sub-total</th>
+          <th>Remover Item</th>
+        </tr>
       </thead>
       <tbody>
         {

@@ -8,15 +8,16 @@ const DEFAULT_DATA = {
   name: '',
   email: '',
   password: '',
-  selectedRole: 'Selecione',
-  typeArray: ['Selecione', 'Administrador', 'Vendedor', 'Comprador'],
+  role: 'customer',
 };
+
+const DEFAULT_ROLES = ['customer', 'seller', 'administrator'];
 
 const AdminManage = () => {
   const [data, setData] = useState(DEFAULT_DATA);
   const [disableButton, setDisableButton] = useState(true);
   const [insertResult, setInsertResult] = useState('');
-  const { name, email, password, selectedRole, typeArray } = data;
+  const { name, email, password, role } = data;
 
   const paginas = [
     'GERENCIAR USUÁRIOS /customer_products__element-navbar-link-products',
@@ -32,30 +33,20 @@ const AdminManage = () => {
 
   const successCode = 201;
 
-  const handleRole = ({ target: { value } }) => {
-    setData({
-      ...data,
-      selectedRole: value,
-    });
-  };
-
   const createNewUser = async () => {
     const { token } = JSON.parse(localStorage.getItem('user'));
-    const roleTypes = {
-      Administrador: 'administrator',
-      Vendedor: 'seller',
-      Comprador: 'customer',
-    };
 
-    const userInfo = { name, email, password, role: roleTypes[selectedRole] };
+    const userInfo = { name, email, password, role };
     const result = await registerUserByAdmin(token, userInfo);
+    setData(DEFAULT_DATA);
     setInsertResult(result.status);
   };
 
   useEffect(() => {
-    const verify = formValidator(email, password, name, selectedRole);
+    const verify = formValidator(email, password, name);
+    console.log(verify);
     setDisableButton(!verify);
-  }, [data, disableButton, email, name, password, selectedRole]);
+  }, [data, disableButton, email, name, password, role]);
 
   return (
     <div>
@@ -83,12 +74,12 @@ const AdminManage = () => {
           data-testid="admin_manage__input-password"
         />
         <S.SelectRole
-          value={ selectedRole }
-          onChange={ handleRole }
+          onChange={ handleChange }
+          name="role"
           data-testid="admin_manage__select-role"
         >
           {
-            typeArray.map((option) => (
+            DEFAULT_ROLES.map((option) => (
               <option
                 key={ option }
                 value={ option }
