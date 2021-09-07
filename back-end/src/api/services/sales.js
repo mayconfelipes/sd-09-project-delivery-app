@@ -12,18 +12,10 @@ const {
 const { INTERNAL_ERROR_STATUS, NOT_FOUND_STATUS } = require('../middwares/httpStatus');
 
 const getById = async (id) => {
-  const sale = await Sales.findOne(
-    { include: [
-      { model: Products, as: 'products' },
-      { model: Users, as: 'seller' }, 
-    ] },
-    { where: { id } }, 
-  );
-
+  const sale = await Sales.findByPk(id);
   if (!sale) {
     throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
   }
-
   return sale;
 };
 
@@ -93,7 +85,7 @@ const create = async (sale, id) => {
   await createProducts(newSale.id, products);
 
   const fullSale = await getById(newSale.id);
-
+  console.log('##################### sales #####################', fullSale);
   return fullSale.dataValues;
 };
 
