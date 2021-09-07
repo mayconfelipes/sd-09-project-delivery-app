@@ -34,7 +34,6 @@ const Checkout = () => {
       });
     }
   }, []);
-  console.log(sellerName);
 
   const onClickRemoveItem = (itemId) => {
     const one = 1;
@@ -58,7 +57,7 @@ const Checkout = () => {
     }
     const totPrice = totalPrice.replace(',', '.');
     const priceToNumber = Math.round(parseFloat(totPrice) * 100) / 100;
-    const { id } = await sales(
+    const sale = await sales(
       {
         token,
         seller: selectedSeller,
@@ -68,14 +67,15 @@ const Checkout = () => {
         products,
       },
     );
+    const { id } = sale;
     setSaleId(id);
+    console.log('saleId', sale);
     setShouldRedirect(true);
   };
-
-  function handleInputChange(event) {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     setSaleData({ ...saleData, [name]: value });
-  }
+  };
 
   if (!isLoading) {
     return (

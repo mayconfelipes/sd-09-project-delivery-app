@@ -35,7 +35,7 @@ const CustomerOrderDetails = ({ match }) => {
           setIsLoading(false);
         });
     }
-  }, []);
+  }, [paramId]);
 
   const renderLocalSales = () => (
     <>
@@ -45,32 +45,35 @@ const CustomerOrderDetails = ({ match }) => {
           const multPrice = parseFloat(quantity) * intPrice;
           const totPrice = (Math.round(multPrice * 100) / 100).toFixed(2);
           const toStringNumber = totPrice.toString().replace('.', ',');
-          return (
-            <DescriptionsBar
-              key={ id }
-              id={ index }
-              userOrProductName={ description }
-              emailOrQuantity={ quantity }
-              userTypeOrValue={ price }
-              deleteOrPrice={ toStringNumber }
-              shouldDeleteApear={ false }
-              dataTestIdId={
-                `customer_order_details__element-order-table-item-number-${index}`
-              }
-              dataTestIdUserOrProductName={
-                `customer_order_details__element-order-table-name-${index}`
-              }
-              dataTestIdEmailOrQuantity={
-                `customer_order_details__element-order-table-quantity-${index}`
-              }
-              dataTestIdUserTypeOrValue={
-                `customer_order_details__element-order-table-sub-total-${index}`
-              }
-              dataTestIdDeleteOrPrice={
-                `customer_order_details__element-order-total-price-${index}`
-              }
-            />
-          );
+          if (id === Number(paramId)) {
+            return (
+              <DescriptionsBar
+                key={ id }
+                id={ index }
+                userOrProductName={ description }
+                emailOrQuantity={ quantity }
+                userTypeOrValue={ price }
+                deleteOrPrice={ toStringNumber }
+                shouldDeleteApear={ false }
+                dataTestIdId={
+                  `customer_order_details__element-order-table-item-number-${index}`
+                }
+                dataTestIdUserOrProductName={
+                  `customer_order_details__element-order-table-name-${index}`
+                }
+                dataTestIdEmailOrQuantity={
+                  `customer_order_details__element-order-table-quantity-${index}`
+                }
+                dataTestIdUserTypeOrValue={
+                  `customer_order_details__element-order-table-sub-total-${index}`
+                }
+                dataTestIdDeleteOrPrice={
+                  `customer_order_details__element-order-total-price-${index}`
+                }
+              />
+            );
+          }
+          return null;
         })}
       {/*
       <PrimaryButton>
@@ -91,25 +94,26 @@ const CustomerOrderDetails = ({ match }) => {
             .map(({
               id, products, saleDate, totalPrice, status, seller }, productIndex) => {
               if (id === Number(paramId)) {
+                console.log('customer status', status);
                 const { name: sellerName } = seller;
                 const newDate = formatDate(saleDate);
                 const priceToString = totalPrice.toString().replace('.', ',');
                 return (
-                  <div>
+                  <div key={ id }>
                     <InfoOrderDetails
                       shouldOrderStatusApear={ false }
                       shouldSellerApear
                       dispatchCheckDisabled
+                      shouldCustomerDeliverApear
                       dataTestIdOrderId={ orderTestId }
                       dataTestIdSeller={ sellerTestId }
                       dataTestIdOrderDate={ dateTestId }
                       dataTestIdDeliveryStatus={ statusTId }
-                      dataTestIdDeliveryCheck={ deliveryCheckTestId }
-                      order={ ` 000${id}` }
+                      dataTestIdCustomerDelivery={ deliveryCheckTestId }
+                      order={ id }
                       sellerName={ `${sellerName}` }
                       date={ newDate }
                       deliveryStatus={ status }
-                      deliveryCheck="MARCAR COMO ENTREGUE"
                     />
                     <GridOrderDetails />
                     ;

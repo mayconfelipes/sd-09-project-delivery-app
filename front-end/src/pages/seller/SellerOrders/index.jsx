@@ -14,7 +14,7 @@ import useGlobalContext from '../../../context/GlobalStateProvider';
 const SellerOrders = () => {
   const [sales, setSales] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [newStatus, setNewStatus] = useState({});
+  const [newStatus, setNewStatus] = useState();
   const { localStatus } = useGlobalContext();
 
   useEffect(() => {
@@ -29,10 +29,19 @@ const SellerOrders = () => {
 
   useEffect(() => {
     socket.on('statusChanged', (data) => {
+      console.log(data);
       setNewStatus(data);
     });
+    console.log('local', localStatus);
   }, [localStatus]);
-  console.log(newStatus);
+
+  const manegeredStatus = (id, status) => {
+    console.log(newStatus);
+    if (newStatus && newStatus.id === id) {
+      return newStatus.status;
+    }
+    return status;
+  };
 
   if (isLoading) return <p>Loading...</p>;
   return (
@@ -40,10 +49,9 @@ const SellerOrders = () => {
       <NavBar orders="" products="PEDIDOS" />
       <div className={ style.productStatusContainer }>
         {sales.map(({
-          id, saleDate, totalPrice, deliveryAddress, deliveryNumber }) => {
+          id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber }) => {
           const newDate = formatDate(saleDate);
           const priceToString = totalPrice.toString().replace('.', ',');
-          console.log(newStatus.id, id);
           return (
             <Link
               key={ id }
@@ -52,7 +60,7 @@ const SellerOrders = () => {
             >
               <ProductStatus
                 orderPrice={ `${priceToString}` }
-                orderStatus={ newStatus.id === id && newStatus.status }
+                orderStatus={ manegeredStatus(id, status) }
                 orderDate={ newDate }
                 orderNumber={ `000${id}` }
                 orderAddress={ `${deliveryAddress}, ${deliveryNumber}` }

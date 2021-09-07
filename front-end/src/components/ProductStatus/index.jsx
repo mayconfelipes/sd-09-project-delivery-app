@@ -26,6 +26,9 @@ const ProductStatus = ({
   case 'Preparando':
     orderCardStatus = style.greenOrder;
     break;
+  case 'Em Trânsito':
+    orderCardStatus = style.blackBlueOrder;
+    break;
   case 'Entregue':
     orderCardStatus = style.blueOrder;
     break;

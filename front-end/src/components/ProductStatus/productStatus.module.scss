@@ -46,7 +46,7 @@
     .productData {
       display: flex;
 
-      .orangeOrder, .greenOrder, .blueOrder {
+      .orangeOrder, .greenOrder, .blueOrder, .blackBlueOrder {
         display: flex;
         align-items: center;
         font-weight: bold;
@@ -62,6 +62,11 @@
 
       .greenOrder {
         background-color: #8cd940;
+      }
+
+      .blackBlueOrder {
+        background-color: #3faad4f6;
+        font-size: 1.6rem;
       }
 
       .blueOrder {
