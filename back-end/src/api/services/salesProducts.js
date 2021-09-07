@@ -10,7 +10,8 @@ const getById = async (saleId) => {
     where: { saleId },
     include: [
       { attributes: ['delivery_address', 'totalPrice', 'sale_date', 'status'], 
-      model: sales, as: 'sale' },
+      model: sales, 
+      as: 'sale' },
   ],
   });
   return sale;
