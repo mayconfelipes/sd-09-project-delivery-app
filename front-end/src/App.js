@@ -8,6 +8,7 @@ import Products from './pages/customerProducts';
 import CheckOut from './pages/customerCheckout';
 import Order from './pages/customerOrder';
 import SellerOrders from './pages/sellerOrders';
+import SellerOrderDetails from './pages/sellerOrderDetails';
 import AdminManage from './pages/adminManage';
 import GlobalStyle from './theme/globalStyle';
 import Context from './context/index';
@@ -20,6 +21,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/admin/manage" component={ AdminManage } />
+          <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
           <Route path="/seller/orders" component={ SellerOrders } />
           <Route path="/customer/orders/:id" component={ Order } />
           <Route path="/customer/checkout" component={ CheckOut } />

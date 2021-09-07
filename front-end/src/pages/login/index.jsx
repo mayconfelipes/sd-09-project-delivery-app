@@ -33,9 +33,6 @@ const Login = () => {
         );
 
       setRegisterOkay({ redirect: true, roleUser: role });
-      console.log(redirect && roleUser === 'seller');
-      console.log(redirect && roleUser === 'customer');
-      console.log(redirect && roleUser === 'administrator');
     }
   };
 

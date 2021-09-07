@@ -47,7 +47,6 @@ const AdminManage = () => {
 
     const userInfo = { name, email, password, role: roleTypes[selectedRole] };
     const result = await registerUserByAdmin(token, userInfo);
-    console.log(result);
     setInsertResult(result);
   };
 
