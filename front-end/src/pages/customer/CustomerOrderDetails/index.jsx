@@ -45,35 +45,32 @@ const CustomerOrderDetails = ({ match }) => {
           const multPrice = parseFloat(quantity) * intPrice;
           const totPrice = (Math.round(multPrice * 100) / 100).toFixed(2);
           const toStringNumber = totPrice.toString().replace('.', ',');
-          if (id === Number(paramId)) {
-            return (
-              <DescriptionsBar
-                key={ id }
-                id={ index }
-                userOrProductName={ description }
-                emailOrQuantity={ quantity }
-                userTypeOrValue={ price }
-                deleteOrPrice={ toStringNumber }
-                shouldDeleteApear={ false }
-                dataTestIdId={
-                  `customer_order_details__element-order-table-item-number-${index}`
-                }
-                dataTestIdUserOrProductName={
-                  `customer_order_details__element-order-table-name-${index}`
-                }
-                dataTestIdEmailOrQuantity={
-                  `customer_order_details__element-order-table-quantity-${index}`
-                }
-                dataTestIdUserTypeOrValue={
-                  `customer_order_details__element-order-table-sub-total-${index}`
-                }
-                dataTestIdDeleteOrPrice={
-                  `customer_order_details__element-order-total-price-${index}`
-                }
-              />
-            );
-          }
-          return null;
+          return (
+            <DescriptionsBar
+              key={ id }
+              id={ index }
+              userOrProductName={ description }
+              emailOrQuantity={ quantity }
+              userTypeOrValue={ price }
+              deleteOrPrice={ toStringNumber }
+              shouldDeleteApear={ false }
+              dataTestIdId={
+                `customer_order_details__element-order-table-item-number-${index}`
+              }
+              dataTestIdUserOrProductName={
+                `customer_order_details__element-order-table-name-${index}`
+              }
+              dataTestIdEmailOrQuantity={
+                `customer_order_details__element-order-table-quantity-${index}`
+              }
+              dataTestIdUserTypeOrValue={
+                `customer_order_details__element-order-table-sub-total-${index}`
+              }
+              dataTestIdDeleteOrPrice={
+                `customer_order_details__element-order-total-price-${index}`
+              }
+            />
+          );
         })}
       {/*
       <PrimaryButton>

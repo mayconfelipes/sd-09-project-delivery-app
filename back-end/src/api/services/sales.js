@@ -28,22 +28,37 @@ const getSaleById = async (id) => {
     ] },
     { where: { id } }, 
   );
-
   if (!sale) {
     throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
   }
 
+  const userSale = sale.filter(({ dataValues }) => dataValues.userId === id);
+
+  return userSale;
+};
+
+// retorna a venda pelo id dela mesma
+const getAllSalesById = async (id) => {
+  const sale = await Sales.findAll(
+    { include: [
+      { model: Products, as: 'products' },
+      { model: Users, as: 'seller' }, 
+    ] },
+    { where: { id } }, 
+  );
+  if (!sale) {
+    throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
+  }
   return sale;
 };
 
 // Pega todas as vendas pelo id do usuário
 const getAllById = async (id) => {
-  const sale = await Sales.findAll({ where: { id } });
+  const sale = await Sales.find({ where: { id } });
 
   if (!sale) {
     throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
   }
-
   return sale;
 };
 
@@ -57,7 +72,7 @@ const createProducts = async (saleId, products) => {
       quantity,
 
     });
-   
+
     if (!newProductSale) {
       throw messageError(INTERNAL_ERROR_STATUS, SALE_PRODUCT_NOT_CREATED);
     }
@@ -85,26 +100,27 @@ const create = async (sale, id) => {
   await createProducts(newSale.id, products);
 
   const fullSale = await getById(newSale.id);
-  console.log('##################### sales #####################', fullSale);
+
   return fullSale.dataValues;
 };
 
 const update = async (id, status) => {
   // const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status } = sale;
- 
+
   // const saleUser = await usersServices.getById(userId);
 
   // const saleSeller = await usersServices.getById(sellerId);
 
   const updateSale = await Sales.update(
     { 
-    // userId: saleUser.id, 
-    // sellerId: saleSeller.id,
-    // totalPrice,
-    // deliveryAddress,
-    // deliveryNumber,
-    status,
-  }, { where: { id } },
+      // userId: saleUser.id, 
+      // sellerId: saleSeller.id,
+      // totalPrice,
+      // deliveryAddress,
+      // deliveryNumber,
+      status,
+    },
+    { where: { id } },
 );
 
   if (!updateSale) {
@@ -117,22 +133,22 @@ const update = async (id, status) => {
 };
 
 // Busca vendas pelo id do usuário logado
-const getByUser = async (id) => {
-  const userId = id;
-  const sale = await Sales.findAll(
-    { include: [
-      { model: Products, as: 'products' },
-      { model: Users, as: 'seller' }, 
-    ] },
-    { where: { userId } }, 
-  );
-  if (!sale) {
-    throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
-  }
-  return sale;
-};
+// const getByUser = async (id) => {
+//   const userId = id;
+//   const sale = await Sales.findAll(
+//     { where: { userId } }, 
+//     { include: [
+//       { model: Products, as: 'products' },
+//       { model: Users, as: 'seller' }, 
+//     ] },
+//   );
+//   if (!sale) {
+//     throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
+//   }
+//   return sale;
+// };
 
-// Busca todas as vendas
+// // Busca todas as vendas
 const getAllSales = async () => {
   const sale = await Sales.findAll(
     { include: [
@@ -151,6 +167,7 @@ module.exports = {
   getSaleById,
   update,
   getAllById,
-  getByUser,
+  // getByUser,
   getAllSales,
+  getAllSalesById,
 };
