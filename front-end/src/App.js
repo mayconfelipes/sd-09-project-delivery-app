@@ -11,6 +11,7 @@ import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import SellerOrders from './pages/sellerOrders/SellerOrders';
 import CustumerProducts from './pages/custumerProducts/CustumerProducts';
+import Checkout from './pages/checkout/Checkout';
 import OrderDetails from './pages/orderDetails/OrdersDetails';
 
 function App() {
@@ -23,10 +24,10 @@ function App() {
           </Route>
           <Route path="/seller/orders/:id" component={ OrderDetails } />
           <Route path="/seller/orders" component={ SellerOrders } />
+          <Route exact path="/customer/orders/:id" component={ OrderDetails } />
           <Route path="/customer/orders" component={ SellerOrders } />
           <Route exact path="/customer/products" component={ CustumerProducts } />
-          <Route exact path="/customer/checkout" />
-          <Route exact path="/seller/orders" component={ SellerOrders } />
+          <Route exact path="/customer/checkout" component={ Checkout } />
           <Route exact path="/register" component={ Register } />
           <Route path="/login" component={ Login } />
         </Switch>

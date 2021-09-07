@@ -76,7 +76,7 @@ const renderDetails = (MockSalesDB) => (
         className="total-price"
         data-testid="seller_order_details__element-order-total-price"
       >
-        Total:
+        {`Total: ${sale.totalPrice}`}
       </div>
     </div>
 
