@@ -55,21 +55,20 @@ const Details = () => {
   };
   return (
     <div>
+
       <NavBar />
-      <section className="seller-card-parte-de-cima">
-        <div className="seller-itens" data-testid={ `${prefix}details-label-order-id` }>
-          Nº
-          {id}
-        </div>
-        <div className="seller-itens">
+      <div className="seller-card">
+        <section className="seller-card-parte-de-cima">
+          <div className="seller-itens" data-testid={ `${prefix}details-label-order-id` }>
+            Nº
+            {id}
+          </div>
           <div
             className="seller-itens"
             data-testid={ `${prefix}details-label-order-date` }
           >
             {sale && getDate(sale[0].sale.sale_date)}
           </div>
-        </div>
-        <div className="seller-itens">
           <div
             className="seller-itens"
             data-testid={ `${prefix}details-label-delivery-status` }
@@ -78,8 +77,6 @@ const Details = () => {
               Pendente
             </div>
           </div>
-        </div>
-        <div className="seller-itens">
           <button
             type="button"
             className="seller-itens"
@@ -87,8 +84,6 @@ const Details = () => {
           >
             Preparar Pedido
           </button>
-        </div>
-        <div className="seller-itens">
           <button
             type="button"
             className="seller-itens"
@@ -97,17 +92,17 @@ const Details = () => {
           >
             Saiu Para Entrega
           </button>
-        </div>
-      </section>
-      {sale ? <>{renderTable(sale)}</> : (
-        <Loading />
-      )}
-      <div className="seller-itens">
-        <div
-          className="seller-itens"
-          data-testid={ `${prefix}total-price` }
-        >
-          {sale && getTotalPrice(sale[0].sale.totalPrice)}
+        </section>
+        {sale ? <>{renderTable(sale)}</> : (
+          <Loading />
+        )}
+        <div className="seller-itens">
+          <div
+            className="seller-itens"
+            data-testid={ `${prefix}total-price` }
+          >
+            {sale && getTotalPrice(sale[0].sale.totalPrice)}
+          </div>
         </div>
       </div>
     </div>
