@@ -89,7 +89,7 @@ describe(requirement(25), () => {
   });
 });
 
-describe(requirement(26), () => {
+describe.only(requirement(26), () => {
   test("O avaliador testará se os dados contidos nos campos das linhas conferem com os dados da venda", async () => {
     await expect(page).toFindElement(
       customerOrderDetailsPage.button.deliveryCheck.disabled

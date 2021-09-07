@@ -14,19 +14,21 @@ const CheckoutItem = (props) => {
 
   return (
     <li>
-      <p data-testid={ `customer_order_detailselement-order-table-item-number-${order}` }>
+      <p
+        data-testid={ `customer_order_details__element-order-table-item-number-${order}` }
+      >
         {order + 1}
       </p>
-      <p data-testid={ `customer_order_detailselement-order-table-name-${order}` }>
+      <p data-testid={ `customer_order_details__element-order-table-name-${order}` }>
         {name}
       </p>
-      <p data-testid={ `customer_order_detailselement-order-table-quantity-${order}` }>
+      <p data-testid={ `customer_order_details__element-order-table-quantity-${order}` }>
         {quant}
       </p>
-      <p data-testid={ `customer_order_detailselement-order-table-sub-total-${order}` }>
+      <p data-testid={ `customer_order_details__element-order-table-sub-total-${order}` }>
         {brazilianPrice(price)}
       </p>
-      <p data-testid={ `customer_order_detailselement-order-total-price-${order}` }>
+      <p data-testid="customer_order_details__element-order-total-price">
         {brazilianPrice(totalProduct)}
       </p>
     </li>
