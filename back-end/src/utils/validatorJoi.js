@@ -17,6 +17,20 @@ const schemaLogin = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const saleSchema = Joi.object({
+  sellerId: Joi.number().required(),
+  userId: Joi.number().required(),
+  totalPrice: Joi.string().required(),
+  deliveryAddress: Joi.string().required(),
+  deliveryNumber: Joi.string().required(),
+});
+
+const salesProductsSchema = Joi.object({
+  productId: Joi.number().required(),
+  sellerId: Joi.number().required(),
+  quantity: Joi.number().required(),
+});
+
 const verifierSchemaRegister = (name, email, password, role) => {
   const { error } = schemaRegister.validate({ name, email, password, role });
   if (error) return error.details[0];
@@ -29,7 +43,21 @@ const verifierSchemaLogin = (email, password) => {
   return {};
 };
 
+const verifierSaleSchema = (sale) => {
+  const { error } = saleSchema.validate(sale);
+  if (error) return error.details[0];
+  return {};
+};
+
+const verifierSalesProductsSchema = (salesProductsObj) => {
+  const { error } = salesProductsSchema.validate(salesProductsObj);
+  if (error) return error.details[0];
+  return {};
+};
+
 module.exports = {
   verifierSchemaRegister,
   verifierSchemaLogin,
+  verifierSaleSchema,
+  verifierSalesProductsSchema,
 };

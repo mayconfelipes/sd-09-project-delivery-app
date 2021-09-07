@@ -14,7 +14,6 @@ export default function MainPage() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log('entrou aqui');
     async function fetchProducts() {
       const data = await API.fetchProducts();
       setProductsList(data);
@@ -45,17 +44,13 @@ export default function MainPage() {
         }
       </div>
 
-      {/* <Link
-        to="/customer/checkout"
-        style={ { textDecoration: 'none', color: 'white' } }
-        className={ classes.textLink }
-      > */}
       <button
         type="button"
         disabled={ sumOfProducts.toFixed(2).split('.').join(',') === '0,00' }
         className={ classes.sumContainer }
         data-testid="customer_products__button-cart"
         onClick={ () => {
+          localStorage.setItem('totalPrice', sumOfProducts);
           history.push('/customer/checkout');
         } }
       >
@@ -67,7 +62,6 @@ export default function MainPage() {
           {sumOfProducts.toFixed(2).split('.').join(',')}
         </p>
       </button>
-      {/* </Link> */}
     </div>
   );
 }

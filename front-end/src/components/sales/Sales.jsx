@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import salesAPI from '../../services/salesAPI';
+import { salesOrdersAPI } from '../../services/salesAPI';
 import formatDate from '../../services/formatDate';
 
 const renderSales = (MockSalesDB, click, user) => (
@@ -61,7 +61,7 @@ export default function Sales() {
     const userInfos = JSON.parse(localStorage.getItem('user'));
 
     if (user === 'seller') {
-      salesAPI({ sellerId: userInfos.id }, user)
+      salesOrdersAPI({ sellerId: userInfos.id }, user)
         .then((response) => {
           setMockSalesDB(response);
           setIsLoading(false);
@@ -72,7 +72,7 @@ export default function Sales() {
           console.log(error);
         });
     } else {
-      salesAPI({ userId: userInfos.id }, user)
+      salesOrdersAPI({ userId: userInfos.id }, user)
         .then((response) => {
           setMockSalesDB(response);
           setIsLoading(false);
