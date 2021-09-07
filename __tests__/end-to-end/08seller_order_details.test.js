@@ -145,7 +145,7 @@ describe(requirement(31), () => {
   });
 });
 
-describe.only(requirement(32), () => {
+describe(requirement(32), () => {
   test("O avaliador testará se alteração do pedido é persistente após a atualização da página", async () => {
     expect(await updateStatus({ SOD: page, currentOrder })).toBeTruthy();
   });
