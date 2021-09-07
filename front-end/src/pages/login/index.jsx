@@ -8,11 +8,11 @@ import formValidator from '../../services/formValidator';
 import Api from '../../services/api';
 
 const Login = () => {
-  const [registerOkay, setRegisterOkay] = useState({ redirect: false, role: '' });
+  const [registerOkay, setRegisterOkay] = useState({ redirect: false, roleUser: '' });
   const [errorExist, setErrorExist] = useState(false);
   const { form, setForm, enableButton, setEnableButton } = useContext(context);
   const { email, password } = form;
-  const { role, redirect } = registerOkay;
+  const { roleUser, redirect } = registerOkay;
 
   const fetchRegister = async () => {
     const result = await Api.post('/login', { email, password })
@@ -21,12 +21,21 @@ const Login = () => {
         setErrorExist(true);
         return { Error: err };
       });
+
     if (!result.Error) {
       const { token, payload } = result.data;
-      const { name, email: emailBack, role: userRole } = payload;
+      const { name, email: emailBack, role } = payload;
+
       localStorage
-        .setItem('user', JSON.stringify({ name, email: emailBack, role, token }));
-      setRegisterOkay({ redirect: true, role: userRole });
+        .setItem(
+          'user',
+          JSON.stringify({ name, email: emailBack, role, token }),
+        );
+
+      setRegisterOkay({ redirect: true, roleUser: role });
+      console.log(redirect && roleUser === 'seller');
+      console.log(redirect && roleUser === 'customer');
+      console.log(redirect && roleUser === 'administrator');
     }
   };
 
@@ -38,13 +47,13 @@ const Login = () => {
   return (
     <Main>
       {
-        (redirect && role === 'customer') && <Redirect to="/customer/products" />
+        (redirect && roleUser === 'customer') && <Redirect to="/customer/products" />
       }
       {
-        (redirect && role === 'seller') && <Redirect to="/seller/order" />
+        (redirect && roleUser === 'administrator') && <Redirect to="/admin/manage" />
       }
       {
-        (redirect && role === 'administrator') && <Redirect to="/admin/manage" />
+        (redirect && roleUser === 'seller') && <Redirect to="/seller/orders" />
       }
       <Logo src={ logo } alt="Ícone do aplicativo" />
       <FormRender />
