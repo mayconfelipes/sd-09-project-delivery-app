@@ -38,7 +38,10 @@ const Login = () => {
   return (
     <Main>
       {
-        (redirect && role === 'user') && <Redirect to="/customer/products" />
+        (redirect && role === 'customer') && <Redirect to="/customer/products" />
+      }
+      {
+        (redirect && role === 'seller') && <Redirect to="/seller/order" />
       }
       {
         (redirect && role === 'administrator') && <Redirect to="/admin/manage" />
