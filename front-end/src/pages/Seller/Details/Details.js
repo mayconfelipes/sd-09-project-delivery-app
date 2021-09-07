@@ -7,9 +7,7 @@ const Details = () => {
   const [sale, setSale] = useState('');
 
   const { id } = useParams();
-  const prefixOrder = 'seller_order_details__element-order-details-label-';
   const prefixButton = 'seller_order_details__button-';
-  const prefixTable = 'seller_order_details__element-order-table-';
   const prefix = 'seller_order_details__element-order-';
 
   const fetchDetails = async (saleId) => {
@@ -34,7 +32,7 @@ const Details = () => {
         <div className="seller-itens">
           <div
             className="seller-itens"
-            data-testid={ `${prefixTable}item-number${index}` }
+            data-testid={ `${prefix}table-item-number${index}` }
           />
           {item.saleId}
         </div>
@@ -42,7 +40,7 @@ const Details = () => {
       <section className="seller-card-parte-de-baixo">
         <div
           className="seller-endereço"
-          data-testid={ `${prefixTable}card-address-${item.saleId}` }
+          data-testid={ `${prefix}table-card-address-${item.saleId}` }
         >
           {item.delivery_address}
         </div>
@@ -85,21 +83,21 @@ const Details = () => {
     <div>
       <NavBar />
       <section className="seller-card-parte-de-cima">
-        <div className="seller-itens" data-testid={ `${prefixOrder}order-id` }>
+        <div className="seller-itens" data-testid={ `${prefix}details-label-order-id` }>
           Nº
           {id}
         </div>
         <div className="seller-itens">
           <div
             className="seller-itens"
-            data-testid={ `${prefixOrder}order-date` }
+            data-testid={ `${prefix}details-label-order-date` }
           />
           {/* {item.sale_date} */}
         </div>
         <div className="seller-itens">
           <div
             className="seller-itens"
-            data-testid={ `${prefixOrder}delivery-status` }
+            data-testid={ `${prefix}details-label-delivery-status` }
           >
             <div className="seller-page-status">
               Pendente
