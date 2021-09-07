@@ -114,7 +114,7 @@ function Products() {
         Ver Carrinho: R$
         {' '}
         <span data-testid="customer_products__checkout-bottom-value">
-          { totalPrice.toString().replace(/\./, ',') }
+          { Number(totalPrice).toFixed(2).toString().replace(/\./, ',') }
         </span>
       </button>
     </>
