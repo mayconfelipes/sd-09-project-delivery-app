@@ -9,7 +9,8 @@ const getById = async (saleId) => {
   const sale = await salesProducts.findAll({
     where: { saleId },
     include: [
-      { attributes: ['delivery_address', 'totalPrice', 'sale_date', 'status'], model: sales, as: 'sale' },
+      { attributes: ['delivery_address', 'totalPrice', 'sale_date', 'status'], 
+      model: sales, as: 'sale' },
   ],
   });
   return sale;
