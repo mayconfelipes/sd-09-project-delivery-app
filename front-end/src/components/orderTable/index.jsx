@@ -25,7 +25,7 @@ const OrderTable = () => {
 
   const dataIdNumber = 'customer_checkout__element-order-table-item-number-';
   const dataIdName = 'customer_checkout__element-order-table-name-';
-  const dataIdQuantity = 'cusctomer_checkout__element-order-table-quantity-';
+  const dataIdQuantity = 'customer_checkout__element-order-table-quantity-';
   const dataIdUnitPrice = 'customer_checkout__element-order-table-unit-price-';
   const dataIdSubTotal = 'customer_checkout__element-order-table-sub-total-';
   const dataIdRemove = 'customer_checkout__element-order-table-remove-';
@@ -42,7 +42,7 @@ const OrderTable = () => {
               <td
                 data-testid={ dataIdNumber + index }
               >
-                {index}
+                {index + 1}
               </td>
               <td
                 data-testid={ dataIdName + index }
