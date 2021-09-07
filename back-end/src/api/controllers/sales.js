@@ -28,7 +28,8 @@ const getAllOrders = async (req, res, next) => {
 
 const getAllSales = async (req, res, next) => {
   try {
-    const allSales = await Sale.getAllSales(req.body.sellerId);
+    const { id } = req.user;
+    const allSales = await Sale.getAllSales(id);
     return res.status(200).json(allSales);
   } catch (err) { next(err); }
 };

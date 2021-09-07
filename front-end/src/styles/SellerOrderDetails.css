@@ -1,0 +1,123 @@
+.seller-order-details-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 2vh;
+  height: max-content;
+  padding-bottom: 5vh;
+  width: 100%;
+}
+
+.seller-order-details {
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 2rem;
+  height: 100%;
+  justify-content: flex-start;
+  margin-top: 5rem;
+  position: relative;
+  width: 80%;
+}
+
+.seller-order-details:before {
+  content: 'Detalhes do Pedido';
+  left: 0;
+  position: absolute;
+  top: -1.5rem;
+}
+
+.seller-order-details-header {
+  align-self: stretch;
+  background-color: #eaf1ef;
+  box-sizing: border-box;
+  display: flex;
+  gap: 1rem;
+  line-height: 2;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.seller-order-details-header span {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0 1.25em;
+  width: max-content;
+}
+
+.seller-order-details-header button {
+  background-color: #036b52;
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0 1.25em;
+  width: max-content;
+}
+
+.seller-order-details-header button:first-of-type {
+  margin-left: auto;
+}
+
+.seller-order-details-header button:hover {
+  background-color: hsl(166, 95%, 25%);
+  cursor: pointer;
+}
+
+.seller-order-details-header button:disabled {
+  background-color: hsl(166, 95%, 25%);
+  cursor: not-allowed;
+}
+
+.seller-order-details table {
+  box-sizing: border-box;
+  padding: 0 0.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+.seller-order-details table td {
+  padding: 0;
+}
+
+.seller-order-details table tbody tr {
+  line-height: 2.5;
+}
+
+.seller-order-details-order-item {
+  background-color: #2fc18c;
+}
+
+.seller-order-details-item-name {
+  background-color: #f2fffc;
+  text-align: left;
+}
+
+.seller-order-details-item-quantity {
+  background-color: #036b52;
+  color: white;
+}
+
+.seller-order-details-item-unit-price {
+  background-color: #421981;
+  color: white;
+}
+
+.seller-order-details-item-subtotal {
+  background-color: #056cf9;
+  color: white;
+}
+
+.seller-order-details-total {
+  align-self: flex-end;
+  background-color: #036b52;
+  border-radius: 0.5rem;
+  color: white;
+  justify-self: flex-end;
+  line-height: 2;
+  margin: 0 0.5rem 0.5rem;
+  padding: 0 1em;
+  width: max-content;
+}

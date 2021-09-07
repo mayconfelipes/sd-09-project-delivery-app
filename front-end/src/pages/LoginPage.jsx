@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 // import React, { useEffect, useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+// import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+// import { Link, useHistory } from 'react-router-dom';
 import ProductsContext from '../context/ProductsContext';
 import * as api from '../services/api';
 
@@ -12,7 +14,7 @@ function Login() {
   const [valid, setValid] = useState(false);
   const [showInvalidLoginError, setInvalidLoginError] = useState('');
 
-  const history = useHistory();
+  // const history = useHistory();
   const errorMessageTimeout = 2000;
 
   useEffect(() => {
@@ -29,19 +31,26 @@ function Login() {
     setTimeout(() => setInvalidLoginError(''), errorMessageTimeout);
   };
 
+  const redirectByRole = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user.role === 'customer') return <Redirect to="/customer/products" />;
+    if (user.role === 'seller') return <Redirect to="/seller/orders" />;
+    // if (user.role === 'admin') return <Redirect to="/admin/manage" />;
+  };
+
   const loginUser = async () => {
     try {
       const { data } = await api.loginUser(email, password);
       localStorage.setItem('user', JSON.stringify(data));
       setUserInfo(data);
-      history.push('/customer/products');
+      redirectByRole();
     } catch (error) {
       console.log(error);
       showInvalidLoginMessage(error.message);
     }
   };
 
-  return localStorage.getItem('user') ? <Redirect to="/customer/products" />
+  return localStorage.getItem('user') ? redirectByRole()
     : (
       <div className="login-page">
         <form>
