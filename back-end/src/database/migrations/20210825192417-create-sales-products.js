@@ -8,11 +8,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      sale_id: {
+      saleId: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      product_id: {
+      productId: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.INTEGER,
