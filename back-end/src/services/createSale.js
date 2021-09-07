@@ -5,26 +5,16 @@ const createSale = async (sale, products) => {
   const saleCreated = await sales.create(sale);
 
   await products.forEach((product) => {
-    salesProducts.create({
-      saleId: saleCreated.dataValues.id,
-      productId: product.id,
+    const objectUnserializedSalesProducts = {
+      product_id: product.id,
+      sale_id: saleCreated.dataValues.id,
       quantity: product.quantity,
-    });
+    }
+    salesProducts.create(objectUnserializedSalesProducts);
   });
-  return saleCreated;
-};
-
-const createSalesProducts = async (salesProductsObject) => {
-  const objectToCreateSalesProducts = {
-    // product_id: salesProductsObject.productId,
-    // sale_id: salesProductsObject.saleId,
-    quantity: salesProductsObject.quantity,
-  };
-  const saleCreated = await salesProducts.create(objectToCreateSalesProducts);
   return saleCreated;
 };
 
 module.exports = {
   createSale,
-  createSalesProducts,
 };

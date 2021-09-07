@@ -34,7 +34,6 @@ const mdwCreateSale = async (req, res, next) => {
     const joiValidate = verifierSaleSchema({
       sellerId, userId, totalPrice, deliveryNumber, deliveryAddress,
     });
-
     if (joiValidate.error) return next(joiValidate.error);
     const saleDate = getDate();
     const status = 'Pendente';
