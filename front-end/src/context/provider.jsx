@@ -23,6 +23,7 @@ function Provider({ children }) {
   const [cart, setCart] = useState(DEFAULT_CART);
   const [catalog, setCatalog] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [allSales, setAllSales] = useState([]);
 
   const contextValue = {
     form,
@@ -39,6 +40,8 @@ function Provider({ children }) {
     setCatalog,
     loading,
     setLoading,
+    allSales,
+    setAllSales,
   };
 
   return (

@@ -44,3 +44,17 @@ export const registerUserByAdmin = async (token, userInfo) => {
 
   return code;
 };
+
+export const getAllSales = async (token) => {
+  const code = await fetch(`${URL}seller`, {
+    method: 'GET',
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+
+  return code;
+};
