@@ -6,25 +6,25 @@ import Context from '../../context';
 
 const FormAddressFull = () => {
   const DEFAULT_FORM = {
-    sellers: [{ name: 'Buscando vendedores', id: 'nenhum' }],
-    selectedSeller: 'Buscando vendedores',
     address: '',
     number: '',
+    seller: 2,
   };
 
   const { cart } = useContext(Context);
   const [formOrder, setFormOrder] = useState(DEFAULT_FORM);
-  const [orderId, setOrderId] = useState(0);
   const [redirect, setRedirect] = useState(false);
-  const { sellers, selectedSeller, address, number } = formOrder;
+  const { seller, address, number } = formOrder;
+  const [allSellers, setAllSellers] = useState([]);
+  const [orderId, setOrderId] = useState();
 
   const fetchAllSellers = async () => {
     const { token } = JSON.parse(localStorage.getItem('user'));
     const result = await getAllSellers(token);
+    setAllSellers(result);
     setFormOrder({
       ...formOrder,
-      sellers: [...result],
-      selectedSeller: result[0].name,
+      seller: result[0].id,
     });
   };
 
@@ -35,22 +35,14 @@ const FormAddressFull = () => {
     });
   };
 
-  const handleSeller = ({ target: value }) => {
-    setFormOrder({
-      ...formOrder,
-      selectedSeller: value,
-    });
-  };
-
   const submitOrder = async () => {
-    const seller = sellers.find((elem) => elem.name === selectedSeller);
     const { token } = JSON.parse(localStorage.getItem('user'));
 
     const order = {
       sale: {
-        sellerId: seller.id,
         deliveryAddress: address,
         deliveryNumber: number,
+        sellerId: seller,
         totalPrice: cart.totalValue,
       },
       products: cart.products,
@@ -74,13 +66,14 @@ const FormAddressFull = () => {
       <h1>Detalhes e Endereço para Entrega</h1>
       <S.Form>
         <S.Select
-          value={ selectedSeller }
-          onChange={ handleSeller }
-          data-testId="customer_checkout__select-seller"
+          value={ seller }
+          name="select"
+          onChange={ handleAddressInfo }
+          data-testid="customer_checkout__select-seller"
         >
           {
-            sellers.map((seller) => (
-              <option key={ seller.id } value={ seller.name }>{ seller.name }</option>
+            allSellers.map((item) => (
+              <option key={ item.id } value={ item.id }>{ item.name }</option>
             ))
           }
         </S.Select>
@@ -89,7 +82,7 @@ const FormAddressFull = () => {
           placeholder="Endereço completo"
           name="address"
           value={ address }
-          data-testId="customer_checkout__input-address"
+          data-testid="customer_checkout__input-address"
           onChange={ handleAddressInfo }
         />
         <input
@@ -97,14 +90,14 @@ const FormAddressFull = () => {
           placeholder="Número"
           name="number"
           value={ number }
-          data-testId="customer_checkout__input-addressNumber"
+          data-testid="customer_checkout__input-addressNumber"
           onChange={ handleAddressInfo }
         />
       </S.Form>
       <button
         type="button"
-        data-testId="customer_checkout__button-submit-order"
-        onClick={ submitOrder }
+        data-testid="customer_checkout__button-submit-order"
+        onClick={ () => submitOrder() }
       >
         FINALIZAR PEDIDO
       </button>

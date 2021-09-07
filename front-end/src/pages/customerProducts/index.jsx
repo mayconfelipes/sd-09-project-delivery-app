@@ -9,8 +9,9 @@ import * as S from './styled';
 
 const Products = () => {
   const {
-    cart: { totalValue }, catalog, setCatalog, loading, setLoading,
+    cart, catalog, setCatalog, loading, setLoading,
   } = useContext(context);
+  const { totalValue } = cart;
   const [disabled, setDisabled] = useState(true);
   const [redirect, setRedirect] = useState(false);
 
@@ -25,6 +26,11 @@ const Products = () => {
 
     setCatalog(result);
     setLoading(false);
+  };
+
+  const goToCheckout = () => {
+    localStorage.setItem('cart', JSON.stringify({ ...cart }));
+    setRedirect(true);
   };
 
   useEffect(() => {
@@ -61,7 +67,7 @@ const Products = () => {
       </S.List>
       <button
         type="button"
-        onClick={ () => setRedirect(true) }
+        onClick={ goToCheckout }
         data-testid="customer_products__button-cart"
         disabled={ disabled }
       >

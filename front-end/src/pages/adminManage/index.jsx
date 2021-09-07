@@ -30,6 +30,8 @@ const AdminManage = () => {
     });
   };
 
+  const successCode = 201;
+
   const handleRole = ({ target: { value } }) => {
     setData({
       ...data,
@@ -47,7 +49,7 @@ const AdminManage = () => {
 
     const userInfo = { name, email, password, role: roleTypes[selectedRole] };
     const result = await registerUserByAdmin(token, userInfo);
-    setInsertResult(result);
+    setInsertResult(result.status);
   };
 
   useEffect(() => {
@@ -105,7 +107,7 @@ const AdminManage = () => {
           CADASTRAR
         </button>
         {
-          (insertResult !== '' && insertResult !== 'Cadastrado com sucesso')
+          (insertResult !== '' && insertResult !== successCode)
             && <p data-testid="admin_manage__element-invalid-register">Deu ruim</p>
         }
       </S.FormNewUser>

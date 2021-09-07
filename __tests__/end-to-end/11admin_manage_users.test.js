@@ -114,9 +114,9 @@ describe(requirement(41), () => {
 
   test(`O avaliador tentará realizar o fluxo de cadastro com ${people.length} pessoas usuárias, validando-os no banco`, async () => {
     showPeopleList(people, global.__TESTDESC__);
-    
+
     expect(
-      await action.admin.register(page, { database, people })
+      await action.admin.register(page, { database, people }) 
     ).toBeTruthy();
   });
 });
