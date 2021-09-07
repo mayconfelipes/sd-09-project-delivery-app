@@ -30,6 +30,14 @@ function OrderDetails() {
     orderTotalPrice: 'customer_order_details__element-order-total-price',
   };
 
+  const deliveryBtn = async () => {
+    const status = 'Entregue';
+    const user = JSON.parse(localStorage.getItem('user'));
+    const updatedOrder = await api.updateOrder(orderId, status, user.token);
+    setOrderStatus(updatedOrder.status);
+    setOrder(updatedOrder);
+  };
+
   return (
     order
       ? (
@@ -55,12 +63,13 @@ function OrderDetails() {
               <span
                 data-testid={ dataTestIds.deliveryStatus }
               >
-                { order.status }
+                { orderStatus }
               </span>
               <button
                 data-testid={ dataTestIds.buttonDelivery }
                 disabled={ orderStatus !== 'Em Trânsito' }
                 type="button"
+                onClick={ deliveryBtn }
               >
                 Marcar como entregue
               </button>

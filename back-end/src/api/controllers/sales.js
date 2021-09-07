@@ -1,4 +1,5 @@
 const Sale = require('../services/sales');
+const newError = require('../utils/newError');
 
 const newOrder = async (req, res, next) => {
   try {
@@ -38,6 +39,19 @@ const updateOrderStatus = async (req, res, next) => {
   try {
     const { orderId } = req.params;
     const { status } = req.body;
+    const { role } = req.user;
+    if (role !== 'customer') throw newError(403, 'Unauthorized user');
+    const updatedOrder = await Sale.updateOrderStatus(orderId, status);
+    return res.status(200).json(updatedOrder);
+  } catch (err) { next(err); }
+};
+
+const updateSaleStatus = async (req, res, next) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+    const { role } = req.user;
+    if (role !== 'seller') throw newError(403, 'Unauthorized user');
     const updatedOrder = await Sale.updateOrderStatus(orderId, status);
     return res.status(200).json(updatedOrder);
   } catch (err) { next(err); }
@@ -49,4 +63,5 @@ module.exports = {
   getAllOrders,
   getAllSales,
   updateOrderStatus,
+  updateSaleStatus,
 };

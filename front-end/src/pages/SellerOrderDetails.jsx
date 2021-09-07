@@ -30,6 +30,16 @@ function SellerOrderDetails() {
     orderTotalPrice: 'seller_order_details__element-order-total-price',
   };
 
+  const PREPARING = 'Preparando';
+  const DISPATCH = 'Em Trânsito';
+
+  const updateOrderBtnBtn = async (status) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const updatedOrder = await api.updateSale(orderId, status, user.token);
+    setOrderStatus(updatedOrder.status);
+    setOrder(updatedOrder);
+  };
+
   return (
     order
       ? (
@@ -50,12 +60,13 @@ function SellerOrderDetails() {
               <span
                 data-testid={ dataTestIds.deliveryStatus }
               >
-                { order.status }
+                { orderStatus }
               </span>
               <button
                 data-testid={ dataTestIds.buttonPreparing }
                 disabled={ orderStatus !== 'Pendente' }
                 type="button"
+                onClick={ () => updateOrderBtnBtn(PREPARING) }
               >
                 Preparar Pedido
               </button>
@@ -63,6 +74,7 @@ function SellerOrderDetails() {
                 data-testid={ dataTestIds.buttonDispatch }
                 disabled={ orderStatus !== 'Preparando' }
                 type="button"
+                onClick={ () => updateOrderBtnBtn(DISPATCH) }
               >
                 Saiu para Entrega
               </button>
