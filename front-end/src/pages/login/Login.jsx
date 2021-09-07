@@ -34,6 +34,12 @@ function Login() {
       break;
     }
   };
+
+  useEffect(() => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    if (token) return history.push('/customer/products');
+  }, [history]);
+
   useEffect(() => {
     async function fetchProducts() {
       const data = await API.fetchProducts();

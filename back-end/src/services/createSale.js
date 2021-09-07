@@ -5,11 +5,14 @@ const createSale = async (sale, products) => {
   const saleCreated = await sales.create(sale);
 
   await products.forEach((product) => {
+    const snakeCaseProductId = 'product_id';
+    const snakeCaseSaleId = 'sale_id';
+
     const objectUnserializedSalesProducts = {
-      product_id: product.id,
-      sale_id: saleCreated.dataValues.id,
+      [snakeCaseProductId]: product.id,
+      [snakeCaseSaleId]: saleCreated.dataValues.id,
       quantity: product.quantity,
-    }
+    };
     salesProducts.create(objectUnserializedSalesProducts);
   });
   return saleCreated;

@@ -22,7 +22,7 @@ export default function NavBar() {
             PRODUTOS
           </button>
         </Link>
-        <Link to="/customer/checkout" className={ classes.link }>
+        <Link to="/customer/orders" className={ classes.link }>
           <button
             type="button"
             data-testid="customer_products__element-navbar-link-orders"

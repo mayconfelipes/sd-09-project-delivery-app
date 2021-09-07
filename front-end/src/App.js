@@ -22,14 +22,14 @@ function App() {
           <Route exact path="/">
             <Redirect to="/login" />
           </Route>
-          <Route path="/seller/orders/:id" component={ OrderDetails } />
-          <Route path="/seller/orders" component={ SellerOrders } />
+          <Route exact path="/login" component={ Login } />
+          <Route exact path="/seller/orders/:id" component={ OrderDetails } />
+          <Route exact path="/seller/orders" component={ SellerOrders } />
           <Route exact path="/customer/orders/:id" component={ OrderDetails } />
-          <Route path="/customer/orders" component={ SellerOrders } />
+          <Route exact path="/customer/orders" component={ SellerOrders } />
           <Route exact path="/customer/products" component={ CustumerProducts } />
           <Route exact path="/customer/checkout" component={ Checkout } />
           <Route exact path="/register" component={ Register } />
-          <Route path="/login" component={ Login } />
         </Switch>
       </Router>
     </GlobalProvider>
