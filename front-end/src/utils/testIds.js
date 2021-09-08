@@ -69,6 +69,7 @@ const testIds = {
   id73: (index) => `admin_manage__element-user-table-role-${index}`,
   id74: (index) => `admin_manage__element-user-table-remove-${index}`,
   id78: 'admin_manage__input-password',
+  id79: 'customer_products__checkout-bottom-value',
 };
 
 export default testIds;

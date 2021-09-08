@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import {
@@ -12,20 +12,25 @@ import {
 } from '../../Components';
 import assets from '../../assets';
 import testIds from '../../utils/testIds';
-import useLoginInfo from '../../hooks/useLoginInfo';
-import useLoginApi from '../../hooks/useLoginApi';
 import paths from '../../Routes/paths';
-import { AppContext } from '../../context';
 import redirectByRole from '../../Routes/redirectByRole';
+import useAuthentication from '../../hooks/useAuthentication';
+import backendStatus from '../../utils/backendStatus';
+import useAuthFormInfo from '../../hooks/useAuthFormInfo';
+import { loginSchema } from '../../utils/validateInfo';
+import { useUserDataContext } from '../../context/contexts';
 
 const LoginPage = () => {
-  const { loginInfo, handleFieldsChange, isValidInfo } = useLoginInfo();
-  const { isValidLogin, loginUser } = useLoginApi();
-  const { user } = useContext(AppContext);
-  const shouldRenderError = isValidLogin === false;
+  const { authInfo, handleFieldsChange, isValidInfo } = useAuthFormInfo({
+    fields: ['email', 'password'],
+    validationSchema: loginSchema,
+  });
+  const { isValidRequest, requestUser } = useAuthentication();
+  const { role: userRole } = useUserDataContext();
+  const shouldRenderError = isValidRequest === false;
   const history = useHistory();
 
-  if (isValidLogin) return redirectByRole(user.data.role);
+  if (isValidRequest) return redirectByRole(userRole);
 
   return (
     <Container>
@@ -37,7 +42,7 @@ const LoginPage = () => {
           <Input
             type="email"
             name="email"
-            value={ loginInfo.email }
+            value={ authInfo.email }
             data-testid={ testIds.id1 }
             onChange={ handleFieldsChange }
           />
@@ -47,14 +52,18 @@ const LoginPage = () => {
           <Input
             type="password"
             name="password"
-            value={ loginInfo.password }
+            value={ authInfo.password }
             data-testid={ testIds.id2 }
             onChange={ handleFieldsChange }
           />
         </Label>
         <Button
           data-testid={ testIds.id3 }
-          onClick={ () => loginUser(loginInfo) }
+          onClick={ () => requestUser({
+            validStatus: backendStatus.ok,
+            data: authInfo,
+            endpoint: 'login',
+          }) }
           disabled={ isValidInfo }
         >
           Login

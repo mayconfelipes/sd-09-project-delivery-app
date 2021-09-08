@@ -10,13 +10,13 @@ const loginController = express.Router();
 loginController.post('/', loginValidator, rescue(async (req, res, next) => {
   const { email, password } = req.body;
 
-  const { error, token } = await loginService.login(email, password);
+  const { error, ...loginData } = await loginService.login(email, password);
 
   if (error) {
     return next(error);
   }
 
-  return res.status(ok).json({ token });
+  return res.status(ok).json(loginData);
 }));
 
 module.exports = loginController;

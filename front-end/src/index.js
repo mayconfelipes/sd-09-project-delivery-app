@@ -5,19 +5,17 @@ import { ThemeProvider } from 'styled-components';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './App';
-import { AppProvider } from './context';
+import AppProvider from './context';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 
 
 ReactDOM.render(
   <AppProvider>
-    <BrowserRouter>
-      <ThemeProvider theme={ theme }>
-        <GlobalStyle />
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
+    <ThemeProvider theme={ theme }>
+      <GlobalStyle />
+      <App />
+    </ThemeProvider>
   </AppProvider>,
   document.getElementById('root'),
 );

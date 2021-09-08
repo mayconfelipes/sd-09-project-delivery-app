@@ -5,10 +5,12 @@ const encryptPassword = require('../middlewares/encryptPassword');
 const errorTypes = require('../utils/errorTypes');
 const filterUserData = require('../utils/filterUserData');
 
-const login = async (email, password) => {
+const login = async (userEmail, password) => {
   const cryptoPassword = encryptPassword(password);
 
-  const foundUserData = await User.findOne({ where: { email, password: cryptoPassword } });
+  const foundUserData = await User.findOne({
+    where: { email: userEmail, password: cryptoPassword },
+  });
 
   if (!foundUserData) {
     const error = errorTypes.invalidCredentials;

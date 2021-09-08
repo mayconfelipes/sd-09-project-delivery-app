@@ -5,13 +5,13 @@ import paths from './paths';
 const getRoleRoute = (role) => {
   switch (role) {
   case 'customer':
-    return paths.customerProducts;
+    return paths.customer.products;
   case 'seller':
     return paths.customerProducts;
   case 'administrator':
     return paths.customerProducts;
   default:
-    return paths.customerProducts;
+    return paths.customer.products;
   }
 };
 

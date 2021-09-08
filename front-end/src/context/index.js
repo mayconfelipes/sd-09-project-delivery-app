@@ -1,25 +1,18 @@
-import React, { createContext, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { getUserData } from '../utils/storage';
+import GlobalProvider from './GlobalProvider';
+import CustomRoleProvider from './CustomRoleProvider';
 
-export const AppContext = createContext();
-
-export const AppProvider = ({ children }) => {
-  const [isAuthenticated, setAuthentication] = useState(() => false);
-  const [userData, setUserData] = useState(() => getUserData());
-
-  const context = {
-    auth: { isAuthenticated, setAuthentication },
-    user: { data: userData, setUserData },
-  };
-
-  return (
-    <AppContext.Provider value={ context }>
+const AppProvider = ({ children }) => (
+  <GlobalProvider>
+    <CustomRoleProvider>
       { children }
-    </AppContext.Provider>
-  );
-};
+    </CustomRoleProvider>
+  </GlobalProvider>
+);
+
+export default AppProvider;
 
 AppProvider.propTypes = {
-  children: PropTypes.elementType.isRequired,
+  children: PropTypes.node.isRequired,
 };

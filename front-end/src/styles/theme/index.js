@@ -8,30 +8,26 @@ const colorNames = {
   brandeisBlue: '#056cf9', // quaternary
   // Text
   richBlack: '#001813', // dark
-  brightGray: '#eaf1ef', // light
+  webAzure: '#f2fffc', // light
+  oldSilver: '#828282',
   // Order colors
-  webAzure: '#f2fffc', // delivered
+  caribbeanGreen: '#00cc9b', // delivered
   kiwi: '#8cd940', // preparing
   sandstorm: '#d9ca40', // pending
 };
 
 const theme = {
   colors: {
-    schema: {
-      primary: colorNames.bangladeshGreen,
-      secondary: colorNames.mountainMeadow,
-      tertiary: colorNames.blueViolet,
-      quaternary: colorNames.brandeisBlue,
-    },
-    text: {
-      dark: colorNames.richBlack,
-      light: colorNames.brightGray,
-    },
-    order: {
-      delivered: colorNames.webAzure,
-      preparing: colorNames.kiwi,
-      pending: colorNames.sandstorm,
-    },
+    primary: colorNames.bangladeshGreen,
+    secondary: colorNames.mountainMeadow,
+    tertiary: colorNames.blueViolet,
+    quaternary: colorNames.brandeisBlue,
+    dark: colorNames.richBlack,
+    light: colorNames.webAzure,
+    textLight: colorNames.oldSilver,
+    delivered: colorNames.caribbeanGreen,
+    preparing: colorNames.kiwi,
+    pending: colorNames.sandstorm,
   },
 };
 

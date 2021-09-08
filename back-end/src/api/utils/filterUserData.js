@@ -3,5 +3,6 @@ module.exports = async (arg) => {
   const { dataValues: { name, email, role } } = isArgAFunction
     ? await arg()
     : arg;
+  
   return { name, email, role };
 };

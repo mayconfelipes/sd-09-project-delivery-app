@@ -7,15 +7,14 @@ import {
   NotFound,
 } from '../Pages';
 import Products from '../Pages/CustomerPages/Products';
-import PrivateRoute from './PrivateRoute';
 import paths from './paths';
 
 const Routes = () => (
   <Switch>
-    <PrivateRoute exact path={ paths.home } component={ HomePage } />
-    <Route path={ paths.login } component={ Login } />
+    <Route path={ paths.customer.products } component={ Products } />
     <Route path={ paths.register } component={ Register } />
-    <Route path={ paths.customerProducts } component={ Products } />
+    <Route path={ paths.login } component={ Login } />
+    <Route exact path={ paths.home } component={ HomePage } />
     <Route component={ NotFound } />
   </Switch>
 );
