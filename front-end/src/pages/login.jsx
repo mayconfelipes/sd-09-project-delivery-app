@@ -48,7 +48,7 @@ const Login = () => {
       history.push('/customer/products');
       break;
     case 'seller':
-      history.push('/seller/products');
+      history.push('/seller/orders');
       break;
     case 'administrator':
       history.push('/admin/manage');
