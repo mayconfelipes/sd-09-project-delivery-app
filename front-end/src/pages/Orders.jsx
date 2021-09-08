@@ -8,17 +8,17 @@ export default function Orders() {
   const [order, setOrder] = useState([]);
   const [userData] = useState(JSON.parse(localStorage.getItem('user')));
   const { token } = userData;
-  const config = { headers: { Authorization: `${token}` } };
 
   useEffect(
     () => {
       const ORDERS_ENDPOINT = 'http://localhost:3001/api/sales';
       const fetchOrders = async () => {
+        const config = { headers: { Authorization: `${token}` } };
         await axios.get(ORDERS_ENDPOINT, config)
           .then((d) => setOrder(d.data));
       };
       fetchOrders();
-    }, [config],
+    }, [token],
   );
 
   return (

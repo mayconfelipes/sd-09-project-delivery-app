@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export default function CardOrder({ venda }) {
-  const history = useHistory();
   const { id, status, saleDate, totalPrice } = venda;
   const formatedDate = new Date(saleDate).toLocaleDateString('pt-BR');
 
@@ -11,12 +10,13 @@ export default function CardOrder({ venda }) {
     <div className="corpo_card">
       <div className="div_pedido">
         <span>Pedido</span>
-        <span data-testid={ `customer_orders__element-order-id-${id}` }>{id}</span>
+        <Link to={ `/customer/orders/${id}` }>
+          <span data-testid={ `customer_orders__element-order-id-${id}` }>{id}</span>
+        </Link>
       </div>
 
       <button
         type="button"
-        onClick={ () => history.push(`customer/orders/${id}`) }
         data-testid={ `customer_orders__element-delivery-status-${id}` }
       >
         { `${status}` }
@@ -28,7 +28,11 @@ export default function CardOrder({ venda }) {
         >
           {formatedDate}
         </span>
-        <span>{`R$ ${totalPrice}`}</span>
+        <span
+          data-testid={ `customer_orders__element-card-price-${id}` }
+        >
+          {`R$ ${totalPrice.replace('.', ',')}`}
+        </span>
       </div>
     </div>
   );
