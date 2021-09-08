@@ -50,6 +50,7 @@ const Admin = () => {
           <input
             id="userEmail"
             name="userEmail"
+            placeholder="seu-email@site.com.br"
             data-testid="admin_manage__input-email"
             onChange={ ({ target }) => setEmail(target.value) }
           />
@@ -59,6 +60,8 @@ const Admin = () => {
           <input
             id="userPassword"
             name="userPassword"
+            type="password"
+            placeholder="●●●●●●"
             data-testid="admin_manage__input-password"
             onChange={ ({ target }) => setPassword(target.value) }
           />
@@ -69,19 +72,29 @@ const Admin = () => {
             id="userRole"
             name="userRole"
             data-testid="admin_manage__select-role"
-            onClick={ ({ target }) => setRole(target.value) }
+            value={ role }
+            onChange={ ({ target: { value } }) => setRole(value) }
           >
             <option
               key="seller"
               value="seller"
+              onClick={ ({ target }) => setRole(target.value) }
             >
               Vendedor
             </option>
             <option
               key="customer"
               value="customer"
+              onClick={ ({ target }) => setRole(target.value) }
             >
               Cliente
+            </option>
+            <option
+              key="administrator"
+              value="administrator"
+              onClick={ ({ target }) => setRole(target.value) }
+            >
+              Admin
             </option>
           </select>
         </label>
