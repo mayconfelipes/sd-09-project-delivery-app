@@ -8,5 +8,6 @@ router.post('/login', [User.login]);
 router.post('/', [User.register]);
 router.post('/admin', validateToken, [User.register]);
 router.get('/', [User.getAllUsers]);
+router.get('/:role', [User.getByRole]);
 
 module.exports = router;

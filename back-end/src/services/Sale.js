@@ -1,10 +1,6 @@
 const Joi = require('joi');
 const { Sale, SaleProduct } = require('../database/models');
-const {
-  seedSalesProducts,
-  calculateTotalPrice,
-  generateError,
-} = require('../../schemas');
+const { seedSalesProducts, calculateTotalPrice, generateError } = require('../../schemas');
 const Product = require('./Product');
 
 const RegisterSchema = Joi.object({
@@ -22,7 +18,6 @@ const UpdateSchema = Joi.object({
 
 const findById = async (id) => {
   const sale = await Sale.findByPk(id);
-
   return sale;
 };
 

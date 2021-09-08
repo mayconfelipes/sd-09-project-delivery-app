@@ -3,14 +3,15 @@ const Sale = (sequelize, DataTypes) => {
     "Sale",
     {
       userId: DataTypes.STRING,
+      sellerId: DataTypes.STRING,
       totalPrice: DataTypes.DECIMAL(9, 2),
       deliveryAddress: DataTypes.STRING,
       deliveryNumber: DataTypes.STRING,
-      status: DataTypes.STRING,
       saleDate: {
         type: DataTypes.DATE,
         defaultValue: new Date(),
       },
+      status: DataTypes.STRING,
     },
     { timestamps: false, tableName: 'sales', underscored: true }
   );

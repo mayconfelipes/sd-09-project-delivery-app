@@ -1,8 +1,8 @@
 module.exports = (Model, saleId, cart) => {
-  cart.forEach(({ productId, quantity }) => {
+  cart.forEach(({ id, quantity }) => {
     Model.create({
       saleId,
-      productId,
+      id,
       quantity,
     });
   });
