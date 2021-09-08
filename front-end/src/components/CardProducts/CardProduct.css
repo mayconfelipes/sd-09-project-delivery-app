@@ -1,0 +1,17 @@
+.card-products-container {
+  background-color: white;
+  border: 3px solid black;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 7%;
+  width: 70vw;
+}
+
+.card-products-top {
+  display: flex;
+  flex-direction: row;
+}
+
+.product-image {
+  width: 40vw;
+}

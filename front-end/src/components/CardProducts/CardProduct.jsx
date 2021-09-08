@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import './CardProduct.css';
 
 const CardProduct = (props) => {
   const { product: { id, name, price, urlImage }, setChanged } = props;
@@ -58,35 +59,39 @@ const CardProduct = (props) => {
     return newPrice;
   };
   return (
-    <div>
-      <p data-testid={ `${prefix}element-card-title-${id}` }>{name}</p>
-      <p data-testid={ `${prefix}element-card-price-${id}` }>{brazilianPrice()}</p>
-      <img
-        width="100px"
-        src={ urlImage }
-        alt={ name }
-        data-testid={ `${prefix}img-card-bg-image-${id}` }
-      />
-      <input
-        type="numer"
-        value={ quantity }
-        onChange={ (e) => alterNumber(e.target.value, name) }
-        data-testid={ `${prefix}input-card-quantity-${id}` }
-      />
-      <button
-        type="button"
-        onClick={ addItem }
-        data-testid={ `${prefix}button-card-add-item-${id}` }
-      >
-        +
-      </button>
-      <button
-        type="button"
-        onClick={ removeItem }
-        data-testid={ `${prefix}button-card-rm-item-${id}` }
-      >
-        -
-      </button>
+    <div className="card-products-container">
+      <section className="card-products-top">
+        <p data-testid={ `${prefix}element-card-price-${id}` }>{brazilianPrice()}</p>
+        <img
+          src={ urlImage }
+          alt={ name }
+          className="product-image"
+          data-testid={ `${prefix}img-card-bg-image-${id}` }
+        />
+      </section>
+      <section className="card-products-botton">
+        <p data-testid={ `${prefix}element-card-title-${id}` }>{name}</p>
+        <button
+          type="button"
+          onClick={ removeItem }
+          data-testid={ `${prefix}button-card-rm-item-${id}` }
+        >
+          -
+        </button>
+        <input
+          type="numer"
+          value={ quantity }
+          onChange={ (e) => alterNumber(e.target.value, name) }
+          data-testid={ `${prefix}input-card-quantity-${id}` }
+        />
+        <button
+          type="button"
+          onClick={ addItem }
+          data-testid={ `${prefix}button-card-add-item-${id}` }
+        >
+          +
+        </button>
+      </section>
     </div>
   );
 };
