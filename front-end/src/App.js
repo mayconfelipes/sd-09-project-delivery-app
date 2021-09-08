@@ -5,6 +5,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
 import Products from './pages/Products';
 import Register from './pages/Register';
+import SellerOrders from './pages/SellerOrders';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/customer/orders" component={ CustomerOrders } />
         <Route path="/admin/manage" component={ AdminDashboard } />
         <Route path="/customer/products" component={ Products } />
+        <Route path="/seller/orders" component={ SellerOrders } />
       </Switch>
     </BrowserRouter>
   );
