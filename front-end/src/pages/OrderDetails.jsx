@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
+import io from 'socket.io-client';
 import OrderDetailsTable from '../components/OrderDetailsTable';
 import NavBarCustomer from '../components/navBarCustomer';
 import '../styles/OrderDetails.css';
@@ -11,7 +12,11 @@ function OrderDetails() {
   const [order, setOrder] = useState();
   const [orderStatus, setOrderStatus] = useState('');
 
+  const socketRef = useRef();
+
   useEffect(() => {
+    socketRef.current = io.connect('/');
+
     async function getOrder() {
       const user = JSON.parse(localStorage.getItem('user'));
       const orderById = await api.getOrderById(orderId, user.token);

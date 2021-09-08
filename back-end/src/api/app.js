@@ -1,34 +1,35 @@
+const app = require('express')();
 const express = require('express');
-// const http = require('http');
+const socket = require('socket.io');
+const httpServer = require('http').createServer(app);
 const cors = require('cors');
+const deliveryIo = require('./sockets/deliveryApp');
+
+const io = socket(httpServer, {
+  cors: {
+    origin: 'http://localhost:3000',
+    method: ['GET', 'POST'],
+  },
+});
+
+deliveryIo(io);
+
 const User = require('./controllers/users');
 const Product = require('./controllers/products');
 const Sale = require('./controllers/sales');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 const auth = require('./middlewares/authMiddleware');
 
-const app = express();
-// const httpServer = http.createServer(app);
-
 app.use(express.json());
 app.use(cors());
 
-// const io = require('socket.io')(httpServer, {
-//   cors: {
-//     origin: 'http://localhost:3000',
-//     method: ['GET', 'POST'],
-//   },
-// });
-
 app.use('/images', express.static(`${__dirname}/../../public`));
 
-app.get('/', () => console.log('hello world!'));
 
 app.post('/login', User.loginUser);
 app.post('/register', User.registerUser);
 app.get('/users', User.getAllUsers);
 app.get('/sellers', User.getAllSellers);
-app.get('/customer/products', User.getAllUsers);
 app.get('/products', Product.getAllProducts);
 app.get('/sellers', User.getAllSellers);
 
