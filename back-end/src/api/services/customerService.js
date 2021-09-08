@@ -1,4 +1,5 @@
-const { Product, Sale } = require('../../database/models');
+const { Product, Sale, User } = require('../../database/models');
+const sale = require('../../database/models/sale');
 
 const errorTypes = require('../utils/errorTypes');
 
@@ -14,8 +15,25 @@ const getProducts = async () => {
   return { products };
 };
 
-const getOrders = async (id) => {
-  const orders = await Sale.findAll({ where: { id } });
+const createCheckOut = async (dataBody) => {
+  const { seller, id } = dataBody;
+  const sellerBy = await User.getById(seller);
+
+  const saleNew = await Sale.create({
+    userId: id,
+    // sellerId: saleSeller.id,
+    totalPrice: sale.totalPrice,
+    deliveryAddress: sale.deliveryAddress,
+    deliveryNumber: sale.deliveryNumber,
+    status: 'Pendente',
+    sellerBy,
+  });
+
+  return saleNew;
+};
+
+const getOrders = async (userId) => {
+  const orders = await Sale.findAll({ where: { userId } });
 
   return { orders };
 };
@@ -32,4 +50,4 @@ const getOrderById = async (id) => {
   return { order };
 };
 
-module.exports = { getProducts, getOrders, getOrderById };
+module.exports = { getProducts, createCheckOut, getOrders, getOrderById };

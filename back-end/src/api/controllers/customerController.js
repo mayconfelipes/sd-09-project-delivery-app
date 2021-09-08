@@ -3,7 +3,7 @@ const rescue = require('express-rescue');
 
 const customerService = require('../services/customerService');
 const jwtValidator = require('../middlewares/jwtValidator');
-const { ok } = require('../utils/httpStatusCodes');
+const { ok, created } = require('../utils/httpStatusCodes');
 
 const customerController = express.Router();
 
@@ -17,14 +17,21 @@ customerController.get('/products', jwtValidator, rescue(async (_req, res, next)
   return res.status(ok).json({ products });
 }));
 
+customerController.post('/checkout', jwtValidator, rescue(async (req, res, next) => {
+  const dataBody = req.body;
+  const { error, products } = await customerService.createCheckOut(dataBody);
+
+  if (error) return next(error);
+
+  return res.status(created).json({ products });
+}));
+
 customerController.get('/orders', jwtValidator, rescue(async (req, res, next) => {
   const { userId } = req;
 
   const { error, orders } = await customerService.getOrders(userId);
 
-  if (error) {
-    return next(error);
-  }
+  if (error) return next(error);
 
   return res.status(ok).json({ orders });
 }));
