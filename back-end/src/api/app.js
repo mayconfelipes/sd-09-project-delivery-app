@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, '../..', 'src')));
 app.use('/', loginRouter);
 app.use('/', registerRouter);
 app.use('/customer/products', productsRouter);
-app.use('/customer/order', orderRouter);
+app.use('/customer/orders', orderRouter);
 app.use('/users', userRouter);
 
 app.get('/coffee', (_req, res) => res.status(418).end());

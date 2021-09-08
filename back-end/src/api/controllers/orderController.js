@@ -9,7 +9,6 @@ const insertOrderInSale = rescue(async (req, res) => {
     deliveryNumber,
     status, products } = req.body;
 
-  console.log(req.body);
 
   const insertNewOrder = await newOrder(userId,
     sellerId,
@@ -21,6 +20,8 @@ const insertOrderInSale = rescue(async (req, res) => {
   await populateSaleProd(insertNewOrder.id, products);
 
   const findById = await findOrderById(insertNewOrder.id);
+
+  console.log('req.body', req.body);
 
   res.status(201).json(findById);
 });
