@@ -10,7 +10,10 @@ export default function CardOrder({ venda, role }) {
     <div className="corpo_card">
       <div className="div_pedido">
         <span>Pedido</span>
-        <Link to={ `/customer/orders/${id}` }>
+        <Link
+          to={ role === 'customer' ? `/customer/orders/${id}`
+            : `/seller/orders/${id}` }
+        >
           <span
             data-testid={ role === 'customer'
               ? `customer_orders__element-order-id-${id}`

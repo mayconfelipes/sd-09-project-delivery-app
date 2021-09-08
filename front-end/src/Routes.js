@@ -19,6 +19,7 @@ const Routes = () => (
     <Route exact path="/customer/orders/:id" component={ DetalhesPedido } />
     <Route exact path="/customer/orders" component={ Orders } />
     <Route exact path="/customer/checkout" component={ Checkout } />
+    <Route exact path="/seller/orders/:id" component={ DetalhesPedido } />
     <Route exact path="/seller/orders" component={ Orders } />
     <Route exact path="/admin/manage" component={ Gerenciamento } />
   </Switch>
