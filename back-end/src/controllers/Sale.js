@@ -31,7 +31,7 @@ const findAllByUserId = rescue(async (req, res) => {
   return res.status(200).json(sale);
 });
 
-const getAll = rescue(async(_req, res) => {
+const getAll = rescue(async (_req, res) => {
   const sale = await Sale.findAll();
 
   return res.status(200).json(sale);
