@@ -25,7 +25,42 @@ const getByRole = async (req, res, next) => {
   }
 };
 
+const createByAdmin = async (req, res, next) => {
+  const { name, email, password, role } = req.body;
+  const user = { name, email, password, role };
+  try { 
+  const addUser = await usersServices.createByAdmin(user);
+  res.status(CREATED_STATUS).json(addUser);
+} catch (err) {
+  next(err);
+}
+};
+
+const destroy = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    await usersServices.destroy(id);
+
+    res.status(OK_STATUS).send('User deleted');
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getAll = async (req, res, next) => {
+  try {
+    const users = await usersServices.getAll();
+    return res.status(OK_STATUS).send(users);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   create,
   getByRole,
+  createByAdmin,
+  destroy,
+  getAll,
 };
