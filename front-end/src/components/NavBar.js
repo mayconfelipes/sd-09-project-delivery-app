@@ -51,7 +51,7 @@ function NavBar(props) {
               to="/seller/orders"
               data-testid="customer_products__element-navbar-link-orders"
             >
-              Meus pedidos
+              Pedidos
             </Link>
           </li>
         ) }

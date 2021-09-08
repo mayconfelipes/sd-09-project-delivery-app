@@ -4,8 +4,8 @@ import './App.css';
 import { LoginProvider } from './context/loginContext';
 import Login from './pages/Login';
 import Products from './pages/Products';
-//  import rockGlass from './images/rockGlass.svg';
 import Register from './pages/Register';
+import SellerOrders from './pages/SellerOrders';
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
       <div className="App">
         <Switch>
           <Route path="/customer/products" component={ Products } />
+          <Route path="/seller/orders" component={ SellerOrders } />
           <Route path="/login" component={ Login } />
           <Route path="/register" component={ Register } />
           <Route
@@ -21,11 +22,6 @@ function App() {
             render={ () => (<Redirect to="/login" />) }
           />
         </Switch>
-
-        {/* <span className="logo">TRYBE</span>
-        <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
-          Glass
-        </object> */}
       </div>
     </LoginProvider>
   );
