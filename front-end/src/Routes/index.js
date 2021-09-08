@@ -17,9 +17,9 @@ const Routes = () => (
     <Route exact path={ paths.home } component={ HomePage } />
     <Route path={ paths.login } component={ Login } />
     <Route path={ paths.register } component={ Register } />
-    <Route path={ paths.customerProducts } component={ Products } />
-    <Route exact path={ paths.customerCheckout } component={ Checkout } />
-    <Route exact path={ paths.customerOrders } component={ Orders } />
+    <Route path={ paths.customer.products } component={ Products } />
+    <Route exact path={ paths.customer.checkout } component={ Checkout } />
+    <Route exact path={ paths.customer.orders } component={ Orders } />
     <Route component={ NotFound } />
   </Switch>
 );

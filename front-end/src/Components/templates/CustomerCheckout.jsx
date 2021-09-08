@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Main } from '../atoms';
+import { Main } from '../../components/atoms';
 // import NavGroup from '../molecules/NavGroup';
 // import UserGroup from '../molecules/UserGroup';
-import ProductsList from '../organisms/ProductsList';
-import NavBar from '../organisms/NavBar';
+import ProductsList from '../../components/organisms/ProductsList';
+import NavBar from '../../components/organisms/NavBar';
 import { productsArrayPropTypes } from '../../utils/propTypes';
-import CartTotalButton from '../molecules/CartTotalButton';
+import CartTotalButton from '../../components/molecules/CartTotalButton';
 
 const CustomerCheckout = ({ className, products }) => (
   <>
