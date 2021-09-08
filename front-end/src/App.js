@@ -4,10 +4,12 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Login from './pages/LoginPage';
 import Product from './pages/customerProducts';
 import CustomersOrders from './pages/CustomersOrders';
+import SellerOrders from './pages/SellerOrders';
 import Register from './pages/Register';
 import ProductsProvider from './context/ProductsProvider';
 import Checkout from './pages/Checkout';
-// import OrderDetails from './pages/OrderDetails';
+import OrderDetails from './pages/OrderDetails';
+import SellerOrderDetails from './pages/SellerOrderDetails';
 
 function App() {
   return (
@@ -18,9 +20,11 @@ function App() {
           <Route path="/login" component={ Login } />
           <Route path="/customer/products" component={ Product } />
           <Route path="/register" component={ Register } />
-          {/* <Route path="/customer/orders/:id" component={ OrderDetails } /> */}
+          <Route path="/customer/orders/:id" component={ OrderDetails } />
           <Route path="/customer/orders" component={ CustomersOrders } />
           <Route path="/customer/checkout" component={ Checkout } />
+          <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
+          <Route path="/seller/orders" component={ SellerOrders } />
         </Switch>
       </ProductsProvider>
     </div>

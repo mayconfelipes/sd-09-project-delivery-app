@@ -1,4 +1,5 @@
 const { User, Sale, Product, SalesProduct } = require('../../database/models');
+const newError = require('../utils/newError');
 
 const addProductsToSale = async (saleId, products) => {
   const result = await Promise
@@ -7,7 +8,7 @@ const addProductsToSale = async (saleId, products) => {
   return result;
 };
 
-const getOrderById = async (id) => {
+const getFormattedOrderById = async (id) => {
   const { dataValues: orderById } = await Sale.findByPk(id, {
     include: [
       { model: User, as: 'user', attributes: { exclude: ['id', 'password', 'role'] } },
@@ -27,25 +28,33 @@ const getOrderById = async (id) => {
 const newOrder = async ({ products, ...orderWithoutProducts }) => {
   const { dataValues: order } = await Sale.create({ ...orderWithoutProducts });
   await addProductsToSale(order.id, products);
-  const registeredOrder = await getOrderById(order.id);
+  const registeredOrder = await getFormattedOrderById(order.id);
   return registeredOrder;
 };
 
 const getAllOrders = async (userId) => {
   const allOrders = await Sale.findAll({ where: { userId } });
-  return Promise.all(allOrders.map(async (order) => getOrderById(order.id)));
+  return Promise.all(allOrders.map(async (order) => getFormattedOrderById(order.id)));
 };
 
 const getAllSales = async (sellerId) => {
   const allSales = await Sale.findAll({ where: { sellerId } });
-  return Promise.all(allSales.map(async (sale) => getOrderById(sale.id)));
+  return Promise.all(allSales.map(async (sale) => getFormattedOrderById(sale.id)));
+};
+
+const getOrderById = async (orderId, userId) => {
+  const orderById = await getFormattedOrderById(orderId);
+  if (orderById.userId === userId || orderById.sellerId === userId) {
+    return orderById;
+  }
+  throw newError(403, 'Unauthorized user');
 };
 
 const updateOrderStatus = async (id, status) => {
   const orderToUpdate = await Sale.findByPk(id);
   orderToUpdate.status = status;
   await orderToUpdate.save();
-  const updatedOrder = await getOrderById(id);
+  const updatedOrder = await getFormattedOrderById(id);
   return updatedOrder;
 };
 

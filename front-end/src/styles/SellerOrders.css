@@ -1,4 +1,4 @@
-.customer-orders-page {
+.seller-orders-page {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -9,7 +9,7 @@
   width: 100%;
 }
 
-.orders-list {
+.seller-orders-list {
   align-content: flex-start;
   border: 1px solid black;
   box-sizing: border-box;
@@ -22,18 +22,19 @@
   width: 80%;
 }
 
-.orders-list a {
+.seller-orders-list a {
   color: black;
   text-decoration: none;
 }
 
-.order-card {
+.seller-order-card {
   background-color: #eaf1ef;
   border-radius: 0.5rem;
   column-gap: 0.5rem;
   display: grid;
   grid-template: 'id status date' 1fr
     'id status price' 1fr
+    'id address address' 1fr
     / 1.5fr 2fr 2fr;
   overflow: hidden;
   place-items: center;
@@ -41,7 +42,7 @@
   width: 25rem;
 }
 
-.order-card-id {
+.seller-order-card-id {
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -52,12 +53,12 @@
   width: 100%;
 }
 
-.order-card-id p {
+.seller-order-card-id p {
   line-height: 1.5;
   margin: 0;
 }
 
-.order-card-status {
+.seller-order-card-status {
   background-color: white;
   border-radius: 0.5rem;
   grid-area: status;
@@ -66,19 +67,28 @@
   width: 100%;
 }
 
-.order-card-date {
+.seller-order-card-date {
   grid-area: date;
 }
 
-.order-card-price {
+.seller-order-card-price {
   grid-area: price;
 }
 
-.order-card-date, .order-card-price {
+.seller-order-card-date, .seller-order-card-price {
   background-color: white;
   border-radius: 0.5rem;
   justify-self: flex-start;
   line-height: 2;
   margin: 0.5rem 0;
   width: calc(100% - 0.5rem);
+}
+
+.seller-order-card-address {
+  box-sizing: border-box;
+  grid-area: address;
+  margin: 0;
+  padding-right: 0.5rem;
+  text-align: right;
+  width: 100%;
 }

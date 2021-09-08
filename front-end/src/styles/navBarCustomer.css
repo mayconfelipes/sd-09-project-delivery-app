@@ -22,7 +22,7 @@
   height: 8vh;
   justify-content: space-evenly;
   text-align: center;
-  width: 28vw;
+  width: max-content;
 }
 
 .right_side {

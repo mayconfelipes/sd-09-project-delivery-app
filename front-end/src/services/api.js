@@ -50,3 +50,29 @@ export const getOrders = async (token) => {
     .get(`${baseURL}/orders`, { headers: { Authorization: token } });
   return data;
 };
+
+export const getSales = async (token) => {
+  const { data } = await axios
+    .get(`${baseURL}/sales`, { headers: { Authorization: token } });
+  return data;
+};
+
+export const getOrderById = async (orderId, token) => {
+  const { data } = await axios
+    .get(`${baseURL}/orders/${orderId}`, { headers: { Authorization: token } });
+  return data;
+};
+
+export const updateOrder = async (orderId, status, token) => {
+  const headers = { headers: { Authorization: token } };
+  const { data } = await axios
+    .put(`${baseURL}/orders/${orderId}`, { status }, headers);
+  return data;
+};
+
+export const updateSale = async (orderId, status, token) => {
+  const headers = { headers: { Authorization: token } };
+  const { data } = await axios
+    .put(`${baseURL}/sales/${orderId}`, { status }, headers);
+  return data;
+};
