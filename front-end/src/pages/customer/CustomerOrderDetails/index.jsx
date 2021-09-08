@@ -72,10 +72,6 @@ const CustomerOrderDetails = ({ match }) => {
             />
           );
         })}
-      {/*
-      <PrimaryButton>
-        {`Total R$: ${totalPrice}`}
-      </PrimaryButton> */}
     </>
   );
 
@@ -89,9 +85,8 @@ const CustomerOrderDetails = ({ match }) => {
         <div className={ style.barContainer }>
           {sale && sale
             .map(({
-              id, products, saleDate, totalPrice, status, seller }, productIndex) => {
+              id, products, saleDate, totalPrice, seller, status }) => {
               if (id === Number(paramId)) {
-                console.log('customer status', status);
                 const { name: sellerName } = seller;
                 const newDate = formatDate(saleDate);
                 const priceToString = totalPrice.toString().replace('.', ',');
@@ -108,7 +103,7 @@ const CustomerOrderDetails = ({ match }) => {
                       dataTestIdDeliveryStatus={ statusTId }
                       dataTestIdCustomerDelivery={ deliveryCheckTestId }
                       order={ id }
-                      sellerName={ `${sellerName}` }
+                      sellerName={ sellerName }
                       date={ newDate }
                       deliveryStatus={ status }
                     />
@@ -126,7 +121,7 @@ const CustomerOrderDetails = ({ match }) => {
                       return (
                         <DescriptionsBar
                           key={ productId }
-                          id={ productIndex }
+                          id={ i }
                           userOrProductName={ name }
                           emailOrQuantity={ quantity }
                           userTypeOrValue={ priceString }

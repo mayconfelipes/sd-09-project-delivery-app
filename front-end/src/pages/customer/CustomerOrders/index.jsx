@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import P from 'prop-types';
 import { Link } from 'react-router-dom';
+import socket from '../../../api/socket';
 
 import NavBar from '../../../components/Navbar';
 import ProductStatus from '../../../components/ProductStatus';
@@ -11,6 +12,7 @@ import style from './orders.module.scss';
 const CustomerOrders = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [sale, setSale] = useState([]);
+  const [newStatus, setNewStatus] = useState();
 
   useEffect(() => {
     const localItem = JSON.parse(localStorage.getItem('user'));
@@ -22,6 +24,21 @@ const CustomerOrders = () => {
         });
     }
   }, []);
+
+  useEffect(() => {
+    socket.on('statusChanged', (data) => {
+      console.log(data);
+      setNewStatus(data);
+    });
+  }, []);
+
+  const manegeredStatus = (id, status) => {
+    console.log(newStatus);
+    if (newStatus && newStatus.id === id) {
+      return newStatus.status;
+    }
+    return status;
+  };
 
   if (isLoading) return <p>Loading...</p>;
   return (
@@ -39,7 +56,7 @@ const CustomerOrders = () => {
             >
               <ProductStatus
                 orderPrice={ priceToString }
-                orderStatus={ status }
+                orderStatus={ manegeredStatus(id, status) }
                 orderDate={ newDate }
                 orderNumber={ `000${id}` }
                 shouldAddressApear={ false }

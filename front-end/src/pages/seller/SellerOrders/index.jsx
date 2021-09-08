@@ -9,13 +9,13 @@ import formatDate from '../../../util/formatDate';
 
 import { getAllSales } from '../../../api/sales';
 import style from './orders.module.scss';
-import useGlobalContext from '../../../context/GlobalStateProvider';
+// import useGlobalContext from '../../../context/GlobalStateProvider';
 
 const SellerOrders = () => {
   const [sales, setSales] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [newStatus, setNewStatus] = useState();
-  const { localStatus } = useGlobalContext();
+  // const { localStatus } = useGlobalContext();
 
   useEffect(() => {
     const localItem = JSON.parse(localStorage.getItem('user'));
@@ -29,14 +29,13 @@ const SellerOrders = () => {
 
   useEffect(() => {
     socket.on('statusChanged', (data) => {
-      console.log(data);
+      console.log('incoming status', data);
       setNewStatus(data);
     });
-    console.log('local', localStatus);
-  }, [localStatus]);
+  }, []);
 
   const manegeredStatus = (id, status) => {
-    console.log(newStatus);
+    console.log('newStatus', newStatus);
     if (newStatus && newStatus.id === id) {
       return newStatus.status;
     }

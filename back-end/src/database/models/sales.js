@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     sellerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      foreignKey: true,
       references: {
         model: 'Users',
         key: 'id',
@@ -53,8 +54,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   SalesModel.associate = (models) => {
-    models.Sales.hasOne(models.Users, {
-      foreignKey: 'id',
+    models.Sales.belongsTo(models.Users, {
+      foreignKey: 'sellerId',
       as: 'seller',
     });
 
