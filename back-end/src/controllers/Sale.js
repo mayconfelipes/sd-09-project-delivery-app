@@ -31,10 +31,15 @@ const findAllByUserId = rescue(async (req, res) => {
   return res.status(200).json(sale);
 });
 
-// const getAll = rescue(async (req, res) => await Sale.findAll().toAr)
+const getAll = rescue(async(_req, res) => {
+  const sale = await Sale.findAll();
+
+  return res.status(200).json(sale);
+});
 
 module.exports = {
   register,
   update,
   findAllByUserId,
+  getAll,
 };

@@ -4,7 +4,7 @@ const SaleProduct = (sequelize, DataTypes) => {
     {
       quantity: DataTypes.INTEGER
     },
-    { timestamps: false, tableName: 'salesProducts', underscored: true }
+    { timestamps: false, tableName: 'sales_products', underscored: true }
   );
 
   saleProduct.associate = (models) => {

@@ -16,6 +16,12 @@ const UpdateSchema = Joi.object({
   status: Joi.string().required(),
 });
 
+const findAll = async () => {
+  const sale = await Sale.findAll();
+  
+  return sale;
+};
+
 const findById = async (id) => {
   const sale = await Sale.findByPk(id);
   return sale;
@@ -71,4 +77,5 @@ module.exports = {
   register,
   update,
   findAllByUserId,
+  findAll,
 };
