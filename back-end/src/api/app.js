@@ -58,6 +58,12 @@ app.put('/sales/:id', validateToken, salesControllers.update);
 
 app.post('/sales', validateToken, salesControllers.create);
 
+// cria usuário pelo admin, podendo escolher o "role"
+app.post('/users', validateToken, usersControllers.createByAdmin);
+
+// Exclui o usuário pelo id
+app.delete('/users/:id', validateToken, usersControllers.destroy);
+
 app.use(sendErrorMessage);
 
 module.exports = httpServer;
