@@ -50,6 +50,8 @@ const FormAddressFull = () => {
 
     const { id } = await sendOrder(token, order);
 
+    localStorage.setItem('cart', []);
+
     setOrderId(id);
     setRedirect(true);
   };

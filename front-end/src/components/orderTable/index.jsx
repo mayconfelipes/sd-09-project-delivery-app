@@ -14,14 +14,11 @@ const OrderTable = () => {
     newCart.totalValue = totalValue - (itemToRemove.price * itemToRemove.quantity);
     newCart.products.splice(indexToRemove, 1);
     setCart(newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart));
   };
 
   useEffect(() => {
     const localCart = JSON.parse(localStorage.getItem('cart'));
     setCart(localCart);
-    console.log('renderizei');
-    console.log(localCart);
   }, [cart, setCart]);
 
   const dataIdNumber = 'customer_checkout__element-order-table-item-number-';
