@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CheckoutItem = (props) => {
-  const { cartItem: { totalProduct, price, quant, name }, order } = props;
+  const { cartItem: { nameProduct, priceProduct, quantity }, order } = props;
 
   const brazilianPrice = (value) => {
     const minN = 3;
@@ -14,20 +14,22 @@ const CheckoutItem = (props) => {
 
   return (
     <li>
-      <p data-testid={ `customer_order_detailselement-order-table-item-number-${order}` }>
+      <p
+        data-testid={ `customer_order_details__element-order-table-item-number-${order}` }
+      >
         {order + 1}
       </p>
-      <p data-testid={ `customer_order_detailselement-order-table-name-${order}` }>
-        {name}
+      <p data-testid={ `customer_order_details__element-order-table-name-${order}` }>
+        {nameProduct}
       </p>
-      <p data-testid={ `customer_order_detailselement-order-table-quantity-${order}` }>
-        {quant}
+      <p data-testid={ `customer_order_details__element-order-table-quantity-${order}` }>
+        {quantity}
       </p>
-      <p data-testid={ `customer_order_detailselement-order-table-sub-total-${order}` }>
-        {brazilianPrice(price)}
+      <p data-testid={ `customer_order_details__element-order-table-sub-total-${order}` }>
+        {brazilianPrice(priceProduct)}
       </p>
-      <p data-testid={ `customer_order_detailselement-order-total-price-${order}` }>
-        {brazilianPrice(totalProduct)}
+      <p data-testid={ `customer_order_details__element-order-total-price-${order}` }>
+        {brazilianPrice(parseFloat(priceProduct) * quantity)}
       </p>
     </li>
   );
