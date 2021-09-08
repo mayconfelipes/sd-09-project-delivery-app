@@ -4,7 +4,6 @@ const ioStatus = (io) => {
   io.on('connection', (socket) => {
     socket.on('statusChange', async (data) => {
       try {
-        console.log(data);
         await update(data.id, data.status);
       } catch (error) {
         console.log(error);

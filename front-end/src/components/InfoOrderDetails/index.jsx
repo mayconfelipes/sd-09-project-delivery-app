@@ -24,11 +24,15 @@ const InfoOrderDetails = ({
   // handleClickPreparing,
   // handleClickDelivering,
 }) => {
-  const [newStatus, setNewStatus] = useState(deliveryStatus);
+  const [newStatus, setNewStatus] = useState();
 
   const preparing = 'Preparando';
   const delivering = 'Em Trânsito';
   const delivered = 'Entregue';
+
+  useEffect(() => {
+    setNewStatus(deliveryStatus);
+  }, [deliveryStatus]);
 
   const onHandlePreparingStatus = () => {
     socket.emit('statusChange', { id: order, status: preparing });
@@ -44,7 +48,6 @@ const InfoOrderDetails = ({
 
   useEffect(() => {
     socket.on('statusChanged', (data) => data.id === order && setNewStatus(data.status));
-    console.log('recebi status', newStatus);
   }, [order, newStatus, deliveryStatus]);
 
   return (
