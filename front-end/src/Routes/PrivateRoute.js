@@ -1,13 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { AppContext } from '../context';
 import paths from './paths';
+import { useAuthDataContext } from '../context/contexts';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { auth: { isAuthenticated } } = useContext(AppContext);
-  console.log('PrivateRoute', rest);
+  const { isAuthenticated } = useAuthDataContext();
 
   return (
     <Route

@@ -17,7 +17,6 @@ app.use(cors(options));
 app.use('/images', express.static(path.join(__dirname, '..', '..', 'public')));
 app.get('/coffee', (_req, res) => res.status(418).end());
 
-
 app.use(router);
 
 app.use(errorHandler);
