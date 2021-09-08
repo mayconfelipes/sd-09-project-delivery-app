@@ -38,7 +38,29 @@ const saleProductsSave = async (saleId, productsData) => {
 const allSalesBySellerId = async (id) => {
   try {
     const allSales = await Sale.findAll({
-      // where: { seller_id: id },
+      where: { seller_id: id },
+    });
+    return allSales;
+  } catch (_error) {
+    throw errorHelper(409, '"data" conflict');
+  }
+};
+
+const allOrdersByCostumerId = async (id) => {
+  try {
+    const allSales = await Sale.findAll({
+      where: { seller_id: id },
+    });
+    return allSales;
+  } catch (_error) {
+    throw errorHelper(409, '"data" conflict');
+  }
+};
+
+const orderById = async (id) => {
+  try {
+    const orderProducts = await Sale.find({
+      where: { sale_id: id },
     });
     return allSales;
   } catch (_error) {

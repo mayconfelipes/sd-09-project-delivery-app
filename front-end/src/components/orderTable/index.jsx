@@ -4,7 +4,7 @@ import formatPrice from '../../services/formatPrice';
 
 const OrderTable = () => {
   const { cart, setCart } = useContext(Context);
-  const { products, totalValue } = cart;
+  const { totalValue } = cart;
   const local = JSON.parse(localStorage.getItem('cart'));
 
   const removeProduct = ({ target }) => {
@@ -22,7 +22,6 @@ const OrderTable = () => {
   useEffect(() => {
     const localCart = JSON.parse(localStorage.getItem('cart'));
     setCart(localCart);
-    console.log(products);
   }, []);
 
   const dataIdNumber = 'customer_checkout__element-order-table-item-number-';

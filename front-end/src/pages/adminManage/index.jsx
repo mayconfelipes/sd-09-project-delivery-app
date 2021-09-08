@@ -44,7 +44,6 @@ const AdminManage = () => {
 
   useEffect(() => {
     const verify = formValidator(email, password, name);
-    console.log(verify);
     setDisableButton(!verify);
   }, [data, disableButton, email, name, password, role]);
 
