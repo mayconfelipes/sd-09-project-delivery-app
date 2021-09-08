@@ -61,7 +61,7 @@ const InfoOrderDetails = ({
         <span
           data-testid={ dataTestIdSeller }
         >
-          {sellerName === 'Delivery App Admin' && 'Fulana Pereira'}
+          {sellerName}
         </span>
       </p>
     )}
