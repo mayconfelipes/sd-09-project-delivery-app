@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Checkout from './pages/Checkout';
-import DetalhesPedido from './pages/DetalhesPedido';
 import Gerenciamento from './pages/Gerenciamento';
 import Login from './pages/login';
 import Orders from './pages/Orders';
@@ -16,7 +15,6 @@ const Routes = () => (
     <Route exact path="/login" component={ Login } />
     <Route exact path="/register" component={ Registro } />
     <Route exact path="/customer/products" component={ Produtos } />
-    <Route exact path="/customer/orders/:id" component={ DetalhesPedido } />
     <Route exact path="/customer/orders" component={ Orders } />
     <Route exact path="/customer/checkout" component={ Checkout } />
     <Route exact path="/seller/orders/:id" component={ DetalhesPedido } />
