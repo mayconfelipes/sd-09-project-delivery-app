@@ -7,7 +7,7 @@ import './CheckoutCard.css';
 const CheckoutCard = ({ cart, setCart }) => {
   const userData = JSON.parse(localStorage.getItem('user'));
   const { token } = userData;
-  const [currSeller, setCurrSeller] = useState('');
+  const [currSeller, setCurrSeller] = useState('2');
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [allSellers, setAllSellers] = useState([]);
@@ -36,7 +36,7 @@ const CheckoutCard = ({ cart, setCart }) => {
       },
       body: JSON.stringify({
         userId: userData.id,
-        sellerId: currSeller,
+        sellerId: Number(currSeller),
         totalPrice: orderTotalPrice,
         deliveryAddress: address,
         deliveryNumber: number,

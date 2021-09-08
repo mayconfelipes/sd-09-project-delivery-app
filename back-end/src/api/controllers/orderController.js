@@ -21,9 +21,10 @@ const insertOrderInSale = rescue(async (req, res) => {
 
   const findById = await findOrderById(insertNewOrder.id);
 
-  console.log('req.body', req.body);
+  // console.log('req.body', req.body);
+  console.log('findById', findById.dataValues);
 
-  res.status(201).json(findById);
+  res.status(201).json(findById.dataValues);
 });
 
 module.exports = { insertOrderInSale };
