@@ -77,6 +77,7 @@ const renderDetails = (MockSalesDB, user) => (
       <button
         type="button"
         className="status-sale"
+        disabled
         data-testid={
           `${user}_order_details__button-${
             user === 'customer' ? 'delivery' : 'dispatch'}-check`
@@ -91,7 +92,7 @@ const renderDetails = (MockSalesDB, user) => (
           `${user}_order_details__element-order-total-price`
         }
       >
-        {`Total: ${sale.totalPrice}`}
+        {(sale.totalPrice).replace('.', ',')}
       </div>
     </div>
 
