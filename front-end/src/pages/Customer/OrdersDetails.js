@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import { getSaleByid, getUserByid } from '../../services/api';
-import OrderDetailsTable from '../../components/Customer/OrderDetailsTable';
+import io from 'socket.io-client';
+import { Navbar, CustomerOrderDetailsTable } from '../../components';
+import { getSaleById, getUserById, updateSale } from '../../services/api';
 import { createButton } from '../../utils/creators';
 import { deliveryCheck } from '../../data/ButtonOptions';
 import { formatPrice, formatDate } from '../../utils/format';
@@ -14,19 +14,28 @@ function OrdersDetails() {
   const [order, setOrder] = useState({ products: [] });
   const [sellerName, setSellerName] = useState([]);
   const { id } = useParams();
+  const socket = io.connect('http://localhost:3001');
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getSaleByid(id);
-      const { name } = await getUserByid(data.sellerId);
+      const data = await getSaleById(id);
+      const { name } = await getUserById(data.sellerId);
       setOrder(data);
       setSellerName(name);
     };
     fetchData();
   }, [id]);
 
+  socket.on('status', (data) => setOrder({ ...order, status: data }));
+
+  const onClick = async (status) => {
+    await updateSale(id, { status });
+    socket.emit('status', status);
+    setOrder({ ...order, status });
+  };
+
   return (
-    <>
+    <section>
       <Navbar />
       <p data-testid={ `${route}__${label}-order-id` }>{ order.id }</p>
       <p data-testid={ `${route}__${label}-seller-name` }>{ sellerName }</p>
@@ -36,15 +45,15 @@ function OrdersDetails() {
       <p data-testid={ `${route}__${label}-delivery-status` }>{ order.status }</p>
       { createButton({
         ...deliveryCheck,
-        onclick: () => setOrder({ ...order, status: 'Entregue' }),
+        onClick: () => onClick('Entregue'),
         route,
         disabled: order.status !== 'Em Trânsito',
       }) }
-      <OrderDetailsTable products={ order.products } />
+      <CustomerOrderDetailsTable products={ order.products } />
       <p data-testid={ `${route}__element-order-total-price` }>
         { formatPrice(order.totalPrice) }
       </p>
-    </>
+    </section>
   );
 }
 

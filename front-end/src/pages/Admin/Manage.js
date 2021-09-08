@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import UsersTable from '../../components/Admin/ManageUserTable';
-import Navbar from '../../components/Navbar';
+import { Navbar, AdminManageUserTable } from '../../components';
 import { createUser, getUsers, deleteUser } from '../../services/api';
+import { checkUser } from '../../utils/checkFormats';
 import { createInput } from '../../utils/creators';
 import { nameOptions, emailOptions, passwordOptions } from '../../data/InputOptions';
 
@@ -31,15 +31,8 @@ function Manage() {
     return setError(false);
   };
 
-  const checkFormats = () => {
-    const nameFormat = /^[a-zA-ZÀ-ü ]{12}/g.test(state.name);
-    const emailFormat = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(state.email);
-    const passwordFormat = /[\w\D]{6}/g.test(state.password);
-    return nameFormat && emailFormat && passwordFormat;
-  };
-
   return (
-    <>
+    <section>
       <Navbar />
       { error && (
         <p data-testid={ `${route}__element-invalid-register` }>
@@ -63,12 +56,12 @@ function Manage() {
         name="register"
         type="submit"
         onClick={ onClick }
-        disabled={ !checkFormats() }
+        disabled={ !checkUser(state) }
       >
         CADASTRAR
       </button>
-      <UsersTable users={ users } removeUser={ removeUser } />
-    </>
+      <AdminManageUserTable users={ users } removeUser={ removeUser } />
+    </section>
   );
 }
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import ProductCard from '../../components/Customer/ProductCard';
+import { Navbar, CustomerProductCard } from '../../components';
 import { getProducts } from '../../services/api';
 import { CustomerContext } from '../../context/CustomerContext';
 import { formatPrice } from '../../utils/format';
@@ -42,7 +41,7 @@ function Products() {
         </span>
       </button>
       { products.map((product) => (
-        <ProductCard key={ product.id } product={ product } />
+        <CustomerProductCard key={ product.id } product={ product } />
       )) }
     </section>
   );
