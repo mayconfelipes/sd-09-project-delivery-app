@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import CheckoutTable from '../../components/Customer/CheckoutTable';
+import { Navbar, CustomerCheckoutTable } from '../../components';
 import { address, addressNumber } from '../../data/InputOptions';
 import { submitOrder } from '../../data/ButtonOptions';
 import { getUsers, createSale } from '../../services/api';
@@ -57,7 +56,7 @@ function Checkout() {
   return (
     <section>
       <Navbar />
-      <CheckoutTable cart={ cart } removeFn={ removeItem } />
+      <CustomerCheckoutTable cart={ cart } removeFn={ removeItem } />
       <h1>CHECKOUT</h1>
       <p>
         R$

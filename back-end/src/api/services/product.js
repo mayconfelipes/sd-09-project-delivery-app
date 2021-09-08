@@ -1,6 +1,6 @@
 const { Product } = require('../../database/models');
-const error = require('../utils/generateError');
 
+const err = (code, message) => ({ code, message });
 const productNotFound = '"product" not found';
 
 const create = async (product) => {
@@ -15,19 +15,19 @@ const findAll = async () => {
 
 const findOne = async ({ id }) => {
   const data = await Product.findOne({ where: { id } });
-  if (!data) throw error('notFound', productNotFound);
+  if (!data) throw err('notFound', productNotFound);
   return data;
 };
 
 const update = async (product, { id }) => {
   const data = await Product.update(product, { where: { id } });
-  if (!data) throw error('notFound', productNotFound);
+  if (!data) throw err('notFound', productNotFound);
   return data;
 };
 
 const destroy = async ({ id }) => {
   const data = await Product.destroy({ where: { id } });
-  if (!data) throw error('notFound', productNotFound);
+  if (!data) throw err('notFound', productNotFound);
   return data;
 };
 

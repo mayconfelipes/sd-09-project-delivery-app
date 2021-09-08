@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import { getAllSales } from '../../services/api';
+import { Navbar } from '../../components';
+import { getSales } from '../../services/api';
 import { formatPrice, formatDate } from '../../utils/format';
 
 const route = 'customer_orders';
@@ -12,7 +12,7 @@ function Orders() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllSales();
+      const data = await getSales();
       setOrders(data.filter(({ userId }) => userId === user.id));
     };
     fetchData();

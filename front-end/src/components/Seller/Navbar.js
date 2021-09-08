@@ -1,22 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function Navbar({ name }) {
+const route = 'customer_products';
+const testid = `${route}__element-navbar`;
+
+function Navbar() {
   const clearStorage = () => { localStorage.user = ''; };
 
   return (
     <nav>
-      <p>PEDIDOS</p>
-      <p>{ name }</p>
-      <a href="/" onClick={ clearStorage }>
+      <h1>NAVBAR</h1>
+      <a data-testid={ `${testid}-link-orders` } href="/seller/orders">
+        PEDIDOS
+      </a>
+      <p data-testid={ `${testid}-user-full-name` }>
+        { JSON.parse(localStorage.user).name }
+      </p>
+      <a data-testid={ `${testid}-link-logout` } href="/" onClick={ clearStorage }>
         Sair
       </a>
     </nav>
   );
 }
-
-Navbar.propTypes = {
-  name: PropTypes.string.isRequired,
-};
 
 export default Navbar;

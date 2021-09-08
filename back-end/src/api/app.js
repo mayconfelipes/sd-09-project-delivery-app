@@ -8,16 +8,13 @@ const app = express();
 
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
-  cors: {
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  },
+  cors: { origin: 'http://localhost:3000', methods: ['GET', 'POST', 'PUT', 'DELETE'] },
 });
 
-const userController = require('./controllers/user');
-const loginController = require('./controllers/login');
-const productController = require('./controllers/product');
-const saleController = require('./controllers/sale');
+const login = require('./routes/login');
+const user = require('./routes/user');
+const product = require('./routes/product');
+const sale = require('./routes/sale');
 const errorMiddleware = require('./middlewares/Error');
 
 app.use(cors());
@@ -27,14 +24,15 @@ app.use(express.static(path.join(__dirname, '..', '..', 'public')));
 
 io.on('connection', (socket) => {
   socket.emit('helloWorld', `${socket.id} says Hello!`);
+  socket.on('status', (data) => io.emit('status', data));
 });
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
-app.use('/user', userController);
-app.use('/login', loginController);
-app.use('/product', productController);
-app.use('/sale', saleController);
+app.use('/login', login);
+app.use('/user', user);
+app.use('/product', product);
+app.use('/sale', sale);
 
 app.use(errorMiddleware);
 

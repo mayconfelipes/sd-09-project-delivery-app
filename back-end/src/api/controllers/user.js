@@ -1,87 +1,26 @@
-const express = require('express');
 const rescue = require('express-rescue');
-const Joi = require('joi');
 const User = require('../services/user');
-const validate = require('../middlewares/validate');
-const validateToken = require('../middlewares/validateToken');
-const validateAdmin = require('../middlewares/validateAdmin');
+const generateToken = require('../services/generateToken');
 
-const route = express.Router();
+const register = rescue((req, res) => User.create(req.body)
+  .then((data) => res.status(201).json(data)));
 
-const userValidator = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().email().required(),
-  password: Joi.string().min(6).required(),
-});
+const login = rescue((req, res) => generateToken(req.body)
+  .then((data) => res.status(200).json(data)));
 
-const userRoleValidator = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().email().required(),
-  password: Joi.string().min(6).required(),
-  role: Joi.string(),
-});
+const create = rescue((req, res) => User.create(req.body)
+  .then((data) => res.status(201).json(data)));
 
-route.post('/', [
-  validate(userValidator),
-  rescue(async (req, res) => {
-    const user = await User.create(req.body);
-    res.status(201).json(user);
-  }),
-]);
+const findAll = rescue((_req, res) => User.findAll()
+  .then((data) => res.status(200).json(data)));
 
-route.post('/seller', [
-  validate(userValidator),
-  rescue(async (req, res) => {
-    const user = await User.create(req.body, 'seller');
-    res.status(201).json(user);
-  }),
-]);
+const findOne = rescue((req, res) => User.findOne(req.params)
+  .then((data) => res.status(200).json(data)));
 
-route.get('/', [
-  rescue(async (_req, res) => {
-    const usersList = await User.findAll();
-    res.status(200).json(usersList);
-  }),
-]);
+const update = rescue((req, res) => User.update(req.body, req.params)
+  .then((data) => res.status(200).json(data)));
 
-route.use(validateToken);
+const destroy = rescue((req, res) => User.destroy(req.params)
+  .then((data) => res.status(200).json(data)));
 
-route.post('/admin', [
-  validate(userRoleValidator),
-  validateAdmin,
-  rescue(async (req, res) => {
-    const user = await User.create(req.body);
-    res.status(201).json(user);
-  }),
-]);
-
-route.get('/role', [
-  rescue(async (req, res) => {
-    const usersList = await User.findByRole(req.body);
-    res.status(200).json(usersList);
-  }),
-]);
-
-route.get('/:id', [
-  rescue(async (req, res) => {
-    const user = await User.findOne(req.params);
-    res.status(200).json(user);
-  }),
-]);
-
-route.put('/:id', [
-  validate(userValidator),
-  rescue(async (req, res) => {
-    const user = await User.update(req.body, req.params);
-    res.status(200).json(user);
-  }),
-]);
-
-route.delete('/:id', [
-  rescue(async (req, res) => {
-    await User.destroy(req.params);
-    res.status(204).json();
-  }),
-]);
-
-module.exports = route;
+module.exports = { register, login, findAll, create, findOne, update, destroy };
