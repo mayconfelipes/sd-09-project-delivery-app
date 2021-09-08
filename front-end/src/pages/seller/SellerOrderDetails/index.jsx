@@ -28,7 +28,6 @@ const SellerOrderDetails = ({ match }) => {
     }
   }, [paramId]);
 
-  //   // setLocalStatus(local);
   console.log('seller sale', sale);
   const idTestId = 'seller_order_details__element-order-details-label-order-id';
   const dateTestId = 'seller_order_details__element-order-details-label-order-date';
@@ -56,9 +55,7 @@ const SellerOrderDetails = ({ match }) => {
                   deliveryStatus={ status }
                   date={ newDate }
                   orderStatus="PREPARAR PEDIDO"
-                  // handleClickPreparing={ () => setDeliveryStatus('Preparando') }
                   deliveryCheck="SAIU PARA ENTREGA"
-                  // handleClickDelivering={ () => setDeliveryStatus('Em Trânsito') }
                   dataTestIdOrderId={ idTestId }
                   dataTestIdOrderDate={ dateTestId }
                   dataTestIdDeliveryStatus={ statusTId }

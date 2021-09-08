@@ -27,13 +27,11 @@ const CustomerOrders = () => {
 
   useEffect(() => {
     socket.on('statusChanged', (data) => {
-      console.log(data);
       setNewStatus(data);
     });
   }, []);
 
   const manegeredStatus = (id, status) => {
-    console.log(newStatus);
     if (newStatus && newStatus.id === id) {
       return newStatus.status;
     }

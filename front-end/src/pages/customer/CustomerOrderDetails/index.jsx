@@ -19,7 +19,6 @@ const CustomerOrderDetails = ({ match }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [sale, setSale] = useState([]);
 
-  // const { totalPrice } = useGlobalContext();
   const sellerTestId = 'customer_order_details__element-order-details-label-seller-name';
   const dateTestId = 'customer_order_details__element-order-details-label-order-date';
   const statusTId = 'customer_order_details__element-order-details-label-delivery-status';
@@ -76,7 +75,7 @@ const CustomerOrderDetails = ({ match }) => {
   );
 
   if (isLoading) return <p>Loading...</p>;
-  console.log(sale);
+
   return (
     <>
       <NavBar />

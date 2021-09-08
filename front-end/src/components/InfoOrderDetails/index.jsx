@@ -21,8 +21,6 @@ const InfoOrderDetails = ({
   orderStatus,
   deliveryCheck,
   shouldCustomerDeliverApear,
-  // handleClickPreparing,
-  // handleClickDelivering,
 }) => {
   const [newStatus, setNewStatus] = useState();
 
@@ -138,8 +136,6 @@ InfoOrderDetails.propTypes = {
   orderStatus: P.string,
   deliveryCheck: P.string,
   shouldCustomerDeliverApear: P.bool,
-  // handleClickPreparing: P.func,
-  // handleClickDelivering: P.func,
 };
 
 InfoOrderDetails.defaultProps = {
@@ -153,6 +149,4 @@ InfoOrderDetails.defaultProps = {
   dataTestIdSeller: '',
   sellerName: '',
   deliveryCheck: '',
-  // handleClickPreparing: () => {},
-  // handleClickDelivering: () => {},
 };

@@ -15,7 +15,6 @@ const SellerOrders = () => {
   const [sales, setSales] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [newStatus, setNewStatus] = useState();
-  // const { localStatus } = useGlobalContext();
 
   useEffect(() => {
     const localItem = JSON.parse(localStorage.getItem('user'));
