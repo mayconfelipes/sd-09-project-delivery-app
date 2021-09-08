@@ -44,13 +44,11 @@ const CheckoutCard = ({ cart, setCart }) => {
         products: cart.map(({ id, quantity }) => ({ id, quantity })),
       }),
     };
-    const theSale = await fetch('http://localhost:3001/customer/order', orderBody)
-      .then((response) => response.json())
-      .then((jsoned) => {
-        setCart([]);
-        history.push(`customer/orders/${jsoned.id}`);
-      });
-    console.log('NÃO VER ISSO', theSale, history);
+    const theSale = await fetch('http://localhost:3001/customer/order', orderBody);
+    const theResponse = await theSale.json();
+    console.log(theResponse);
+    setCart([]);
+    history.push(`customer/orders/${theResponse.id}`);
   };
 
   useEffect(() => {
