@@ -66,8 +66,12 @@ module.exports = {
 
     return { id: saleId, ...payload };
   },
-  async getAll() {
-    return Sale.findAll();
+  async getAll(userId, role) {
+    if (role === 'customer') {
+      return Sale.findAll({ where: { userId } });
+    }
+
+    return Sale.findAll({ where: { sellerId: userId } });
   },
   async getById(id) {
     const { dataValues: sale } = await Sale.findOne({ where: { id } });
