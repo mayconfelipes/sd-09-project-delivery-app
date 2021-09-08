@@ -4,6 +4,7 @@ import './App.css';
 import { LoginProvider } from './context/loginContext';
 import Login from './pages/Login';
 import Products from './pages/Products';
+import Admin from './pages/Admin';
 import Register from './pages/Register';
 import SellerOrders from './pages/SellerOrders';
 
@@ -12,6 +13,7 @@ function App() {
     <LoginProvider>
       <div className="App">
         <Switch>
+          <Route path="/admin/manage" component={ Admin } />
           <Route path="/customer/products" component={ Products } />
           <Route path="/seller/orders" component={ SellerOrders } />
           <Route path="/login" component={ Login } />
