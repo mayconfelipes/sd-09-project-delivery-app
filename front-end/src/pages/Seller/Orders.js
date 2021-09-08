@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import io from 'socket.io-client';
 import { SellerNavbar } from '../../components';
 import { getSales } from '../../services/api';
 import { formatPrice, formatDate } from '../../utils/format';
@@ -9,6 +10,7 @@ const route = 'seller_orders';
 function Orders() {
   const [sales, setSales] = useState([]);
   const user = JSON.parse(localStorage.user);
+  const socket = io.connect('http://localhost:3001');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,6 +19,10 @@ function Orders() {
     };
     fetchData();
   }, []);
+
+  socket.on('status', ({ id, status }) => {
+    setSales(sales.map((sale) => (sale.id === +id ? { ...sale, status } : sale)));
+  });
 
   return (
     <section>

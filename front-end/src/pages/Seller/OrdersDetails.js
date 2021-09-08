@@ -24,11 +24,11 @@ function OrdersDetails() {
     fetchData();
   }, [id]);
 
-  socket.on('status', (data) => setSale({ ...sale, status: data }));
+  socket.on('status', ({ status }) => setSale({ ...sale, status }));
 
   const onClick = async (status) => {
     await updateSale(id, { status });
-    socket.emit('status', status);
+    socket.emit('status', { id, status });
     setSale({ ...sale, status });
   };
 

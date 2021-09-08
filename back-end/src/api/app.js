@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, '..', '..', 'public')));
 
 io.on('connection', (socket) => {
   socket.emit('helloWorld', `${socket.id} says Hello!`);
-  socket.on('status', (data) => io.emit('status', data));
+  socket.on('status', ({ id, status }) => io.emit('status', { id, status }));
 });
 
 app.get('/coffee', (_req, res) => res.status(418).end());
