@@ -47,36 +47,49 @@ const renderProducts = (products, user) => (
 const renderDetails = (MockSalesDB, user) => (
   MockSalesDB.map((sale) => (
     <div key={ sale.id } className="card-sale">
-      <p>Pedido</p>
-      {sale.id}
+      <p data-testid={ `${user}_order_details__element-order-details-label-order-id` }>
+        {`Pedido: ${sale.id}`}
+      </p>
+      <p data-testid="customer_order_details__element-order-details-label-seller-name">
+        {`P. vendedora: ${sale.seller.name}`}
+      </p>
       <div
         className="date-sale"
-        data-testid="seller_order_details__element-order-details-label-order-date"
+        data-testid={ `${user}_order_details__element-order-details-label-order-date` }
       >
         {formatDate(sale.saleDate)}
       </div>
       <div
         className="status-sale"
-        data-testid="seller_order_details__element-order-details-label-delivery-status"
+        data-testid={
+          `${user}_order_details__element-order-details-label-delivery-status`
+        }
       >
         {sale.status}
       </div>
       <div
         className="status-sale"
-        data-testid="seller_order_details__button-preparing-check"
+        data-testid={ `${user}_order_details__button-preparing-check` }
+        style={ user === 'customer' && { display: 'none' } }
       >
         PREPARAR PEDIDO
       </div>
-      <div
+      <button
+        type="button"
         className="status-sale"
-        data-testid="seller_order_details__button-dispatch-check"
+        data-testid={
+          `${user}_order_details__button-${
+            user === 'customer' ? 'delivery' : 'dispatch'}-check`
+        }
       >
-        SAIU PARA ENTREGA
-      </div>
+        {`${user === 'seller' ? 'SAIU PARA ENTREGA' : 'MARACAR COMO ENTREGUE'}`}
+      </button>
       {renderProducts(sale.products, user)}
       <div
         className="total-price"
-        data-testid="seller_order_details__element-order-total-price"
+        data-testid={
+          `${user}_order_details__element-order-total-price`
+        }
       >
         {`Total: ${sale.totalPrice}`}
       </div>
