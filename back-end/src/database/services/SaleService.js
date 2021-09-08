@@ -58,12 +58,12 @@ const allOrdersByCostumerId = async (id) => {
   }
 };
 
-const orderById = async (id) => {
+const saleById = async (id) => {
   try {
-    const orderProducts = await Sale.find({
+    const order = await Sale.find({
       where: { sale_id: id },
     });
-    return allSales;
+    return order;
   } catch (_error) {
     throw errorHelper(409, '"data" conflict');
   }
@@ -71,5 +71,6 @@ const orderById = async (id) => {
 
 module.exports = {
   checkOut,
-  allSalesBySellerId
+  allSalesBySellerId,
+  saleById,
 };

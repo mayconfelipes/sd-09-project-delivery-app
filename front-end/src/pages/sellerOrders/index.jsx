@@ -17,6 +17,7 @@ const SellerOrders = () => {
 
     const result = await getAllSales(token);
     setAllSales(result);
+    console.log(result);
   };
 
   useEffect(() => {
