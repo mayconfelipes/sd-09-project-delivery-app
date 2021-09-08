@@ -116,12 +116,8 @@ const ProductCard = ({ product }) => {
   );
 };
 
-ProductCard.defaultProps = {
-  product: undefined,
-};
-
 ProductCard.propTypes = {
   product: PropTypes.shape(PropTypes.string),
-};
+}.isRequired;
 
 export default ProductCard;

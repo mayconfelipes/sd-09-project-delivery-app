@@ -11,7 +11,7 @@ export default function useLogin() {
         url: 'http://localhost:3001/login',
         data: payload,
       });
-      setData({ login: true });
+      setData({ login: true, user: response.data });
       localStorage.setItem('user', JSON.stringify(response.data));
     } catch (error) {
       setData(error.response.data);

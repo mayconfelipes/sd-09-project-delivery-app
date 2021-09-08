@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 
 const Header = () => {
   const user = JSON.parse(localStorage.getItem('user'));
-  const [firstNavBarText, setFirstNavBarText] = useState('');
-  const [secondNavBarLink, setSecondNavBarLink] = useState(false);
-  const History = useHistory();
+  const [firstNavBarLink, setFirstNavBarLink] = useState(false);
+  const [secondNavBarLink, setSecondNavBarLink] = useState('');
+  const [secondNavBarText, setSecondNavBarText] = useState('');
+  const match = useRouteMatch();
+  const history = useHistory();
 
   function handleLogout() {
     localStorage.clear();
-    History.push('/login');
+    history.push('/login');
   }
 
-  function renderSecondNavBarLink() {
+  function renderFirstNavBarLink() {
     return (
       <Link
         className="noUnderline"
         to="/customer/orders"
-        data-testid="customer_products__element-navbar-link-orders"
+        data-testid="customer_products__element-navbar-link-products"
       >
         MEUS PEDIDOS
       </Link>
@@ -25,28 +27,32 @@ const Header = () => {
   }
 
   useEffect(() => {
-    if (History.location.pathname === '/admin/manage') {
-      setFirstNavBarText('GERENCIAR USUÁRIOS');
+    if (match.path === '/admin/manage') {
+      setSecondNavBarText('GERENCIAR USUÁRIOS');
+      setSecondNavBarLink('/admin/manage');
+    } else if (match.path === ('/seller/orders')) {
+      setSecondNavBarText('PEDIDOS');
+      setSecondNavBarLink('/seller/orders');
+      console.log(match.path);
+    } else {
+      setSecondNavBarText('PRODUTOS');
+      setFirstNavBarLink(true);
+      setSecondNavBarLink('/customer/products');
     }
-    if (History.location.pathname === '/seller/orders') {
-      setFirstNavBarText('PEDIDOS');
-    }
-    setFirstNavBarText('PRODUTOS');
-    setSecondNavBarLink(true);
-    console.log(History.location.pathname);
-  }, [History]);
+  }, [match.path]);
 
   return (
     <div className="navBar">
       <div className="leftHeader">
+        { firstNavBarLink && renderFirstNavBarLink() }
         <Link
           className="noUnderline"
-          to="/customer/products"
-          data-testid="customer_products__element-navbar-link-products"
+          to={ secondNavBarLink }
+          data-testid="customer_products__element-navbar-link-orders"
         >
-          { firstNavBarText }
+          { secondNavBarText }
         </Link>
-        { secondNavBarLink && renderSecondNavBarLink() }
+
       </div>
       <div className="rightHeader">
         <p data-testid="customer_products__element-navbar-user-full-name">

@@ -11,10 +11,8 @@ const useSellers = () => {
         url: 'http://localhost:3001/users/sellers',
         headers: { Authorization: token },
       });
-      console.log(response.data);
       setDataSellers(response.data);
     } catch (error) {
-      console.log(error.response.data);
       setDataSellers(error.response.data);
     }
   };
