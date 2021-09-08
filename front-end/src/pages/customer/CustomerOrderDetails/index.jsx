@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import P from 'prop-types';
-
+import socket from '../../../api/socket';
 import DescriptionsBar from '../../../components/DescriptionsBar';
 import GridOrderDetails from '../../../components/GridOrderDetails';
 import InfoOrderDetails from '../../../components/InfoOrderDetails';
@@ -18,6 +18,7 @@ const CustomerOrderDetails = ({ match }) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [sale, setSale] = useState([]);
+  const [newStatus, setNewStatus] = useState([]);
 
   // const { totalPrice } = useGlobalContext();
   const sellerTestId = 'customer_order_details__element-order-details-label-seller-name';
@@ -36,6 +37,17 @@ const CustomerOrderDetails = ({ match }) => {
         });
     }
   }, [paramId]);
+
+  useEffect(() => {
+    sale.filter(({ status }) => setNewStatus(status));
+  },
+  [sale]);
+
+  useEffect(() => {
+    socket.on('statusChanged', (data) => data.id === paramId
+      && setNewStatus(data.status));
+    console.log('recebi status', newStatus);
+  }, [paramId, newStatus]);
 
   const renderLocalSales = () => (
     <>
@@ -89,9 +101,9 @@ const CustomerOrderDetails = ({ match }) => {
         <div className={ style.barContainer }>
           {sale && sale
             .map(({
-              id, products, saleDate, totalPrice, status, seller }) => {
+              id, products, saleDate, totalPrice, seller }) => {
               if (id === Number(paramId)) {
-                console.log('customer status', status);
+                console.log('customer status', newStatus);
                 const { name: sellerName } = seller;
                 const newDate = formatDate(saleDate);
                 const priceToString = totalPrice.toString().replace('.', ',');
@@ -108,9 +120,9 @@ const CustomerOrderDetails = ({ match }) => {
                       dataTestIdDeliveryStatus={ statusTId }
                       dataTestIdCustomerDelivery={ deliveryCheckTestId }
                       order={ id }
-                      sellerName={ `${sellerName}` }
+                      sellerName={ sellerName }
                       date={ newDate }
-                      deliveryStatus={ status }
+                      deliveryStatus={ newStatus }
                     />
                     <GridOrderDetails />
                     ;
