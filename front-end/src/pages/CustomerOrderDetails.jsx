@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../css/CustomerOrderDetails.css';
+import io from 'socket.io-client';
 import dataTestIds from '../utils/dataTestIds';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
 import ProductsTable from '../components/ProductsTable';
 import transformDate from '../utils/transformDate';
+
+const socket = io.connect('http://localhost:3002/');
 
 function CustomerOrderDetails() {
   // Ver como fazer um 'custom react Hook para reutilizar'
@@ -46,7 +49,12 @@ function CustomerOrderDetails() {
     const status = event.target.value;
     await api.changeOrderStatus(myOrder.id, status);
     getSale(orderId);
+    socket.emit('updateFromCustomer');
   };
+
+  socket.on('updateCustomer', () => {
+    getSale(orderId);
+  });
 
   return (
     <div>

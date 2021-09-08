@@ -2,10 +2,22 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
+const httpServer = require('http').createServer(app);
 
-const path = require('path');
+const io = require('socket.io')(httpServer, {
+  cors: {
+    origin: 'http://localhost:3000',
+    method: ['GET', 'POST'],
+  },
+});
+
+const deliveryAppSocket = require('../socket/deliveryAppSocket');
+
+deliveryAppSocket.deliveryAppSocket(io);
+
 const errorMiddleware = require('../middlewares/errorMiddleware');
 const usersRouter = require('../routes/userRouter');
 const adminRouter = require('../routes/adminRouter');
@@ -26,5 +38,11 @@ app.use('/vendors', vendorsRouter);
 
 app.use('/images', express.static(path.join(__dirname, '..', '..', 'images')));
 app.use(errorMiddleware);
+
+const PORT = process.env.SOCKET_PORT || 3002;
+
+httpServer.listen(PORT, () => {
+  console.log(`Socket online on port: ${PORT}`);
+});
 
 module.exports = app;

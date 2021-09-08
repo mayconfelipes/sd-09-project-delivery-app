@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import io from 'socket.io-client';
 import NavBar from '../components/Navbar';
 import OrderCard from '../components/OrderCard';
 import Api from '../services/api';
+
+const socket = io.connect('http://localhost:3002/');
 
 function OrdersPage() {
   const [loading, setLoading] = useState(true);
@@ -37,6 +40,13 @@ function OrdersPage() {
   const mountProp = (role, sale) => ({
     role,
     ...sale,
+  });
+
+  const capitalizeFirstLetter = (string) => (string.charAt(0).toUpperCase()
+    + string.slice(1));
+
+  socket.on(`update${capitalizeFirstLetter(userData.role)}`, () => {
+    setInitialInfos();
   });
 
   return (
