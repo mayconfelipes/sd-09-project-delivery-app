@@ -25,8 +25,8 @@ beforeEach(async () => {
 
   expect(
     (await action.common.navigate.login.default(page, "customer")) &&
-      (await action.customer.validateProductsTotalPrice(page, itemList)) &&
-      (await action.common.navigate.customer.checkout.default(page))
+    (await action.customer.validateProductsTotalPrice(page, itemList)) &&
+    (await action.common.navigate.customer.checkout.default(page))
   ).toBeTruthy();
 });
 
@@ -35,26 +35,26 @@ describe(requirement(17), () => {
     for (let i = zero; i < itemList.cart.length; i += one) {
       await expect(page).toFindElement(
         customerCheckoutPage.element.orderTable.itemNumber +
-          `[data-testid$='-${i}']`
+        `[data-testid$='-${i}']`
       );
       await expect(page).toFindElement(
         customerCheckoutPage.element.orderTable.name + `[data-testid$='-${i}']`
       );
       await expect(page).toFindElement(
         customerCheckoutPage.element.orderTable.quantity +
-          `[data-testid$='-${i}']`
+        `[data-testid$='-${i}']`
       );
       await expect(page).toFindElement(
         customerCheckoutPage.element.orderTable.unitPrice +
-          `[data-testid$='-${i}']`
+        `[data-testid$='-${i}']`
       );
       await expect(page).toFindElement(
         customerCheckoutPage.element.orderTable.subTotal +
-          `[data-testid$='-${i}']`
+        `[data-testid$='-${i}']`
       );
       await expect(page).toFindElement(
         customerCheckoutPage.element.orderTable.remove +
-          `[data-testid$='-${i}']`
+        `[data-testid$='-${i}']`
       );
     }
     await expect(page).toFindElement(customerCheckoutPage.element.totalPrice);
@@ -73,31 +73,31 @@ const validateProductItens = async ({ cart = [], totalPrice }) => {
 
     await expect(page).toGetTextFromElement(
       customerCheckoutPage.element.orderTable.itemNumber +
-        `[data-testid$='-${i}']`,
+      `[data-testid$='-${i}']`,
       i + one
     );
 
     await expect(page).toGetTextFromElement(
       customerCheckoutPage.element.orderTable.name +
-        `[data-testid$='-${i}']`,
+      `[data-testid$='-${i}']`,
       name
     );
 
     await expect(page).toGetTextFromElement(
       customerCheckoutPage.element.orderTable.quantity +
-        `[data-testid$='-${i}']`,
+      `[data-testid$='-${i}']`,
       quantity
     );
 
     await expect(page).toGetTextFromElement(
       customerCheckoutPage.element.orderTable.unitPrice +
-        `[data-testid$='-${i}']`,
+      `[data-testid$='-${i}']`,
       unitPrice
     );
 
     await expect(page).toGetTextFromElement(
       customerCheckoutPage.element.orderTable.subTotal +
-        `[data-testid$='-${i}']`,
+      `[data-testid$='-${i}']`,
       subTotal
     );
   }
@@ -108,7 +108,7 @@ const validateProductItens = async ({ cart = [], totalPrice }) => {
   );
 
   return true;
-}
+};
 
 describe(requirement(18), () => {
   test("O avaliador testará se os itens contidos na venda correspondem aos itens do checkout", async () => {
@@ -121,9 +121,9 @@ describe(requirement(19), () => {
     const { productsToExclude, newCart } = cartReduced(itemList);
 
     showCurrentCart({ cart: productsToExclude }, requirement(19), 'Produtos que serão deletados');
-    showCurrentCart(newCart, requirement(19),'Nova lista de produtos');
+    showCurrentCart(newCart, requirement(19), 'Nova lista de produtos');
 
-    for (let i = productsToExclude.length - one ; i >= zero; i -= one) {
+    for (let i = productsToExclude.length - one; i >= zero; i -= one) {
       const { listItem } = productsToExclude[i];
       await expect(page).toClickOnElement({
         selector: customerCheckoutPage.element.orderTable.remove + `[data-testid$='-${listItem - 1}']`
@@ -149,7 +149,7 @@ describe(requirement(20), () => {
   });
 });
 
-describe(requirement(21), () => {
+describe.only(requirement(21), () => {
   test("O avaliador testará se, após realizado o checkout, as alterações constarão no banco de dados", async () => {
     const { saleId, saleDate } = await action.customer.checkoutNewSale(
       page,
@@ -166,7 +166,7 @@ describe(requirement(21), () => {
       },
       global.__TESTDESC__
     );
-
+    console.log(saleId);
     await expect(database).toReturnDataWith({
       query: [sales.query, "WHERE id = ?"].join(" "),
       values: [saleId],
