@@ -7,7 +7,7 @@ import '../styles/Orders.css';
 export default function Orders() {
   const [order, setOrder] = useState([]);
   const [userData] = useState(JSON.parse(localStorage.getItem('user')));
-  const { token } = userData;
+  const { token, role } = userData;
 
   useEffect(
     () => {
@@ -25,7 +25,11 @@ export default function Orders() {
     <main>
       <Header />
       <section>
-        {order.map((Item) => <CardOrder key={ Item.id } venda={ Item } />)}
+        {order.map((Item) => (<CardOrder
+          key={ Item.id }
+          venda={ Item }
+          role={ role }
+        />))}
       </section>
     </main>
   );

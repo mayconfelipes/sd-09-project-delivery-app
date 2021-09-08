@@ -2,16 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export default function CardOrder({ venda }) {
+export default function CardOrder({ venda, role }) {
   const { id, status, saleDate, totalPrice } = venda;
   const formatedDate = new Date(saleDate).toLocaleDateString('pt-BR');
+
+  console.log(role);
 
   return (
     <div className="corpo_card">
       <div className="div_pedido">
         <span>Pedido</span>
         <Link to={ `/customer/orders/${id}` }>
-          <span data-testid={ `customer_orders__element-order-id-${id}` }>{id}</span>
+          <span
+            data-testid={ `customer_orders__element-order-id-${id}` }
+          >
+            {id}
+          </span>
         </Link>
       </div>
 
@@ -38,6 +44,7 @@ export default function CardOrder({ venda }) {
   );
 }
 CardOrder.propTypes = {
+  role: PropTypes.string.isRequired,
   venda: PropTypes.shape({
     id: PropTypes.number.isRequired,
     status: PropTypes.string.isRequired,
