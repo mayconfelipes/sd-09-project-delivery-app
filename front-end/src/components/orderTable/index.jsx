@@ -14,6 +14,8 @@ const OrderTable = () => {
     const itemToRemove = newCart.products.find((prod) => prod.id === Number(target.name));
     newCart.totalValue = totalValue - (itemToRemove.price * itemToRemove.quantity);
     newCart.products.splice(indexToRemove, 1);
+
+    localStorage.setItem('cart', JSON.stringify(newCart));
     setCart(newCart);
   };
 

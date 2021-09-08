@@ -29,7 +29,6 @@ const FormAddressFull = () => {
   };
 
   const handleAddressInfo = ({ target: { name, value } }) => {
-    console.log('????');
     setFormOrder({
       ...formOrder,
       [name]: value,
