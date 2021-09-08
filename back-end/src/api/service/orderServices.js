@@ -16,7 +16,7 @@ const newOrder = async (
     delivery_address: deliveryAddress,
     delivery_number: deliveryNumber,
     status,
-  }, { raw: true });
+  });
   return result;
 };
 

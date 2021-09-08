@@ -7,7 +7,7 @@ import './CheckoutCard.css';
 const CheckoutCard = ({ cart, setCart }) => {
   const userData = JSON.parse(localStorage.getItem('user'));
   const { token } = userData;
-  const [currSeller, setCurrSeller] = useState('2-Fulana Pereira');
+  const [currSeller, setCurrSeller] = useState('');
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [allSellers, setAllSellers] = useState([]);
@@ -36,7 +36,7 @@ const CheckoutCard = ({ cart, setCart }) => {
       },
       body: JSON.stringify({
         userId: userData.id,
-        sellerId: Number(currSeller.split('-')[0]),
+        sellerId: currSeller,
         totalPrice: orderTotalPrice,
         deliveryAddress: address,
         deliveryNumber: number,
@@ -146,7 +146,7 @@ const CheckoutCard = ({ cart, setCart }) => {
               <option
                 key={ index }
               >
-                { `${element.id}-${element.name}` }
+                { element.id }
               </option>
             )) }
           </select>
