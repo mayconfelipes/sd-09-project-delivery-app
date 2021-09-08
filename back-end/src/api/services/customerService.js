@@ -15,19 +15,21 @@ const getProducts = async () => {
   return { products };
 };
 
-const createCheckOut = async(dataBody) => {
-  const {seller} = dataBody; 
-  const sellerBy =  await User.getById(seller);
+const createCheckOut = async (dataBody) => {
+  const { seller, id } = dataBody;
+  const sellerBy = await User.getById(seller);
 
   const saleNew = await Sale.create({
     userId: id,
-    sellerId: saleSeller.id,
+    // sellerId: saleSeller.id,
     totalPrice: sale.totalPrice,
     deliveryAddress: sale.deliveryAddress,
     deliveryNumber: sale.deliveryNumber,
     status: 'Pendente',
-  }); 
+    sellerBy,
+  });
 
+  return saleNew;
 };
 
 const getOrders = async (userId) => {

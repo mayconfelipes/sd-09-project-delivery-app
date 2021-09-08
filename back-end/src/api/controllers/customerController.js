@@ -26,7 +26,6 @@ customerController.post('/checkout', jwtValidator, rescue(async (req, res, next)
   return res.status(created).json({ products });
 }));
 
-
 customerController.get('/orders', jwtValidator, rescue(async (req, res, next) => {
   const { userId } = req;
 
