@@ -10,6 +10,7 @@ const Login = () => {
   const History = useHistory();
 
   useEffect(() => {
+    console.log(login);
     if (login.login && login.user.role === 'customer') {
       History.push('/customer/products');
     }

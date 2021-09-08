@@ -80,21 +80,21 @@ const Admin = () => {
               value="seller"
               onClick={ ({ target }) => setRole(target.value) }
             >
-              Vendedor
+              seller
             </option>
             <option
               key="customer"
               value="customer"
               onClick={ ({ target }) => setRole(target.value) }
             >
-              Cliente
+              customer
             </option>
             <option
               key="administrator"
               value="administrator"
               onClick={ ({ target }) => setRole(target.value) }
             >
-              Admin
+              administrator
             </option>
           </select>
         </label>
