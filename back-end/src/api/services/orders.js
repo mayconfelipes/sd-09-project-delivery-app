@@ -1,4 +1,4 @@
-const { sales, users } = require('../../database/models');
+const { sales, users, salesProducts, products } = require('../../database/models');
 
 const getOneOrderById = async (id) => {
   // const order = await sales.findOne({ 
@@ -10,10 +10,22 @@ const getOneOrderById = async (id) => {
   //   ],
   // });
   const order = await sales.findOne({ where: { id } });
-  // console.log(order.seller_id, 'adkaskask')
+  
+  const salesProductsArray = await salesProducts.findAll({where: {saleId: id}})
+  
+  const productsInfo = salesProductsArray.map(async (item) => {
+    const {name, price} = await products.findOne({where: {id: item.productId}})
+    return {nameProduct: name, priceProduct: price, productId: item.productId, quantity: item.quantity};
+  });
+  
+  const result = await Promise.all(productsInfo)
+  
+  
   const userName = await users.findOne({ where: { id: order.seller_id } });
+  
   return { 
-    id: order.id, saleDate: order.saleDate, status: order.status, sellerName: userName.name };
+    id: order.id, saleDate: order.saleDate, status: order.status, 
+    sellerName: userName.name, totalPrice: order.totalPrice, products: result  };
 };
 
 const getAllOrdersByCustomerId = async (email) => {

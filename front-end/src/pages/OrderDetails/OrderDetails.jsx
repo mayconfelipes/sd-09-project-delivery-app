@@ -4,12 +4,11 @@ import NavBar from '../../components/NavBar';
 import DetailsItem from '../../components/DetailsItem';
 import OrderDetailsHeader from '../../components/OrderDetailsHeader';
 import connectBack from '../../utills/axiosConfig';
+import TotalButton from './totalButton';
 
 // const dataTestId = require('../../utills/dataTestIds');
 
 const OrderDetails = () => {
-  const [cartItens, setCartItens] = useState([]);
-  const [totalPrice, setTotalPrice] = useState([]);
   const { id } = useParams();
   const [orderDetails, setOrderDetails] = useState();
   const getOrder = useCallback(() => {
@@ -24,17 +23,6 @@ const OrderDetails = () => {
 
   useEffect(() => {
     getOrder();
-    const getItens = JSON.parse(localStorage.getItem('products'));
-    const itensArray = Object.keys(getItens).map((key) => ({
-      item: {
-        ...getItens[key],
-        name: key,
-      },
-    }));
-    setCartItens(itensArray);
-    const currPrice = Object.entries(getItens)
-      .reduce((acc, curr) => acc + curr[1].totalProduct, 0).toFixed(2);
-    setTotalPrice(currPrice);
   }, [getOrder]);
 
   const brazilianPrice = (value) => {
@@ -44,7 +32,6 @@ const OrderDetails = () => {
     if (newPrice.length === minN) return `${newPrice}0`;
     return newPrice;
   };
-
   return (
     <div>
       <NavBar />
@@ -52,19 +39,28 @@ const OrderDetails = () => {
         {orderDetails
           ? <OrderDetailsHeader orderDetails={ orderDetails } /> : <p>carregando</p>}
         <div>
-          {cartItens.map((item, index) => (
-            <DetailsItem
-              cartItem={ item.item }
-              order={ index }
-              key={ index + item.item.name }
-            />
-          ))}
+          {
+            orderDetails
+              ? orderDetails.products.map((item, index) => (
+                <DetailsItem
+                  cartItem={ item }
+                  order={ index }
+                  key={ index + item.productName }
+                />))
+              : <p>carregando</p>
+          }
         </div>
-        <button
-          type="button"
-        >
-          {`Total $:${brazilianPrice(totalPrice)}`}
-        </button>
+        {/* {orderDetails
+          ?<button type="button" data-testid={ dataTestId[46] }>
+            {brazilianPrice(orderDetails.totalPrice)}
+          </button>
+          : <p>carregando</p>} */}
+        {/* <button type="button" data-testid={ dataTestId[46] }>
+          {orderDetails ? brazilianPrice(orderDetails.totalPrice) : carregando}
+        </button> */}
+        {orderDetails
+          ? <TotalButton totalPrice={ brazilianPrice(orderDetails.totalPrice) } />
+          : <p>carregando</p>}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CheckoutItem = (props) => {
-  const { cartItem: { totalProduct, price, quant, name }, order } = props;
+  const { cartItem: { nameProduct, priceProduct, quantity }, order } = props;
 
   const brazilianPrice = (value) => {
     const minN = 3;
@@ -20,16 +20,16 @@ const CheckoutItem = (props) => {
         {order + 1}
       </p>
       <p data-testid={ `customer_order_details__element-order-table-name-${order}` }>
-        {name}
+        {nameProduct}
       </p>
       <p data-testid={ `customer_order_details__element-order-table-quantity-${order}` }>
-        {quant}
+        {quantity}
       </p>
       <p data-testid={ `customer_order_details__element-order-table-sub-total-${order}` }>
-        {brazilianPrice(price)}
+        {brazilianPrice(priceProduct)}
       </p>
-      <p data-testid="customer_order_details__element-order-total-price">
-        {brazilianPrice(totalProduct)}
+      <p data-testid={ `customer_order_details__element-order-total-price-${order}` }>
+        {brazilianPrice(parseFloat(priceProduct) * quantity)}
       </p>
     </li>
   );

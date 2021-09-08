@@ -5,7 +5,6 @@ const dataTestId = require('../utills/dataTestIds');
 
 const OrderDetailsHeader = (props) => {
   const { orderDetails } = props;
-  console.log(orderDetails);
   const formatDate = (date) => {
     const split = date.split('T')[0].split('-');
     const formattedDate = `${split[2]}/${split[1]}/${split[0]}`;

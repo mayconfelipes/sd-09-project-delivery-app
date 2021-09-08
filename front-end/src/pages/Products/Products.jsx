@@ -20,6 +20,7 @@ const Products = () => {
   };
 
   useEffect(() => {
+    localStorage.setItem('products', JSON.stringify({}));
     fetchDrinks();
   }, []);
 
