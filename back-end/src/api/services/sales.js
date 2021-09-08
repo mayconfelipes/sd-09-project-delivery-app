@@ -24,16 +24,18 @@ const getSaleById = async (id) => {
   const sale = await Sales.findAll(
     { include: [
       { model: Products, as: 'products' },
-      { model: Users, as: 'seller' }, 
     ] },
-    { where: { id } }, 
   );
   if (!sale) {
     throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
   }
-
+  // console.log(saleSeller);
+  console.log('################### sale ###################', sale);
   const userSale = sale.filter(({ dataValues }) => dataValues.userId === id);
 
+  const test = userSale.map((s) => s.dataValues.sellerId);
+  const saleSeller = await usersServices.getById(test[0]);
+  console.log('##########################################', saleSeller);
   return userSale;
 };
 
