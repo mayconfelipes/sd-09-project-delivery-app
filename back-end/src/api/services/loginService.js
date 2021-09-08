@@ -1,7 +1,7 @@
 const { User } = require('../../database/models');
 
 const generateToken = require('../utils/tokenGenerator');
-const encryptPassword = require('../middlewares/encryptPassword');
+const encryptPassword = require('../utils/encryptPassword');
 const errorTypes = require('../utils/errorTypes');
 const filterUserData = require('../utils/filterUserData');
 

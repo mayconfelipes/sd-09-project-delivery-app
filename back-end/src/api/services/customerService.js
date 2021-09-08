@@ -1,5 +1,6 @@
+const moment = require('moment');
+
 const { Product, Sale, User } = require('../../database/models');
-const sale = require('../../database/models/sale');
 
 const errorTypes = require('../utils/errorTypes');
 
@@ -15,31 +16,39 @@ const getProducts = async () => {
   return { products };
 };
 
-const createCheckOut = async (dataBody) => {
-  const { seller, id } = dataBody;
-  const sellerBy = await User.getById(seller);
+const getSellers = async () => {
+  const sellers = await User.findAll({ where: { role: 'seller' } });
 
-  const saleNew = await Sale.create({
-    userId: id,
-    // sellerId: saleSeller.id,
-    totalPrice: sale.totalPrice,
-    deliveryAddress: sale.deliveryAddress,
-    deliveryNumber: sale.deliveryNumber,
+  return { sellers };
+};
+
+const createCheckout = async (saleData) => {
+  const { sellerId, deliveryAddress, deliveryNumber, totalPrice, userId } = saleData;
+  const saleDate = moment().utc().format();
+
+  const order = await Sale.create({
+    userId,
+    sellerId,
+    totalPrice,
+    deliveryAddress,
+    deliveryNumber,
+    saleDate,
     status: 'Pendente',
-    sellerBy,
   });
 
-  return saleNew;
+  return { order };
 };
 
 const getOrders = async (userId) => {
-  const orders = await Sale.findAll({ where: { userId } });
+  const orders = await Sale
+  .findAll({ where: { userId }, attributes: { exclude: ['user_id', 'seller_id'] } });
 
   return { orders };
 };
 
 const getOrderById = async (id) => {
-  const order = await Sale.findByPk(id);
+  const order = await Sale
+  .findOne({ where: { id }, attributes: { exclude: ['user_id', 'seller_id'] } });
 
   if (!order) {
     const error = errorTypes.orderNotFound;
@@ -50,4 +59,4 @@ const getOrderById = async (id) => {
   return { order };
 };
 
-module.exports = { getProducts, createCheckOut, getOrders, getOrderById };
+module.exports = { getProducts, createCheckout, getOrders, getOrderById, getSellers };
