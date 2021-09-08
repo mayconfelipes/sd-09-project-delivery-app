@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Loading from '../../../components/Loading';
-import NavBar from '../../../components/NavBar';
+import NavBar from '../../../components/NavBar/NavBar';
 
 const Details = () => {
   const [sale, setSale] = useState('');
@@ -16,7 +16,6 @@ const Details = () => {
       const response = await fetch(`http://localhost:3001/sales_products/${saleId}`);
       const saleById = await response.json();
       setSale(saleById);
-      console.log(saleById);
     } catch (error) {
       console.error(error);
     }

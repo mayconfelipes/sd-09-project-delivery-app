@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Loading from '../../components/Loading';
-import NavBar from '../../components/NavBar';
+import NavBar from '../../components/NavBar/NavBar';
 import OrderCard from '../../components/OrderCard';
 import connectBack from '../../utills/axiosConfig';
 

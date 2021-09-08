@@ -1,0 +1,21 @@
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.navbar-container {
+  display: flex;
+  flex-basis: auto;
+  flex-direction: row;
+  flex-grow: 1;
+  margin-bottom: 5%;
+}
+
+
+.navbar-items {
+  margin-left: 5%;
+}
+
+.navbar-logout-button {
+  margin-right: 3%;
+}

@@ -61,7 +61,12 @@ const CardProduct = (props) => {
   return (
     <div className="card-products-container">
       <section className="card-products-top">
-        <p data-testid={ `${prefix}element-card-price-${id}` }>{brazilianPrice()}</p>
+        <p
+          className="product-price"
+          data-testid={ `${prefix}element-card-price-${id}` }
+        >
+          {`R$ ${brazilianPrice()}`}
+        </p>
         <img
           src={ urlImage }
           alt={ name }
@@ -70,27 +75,39 @@ const CardProduct = (props) => {
         />
       </section>
       <section className="card-products-botton">
-        <p data-testid={ `${prefix}element-card-title-${id}` }>{name}</p>
-        <button
-          type="button"
-          onClick={ removeItem }
-          data-testid={ `${prefix}button-card-rm-item-${id}` }
-        >
-          -
-        </button>
-        <input
-          type="numer"
-          value={ quantity }
-          onChange={ (e) => alterNumber(e.target.value, name) }
-          data-testid={ `${prefix}input-card-quantity-${id}` }
-        />
-        <button
-          type="button"
-          onClick={ addItem }
-          data-testid={ `${prefix}button-card-add-item-${id}` }
-        >
-          +
-        </button>
+        <div className="container-name">
+          <p
+            className="product-name"
+            data-testid={ `${prefix}element-card-title-${id}` }
+          >
+            {name}
+          </p>
+        </div>
+        <div className="quantity-buttons">
+          <button
+            className="products-less-button"
+            type="button"
+            onClick={ removeItem }
+            data-testid={ `${prefix}button-card-rm-item-${id}` }
+          >
+            -
+          </button>
+          <input
+            type="numer"
+            className="input-card-quantity"
+            value={ quantity }
+            onChange={ (e) => alterNumber(e.target.value, name) }
+            data-testid={ `${prefix}input-card-quantity-${id}` }
+          />
+          <button
+            className="products-mor-button"
+            type="button"
+            onClick={ addItem }
+            data-testid={ `${prefix}button-card-add-item-${id}` }
+          >
+            +
+          </button>
+        </div>
       </section>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
-import NavBar from '../../components/NavBar';
+import NavBar from '../../components/NavBar/NavBar';
 import CheckoutItem from '../../components/CheckoutItem';
 import connectBack from '../../utills/axiosConfig';
 
