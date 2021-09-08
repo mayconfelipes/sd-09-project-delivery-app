@@ -22,19 +22,18 @@ const getById = async (id) => {
 // retorna a venda pelo id dela mesma
 const getSaleById = async (id) => {
   const sale = await Sales.findAll(
-    { include: [
+    { 
+      logging: true,
+      where: { userId: id },
+      include: [
       { model: Products, as: 'products' },
       { model: Users, as: 'seller' }, 
     ] },
-    { where: { id } }, 
   );
   if (!sale) {
     throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
   }
-
-  const userSale = sale.filter(({ dataValues }) => dataValues.userId === id);
-
-  return userSale;
+  return sale;
 };
 
 // retorna a venda pelo id dela mesma
