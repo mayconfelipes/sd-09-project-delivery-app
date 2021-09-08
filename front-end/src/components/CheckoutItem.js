@@ -8,6 +8,8 @@ export default function CheckoutItem({ product, index, role }) {
     role === 'customer' ? Customer : Seller,
   );
 
+  const dataTest = role === 'customer' ? 'customer_checkout' : 'seller_order_details';
+
   const removeProduct = () => {
     const newCart = shoppingCart.filter((item, listIndex) => listIndex !== index);
     setShoppingCart(newCart);
@@ -22,25 +24,25 @@ export default function CheckoutItem({ product, index, role }) {
     <tr>
       <td
         className="secondary grow-1"
-        data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
+        data-testid={ `${dataTest}__element-order-table-item-number-${index}` }
       >
         { index + 1 }
       </td>
       <td
         className="light-background grow-3"
-        data-testid={ `customer_checkout__element-order-table-name-${index}` }
+        data-testid={ `${dataTest}__element-order-table-name-${index}` }
       >
         { name }
       </td>
       <td
         className="primary grow-1"
-        data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
+        data-testid={ `${dataTest}__element-order-table-quantity-${index}` }
       >
         { quantity }
       </td>
       <td
         className="ternary grow-1"
-        data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
+        data-testid={ `${dataTest}__element-order-table-unit-price-${index}` }
       >
         R$
         { `${(Math.round(price * 100) / 100).toFixed(2)}`
@@ -48,7 +50,7 @@ export default function CheckoutItem({ product, index, role }) {
       </td>
       <td
         className="quaternary grow-1"
-        data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
+        data-testid={ `${dataTest}__element-order-table-sub-total-${index}` }
       >
         R$
         { `${(Math.round((price * quantity) * 100) / 100).toFixed(2)}`
@@ -60,7 +62,7 @@ export default function CheckoutItem({ product, index, role }) {
           className="secondary grow-1"
           type="button"
           onClick={ removeProduct }
-          data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+          data-testid={ `${dataTest}__element-order-table-remove-${index}` }
         >
           Remover
         </button>
