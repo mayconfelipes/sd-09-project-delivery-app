@@ -18,7 +18,7 @@ const login = async (userEmail, password) => {
     return { error };
   }
 
-  const filteredUserData = filterUserData(foundUserData);
+  const filteredUserData = await filterUserData(foundUserData);
 
   const token = await generateToken(filteredUserData);
 

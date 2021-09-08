@@ -16,7 +16,7 @@ const register = async (name, email, password, role = 'customer') => {
     return { error };
   }
   
-  const filteredUserData = filterUserData(
+  const filteredUserData = await filterUserData(
     async () => User.create({ name, email, password: cryptoPassword, role }),
   );
   
