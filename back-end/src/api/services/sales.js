@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const { Sale, SalesProduct, Product } = require('../../database/models');
+const { User, Sale, SalesProduct, Product } = require('../../database/models');
 const { InvalidArgumentError } = require('../errors');
 
 const STATUS_CHOICES = [
@@ -45,8 +45,10 @@ const retriveSaleSerializer = async (sale) => {
     const product = allProducts.find(({ id }) => id === productId);
     return { ...product, quantity };
   });
+  const { dataValues: seller } = await User.findOne({ where: { id: sale.sellerId } });
+  const { dataValues: user } = await User.findOne({ where: { id: sale.userId } });
 
-  return { ...sale, products };
+  return { ...sale, products, seller, user };
 };
 
 module.exports = {
