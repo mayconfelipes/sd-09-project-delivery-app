@@ -12,9 +12,9 @@ const newOrder = async (
   const result = await sale.create({
     user_id: userId,
     seller_id: sellerId,
-    totalPrice,
-    deliveryAddress,
-    deliveryNumber,
+    total_price: totalPrice,
+    delivery_address: deliveryAddress,
+    delivery_number: deliveryNumber,
     status,
   }, { raw: true });
   return result;
