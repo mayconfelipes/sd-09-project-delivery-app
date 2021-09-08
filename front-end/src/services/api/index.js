@@ -28,36 +28,30 @@ export const fetchToLogin = (email, password, setInvalidUser, setRedirectTo) => 
     });
 };
 
-export const fetchToRegister = (payload, setInvalidUser, setRedirectTo) => {
+export const getOrders = async (payload, setOrders) => {
   const { token, email } = payload;
-  const body = {
-    email
-  };
 
-  const myHeadersToRegister = {
+  const Myheaders = {
     'Content-Type': 'application/json',
-    'Authorization': token,
+    Authorization: token,
   };
 
-  fetch('http://localhost:3001/seller/orders', {
-    headers: myHeadersToRegister,
+  await fetch(`http://localhost:3001/seller/orders/${email}`, {
+    headers: Myheaders,
     method: 'GET',
-    body: JSON.stringify(body),
   })
     .then((res) => res.json())
     .then((response) => {
       console.log(response);
       if (response.message) {
-        setInvalidUser(true);
+        setError(response.message);
       } else {
-        console.log(response);
-        localStorage.setItem('user', JSON.stringify(response));
-        setRedirectTo(true);
+        setOrders(response);
       }
     });
 };
 
-export const fetchToSellers = (payload, setInvalidUser, setRedirectTo) => {
+export const fetchToRegister = (payload, setInvalidUser, setRedirectTo) => {
   const { name, email } = payload;
   const body = {
     name,

@@ -6,7 +6,6 @@ let seller;
 
 const getSellerId = async (email) => {
   seller = await user.findOne({ where: { email } });
-  console.log(seller);
   if (!seller) throw boom.notFound('User not found');
 
   return seller;

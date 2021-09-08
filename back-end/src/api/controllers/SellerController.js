@@ -4,7 +4,7 @@ const sellerServices = require('../service/SellerServices');
 const HTTP_STATUS_OK = 200;
 
 const getAllOrders = rescue(async (req, res) => {
-  const { email } = req.body;
+  const { email } = req.params;
   
   const orders = await sellerServices.getAll(email);
 
