@@ -6,6 +6,7 @@ import { buttonThemes, navLinkThemes } from '../../styles/componentThemes';
 export const AppTitle = styled.h1``;
 
 export const Button = styled.button`
+  border: 0;
   ${setThemeFor(buttonThemes)}
 `;
 
@@ -24,6 +25,8 @@ export const Label = styled.div`
 export const Link = styled(RouterLink)`
   text-decoration: none;
 `;
+
+export const Main = styled.main``;
 
 export const NavLink = styled(RouterNavLink)`
   color: ${getThemeColor('light')};

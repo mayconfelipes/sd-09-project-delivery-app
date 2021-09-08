@@ -1,20 +1,36 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { AppContext } from '../../context';
 import { Label, Link, Wrapper } from '../atoms';
 import { getThemeColor } from '../../styles/utils';
 import testIds from '../../utils/testIds';
+import { removeCartData, removeUserData } from '../../utils/storage';
+import paths from '../../Routes/paths';
+import { useAuthActionContext, useUserDataContext } from '../../context/contexts';
+import { onlyClassNamePropTypes } from '../../utils/propTypes';
 
 const UserGroup = ({ className }) => {
-  const { user: { data: { name } } } = useContext(AppContext);
+  const setAuthentication = useAuthActionContext();
+  const { name } = useUserDataContext();
+
+  const logout = useCallback(
+    () => {
+      removeUserData();
+      removeCartData();
+      setAuthentication(false);
+    },
+    [],
+  );
 
   return (
     <Wrapper className={ className }>
       <Label data-testid={ testIds.id13 }>
         { name }
       </Label>
-      <Link to="/" data-testid={ testIds.id14 }>
+      <Link
+        to={ paths.home }
+        onClick={ logout }
+        data-testid={ testIds.id14 }
+      >
         Sair
       </Link>
     </Wrapper>
@@ -43,6 +59,4 @@ export default styled(UserGroup)`
   }
 `;
 
-UserGroup.propTypes = {
-  className: PropTypes.string.isRequired,
-};
+UserGroup.propTypes = onlyClassNamePropTypes;

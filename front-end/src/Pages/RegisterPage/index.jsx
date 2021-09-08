@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   AppTitle,
   Button,
@@ -8,12 +8,12 @@ import {
   Wrapper,
 } from '../../Components';
 import testIds from '../../utils/testIds';
-import { AppContext } from '../../context';
 import redirectByRole from '../../Routes/redirectByRole';
 import useAuthentication from '../../hooks/useAuthentication';
 import backendStatus from '../../utils/backendStatus';
 import { registerSchema } from '../../utils/validateInfo';
 import useAuthFormInfo from '../../hooks/useAuthFormInfo';
+import { useUserDataContext } from '../../context/contexts';
 
 const RegisterPage = () => {
   const { authInfo, handleFieldsChange, isValidInfo } = useAuthFormInfo({
@@ -21,10 +21,10 @@ const RegisterPage = () => {
     validationSchema: registerSchema,
   });
   const { isValidRequest, requestUser } = useAuthentication();
-  const { user } = useContext(AppContext);
+  const { role: userRole } = useUserDataContext();
   const shouldRenderError = isValidRequest === false;
 
-  if (isValidRequest) return redirectByRole(user.data.role);
+  if (isValidRequest) return redirectByRole(userRole);
 
   return (
     <Container>

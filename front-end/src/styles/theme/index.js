@@ -9,6 +9,7 @@ const colorNames = {
   // Text
   richBlack: '#001813', // dark
   webAzure: '#f2fffc', // light
+  oldSilver: '#828282',
   // Order colors
   caribbeanGreen: '#00cc9b', // delivered
   kiwi: '#8cd940', // preparing
@@ -23,6 +24,7 @@ const theme = {
     quaternary: colorNames.brandeisBlue,
     dark: colorNames.richBlack,
     light: colorNames.webAzure,
+    textLight: colorNames.oldSilver,
     delivered: colorNames.caribbeanGreen,
     preparing: colorNames.kiwi,
     pending: colorNames.sandstorm,

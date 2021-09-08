@@ -1,20 +1,17 @@
-import { useState, useCallback, useContext } from 'react';
+import { useState, useCallback } from 'react';
 import requestApi from '../services/api';
-import { AppContext } from '../context';
 import { storeUserData } from '../utils/storage';
 import decodeUserInfo from '../utils/decodeUserInfo';
+import { useAuthActionContext, useUserActionContext } from '../context/contexts';
 
 const useAuthentication = () => {
   const [isValidRequest, setValidRequest] = useState(() => null);
-  const { auth: { setAuthentication }, user: { setUserData } } = useContext(AppContext);
+  const setAuthentication = useAuthActionContext();
+  const setUserData = useUserActionContext();
 
   const requestUser = useCallback(
     async ({ validStatus, data, endpoint }) => {
-      const requestData = {
-        method: 'post',
-        data,
-        endpoint,
-      };
+      const requestData = { method: 'post', data, endpoint };
 
       const response = await requestApi(requestData);
 
@@ -22,7 +19,8 @@ const useAuthentication = () => {
 
       if (isValidRequestStatus) {
         const { token } = response.data;
-        const userData = { ...decodeUserInfo(token), token };
+        const { data: tokenData } = decodeUserInfo(token);
+        const userData = { ...tokenData, token };
         storeUserData(userData);
         setUserData(userData);
       }

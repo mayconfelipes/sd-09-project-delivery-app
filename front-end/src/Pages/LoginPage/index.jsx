@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import {
@@ -13,12 +13,12 @@ import {
 import assets from '../../assets';
 import testIds from '../../utils/testIds';
 import paths from '../../Routes/paths';
-import { AppContext } from '../../context';
 import redirectByRole from '../../Routes/redirectByRole';
 import useAuthentication from '../../hooks/useAuthentication';
 import backendStatus from '../../utils/backendStatus';
 import useAuthFormInfo from '../../hooks/useAuthFormInfo';
 import { loginSchema } from '../../utils/validateInfo';
+import { useUserDataContext } from '../../context/contexts';
 
 const LoginPage = () => {
   const { authInfo, handleFieldsChange, isValidInfo } = useAuthFormInfo({
@@ -26,11 +26,11 @@ const LoginPage = () => {
     validationSchema: loginSchema,
   });
   const { isValidRequest, requestUser } = useAuthentication();
-  const { user } = useContext(AppContext);
+  const { role: userRole } = useUserDataContext();
   const shouldRenderError = isValidRequest === false;
   const history = useHistory();
 
-  if (isValidRequest) return redirectByRole(user.data.role);
+  if (isValidRequest) return redirectByRole(userRole);
 
   return (
     <Container>
