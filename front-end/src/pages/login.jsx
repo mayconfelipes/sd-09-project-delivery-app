@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation, Redirect } from 'react-router-dom';
 import status from '../utils/status';
 
 const Login = () => {
@@ -11,6 +11,7 @@ const Login = () => {
   const [error, setError] = useState(
     state ? state.error : '',
   );
+  const [userData] = useState(JSON.parse(localStorage.getItem('user')));
 
   const history = useHistory();
 
@@ -84,6 +85,12 @@ const Login = () => {
         },
       );
   };
+
+  if (userData) {
+    return (
+      <Redirect to="/customer/products" />
+    );
+  }
 
   return (
     <section className="login">
