@@ -64,6 +64,9 @@ app.post('/users', validateToken, usersControllers.createByAdmin);
 // Exclui o usuário pelo id
 app.delete('/users/:id', validateToken, usersControllers.destroy);
 
+// Entrega todos os usuários com nome, email e role
+app.get('/users', validateToken, usersControllers.getAll);
+
 app.use(sendErrorMessage);
 
 module.exports = httpServer;

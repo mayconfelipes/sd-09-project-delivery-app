@@ -48,9 +48,19 @@ const destroy = async (req, res, next) => {
   }
 };
 
+const getAll = async (req, res, next) => {
+  try {
+    const users = await usersServices.getAll();
+    return res.status(OK_STATUS).send(users);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   create,
   getByRole,
   createByAdmin,
   destroy,
+  getAll,
 };

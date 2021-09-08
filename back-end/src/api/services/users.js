@@ -116,6 +116,14 @@ const destroy = async (id) => {
   return user.destroy();
 };
 
+const getAll = async () => {
+  const users = await Users.findAll({ attributes: { exclude: ['password'] } });
+  if (!users) {
+    throw messageError(NOT_FOUND_STATUS, USER_NOT_EXIST);
+  }
+  return users;
+};
+
 module.exports = {
   create,
   getById,
@@ -123,4 +131,5 @@ module.exports = {
   getByRole,
   createByAdmin,
   destroy,
+  getAll,
 };
