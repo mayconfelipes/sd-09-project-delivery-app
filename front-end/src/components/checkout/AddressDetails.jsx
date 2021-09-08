@@ -6,7 +6,6 @@ const AddressDetails = ({ names }) => {
   const { address, setAddress } = useDeliveryContext();
 
   const handleInputChange = ({ target }) => {
-    console.log('target >', target);
     const { name, value } = target;
 
     setAddress({ ...address, [name]: value });

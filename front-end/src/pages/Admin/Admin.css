@@ -1,0 +1,45 @@
+.register-admin {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-bottom: 50rem;
+  padding: 2rem;
+  width: 100%;
+}
+
+.inputs-and-button-register {
+  align-items: center;
+  border: 1px solid #b1c2be;
+  box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem;
+}
+
+.inputs > input {
+  margin-top: 0.3rem;
+  padding: 0.4rem;
+}
+
+.inputs > select {
+  margin-top: 0.3rem;
+  padding: 0.5rem;
+}
+
+.inputs-and-button-register > button {
+  background-color: #44c18c;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 900;
+  margin-right: 5px;
+  padding: 5px 20px;
+}
