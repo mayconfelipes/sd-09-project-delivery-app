@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ProductCard from '../components/ProductCard';
 import fetchGET from '../services/fetchGET';
 import { productsAction } from '../actions/checkoutAction';
+import '../styles/Cards.css';
 
 class Products extends React.Component {
   constructor() {
@@ -40,6 +41,7 @@ class Products extends React.Component {
       <div>
         <Link to="/customer/checkout">
           <button
+            className="buttonCarrinho"
             type="button"
             disabled={ !getProducts.length > 0 }
             data-testid="customer_products__button-cart"
@@ -52,7 +54,7 @@ class Products extends React.Component {
             </span>
           </button>
         </Link>
-        <div>
+        <div className="allCard">
           { products.map((product, index) => (
             <ProductCard
               key={ `${product}${index}` }

@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import ItensDetails from '../components/ItensDetails';
 import fetchGET from '../services/fetchGET';
 import fetchPOST from '../services/fetchPOST';
+import { productsAction, setTotalPriceAction } from '../actions/checkoutAction';
 import '../styles/Checkout.css';
 
 class Checkout extends React.Component {
@@ -51,7 +52,7 @@ class Checkout extends React.Component {
   async placeOrder() {
     const user = localStorage.getItem('user');
     const { selectValue, deliveryAddress, deliveryNumber } = this.state;
-    const { getTotalPrice, getProducts } = this.props;
+    const { getTotalPrice, getProducts, setProducts, setTotalPrice } = this.props;
     const bodySales = {
       userId: JSON.parse(user).id,
       sellerId: Number(selectValue),
@@ -67,6 +68,8 @@ class Checkout extends React.Component {
       id,
       redirect: true,
     });
+    setProducts([]);
+    setTotalPrice('0,00');
   }
 
   tableItens() {
@@ -188,8 +191,14 @@ const mapStateToProps = (state) => ({
   getTotalPrice: state.checkoutReducer.totalPrice,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  setProducts: (productsBuy) => dispatch(productsAction(productsBuy)),
+  setTotalPrice: (totalPrice) => dispatch(setTotalPriceAction(totalPrice)),
+});
+
 Checkout.propTypes = ({
   getProducts: PropTypes.arrayOf(PropTypes.object),
+  setProducts: PropTypes.func,
 }).isRequired;
 
-export default connect(mapStateToProps)(Checkout);
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

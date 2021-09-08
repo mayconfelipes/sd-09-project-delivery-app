@@ -1,0 +1,54 @@
+.allCard {
+  margin: 50px;
+}
+
+.cards {
+  border: 1px solid rgb(178, 187, 184);
+  box-shadow: 2px 2px 2px grey;
+  display: inline-block;
+  margin: 20px 21px;
+  padding: 5px;
+}
+
+.imgCard {
+  left: 17%;
+  position: relative;
+}
+
+.botCard {
+  background-color: ghostwhite;
+  text-align: center;
+}
+
+.buttons {
+  background-color: seagreen;
+  border: 0;
+  border-radius: 2px;
+  color: white;
+  margin: 0 5px;
+  width: 20px;
+}
+
+.inputcards {
+  display: inline-block;
+  text-align: center;
+  width: 20%;
+}
+
+.buttonCarrinho {
+  background-color: seagreen;
+  border-radius: 5px;
+  bottom: 10%;
+  color: white;
+  font-weight: 700;
+  height: 40px;
+  left: 85%;
+  position: fixed;
+  text-align: center;
+  width: 180px;
+}
+
+.p1cards {
+  color: darkgreen;
+  margin-left: 10px;
+}

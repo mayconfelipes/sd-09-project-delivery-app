@@ -39,10 +39,10 @@ class Order extends React.Component {
 
   updateSocket() {
     const { match: { params } } = this.props;
-    socket.on('newStatus', ({ id, status, rgb }) => {
+    socket.on('newStatus', ({ id, status }) => {
       if (Number(params.id) === id) {
-        const text = document.querySelector('.status-color');
-        text.style.backgroundColor = rgb;
+        // const text = document.querySelector('.status-color');
+        // text.style.backgroundColor = rgb;
         this.setState({
           statusP: status,
         });

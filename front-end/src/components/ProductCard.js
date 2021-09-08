@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { productsAction, setTotalPriceAction } from '../actions/checkoutAction';
+import '../styles/Cards.css';
 
 class ProductCard extends React.Component {
   constructor() {
@@ -108,14 +109,16 @@ class ProductCard extends React.Component {
     const { value } = this.state;
 
     return (
-      <div>
+      <div className="cards">
         <div>
           <p
+            className="p1cards"
             data-testid={ `customer_products__element-card-price-${product.id}` }
           >
             { product.price.replace(/\./, ',')}
           </p>
           <img
+            className="imgCard"
             src={ product.urlImage }
             alt={ product.name }
             data-testid={ `customer_products__img-card-bg-image-${product.id}` }
@@ -123,13 +126,14 @@ class ProductCard extends React.Component {
             height="150px"
           />
         </div>
-        <div>
+        <div className="botCard">
           <p
             data-testid={ `customer_products__element-card-title-${product.id}` }
           >
             { product.name }
           </p>
           <button
+            className="buttons"
             type="button"
             onClick={ () => this.changeValue('sub') }
             data-testid={ `customer_products__button-card-rm-item-${product.id}` }
@@ -137,12 +141,14 @@ class ProductCard extends React.Component {
             -
           </button>
           <input
+            className="inputcards"
             name="value"
             value={ value }
             onChange={ this.handleChange }
             data-testid={ `customer_products__input-card-quantity-${product.id}` }
           />
           <button
+            className="buttons"
             type="button"
             onClick={ () => this.changeValue('add') }
             data-testid={ `customer_products__button-card-add-item-${product.id}` }
