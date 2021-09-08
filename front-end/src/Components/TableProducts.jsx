@@ -1,19 +1,26 @@
-// import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+/* eslint-disable react/jsx-max-depth */
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import api from '../services/api';
 
 function TableProducts({ fetchSales }) {
+  const [sellers, setSellers] = useState([]);
   const [products, setProducts] = useState(JSON.parse(localStorage.getItem('cart')));
   const [totalPrice, setTotalPrice] = useState(
     Number(localStorage.getItem('totalPrice')),
   );
   const user = JSON.parse(localStorage.getItem('user'));
-  const [salesDetails] = useState({
+  const [salesDetails, setSalesDetails] = useState({
     userId: user.id,
-    sellerId: 2,
-    deliveryAddress: 'rua tal',
-    deliveryNumber: '3',
+    sellerId: 0,
+    deliveryAddress: '',
+    deliveryNumber: '',
     cart: products,
   });
+
+  useEffect(() => {
+    api.get('user/seller').then((res) => setSellers(res.data));
+  }, []);
 
   const removeProductOnClick = (id) => {
     setProducts(products.filter((product) => id !== product.id));
@@ -111,22 +118,39 @@ function TableProducts({ fetchSales }) {
           <td>
             <select
               data-testid="customer_checkout__select-seller"
+              onChange={
+                ({ target }) => setSalesDetails({
+                  ...salesDetails, sellerId: Number(target.value),
+                })
+              }
             >
-              Cicrana
+              <option>Escolha um vendedor</option>
+              {sellers.map((seller) => (
+                <option key={ seller.id } value={ seller.id }>
+                  {seller.name}
+                </option>))}
             </select>
           </td>
           <td>
             <input
               data-testid="customer_checkout__input-address"
               type="text"
-              value="rua tal"
+              onChange={
+                ({ target }) => setSalesDetails({
+                  ...salesDetails, deliveryAddress: target.value,
+                })
+              }
             />
           </td>
           <td>
             <input
               data-testid="customer_checkout__input-addressNumber"
               type="text"
-              value="166"
+              onChange={
+                ({ target }) => setSalesDetails({
+                  ...salesDetails, deliveryNumber: target.value,
+                })
+              }
             />
           </td>
         </tr>
@@ -150,6 +174,8 @@ function TableProducts({ fetchSales }) {
       >
         FINALIZAR PEDIDO
       </button>
+      { localStorage.setItem('cart', JSON.stringify(products)) }
+      { localStorage.setItem('totalPrice', totalPrice) }
     </>
   );
 }

@@ -10,6 +10,20 @@ const User = (sequelize, DataTypes) => {
     { timestamps: false, tableName: 'users', underscored: true }
   );
 
+  user.associate = (models) => {
+    user.hasMany(models.Sale, {
+      as: 'user',
+      foreignKey: 'userId',
+    })
+  }
+
+  user.associate = (models) => {
+    user.hasMany(models.Sale, {
+      as: 'seller',
+      foreignKey: 'sellerId',
+    })
+  }
+
   return user;
 };
 

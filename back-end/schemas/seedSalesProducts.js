@@ -2,7 +2,7 @@ module.exports = (Model, saleId, cart) => {
   cart.forEach(({ id, quantity }) => {
     Model.create({
       saleId,
-      id,
+      productId: id,
       quantity,
     });
   });

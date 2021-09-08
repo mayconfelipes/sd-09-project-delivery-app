@@ -36,6 +36,7 @@ function Checkout() {
       <NavBar />
       <h2>Finalizar pedido</h2>
       <TableProducts fetchSales={ fetchSales } />
+      {console.log('token: ', user.token)}
     </div>
   );
 }
