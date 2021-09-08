@@ -89,7 +89,7 @@ const CustomerOrderDetails = ({ match }) => {
         <div className={ style.barContainer }>
           {sale && sale
             .map(({
-              id, products, saleDate, totalPrice, status, seller }, productIndex) => {
+              id, products, saleDate, totalPrice, status, seller }) => {
               if (id === Number(paramId)) {
                 console.log('customer status', status);
                 const { name: sellerName } = seller;
@@ -126,7 +126,7 @@ const CustomerOrderDetails = ({ match }) => {
                       return (
                         <DescriptionsBar
                           key={ productId }
-                          id={ productIndex }
+                          id={ i }
                           userOrProductName={ name }
                           emailOrQuantity={ quantity }
                           userTypeOrValue={ priceString }
