@@ -17,7 +17,7 @@ const getProducts = async () => {
 
 const createCheckOut = async(dataBody) => {
   const {seller} = dataBody; 
-  const seller =  await User.getById(seller);
+  const sellerBy =  await User.getById(seller);
 
   const saleNew = await Sale.create({
     userId: id,
@@ -27,6 +27,7 @@ const createCheckOut = async(dataBody) => {
     deliveryNumber: sale.deliveryNumber,
     status: 'Pendente',
   }); 
+
 };
 
 const getOrders = async (userId) => {
