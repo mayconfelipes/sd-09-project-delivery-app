@@ -18,12 +18,23 @@ customerController.get('/products', jwtValidator, rescue(async (_req, res, next)
 }));
 
 customerController.post('/checkout', jwtValidator, rescue(async (req, res, next) => {
-  const dataBody = req.body;
-  const { error, products } = await customerService.createCheckOut(dataBody);
+  const { sellerId, deliveryAddress, deliveryNumber, totalPrice } = req.body;
+  const { userId } = req;
+
+  const { error, order } = await customerService
+  .createCheckout({ sellerId, deliveryAddress, deliveryNumber, totalPrice, userId });
 
   if (error) return next(error);
 
-  return res.status(created).json({ products });
+  return res.status(created).json({ order });
+}));
+
+customerController.get('/checkout', jwtValidator, rescue(async (req, res, next) => {
+  const { error, sellers } = await customerService.getSellers();
+
+  if (error) return next(error);
+
+  return res.status(ok).json({ sellers });
 }));
 
 customerController.get('/orders', jwtValidator, rescue(async (req, res, next) => {
