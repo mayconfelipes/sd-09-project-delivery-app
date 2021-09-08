@@ -30,8 +30,9 @@ const checkOut = async (saleObject, id) => {
 };
 
 const saleProductsSave = async (saleId, productsData) => {
-  productsData.forEach(async ({ id, quantity }) => {
-    await SalesProduct.create({ sale_id: saleId, product_id: id, quantity });
+  console.log(productsData);
+  productsData.forEach(async ({ productId, quantity }) => {
+    await SalesProduct.create({ sale_id: saleId, product_id: productId, quantity });
   });
 };
 
