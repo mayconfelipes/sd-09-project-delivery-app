@@ -36,7 +36,7 @@ const CheckoutCard = ({ cart, setCart }) => {
       },
       body: JSON.stringify({
         userId: userData.id,
-        sellerId: currSeller.split('-')[0],
+        sellerId: Number(currSeller.split('-')[0]),
         totalPrice: orderTotalPrice,
         deliveryAddress: address,
         deliveryNumber: number,
