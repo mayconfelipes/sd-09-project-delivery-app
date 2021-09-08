@@ -31,8 +31,8 @@ const checkOut = async (saleObject, id) => {
 
 const saleProductsSave = async (saleId, productsData) => {
   console.log(productsData);
-  productsData.forEach(async ({ productId, quantity }) => {
-    await SalesProduct.create({ sale_id: saleId, product_id: productId, quantity });
+  productsData.forEach(async ({ id, quantity }) => {
+    await SalesProduct.create({ sale_id: saleId, product_id: id, quantity });
   });
 };
 
@@ -47,30 +47,8 @@ const allSalesBySellerId = async (id) => {
   }
 };
 
-const allOrdersByCostumerId = async (id) => {
-  try {
-    const allSales = await Sale.findAll({
-      where: { seller_id: id },
-    });
-    return allSales;
-  } catch (_error) {
-    throw errorHelper(409, '"data" conflict');
-  }
-};
-
-const saleById = async (id) => {
-  try {
-    const order = await Sale.find({
-      where: { sale_id: id },
-    });
-    return order;
-  } catch (_error) {
-    throw errorHelper(409, '"data" conflict');
-  }
-};
 
 module.exports = {
   checkOut,
   allSalesBySellerId,
-  saleById,
 };
