@@ -10,13 +10,13 @@ const newOrder = async (
   status,
 ) => {
   const result = await sale.create({
-    userId,
-    sellerId,
+    user_id: userId,
+    seller_id: sellerId,
     totalPrice,
     deliveryAddress,
     deliveryNumber,
     status,
-  });
+  }, { raw: true });
   return result;
 };
 
