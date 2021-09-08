@@ -48,7 +48,7 @@ const CheckoutCard = ({ cart, setCart }) => {
     const theResponse = await theSale.json();
     console.log('orderBody', orderBody);
     console.log('----------------------------------------------------------');
-    console.log('response', theResponse);
+    console.log('response ID =>', theResponse.id, theResponse);
     setCart([]);
     history.push(`orders/${theResponse.id}`);
   };
