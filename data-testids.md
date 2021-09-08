@@ -51,7 +51,8 @@
 - 50: seller_orders__element-order-date-\<id>
 - 51: seller_orders__element-card-price-\<id>
 - 52: seller_orders__element-card-address-\<id>
--
+- 
+- 54: seller_order_details__element-order-details-label-delivery-id
 - 55: seller_order_details__element-order-details-label-delivery-status
 - 56: seller_order_details__element-order-details-label-order-date
 - 57: seller_order_details__button-preparing-check
