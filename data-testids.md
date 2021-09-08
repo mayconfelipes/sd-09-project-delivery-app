@@ -44,7 +44,7 @@
 - 43: customer_order_details__element-order-table-quantity-\<index>
 - 44: customer_order_details__element-order-table-sub-total-\<index>
 - 45: customer_order_details__element-order-total-price-\<index>
--
+- 46: customer_order_details__element-order-total-price
 - 47: customer_order_details__button-delivery-check
 - 48: seller_orders__element-order-id-\<id>
 - 49: seller_orders__element-delivery-status-\<id>
