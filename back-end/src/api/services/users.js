@@ -90,9 +90,46 @@ const getByRole = async (role) => {
   return users;
 };
 
+const createByAdmin = async (user) => {
+  const { name, email, password, role } = user;
+  const md5Password = crypto.createHash('md5').update(password).digest('hex').toString();
+  const newUser = await Users.create({ 
+    name,
+    email,
+    password: md5Password,
+    role,
+  });
+
+  if (!newUser) {
+    throw messageError(INTERNAL_ERROR_STATUS, USER_NOT_CREATED);
+  }
+  return newUser.dataValues;
+};
+
+const destroy = async (id) => {
+  const user = await Users.findByPk(id);
+
+  if (!user) {
+    throw messageError(NOT_FOUND_STATUS, USER_NOT_EXIST);
+  }
+
+  return user.destroy();
+};
+
+const getAll = async () => {
+  const users = await Users.findAll({ attributes: { exclude: ['password'] } });
+  if (!users) {
+    throw messageError(NOT_FOUND_STATUS, USER_NOT_EXIST);
+  }
+  return users;
+};
+
 module.exports = {
   create,
   getById,
   getByName,
   getByRole,
+  createByAdmin,
+  destroy,
+  getAll,
 };
