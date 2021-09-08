@@ -241,6 +241,7 @@ table tr td {
   background-color: transparent;
   font-size: 16px;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .navbar-container .navbar-left button, .navbar-container .navbar-right button, .navbar-container .navbar-right span  {
