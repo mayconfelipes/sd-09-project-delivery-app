@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Cart from '../Cart/Cart';
 import NavBar from '../components/NavBar';
 import ProductsCard from '../components/ProductsCard';
+import StatusOrder from '../components/StatusOrder';
 import './Products.css';
 
 const Products = () => {
@@ -40,6 +41,7 @@ const Products = () => {
         )) }
       </div>
       <Cart />
+      <StatusOrder />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getUsers, createUser, deleteUser } from '../services/api/index';
+import StatusOrder from '../components/StatusOrder';
 import NavBar from '../components/NavBar';
 
 const Admin = () => {
@@ -175,6 +176,7 @@ const Admin = () => {
       { createdUser && <p>Usuário Criado</p>}
       { error && renderErro() }
       { renderUserTable() }
+      <StatusOrder />
     </div>
   );
 };
