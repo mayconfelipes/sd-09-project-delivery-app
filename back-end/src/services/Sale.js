@@ -37,6 +37,7 @@ const register = async (saleInfo) => {
     deliveryNumber,
     status: 'Pendente',
   });
+  console.log(sale.dataValues);
 
   seedSalesProducts(SaleProduct, sale.id, cart);
 

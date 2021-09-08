@@ -2,14 +2,14 @@ const Sale = (sequelize, DataTypes) => {
   const sale = sequelize.define(
     "Sale",
     {
-      userId: DataTypes.STRING,
-      sellerId: DataTypes.STRING,
+      userId: DataTypes.INTEGER,
+      sellerId: DataTypes.INTEGER,
       totalPrice: DataTypes.DECIMAL(9, 2),
       deliveryAddress: DataTypes.STRING,
       deliveryNumber: DataTypes.STRING,
       saleDate: {
         type: DataTypes.DATE,
-        defaultValue: new Date(),
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
       },
       status: DataTypes.STRING,
     },
