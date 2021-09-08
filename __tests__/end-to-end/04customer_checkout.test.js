@@ -30,9 +30,13 @@ beforeEach(async () => {
   ).toBeTruthy();
 });
 
-describe.only(requirement(17), () => {
+const local = require('./actions/common/localStorage');
+
+describe(requirement(17), () => {
   test("O avaliador testará os data-testids referentes aos itens do carrinho e demais elementos", async () => {
     for (let i = zero; i < itemList.cart.length; i += one) {
+      console.log(await local(page, 'cart'));
+
       await expect(page).toFindElement(
         customerCheckoutPage.element.orderTable.itemNumber +
           `[data-testid$='-${i}']`

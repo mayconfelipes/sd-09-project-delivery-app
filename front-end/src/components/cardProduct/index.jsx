@@ -1,14 +1,14 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import Context from '../../context';
 import formatPrice from '../../services/formatPrice';
 import * as S from './styled';
+import Context from '../../context';
 
 const CardProduct = ({ image, name, price, id }) => {
-  const { cart, setCart } = useContext(Context);
   const [valeuInput, setValeuInput] = useState(0);
-  const { totalValue, products } = cart;
   const [quantity, setQuantity] = useState(0);
+  const { cart, setCart } = useContext(Context);
+  const { totalValue, products } = cart;
 
   const updateCart = ({ target }) => {
     if (target.name === 'increase') {
@@ -32,11 +32,10 @@ const CardProduct = ({ image, name, price, id }) => {
     if (target.name === 'decrease') {
       if (quantity === 0) return;
       const indexItem = products.findIndex((item) => item.id === id);
-      const itemToUpdate = products[indexItem];
 
       const newCart = { totalValue: totalValue - price, products };
 
-      if (quantity === 1) newCart.products.splice(itemToUpdate, 1);
+      if (quantity === 1) newCart.products.splice(indexItem, 1);
       if (quantity > 1) newCart.products[indexItem].quantity -= 1;
 
       localStorage.setItem('cart', JSON.stringify(newCart));
@@ -47,11 +46,15 @@ const CardProduct = ({ image, name, price, id }) => {
 
   useEffect(() => {
     setValeuInput(quantity * price);
+
+    if (!JSON.parse(localStorage.getItem('cart'))) {
+      localStorage.setItem('cart', JSON.stringify({ products: [], totalValue: 0 }));
+    }
   }, [quantity, valeuInput]);
 
   const initPage = () => {
-    const local = JSON.parse(localStorage.getItem('user'));
-    if (local.length > 0) setCart(local);
+    const localCart = JSON.parse(localStorage.getItem('cart'));
+    setCart(localCart);
   };
 
   useEffect(() => {

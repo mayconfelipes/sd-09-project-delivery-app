@@ -5,6 +5,7 @@ import formatPrice from '../../services/formatPrice';
 const OrderTable = () => {
   const { cart, setCart } = useContext(Context);
   const { products, totalValue } = cart;
+  const local = JSON.parse(localStorage.getItem('cart'));
 
   const removeProduct = ({ target }) => {
     const newCart = { ...cart };
@@ -19,6 +20,7 @@ const OrderTable = () => {
   useEffect(() => {
     const localCart = JSON.parse(localStorage.getItem('cart'));
     setCart(localCart);
+    console.log(products);
   }, []);
 
   const dataIdNumber = 'customer_checkout__element-order-table-item-number-';
@@ -29,62 +31,69 @@ const OrderTable = () => {
   const dataIdRemove = 'customer_checkout__element-order-table-remove-';
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Nome</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Sub-total</th>
-          <th>Remover Item</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          products.map((item, index) => (
-            <tr key={ item.id }>
-              <td
-                data-testid={ dataIdNumber + index }
-              >
-                {index + 1}
-              </td>
-              <td
-                data-testid={ dataIdName + index }
-              >
-                {item.name}
-              </td>
-              <td
-                data-testid={ dataIdQuantity + index }
-              >
-                {item.quantity}
-              </td>
-              <td
-                data-testid={ dataIdUnitPrice + index }
-              >
-                {formatPrice(item.price)}
-              </td>
-              <td
-                data-testid={ dataIdSubTotal + index }
-              >
-                {formatPrice(item.price * item.quantity)}
-              </td>
-              <td>
-                <button
-                  type="button"
-                  name={ item.id }
-                  onClick={ removeProduct }
-                  data-testid={ dataIdRemove + index }
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
+            <th>Remover Item</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            local.products.map((item, index) => (
+              <tr key={ item.id }>
+                <td
+                  data-testid={ dataIdNumber + index }
                 >
-                  REMOVE
-                </button>
-              </td>
-            </tr>
-          ))
-        }
-      </tbody>
-    </table>
+                  {index + 1}
+                </td>
+                <td
+                  data-testid={ dataIdName + index }
+                >
+                  {item.name}
+                </td>
+                <td
+                  data-testid={ dataIdQuantity + index }
+                >
+                  {item.quantity}
+                </td>
+                <td
+                  data-testid={ dataIdUnitPrice + index }
+                >
+                  {formatPrice(item.price)}
+                </td>
+                <td
+                  data-testid={ dataIdSubTotal + index }
+                >
+                  {formatPrice(item.price * item.quantity)}
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    name={ item.id }
+                    onClick={ removeProduct }
+                    data-testid={ dataIdRemove + index }
+                  >
+                    REMOVE
+                  </button>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <span
+        data-testid="customer_checkout__element-order-total-price"
+      >
+        {formatPrice(totalValue)}
+      </span>
+    </div>
   );
 };
 

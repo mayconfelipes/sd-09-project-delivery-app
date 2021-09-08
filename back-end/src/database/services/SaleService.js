@@ -46,8 +46,6 @@ const allSalesBySellerId = async (id) => {
   }
 };
 
-allSalesBySellerId()
-
 module.exports = {
   checkOut,
   allSalesBySellerId
