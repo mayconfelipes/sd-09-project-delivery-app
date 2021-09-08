@@ -17,7 +17,8 @@ function AdminDashboard() {
   async function registerUser() {
     try {
       const { name, email, password, role } = signupValues;
-      const { user } = JSON.parse(localStorage.getItem('user'));
+      const user = JSON.parse(localStorage.getItem('user'));
+      console.log(user);
       const request = await axios({
         method: 'post',
         url: 'http://localhost:3001/user/admin',
