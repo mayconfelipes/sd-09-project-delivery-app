@@ -2,6 +2,24 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const io = require('socket.io');
+const http = require('http');
+const ioStatus = require('./socket/status');
+
+const app = express();
+
+const httpServer = http.createServer(app);
+
+app.use(cors());
+
+const ioServer = io(httpServer, {
+  cors: ({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  }),
+});
+
+ioStatus(ioServer);
 
 const { sendErrorMessage } = require('./middwares/errors');
 const { products } = require('./controllers/products');
@@ -9,18 +27,8 @@ const usersControllers = require('./controllers/users');
 const salesControllers = require('./controllers/sales');
 const { validateToken } = require('./middwares/validators/validateToken');
 
-const app = express();
-
-app.use(
-  cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  }),
-);
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(express.static(path.resolve(__dirname, '..', '..', 'public')));
 
 app.get('/products', products);
@@ -52,4 +60,4 @@ app.post('/sales', validateToken, salesControllers.create);
 
 app.use(sendErrorMessage);
 
-module.exports = app;
+module.exports = httpServer;

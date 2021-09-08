@@ -9,18 +9,19 @@ import PrimaryButton from '../../../components/PrimaryButton';
 import { getOneSaleBySaleId } from '../../../api/sales';
 import formatDate from '../../../util/formatDate';
 import style from './sellerOrderDetails.module.scss';
+// import socket from '../../../api/socket';
+// import useGlobalContext from '../../../context/GlobalStateProvider';
 
 const SellerOrderDetails = ({ match }) => {
+  // const { localStatus, setLocalStatus } = useGlobalContext();
   const { params } = match;
   const { id: paramId } = params;
 
   const [isLoading, setIsLoading] = useState(true);
   const [sale, setSale] = useState([]);
-  const [localStatus, setLocalStatus] = useState('');
-  const loc = JSON.parse(localStorage.getItem('deliveryStatus'));
-  const [deliveryStatus, setDeliveryStatus] = useState(
-    loc ? loc.deliveryStatus : 'Pendente',
-  );
+  // const [localStatus, setLocalStatus] = useState()
+  // const loc = JSON.parse(localStorage.getItem('deliveryStatus'));
+  // const [deliveryStatus, setDeliveryStatus] = useState();
 
   useEffect(() => {
     const localItem = JSON.parse(localStorage.getItem('user'));
@@ -33,17 +34,27 @@ const SellerOrderDetails = ({ match }) => {
     }
   }, [paramId]);
 
-  useEffect(() => {
-    if (deliveryStatus) {
-      localStorage.setItem('deliveryStatus', JSON.stringify(deliveryStatus));
-    }
-  }, [deliveryStatus]);
+  // useEffect(() => {
+  //   socket.on('statusChanged', (data) => {
+  //     if (data.id === paramId) {
+  //       console.log('on', data);
+  //       setDeliveryStatus(data.status);
+  //     }
+  //     setDeliveryStatus('Pendente');
+  //   });
+  // if (deliveryStatus) {
+  //   setLocalStatus(deliveryStatus);
+  // localStorage.setItem('deliveryStatus', JSON.stringify(deliveryStatus));
+  // }
+  // }, [deliveryStatus, paramId]);
+  // console.log(deliveryStatus);
+  // useEffect(() => {
+  // const local = JSON.parse(localStorage.getItem('deliveryStatus'));
+  //   socket.emit('statusChange', { id: paramId, status: deliveryStatus });
 
-  useEffect(() => {
-    const local = JSON.parse(localStorage.getItem('deliveryStatus'));
-    setLocalStatus(local);
-  }, [deliveryStatus]);
-
+  //   // setLocalStatus(local);
+  // }, [paramId, deliveryStatus]);
+  console.log('seller sale', sale);
   const idTestId = 'seller_order_details__element-order-details-label-order-id';
   const dateTestId = 'seller_order_details__element-order-details-label-order-date';
   const statusTId = 'seller_order_details__element-order-details-label-delivery-status';
@@ -59,20 +70,20 @@ const SellerOrderDetails = ({ match }) => {
         {sale.map(({ id, status, saleDate, totalPrice, products }, index) => {
           const newDate = formatDate(saleDate);
           const priceToString = totalPrice.toString().replace('.', ',');
-          console.log(status);
           if (id === Number(paramId)) {
             return (
               <div key={ index }>
                 <InfoOrderDetails
                   shouldSellerApear={ false }
                   shouldOrderStatusApear
-                  order={ ` 000${id}` }
-                  deliveryStatus={ localStatus || 'Pendente' }
+                  shouldCustomerDeliverApear={ false }
+                  order={ id }
+                  deliveryStatus={ status }
                   date={ newDate }
                   orderStatus="PREPARAR PEDIDO"
-                  handleClickPreparing={ () => setDeliveryStatus('Preparando') }
+                  // handleClickPreparing={ () => setDeliveryStatus('Preparando') }
                   deliveryCheck="SAIU PARA ENTREGA"
-                  handleClickDelivering={ () => setDeliveryStatus('Em Trânsito') }
+                  // handleClickDelivering={ () => setDeliveryStatus('Em Trânsito') }
                   dataTestIdOrderId={ idTestId }
                   dataTestIdOrderDate={ dateTestId }
                   dataTestIdDeliveryStatus={ statusTId }

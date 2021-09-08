@@ -35,7 +35,7 @@ const CustomerOrderDetails = ({ match }) => {
           setIsLoading(false);
         });
     }
-  }, []);
+  }, [paramId]);
 
   const renderLocalSales = () => (
     <>
@@ -80,7 +80,7 @@ const CustomerOrderDetails = ({ match }) => {
   );
 
   if (isLoading) return <p>Loading...</p>;
-
+  console.log(sale);
   return (
     <>
       <NavBar />
@@ -91,25 +91,26 @@ const CustomerOrderDetails = ({ match }) => {
             .map(({
               id, products, saleDate, totalPrice, status, seller }, productIndex) => {
               if (id === Number(paramId)) {
+                console.log('customer status', status);
                 const { name: sellerName } = seller;
                 const newDate = formatDate(saleDate);
                 const priceToString = totalPrice.toString().replace('.', ',');
                 return (
-                  <div>
+                  <div key={ id }>
                     <InfoOrderDetails
                       shouldOrderStatusApear={ false }
                       shouldSellerApear
                       dispatchCheckDisabled
+                      shouldCustomerDeliverApear
                       dataTestIdOrderId={ orderTestId }
                       dataTestIdSeller={ sellerTestId }
                       dataTestIdOrderDate={ dateTestId }
                       dataTestIdDeliveryStatus={ statusTId }
-                      dataTestIdDeliveryCheck={ deliveryCheckTestId }
-                      order={ ` 000${id}` }
+                      dataTestIdCustomerDelivery={ deliveryCheckTestId }
+                      order={ id }
                       sellerName={ `${sellerName}` }
                       date={ newDate }
                       deliveryStatus={ status }
-                      deliveryCheck="MARCAR COMO ENTREGUE"
                     />
                     <GridOrderDetails />
                     ;
@@ -159,9 +160,7 @@ const CustomerOrderDetails = ({ match }) => {
               }
               return null;
             })}
-
         </div>
-
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import P from 'prop-types';
 import { Link } from 'react-router-dom';
+import socket from '../../../api/socket';
 
 import NavBar from '../../../components/Navbar';
 import ProductStatus from '../../../components/ProductStatus';
@@ -8,10 +9,13 @@ import formatDate from '../../../util/formatDate';
 
 import { getAllSales } from '../../../api/sales';
 import style from './orders.module.scss';
+import useGlobalContext from '../../../context/GlobalStateProvider';
 
 const SellerOrders = () => {
   const [sales, setSales] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [newStatus, setNewStatus] = useState();
+  const { localStatus } = useGlobalContext();
 
   useEffect(() => {
     const localItem = JSON.parse(localStorage.getItem('user'));
@@ -22,6 +26,22 @@ const SellerOrders = () => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    socket.on('statusChanged', (data) => {
+      console.log(data);
+      setNewStatus(data);
+    });
+    console.log('local', localStatus);
+  }, [localStatus]);
+
+  const manegeredStatus = (id, status) => {
+    console.log(newStatus);
+    if (newStatus && newStatus.id === id) {
+      return newStatus.status;
+    }
+    return status;
+  };
 
   if (isLoading) return <p>Loading...</p>;
   return (
@@ -40,7 +60,7 @@ const SellerOrders = () => {
             >
               <ProductStatus
                 orderPrice={ `${priceToString}` }
-                orderStatus={ status }
+                orderStatus={ manegeredStatus(id, status) }
                 orderDate={ newDate }
                 orderNumber={ `000${id}` }
                 orderAddress={ `${deliveryAddress}, ${deliveryNumber}` }

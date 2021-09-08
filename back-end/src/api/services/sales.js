@@ -31,7 +31,7 @@ const getSaleById = async (id) => {
   if (!sale) {
     throw messageError(NOT_FOUND_STATUS, SALE_NOT_EXIST);
   }
-  
+
   const userSale = sale.filter(({ dataValues }) => dataValues.userId === id);
 
   return userSale;
@@ -72,7 +72,7 @@ const createProducts = async (saleId, products) => {
       quantity,
 
     });
-   
+
     if (!newProductSale) {
       throw messageError(INTERNAL_ERROR_STATUS, SALE_PRODUCT_NOT_CREATED);
     }
@@ -104,22 +104,23 @@ const create = async (sale, id) => {
   return fullSale.dataValues;
 };
 
-const update = async (id, sale) => {
-  const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status } = sale;
+const update = async (id, status) => {
+  // const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status } = sale;
 
-  const saleUser = await usersServices.getById(userId);
+  // const saleUser = await usersServices.getById(userId);
 
-  const saleSeller = await usersServices.getById(sellerId);
+  // const saleSeller = await usersServices.getById(sellerId);
 
   const updateSale = await Sales.update(
+    { 
+      // userId: saleUser.id, 
+      // sellerId: saleSeller.id,
+      // totalPrice,
+      // deliveryAddress,
+      // deliveryNumber,
+      status,
+    },
     { where: { id } },
-    { userId: saleUser.id, 
-    sellerId: saleSeller.id,
-    totalPrice,
-    deliveryAddress,
-    deliveryNumber,
-    status,
-  },
 );
 
   if (!updateSale) {

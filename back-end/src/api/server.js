@@ -1,5 +1,4 @@
-const port = process.env.PORT || 3001;
-const app = require('./app');
+const httpServer = require('./app');
 
-app.listen(port);
-console.log(`Api rodando na porta ${port}`);
+const port = process.env.PORT || 3001;
+httpServer.listen(port, () => console.log(`Api rodando na porta ${port}`));
