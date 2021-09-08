@@ -9,13 +9,14 @@ const insertOrderInSale = rescue(async (req, res) => {
     deliveryNumber,
     status, products } = req.body;
 
-
-  const insertNewOrder = await newOrder(userId,
+  const insertNewOrder = await newOrder({
+    userId,
     sellerId,
     totalPrice,
     deliveryAddress,
     deliveryNumber,
-    status);
+    status,
+  });
 
   await populateSaleProd(insertNewOrder.id, products);
 
@@ -23,7 +24,6 @@ const insertOrderInSale = rescue(async (req, res) => {
 
   // console.log('req.body', req.body);
   console.log('findById', findById.dataValues);
-
   res.status(201).json(findById.dataValues);
 });
 

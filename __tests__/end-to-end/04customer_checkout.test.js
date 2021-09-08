@@ -149,12 +149,13 @@ describe(requirement(20), () => {
   });
 });
 
-describe.only(requirement(21), () => {
+describe(requirement(21), () => {
   test("O avaliador testará se, após realizado o checkout, as alterações constarão no banco de dados", async () => {
     const { saleId, saleDate } = await action.customer.checkoutNewSale(
       page,
       order
     );
+    console.log(saleId);
     expect(typeof saleId).toBe("number");
     expect(typeof saleDate).toBe("string");
 
@@ -166,7 +167,6 @@ describe.only(requirement(21), () => {
       },
       global.__TESTDESC__
     );
-    console.log(saleId);
     await expect(database).toReturnDataWith({
       query: [sales.query, "WHERE id = ?"].join(" "),
       values: [saleId],
