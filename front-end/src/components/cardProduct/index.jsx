@@ -25,6 +25,7 @@ const CardProduct = ({ image, name, price, id }) => {
 
       if (exists > notExist) newCart.products[exists].quantity += 1;
 
+      localStorage.setItem('cart', JSON.stringify(newCart));
       setCart(newCart);
     }
 
@@ -38,6 +39,7 @@ const CardProduct = ({ image, name, price, id }) => {
       if (quantity === 1) newCart.products.splice(itemToUpdate, 1);
       if (quantity > 1) newCart.products[indexItem].quantity -= 1;
 
+      localStorage.setItem('cart', JSON.stringify(newCart));
       setQuantity(quantity - 1);
       setCart(newCart);
     }
@@ -78,6 +80,7 @@ const CardProduct = ({ image, name, price, id }) => {
       newCart.totalValue += (elem.price * elem.quantity);
     });
 
+    localStorage.setItem('cart', JSON.stringify(newCart));
     setQuantity(newValue);
     setCart(newCart);
   };

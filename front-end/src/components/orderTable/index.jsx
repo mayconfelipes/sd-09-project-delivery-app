@@ -19,7 +19,7 @@ const OrderTable = () => {
   useEffect(() => {
     const localCart = JSON.parse(localStorage.getItem('cart'));
     setCart(localCart);
-  }, [cart, setCart]);
+  }, []);
 
   const dataIdNumber = 'customer_checkout__element-order-table-item-number-';
   const dataIdName = 'customer_checkout__element-order-table-name-';
