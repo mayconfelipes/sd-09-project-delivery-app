@@ -1,22 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 import OrderDetailsTable from '../components/OrderDetailsTable';
 import NavBarCustomer from '../components/navBarCustomer';
 import '../styles/OrderDetails.css';
 import * as api from '../services/api';
+
+const socket = io('http://localhost:3001');
 
 function OrderDetails() {
   const { id: orderId } = useParams();
   const [order, setOrder] = useState();
   const [orderStatus, setOrderStatus] = useState('');
 
-  const socketRef = useRef();
-
   useEffect(() => {
-    socketRef.current = io.connect('/');
-
     async function getOrder() {
       const user = JSON.parse(localStorage.getItem('user'));
       const orderById = await api.getOrderById(orderId, user.token);
@@ -25,6 +23,10 @@ function OrderDetails() {
     }
     getOrder();
   }, []);
+
+  socket.on('updateOrderStatus', (orderEvent) => {
+    setOrderStatus(orderEvent.status);
+  });
 
   const dataTestIds = {
     orderId: 'customer_order_details__element-order-details-label-order-id',
@@ -41,6 +43,7 @@ function OrderDetails() {
     const updatedOrder = await api.updateOrder(orderId, status, user.token);
     setOrderStatus(updatedOrder.status);
     setOrder(updatedOrder);
+    socket.emit('updateOrderStatus', updatedOrder);
   };
 
   return (
