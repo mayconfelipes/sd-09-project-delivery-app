@@ -13,17 +13,19 @@ const getSellerId = async (email) => {
 
 const getAll = async (email) => {
   seller = await getSellerId(email);
-  const id = seller.dataValues.id;
+  const { id } = seller.dataValues;
 
   const salesBySeller = await sale.findAll({
     where: {
-      seller_id: id
+      sellerId: id, // estava em camelCase, provavelmente não vai funfar agora
     },
     include: {
-      model: product, as: 'products', through: {
-        attributes: { exclude: ['sale_id', 'product_id'] }
-      }
-    }  
+      model: product,
+      as: 'products',
+      through: {
+        attributes: { exclude: ['sale_id', 'product_id'] },
+      },
+    },
   });
   if (!salesBySeller.length) throw boom.notFound('Empty sales');
 
@@ -31,5 +33,5 @@ const getAll = async (email) => {
 };
 
 module.exports = {
-  getAll,  
+  getAll,
 };
