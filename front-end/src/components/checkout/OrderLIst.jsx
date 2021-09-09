@@ -84,7 +84,7 @@ const OrderLIst = () => {
         className="order-price"
         data-testid="customer_checkout__element-order-total-price"
       >
-        { `R$ ${(total.toFixed(2)).replace(/\./, ',')}` }
+        { `Total: R$ ${(total.toFixed(2)).replace(/\./, ',')}` }
       </span>
     </div>
   );

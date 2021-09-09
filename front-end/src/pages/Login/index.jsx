@@ -4,6 +4,7 @@ import api from '../../service/axiosApi';
 import NotFound from '../../components/NotFound/index';
 import { useDeliveryContext } from '../../context/deliveryProvider';
 import './Login.css';
+import logo from '../../images/logo.png';
 
 const Login = () => {
   const [isError, setError] = useState();
@@ -65,7 +66,8 @@ const Login = () => {
   return (
     <>
       <form className="px-5 py-7 login-container">
-        <h1>App-Delivery</h1>
+        <img src={ logo } alt="Motocicleta de entrega" />
+        <h1 className="login-title">Telivery</h1>
         <section>
           <label htmlFor="input-email" className="label-email">
             E-mail
