@@ -1,6 +1,4 @@
-const { product } = require('puppeteer');
-const { sale } = require('../../database/models');
-const { salesProduct } = require('../../database/models');
+const { sale, salesProduct, product } = require('../../database/models');
 
 const newOrder = async ({
   userId,
@@ -11,7 +9,7 @@ const newOrder = async ({
   status,
 }) => {
   const result = await sale.create({
-    user_id: userId,
+    userId,
     sellerId,
     totalPrice,
     deliveryAddress,
@@ -34,7 +32,7 @@ const findOrderById = async (id) => {
     model: product,
     as: 'products',
     through: {
-      attributes: { exclude: ['sale_id', 'product_id'] },
+      attributes: { include: ['quantity'] },
     },
   } });
   return findIdOrder;

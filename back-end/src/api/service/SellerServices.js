@@ -18,14 +18,14 @@ const getAll = async (email) => {
   const salesBySeller = await sale.findAll({
     where: {
       sellerId: id,
-    }
-    // include: {
-    //   model: product,
-    //   as: 'products',
-    //   through: {
-    //     attributes: { exclude: ['sale_id', 'product_id'] },
-    //   },
-    // },
+    },
+    include: {
+      model: product,
+      as: 'products',
+      through: {
+        attributes: { include: ['quantity'] },
+      },
+    },
   });
   if (!salesBySeller.length) throw boom.notFound('Empty sales');
 
