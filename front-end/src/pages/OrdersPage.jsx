@@ -52,7 +52,7 @@ function OrdersPage() {
   return (
     <main>
       <NavBar role={ userData.role } />
-      <section>
+      <section className="content-card-pedidos">
         {
           sales.map((sale) => (
             <OrderCard key={ sale.id } sale={ mountProp(userData.role, sale) } />

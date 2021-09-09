@@ -15,8 +15,23 @@ function OrderCard({ sale }) {
     saleDate: date,
     status,
   } = sale;
+
+  const getColorStatus = () => {
+    if (status === 'Pendente') {
+      return 'bg-yellow';
+    }
+
+    if (status === 'Preparando') {
+      return 'bg-green-ligth';
+    }
+
+    if (status === 'Entregue') {
+      return 'bg-green';
+    }
+  };
+
   const statusDiv = (userRole) => (
-    <div>
+    <div className={ `pedido-data-value-status ${getColorStatus()}` }>
       <p
         data-testid={
           userRole === 'seller'
@@ -38,10 +53,10 @@ function OrderCard({ sale }) {
   );
 
   return (
-    <Link to={ `/${role}/orders/${id}` }>
+    <Link to={ `/${role}/orders/${id}` } className="content-card-pedido-item">
       <div>
-        <div>
-          <div>
+        <div className="pedido-item-data">
+          <div className="pedido-item-data-num">
             <p
               data-testid={
                 role === 'seller'
@@ -53,23 +68,24 @@ function OrderCard({ sale }) {
             </p>
           </div>
           { statusDiv(role) }
-          <div>
+          <div className="pedido-item-data-value">
             <p
               data-testid={
                 role === 'seller'
                   ? `${dataTestIds[50]}${id}`
                   : `${dataTestIds[35]}${id}`
               }
+              className="pedido-data-value-item"
             >
               { transformDate(date) }
             </p>
             <p
-              // data-testid={ role === 'seller' && `${dataTestIds[51]}${id}` }
               data-testid={
                 role === 'seller'
                   ? `${dataTestIds[51]}${id}`
                   : `${dataTestIds[36]}${id}`
               }
+              className="pedido-data-value-item"
             >
               { price.replace('.', ',') }
             </p>
