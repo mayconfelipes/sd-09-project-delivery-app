@@ -34,7 +34,7 @@ function ProductsTable({ cartData }) {
       </thead>
       <tbody className="table-body">
         {cartData.map((item, index) => (
-          <tr key={ index }>
+          <tr key={ index } className="table-tr">
             <td className="t-item" data-testid={ testIds[22] + index }>{index + 1}</td>
             <td className="t-desc" data-testid={ testIds[23] + index }>{item.name}</td>
             <td className="t-quantity" data-testid={ testIds[24] + index }>
@@ -48,9 +48,10 @@ function ProductsTable({ cartData }) {
             </td>
             <td>
               <LargeButton
-                buttonText="remover"
+                buttonText="Remover"
                 onClick={ () => handleRemove(item.productId) }
                 dataTestId={ testIds[27] + index }
+                classStyle="table-btn"
               />
             </td>
           </tr>

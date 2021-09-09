@@ -48,7 +48,7 @@ function Checkout() {
   useEffect(() => {
     isDisabledButton();
     fetchVendorList();
-  }, [infoSale]);
+  }, [infoSale, isDisabledButton]);
 
   const handleChange = ({ target: { name, value } }) => {
     setInfoSalle({ ...infoSale, [name]: value });
@@ -80,48 +80,56 @@ function Checkout() {
   return (
     <main>
       <Navbar role={ user.role } />
-      <CheckoutTable cartData={ cartData } />
-      <section>
-        <p data-testid={ testIds[28] }>
-          Total: R$
-          { totalCart }
-        </p>
-      </section>
-      <section>
-        <p>Detalhes e Endereço para Entrega</p>
-        <p>
-          {' '}
-          P.Vendedora Responsável:
-          <DropDownList
-            options={ vendorList }
-            name="sellerId"
-            dataTestId={ testIds[29] }
+      <div className="pedido">
+        <p className="mt-10 title-table-pedidos">Detalhes e Endereço para Entrega</p>
+        <div className="table-pedido">
+          <CheckoutTable cartData={ cartData } />
+          <section className="total-value">
+            <p data-testid={ testIds[28] } className="total-value-p">
+              Total: R$
+              { totalCart }
+            </p>
+          </section>
+        </div>
+        <p className="mt-10 title-table-pedidos">Detalhes e Endereço para Entrega</p>
+        <section className="table-pedido-endereco">
+          <p className="table-detalhe-title w-1/5">
+            {' '}
+            P.Vendedora Responsável:
+            <DropDownList
+              options={ vendorList }
+              name="sellerId"
+              dataTestId={ testIds[29] }
+              onChange={ handleChange }
+            />
+          </p>
+          <TextInput
+            type="input"
+            name="deliveryAddress"
             onChange={ handleChange }
+            labelText="Endereço"
+            placeholderText="Seu endereço aqui"
+            dataTestId={ testIds[30] }
+            classStyle="w-2/4 m-5"
           />
-        </p>
-        <TextInput
-          type="input"
-          name="deliveryAddress"
-          onChange={ handleChange }
-          labelText="Endereço"
-          placeholderText="Seu endereço aqui"
-          dataTestId={ testIds[30] }
-        />
-        <TextInput
-          type="input"
-          name="deliveryNumber"
-          onChange={ handleChange }
-          labelText="Número"
-          placeholderText="1234"
-          dataTestId={ testIds[31] }
-        />
-        <LargeButton
-          buttonText="FINALIZAR PEDIDO"
-          isDisabled={ disableButton }
-          onClick={ handleSubmit }
-          dataTestId={ testIds[32] }
-        />
-      </section>
+          <TextInput
+            type="input"
+            name="deliveryNumber"
+            onChange={ handleChange }
+            labelText="Número"
+            placeholderText="1234"
+            dataTestId={ testIds[31] }
+            classStyle="w-1/5"
+          />
+          <LargeButton
+            buttonText="FINALIZAR PEDIDO"
+            isDisabled={ disableButton }
+            onClick={ handleSubmit }
+            dataTestId={ testIds[32] }
+            classStyle="btn-green w-1/3 m-5"
+          />
+        </section>
+      </div>
     </main>
   );
 }

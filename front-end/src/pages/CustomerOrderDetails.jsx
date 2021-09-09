@@ -59,41 +59,45 @@ function CustomerOrderDetails() {
   return (
     <div>
       <Navbar role={ userData.role } />
-      <p>Detalhe do Pedido</p>
-      <div>
-        <p data-testid={ dataTestIds[37] }>
-          { myOrder.id }
-        </p>
-        <p data-testid={ dataTestIds[38] }>
-          { myOrder['seller.name'] }
-        </p>
-        <p data-testid={ dataTestIds[39] }>
-          { myOrder.saleDate }
-        </p>
-        <p data-testid={ dataTestIds[40] }>
-          { myOrder.status }
-        </p>
-        {/* Esse botão vai ter que ser utilizado na hora de fazer o socket */}
-        <button
-          type="button"
-          data-testid={ dataTestIds[47] }
-          disabled={ myOrder.status !== 'Em Trânsito' }
-          value="Entregue"
-          onClick={ clickChangeSaleStatus }
-        >
-          MARCAR COMO ENTREGUE
-        </button>
-      </div>
-      <ProductsTable listItems={ myItems } testIds={ customerDataTestIds } />
-      <div>
-        <p>
-          R$
-          <span
-            data-testid={ dataTestIds[46] }
+
+      <div className="pedido">
+        <p className="mt-10 title-table-pedidos">Detalhe do Pedido</p>
+        <div className="head-pedido">
+          <p data-testid={ dataTestIds[37] }>
+            { myOrder.id }
+          </p>
+          <p data-testid={ dataTestIds[38] }>
+            { myOrder['seller.name'] }
+          </p>
+          <p data-testid={ dataTestIds[39] }>
+            { myOrder.saleDate }
+          </p>
+          <p data-testid={ dataTestIds[40] }>
+            { myOrder.status }
+          </p>
+          {/* Esse botão vai ter que ser utilizado na hora de fazer o socket */}
+          <button
+            type="button"
+            data-testid={ dataTestIds[47] }
+            disabled={ myOrder.status !== 'Em Trânsito' }
+            value="Entregue"
+            onClick={ clickChangeSaleStatus }
+            className="btn-entregue"
           >
-            { `${myOrder.totalPrice}` }
-          </span>
-        </p>
+            MARCAR COMO ENTREGUE
+          </button>
+        </div>
+        <div className="table-pedido">
+          <ProductsTable listItems={ myItems } testIds={ customerDataTestIds } />
+          <p className="total-value total-value-p">
+            R$
+            <span
+              data-testid={ dataTestIds[46] }
+            >
+              { `${myOrder.totalPrice}` }
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );
