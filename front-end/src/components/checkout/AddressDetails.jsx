@@ -12,7 +12,7 @@ const AddressDetails = ({ names }) => {
   };
 
   return (
-    <div className="order-list-container">
+    <div className="address-container">
       <div className="address-inputs">
         <label htmlFor="seller">
           P. vendedora Responsavel:
