@@ -7,13 +7,13 @@ import moment from 'moment';
 function TableOrderDetails(props) {
   const datatestid = 'customer_orders_details__';
   const [orderDetails, setOrderDetails] = useState({});
-  const { sellerid } = props;
+  const { id } = props;
 
   const getOrderDetails = ((useCallback(async () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const config = {
       method: 'get',
-      url: `http://localhost:3001/sales/${sellerid}`,
+      url: `http://localhost:3001/sales/${id}`,
       headers: {
         Authorization: user.token,
       },
