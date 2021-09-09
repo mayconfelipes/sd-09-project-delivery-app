@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import CartItems from '../../components/cartItems/CartItems';
 import NavBar from '../../components/navBar/NavBar';
 import { createNewSale } from '../../services/salesAPI';
-import getUsers from '../../services/usersAPI';
+import { getUsers } from '../../services/usersAPI';
 
 export default function Checkout() {
   const [currentCart, setCurrentCart] = useState([]);

@@ -28,7 +28,7 @@ function Login() {
       history.push('/customer/products');
       break;
     case 'administrator':
-      console.log('adm');
+      history.push('/admin/manage');
       break;
     default:
       break;
