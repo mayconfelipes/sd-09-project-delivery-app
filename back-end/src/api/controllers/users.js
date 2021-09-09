@@ -23,6 +23,19 @@ const registerUser = async (req, res, next) => {
   }
 };
 
+const registerUserByAdmin = async (req, res, next) => {
+  try {
+    const register = req.body;
+    const { role } = req.user;
+    if (role === 'administrator') {
+      const registeredUser = await User.registerUser(register);
+      return res.status(201).json(registeredUser);
+    }
+  } catch (error) {
+    return next(error);
+  }
+};
+
 const getAllUsers = async (req, res, next) => {
   try {
     const allUsers = await User.getAllUsers();
@@ -42,6 +55,7 @@ const getAllSellers = async (req, res, next) => {
 module.exports = {
   loginUser,
   registerUser,
+  registerUserByAdmin,
   getAllUsers,
   getAllSellers,
 };

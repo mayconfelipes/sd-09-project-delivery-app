@@ -12,6 +12,12 @@ export const registerUser = async (name, email, password) => {
   return newUser;
 };
 
+export const registerUserByAdmin = async (userObject, token) => {
+  const newUser = await axios
+    .post(`${baseURL}/register/admin`, userObject, { headers: { Authorization: token } });
+  return newUser;
+};
+
 export const loginUser = async (email, password) => {
   const loggedUser = await axios
     .post(`${baseURL}/login`, {

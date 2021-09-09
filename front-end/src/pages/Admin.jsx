@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import NavBarAdmin from '../components/navBarAdmin';
+import * as api from '../services/api';
 
 io('http://localhost:3001');
 
@@ -9,6 +10,7 @@ function Admin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('seller');
+  const [showInvalidRegisterError, setInvalidRegisterError] = useState('');
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
@@ -23,6 +25,24 @@ function Admin() {
 
     setIsValid(false);
   }, [name, email, password, role]);
+
+  const showInvalidRegisterMessage = (message) => {
+    const errorMessageTimeout = 2000;
+    setInvalidRegisterError(message);
+    setTimeout(() => setInvalidRegisterError(''), errorMessageTimeout);
+  };
+
+  const registerUser = async () => {
+    try {
+      const userObject = { name, email, password, role };
+
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      await api.registerUserByAdmin(userObject, user.token);
+    } catch (error) {
+      showInvalidRegisterMessage(error.message);
+    }
+  };
 
   return (
     <div>
@@ -79,10 +99,15 @@ function Admin() {
         <button
           type="button"
           disabled={ !isValid }
+          onClick={ () => registerUser() }
           data-testid="admin_manage__button-register"
         >
           Cadastrar
         </button>
+
+        <p data-testid="admin_manage__element-invalid-register">
+          { showInvalidRegisterError }
+        </p>
       </form>
     </div>
   );
