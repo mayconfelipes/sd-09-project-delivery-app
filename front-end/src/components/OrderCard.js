@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './OrderCard.css';
+import moment from 'moment';
 
 const OrderCard = (props) => {
   const {
@@ -12,7 +13,7 @@ const OrderCard = (props) => {
     saleDate,
   } = props;
 
-  const formatDate = saleDate.split('T')[0];
+  const formatDate = moment(saleDate).format('DD/MM/YY');
 
   return (
     <div className="card-container">

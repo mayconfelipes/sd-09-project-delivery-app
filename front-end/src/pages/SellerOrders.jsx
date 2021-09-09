@@ -27,11 +27,11 @@ const SellerOrders = () => {
           <OrderCard
             key={ order.id }
             id={ order.id }
-            totalPrice={ order.total_price }
+            totalPrice={ order.totalPrice }
             status={ order.status }
-            deliveryAddress={ order.delivery_address }
-            deliveryNumber={ order.delivery_number }
-            saleDate={ order.sale_date }
+            deliveryAddress={ order.deliveryAddress }
+            deliveryNumber={ order.deliveryNumber }
+            saleDate={ order.saleDate }
           />
         ))}
       </main>

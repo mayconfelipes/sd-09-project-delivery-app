@@ -46,9 +46,25 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'salesProducts'
     });
 
+  // salesProduct.associate = (models) => {
+  //   salesProduct.belongsTo(models.sale);
+  //   salesProduct.belongsTo(models.product);
+  // };
+
+
   salesProduct.associate = (models) => {
-    salesProduct.belongsTo(models.sale);
-    salesProduct.belongsTo(models.product);
+    models.sale.belongsToMany(models.product, {
+      as: 'products',
+      through: "salesProducts",
+      foreignKey: 'sale_id',
+      otherkey: 'product_id',
+    });
+    models.product.belongsToMany(models.sale, {
+      as: 'sales',
+      through: "salesProducts",
+      foreignKey: 'product_id',
+      otherkey: 'sale_id',
+    });
   };
 
   return salesProduct;
