@@ -5,6 +5,13 @@ const getUserByRole = async (role) => {
     return getUsers;
 };
 
+const getAllUser = async () => {
+    const allUsers = await users.findAll();
+    console.log(allUsers);
+    return allUsers;
+};
+
 module.exports = {
     getUserByRole,
+    getAllUser,
 };

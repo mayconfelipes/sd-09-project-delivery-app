@@ -1,4 +1,4 @@
-const { getUserByRole } = require('../services/getUsers');
+const { getUserByRole, getAllUser } = require('../services/getUsers');
 
 const mdwGetUsers = async (req, res, next) => {
     try {
@@ -10,6 +10,17 @@ const mdwGetUsers = async (req, res, next) => {
     }
 };
 
+const mdwGetAllUsers = async (_req, res, next) => {
+    try {
+        console.log('teste');
+        const allUsers = await getAllUser();
+        return res.status(200).json(allUsers);
+    } catch (error) {
+        return next(error);
+    }
+};
+
 module.exports = {
     mdwGetUsers,
+    mdwGetAllUsers,
 };
