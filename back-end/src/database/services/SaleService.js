@@ -1,5 +1,6 @@
-const { sale: Sale, salesProduct: SalesProduct } = require('../models');
+const { sale: Sale, salesProduct: SalesProduct, product: Product } = require('../models');
 const errorHelper = require('../../utils/errorHelper');
+const { registerCustomQueryHandler } = require('puppeteer');
 
 const sequelizeDataSale = (data, userId) => {
   const newData = {
@@ -47,8 +48,29 @@ const allSalesBySellerId = async (id) => {
   }
 };
 
+const findProductById = async (id) => {
+  return await Product.findOne({ where: { id } });
+}
+
+const getOrderById = async (saleId) => {
+  const products = [];
+  try {
+    const sale = await Sale.findOne({ where: { id: saleId } });
+    const order = await SalesProduct.findAll({ where: { sale_id: saleId } });
+    for (let index = 0; index < order.length; index += 1) {
+      const { dataValues } = order[index];
+      await findProductById(dataValues.product_id).then((res) => products.push(res));
+    }
+
+    return { sale, products };
+  } catch (error) {
+    throw errorHelper(409, '"data" conflict');
+  }
+};
+
 
 module.exports = {
   checkOut,
   allSalesBySellerId,
+  getOrderById,
 };
