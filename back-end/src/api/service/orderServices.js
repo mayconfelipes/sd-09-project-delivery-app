@@ -32,13 +32,12 @@ const findOrderById = async (id) => {
   const findIdOrder = await sale.findOne({
     where: { id },
     include: {
-      model: product,
-      as: 'product',
-      through: {
-        attributes: { exclude: ['sale_id', 'product_id'] },
-      },
-    }
-  });
+    model: product,
+    as: 'products',
+    through: {
+      attributes: { include: ['quantity'] },
+    },
+  } });
   return findIdOrder;
 };
 
