@@ -7,13 +7,16 @@ function CustomerProvider({ children }) {
 
   const [sellers, setSellers] = useState([]);
 
+  const [customer, setCustomer] = useState({});
+
   const data = {
+    customer,
+    setCustomer,
     shoppingCart,
     setShoppingCart,
     sellers,
     setSellers,
   };
-
   return (
     <Customer.Provider value={ data }>
       {children}

@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const initialData = {};
-
 export default function useLogin() {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState({});
 
   async function setLogin(payload) {
     try {
@@ -13,7 +11,7 @@ export default function useLogin() {
         url: 'http://localhost:3001/login',
         data: payload,
       });
-      setData({ login: true });
+      setData({ login: true, user: response.data });
       localStorage.setItem('user', JSON.stringify(response.data));
     } catch (error) {
       setData(error.response.data);
