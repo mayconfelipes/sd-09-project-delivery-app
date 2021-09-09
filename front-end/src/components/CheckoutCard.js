@@ -121,6 +121,7 @@ const CheckoutCard = ({ cart, setCart }) => {
       <h4>
         Total a pagar:
         <span
+          style={ {} }
           ref={ useRef() }
           data-testid="customer_checkout__element-order-total-price"
         >
