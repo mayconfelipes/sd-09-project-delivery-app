@@ -7,6 +7,8 @@ import ClientProducts from './ClientProducts';
 import Register from './Register';
 import CustomerOrdersDetails from './customer/CustomerOrdersDetails';
 import Admin from './Admin';
+import SellerOrder from './SellerOrder';
+import CustomerOrder from './CustomerOrder';
 
 const Routes = () => (
   <BrowserRouter>
@@ -17,6 +19,8 @@ const Routes = () => (
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
       <Route path="/admin/manage" component={ Admin } />
+      <Route path="/customer/orders" component={ SellerOrder } />
+      <Route path="/seller/orders" component={ CustomerOrder } />
       <CustomerProvider>
         <Route path="/customer/checkout" component={ Checkout } />
         <Route path="/customer/products" component={ ClientProducts } />
