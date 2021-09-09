@@ -102,7 +102,7 @@ const DetalhesPedido = () => {
                   <button
                     type="button"
                     data-testid="customer_order_details__button-delivery-check"
-                    disabled={ order.status !== 'Em trânsito' }
+                    disabled={ order.status !== 'Em Trânsito' }
                     onClick={ () => updateOrderStatus('Entregue') }
                   >
                     MARCAR COMO ENTREGUE
@@ -122,7 +122,7 @@ const DetalhesPedido = () => {
                     type="button"
                     data-testid="seller_order_details__button-dispatch-check"
                     disabled={ order.status !== 'Preparando' }
-                    onClick={ () => updateOrderStatus('Em trânsito') }
+                    onClick={ () => updateOrderStatus('Em Trânsito') }
                   >
                     SAIU PARA ENTREGA
                   </button>

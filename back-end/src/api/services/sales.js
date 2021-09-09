@@ -6,7 +6,7 @@ const { InvalidArgumentError, NotFoundError } = require('../errors');
 const STATUS_CHOICES = [
   'Pendente',
   'Preparando',
-  'Em trânsito',
+  'Em Trânsito',
   'Entregue',
 ];
 
