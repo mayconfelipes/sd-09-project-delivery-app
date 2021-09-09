@@ -1,32 +1,58 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 
 const Header = () => {
   const user = JSON.parse(localStorage.getItem('user'));
-  const History = useHistory();
+  const [firstNavBarLink, setFirstNavBarLink] = useState(false);
+  const [secondNavBarLink, setSecondNavBarLink] = useState('');
+  const [secondNavBarText, setSecondNavBarText] = useState('');
+  const match = useRouteMatch();
+  const history = useHistory();
 
   function handleLogout() {
     localStorage.clear();
-    History.push('/login');
+    history.push('/login');
   }
+
+  function renderFirstNavBarLink() {
+    return (
+      <Link
+        className="noUnderline"
+        to="/customer/orders"
+        data-testid="customer_products__element-navbar-link-products"
+      >
+        MEUS PEDIDOS
+      </Link>
+    );
+  }
+
+  useEffect(() => {
+    if (match.path === '/admin/manage') {
+      setSecondNavBarText('GERENCIAR USUÁRIOS');
+      setSecondNavBarLink('/admin/manage');
+    } else if (match.path === ('/seller/orders')) {
+      setSecondNavBarText('PEDIDOS');
+      setSecondNavBarLink('/seller/orders');
+      console.log(match.path);
+    } else {
+      setSecondNavBarText('PRODUTOS');
+      setFirstNavBarLink(true);
+      setSecondNavBarLink('/customer/products');
+    }
+  }, [match.path]);
 
   return (
     <div className="navBar">
       <div className="leftHeader">
+        { firstNavBarLink && renderFirstNavBarLink() }
         <Link
           className="noUnderline"
-          to="/customer/products"
-          data-testid="customer_products__element-navbar-link-products"
-        >
-          PRODUTOS
-        </Link>
-        <Link
-          className="noUnderline"
-          to="/customer/orders"
+          to={ secondNavBarLink }
           data-testid="customer_products__element-navbar-link-orders"
         >
-          MEUS PEDIDOS
+          { secondNavBarText }
         </Link>
+
       </div>
       <div className="rightHeader">
         <p data-testid="customer_products__element-navbar-user-full-name">
