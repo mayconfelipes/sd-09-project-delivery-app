@@ -33,7 +33,6 @@ const Header = () => {
     } else if (match.path === ('/seller/orders')) {
       setSecondNavBarText('PEDIDOS');
       setSecondNavBarLink('/seller/orders');
-      console.log(match.path);
     } else {
       setSecondNavBarText('MEUS PEDIDOS');
       setFirstNavBarLink(true);
