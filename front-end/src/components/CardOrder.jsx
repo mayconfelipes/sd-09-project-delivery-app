@@ -1,18 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 export default function CardOrder({ venda, role }) {
+  const history = useHistory();
+
   const { id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber } = venda;
   const formatedDate = new Date(saleDate).toLocaleDateString('pt-BR');
+
+  const returnPath = (userRole) => (userRole === 'customer'
+    ? `/customer/orders/${id}`
+    : `/seller/orders/${id}`);
 
   return (
     <div className="corpo_card">
       <div className="div_pedido">
         <span>Pedido</span>
         <Link
-          to={ role === 'customer' ? `/customer/orders/${id}`
-            : `/seller/orders/${id}` }
+          to={ returnPath(role) }
         >
           <span
             data-testid={ role === 'customer'
@@ -29,6 +34,7 @@ export default function CardOrder({ venda, role }) {
         data-testid={ role === 'customer'
           ? `customer_orders__element-delivery-status-${id}`
           : `seller_orders__element-delivery-status-${id}` }
+        onClick={ () => history.push(returnPath(role)) }
       >
         { `${status}` }
       </button>
