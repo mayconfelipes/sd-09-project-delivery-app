@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import requestApi from '../services/api';
 import { storeUserData } from '../utils/storage';
-import decodeUserInfo from '../utils/decodeUserInfo';
+import decodeTokenInfo from '../utils/decodeTokenInfo';
 import { useAuthActionContext, useUserActionContext } from '../context/contexts';
 
 const useAuthentication = () => {
@@ -19,7 +19,7 @@ const useAuthentication = () => {
 
       if (isValidRequestStatus) {
         const { token } = response.data;
-        const { data: tokenData } = decodeUserInfo(token);
+        const { data: tokenData } = decodeTokenInfo(token);
         const userData = { ...tokenData, token };
         storeUserData(userData);
         setUserData(userData);

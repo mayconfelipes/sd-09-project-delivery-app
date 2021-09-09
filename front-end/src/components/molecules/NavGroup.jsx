@@ -19,7 +19,7 @@ const NavGroup = ({ className }) => {
           to={ path }
           data-testid={ testId }
           key={ generateKey() }
-          active={ pathname === path }
+          active={ pathname.includes(path) }
         >
           { text }
         </NavLink>

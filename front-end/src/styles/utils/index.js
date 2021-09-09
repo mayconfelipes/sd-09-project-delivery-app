@@ -8,3 +8,12 @@ export const setThemeFor = (elementTheme) => (props) => {
 export const setIfActive = (activeStyle) => ({ active }) => active && activeStyle;
 
 export const getThemeColor = (colorName) => (props) => props.theme.colors[colorName];
+
+export const getStatusColor = (props) => {
+  const statusColors = {
+    Entregue: props.theme.colors.delivered,
+    Preparando: props.theme.colors.preparing,
+    Pendente: props.theme.colors.pending,
+  };
+  return statusColors[props.status];
+};

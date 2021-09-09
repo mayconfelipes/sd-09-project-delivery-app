@@ -5,7 +5,6 @@ import ProductCounter from '../molecules/ProductCounter';
 import ProductName from '../molecules/ProductName';
 import testIds from '../../utils/testIds';
 import { productCardPropTypes } from '../../utils/propTypes';
-// import UserGroup from '../molecules/UserGroup';
 
 const NameCounterWrapper = styled(Wrapper)``;
 

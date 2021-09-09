@@ -7,7 +7,7 @@ const paths = {
     get products() { return `${this.root}/products`; },
     get checkout() { return `${this.root}/checkout`; },
     get orders() { return `${this.root}/orders`; },
-    get orderDetails() { return `${this.orders}/<id>`; },
+    get orderDetails() { return `${this.orders}/:id`; },
   },
   seller: {
     root: '/seller',

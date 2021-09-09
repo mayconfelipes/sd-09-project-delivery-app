@@ -9,7 +9,7 @@ import valuesFactory from './utils/valuesFactory';
 
 const GlobalProvider = ({ children }) => {
   const [isRequesting, toggleRequesting] = useToggle(false);
-  const [isAuthenticated, setAuthentication] = useState(() => false);
+  const [isAuthenticated, setAuthentication] = useState(() => !!getUserData().token);
   const [userData, setUserData] = useState(() => getUserData());
 
   const requestValues = valuesFactory(isRequesting, toggleRequesting);

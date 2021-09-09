@@ -18,7 +18,7 @@ import useAuthentication from '../../hooks/useAuthentication';
 import backendStatus from '../../utils/backendStatus';
 import useAuthFormInfo from '../../hooks/useAuthFormInfo';
 import { loginSchema } from '../../utils/validateInfo';
-import { useUserDataContext } from '../../context/contexts';
+import { useAuthDataContext, useUserDataContext } from '../../context/contexts';
 
 const LoginPage = () => {
   const { authInfo, handleFieldsChange, isValidInfo } = useAuthFormInfo({
@@ -27,10 +27,11 @@ const LoginPage = () => {
   });
   const { isValidRequest, requestUser } = useAuthentication();
   const { role: userRole } = useUserDataContext();
+  const isAuthenticated = useAuthDataContext();
   const shouldRenderError = isValidRequest === false;
   const history = useHistory();
 
-  if (isValidRequest) return redirectByRole(userRole);
+  if (isValidRequest || isAuthenticated) return redirectByRole(userRole);
 
   return (
     <Container>
