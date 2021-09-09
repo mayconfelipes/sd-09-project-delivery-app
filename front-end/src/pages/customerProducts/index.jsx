@@ -43,8 +43,8 @@ const Products = () => {
   }, []);
   console.log(loading);
   const paginas = [
-    'PRODUTOS *customer_products__element-navbar-link-products */customer/products',
-    'MEUS PEDIDOS*customer_products__element-navbar-link-orders */customer/orders',
+    'PRODUTOS *customer_products__element-navbar-link-products*/customer/products',
+    'MEUS PEDIDOS *customer_products__element-navbar-link-orders*/customer/orders',
   ];
   const { name } = JSON.parse(localStorage.getItem('user'));
   return (

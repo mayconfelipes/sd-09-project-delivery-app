@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
+import formatDate from '../../services/formatDate';
+import formatPrice from '../../services/formatPrice';
 import Context from '../../context';
 import * as S from './styled';
 
@@ -30,7 +32,6 @@ const OrderList = () => {
       {`${deliveryAddress} ${deliveryNumber}`}
     </p>
   );
-
   return (
     <S.SalesList>
       {
@@ -64,7 +65,7 @@ const OrderList = () => {
               value={ id }
               data-testid={
                 `${changeDataTestId
-                  ? 'seller' : 'customer'}_orders__element-order-date-${id}`
+                  ? 'seller' : 'customer'}_orders__element-delivery-status-${id}`
               }
             >
               {status}
@@ -74,17 +75,21 @@ const OrderList = () => {
               value={ id }
               data-testid={
                 `${changeDataTestId
-                  ? 'seller' : 'customer'}_orders__element-delivery-status-${id}`
+                  ? 'seller' : 'customer'}_orders__element-order-date-${id}`
               }
             >
-              {saleDate}
+              {/* {new Date()} */}
+              {formatDate(saleDate.split('T')[0])}
             </p>
             <p
               name={ id }
               value={ id }
-              data-testid={ `seller_orders__element-card-price-${id}` }
+              data-testid={
+                `${changeDataTestId
+                  ? 'seller' : 'customer'}_orders__element-card-price-${id}`
+              }
             >
-              {totalPrice}
+              {formatPrice(Number(totalPrice))}
             </p>
             {changeDataTestId
               ? returnP(id, deliveryAddress, deliveryNumber)

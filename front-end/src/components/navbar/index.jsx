@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import * as S from './styled';
 
 const Navbar = ({ abas, user }) => {
@@ -12,16 +12,21 @@ const Navbar = ({ abas, user }) => {
   };
   // console.log('abas', abas);
   // console.log('user', user);
+  const history = useHistory();
   return (
     <nav>
       {abas.map((aba) => (
-        <S.LinkNav
-          data-testid={ aba.split('*')[1] }
+        <S.ButtonRedirect
           key={ aba }
-          to={ aba.split('*')[2] }
+          data-testid={ aba.split('*')[1] }
+          type="button"
+          onClick={ () => {
+            history.push(aba.split('*')[2]);
+          } }
         >
           { aba.split('*')[0] }
-        </S.LinkNav>))}
+        </S.ButtonRedirect>
+      ))}
       <span
         data-testid="customer_products__element-navbar-user-full-name"
       >
