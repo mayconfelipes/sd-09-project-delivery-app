@@ -18,10 +18,10 @@ const Header = () => {
     return (
       <Link
         className="noUnderline"
-        to="/customer/orders"
+        to="/customer/products"
         data-testid="customer_products__element-navbar-link-products"
       >
-        MEUS PEDIDOS
+        PRODUTOS
       </Link>
     );
   }
@@ -35,9 +35,9 @@ const Header = () => {
       setSecondNavBarLink('/seller/orders');
       console.log(match.path);
     } else {
-      setSecondNavBarText('PRODUTOS');
+      setSecondNavBarText('MEUS PEDIDOS');
       setFirstNavBarLink(true);
-      setSecondNavBarLink('/customer/products');
+      setSecondNavBarLink('/customer/orders');
     }
   }, [match.path]);
 
