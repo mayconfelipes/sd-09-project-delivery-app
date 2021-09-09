@@ -54,11 +54,11 @@
   width: 100%;
 }
 
-.product-info input[ type = 'number' ] {
+.product-info input {
   width: 3rem;
 }
 
-.product-info input[ type = 'number' ]:focus {
+.product-info input:focus {
   outline: #236b51;
 }
 
@@ -82,10 +82,10 @@
   border: none;
   border-radius: 7px;
   bottom: 100px;
-  color: #ffffff;
+  color: white;
   font-size: 1.05rem;
   font-weight: 900;
+  padding: 10px 20px;
   position: fixed;
   right: 100px;
-  padding: 10px 20px;
 }
