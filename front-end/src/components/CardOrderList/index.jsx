@@ -30,7 +30,7 @@ const CardOrderList = ({ order }) => {
         { moment(order.sale_date).format('L')}
       </p>
       <p data-testid={ `seller_orders__element-card-price-${order.id}` }>
-        { order.totalPrice.toString().replace(/\./, ',') }
+        { `R$ ${order.totalPrice.toString().replace(/\./, ',')}` }
       </p>
     </div>
   );
