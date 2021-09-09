@@ -38,7 +38,7 @@
     "chai-http": "4.3.0",
     "eslint-config-trybe-backend": "1.0.3",
     "mocha": "8.4.0",
-    "nodemon": "2.0.4",
+    "nodemon": "^2.0.4",
     "nyc": "15.1.0",
     "sequelize-cli": "6.2.0",
     "sinon": "10.0.0"
