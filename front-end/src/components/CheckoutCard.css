@@ -1,5 +1,6 @@
 :root {
---input-sizes: 300px;
+
+  --input-sizes: 300px;
 }
 
 .CheckoutCard-wrapper-table {
