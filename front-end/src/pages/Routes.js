@@ -8,6 +8,7 @@ import ClientProducts from './ClientProducts';
 import Register from './Register';
 import OrderDetail from './OrderDetail';
 import Orders from './Orders';
+import Admin from './Admin';
 
 const Routes = () => (
   <BrowserRouter>
@@ -17,6 +18,7 @@ const Routes = () => (
       </Route>
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
+      <Route path="/admin/manage" component={ Admin } />
       <Route
         path="/seller/orders/:id"
         render={ () => <SellerProvider><OrderDetail /></SellerProvider> }

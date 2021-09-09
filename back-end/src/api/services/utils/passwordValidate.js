@@ -11,7 +11,7 @@ const isValidPassword = (password) => {
     throw error;
   }
 
-  const isValidPasswordFormat = /[0-9a-zA-Z$*&@#]{6}/.test(password);
+  const isValidPasswordFormat = /[0-9a-zA-Z$*&@#_]{6}/.test(password);
   if (!isValidPasswordFormat) {
     const error = { type: BadRequest, message: '"password" length must be 6 characters long' };
     throw error;
