@@ -4,6 +4,7 @@ import Login from './Login';
 import ClientProducts from './ClientProducts';
 import Register from './Register';
 import CustomerProvider from '../context/customerProvider';
+import CustomerOrdersDetails from './customer/CustomerOrdersDetails';
 
 const Routes = () => (
   <BrowserRouter>
@@ -17,6 +18,7 @@ const Routes = () => (
         <Route path="/customer/products" component={ ClientProducts } />
       </CustomerProvider>
     </Switch>
+    <Route path="/customer/orders/:id" component={ CustomerOrdersDetails } />
   </BrowserRouter>
 );
 
