@@ -10,15 +10,8 @@ const Login = () => {
   const History = useHistory();
 
   useEffect(() => {
-    console.log(login);
-    if (login.login && login.user.role === 'customer') {
-      History.push('/customer/products');
-    }
-    if (login.login && login.user.role === 'seller') {
-      History.push('/seller/orders');
-    }
-    if (login.login && login.user.role === 'administrator') {
-      History.push('/admin/manage');
+    if (login.path) {
+      History.push(login.path);
     }
   }, [login, History]);
 
@@ -29,14 +22,6 @@ const Login = () => {
       return true;
     }
     return false;
-  };
-
-  const handleLogin = () => {
-    setLogin({ email, password });
-  };
-
-  const handleRegister = () => {
-    History.push('/register');
   };
 
   return (
@@ -68,10 +53,10 @@ const Login = () => {
 
         <button
           type="button"
-          className="btn-login"
+          className="btn-primary"
           data-testid="common_login__button-login"
           disabled={ !buttonAble() }
-          onClick={ handleLogin }
+          onClick={ () => setLogin({ email, password }) }
         >
           Login
         </button>
@@ -79,7 +64,7 @@ const Login = () => {
           type="button"
           className="btn-register"
           data-testid="common_login__button-register"
-          onClick={ handleRegister }
+          onClick={ () => History.push('/register') }
         >
           Ainda não tenho conta
         </button>
