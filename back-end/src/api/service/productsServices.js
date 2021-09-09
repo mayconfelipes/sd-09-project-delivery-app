@@ -1,5 +1,3 @@
-// Products service - leitura de um produto especifico pelo atributo 'id' na tabela 'products'.
-
 const { product } = require('../../database/models');
 
 const getAllProducts = async () => {

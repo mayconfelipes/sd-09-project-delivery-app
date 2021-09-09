@@ -5,6 +5,8 @@ const listUsers = async () => {
   return users;
 };
 
+const listUsersByRole = async (role) => user.findAll({ where: { role } });
+
 const deleteUser = async (id) => {
   const deletedUser = await user.destroy(
     { where: { id } },
@@ -15,5 +17,6 @@ const deleteUser = async (id) => {
 
 module.exports = {
   listUsers,
+  listUsersByRole,
   deleteUser,
 };
