@@ -1,6 +1,6 @@
 .wrapper-card-product {
   display: flex;
   height: 30vh;
-  justify-content: space-between;
-  width: 900px;
+  justify-content: space-around;
+  width: 100%;
 }
