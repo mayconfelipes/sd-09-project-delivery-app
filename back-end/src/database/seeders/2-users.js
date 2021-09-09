@@ -2,10 +2,10 @@ const md5 = require('md5');
 
 module.exports = {
     up: async (queryInterface, _Sequelize) => {
-      await queryInterface.bulkInsert("users", [
+      await queryInterface.bulkInsert('users', [
         {
           id: 1,
-          name: "Delivery App Admin",
+          name: 'Delivery App Admin',
           email: 'adm@deliveryapp.com',
           password: md5('--adm2@21!!--'),
           role: 'administrator',
@@ -13,23 +13,23 @@ module.exports = {
         },
         {
           id: 2,
-          name: "Fulana Pereira",
+          name: 'Fulana Pereira',
           email: 'fulana@deliveryapp.com',
           password: md5('fulana@123'),
           role: 'seller',
         },
         {
           id: 3,
-          name: "Cliente Zé Birita",
+          name: 'Cliente Zé Birita',
           email: 'zebirita@email.com',
           password: md5('$#zebirita#$'),
           role: 'customer',
           
         },
-      ],{timestamp:false});
+      ], { timestamp:false });
     },
     down: async (queryInterface, _Sequelize) => {
-      await queryInterface.bulkDelete("users", null, {});
+      await queryInterface.bulkDelete('users', null, {});
     },
   };
   

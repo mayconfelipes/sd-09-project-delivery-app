@@ -27,10 +27,8 @@ const Register = () => {
     const isValidName = name.length >= nameLength;
 
     if (isValidEmail && isValidPass && isValidName) {
-      console.log('enable');
       setDisable(false);
     } else {
-      console.log('disable');
       setDisable(true);
     }
   };

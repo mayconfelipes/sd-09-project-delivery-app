@@ -1,5 +1,4 @@
-const { sale } = require('../../database/models');
-const { salesProduct } = require('../../database/models');
+const { sale, salesProduct, product } = require('../../database/models');
 
 const newOrder = async ({
   userId,
@@ -28,7 +27,14 @@ const populateSaleProd = async (saleId, products) => {
 };
 
 const findOrderById = async (id) => {
-  const findIdOrder = await sale.findOne({ where: { id } });
+  const findIdOrder = await sale.findOne({ where: { id },
+    include: {
+    model: product,
+    as: 'products',
+    through: {
+      attributes: { include: ['quantity'] },
+    },
+  } });
   return findIdOrder;
 };
 

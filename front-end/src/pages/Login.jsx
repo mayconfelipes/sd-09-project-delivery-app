@@ -39,7 +39,7 @@ const Login = () => {
       return <Redirect to="/admin/manage" />;
     }
     case 'seller': {
-      return <Redirect to="/vendedor" />;
+      return <Redirect to="/seller/orders" />;
     }
     default: {
       console.log('Role inválida');
