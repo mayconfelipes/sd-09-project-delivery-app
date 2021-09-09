@@ -38,11 +38,14 @@ const Routes = () => (
         render={ () => <CustomerProvider><ClientProducts /></CustomerProvider> }
       />
       <Route
+        path="/customer/orders/:id"
+        render={ () => <CustomerProvider><CustomerOrdersDetails /></CustomerProvider> }
+      />
+      <Route
         path="/customer/orders"
         render={ () => <CustomerProvider><CustomerOrder /></CustomerProvider> }
       />
     </Switch>
-    <Route path="/customer/orders/:id" component={ CustomerOrdersDetails } />
   </BrowserRouter>
 );
 

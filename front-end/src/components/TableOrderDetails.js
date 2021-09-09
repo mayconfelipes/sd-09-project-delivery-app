@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 // import useInfoUsers from '../hooks/useInfousers';
 
 function TableOrderDetails(props) {
-  const datatestid = 'customer_orders_details__';
+  const datatestid = 'customer_order_details__';
   const [orderDetails, setOrderDetails] = useState({});
   const { id } = props;
 
-  const getOrderDetails = ((useCallback(async () => {
+  const getOrderDetails = ((useCallback(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     const config = {
       method: 'get',
@@ -20,23 +21,20 @@ function TableOrderDetails(props) {
     };
     axios(config)
       .then((response) => {
-        console.log(response.data);
         setOrderDetails(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.error('erro: ', error);
       });
   })));
 
   useEffect(() => {
     getOrderDetails();
-  }, [getOrderDetails]);
-  console.log(getOrderDetails());
+  }, []);
 
   const { saleDate, status } = orderDetails;
-  console.log(orderDetails);
 
-  return (
+  return (Object.keys(orderDetails).length === 0 ? <span>loading...</span> : (
     <div>
       <h3>Detalhe do Pedido</h3>
       <table>
@@ -50,12 +48,12 @@ function TableOrderDetails(props) {
             <th
               data-testid={ `${datatestid}element-order-details-label-seller-name` }
             >
-              Fulana Pereira
+              {orderDetails.seller.name}
             </th>
             <th
               data-testid={ `${datatestid}element-order-details-label-order-date` }
             >
-              {moment(saleDate).format('DD/HH/YYYY')}
+              {moment(saleDate).format('DD/MM/YYYY')}
             </th>
             <th
               data-testid={ `${datatestid}element-order-details-label-delivery-status` }
@@ -72,11 +70,11 @@ function TableOrderDetails(props) {
           </tr>
         </thead>
       </table>
-    </div>);
+    </div>));
 }
 
 TableOrderDetails.propTypes = {
-  sellerid: number,
-}.isRequired;
+  id: PropTypes.number.isRequired,
+};
 
 export default TableOrderDetails;

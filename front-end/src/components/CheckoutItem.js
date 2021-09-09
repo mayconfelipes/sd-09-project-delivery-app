@@ -15,7 +15,9 @@ export default function CheckoutItem({ product, index, role, page }) {
     setShoppingCart(newCart);
   };
 
-  const quantity = page === 'checkout' ? product.quantity : product.SaleProduct.quantity;
+  console.log('product: ', product);
+  const quantity = page === 'checkout' || role === 'customer'
+    ? product.quantity : product.SaleProduct.quantity;
 
   const {
     name,

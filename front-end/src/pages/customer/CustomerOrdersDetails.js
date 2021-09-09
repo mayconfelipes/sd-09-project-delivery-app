@@ -1,15 +1,16 @@
 import React from 'react';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import CheckoutTable from '../../components/CheckoutTable';
-// import Header from '../../components/Header';
+import Header from '../../components/Header';
 import TableOrderDetails from '../../components/TableOrderDetails';
 
 const CustomerOrdersDetails = () => {
-  const { id } = useParams;
+  const { id } = useParams();
 
   return (
     <div>
-      <TableOrderDetails props={ id } />
+      <Header />
+      <TableOrderDetails id={ id } />
       <CheckoutTable />
     </div>
   );

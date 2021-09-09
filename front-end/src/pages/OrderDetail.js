@@ -5,6 +5,7 @@ import CheckoutTable from '../components/CheckoutTable';
 import OrderHeader from '../components/OrderHeader';
 import useOrderDetail from '../hooks/useOrderDetail';
 import Seller from '../context/sellerContext';
+import Customer from '../context/customerContext';
 
 const OrderDetail = () => {
   const { token } = JSON.parse(localStorage.getItem('user'));
