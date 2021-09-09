@@ -6,25 +6,35 @@ function ProductsTable({ listItems, testIds }) {
   const rows = ['Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total'];
 
   return (
-    <table>
-      <thead>
+    <table className="table-container">
+      <thead className="table-head">
         <tr>
-          { rows.map((item, index) => (
-            <th key={ index }>{ item }</th>
-          )) }
+          {rows.map((item, index) => (
+            <th key={ index }>{item}</th>
+          ))}
         </tr>
       </thead>
-      <tbody>
-        { listItems.map((item, index) => (
-          <tr key={ index }>
-            <td data-testid={ `${testIds[0]}${index}` }>{ index + 1 }</td>
-            <td data-testid={ `${testIds[1]}${index}` }>{ item.name }</td>
-            <td data-testid={ `${testIds[2]}${index}` }>
-              { item.salesProducts.quantity }
+      <tbody className="table-body">
+        {listItems.map((item, index) => (
+          <tr key={ index } className="table-tr">
+            <td data-testid={ `${testIds[0]}${index}` } className="t-item">
+              {index + 1}
             </td>
-            <td data-testid={ `${testIds[3]}${index}` }>{ `R$${item.price}` }</td>
-            <td data-testid={ `${testIds[4]}${index}` }>
-              { `R$${(item.price * item.salesProducts.quantity).toFixed(2)}` }
+            <td data-testid={ `${testIds[1]}${index}` } className="t-desc">
+              {item.name}
+            </td>
+            <td data-testid={ `${testIds[2]}${index}` } className="t-quantity">
+              {item.salesProducts.quantity}
+            </td>
+            <td
+              data-testid={ `${testIds[3]}${index}` }
+              className="t-price-un"
+            >
+              {`R$${item.price}`}
+
+            </td>
+            <td data-testid={ `${testIds[4]}${index}` } className="t-subtotal">
+              {`R$${(item.price * item.salesProducts.quantity).toFixed(2)}`}
             </td>
           </tr>
         ))}

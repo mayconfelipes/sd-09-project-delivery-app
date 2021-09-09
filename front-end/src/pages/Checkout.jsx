@@ -101,7 +101,6 @@ function Checkout() {
               name="sellerId"
               dataTestId={ testIds[29] }
               onChange={ handleChange }
-
             />
           </p>
           <TextInput

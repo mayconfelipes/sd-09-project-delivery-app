@@ -38,10 +38,10 @@ function OrderCard({ sale }) {
   );
 
   return (
-    <Link to={ `/${role}/orders/${id}` }>
+    <Link to={ `/${role}/orders/${id}` } className="content-card-pedido-item">
       <div>
-        <div>
-          <div>
+        <div className="pedido-item-data">
+          <div className="pedido-item-data-num">
             <p
               data-testid={
                 role === 'seller'
@@ -53,13 +53,14 @@ function OrderCard({ sale }) {
             </p>
           </div>
           { statusDiv(role) }
-          <div>
+          <div className="pedido-item-data-value">
             <p
               data-testid={
                 role === 'seller'
                   ? `${dataTestIds[50]}${id}`
                   : `${dataTestIds[35]}${id}`
               }
+              className="pedido-data-value-item"
             >
               { transformDate(date) }
             </p>
@@ -69,6 +70,7 @@ function OrderCard({ sale }) {
                   ? `${dataTestIds[51]}${id}`
                   : `${dataTestIds[36]}${id}`
               }
+              className="pedido-data-value-item"
             >
               { price.replace('.', ',') }
             </p>
