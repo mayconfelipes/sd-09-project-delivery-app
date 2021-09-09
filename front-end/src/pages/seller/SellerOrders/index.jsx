@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import P from 'prop-types';
+
 import { Link } from 'react-router-dom';
 import socket from '../../../api/socket';
 
@@ -8,8 +8,8 @@ import ProductStatus from '../../../components/ProductStatus';
 import formatDate from '../../../util/formatDate';
 
 import { getAllSales } from '../../../api/sales';
+
 import style from './orders.module.scss';
-// import useGlobalContext from '../../../context/GlobalStateProvider';
 
 const SellerOrders = () => {
   const [sales, setSales] = useState([]);
@@ -28,13 +28,11 @@ const SellerOrders = () => {
 
   useEffect(() => {
     socket.on('statusChanged', (data) => {
-      console.log('incoming status', data);
       setNewStatus(data);
     });
   }, []);
 
   const manegeredStatus = (id, status) => {
-    console.log('newStatus', newStatus);
     if (newStatus && newStatus.id === id) {
       return newStatus.status;
     }
@@ -78,7 +76,3 @@ const SellerOrders = () => {
 };
 
 export default SellerOrders;
-
-// SellerOrders.propTypes = {
-//   children: P.node.isRequired,
-// };

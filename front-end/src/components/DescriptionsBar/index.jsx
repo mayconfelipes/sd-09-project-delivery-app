@@ -19,6 +19,7 @@ const DescriptionsBar = ({
   dataTestIdUserTypeOrValue,
   dataTestIdDeleteOrPrice,
   dataTestIdRemove,
+  deleteUser,
 }) => {
   let gridStyle = null;
 
@@ -51,12 +52,14 @@ const DescriptionsBar = ({
       >
         { userTypeOrValue }
       </span>
-      <span
+      <button
+        type="button"
         className={ style.fifthGrid }
         data-testid={ dataTestIdDeleteOrPrice }
+        onClick={ deleteUser }
       >
         { deleteOrPrice }
-      </span>
+      </button>
       { shouldDeleteApear && (
         <div className={ style.sixthGrid }>
           <button
@@ -90,11 +93,13 @@ DescriptionsBar.propTypes = {
   dataTestIdDeleteOrPrice: P.string.isRequired,
   removeItem: P.func,
   dataTestIdRemove: P.string,
+  deleteUser: P.func,
 };
 
 DescriptionsBar.defaultProps = {
   isAboutUser: '',
   itemId: 0,
   removeItem: () => {},
+  deleteUser: () => {},
   dataTestIdRemove: '',
 };

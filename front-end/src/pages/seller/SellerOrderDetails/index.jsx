@@ -6,8 +6,10 @@ import GridOrderDetails from '../../../components/GridOrderDetails';
 import InfoOrderDetails from '../../../components/InfoOrderDetails';
 import NavBar from '../../../components/Navbar';
 import PrimaryButton from '../../../components/PrimaryButton';
-import { getOneSaleBySaleId } from '../../../api/sales';
 import formatDate from '../../../util/formatDate';
+
+import { getOneSaleBySaleId } from '../../../api/sales';
+
 import style from './sellerOrderDetails.module.scss';
 
 const SellerOrderDetails = ({ match }) => {
@@ -28,7 +30,6 @@ const SellerOrderDetails = ({ match }) => {
     }
   }, [paramId]);
 
-  console.log('seller sale', sale);
   const idTestId = 'seller_order_details__element-order-details-label-order-id';
   const dateTestId = 'seller_order_details__element-order-details-label-order-date';
   const statusTId = 'seller_order_details__element-order-details-label-delivery-status';

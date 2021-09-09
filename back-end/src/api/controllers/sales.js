@@ -49,18 +49,6 @@ const update = async (req, res, next) => {
   }
 };
 
-// RETORNA A COMPRAS DE UM CLIENTE PELO ID DO CLIENTE
-// const getByUser = async (req, res, next) => {
-//   try {
-//     const { id } = req.user.data;
-//     const sale = await salesServices.getByUser(id);
-
-//     return res.status(OK_STATUS).json(sale);
-//   } catch (err) {
-//     next(err);
-//   }
-// };
-
 // RETORNA TODAS AS VENDAS DO BANCO
 const getAllSales = async (req, res, next) => {
   try {
@@ -89,6 +77,5 @@ module.exports = {
   getSaleById,
   update,
   getAllSalesById,
-  // getByUser,
   getAllSales,
 };

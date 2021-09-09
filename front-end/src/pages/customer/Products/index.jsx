@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import P from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import useGlobalContext from '../../../context/GlobalStateProvider';
@@ -7,6 +6,7 @@ import useGlobalContext from '../../../context/GlobalStateProvider';
 import NavBar from '../../../components/Navbar';
 import ProductCard from '../../../components/ProductCard';
 import PrimaryButton from '../../../components/PrimaryButton';
+
 import style from './products.module.scss';
 
 const Products = () => {
@@ -53,7 +53,3 @@ const Products = () => {
 };
 
 export default Products;
-
-// Products.propTypes = {
-//   children: P.node.isRequired,
-// };

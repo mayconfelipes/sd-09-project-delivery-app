@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-// import P from 'prop-types';
 
-import style from './management.module.scss';
 import Navbar from '../../../components/Navbar';
 import PrimaryButton from '../../../components/PrimaryButton';
+import DescriptionsBar from '../../../components/DescriptionsBar';
+
+import { createUser, getAllUsers, deleteUser } from '../../../api/admin';
+
+import style from './management.module.scss';
 
 const Management = () => {
   const [userData, setUserData] = useState({
@@ -14,8 +17,9 @@ const Management = () => {
 
   const [isDataValid, setIsDataValid] = useState(true);
   const [selectedRole, setSelectedRole] = useState('seller');
-  // const [isLogged, setIsLoggedStatus] = useState(false);
-  // const [cadasterFailure, setCadasterFailure] = useState(false);
+  const [allUsers, setAllUsers] = useState([]);
+  const [cadasterFailure, setCadasterFailure] = useState(null);
+  const [newRequest, setNewRequest] = useState(false);
 
   function handleInputChange(event) {
     event.preventDefault();
@@ -28,7 +32,7 @@ const Management = () => {
     const emailValidated = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(emailInput);
     const passwordRegex = new RegExp(/[\w\D]{6}/g).test(passwordInput);
     const nameLength = new RegExp(/[\w\D]{12}/g).test(nameInput);
-    console.log(selectedRole);
+
     if (emailValidated && passwordRegex && nameLength) {
       setIsDataValid(false);
     } else {
@@ -36,14 +40,36 @@ const Management = () => {
     }
   }, [selectedRole, userData]);
 
-  // const sendLoginRequest = async () => {
-  //   const { nameInput, emailInput, passwordInput } = userData;
-  //   const role = 'customer';
-  //   const { token } = await register(nameInput, emailInput, passwordInput, role);
-  //   localStorage.setItem('user', JSON.stringify({ name: nameInput, token }));
-  //   if (token) setIsLoggedStatus(true);
-  //   else setCadasterFailure(true);
-  // };
+  useEffect(() => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    getAllUsers(token).then((response) => {
+      setAllUsers(response);
+    });
+  }, [cadasterFailure, newRequest]);
+
+  const sendRegisterRequest = async () => {
+    const { nameInput, emailInput, passwordInput } = userData;
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const response = await createUser({
+      name: nameInput,
+      email: emailInput,
+      password: passwordInput,
+      role: selectedRole,
+      token,
+    });
+    if (response.message) {
+      setCadasterFailure(response.message);
+    } else {
+      setCadasterFailure(false);
+    }
+    await setNewRequest(!newRequest);
+  };
+
+  const handleClickDeleteUser = async (id) => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    await deleteUser(id, token);
+    await setNewRequest(!newRequest);
+  };
 
   return (
     <>
@@ -92,25 +118,51 @@ const Management = () => {
         <PrimaryButton
           isBtnDisabled={ isDataValid }
           dataTestId="admin_manage__button-register"
-          // onLoginClick={ sendLoginRequest }
+          onLoginClick={ sendRegisterRequest }
         >
           CADASTRAR
         </PrimaryButton>
-        {/* { cadasterFailure && (
+        { cadasterFailure && (
           <p
-            data-testid="common_register__element-invalid_register"
+            data-testid="admin_manage__element-invalid-register"
           >
-            Usuário já existe
+            {cadasterFailure}
           </p>
-        ) } */}
-
+        ) }
       </form>
+      <div className={ style.usersContainer }>
+        {allUsers.map(({ id, name, email, role }, index) => (
+          <DescriptionsBar
+            key={ name }
+            id={ index }
+            itemId={ 1 }
+            userOrProductName={ name }
+            emailOrQuantity={ email }
+            userTypeOrValue={ role }
+            deleteOrPrice="Excluir"
+            shouldDeleteApear={ false }
+            isAboutUser
+            dataTestIdId={
+              `admin_manage__element-user-table-item-number-${index}`
+            }
+            deleteUser={ () => handleClickDeleteUser(id) }
+            dataTestIdUserOrProductName={
+              `admin_manage__element-user-table-name-${index}`
+            }
+            dataTestIdEmailOrQuantity={
+              `admin_manage__element-user-table-email-${index}`
+            }
+            dataTestIdUserTypeOrValue={
+              `admin_manage__element-user-table-role-${index}`
+            }
+            dataTestIdDeleteOrPrice={
+              `admin_manage__element-user-table-remove-${index}`
+            }
+          />
+        ))}
+      </div>
     </>
   );
 };
 
 export default Management;
-
-// Management.propTypes = {
-//   children: P.node.isRequired,
-// };

@@ -6,9 +6,9 @@ import GridOrderDetails from '../../../components/GridOrderDetails';
 import InfoOrderDetails from '../../../components/InfoOrderDetails';
 import NavBar from '../../../components/Navbar';
 import PrimaryButton from '../../../components/PrimaryButton';
-// import useGlobalContext from '../../../context/GlobalStateProvider';
-import { saleById } from '../../../api/sales';
 import formatDate from '../../../util/formatDate';
+
+import { saleById } from '../../../api/sales';
 
 import style from './orderDetails.module.scss';
 
