@@ -3,37 +3,39 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../Components/NavBar';
 import TableOrderDetails from '../Components/TableOrderDetails';
+import formatDate from '../services/formatDate';
 
 function OrderDetails() {
-  const [currSale, setCurrSale] = useState();
   const { id } = useParams();
-
-  const fetchSale = async () => {
-    console.log('FETCH', id);
-    try {
-      const getSale = await axios({
-        method: 'get',
-        url: `http://localhost:3001/customer/orders/${id}`,
-      });
-      console.log(getSale.dataValues);
-      return getSale.dataValues;
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [order, setOrder] = useState([]);
 
   useEffect(() => {
-    const getSale = async () => {
-      setCurrSale(await fetchSale());
+    const fetchOrder = async () => {
+      try {
+        const getOrder = await axios({
+          method: 'get',
+          url: `http://localhost:3001/sale/${id}`,
+        });
+        return setOrder(getOrder.data.sale);
+      } catch (err) {
+        console.log(err);
+      }
     };
-    getSale();
-  });
+    fetchOrder();
+  }, [id]);
 
   return (
     <>
       <NavBar />
+      {console.log(order.id)}
       <h1>Detalhe do Pedido</h1>
-      <TableOrderDetails sale={ currSale } />
+      <TableOrderDetails
+        orderId={ order.id }
+        sellerName={ order.sellerId }
+        orderDate={ formatDate(order.saleDate) }
+        orderStatus={ order.status }
+        totalPrice={ order.totalPrice }
+      />
     </>
   );
 }

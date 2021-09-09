@@ -18,7 +18,7 @@ const UpdateSchema = Joi.object({
 
 const findById = async (id) => {
   const sale = await Sale.findByPk(id);
-  return sale;
+  return { sale };
 };
 
 const register = async (saleInfo) => {
