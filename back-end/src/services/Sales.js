@@ -29,21 +29,21 @@ const getById = async (id) => {
   return sale.dataValues;
 };
 
-// const updateSale = async (id, body) => {
-//   const sale = await sales.findOne({ where: { id } });
+const updateSale = async (id, body) => {
+  const sale = await sales.findOne({ where: { id } });
 
-//   if (!sale) return { code: 404, message: 'Sale does not exist' };
+  if (!sale) return { code: 404, message: 'Sale does not exist' };
 
-//   await sales.update({ ...body }, { where: { id } });
+  await sales.update({ ...body }, { where: { id } });
 
-//   const editSale = await sales.findOne({ where: { id } });
+  const editSale = await sales.findOne({ where: { id } });
 
-//   return editSale;
-// };
+  return editSale;
+};
 
 module.exports = {
   createSale,
   getAll,
   getById,
-  // updateSale,
+  updateSale,
 };
