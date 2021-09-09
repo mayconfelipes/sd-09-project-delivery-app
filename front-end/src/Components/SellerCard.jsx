@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function SaleCard({
   saleId,
@@ -15,7 +16,7 @@ function SaleCard({
   };
 
   return (
-    <>
+    <Link to={ `/seller/orders/${saleId}` }>
       <div className="order-card-left">
         <div>
           <p data-testid={ `seller_orders__element-order-id-${saleId}` }>
@@ -48,7 +49,7 @@ function SaleCard({
           </div>
         </div>
       </div>
-    </>
+    </Link>
   );
 }
 

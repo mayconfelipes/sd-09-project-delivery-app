@@ -18,12 +18,13 @@ function App() {
         </Route>
         <Route path="/login" component={ Login } />
         <Route path="/register" component={ Register } />
+        <Route path="/customer/orders/:id" component={ CustomerOrders } />
         <Route path="/customer/orders" component={ CustomerOrders } />
+        <Route path="/seller/orders/:id" component={ OrderDetails } />
         <Route path="/seller/orders" component={ SellerOrders } />
         <Route path="/admin/manage" component={ AdminDashboard } />
         <Route path="/customer/products" component={ Products } />
         <Route path="/customer/checkout" component={ Checkout } />
-        <Route path="/customer/orders/:id" component={ OrderDetails } />
       </Switch>
     </BrowserRouter>
   );
