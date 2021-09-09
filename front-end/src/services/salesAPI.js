@@ -1,5 +1,6 @@
 const URLBase = 'http://localhost:3001';
 const applicationJson = 'application/json';
+const message = 'something bad happened here';
 
 const salesOrdersAPI = async (saleBody, user) => {
   try {
@@ -15,7 +16,7 @@ const salesOrdersAPI = async (saleBody, user) => {
     return response;
   } catch (error) {
     const errorObj = {
-      message: 'something bad happened here',
+      message,
       error: error.message,
       status: 500,
     };
@@ -37,7 +38,29 @@ const createNewSale = async (objectToSaveNewSale, token) => {
     return response;
   } catch (error) {
     const errorObj = {
-      message: 'something bad happened here',
+      message,
+      error: error.message,
+      status: 500,
+    };
+    console.log(errorObj);
+  }
+};
+
+const updateStatusSale = async (reqBody) => {
+  try {
+    const URL = `${URLBase}/update/status`;
+    const requestOptions = {
+      mode: 'cors',
+      method: 'POST',
+      headers: { 'Content-Type': applicationJson },
+      body: JSON.stringify(reqBody),
+    };
+    const request = await fetch(URL, requestOptions);
+    const response = await request.json();
+    return response;
+  } catch (error) {
+    const errorObj = {
+      message,
       error: error.message,
       status: 500,
     };
@@ -48,4 +71,5 @@ const createNewSale = async (objectToSaveNewSale, token) => {
 export {
   createNewSale,
   salesOrdersAPI,
+  updateStatusSale,
 };
