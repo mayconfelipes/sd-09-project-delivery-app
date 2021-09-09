@@ -18,8 +18,8 @@ const Routes = () => (
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
       <Route path="/admin/manage" component={ Admin } />
-      <Route path="/customer/orders" component={ SellerOrder } />
-      <Route path="/seller/orders" component={ CustomerOrder } />
+      <Route path="/seller/orders" component={ SellerOrder } />
+      <Route path="/customer/orders" component={ CustomerOrder } />
       <CustomerProvider>
         <Route path="/customer/checkout" component={ Checkout } />
         <Route path="/customer/products" component={ ClientProducts } />
