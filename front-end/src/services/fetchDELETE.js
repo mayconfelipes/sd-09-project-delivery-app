@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const fetchDELETE = async (endpoint) => {
   const user = localStorage.getItem('user');

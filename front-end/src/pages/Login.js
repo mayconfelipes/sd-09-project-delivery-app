@@ -79,7 +79,7 @@ class Login extends React.Component {
 
     return (
       <div className="form">
-        <h3>Login</h3>
+        <h3>HOME</h3>
         <div className="form-container">
           <label className="label-login" htmlFor="email">
             <p className="word-label">Login</p>

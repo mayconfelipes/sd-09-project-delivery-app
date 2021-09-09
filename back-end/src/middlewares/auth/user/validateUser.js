@@ -1,4 +1,3 @@
-// const joi = require('joi');
 const { users } = require('../../../database/models');
 
 const CONFLICT = { code: 409, message: 'User already registered' };

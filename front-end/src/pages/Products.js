@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProductCard from '../components/ProductCard';
 import fetchGET from '../services/fetchGET';
-import { productsAction } from '../actions/checkoutAction';
 import '../styles/Cards.css';
 
 class Products extends React.Component {
@@ -18,19 +17,15 @@ class Products extends React.Component {
     this.fetchAPI = this.fetchAPI.bind(this);
   }
 
-  componentDidMount() {
-    this.fetchAPI();
+  async componentDidMount() {
+    await this.fetchAPI();
   }
 
   async fetchAPI() {
-    try {
-      const result = await fetchGET('products');
-      this.setState({
-        products: result,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    const result = await fetchGET('products');
+    this.setState({
+      products: result,
+    });
   }
 
   render() {
@@ -72,14 +67,10 @@ const mapStateToProps = (state) => ({
   getTotalPrice: state.checkoutReducer.totalPrice,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setProducts: (productsBuy) => dispatch(productsAction(productsBuy)),
-});
-
 Products.propTypes = ({
   getProducts: PropTypes.arrayOf(PropTypes.object),
   setProducts: PropTypes.func,
   getTotalPrice: PropTypes.string,
 }).isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Products);
+export default connect(mapStateToProps)(Products);

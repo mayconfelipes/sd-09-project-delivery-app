@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const fetchPOST = async (endpoint, body) => {
   let result;

@@ -24,20 +24,20 @@ const getById = async (req, res, next) => {
   return res.status(200).json(getSale);
 };
 
-const updateSale = async (req, res, next) => {
-  const { id } = req.params;
-  const { body } = req;
+// const updateSale = async (req, res, next) => {
+//   const { id } = req.params;
+//   const { body } = req;
 
-  const editSale = await Sales.updateSale(id, { ...body });
+//   const editSale = await Sales.updateSale(id, { ...body });
 
-  if (editSale.code) return next(editSale);
+//   if (editSale.code) return next(editSale);
 
-  return res.status(200).json(editSale);
-};
+//   return res.status(200).json(editSale);
+// };
 
 module.exports = {
   createSale,
   getAll,
   getById,
-  updateSale,
+  // updateSale,
 };

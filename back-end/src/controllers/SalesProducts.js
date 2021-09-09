@@ -1,12 +1,12 @@
 const SalesProducts = require('../services/SalesProducts');
 
-const createSaleProduct = async (req, res) => {
-  const { body } = req;
+// const createSaleProduct = async (req, res) => {
+//   const { body } = req;
 
-  const newSaleProduct = await SalesProducts.createSaleProduct({ ...body });
+//   const newSaleProduct = await SalesProducts.createSaleProduct({ ...body });
 
-  return res.status(201).json(newSaleProduct);
-};
+//   return res.status(201).json(newSaleProduct);
+// };
 
 const getAll = async (_req, res) => {
   const getAllSalesProducts = await SalesProducts.getAll();
@@ -15,6 +15,6 @@ const getAll = async (_req, res) => {
 };
 
 module.exports = {
-  createSaleProduct,
+  // createSaleProduct,
   getAll,
 };

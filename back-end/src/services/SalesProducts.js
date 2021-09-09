@@ -1,10 +1,10 @@
-const { salesProducts, sales, products, users } = require('../database/models');
+const { sales, products, users } = require('../database/models');
 
-const createSaleProduct = async (body) => {
-  const { dataValues } = await salesProducts.create({ ...body });
+// const createSaleProduct = async (body) => {
+//   const { dataValues } = await salesProducts.create({ ...body });
 
-  return dataValues;
-};
+//   return dataValues;
+// };
 
 const getAll = async () => {
   const allSalesProducts = await sales.findAll({ include: [
@@ -16,6 +16,6 @@ const getAll = async () => {
 };
 
 module.exports = {
-  createSaleProduct,
+  // createSaleProduct,
   getAll,
 };
