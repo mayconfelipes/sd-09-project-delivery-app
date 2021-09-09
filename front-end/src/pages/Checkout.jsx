@@ -90,9 +90,9 @@ function Checkout() {
             </p>
           </section>
         </div>
-        <section>
-          <p>Detalhes e Endereço para Entrega</p>
-          <p>
+        <p>Detalhes e Endereço para Entrega</p>
+        <section className="table-pedido-endereco">
+          <p className="table-detalhe-title">
             {' '}
             P.Vendedora Responsável:
             <DropDownList

@@ -211,6 +211,18 @@
   align-items: center;
   margin-top: 20px;
 }
+.table-pedido-endereco {
+  border: 1px solid rgba(177, 194, 190, 1);
+  width: 90%;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.table-detalhe-title {
+  display: flex;
+  flex-direction: column;
+}
 
 .t-item {
   background: #57bf71;

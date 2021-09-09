@@ -33,7 +33,7 @@ TextInput.propTypes = {
 TextInput.defaultProps = {
   type: 'text',
   placeholderText: '',
-  dataTestId: '',
+  dataTestId: ',',
   classStyle: '',
 };
 

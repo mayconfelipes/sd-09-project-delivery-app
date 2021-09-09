@@ -70,7 +70,7 @@ function OrderCard({ sale }) {
                   : `${dataTestIds[36]}${id}`
               }
             >
-              { price.toFixed(2).replace('.', ',') }
+              { price.replace('.', ',') }
             </p>
           </div>
         </div>
