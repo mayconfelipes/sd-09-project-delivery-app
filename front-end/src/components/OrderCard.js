@@ -17,12 +17,15 @@ const OrderCard = (props) => {
 
   return (
     <div className="card-container">
-      <span data-testid={ `seller_orders__element-order-id-${id}` }>
+      <span>
         Pedido
         <br />
         { `000${id}` }
       </span>
-      <a href={ `/seller/orders/${id}` }>
+      <a
+        href={ `/seller/orders/${id}` }
+        data-testid={ `seller_orders__element-order-id-${id}` }
+      >
         <div className="details-container">
           <div className="status-container">
             <span data-testid={ `seller_orders__element-delivery-status-${id}` }>

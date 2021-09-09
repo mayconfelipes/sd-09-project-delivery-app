@@ -67,14 +67,14 @@ function NavBar(props) {
         ) }
         <div className="user-navbar">
           <li
-            id="username"
-            className="username-navbar"
+            className="username-navbar username"
             data-testid="customer_products__element-navbar-user-full-name"
           >
             { userName }
           </li>
           <li className="logout-navbar">
             <a
+              className="logout"
               id="logout"
               href="/login"
               data-testid="customer_products__element-navbar-link-logout"
