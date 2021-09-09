@@ -15,8 +15,22 @@ function OrderCard({ sale }) {
     status,
   } = sale;
 
+  const getColorStatus = () => {
+    if (status === 'Pendente') {
+      return 'bg-yellow';
+    }
+
+    if (status === 'Preparando') {
+      return 'bg-green-ligth';
+    }
+
+    if (status === 'Entregue') {
+      return 'bg-green';
+    }
+  };
+
   const statusDiv = (userRole) => (
-    <div>
+    <div className={ `pedido-data-value-status ${getColorStatus()}` }>
       <p
         data-testid={
           userRole === 'seller'

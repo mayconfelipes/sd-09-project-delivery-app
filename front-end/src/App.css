@@ -294,6 +294,7 @@
 
 .content-card-pedidos {
   display: flex;
+  margin-top: 20px;
 }
 
 .content-card-pedido-item {
@@ -333,6 +334,27 @@
   padding: 10px;
   text-align: center;
   font-weight: 600;
+}
+
+.pedido-data-value-status {
+  flex-basis: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.bg-yellow {
+  background: rgba(204, 184, 0, 0.75)
+}
+
+.bg-green-ligth {
+  background: rgba(102, 204, 0, 0.75);
+}
+
+.bg-green {
+  background: rgba(0, 204, 155, 0.75);
 }
 
 @media (max-width: 1200px) {
