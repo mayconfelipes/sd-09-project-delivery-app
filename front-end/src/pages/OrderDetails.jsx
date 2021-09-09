@@ -2,15 +2,21 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import Header from '../components/Header';
+import ProductsTable from '../components/ProductsTable';
 
 const FOUR = 4;
-const prefix = 'customer_order_details__element-order-details-label-';
 
 const DetalhesPedido = () => {
   const [order, setOrder] = useState({});
   const [error, setError] = useState('');
   const [userData] = useState(JSON.parse(localStorage.getItem('user')));
+
   const { id } = useParams();
+  const { role } = userData;
+  let prefix = '';
+
+  if (role === 'customer') prefix = 'customer_order_details__element-order-';
+  if (role === 'seller') prefix = 'seller_order_details__element-order-';
 
   useEffect(
     () => {
@@ -35,59 +41,6 @@ const DetalhesPedido = () => {
     return (<Redirect to={ { pathname: '/login', state: { error } } } />);
   }
 
-  const renderTable = () => (
-    <table>
-      <tbody>
-        <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Sub-total</th>
-        </tr>
-        { order && order.products ? order.products.map((product, index) => (
-          <tr key={ index }>
-            <td
-              data-testid={
-                `customer_order_details__element-order-table-item-number-${index + 1}`
-              }
-            >
-              { index + 1 }
-            </td>
-            <td
-              data-testid={
-                `customer_order_details__element-order-table-name-${index + 1}`
-              }
-            >
-              { product.name }
-            </td>
-            <td
-              data-testid={
-                `customer_order_details__element-order-table-quantity-${index + 1}`
-              }
-            >
-              { product.quantity }
-            </td>
-            <td
-              data-testid={
-                `customer_order_details__element-order-table-sub-total-${index + 1}`
-              }
-            >
-              { `R$ ${product.price}` }
-            </td>
-            <td
-              data-testid={
-                `customer_order_details__element-order-total-price-${index + 1}`
-              }
-            >
-              { `R$ ${(parseFloat(product.price) * parseInt(product.quantity, 10))
-                .toFixed(2)}` }
-            </td>
-          </tr>)) : null }
-      </tbody>
-    </table>
-  );
-
   const formatDate = () => {
     const TEN = 10;
     if (order.saleDate) {
@@ -106,36 +59,57 @@ const DetalhesPedido = () => {
           <section className="products__list">
             <header>
               <span
-                data-testid={ `${prefix}order-id` }
+                data-testid={ `${prefix}details-label-order-id` }
               >
                 {`Pedido ${String(order.id).padStart(FOUR, 0)}`}
               </span>
               <span
-                data-testid={ `${prefix}seller-name` }
-              >
-                { `P. Vend: ${order.seller.name}` }
-              </span>
-              <span
-                data-testid={ `${prefix}order-date` }
+                data-testid={ `${prefix}details-label-order-date` }
               >
                 { formatDate() }
               </span>
               <span
-                data-testid={ `${prefix}delivery-status` }
+                data-testid={ `${prefix}details-label-delivery-status` }
               >
                 { order.status }
               </span>
-              <button
-                type="button"
-                data-testid="customer_order_details__button-delivery-check"
-                disabled={ order.status !== 'Em Trânsito' }
-              >
-                MARCAR COMO ENTREGUE
-              </button>
+              { role === 'customer' ? (
+                <>
+                  <span
+                    data-testid={ `${prefix}details-label-seller-name` }
+                  >
+                    { `P. Vend: ${order.seller.name}` }
+                  </span>
+                  <button
+                    type="button"
+                    data-testid="customer_order_details__button-delivery-check"
+                    disabled={ order.status !== 'Em Trânsito' }
+                  >
+                    MARCAR COMO ENTREGUE
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    data-testid="seller_order_details__button-preparing-check"
+                    disabled={ order.status !== 'Pendente' }
+                  >
+                    PREPARAR PEDIDO
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="seller_order_details__button-dispatch-check"
+                    disabled={ order.status !== 'Preparando' }
+                  >
+                    SAIU PARA ENTREGA
+                  </button>
+                </>
+              ) }
             </header>
-            { renderTable() }
+            <ProductsTable venda={ order } prefix={ prefix } />
             <h4
-              data-testid="customer_order_details__element-order-total-price"
+              data-testid={ `${prefix}total-price` }
             >
               { `Total: R$ ${order.totalPrice.replace('.', ',')}` }
             </h4>
