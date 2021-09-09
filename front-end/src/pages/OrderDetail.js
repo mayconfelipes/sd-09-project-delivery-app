@@ -21,7 +21,6 @@ const OrderDetail = () => {
   return (
     <>
       <Header />
-      <h1>Detalhe do Pedido</h1>
       <OrderHeader id={ id } />
       <CheckoutTable />
     </>
