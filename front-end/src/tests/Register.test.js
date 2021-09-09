@@ -2,13 +2,14 @@ import React from 'react';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
 
-beforeEach(() => {
-  const { history } = renderWithRouter(<App />);
-  history.push('/register');
-});
-
 describe('Tela de Register', () => {
-  test('Verifica se renderiza o texto: Nome', () => {
+
+  beforeEach(() => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/register');
+  });
+
+  test('Verifica se renderiza o texto "Nome"', () => {
     const { getByText } = renderWithRouter(<App />);
 
     const nome = getByText(/NOME/i);
@@ -40,7 +41,7 @@ describe('Tela de Register', () => {
     expect(emailTestId).toBeInTheDocument();
   });
 
-  test('Verifica se há o botão: Cadastrar', () => {
+  test('Verifica se há o botão "Cadastrar"', () => {
     const { getByTestId } = renderWithRouter(<App />);
 
     const emailTestId = getByTestId(/common_register__button-register/);

@@ -12,18 +12,18 @@ describe('Tela de Login e Register', () => {
     expect(pathname).toBe('/login');
   });
 
-  test('Verifica se renderiza o texto: Email', () => {
+  test('Verifica se renderiza o texto "Email"', () => {
     const { getByText } = renderWithRouter(<App />);
-    const appElement = getByText(/EMAIL/i);
+    const text = getByText(/EMAIL/i);
 
-    expect(appElement).toBeInTheDocument();
+    expect(text).toBeInTheDocument();
   });
 
-  test('Verifica se renderiza o texto: Senha', () => {
+  test('Verifica se renderiza o texto "Senha"', () => {
     const { getByText } = renderWithRouter(<App />);
-    const appElement = getByText(/SENHA/i);
+    const text = getByText(/SENHA/i);
 
-    expect(appElement).toBeInTheDocument();
+    expect(text).toBeInTheDocument();
   });
   
   test('Verifica se há o campo de email', () => {
@@ -37,28 +37,48 @@ describe('Tela de Login e Register', () => {
   test('Verifica se há o campo de senha', () => {
     const { getByTestId } = renderWithRouter(<App />);
 
-    const emailTestId = getByTestId(/common_login__input-password/);
+    const passwordTestId = getByTestId(/common_login__input-password/);
 
-    expect(emailTestId).toBeInTheDocument();
+    expect(passwordTestId).toBeInTheDocument();
   });
 
-  test('Verifica se há o botão: Entrar', () => {
+  test('Verifica se há o botão "Entrar"', () => {
     const { getByTestId } = renderWithRouter(<App />);
 
-    const emailTestId = getByTestId(/common_login__button-login/);
+    const loginBtnTestId = getByTestId(/common_login__button-login/);
 
-    expect(emailTestId).toBeInTheDocument();
+    expect(loginBtnTestId).toBeInTheDocument();
   });
 
-  test('Verifica se há o botão: Ainda não tenho conta', () => {
+  test('Verifica se há o botão "Ainda não tenho conta"', () => {
     const { getByTestId } = renderWithRouter(<App />);
 
-    const emailTestId = getByTestId(/common_login__button-register/);
+    const registerBtnTestId = getByTestId(/common_login__button-register/);
 
-    expect(emailTestId).toBeInTheDocument();
+    expect(registerBtnTestId).toBeInTheDocument();
   });
 
-  test('Renderiza a tela Register, ao clicar em: Ainda não tenho conta da tela Login', () => {
+  test('Alterando o valor do campo "Email" e testando o valor guardado', () => {
+    const { getByTestId } = renderWithRouter(<App />);
+
+    const inputEmail = getByTestId(/common_login__input-email/);
+    expect(inputEmail).toHaveValue('');
+
+    fireEvent.change(inputEmail, { target: { value: 'adm@deliveryapp.com' } });
+    expect(inputEmail).toHaveValue('adm@deliveryapp.com');
+  });
+
+  test('Alterando o valor do campo "Senha" e testando o valor guardado', () => {
+    const { getByTestId } = renderWithRouter(<App />);
+
+    const inputPassword = getByTestId(/common_login__input-password/);
+    expect(inputPassword).toHaveValue('');
+
+    fireEvent.change(inputPassword, { target: { value: '--adm2@21!!--' } });
+    expect(inputPassword).toHaveValue('--adm2@21!!--');
+  });
+
+  test('Renderiza a tela "Register" ao clicar em "Ainda não tenho conta" da tela Login', () => {
     const { getByText, history } = renderWithRouter(<App />);
 
     fireEvent.click(getByText(/AINDA NÃO TENHO CONTA/i));
