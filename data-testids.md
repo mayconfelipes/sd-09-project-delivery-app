@@ -22,7 +22,7 @@
 - 21: customer_products__button-cart
 - 22: customer_checkout__element-order-table-item-number-\<index>
 - 23: customer_checkout__element-order-table-name-\<index>
-- 24: cusctomer_checkout__element-order-table-quantity-\<index>
+- 24: customer_checkout__element-order-table-quantity-\<index>
 - 25: customer_checkout__element-order-table-unit-price-\<index>
 - 26: customer_checkout__element-order-table-sub-total-\<index>
 - 27: customer_checkout__element-order-table-remove-\<index>
@@ -44,14 +44,15 @@
 - 43: customer_order_details__element-order-table-quantity-\<index>
 - 44: customer_order_details__element-order-table-sub-total-\<index>
 - 45: customer_order_details__element-order-total-price-\<index>
--
+- 46: customer_order_details__element-order-total-price
 - 47: customer_order_details__button-delivery-check
 - 48: seller_orders__element-order-id-\<id>
 - 49: seller_orders__element-delivery-status-\<id>
 - 50: seller_orders__element-order-date-\<id>
 - 51: seller_orders__element-card-price-\<id>
 - 52: seller_orders__element-card-address-\<id>
--
+- 
+- 54: seller_order_details__element-order-details-label-order-id
 - 55: seller_order_details__element-order-details-label-delivery-status
 - 56: seller_order_details__element-order-details-label-order-date
 - 57: seller_order_details__button-preparing-check
@@ -76,3 +77,4 @@
 -
 -
 - 78: admin_manage__input-password
+- 79: customer_products__checkout-bottom-value
