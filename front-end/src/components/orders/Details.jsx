@@ -67,13 +67,14 @@ const renderDetails = (MockSalesDB, user) => (
       >
         {sale.status}
       </div>
-      <div
+      <button
+        type="button"
         className="status-sale"
         data-testid={ `${user}_order_details__button-preparing-check` }
-        style={ user === 'customer' && { display: 'none' } }
+        style={ user === 'customer' ? ({ display: 'none' }) : ({ display: '' }) }
       >
         PREPARAR PEDIDO
-      </div>
+      </button>
       <button
         type="button"
         className="status-sale"

@@ -1,6 +1,6 @@
 function getFullDate() {
     const data = new Date();
-    const day = String(data.getDate()).padStart(2, 0);
+    const day = String(data.getDate() - 1).padStart(2, 0);
     const month = String(data.getMonth() + 1).padStart(2, 0);
     const fullYear = String(data.getFullYear());
     const hour = String(data.getHours()).padStart(2, 0);
