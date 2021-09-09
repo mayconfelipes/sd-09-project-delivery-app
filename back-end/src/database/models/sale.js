@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: DataTypes.DATE,
   }, {
     underscored: true,
+    tableName: 'sales',
   });
 
   sale.associate = (models) => {
