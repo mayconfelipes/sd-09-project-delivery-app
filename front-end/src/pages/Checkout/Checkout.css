@@ -1,6 +1,8 @@
 .container-checkout {
+  background-color: whitesmoke;
   border: 1px solid grey;
   display: flex;
   flex-direction: column;
   justify-items: space-between;
+  padding: 5%;
 }

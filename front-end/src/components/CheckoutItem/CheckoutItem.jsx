@@ -23,17 +23,34 @@ const CheckoutItem = (props) => {
   };
   return (
     <div className="main-checkout-item">
-      <p data-testid={ `customer_checkout__element-order-table-item-number-${order}` }>
+      <p
+        className="checkout-id"
+        data-testid={ `customer_checkout__element-order-table-item-number-${order}` }
+      >
         {order + 1}
       </p>
-      <p data-testid={ `customer_checkout__element-order-table-name-${order}` }>{name}</p>
-      <p data-testid={ `customer_checkout__element-order-table-quantity-${order}` }>
-        {quant}
+      <p
+        className="checkout-name"
+        data-testid={ `customer_checkout__element-order-table-name-${order}` }
+      >
+        {name}
       </p>
-      <p data-testid={ `customer_checkout__element-order-table-unit-price-${order}` }>
-        {brazilianPrice(price)}
+      <p
+        className="checkout-quantity"
+        data-testid={ `customer_checkout__element-order-table-quantity-${order}` }
+      >
+        {`(${quant})`}
       </p>
-      <p data-testid={ `customer_checkout__element-order-table-sub-total-${order}` }>
+      <p
+        className="checkout-individual-price"
+        data-testid={ `customer_checkout__element-order-table-unit-price-${order}` }
+      >
+        {` x ${brazilianPrice(price)} = `}
+      </p>
+      <p
+        className="checkout-total-price"
+        data-testid={ `customer_checkout__element-order-table-sub-total-${order}` }
+      >
         {brazilianPrice(totalProduct)}
       </p>
       <button
@@ -42,7 +59,7 @@ const CheckoutItem = (props) => {
         onClick={ removeOrder }
         data-testid={ `customer_checkout__element-order-table-remove-${order}` }
       >
-        Remover
+        <p className="checkout-item-button-text">Remover</p>
       </button>
     </div>
   );

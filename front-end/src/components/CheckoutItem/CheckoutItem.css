@@ -1,18 +1,52 @@
 .main-checkout-item {
+  align-items: center;
   align-self: center;
-  background-color: #869bcf;
+  background-color: #a9b2c8;
   border-color: none;
   border-radius: 20px;
-  color: #F0F0F0;
   display: flex;
   flex-direction: row;
-  font-weight: 700;
   font-size: 16px;
+  font-weight: 700;
   justify-content: space-around;
   margin-bottom: 8%;
   width: 90vw;
-};
+}
 
 .checkout-item-button {
-margin-left: 115%;
+  align-items: center;
+  display: flex;
+  margin-right: 4%;
+  width: 19vw;
+}
+
+
+.checkout-item-button-tex {
+  align-self: center;
+  display: flex;
+}
+
+
+.checkout-id {
+  color: rgb(224, 204, 16);
+}
+
+.checkout-individual-price {
+  color: white;
+}
+
+.checkout-quantity {
+  color: rgb(25, 249, 0);
+  font-weight: 900;
+}
+
+.checkout-total-price {
+  color: rgb(25, 249, 0);
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.checkout-name {
+  color: black;
+  width: 10vw;
 }
