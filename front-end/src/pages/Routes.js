@@ -21,6 +21,8 @@ const Routes = () => (
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
       <Route path="/admin/manage" component={ Admin } />
+      <Route path="/customer/orders" component={ SellerOrder } />
+      <Route path="/seller/orders" component={ CustomerOrder } />
       <Route
         path="/seller/orders/:id"
         render={ () => <SellerProvider><OrderDetail /></SellerProvider> }
