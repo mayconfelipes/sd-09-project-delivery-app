@@ -21,8 +21,6 @@ export default styled(CustomerOrders)`
   display: grid;
   grid-template-rows: 10vh 90vh;
   padding: 3% 8%;
-  /* grid-gap: 10px; */
-  /* background-color: red; */
   height: 100%;
 
   ${CartTotalButton} {

@@ -48,7 +48,14 @@ const getOrders = async (userId) => {
 
 const getOrderById = async (id) => {
   const order = await Sale
-  .findOne({ where: { id }, attributes: { exclude: ['user_id', 'seller_id'] } });
+  .findOne({
+    where: { id },
+    attributes: { exclude: ['user_id', 'seller_id'] },
+    include: [
+      { model: User, as: 'seller', attributes: ['id', 'name'] },
+      { model: Product, as: 'products', through: { attributes: ['quantity'] } }
+    ],
+  });
 
   if (!order) {
     const error = errorTypes.orderNotFound;
