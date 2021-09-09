@@ -16,7 +16,7 @@ function OrderDetails() {
           method: 'get',
           url: `http://localhost:3001/sale/${id}`,
         });
-        return setOrder(getOrder.data.sale);
+        setOrder(getOrder.data);
       } catch (err) {
         console.log(err);
       }
@@ -27,7 +27,6 @@ function OrderDetails() {
   return (
     <>
       <NavBar />
-      {console.log(order.id)}
       <h1>Detalhe do Pedido</h1>
       <TableOrderDetails
         orderId={ order.id }
@@ -35,6 +34,7 @@ function OrderDetails() {
         orderDate={ formatDate(order.saleDate) }
         orderStatus={ order.status }
         totalPrice={ order.totalPrice }
+        products={ order.product }
       />
     </>
   );

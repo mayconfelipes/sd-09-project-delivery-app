@@ -1,7 +1,6 @@
 const Joi = require('joi');
-const { Sale, SaleProduct } = require('../database/models');
+const { Sale, SaleProduct, Product } = require('../database/models');
 const { seedSalesProducts, calculateTotalPrice, generateError } = require('../../schemas');
-const Product = require('./Product');
 
 const RegisterSchema = Joi.object({
   userId: Joi.number().required(),
@@ -17,8 +16,12 @@ const UpdateSchema = Joi.object({
 });
 
 const findById = async (id) => {
-  const sale = await Sale.findByPk(id);
-  return { sale };
+  const sale = await Sale.findOne({
+    where: { id },
+    include: [{ model: Product, as: 'product', through: { attributes: ['quantity'] } }],
+  });
+  console.log(sale.dataValues);
+  return sale.dataValues;
 };
 
 const register = async (saleInfo) => {
@@ -28,7 +31,7 @@ const register = async (saleInfo) => {
 
   const { userId, sellerId, deliveryAddress, deliveryNumber, cart } = saleInfo;
   const totalPrice = await calculateTotalPrice(Product, cart);
-
+  console.log(totalPrice);
   const sale = await Sale.create({
     userId,
     sellerId,

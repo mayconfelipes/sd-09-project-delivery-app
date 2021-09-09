@@ -7,7 +7,9 @@ function TableOrderDetails({
   orderDate,
   orderStatus,
   totalPrice,
+  products,
 }) {
+  console.log(products);
   const dtid40 = 'customer_order_details__element-order-details-label-delivery-status';
   const statusClasses = (sts) => {
     if (sts === 'Pendente') return 'pending';
@@ -46,43 +48,46 @@ function TableOrderDetails({
             <td>Valor Unitário</td>
             <td>Sub-total</td>
           </tr>
-          {/* { items.map((item, index) => (
-            <tr key={ index }>
-              <td
-                data-testid={
-                  `customer_order_details__element-order-table-item-number-${index}`
-                }
-              >
-                { index }
-              </td>
-              <td
-                data-testid={ `seller_order_details__element-order-table-name-${index}` }
-              >
-                { itemName }
-              </td>
-              <td
-                data-testid={
-                  `seller_order_details__element-order-table-quantity-${index}`
-                }
-              >
-                { item.quantity }
-              </td>
-              <td
-                data-testid={
-                  `seller_order_details__element-order-table-unit-price-${index}`
-                }
-              >
-                {`R$ ${itemPrice}`}
-              </td>
-              <td
-                data-testid={
-                  `seller_order_details__element-order-table-sub-total-${index}`
-                }
-              >
-                { `R$ ${itemSubTotal}` }
-              </td>
-            </tr>
-          ))} */}
+          { !products ? <p>Loading</p>
+            : products.map((item) => (
+              <tr key={ item.id }>
+                <td
+                  data-testid={
+                    `customer_order_details__element-order-table-item-number-${item.id}`
+                  }
+                >
+                  { item.id }
+                </td>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-name-${item.id}`
+                  }
+                >
+                  { item.name }
+                </td>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-quantity-${item.id}`
+                  }
+                >
+                  { item.SaleProduct.quantity }
+                </td>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-unit-price-${item.id}`
+                  }
+                >
+                  {`R$ ${item.price}`}
+                </td>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-sub-total-${item.id}`
+                  }
+                >
+                  { `R$ ${item.price * item.SaleProduct.quantity}` }
+                </td>
+              </tr>
+            ))}
         </table>
         <h2
           data-testid="seller_order_details__element-order-total-h2rice"

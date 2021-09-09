@@ -36,7 +36,7 @@ const findSaleById = rescue(async (req, res) => {
   const { id } = req.params;
 
   const sale = await Sale.findById(id);
-  return res.status(200).json(sale);
+  return res.status(201).json(sale);
 });
 
 module.exports = {
