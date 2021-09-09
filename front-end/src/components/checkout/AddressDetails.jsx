@@ -49,6 +49,7 @@ const AddressDetails = ({ names }) => {
           <input
             type="text"
             id="address-number"
+            className="address-number"
             name="numero"
             value={ address.numero }
             placeholder="051"

@@ -51,7 +51,7 @@
   width: 350px;
 }
 
-#address-number {
+.address-number {
   border-radius: 5px;
   height: 40px;
   width: 80px;
