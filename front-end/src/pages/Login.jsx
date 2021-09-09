@@ -49,7 +49,7 @@ function Login() {
 
   useEffect(() => {
     verifyLoginCredentials();
-  }, [loginData]);
+  }, [loginData, verifyLoginCredentials]);
 
   const handleChange = ({ target: { name, value } }) => {
     setLoginData({ ...loginData, [name]: value });
@@ -89,8 +89,8 @@ function Login() {
   );
 
   return (
-    <main>
-      <section>
+    <main className="flex flex-col md:flex-row items-center">
+      <section className="flex flex-col justify-center">
         <img
           style={ { height: '200px', width: '200px' } }
           src={ logoDelivery }
@@ -98,7 +98,7 @@ function Login() {
         />
         <h1>Delivery</h1>
       </section>
-      <section>
+      <section className="flex flex-col justify-center">
         <TextInput
           type="text"
           name="email"
