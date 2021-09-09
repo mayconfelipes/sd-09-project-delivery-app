@@ -72,4 +72,5 @@ module.exports = {
   register,
   update,
   findAllByUserId,
+  findById,
 };

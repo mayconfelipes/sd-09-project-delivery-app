@@ -7,5 +7,6 @@ const router = express.Router();
 router.post('/', [validateToken, Sale.register]);
 router.put('/', [validateToken, Sale.update]);
 router.get('/byUserId/:userId', [Sale.findAllByUserId]);
+router.get('/orders/:id', [Sale.findSaleById]);
 
 module.exports = router;

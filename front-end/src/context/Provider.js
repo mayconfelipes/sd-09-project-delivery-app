@@ -6,6 +6,7 @@ function Provider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [totalPriceContext, setTotalPriceContext] = useState(0);
+  const [sale, setSale] = useState();
 
   const context = {
     email,
@@ -14,6 +15,8 @@ function Provider({ children }) {
     setPassword,
     totalPriceContext,
     setTotalPriceContext,
+    sale,
+    setSale,
   };
 
   return (

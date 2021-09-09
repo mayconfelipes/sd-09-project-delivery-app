@@ -32,10 +32,18 @@ const findAllByUserId = rescue(async (req, res) => {
   return res.status(200).json(sale);
 });
 
-// const getAll = rescue(async (req, res) => await Sale.findAll().toAr)
+const findSaleById = rescue(async (req, res) => {
+  const { id } = req.params;
+  console.log('PQ NAO VAIII', id);
+
+  const sale = await Sale.findById(id);
+  console.log('SALE', sale);
+  return res.status(200).json(sale);
+});
 
 module.exports = {
   register,
   update,
   findAllByUserId,
+  findSaleById,
 };
