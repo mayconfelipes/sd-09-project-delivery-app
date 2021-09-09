@@ -92,6 +92,10 @@ const getByRole = async (role) => {
 
 const createByAdmin = async (user) => {
   const { name, email, password, role } = user;
+
+  await nameExists(name);
+  await emailExists(email);
+
   const md5Password = crypto.createHash('md5').update(password).digest('hex').toString();
   const newUser = await Users.create({ 
     name,

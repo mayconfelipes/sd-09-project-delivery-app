@@ -10,6 +10,7 @@ import Checkout from './pages/customer/Checkout';
 // import SuccessfulShopping from './pages/customer/SuccessfulShopping';
 import CustomerOrders from './pages/customer/CustomerOrders';
 import SellerOrders from './pages/seller/SellerOrders';
+import Management from './pages/admin/Management';
 import { GlobalStateProvider } from './context/GlobalStateProvider';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         path="/seller/orders/:id"
         render={ (props) => <SellerOrderDetails { ...props } /> }
       />
+      <Route exact path="/admin/manage" component={ Management } />
       { /* <SuccessfulShopping /> */ }
     </GlobalStateProvider>
   );

@@ -1,5 +1,4 @@
 import React from 'react';
-// import P from 'prop-types';
 import style from './successfulShopping.module.scss';
 
 const SuccessfulShopping = () => (
@@ -9,7 +8,3 @@ const SuccessfulShopping = () => (
 );
 
 export default SuccessfulShopping;
-
-// SuccessfulShopping.propTypes = {
-//   children: P.node.isRequired,
-// };

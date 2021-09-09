@@ -1,0 +1,45 @@
+.inputContainer {
+  display: flex;
+  border: 1px solid black;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  padding: 2rem;
+  font-size: 1.8rem;
+  border: 1px solid rgb(182, 182, 182);
+  border-radius: 3px;
+  box-shadow: 0 3px 0 #c3c2c2;
+
+  .inputStyle {
+    display: flex;
+    flex-direction: column;
+
+    input, select{
+      height: 4rem;
+      border-radius: 5px;
+      border: 1px solid black;
+      background-color: #fff;
+    }
+  }
+}
+
+.usersContainer {
+  border: 1px solid rgb(182, 182, 182);
+  border-radius: 3px;
+  box-shadow: 0 3px 0 #c3c2c2;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 3rem auto;
+  width: 80%;
+  padding: 2rem;
+  gap: 1rem;
+
+  button {
+    align-self: flex-end;
+    font-size: 2rem;
+    font-weight: bold;
+    border: hidden;
+  }
+}

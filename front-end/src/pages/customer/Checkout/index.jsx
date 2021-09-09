@@ -69,7 +69,6 @@ const Checkout = () => {
     );
     const { id } = sale;
     setSaleId(id);
-    console.log('saleId', sale);
     setShouldRedirect(true);
   };
   const handleInputChange = (event) => {

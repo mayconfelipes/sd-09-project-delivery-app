@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-// import P from 'prop-types';
+
 import { Link } from 'react-router-dom';
 import socket from '../../../api/socket';
 
 import NavBar from '../../../components/Navbar';
 import ProductStatus from '../../../components/ProductStatus';
-import { saleById } from '../../../api/sales';
 import formatDate from '../../../util/formatDate';
+
+import { saleById } from '../../../api/sales';
+
 import style from './orders.module.scss';
 
 const CustomerOrders = () => {
@@ -27,13 +29,11 @@ const CustomerOrders = () => {
 
   useEffect(() => {
     socket.on('statusChanged', (data) => {
-      console.log(data);
       setNewStatus(data);
     });
   }, []);
 
   const manegeredStatus = (id, status) => {
-    console.log(newStatus);
     if (newStatus && newStatus.id === id) {
       return newStatus.status;
     }
@@ -74,7 +74,3 @@ const CustomerOrders = () => {
 };
 
 export default CustomerOrders;
-
-// CustomerOrders.propTypes = {
-//   children: P.node.isRequired,
-// };

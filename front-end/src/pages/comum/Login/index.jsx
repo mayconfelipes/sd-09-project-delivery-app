@@ -56,10 +56,26 @@ const Login = () => {
     return <Redirect to="/customer/products" />;
   }
 
+  let rote = null;
+
+  switch (role) {
+  case 'customer':
+    rote = '/customer/products';
+    break;
+  case 'seller':
+    rote = '/seller/orders';
+    break;
+  case 'administrator':
+    rote = '/admin/manage';
+    break;
+  default:
+    break;
+  }
+
   return (
     <section className={ style.loginContainer }>
       { isLogged && <Redirect
-        to={ role === 'customer' ? '/customer/products' : '/seller/orders' }
+        to={ rote }
       /> }
       <h1>APP Delivery</h1>
       <form className={ style.inputContainer }>

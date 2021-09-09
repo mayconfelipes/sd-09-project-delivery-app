@@ -48,8 +48,6 @@ app.get('/sale/id', validateToken, salesControllers.getSaleById);
 
 app.get('/sale/:id', validateToken, salesControllers.getAllSalesById);
 
-// app.get('/sales/user', validateToken, salesControllers.getByUser);
-
 app.get('/sales/getAll', validateToken, salesControllers.getAllSales);
 
 app.get('/sales/:id', validateToken, salesControllers.getAllById);

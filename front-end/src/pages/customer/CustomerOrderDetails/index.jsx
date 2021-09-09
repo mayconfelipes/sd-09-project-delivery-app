@@ -6,9 +6,9 @@ import GridOrderDetails from '../../../components/GridOrderDetails';
 import InfoOrderDetails from '../../../components/InfoOrderDetails';
 import NavBar from '../../../components/Navbar';
 import PrimaryButton from '../../../components/PrimaryButton';
-// import useGlobalContext from '../../../context/GlobalStateProvider';
-import { saleById } from '../../../api/sales';
 import formatDate from '../../../util/formatDate';
+
+import { saleById } from '../../../api/sales';
 
 import style from './orderDetails.module.scss';
 
@@ -19,7 +19,6 @@ const CustomerOrderDetails = ({ match }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [sale, setSale] = useState([]);
 
-  // const { totalPrice } = useGlobalContext();
   const sellerTestId = 'customer_order_details__element-order-details-label-seller-name';
   const dateTestId = 'customer_order_details__element-order-details-label-order-date';
   const statusTId = 'customer_order_details__element-order-details-label-delivery-status';
@@ -76,7 +75,7 @@ const CustomerOrderDetails = ({ match }) => {
   );
 
   if (isLoading) return <p>Loading...</p>;
-  console.log(sale);
+
   return (
     <>
       <NavBar />
