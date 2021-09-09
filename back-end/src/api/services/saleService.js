@@ -21,16 +21,7 @@ const create = async (authorization, sale) => {
 
 const findAll = async (authorization) => {
   isValidToken(authorization);
-  
-  const result = await Sale.findAll({
-    attributes: { exclude: ['userId', 'sellerId'] }, 
-    include: [
-      { model: User, as: 'user', attributes: { exclude: ['password'] } },
-      { model: User, as: 'seller', attributes: { exclude: ['password'] } },
-      { model: Product, as: 'products', through: { attributes: [] } },
-    ],
-  });
-
+  const result = await Sale.findAll();
   return result;
 };
 
@@ -42,7 +33,7 @@ const findById = async (id, authorization) => {
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: User, as: 'seller', attributes: { exclude: ['password'] } },
-      { model: Product, as: 'products', through: { attributes: [] } },
+      { model: Product, as: 'products', through: { attributes: ['quantity'] } },
     ],
   });
 
@@ -52,9 +43,7 @@ const findById = async (id, authorization) => {
 const updateStatus = async (sale, authorization) => {
   isValidToken(authorization);
   await isValidSaleField(sale);
-
   await Sale.update({ status: sale.status }, { where: { id: sale.id } });
-
   return { message: 'status updated successfully' };
 };
 

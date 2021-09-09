@@ -9,6 +9,8 @@ import Register from './Register';
 import OrderDetail from './OrderDetail';
 import Orders from './Orders';
 import Admin from './Admin';
+import SellerOrder from './SellerOrder';
+import CustomerOrder from './CustomerOrder';
 
 const Routes = () => (
   <BrowserRouter>
