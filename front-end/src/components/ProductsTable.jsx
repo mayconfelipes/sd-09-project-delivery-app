@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function ProductsTable({ venda, prefix }) {
-  console.log(venda);
-
   return (
     <table>
       <tbody>

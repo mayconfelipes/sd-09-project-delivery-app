@@ -7,23 +7,42 @@ const Header = () => {
   const { clearCart } = useContext(Context);
 
   const [userLogout, setUserLogout] = useState(false);
-  const userData = JSON.parse(localStorage.getItem('user'));
+  const [userData] = useState(JSON.parse(localStorage.getItem('user')));
+
+  const renderCommonElement = (role) => {
+    const options = {
+      customer: <Link to="/customer/orders">Meus pedidos</Link>,
+      seller: <Link to="/seller/orders">Pedidos</Link>,
+      administrator: 'Gerenciar usuários',
+    };
+
+    return options[role];
+  };
+
   const cleanUp = () => {
     clearCart();
     localStorage.clear();
     setUserLogout(true);
   };
 
+  if (!userData) cleanUp();
+
   if (userLogout) return <Redirect to="/login" />;
   return (
     <header className="header">
       <nav className="headerNav">
         <ul className="headerList">
-          <li data-testid="customer_products__element-navbar-link-products">
-            <Link to="/customer/products">Produtos</Link>
-          </li>
+          {
+            userData.role === 'customer'
+            && (
+              <li data-testid="customer_products__element-navbar-link-products">
+                <Link to="/customer/products">Produtos</Link>
+              </li>
+            )
+          }
           <li data-testid="customer_products__element-navbar-link-orders">
-            <Link to="/customer/orders">Meus pedidos</Link>
+            { renderCommonElement(userData.role) }
+
           </li>
           <li
             data-testid="customer_products__element-navbar-user-full-name"

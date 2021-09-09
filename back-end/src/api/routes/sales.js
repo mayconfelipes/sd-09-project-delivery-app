@@ -12,4 +12,7 @@ router.get('/', authentication, salesController.getAll);
 // Lista detalhe de uma venda
 router.get('/:id', authentication, salesController.getById);
 
+// Atualiza status da venda
+router.patch('/:id', authentication, salesController.update);
+
 module.exports = router;

@@ -1,12 +1,12 @@
 const Joi = require('joi');
 
 const { User, Sale, SalesProduct, Product } = require('../../database/models');
-const { InvalidArgumentError } = require('../errors');
+const { InvalidArgumentError, NotFoundError } = require('../errors');
 
 const STATUS_CHOICES = [
   'Pendente',
   'Preparando',
-  'Em trânsito',
+  'Em Trânsito',
   'Entregue',
 ];
 
@@ -27,6 +27,7 @@ const SaleSchema = Joi.object({
     }),
   ).required(),
   saleDate: Joi.date(),
+  id: Joi.number().min(1),
 });
 
 const createSalesProductRelationship = (saleId, products) => (
@@ -49,6 +50,18 @@ const retriveSaleSerializer = async (sale) => {
   const { dataValues: user } = await User.findOne({ where: { id: sale.userId } });
 
   return { ...sale, products, seller, user };
+};
+
+const validateStatus = (prevStatus, nextStatus) => {
+  if (!STATUS_CHOICES.includes(nextStatus)) {
+    throw new InvalidArgumentError('Invalid status');
+  }
+
+  const indexPrevStatus = STATUS_CHOICES.indexOf(prevStatus);
+  const indexNextStatus = STATUS_CHOICES.indexOf(nextStatus);
+  if (indexPrevStatus + 1 !== indexNextStatus) {
+    throw new InvalidArgumentError('Cannot set new status');
+  }
 };
 
 module.exports = {
@@ -77,5 +90,18 @@ module.exports = {
     const { dataValues: sale } = await Sale.findOne({ where: { id } });
 
     return retriveSaleSerializer(sale);
+  },
+  async update(payload) {
+    const { dataValues: prevSale } = await Sale.findOne({ where: { id: payload.id } });
+
+    if (!prevSale) throw new NotFoundError('Sale');
+
+    const { status } = payload;
+    validateStatus(prevSale.status, status);
+    const { status: _, ...saleData } = prevSale;
+
+    await Sale.update({ status }, { where: { id: payload.id } });
+
+    return { ...saleData, status };
   },
 };
