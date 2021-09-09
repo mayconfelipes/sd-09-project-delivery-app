@@ -103,6 +103,23 @@ function TableProducts({ fetchSales }) {
     </>
   );
 
+  const renderSelectSellers = () => (
+    <select
+      data-testid="customer_checkout__select-seller"
+      onChange={
+        ({ target }) => setSalesDetails({
+          ...salesDetails, sellerId: Number(target.value),
+        })
+      }
+    >
+      <option>Escolha um vendedor</option>
+      {sellers.map((seller) => (
+        <option key={ seller.id } value={ seller.id }>
+          {seller.name}
+        </option>))}
+    </select>
+  );
+
   const detailsAndAdressRender = () => (
     <table>
       <thead>
@@ -115,20 +132,7 @@ function TableProducts({ fetchSales }) {
       <tbody>
         <tr>
           <td>
-            <select
-              data-testid="customer_checkout__select-seller"
-              onChange={
-                ({ target }) => setSalesDetails({
-                  ...salesDetails, sellerId: Number(target.value),
-                })
-              }
-            >
-              {/* <option>Escolha um vendedor</option> */}
-              {sellers.map((seller) => (
-                <option key={ seller.id } value={ seller.id }>
-                  {seller.name}
-                </option>))}
-            </select>
+            { renderSelectSellers() }
           </td>
           <td>
             <input
