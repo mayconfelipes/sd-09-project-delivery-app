@@ -1,8 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './OrderCard.css';
 
-const dataTestId = require('../utills/dataTestIds');
+const dataTestId = require('../../utills/dataTestIds');
 
 const OrderCard = (props) => {
   const history = useHistory();
@@ -19,11 +20,30 @@ const OrderCard = (props) => {
     return newPrice;
   };
   return (
-    <div>
-      <button type="button" onClick={ () => history.push(`/customer/orders/${id}`) }>
-        <p data-testid={ `${dataTestId[33] + orderId}` }>{orderId}</p>
-        <p data-testid={ `${dataTestId[34] + orderId}` }>{status}</p>
-        <p data-testid={ `${dataTestId[35] + orderId}` }>{formattedDate}</p>
+    <div className="order-card-main">
+      <button
+        className="order-card-button"
+        type="button"
+        onClick={ () => history.push(`/customer/orders/${id}`) }
+      >
+        <p
+          className="order-card-button-id"
+          data-testid={ `${dataTestId[33] + orderId}` }
+        >
+          {orderId}
+        </p>
+        <p
+          className="order-card-button-item"
+          data-testid={ `${dataTestId[34] + orderId}` }
+        >
+          {status}
+        </p>
+        <p
+          className="order-card-button-item"
+          data-testid={ `${dataTestId[35] + orderId}` }
+        >
+          {formattedDate}
+        </p>
         <p data-testid={ `customer_orders__element-card-price-${orderId}` }>
           {brazilianPrice(totalPrice)}
         </p>

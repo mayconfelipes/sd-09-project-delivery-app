@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Loading from '../../components/Loading';
 import NavBar from '../../components/NavBar/NavBar';
-import OrderCard from '../../components/OrderCard';
+import OrderCard from '../../components/OrderCard/OrderCard';
 import connectBack from '../../utills/axiosConfig';
+import './Orders.css';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -26,13 +27,16 @@ const Orders = () => {
   return (
     <div>
       <NavBar />
-      {orders.length >= 1 ? orders
-        .map((order, index) => (<OrderCard
-          key={ order.id }
-          order={ order }
-          index={ index }
-        />))
-        : <Loading />}
+      <div className="container-order-card">
+        {orders.length >= 1 ? orders
+          .map((order, index) => (<OrderCard
+            key={ order.id }
+            order={ order }
+            index={ index }
+          />))
+          : <Loading />}
+      </div>
+
     </div>
   );
 };

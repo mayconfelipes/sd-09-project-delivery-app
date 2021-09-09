@@ -19,5 +19,7 @@ a {
 }
 
 .navbar-logout-button {
+  background-color: #E0C787;
+  border-radius: 20%;
   margin-right: 3%;
 }

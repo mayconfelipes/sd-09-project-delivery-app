@@ -1,0 +1,28 @@
+.order-card-main {
+  display: flex;
+  justify-content: center;
+}
+
+.order-card-button {
+  align-content: center;
+  background-color: #869bcf;
+  border-color: none;
+  border-radius: 20px;
+  color: #F0F0F0;
+  display: flex;
+  flex-direction: row;
+  font-weight: 900;
+  font-size: 16px;
+  justify-content: space-around;
+  margin-bottom: 8%;
+  width: 90vw;
+}
+
+.order-card-button-item {
+  width: 10vw;
+}
+
+.order-card-button-id {
+  margin-right: -10%;
+  width: 5vw;
+}

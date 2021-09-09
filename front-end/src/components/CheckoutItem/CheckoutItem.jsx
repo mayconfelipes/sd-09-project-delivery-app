@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './CheckoutItem.css';
 
 const CheckoutItem = (props) => {
   const { cartItem: { totalProduct, price, quant, name },
@@ -21,7 +22,7 @@ const CheckoutItem = (props) => {
     return newPrice;
   };
   return (
-    <li>
+    <div className="main-checkout-item">
       <p data-testid={ `customer_checkout__element-order-table-item-number-${order}` }>
         {order + 1}
       </p>
@@ -36,13 +37,14 @@ const CheckoutItem = (props) => {
         {brazilianPrice(totalProduct)}
       </p>
       <button
+        className="checkout-item-button"
         type="button"
         onClick={ removeOrder }
         data-testid={ `customer_checkout__element-order-table-remove-${order}` }
       >
         Remover
       </button>
-    </li>
+    </div>
   );
 };
 
