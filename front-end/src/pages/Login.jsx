@@ -90,7 +90,7 @@ function Login() {
 
   return (
     <main className="flex flex-col md:flex-row items-center">
-      <section className="flex flex-col justify-center">
+      <section className="flex flex-col justify-center text-center">
         <img
           style={ { height: '200px', width: '200px' } }
           src={ logoDelivery }
@@ -98,7 +98,7 @@ function Login() {
         />
         <h1>Delivery</h1>
       </section>
-      <section className="flex flex-col justify-center">
+      <section className="flex flex-col justify-center fundo-login">
         <TextInput
           type="text"
           name="email"
@@ -106,6 +106,7 @@ function Login() {
           labelText="Login"
           placeholderText="email@appdelivery.com.br"
           dataTestId={ dataTestIds[1] }
+          classStyle=""
         />
         <TextInput
           type="password"
@@ -114,22 +115,25 @@ function Login() {
           labelText="Senha"
           placeholderText="************"
           dataTestId={ dataTestIds[2] }
+          classStyle="input-login"
         />
         <LargeButton
           buttonText="LOGIN"
           isDisabled={ disableButton }
           onClick={ handleClick }
           dataTestId={ dataTestIds[3] }
+          classStyle="btn-login"
         />
         <Link to="/register">
           <LargeButton
             buttonText="Ainda não tenho conta"
             onClick={ () => {} }
             dataTestId={ dataTestIds[4] }
+            classStyle="text-gray-600 text-xs w-2/3"
           />
         </Link>
       </section>
-      { errorMessage && errorDivMessage }
+      {errorMessage && errorDivMessage}
     </main>
   );
 }

@@ -64,14 +64,13 @@ function OrderCard({ sale }) {
               { transformDate(date) }
             </p>
             <p
-              // data-testid={ role === 'seller' && `${dataTestIds[51]}${id}` }
               data-testid={
                 role === 'seller'
                   ? `${dataTestIds[51]}${id}`
                   : `${dataTestIds[36]}${id}`
               }
             >
-              { price.replace('.', ',') }
+              { price.toFixed(2).replace('.', ',') }
             </p>
           </div>
         </div>

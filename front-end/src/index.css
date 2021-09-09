@@ -16,3 +16,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.btn-login {
+  @apply py-2 px-4 bg-green-500 text-white
+    font-semibold rounded-lg shadow-md 
+    hover:bg-green-700 focus:outline-none 
+    focus:ring-2 focus:ring-green-400 
+    focus:ring-opacity-75 mt-3
+    disabled:opacity-50;
+}
+
+input {
+  @apply block border p-2 bg-white w-full h-10
+  focus:outline-none focus:border-blue-400
+  rounded text-sm placeholder-gray-600
+  placeholder-opacity-40 text-gray-600 mb-3;
+}
+
+.fundo-login {
+  @apply w-4/5 rounded shadow-lg
+   my-10 p-6 pb-10 bg-gray-100;
+}
