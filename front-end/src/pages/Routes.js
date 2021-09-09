@@ -1,10 +1,13 @@
 import React from 'react';
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
-import Login from './Login';
 import CustomerProvider from '../context/customerProvider';
+import SellerProvider from '../context/sellerProvider';
+import Login from './Login';
 import Checkout from './Checkout';
 import ClientProducts from './ClientProducts';
 import Register from './Register';
+import CustomerOrdersDetails from './customer/CustomerOrdersDetails';
+import OrderDetail from './OrderDetail';
 import Admin from './Admin';
 import SellerOrder from './SellerOrder';
 import CustomerOrder from './CustomerOrder';
@@ -18,12 +21,30 @@ const Routes = () => (
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
       <Route path="/admin/manage" component={ Admin } />
-      <Route path="/seller/orders" component={ SellerOrder } />
-      <Route path="/customer/orders" component={ CustomerOrder } />
-      <CustomerProvider>
-        <Route path="/customer/checkout" component={ Checkout } />
-        <Route path="/customer/products" component={ ClientProducts } />
-      </CustomerProvider>
+      <Route
+        path="/seller/orders/:id"
+        render={ () => <SellerProvider><OrderDetail /></SellerProvider> }
+      />
+      <Route
+        path="/seller/orders"
+        render={ () => <SellerProvider><SellerOrder /></SellerProvider> }
+      />
+      <Route
+        path="/customer/checkout"
+        render={ () => <CustomerProvider><Checkout /></CustomerProvider> }
+      />
+      <Route
+        path="/customer/products"
+        render={ () => <CustomerProvider><ClientProducts /></CustomerProvider> }
+      />
+      <Route
+        path="/customer/orders/:id"
+        render={ () => <CustomerProvider><CustomerOrdersDetails /></CustomerProvider> }
+      />
+      <Route
+        path="/customer/orders"
+        render={ () => <CustomerProvider><CustomerOrder /></CustomerProvider> }
+      />
     </Switch>
   </BrowserRouter>
 );
