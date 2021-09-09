@@ -12,9 +12,6 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <Redirect to="/login" />
-        </Route>
         <Route path="/login" component={ Login } />
         <Route path="/register" component={ Register } />
         <Route path="/customer/orders" component={ CustomerOrders } />
@@ -22,6 +19,9 @@ function App() {
         <Route path="/customer/products" component={ Products } />
         <Route path="/customer/checkout" component={ Checkout } />
         <Route path="/customer/orders/:id" component={ OrderDetails } />
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

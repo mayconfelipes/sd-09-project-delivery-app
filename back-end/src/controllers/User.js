@@ -8,7 +8,7 @@ const login = rescue(async (req, res) => {
   const response = await User.login(email, password);
 
   const payload = response;
-  const secret = process.env.JWT_SECRET || 'secret_key';
+  const secret = 'secret_key';
 
   const config = { algorithm: 'HS256', expiresIn: '30m' };
 
