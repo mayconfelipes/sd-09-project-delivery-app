@@ -60,12 +60,12 @@ li a:hover {
   background-color: #fff9d5;
 }
 
-#username, #logout {
+.username, .logout {
   color: #fff;
   font-weight: bold;
 }
 
-#logout {
+.logout {
   background-color: #056CF9;
 }
 

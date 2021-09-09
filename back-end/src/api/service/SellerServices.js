@@ -17,7 +17,7 @@ const getAll = async (email) => {
 
   const salesBySeller = await sale.findAll({
     where: {
-      sellerId: id, // estava em camelCase, provavelmente não vai funfar agora
+      sellerId: id,
     },
     include: {
       model: product,
