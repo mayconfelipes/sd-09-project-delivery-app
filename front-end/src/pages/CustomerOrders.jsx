@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router';
 import NavBar from '../Components/NavBar';
 import SaleCard from '../Components/SaleCard';
+import formatDate from '../services/formatDate';
 
 function CustomerOrders() {
   const history = useHistory();
@@ -51,7 +52,7 @@ function CustomerOrders() {
                 saleId={ sale.id }
                 deliveryNumber={ sale.id }
                 status={ sale.status }
-                saleDate={ sale.saleDate }
+                saleDate={ formatDate(sale.saleDate) }
                 totalPrice={ sale.totalPrice }
               />
             </div>
