@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const CardProduct = (props) => {
   const { product: { id, name, price, urlImage }, setChanged } = props;
-  // const { setChanged } = props;
   const prefix = 'customer_products__';
 
   const quantityLocal = (prodName) => {
