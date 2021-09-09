@@ -13,6 +13,7 @@ import SellerOrders from './pages/sellerOrders/SellerOrders';
 import CustumerProducts from './pages/custumerProducts/CustumerProducts';
 import Checkout from './pages/checkout/Checkout';
 import OrderDetails from './pages/orderDetails/OrdersDetails';
+import AdmManager from './pages/adm/AdmManager';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/customer/products" component={ CustumerProducts } />
           <Route exact path="/customer/checkout" component={ Checkout } />
           <Route exact path="/register" component={ Register } />
+          <Route exact path="/admin/manage" component={ AdmManager } />
         </Switch>
       </Router>
     </GlobalProvider>
