@@ -12,6 +12,10 @@
   width: 17rem;
 }
 
+.login-title {
+  margin: 20px 0;
+}
+
 .login-container label {
   display: flex;
   flex-direction: column;
@@ -44,4 +48,9 @@
 
 .buttons-login-container button:nth-child( 1 ) {
   background-color: #456df9;
+}
+
+img {
+  height: 100px;
+  width: 100px;
 }

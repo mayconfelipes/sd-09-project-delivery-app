@@ -5,6 +5,10 @@
   justify-content: center;
 }
 
+/* .checkout-container header {
+  max-width: 100%;
+} */
+
 .checkout-main-container {
   display: flex;
   flex-direction: column;
