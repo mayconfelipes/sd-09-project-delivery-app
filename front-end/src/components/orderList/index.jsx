@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import Context from '../../context';
 import * as S from './styled';
@@ -7,6 +7,7 @@ const OrderList = () => {
   const { allSales } = useContext(Context);
   const [details, setDetails] = useState({ redirect: false, orderId: 0 });
   const { redirect, orderId } = details;
+  const [changeDataTestId, setChangeDataTestId] = useState(false);
 
   const redirectTo = (id) => {
     setDetails({
@@ -15,10 +16,33 @@ const OrderList = () => {
     });
   };
 
+  useEffect(() => {
+    const pathName = window.location.pathname;
+    if (pathName === 'customer/orders') setChangeDataTestId(true);
+  }, []);
+  // console.log('customer/orders', pathName);
+  // 33: customer_orders__element-order-id-\<id>
+  // - 34: customer_orders__element-delivery-status-\<id>
+  // -
+  // - 35: customer_orders__element-order-date-\<id>
+  // { `common_${register ? 'register' : 'login'}__input-email` }
+  const returnP = (id, deliveryAddress, deliveryNumber) => (
+    <p
+      name={ id }
+      value={ id }
+      data-testid={ `seller_orders__element-card-address-${id}` }
+    >
+      {`${deliveryAddress} ${deliveryNumber}`}
+    </p>
+  );
+
   return (
     <S.SalesList>
       {
-        redirect && <Redirect to={ `/seller/orders/${orderId}` } />
+        redirect
+          && <Redirect
+            to={ `/${changeDataTestId ? 'seller' : 'customer'}/orders/${orderId}` }
+          />
       }
       {
         allSales.map(({
@@ -33,21 +57,30 @@ const OrderList = () => {
             <p
               name={ id }
               value={ id }
-              data-testid={ `seller_orders__element-order-id-${id}` }
+              data-testid={
+                `${changeDataTestId
+                  ? 'seller' : 'customer'}_orders__element-order-id-${id}`
+              }
             >
               {`Pedido ${id}`}
             </p>
             <p
               name={ id }
               value={ id }
-              data-testid={ `seller_orders__element-delivery-status-${id}` }
+              data-testid={
+                `${changeDataTestId
+                  ? 'seller' : 'customer'}_orders__element-order-date-${id}`
+              }
             >
               {status}
             </p>
             <p
               name={ id }
               value={ id }
-              data-testid={ `seller_orders__element-order-date-${id}` }
+              data-testid={
+                `${changeDataTestId
+                  ? 'seller' : 'customer'}_orders__element-delivery-status-${id}`
+              }
             >
               {saleDate}
             </p>
@@ -58,13 +91,9 @@ const OrderList = () => {
             >
               {totalPrice}
             </p>
-            <p
-              name={ id }
-              value={ id }
-              data-testid={ `seller_orders__element-card-address-${id}` }
-            >
-              {`${deliveryAddress} ${deliveryNumber}`}
-            </p>
+            {changeDataTestId
+              ? returnP(id, deliveryAddress, deliveryNumber)
+              : ''}
           </S.SaleCard>
         ))
       }

@@ -20,7 +20,7 @@ const AdminManage = () => {
   const { name, email, password, role } = data;
 
   const paginas = [
-    'GERENCIAR USUÁRIOS /customer_products__element-navbar-link-products',
+    'GERENCIAR USUÁRIOS */customer_products__element-navbar-link-products',
   ];
   const { name: nameUser } = JSON.parse(localStorage.getItem('user'));
 

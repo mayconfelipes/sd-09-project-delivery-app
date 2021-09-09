@@ -39,11 +39,11 @@ const Products = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, [setCatalog, setLoading]);
+  }, []);
 
   const paginas = [
-    'PRODUTOS /customer_products__element-navbar-link-products',
-    'MEUS PEDIDOS/customer_products__element-navbar-link-orders',
+    'PRODUTOS *customer_products__element-navbar-link-products */customer/products',
+    'MEUS PEDIDOS*customer_products__element-navbar-link-orders */customer/orders',
   ];
   const { name } = JSON.parse(localStorage.getItem('user'));
   return (

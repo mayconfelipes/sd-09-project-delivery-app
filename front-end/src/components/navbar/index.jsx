@@ -14,11 +14,11 @@ const Navbar = ({ abas, user }) => {
     <nav>
       {abas.map((aba) => (
         <a
-          data-testid={ aba.split('/')[1] }
+          data-testid={ aba.split('*')[1] }
           key={ aba }
-          href="/customer/products"
+          href={ aba.split('*')[2] }
         >
-          { aba.split('/')[0] }
+          { aba.split('*')[0] }
         </a>))}
       <span
         data-testid="customer_products__element-navbar-user-full-name"

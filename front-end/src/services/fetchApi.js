@@ -58,3 +58,31 @@ export const getAllSales = async (token) => {
 
   return code;
 };
+
+export const getAllPurchases = async (token) => {
+  const code = await fetch(`${URL}customer/list-orders`, {
+    method: 'GET',
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+
+  return code;
+};
+
+export const getOrderById = async (token, id) => {
+  const code = await fetch(`${URL}customer/orders/${id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((err) => err);
+
+  return code;
+};
