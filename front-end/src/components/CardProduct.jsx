@@ -69,6 +69,7 @@ function CardProduct({ product }) {
       </h2>
       <div>
         <button
+          className="butoncard"
           type="button"
           name="rm-button"
           data-testid={ `customer_products__button-card-rm-item-${id}` }
@@ -86,6 +87,7 @@ function CardProduct({ product }) {
           className="product__card__price__input"
         />
         <button
+          className="butoncard"
           type="button"
           name="add-button"
           data-testid={ `customer_products__button-card-add-item-${id}` }

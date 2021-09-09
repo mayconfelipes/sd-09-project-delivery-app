@@ -12,7 +12,7 @@ export default function CardOrder({ venda, role }) {
     <div className="corpo_card">
       <div className="div_pedido">
         <span>Pedido</span>
-        <Link to={ `/customer/orders/${id}` }>
+        <Link to={ `/customer/orders/${id}` } className="linkid">
           <span
             data-testid={ `customer_orders__element-order-id-${id}` }
           >
@@ -22,6 +22,7 @@ export default function CardOrder({ venda, role }) {
       </div>
 
       <button
+        className="btn btn-success"
         type="button"
         data-testid={ `customer_orders__element-delivery-status-${id}` }
       >

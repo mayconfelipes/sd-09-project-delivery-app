@@ -1,21 +1,33 @@
 .corpo_card {
-  background: rgb(124, 241, 151);
+  background: rgba(37, 146, 64, 0.6);
   display: flex;
   flex-direction: row;
   margin: 15px;
   width: 300px;
+  color: rgba(136, 18, 83, 0.8);
+  font-weight: bold;
+  
 }
 
 .div_pedido {
   align-items: center;
+  color: rgba(136, 18, 83, 0.8);
+  font-weight: bold;
   display: flex;
   flex-direction: column;
   width: 130px;
 }
 
 .data_valor {
+  color: rgba(136, 18, 83, 0.8);
+  font-weight: bold;
   align-items: center;
   display: flex;
   flex-direction: column;
   width: 130px;
+}
+
+.linkid {
+  color: rgba(136, 18, 83, 0.8);
+  font-weight: bold;
 }

@@ -1,0 +1,15 @@
+  
+  .form_registro {
+    background-color: rgba(57, 138, 97, 0.8);
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    justify-content: space-around;
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 5%;  
+    text-align: center;
+    width: 60%;
+  };
+
+  

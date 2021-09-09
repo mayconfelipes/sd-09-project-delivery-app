@@ -1,3 +1,8 @@
+.butoncard {
+  background-color: rgba(136, 18, 83, 0.8);
+  color: rgb(233, 221, 224);
+}
+
 .product__card {
   align-items: center;
   border: 1px solid grey;
@@ -10,13 +15,16 @@
   padding: 1px;
   position: relative;
   width: 200px;
+  background-color: rgba(37, 146, 64, 0.8);
 }
 
 .product__card__price {
   left: 10px;
   position: absolute;
-  top: 10px;
+  top: 20px;
   z-index: 1000;
+  font-weight: bold ;
+  color: rgba(136, 18, 83, 0.8);
 }
 
 .product__card__image {
@@ -26,11 +34,14 @@
 
 .product__card__title {
   font-size: 1rem;
+  color: rgba(69, 243, 121, 0.8);
 }
 
 .product__card__price__input {
   text-align: center;
   width: 1.1em;
+  color: rgba(136, 18, 83, 0.8);
+  background-color: rgba(95, 248, 81, 0.568);
 }
 
 .product__card__price__input::-webkit-inner-spin-button {

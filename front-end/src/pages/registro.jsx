@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import Input from '../components/input';
 import validators from '../utils/registrationValidation';
+import '../styles/Registro.css';
 
 function Registro() {
   const [name, setName] = useState('');
@@ -59,8 +60,8 @@ function Registro() {
 
   return (
     <div className="registro">
-      <form>
-        <div className="form-group">
+      <form className="form_registro">
+        <div>
           <Input
             className="form-control"
             id="exampleInputName"
@@ -72,7 +73,7 @@ function Registro() {
             onChange={ handleChange }
           />
         </div>
-        <div className="form-group">
+        <div>
           <Input
             className="form-control"
             id="exampleInputEmail1"
@@ -84,7 +85,7 @@ function Registro() {
             onChange={ handleChange }
           />
         </div>
-        <div className="form-group">
+        <div>
           <Input
             className="form-control"
             id="exampleInputPassword1"
@@ -95,16 +96,18 @@ function Registro() {
             onChange={ handleChange }
           />
         </div>
-        <button
-          type="button"
-          className="btn btn-success"
-          name="Cadastrar"
-          data-testid="common_register__button-register"
-          disabled={ disabled }
-          onClick={ handleRegister }
-        >
-          Cadastrar
-        </button>
+        <div>
+          <button
+            type="button"
+            className="btn btn-success"
+            name="Cadastrar"
+            data-testid="common_register__button-register"
+            disabled={ disabled }
+            onClick={ handleRegister }
+          >
+            Cadastrar
+          </button>
+        </div>
         {
           error.length > 0
             && (

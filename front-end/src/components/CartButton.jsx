@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
-import '../styles/buttons.css';
 import Context from '../context/ProductsContext';
 
 export default function Button({ ...rest }) {

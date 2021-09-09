@@ -31,15 +31,17 @@ const Header = () => {
             { userData.name }
           </li>
         </ul>
+        <button
+          className="btn btn-success"
+          id="btnheader"
+          type="button"
+          name="Sair"
+          data-testid="customer_products__element-navbar-link-logout"
+          onClick={ cleanUp }
+        >
+          Sair
+        </button>
       </nav>
-      <button
-        type="button"
-        name="Sair"
-        data-testid="customer_products__element-navbar-link-logout"
-        onClick={ cleanUp }
-      >
-        Sair
-      </button>
     </header>
   );
 };

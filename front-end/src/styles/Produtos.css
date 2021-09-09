@@ -1,6 +1,6 @@
 .products__page {
   position: relative;
-}
+ }
 
 .products__list {
   align-items: center;
@@ -13,4 +13,7 @@
   bottom: 25px;
   position: fixed;
   right: 25px;
+  background-color: rgba(37, 146, 64, 0.8);
+  color: rgba(136, 18, 83);;
+  font-weight: bold;
 }

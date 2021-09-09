@@ -126,6 +126,7 @@ const DetalhesPedido = () => {
                 { order.status }
               </span>
               <button
+                className="btn btn-succes"
                 type="button"
                 data-testid="customer_order_details__button-delivery-check"
                 disabled={ order.status !== 'Em Trânsito' }

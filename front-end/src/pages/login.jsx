@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory, useLocation, Redirect } from 'react-router-dom';
 import status from '../utils/status';
+import '../styles/Login.css';
 
 const Login = () => {
   const { state } = useLocation();
@@ -100,11 +101,13 @@ const Login = () => {
         && <span data-testid="common_login__element-invalid-email">{ error }</span>
       }
       <form>
+
         <label htmlFor="emailInput">
           Email
           <input
             type="text"
-            className="loginInput"
+            className="form-control"
+            // className="loginInput"
             placeholder="Email"
             name="email"
             id="emailInput"
@@ -115,8 +118,9 @@ const Login = () => {
         <label htmlFor="passwordInput">
           Senha
           <input
+            className="form-control"
             type="password"
-            className="loginInput"
+            // className="loginInput"
             placeholder="Senha"
             name="password"
             id="passwordInput"
@@ -124,7 +128,10 @@ const Login = () => {
             data-testid="common_login__input-password"
           />
         </label>
+
         <button
+          className="btn btn-success"
+          id="in"
           type="button"
           data-testid="common_login__button-login"
           name="Login"
@@ -136,6 +143,7 @@ const Login = () => {
       </form>
       <Link to="/register">
         <button
+          className="btn btn-success"
           type="button"
           data-testid="common_login__button-register"
         >
