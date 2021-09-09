@@ -18,13 +18,13 @@ const TableRow = ({ item, product, onclick }) => {
         { quantity }
       </td>
       <td data-testid={ `customer_checkout__element-order-table-unit-price-${item}` }>
-        { unitPrice }
+        { `R$ ${unitPrice}` }
       </td>
       <td data-testid={ `customer_checkout__element-order-table-sub-total-${item}` }>
-        { subTotal.toString().replace(/\./, ',') }
+        { `R$ ${subTotal.toString().replace(/\./, ',')}` }
       </td>
       <td data-testid={ `customer_checkout__element-order-table-remove-${item}` }>
-        <button type="button" onClick={ () => onclick(item) }>
+        <button className="btn-remover" type="button" onClick={ () => onclick(item) }>
           Remover
         </button>
       </td>

@@ -1,14 +1,53 @@
 .checkout-container {
+  align-items: center;
+  justify-content: center;
   display: flex;
   flex-direction: column;
 }
 
-.order-list-container {
+.checkout-main-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.address-container {
   border: 1px solid #b1c2be;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  margin-top: 10px;
   padding: 10px;
+}
+
+.address-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-list-container select {
+  background-color: transparent;
+  border-radius: 5px;
+  height: 40px;
+  width: 150px;
+}
+
+.order-list-container input {
+  border: 1px solid #b1c2be;
+  border-radius: 5px;
+  height: 40px;
+  padding-left: 10px;
+  width: 350px;
+}
+
+#address-number {
+  border-radius: 5px;
+  height: 40px;
+  width: 80px;
+}
+
+h2 {
+  color: #001813;
+  margin-top: 20px;
 }
 
 table {
@@ -17,7 +56,11 @@ table {
 }
 
 th {
-  padding: 5px;
+  padding: 10px;
+}
+
+tr {
+  border-radius: 5px;
 }
 
 td {
@@ -25,8 +68,48 @@ td {
   text-align: center;
 }
 
+td:nth-child( 1 ) {
+  background-color: #2FC18C;
+}
+
 td:nth-child( 2 ) {
+  background-color: #EAF1EF;
+  /* display: flex; */
+  /* flex-basis: 300px; */
+  width: 300px;
   text-align: left;
+}
+
+td:nth-child( 3 ) {
+  background-color: #036B52;
+  color: white;
+}
+
+td:nth-child( 4 ) {
+  background-color: #421981;
+  color: white;
+}
+
+td:nth-child( 5 ) {
+  background-color: #056CF9;
+  color: white;
+}
+
+td:nth-child( 5 ) {
+  padding: 0;
+}
+
+.btn-remover {
+  align-items: center;
+  background-color: #2FC18C;
+  border: none;
+  color: white;
+  display: flex;
+  font-weight: bold;
+  height: 100%;
+  justify-content: center;
+  padding: 5px;
+  width: 100%;
 }
 
 .order-price {
