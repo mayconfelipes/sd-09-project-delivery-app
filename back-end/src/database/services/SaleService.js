@@ -47,23 +47,12 @@ const allSalesBySellerId = async (id) => {
   }
 };
 
-const allOrdersByCostumerId = async (id) => {
+const allPurchasesByCostumerId = async (id) => {
   try {
-    const allSales = await Sale.findAll({
-      where: { seller_id: id },
+    const allPurchases = await Sale.findAll({
+      where: { user_id: id },
     });
-    return allSales;
-  } catch (_error) {
-    throw errorHelper(409, '"data" conflict');
-  }
-};
-
-const saleById = async (id) => {
-  try {
-    const order = await Sale.find({
-      where: { sale_id: id },
-    });
-    return order;
+    return allPurchases;
   } catch (_error) {
     throw errorHelper(409, '"data" conflict');
   }
@@ -72,5 +61,6 @@ const saleById = async (id) => {
 module.exports = {
   checkOut,
   allSalesBySellerId,
-  saleById,
+  allPurchasesByCostumerId,
+  orderById,
 };

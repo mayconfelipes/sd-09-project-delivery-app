@@ -15,18 +15,12 @@ const allSales = rescue(async (req, res) => {
 });
 
 const allPurchases = rescue(async (req, res) => {
-  // const sales = await Sale.getSaleById(id);
-  // return res.status(201).json(sales);
-});
-
-const saleById = rescue(async (req, res) => {
-  const { id } = req.params;
-  const order = await Sale.saleById(id);
-
-  return res.status(201).json(order);
+  const purchases = await Sale.getAllPurshasesById(id);
+  return res.status(201).json(purchases);
 });
 
 module.exports = {
   checkOut,
   allSales,
+  allPurchases,
 };
