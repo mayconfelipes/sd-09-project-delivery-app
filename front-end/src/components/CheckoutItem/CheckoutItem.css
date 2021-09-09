@@ -1,0 +1,18 @@
+.main-checkout-item {
+  align-self: center;
+  background-color: #869bcf;
+  border-color: none;
+  border-radius: 20px;
+  color: #F0F0F0;
+  display: flex;
+  flex-direction: row;
+  font-weight: 700;
+  font-size: 16px;
+  justify-content: space-around;
+  margin-bottom: 8%;
+  width: 90vw;
+};
+
+.checkout-item-button {
+margin-left: 115%;
+}

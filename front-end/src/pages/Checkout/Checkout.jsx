@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
 import NavBar from '../../components/NavBar/NavBar';
-import CheckoutItem from '../../components/CheckoutItem';
+import CheckoutItem from '../../components/CheckoutItem/CheckoutItem';
 import connectBack from '../../utills/axiosConfig';
+import './Checkout.css';
 
 const Checkout = () => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -86,7 +87,7 @@ const Checkout = () => {
       <NavBar />
       <section>
         <h2>Finalizar Pedido</h2>
-        <ul>
+        <div className="container-checkout">
           {cartItens.map((item, index) => (<CheckoutItem
             key={ index + item.item.name }
             cartItem={ item.item }
@@ -95,7 +96,7 @@ const Checkout = () => {
             setCartItens={ setCartItens }
             setTotalPrice={ setTotalPrice }
           />))}
-        </ul>
+        </div>
         <p />
         <button
           type="button"
