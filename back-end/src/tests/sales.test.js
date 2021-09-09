@@ -140,3 +140,71 @@ describe('GET /sales/:id', () => {
     });
   });
 });
+
+describe('PUT /sales/:id', () => {
+  describe('pegando uma compra', () => {
+    let response;
+
+    before(async () => {
+      loginResponse = await chai.request(server)
+      .post('/login')
+      .send({
+        email: 'fulana@deliveryapp.com',
+        password: 'fulana@123'
+      })
+      .then((result) => result.body.token);
+
+      response = await chai.request(server)
+        .put('/sales/1')
+        .send({
+          status: 'Preparando'
+        })
+        .set('authorization', loginResponse);
+    });
+
+    it('retorna o codigo de status 200', () => {
+      expect(response).to.have.status(200);
+    });
+
+    it('retorna um objeto', () => {
+      expect(response.body).to.be.a('object');
+    });
+
+    it('o objeto possui a propriedade "deliveryAddress"', () => {
+      expect(response.body).to.have.property('deliveryAddress');
+    });
+  });
+
+  describe('pegando compra que nao existe', () => {
+    let response;
+
+    before(async () => {
+      loginResponse = await chai.request(server)
+      .post('/login')
+      .send({
+        email: 'fulana@deliveryapp.com',
+        password: 'fulana@123'
+      })
+      .then((result) => result.body.token);
+
+      response = await chai.request(server)
+        .put('/sales/15')
+        .send({
+          status: 'Preparando'
+        })
+        .set('authorization', loginResponse);
+    });
+
+    it('retorna o codigo de status 404', () => {
+      expect(response).to.have.status(404);
+    });
+
+    it('retorna um objeto', () => {
+      expect(response.body).to.be.a('object');
+    });
+
+    it('deve retornar a mensagem com "Sale does not exist"', () => {
+      expect(response.body.message).to.be.equal('Sale does not exist');
+    });
+  });
+});

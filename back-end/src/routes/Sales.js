@@ -10,6 +10,6 @@ router.get('/', token, Sales.getAll);
 
 router.get('/:id', token, Sales.getById);
 
-// router.put('/:id', token, Sales.updateSale);
+router.put('/:id', token, Sales.updateSale);
 
 module.exports = router;
