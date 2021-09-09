@@ -6,8 +6,8 @@ import FormAdressFull from '../../components/formAdressFull';
 const CheckOut = () => {
   const { name } = JSON.parse(localStorage.getItem('user'));
   const paginas = [
-    'PRODUTOS */customer_products__element-navbar-link-products */customer/products',
-    'MEUS PEDIDOS*/customer_products__element-navbar-link-orders */customer/orders',
+    'PRODUTOS *customer_products__element-navbar-link-products */customer/products',
+    'MEUS PEDIDOS*customer_products__element-navbar-link-orders */customer/orders',
   ];
 
   return (

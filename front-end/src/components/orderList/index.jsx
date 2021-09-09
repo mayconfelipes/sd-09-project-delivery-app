@@ -20,12 +20,7 @@ const OrderList = () => {
     const pathName = window.location.pathname;
     if (pathName === 'customer/orders') setChangeDataTestId(true);
   }, []);
-  // console.log('customer/orders', pathName);
-  // 33: customer_orders__element-order-id-\<id>
-  // - 34: customer_orders__element-delivery-status-\<id>
-  // -
-  // - 35: customer_orders__element-order-date-\<id>
-  // { `common_${register ? 'register' : 'login'}__input-email` }
+
   const returnP = (id, deliveryAddress, deliveryNumber) => (
     <p
       name={ id }

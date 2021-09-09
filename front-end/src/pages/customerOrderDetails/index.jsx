@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
-// import Navbar from '../../components/navbar';
+import Navbar from '../../components/navbar';
 import { getOrderById } from '../../services/fetchApi';
 
 const CustomerOrderDetails = () => {
   const [order, setOrder] = useState([]);
-
+  const { name } = JSON.parse(localStorage.getItem('user'));
+  const paginas = [
+    'PRODUTOS *customer_products__element-navbar-link-products */customer/products',
+    'MEUS PEDIDOS*customer_products__element-navbar-link-orders */customer/orders',
+  ];
   const getOrder = () => {
-    const { token } = JSON.parse(localStorage.getItem('cart'));
+    const { token } = JSON.parse(localStorage.getItem('user'));
     const pathName = window.location.pathname;
     console.log(order, setOrder);
 
@@ -21,7 +25,7 @@ const CustomerOrderDetails = () => {
 
   return (
     <div>
-      {/* <Navbar /> */}
+      <Navbar abas={ paginas } user={ name } />
       <h1>Bora</h1>
     </div>
   );

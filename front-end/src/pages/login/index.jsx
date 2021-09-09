@@ -41,6 +41,20 @@ const Login = () => {
     setEnableButton(isValid);
   }, [email, password, setEnableButton, setForm]);
 
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('user'))) {
+      const { token, role } = JSON.parse(localStorage.getItem('user'));
+      const ten = 10;
+
+      if (token.length > ten) {
+        setRegisterOkay({
+          redirect: true,
+          roleUser: role,
+        });
+      }
+    }
+  });
+
   return (
     <Main>
       {

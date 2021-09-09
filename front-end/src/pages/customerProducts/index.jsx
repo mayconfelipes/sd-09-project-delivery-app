@@ -8,22 +8,23 @@ import { getProducts } from '../../services/fetchApi';
 import * as S from './styled';
 
 const Products = () => {
+  // catalog loading
   const {
-    cart, catalog, setCatalog, loading, setLoading,
+    cart, setCatalog, catalog,
   } = useContext(context);
   const { totalValue } = cart;
   const [disabled, setDisabled] = useState(true);
   const [redirect, setRedirect] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchProducts = async () => {
-    setLoading(true);
     const { token } = JSON.parse(localStorage.getItem('user'));
+    console.log(token);
     const result = await getProducts(token);
 
     result.forEach((elem) => {
       elem.price = parseFloat(elem.price);
     });
-
     setCatalog(result);
     setLoading(false);
   };
@@ -40,7 +41,7 @@ const Products = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
-
+  console.log(loading);
   const paginas = [
     'PRODUTOS *customer_products__element-navbar-link-products */customer/products',
     'MEUS PEDIDOS*customer_products__element-navbar-link-orders */customer/orders',
@@ -55,6 +56,7 @@ const Products = () => {
         {
           loading
             ? <p>Loading</p>
+            // : catalog.map((element) => console.log(element))
             : catalog.map(({ name: productName, price, urlImage, id }) => (
               <CardProduct
                 key={ id }

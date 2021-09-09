@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import * as S from './styled';
 
 const Navbar = ({ abas, user }) => {
   const [redirect, setRediret] = useState(false);
@@ -9,17 +10,18 @@ const Navbar = ({ abas, user }) => {
     localStorage.clear();
     setRediret(true);
   };
-
+  // console.log('abas', abas);
+  // console.log('user', user);
   return (
     <nav>
       {abas.map((aba) => (
-        <a
+        <S.LinkNav
           data-testid={ aba.split('*')[1] }
           key={ aba }
-          href={ aba.split('*')[2] }
+          to={ aba.split('*')[2] }
         >
           { aba.split('*')[0] }
-        </a>))}
+        </S.LinkNav>))}
       <span
         data-testid="customer_products__element-navbar-user-full-name"
       >

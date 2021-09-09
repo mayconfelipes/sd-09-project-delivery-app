@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import formatPrice from '../../services/formatPrice';
 import * as S from './styled';
@@ -9,7 +9,6 @@ const CardProduct = ({ image, name, price, id }) => {
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart } = useContext(Context);
   const { totalValue, products } = cart;
-
   const updateCart = ({ target }) => {
     if (target.name === 'increase') {
       const notExist = -1;
@@ -46,8 +45,9 @@ const CardProduct = ({ image, name, price, id }) => {
 
   useEffect(() => {
     setValeuInput(quantity * price);
-
-    if (!JSON.parse(localStorage.getItem('cart'))) {
+    const test = JSON.parse(localStorage.getItem('cart'));
+    console.log('test', test);
+    if (!test) {
       localStorage.setItem('cart', JSON.stringify({ products: [], totalValue: 0 }));
     }
   }, [quantity, valeuInput]);
