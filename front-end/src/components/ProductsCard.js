@@ -85,7 +85,12 @@ const ProductsCard = ({ product }) => {
 };
 
 ProductsCard.propTypes = {
-  product: PropTypes.objectOf.isRequired,
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    price: PropTypes.string,
+    url_image: PropTypes.string,
+  }).isRequired,
 };
 
 export default ProductsCard;

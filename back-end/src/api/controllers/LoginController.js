@@ -9,9 +9,9 @@ const login = rescue(async (req, res, next) => {
     return next(error);
   }
 
-  const { token, name, email, role } = await loginService.login({ ...req.body });
+  const { token, name, email, role, id } = await loginService.login({ ...req.body });
 
-  return res.status(200).json({ token, name, email, role });
+  return res.status(200).json({ token, name, email, role, id });
 });
 
 module.exports = { login };
