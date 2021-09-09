@@ -25,6 +25,8 @@ const OrderDetails = () => {
     getOrder();
   }, [getOrder]);
 
+  // novo pusj
+
   const brazilianPrice = (value) => {
     const minN = 3;
     if (typeof value === 'number') value = value.toFixed(2);
