@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
 import Header from '../components/Header';
-import useRegister from '../hooks/useRegister';
+import useAdminRegister from '../hooks/useAdminRegister';
 import useRegisterInputs from '../hooks/utils/useRegisterInputs';
 
 const Admin = () => {
-  const history = useHistory();
-
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('seller');
-  const [setRegister, register] = useRegister();
+  const [setRegister, register] = useAdminRegister();
   const [validInputs, validateInputs] = useRegisterInputs();
-
-  useEffect(() => {
-    if (register.register) {
-      history.push('/customer/products');
-    }
-  }, [register, history]);
 
   useEffect(() => {
     if (name !== '' && email !== '' && password !== '' && role !== '') {
       validateInputs(name, email, password);
     }
   }, [name, email, password, role, validateInputs]);
+
+  useEffect(() => {
+    if (register.register) {
+      setName('');
+      setEmail('');
+      setRole('seller');
+      setPassword('');
+    }
+  }, [register.register]);
 
   function handleRegister() {
     setRegister({ name, email, password, role });
@@ -41,6 +41,7 @@ const Admin = () => {
             id="userName"
             name="userName"
             placeholder="Nome e sobrenome"
+            value={ name }
             data-testid="admin_manage__input-name"
             onChange={ ({ target }) => setName(target.value) }
           />
@@ -52,6 +53,7 @@ const Admin = () => {
             name="userEmail"
             placeholder="seu-email@site.com.br"
             data-testid="admin_manage__input-email"
+            value={ email }
             onChange={ ({ target }) => setEmail(target.value) }
           />
         </label>
@@ -62,6 +64,7 @@ const Admin = () => {
             name="userPassword"
             type="password"
             placeholder="●●●●●●"
+            value={ password }
             data-testid="admin_manage__input-password"
             onChange={ ({ target }) => setPassword(target.value) }
           />
@@ -99,7 +102,7 @@ const Admin = () => {
           </select>
         </label>
         <button
-          type="submit"
+          type="button"
           data-testid="admin_manage__button-register"
           disabled={ !validInputs }
           onClick={ handleRegister }
@@ -107,6 +110,11 @@ const Admin = () => {
           CADASTRAR
         </button>
       </form>
+      { register.message && (
+        <p data-testid="admin_manage__element-invalid-register">
+          { register.message }
+        </p>
+      ) }
     </div>
   );
 };

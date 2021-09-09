@@ -21,13 +21,14 @@ const generateToken = (userData) => {
 };
 
 const isValidToken = (authorization) => {
-  if (!authorization) {
-    const error = { type: Unauthorized, message: 'Token not found' };
-    throw error;
-  }
-
   try {
+    if (!authorization) {
+      const error = { type: Unauthorized, message: 'Token not found' };
+      // console.log('caiu aqui no if');
+      throw error;
+    }
     const userData = jwt.verify(authorization, secret);
+    // console.log(authorization);
     return userData;
   } catch (error) {
     const err = { type: Unauthorized, message: 'Expired or invalid token' };

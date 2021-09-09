@@ -109,7 +109,7 @@ describe(requirement(40), () => {
   });
 });
 
-describe(requirement(41), () => {
+describe.only(requirement(41), () => {
   const people = createUserForAdm(lengthRules);
 
   test(`O avaliador tentará realizar o fluxo de cadastro com ${people.length} pessoas usuárias, validando-os no banco`, async () => {
@@ -121,7 +121,7 @@ describe(requirement(41), () => {
   });
 });
 
-describe(requirement(42), () => {
+describe.only(requirement(42), () => {
   const testUser = newUser({ passwordLen: lengthRules.password });
   testUser.role = Math.round(Math.random()) ? "seller" : "customer";
 
