@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import './Seller.css';
-import NavBar from '../../components/NavBar';
+import NavBar from '../../components/NavBar/NavBar';
 
 const Seller = () => {
   const [sales, setSales] = useState([]);

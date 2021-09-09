@@ -1,0 +1,58 @@
+.card-products-container {
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 3px 7px rgba(19, 78, 78, 0.315);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 7%;
+  margin-left: 13%;
+  width: 70vw;
+}
+
+.card-products-botton {
+  background-color: rgba(19, 78, 78, 0.116);
+}
+
+.card-products-top {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10%;
+}
+
+.container-name {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-card-quantity {
+  margin-bottom: 10%;
+  width: 10vw;
+}
+
+.product-image {
+  margin-left: -10%;
+  width: 40vw;
+  z-index: 1;
+}
+
+.products-less-button {
+  border-radius: 25% 0% 0% 25%;
+}
+
+.products-mor-button {
+  border-radius: 0% 25% 25% 0%;
+}
+
+.product-name {
+  align-self: center;
+  display: flex;
+}
+
+.product-price {
+  z-index: 2;
+}
+
+.quantity-buttons {
+  margin-left: 35%;
+}

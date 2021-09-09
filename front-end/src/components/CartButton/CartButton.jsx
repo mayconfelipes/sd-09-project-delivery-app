@@ -1,6 +1,7 @@
 import { React } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './CartButton.css';
 
 const CartButton = ({ totalPrice }) => {
   const history = useHistory();
@@ -12,23 +13,20 @@ const CartButton = ({ totalPrice }) => {
   };
 
   return (
-    <div>
-
-      <button
-        type="button"
-        // data-testid="customer_products__checkout-bottom-value"
-        data-testid="customer_products__button-cart"
-        disabled={ parseInt(totalPrice, 10) === 0 }
-        onClick={ () => history.push('/customer/checkout') }
+    <button
+      type="button"
+      className="cart-button-total-price"
+      data-testid="customer_products__button-cart"
+      disabled={ parseInt(totalPrice, 10) === 0 }
+      onClick={ () => history.push('/customer/checkout') }
+    >
+      <p
+        data-testid="customer_products__checkout-bottom-value"
+        className="cart-button-text"
       >
-        Ver carrinho: R$
-        <p
-          data-testid="customer_products__checkout-bottom-value"
-        >
-          {`${brazilianPrice(totalPrice)}`}
-        </p>
-      </button>
-    </div>
+        {`Ver Carrinho ${brazilianPrice(totalPrice)}`}
+      </p>
+    </button>
   );
 };
 

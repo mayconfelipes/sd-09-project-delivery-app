@@ -43,7 +43,7 @@ beforeEach(async () => {
   showCurrentOrderInfo(currentOrder, global.__TESTDESC__);
 });
 
-describe(requirement(25), () => {
+describe.only(requirement(25), () => {
   test("O avaliador testará os data-testids referentes aos itens e demais elementos", async () => {
     await expect(page).toFindElement(
       customerOrderDetailsPage.element.orderDetails.label.orderId

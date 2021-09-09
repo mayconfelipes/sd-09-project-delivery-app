@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router';
-import NavBar from '../../components/NavBar';
+import NavBar from '../../components/NavBar/NavBar';
 import DetailsItem from '../../components/DetailsItem';
 import OrderDetailsHeader from '../../components/OrderDetailsHeader';
 import connectBack from '../../utills/axiosConfig';
 import TotalButton from './totalButton';
 
 // const dataTestId = require('../../utills/dataTestIds');
-
 const OrderDetails = () => {
   const { id } = useParams();
   const [orderDetails, setOrderDetails] = useState();
@@ -24,6 +23,8 @@ const OrderDetails = () => {
   useEffect(() => {
     getOrder();
   }, [getOrder]);
+
+  // novo pusj
 
   const brazilianPrice = (value) => {
     const minN = 3;

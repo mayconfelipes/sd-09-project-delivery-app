@@ -2,7 +2,6 @@
 > delivery-app-back-end@0.1.0 start
 > npm run with-env react-scripts start
 
-
 > delivery-app-back-end@0.1.0 with-env
 > SKIP_PREFLIGHT_CHECK=true "react-scripts" "start"
 

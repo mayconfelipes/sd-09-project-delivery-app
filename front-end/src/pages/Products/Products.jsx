@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import NavBar from '../../components/NavBar';
-import CardProduct from '../../components/CardProduct';
+import NavBar from '../../components/NavBar/NavBar';
+import CardProduct from '../../components/CardProducts/CardProduct';
 import Loading from '../../components/Loading';
-import CartButton from '../../components/CartButton';
+import CartButton from '../../components/CartButton/CartButton';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
