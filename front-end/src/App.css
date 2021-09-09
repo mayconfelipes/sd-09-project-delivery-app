@@ -209,20 +209,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
 }
+
+.title-table-pedidos {
+  width: 90%;
+  font-weight: 700;
+}
+
 .table-pedido-endereco {
   border: 1px solid rgba(177, 194, 190, 1);
   width: 90%;
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  font-size: 0.8em;
 }
 
 .table-detalhe-title {
   display: flex;
   flex-direction: column;
 }
+
 
 .t-item {
   background: #57bf71;

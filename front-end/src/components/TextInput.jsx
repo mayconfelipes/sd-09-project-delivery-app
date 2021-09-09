@@ -5,7 +5,7 @@ function TextInput({
   type, name, onChange, labelText, placeholderText, dataTestId, classStyle,
 }) {
   return (
-    <label htmlFor={ name }>
+    <label htmlFor={ name } className={ classStyle }>
       { labelText }
       <input
         type={ type }
@@ -14,7 +14,6 @@ function TextInput({
         onChange={ onChange }
         placeholder={ placeholderText }
         data-testid={ dataTestId }
-        className={ classStyle }
       />
     </label>
   );

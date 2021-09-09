@@ -81,6 +81,7 @@ function Checkout() {
     <main>
       <Navbar role={ user.role } />
       <div className="pedido">
+        <p className="mt-10 title-table-pedidos">Detalhes e Endereço para Entrega</p>
         <div className="table-pedido">
           <CheckoutTable cartData={ cartData } />
           <section className="total-value">
@@ -90,9 +91,9 @@ function Checkout() {
             </p>
           </section>
         </div>
-        <p>Detalhes e Endereço para Entrega</p>
+        <p className="mt-10 title-table-pedidos">Detalhes e Endereço para Entrega</p>
         <section className="table-pedido-endereco">
-          <p className="table-detalhe-title">
+          <p className="table-detalhe-title w-1/5">
             {' '}
             P.Vendedora Responsável:
             <DropDownList
@@ -100,6 +101,7 @@ function Checkout() {
               name="sellerId"
               dataTestId={ testIds[29] }
               onChange={ handleChange }
+
             />
           </p>
           <TextInput
@@ -109,6 +111,7 @@ function Checkout() {
             labelText="Endereço"
             placeholderText="Seu endereço aqui"
             dataTestId={ testIds[30] }
+            classStyle="w-2/4 m-5"
           />
           <TextInput
             type="input"
@@ -117,12 +120,14 @@ function Checkout() {
             labelText="Número"
             placeholderText="1234"
             dataTestId={ testIds[31] }
+            classStyle="w-1/5"
           />
           <LargeButton
             buttonText="FINALIZAR PEDIDO"
             isDisabled={ disableButton }
             onClick={ handleSubmit }
             dataTestId={ testIds[32] }
+            classStyle="btn-green w-1/3 m-5"
           />
         </section>
       </div>

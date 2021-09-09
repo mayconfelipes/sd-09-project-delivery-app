@@ -26,7 +26,7 @@ code {
     disabled:opacity-50;
 }
 
-input {
+input, select {
   @apply block border p-2 bg-white w-full h-10
   focus:outline-none focus:border-blue-400
   rounded text-sm placeholder-gray-600
