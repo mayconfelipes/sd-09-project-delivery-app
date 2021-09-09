@@ -7,7 +7,6 @@ import Checkout from './Checkout';
 import ClientProducts from './ClientProducts';
 import Register from './Register';
 import OrderDetail from './OrderDetail';
-import Orders from './Orders';
 import Admin from './Admin';
 import SellerOrder from './SellerOrder';
 import CustomerOrder from './CustomerOrder';
@@ -21,15 +20,13 @@ const Routes = () => (
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
       <Route path="/admin/manage" component={ Admin } />
-      <Route path="/customer/orders" component={ SellerOrder } />
-      <Route path="/seller/orders" component={ CustomerOrder } />
       <Route
         path="/seller/orders/:id"
         render={ () => <SellerProvider><OrderDetail /></SellerProvider> }
       />
       <Route
         path="/seller/orders"
-        render={ () => <SellerProvider><Orders /></SellerProvider> }
+        render={ () => <SellerProvider><SellerOrder /></SellerProvider> }
       />
       <Route
         path="/customer/checkout"
@@ -38,6 +35,10 @@ const Routes = () => (
       <Route
         path="/customer/products"
         render={ () => <CustomerProvider><ClientProducts /></CustomerProvider> }
+      />
+      <Route
+        path="/customer/orders"
+        render={ () => <CustomerProvider><CustomerOrder /></CustomerProvider> }
       />
     </Switch>
   </BrowserRouter>
