@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import api from '../../service/axiosApi';
 import NotFound from '../../components/NotFound/index';
 import { useDeliveryContext } from '../../context/deliveryProvider';
+import './Login.css';
 
 const Login = () => {
   const [isError, setError] = useState();
@@ -10,6 +11,7 @@ const Login = () => {
   const [isDataValid, setIsDataValid] = useState(true);
   const [route, setRoute] = useState('');
   const { userData, setUserData } = useDeliveryContext();
+  const history = useHistory();
 
   function handleInputChange({ target }) {
     const { name, value } = target;
@@ -62,47 +64,51 @@ const Login = () => {
 
   return (
     <>
-      <form className="px-5 py-7">
-        <label htmlFor="input-email" className="label-email">
-          E-mail
-          <input
-            type="text"
-            name="email"
-            className="input-email"
-            onChange={ handleInputChange }
-            data-testid="common_login__input-email"
-          />
-        </label>
-        <label htmlFor="label-password" className="label-password">
-          Password
-          <input
-            type="text"
-            name="password"
-            className="input-password"
-            onChange={ handleInputChange }
-            data-testid="common_login__input-password"
-          />
-        </label>
-        <button
-          type="button"
-          name="login"
-          className="login-button"
-          data-testid="common_login__button-login"
-          disabled={ isDataValid }
-          onClick={ () => handleError() }
-        >
-          Login
-        </button>
-        <Link to="/register">
+      <form className="px-5 py-7 login-container">
+        <h1>App-Delivery</h1>
+        <section>
+          <label htmlFor="input-email" className="label-email">
+            E-mail
+            <input
+              type="text"
+              name="email"
+              className="input-email"
+              onChange={ handleInputChange }
+              data-testid="common_login__input-email"
+            />
+          </label>
+          <label htmlFor="label-password" className="label-password">
+            Password
+            <input
+              type="text"
+              name="password"
+              className="input-password"
+              onChange={ handleInputChange }
+              data-testid="common_login__input-password"
+            />
+          </label>
+        </section>
+        <div className="buttons-login-container">
+          <button
+            type="button"
+            name="login"
+            className="login-button"
+            data-testid="common_login__button-login"
+            disabled={ isDataValid }
+            onClick={ () => handleError() }
+          >
+            Login
+          </button>
           <button
             type="button"
             name="register"
             data-testid="common_login__button-register"
             className="register-button"
+            onClick={ () => history.push('./register') }
           >
             Register
           </button>
-        </Link>
+        </div>
       </form>
       { isError && <NotFound /> }
       { redirect && <Redirect to={ route } /> }

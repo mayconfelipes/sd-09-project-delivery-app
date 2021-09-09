@@ -82,5 +82,7 @@ a {
 
 .card-order-address {
   display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 

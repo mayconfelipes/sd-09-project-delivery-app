@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import Button from '../Button';
 import { useDeliveryContext } from '../../context/deliveryProvider';
+import './ItemCards.css';
 
 const ItemCard = ({ list }) => {
   const { cart, setCart } = useDeliveryContext();
@@ -60,44 +61,49 @@ const ItemCard = ({ list }) => {
   };
 
   return list.length ? (
-    <div className="card-item">
+    <div className="all-products-container">
       { list.map(({ id, name, price, urlImage }) => (
-        <div key={ id }>
+        <div key={ id } className="card-item">
+          <div
+            className="price-div"
+            data-testid={ `customer_products__element-card-price-${id}` }
+          >
+            <span>{ `R$ ${price.replace(/\./, ',')}` }</span>
+          </div>
           <img
             id={ name }
             src={ urlImage }
             alt={ name }
             data-testid={ `customer_products__img-card-bg-image-${id}` }
           />
-          <div>
+          <div className="product-info">
             <div data-testid={ `customer_products__element-card-title-${id}` }>
               <span>{ name }</span>
             </div>
-            <div data-testid={ `customer_products__element-card-price-${id}` }>
-              <span>{ price.replace(/\./, ',') }</span>
-            </div>
-            <div>
-              <Button
-                onclick={ () => incrementQuantity(id, name, price) }
-                data="+"
-                testid={ `customer_products__button-card-add-item-${id}` }
-              />
-            </div>
-            <div>
-              <input
-                type="number"
-                value={ !cart[id] ? 0 : cart[id].quantity }
-                data-testid={ `customer_products__input-card-quantity-${id}` }
-                onChange={ (event) => inputQuantity(id, name, price, event) }
-              />
-            </div>
-            <div>
-              <Button
-                onclick={ () => decrementQuantity(id) }
-                data="-"
-                testid={ `customer_products__button-card-rm-item-${id}` }
-              />
-            </div>
+            <section>
+              <div>
+                <Button
+                  onclick={ () => incrementQuantity(id, name, price) }
+                  data="+"
+                  testid={ `customer_products__button-card-add-item-${id}` }
+                />
+              </div>
+              <div>
+                <input
+                  type="number"
+                  value={ !cart[id] ? 0 : cart[id].quantity }
+                  data-testid={ `customer_products__input-card-quantity-${id}` }
+                  onChange={ (event) => inputQuantity(id, name, price, event) }
+                />
+              </div>
+              <div>
+                <Button
+                  onclick={ () => decrementQuantity(id) }
+                  data="-"
+                  testid={ `customer_products__button-card-rm-item-${id}` }
+                />
+              </div>
+            </section>
           </div>
         </div>
       )) }
@@ -106,12 +112,12 @@ const ItemCard = ({ list }) => {
         data-testid="customer_products__button-cart"
         onClick={ handleRedirect }
         disabled={ isDataValid }
+        className="cart-button"
       >
-        Ver Carrinho:  R$
         <p
           data-testid="customer_products__checkout-bottom-value"
         >
-          { totalPrice().toString().replace(/\./, ',') }
+          { `Ver Carrinho:  R$ ${totalPrice().toString().replace(/\./, ',')}` }
         </p>
       </button>
     </div>

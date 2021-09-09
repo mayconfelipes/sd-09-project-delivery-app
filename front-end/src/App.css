@@ -9,7 +9,28 @@ button {
   cursor: pointer;
 }
 
-img {
+/* img {
   max-height: 150px;
   max-width: 100px;
+} */
+
+input {
+  border: 1px solid rgba(0, 0, 0, 0.295);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0.2rem;
+}
+
+input:focus {
+  outline: none;
+  border: 5px solid #488dad73; /*for firefox and chrome*/
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+  -webkit-appearance: none;
+  
+}
+input[type=number] { 
+ -moz-appearance: textfield;
+ appearance: textfield;
 }
