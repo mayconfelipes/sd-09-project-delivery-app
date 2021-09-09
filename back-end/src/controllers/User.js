@@ -36,9 +36,16 @@ const getByRole = rescue(async (req, res) => {
   return res.status(200).json(sellers);
 });
 
+const findUserById = rescue(async (req, res) => {
+  const { id } = req.body;
+  const user = await User.findById(id);
+  return res.status(201).json(user);
+});
+
 module.exports = {
   login,
   register,
   getAllUsers,
   getByRole,
+  findUserById,
 };

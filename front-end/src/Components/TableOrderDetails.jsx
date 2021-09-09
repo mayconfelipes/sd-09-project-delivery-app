@@ -35,7 +35,11 @@ function TableOrderDetails({
         >
           { orderStatus }
         </p>
-        <button type="button" data-testid="customer_order_details__button-delivery-check">
+        <button
+          type="button"
+          data-testid="customer_order_details__button-delivery-check"
+          disabled
+        >
           MARCAR COMO ENTREGUE
         </button>
       </div>
@@ -84,7 +88,7 @@ function TableOrderDetails({
                     `seller_order_details__element-order-table-sub-total-${item.id}`
                   }
                 >
-                  { `R$ ${item.price * item.SaleProduct.quantity}` }
+                  { `R$ ${Number((item.price * item.SaleProduct.quantity).toFixed(2))}` }
                 </td>
               </tr>
             ))}
