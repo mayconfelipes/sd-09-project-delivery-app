@@ -78,6 +78,7 @@ const Details = () => {
             type="button"
             className="seller-itens"
             data-testid={ `${prefixButton}preparing-check` }
+            onClick={ prepare() }
           >
             Preparar Pedido
           </button>
