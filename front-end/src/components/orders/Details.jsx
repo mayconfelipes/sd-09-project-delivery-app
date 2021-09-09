@@ -2,6 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import formatDate from '../../services/formatDate';
 import salesOrdersAPI from '../../services/salesDetailsAPI';
+import { updateStatusSale } from '../../services/salesAPI';
+
+const clickUpdate = async (setStatusSale, saleId, newStatus) => {
+  const requestBody = {
+    saleId,
+    newStatus,
+  };
+  setStatusSale(newStatus);
+  const statusUpdated = await updateStatusSale(requestBody);
+  return statusUpdated;
+};
 
 const renderProducts = (products, user) => (
   products.map((product, index) => (
@@ -44,7 +55,7 @@ const renderProducts = (products, user) => (
   ))
 );
 
-const renderDetails = (MockSalesDB, user) => (
+const renderDetails = (MockSalesDB, user, statusSale, setStatusSale) => (
   MockSalesDB.map((sale) => (
     <div key={ sale.id } className="card-sale">
       <p data-testid={ `${user}_order_details__element-order-details-label-order-id` }>
@@ -70,6 +81,8 @@ const renderDetails = (MockSalesDB, user) => (
       <button
         type="button"
         className="status-sale"
+        onClick={ () => clickUpdate(setStatusSale, sale.id, 'Preparando') }
+        disabled={ statusSale !== 'Pendente' }
         data-testid={ `${user}_order_details__button-preparing-check` }
         style={ user === 'customer' ? ({ display: 'none' }) : ({ display: '' }) }
       >
@@ -78,7 +91,12 @@ const renderDetails = (MockSalesDB, user) => (
       <button
         type="button"
         className="status-sale"
-        disabled
+        onClick={
+          () => clickUpdate(setStatusSale, sale.id, `${
+            user === 'seller' ? 'Em Trânsito' : 'Entregue'
+          }`)
+        }
+        disabled={ statusSale !== 'Preparando' }
         data-testid={
           `${user}_order_details__button-${
             user === 'customer' ? 'delivery' : 'dispatch'}-check`
@@ -96,7 +114,6 @@ const renderDetails = (MockSalesDB, user) => (
         {(sale.totalPrice).replace('.', ',')}
       </div>
     </div>
-
   ))
 );
 
@@ -105,6 +122,7 @@ export default function Sales() {
 
   const user = location.pathname.includes('seller') ? 'seller' : 'customer';
 
+  const [statusSale, setStatusSale] = useState('');
   const [MockSalesDB, setMockSalesDB] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
@@ -114,9 +132,12 @@ export default function Sales() {
     salesOrdersAPI(id)
       .then((response) => {
         setMockSalesDB(response);
+        setStatusSale(response[0].status);
         setIsLoading(false);
       });
   }, [id]);
 
-  return isLoading ? <p>Loading...</p> : renderDetails(MockSalesDB, user);
+  return isLoading ? <p>Loading...</p> : renderDetails(
+    MockSalesDB, user, statusSale, setStatusSale,
+  );
 }
