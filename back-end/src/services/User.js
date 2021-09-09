@@ -40,7 +40,6 @@ const login = async (email, password) => {
 
 const register = async ({ name, email, password, role }) => {
   const { error } = RegisterSchema.validate({ name, email, password });
-  console.log('paso');
 
   if (error) throw generateError(422, error.message);
 
@@ -65,9 +64,16 @@ const getAllUsers = async () => {
 
 const deleteUser = async (id) => User.destroy({ where: { id } });
 
+const getByRole = async (role) => {
+  const sellers = await User.findAll({ where: { role } });
+  // const sellersIdAndName = Object.values(sellers).map(({ id, name }) => [id, name]);
+  return sellers;
+};
+
 module.exports = {
   login,
   register,
   getAllUsers,
   deleteUser,
+  getByRole,
 };

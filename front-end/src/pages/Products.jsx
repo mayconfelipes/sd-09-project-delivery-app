@@ -31,13 +31,13 @@ function Products() {
   const addToCart = ({ id, name, price }) => {
     const existentProduct = cart.find((product) => product.id === id);
 
-    console.log(price);
     if (!existentProduct) {
       setCart([
         ...cart,
         {
           id,
           name,
+          unitPrice: price,
           price: parseFloat(parseFloat(price).toFixed(2)),
           quantity: 1,
         },
@@ -107,13 +107,14 @@ function Products() {
         type="button"
         onClick={ () => {
           localStorage.setItem('cart', JSON.stringify(cart));
+          localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
           history.push('/customer/checkout');
         } }
       >
         Ver Carrinho: R$
         {' '}
         <span data-testid="customer_products__checkout-bottom-value">
-          { totalPrice.toString().replace(/\./, ',') }
+          { Number(totalPrice).toFixed(2).toString().replace(/\./, ',') }
         </span>
       </button>
     </>

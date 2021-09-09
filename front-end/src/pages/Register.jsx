@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 function Register() {
@@ -7,7 +7,7 @@ function Register() {
   const [errorMessage, setErrorMessage] = useState('');
   const [disableBtn, setDisableBtn] = useState(true);
   const [revealPass, setRevealPass] = useState(false);
-  const history = useHistory();
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     const passwordLength = 6;
@@ -33,7 +33,7 @@ function Register() {
   async function registerUser() {
     try {
       const { name, email, password } = signupValues;
-      await axios({
+      const request = await axios({
         method: 'post',
         url: 'http://localhost:3001/user',
         data: {
@@ -42,9 +42,11 @@ function Register() {
           password,
         },
       });
-      // const { data } = request;
-      // localStorage.setItem('user', JSON.stringify(data));
-      history.push('/customer/products');
+
+      if (request) {
+        localStorage.setItem('user', JSON.stringify(request.data.user));
+        setRedirect(true);
+      }
     } catch (e) {
       setErrorMessage('Usuario já cadastrado');
     }
@@ -83,7 +85,7 @@ function Register() {
           <label htmlFor="password">
             <span>Senha</span>
             <input
-              type={ revealPass ? 'password' : 'text' }
+              type={ revealPass ? 'text' : 'password' }
               name="password"
               className="input-element"
               placeholder="**********"
@@ -117,6 +119,7 @@ function Register() {
           {errorMessage}
         </span>
       </div>
+      {redirect && <Redirect to="/customer/products" />}
     </div>
   );
 }
