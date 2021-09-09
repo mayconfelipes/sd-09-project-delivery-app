@@ -63,8 +63,6 @@ function Admin() {
         { email, password, name: userName, role })
       .then((response) => {
         console.log(response.data.user);
-        // saveTokenLocalStorage(response.data.user);
-        // redirectCostummer();
       })
       .catch((error) => {
         console.log(error);
