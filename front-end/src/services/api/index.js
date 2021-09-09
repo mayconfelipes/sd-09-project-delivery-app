@@ -3,7 +3,7 @@ const contentType = 'application/json';
 const POST = 'POST';
 
 export const fetchToLogin = (email, password, setInvalidUser, setRedirectTo) => {
-  const body = {
+  const userParams = {
     email,
     password,
   };
@@ -15,7 +15,7 @@ export const fetchToLogin = (email, password, setInvalidUser, setRedirectTo) => 
   fetch(`${BASE_URL}/login`, {
     headers: myHeadersToLogin,
     method: POST,
-    body: JSON.stringify(body),
+    body: JSON.stringify(userParams),
   })
     .then((res) => res.json())
     .then((response) => {
@@ -52,8 +52,8 @@ export const getOrders = async (payload, setOrders, setError) => {
 };
 
 export const fetchToRegister = (payload, setInvalidUser, setRedirectTo) => {
-  const { name, email } = payload;
-  const body = {
+  const { name, email, password } = payload;
+  const userParams = {
     name,
     email,
     password,
@@ -66,7 +66,7 @@ export const fetchToRegister = (payload, setInvalidUser, setRedirectTo) => {
   fetch('http://localhost:3001/register', {
     headers: myHeadersToRegister,
     method: POST,
-    body: JSON.stringify(body),
+    body: JSON.stringify(userParams),
   })
     .then((res) => res.json())
     .then((response) => {
@@ -102,7 +102,7 @@ export const createUser = (
   setCreatedUser,
   setError,
 ) => {
-  const body = {
+  const userParams = {
     name: nome,
     email,
     password,
@@ -116,7 +116,7 @@ export const createUser = (
       'Content-Type': contentType,
       Authorization: token,
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify(userParams),
   })
     .then((res) => res.json())
     .then((response) => {
