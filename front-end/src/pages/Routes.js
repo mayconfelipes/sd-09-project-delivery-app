@@ -19,6 +19,7 @@ function Routes() {
   return (
     <Router>
       <Switch>
+        <Redirect exact from="/" to="/login" />
         <Route path="/register" component={ Register } />
         <Route exact path="/admin/manage" component={ Admin } />
         <Route exact path="/seller/orders" component={ Seller } />
@@ -31,7 +32,6 @@ function Routes() {
         <Redirect from="/customer" to="/customer/products" />
         <Redirect from="/seller" to="/seller/orders" />
         <Redirect from="/administrator" to="/admin/manage" />
-        <Redirect from="/" to="/login" />
       </Switch>
     </Router>
   );
