@@ -77,7 +77,7 @@ function NavBar(props) {
             <a
               id="logout"
               href="/login"
-              data-testid="customer_products__element-navbar-link-logout" // algo errado aqui
+              data-testid="customer_products__element-navbar-link-logout" // algo errado aqui, novo coment só pra dar novo push
               onClick={ () => localStorage.clear() }
             >
               Sair
