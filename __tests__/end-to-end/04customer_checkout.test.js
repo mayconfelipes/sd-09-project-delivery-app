@@ -155,7 +155,6 @@ describe(requirement(21), () => {
       page,
       order
     );
-    console.log(saleId);
     expect(typeof saleId).toBe("number");
     expect(typeof saleDate).toBe("string");
 
