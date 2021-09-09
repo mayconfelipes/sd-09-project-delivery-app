@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { io } from 'socket.io-client';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import ProductsContext from './ProductsContext';
+
+const socket = io('http://localhost:3001');
 
 const ProductsProvider = ({ children }) => {
   const history = useHistory();
@@ -47,6 +50,7 @@ const ProductsProvider = ({ children }) => {
     const newOrder = await api.postNewOrder(orderObject, userInfo.token);
     setCurrentOrder([]);
     setCurrentOrderTotal(0);
+    socket.emit('createNewOrder', newOrder);
     return history.push(`/customer/orders/${newOrder.id}`);
   }
   const [order, setOrder] = useState([]);

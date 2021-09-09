@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
+import { io } from 'socket.io-client';
 import SellerOrderDetailsTable from '../components/SellerOrderDetailsTable';
 import NavBarSeller from '../components/navBarSeller';
 import '../styles/SellerOrderDetails.css';
 import * as api from '../services/api';
+
+const socket = io('http://localhost:3001');
 
 function SellerOrderDetails() {
   const { id: orderId } = useParams();
@@ -20,6 +23,10 @@ function SellerOrderDetails() {
     }
     getOrder();
   }, []);
+
+  socket.on('updateOrderStatus', (orderEvent) => {
+    setOrderStatus(orderEvent.status);
+  });
 
   const dataTestIds = {
     orderId: 'seller_order_details__element-order-details-label-order-id',
@@ -38,6 +45,7 @@ function SellerOrderDetails() {
     const updatedOrder = await api.updateSale(orderId, status, user.token);
     setOrderStatus(updatedOrder.status);
     setOrder(updatedOrder);
+    socket.emit('updateOrderStatus', updatedOrder);
   };
 
   return (

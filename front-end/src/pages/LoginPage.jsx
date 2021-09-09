@@ -35,7 +35,7 @@ function Login() {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user.role === 'customer') return <Redirect to="/customer/products" />;
     if (user.role === 'seller') return <Redirect to="/seller/orders" />;
-    // if (user.role === 'admin') return <Redirect to="/admin/manage" />;
+    if (user.role === 'administrator') return <Redirect to="/admin/manage" />;
   };
 
   const loginUser = async () => {
