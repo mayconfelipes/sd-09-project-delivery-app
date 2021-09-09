@@ -4,6 +4,8 @@ import api from '../../service/axiosApi';
 
 import validateUserData from '../../helpers/validateUserData';
 import UserRegisterAlert from '../../components/alerts/UserRegisterAlert';
+import './Register.css';
+
 // import DeliveryContext from '../../context/deliveryContext';
 
 function Register() {
@@ -49,7 +51,7 @@ function Register() {
   };
 
   return (
-    <div>
+    <div className="register-container">
       <h1>Register</h1>
       <form>
         <label htmlFor="name">
