@@ -4,11 +4,13 @@ a {
 }
 
 .navbar-container {
+  background-color: antiquewhite;
   display: flex;
   flex-basis: auto;
   flex-direction: row;
   flex-grow: 1;
   margin-bottom: 5%;
+  padding: 1%;
 }
 
 

@@ -1,12 +1,12 @@
 .cart-button-text {
   align-self: center;
-  background-color: red;
   display: flex;
 }
 
 .cart-button-total-price {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-bottom: 10%;
+  margin-left: 7%;
   width: 80vw;
 }

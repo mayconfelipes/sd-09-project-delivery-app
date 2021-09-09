@@ -57,25 +57,6 @@ function Admin() {
     verifyDisabled();
   };
 
-  // const redirectCostummer = () => {
-  //   '    if(userName ===  ) {';
-
-  //   history.push('/customer/products');
-  // };
-
-  // const login = () => {
-  //   connectBack
-  //     .post('/login', { email, password })
-  //     .then((response) => {
-  //       console.log('LOGOU', response.data.user);
-  //       saveTokenLocalStorage(response.data.user);
-  //       redirectCostummer();
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       setInvalidLogin(true);
-  //     });
-  // };
   const registerUser = async () => {
     adminConnectBack
       .post('/admin/register',

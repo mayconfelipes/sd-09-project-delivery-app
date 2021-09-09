@@ -22,6 +22,7 @@ const CartButton = ({ totalPrice }) => {
     >
       <p
         data-testid="customer_products__checkout-bottom-value"
+        className="cart-button-text"
       >
         {`Ver Carrinho ${brazilianPrice(totalPrice)}`}
       </p>
