@@ -106,7 +106,6 @@ function Login() {
           labelText="Login"
           placeholderText="email@appdelivery.com.br"
           dataTestId={ dataTestIds[1] }
-          classStyle=""
         />
         <TextInput
           type="password"
@@ -115,14 +114,13 @@ function Login() {
           labelText="Senha"
           placeholderText="************"
           dataTestId={ dataTestIds[2] }
-          classStyle="input-login"
         />
         <LargeButton
           buttonText="LOGIN"
           isDisabled={ disableButton }
           onClick={ handleClick }
           dataTestId={ dataTestIds[3] }
-          classStyle="btn-login"
+          classStyle="btn-green"
         />
         <Link to="/register">
           <LargeButton
