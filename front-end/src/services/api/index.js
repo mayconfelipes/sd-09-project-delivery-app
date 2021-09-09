@@ -53,7 +53,7 @@ export const getOrders = async (payload, setOrders, setError) => {
 
 export const fetchToRegister = (payload, setInvalidUser, setRedirectTo) => {
   const { name, email } = payload;
-  const body = {
+  const xau = {
     name,
     email,
     password,
@@ -66,7 +66,7 @@ export const fetchToRegister = (payload, setInvalidUser, setRedirectTo) => {
   fetch('http://localhost:3001/register', {
     headers: myHeadersToRegister,
     method: POST,
-    body: JSON.stringify(body),
+    body: JSON.stringify(xau),
   })
     .then((res) => res.json())
     .then((response) => {
