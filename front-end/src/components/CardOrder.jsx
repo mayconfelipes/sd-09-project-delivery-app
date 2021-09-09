@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 
+import SocketsContext from '../context/SocketsContext';
+
 export default function CardOrder({ venda, role }) {
+  const { socket } = useContext(SocketsContext);
+
   const history = useHistory();
 
-  const { id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber } = venda;
+  const [status, setStatus] = useState(venda.status);
+
+  const { id, saleDate, totalPrice, deliveryAddress, deliveryNumber } = venda;
   const formatedDate = new Date(saleDate).toLocaleDateString('pt-BR');
+
+  useEffect(
+    () => socket
+        && socket.on('updateOrderStatus', ({ order: updtOrder }) => (
+          updtOrder.id === id && setStatus(updtOrder.status)
+        )),
+    [id, socket],
+  );
 
   const returnPath = (userRole) => (userRole === 'customer'
     ? `/customer/orders/${id}`

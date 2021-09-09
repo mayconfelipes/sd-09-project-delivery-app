@@ -1,22 +1,28 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
+
 import Header from '../components/Header';
 import ProductsTable from '../components/ProductsTable';
+import SocketsContext from '../context/SocketsContext';
 
 const FOUR = 4;
 
+const getPrefix = (role) => (
+  role === 'customer'
+    ? 'customer_order_details__element-order-'
+    : 'seller_order_details__element-order-'
+);
+
 const DetalhesPedido = () => {
+  const { socket } = useContext(SocketsContext);
+
   const [order, setOrder] = useState({});
   const [error, setError] = useState('');
   const [userData] = useState(JSON.parse(localStorage.getItem('user')));
 
   const { id } = useParams();
   const { role } = userData;
-  let prefix = '';
-
-  if (role === 'customer') prefix = 'customer_order_details__element-order-';
-  if (role === 'seller') prefix = 'seller_order_details__element-order-';
 
   useEffect(
     () => {
@@ -34,6 +40,14 @@ const DetalhesPedido = () => {
         fetchData();
       }
     }, [id, userData],
+  );
+
+  useEffect(
+    () => socket
+      && socket.on('updateOrderStatus', ({ order: updtOrder }) => (
+        updtOrder.id === order.id && setOrder(updtOrder)
+      )),
+    [order.id, socket],
   );
 
   if (!userData || error) {
@@ -63,7 +77,10 @@ const DetalhesPedido = () => {
           if (error) setError('');
 
           const { status: _, ...orderData } = order;
-          setOrder({ status, ...orderData });
+          const updatedOrder = { status, ...orderData };
+
+          setOrder(updatedOrder);
+          socket.emit('updateOrderStatus', { order: updatedOrder });
         },
         () => setError('Falha ao atualizar status do pedido.'),
       );
@@ -78,24 +95,24 @@ const DetalhesPedido = () => {
           <section className="products__list">
             <header>
               <span
-                data-testid={ `${prefix}details-label-order-id` }
+                data-testid={ `${getPrefix(role)}details-label-order-id` }
               >
                 {`Pedido ${String(order.id).padStart(FOUR, 0)}`}
               </span>
               <span
-                data-testid={ `${prefix}details-label-order-date` }
+                data-testid={ `${getPrefix(role)}details-label-order-date` }
               >
                 { formatDate() }
               </span>
               <span
-                data-testid={ `${prefix}details-label-delivery-status` }
+                data-testid={ `${getPrefix(role)}details-label-delivery-status` }
               >
                 { order.status }
               </span>
               { role === 'customer' ? (
                 <>
                   <span
-                    data-testid={ `${prefix}details-label-seller-name` }
+                    data-testid={ `${getPrefix(role)}details-label-seller-name` }
                   >
                     { `P. Vend: ${order.seller.name}` }
                   </span>
@@ -129,9 +146,9 @@ const DetalhesPedido = () => {
                 </>
               ) }
             </header>
-            <ProductsTable venda={ order } prefix={ prefix } />
+            <ProductsTable venda={ order } prefix={ getPrefix(role) } />
             <h4
-              data-testid={ `${prefix}total-price` }
+              data-testid={ `${getPrefix(role)}total-price` }
             >
               { `Total: R$ ${order.totalPrice.replace('.', ',')}` }
             </h4>
