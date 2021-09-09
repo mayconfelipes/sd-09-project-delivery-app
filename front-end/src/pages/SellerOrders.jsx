@@ -5,6 +5,7 @@ import { getOrders } from '../services/api';
 
 const SellerOrders = () => {
   const [orders, setOrders] = useState([]);
+  const [error, setError] = useState(false);
 
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -14,13 +15,14 @@ const SellerOrders = () => {
   };
 
   useEffect(() => {
-    getOrders(seller, setOrders);
+    getOrders(seller, setOrders, setError);
   }, []);
 
   const sellerOrders = () => (
-    <main>
-      <div>
-        <Navbar userType="seller" userName="Fulana Pereira" />
+    <>
+      <Navbar userType="seller" userName="Fulana Pereira" />
+      <main className="card-main">
+        { error && <h1>{ error }</h1> }
         { orders && orders.map((order) => (
           <OrderCard
             key={ order.id }
@@ -32,8 +34,8 @@ const SellerOrders = () => {
             saleDate={ order.sale_date }
           />
         ))}
-      </div>
-    </main>
+      </main>
+    </>
   );
 
   return (

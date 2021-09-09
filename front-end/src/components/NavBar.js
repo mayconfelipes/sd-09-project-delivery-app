@@ -46,7 +46,7 @@ function NavBar(props) {
           </>
         ) }
         { userType === 'seller' && (
-          <li>
+          <li className="pedidos-navbar">
             <Link
               to="/seller/orders"
               data-testid="customer_products__element-navbar-link-orders"
@@ -65,15 +65,17 @@ function NavBar(props) {
             </a>
           </li>
         ) }
-        <div>
-
+        <div className="user-navbar">
           <li
+            id="username"
+            className="username-navbar"
             data-testid="customer_products__element-navbar-user-full-name"
           >
             { userName }
           </li>
-          <li>
+          <li className="logout-navbar">
             <a
+              id="logout"
               href="/login"
               data-testid="customer_products__element-navbar-link-logout"
               onClick={ () => localStorage.clear() }

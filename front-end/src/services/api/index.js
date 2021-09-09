@@ -28,7 +28,7 @@ export const fetchToLogin = (email, password, setInvalidUser, setRedirectTo) => 
     });
 };
 
-export const getOrders = async (payload, setOrders) => {
+export const getOrders = async (payload, setOrders, setError) => {
   const { token, email } = payload;
 
   const Myheaders = {
@@ -42,7 +42,6 @@ export const getOrders = async (payload, setOrders) => {
   })
     .then((res) => res.json())
     .then((response) => {
-      console.log(response);
       if (response.message) {
         setError(response.message);
       } else {

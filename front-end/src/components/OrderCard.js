@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './OrderCard.css';
 
 const OrderCard = (props) => {
   const {
@@ -11,27 +12,35 @@ const OrderCard = (props) => {
     saleDate,
   } = props;
 
+  const formatDate = saleDate.split('T')[0];
+
   return (
-    <div>
+    <div className="card-container">
       <span data-testid={ `seller_orders__element-order-id-${id}` }>
-        { `Pedido 000${id}` }
+        Pedido
+        <br />
+        { `000${id}` }
       </span>
-      <div>
-        <a href={ `/seller/orders/${id}` }>
-          <span data-testid={ `seller_orders__element-delivery-status-${id}` }>
-            { status }
-          </span>
-          <p data-testid={ `seller_orders__element-order-date-${id}` }>
-            { saleDate }
-          </p>
-          <p data-testid={ `seller_orders__element-card-price-${id}` }>
-            { totalPrice }
-          </p>
-          <p data-testid={ `seller_orders__element-card-address-${id}` }>
-            { `${deliveryAddress}, ${deliveryNumber}` }
-          </p>
-        </a>
-      </div>
+      <a href={ `/seller/orders/${id}` }>
+        <div className="details-container">
+          <div className="status-container">
+            <span data-testid={ `seller_orders__element-delivery-status-${id}` }>
+              { status }
+            </span>
+          </div>
+          <div className="date-and-price-container">
+            <p data-testid={ `seller_orders__element-order-date-${id}` }>
+              { formatDate }
+            </p>
+            <p data-testid={ `seller_orders__element-card-price-${id}` }>
+              { `R$ ${totalPrice.replace('.', ',')}` }
+            </p>
+          </div>
+        </div>
+        <p data-testid={ `seller_orders__element-card-address-${id}` }>
+          { `${deliveryAddress}, ${deliveryNumber}` }
+        </p>
+      </a>
     </div>
   );
 };

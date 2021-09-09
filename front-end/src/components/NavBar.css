@@ -1,10 +1,17 @@
 header {
-  background-color: #f3f3f3;
+  background-color: #036B52;
   display: flex;
   height: 50px;
   margin: 0;
   overflow: hidden;
   width: 100%;
+}
+
+.user-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  height: 100%;
 }
 
 ul {
@@ -19,23 +26,47 @@ li {
   font-size: 13.33px;
   text-align: center;
   text-decoration: none;
+  margin: 0.8rem;
+  padding: 2.0rem;
+}
+
+.pedidos-navbar {
+  background-color: #2FC18C;
+}
+
+.username-navbar {
+  background-color: #421981;
+}
+
+.logout-navbar {
+  background-color: #056CF9;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  width: 100%;
+  font-weight: bold;
 }
 
 li a {
-  background-color: #f3f3f3;
+  background-color: #2FC18C;
   border: none;
   display: block;
-  padding: 5px 15px;
   text-align: center;
 }
 
 li a:hover {
   background-color: #fff9d5;
+}
+
+#username, #logout {
+  color: #fff;
+  font-weight: bold;
+}
+
+#logout {
+  background-color: #056CF9;
 }
 
 button {
