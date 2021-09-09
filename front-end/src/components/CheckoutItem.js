@@ -15,9 +15,10 @@ export default function CheckoutItem({ product, index, role, page }) {
     setShoppingCart(newCart);
   };
 
+  const quantity = page === 'checkout' ? product.quantity : product.SaleProduct.quantity;
+
   const {
     name,
-    SaleProduct: { quantity },
     price,
   } = product;
   return (
@@ -76,7 +77,8 @@ CheckoutItem.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    SaleProduct: PropTypes.shape({ quantity: PropTypes.number.isRequired }),
+    SaleProduct: PropTypes.shape({ quantity: PropTypes.number }),
+    quantity: PropTypes.number,
     price: PropTypes.string.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
