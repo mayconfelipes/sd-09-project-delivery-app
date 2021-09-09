@@ -7,7 +7,6 @@ import connectBack from '../../utills/axiosConfig';
 import TotalButton from './totalButton';
 
 // const dataTestId = require('../../utills/dataTestIds');
-
 const OrderDetails = () => {
   const { id } = useParams();
   const [orderDetails, setOrderDetails] = useState();
