@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import dataTestIds from '../utils/dataTestIds';
 import transformDate from '../utils/transformDate';
+import transformOrderNumber from '../utils/transformOrderNumber';
 
 function OrderCard({ sale }) {
   const {
@@ -63,7 +64,7 @@ function OrderCard({ sale }) {
                   : `${dataTestIds[33]}${id}`
               }
             >
-              { `Pedido: ${id}` }
+              { `Pedido: ${transformOrderNumber(id)}` }
             </p>
           </div>
           { statusDiv(role) }
