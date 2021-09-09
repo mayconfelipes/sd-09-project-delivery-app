@@ -6,6 +6,7 @@ import Login from './pages/login';
 import Orders from './pages/Orders';
 import Produtos from './pages/Produtos';
 import Registro from './pages/registro';
+import OrderDetails from './pages/OrderDetails';
 
 const Routes = () => (
   <Switch>
@@ -15,8 +16,11 @@ const Routes = () => (
     <Route exact path="/login" component={ Login } />
     <Route exact path="/register" component={ Registro } />
     <Route exact path="/customer/products" component={ Produtos } />
+    <Route exact path="/customer/orders/:id" component={ OrderDetails } />
     <Route exact path="/customer/orders" component={ Orders } />
     <Route exact path="/customer/checkout" component={ Checkout } />
+    <Route exact path="/seller/orders/:id" component={ OrderDetails } />
+    <Route exact path="/seller/orders" component={ Orders } />
     <Route exact path="/admin/manage" component={ Gerenciamento } />
   </Switch>
 );
