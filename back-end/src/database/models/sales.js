@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
   }, { timestamps: false, underscored: true } );
 
   sales.associate = (models) => {
-    sales.belongsTo(models.users, { foreignKey: 'id', as: 'customer' }),
-    sales.belongsTo(models.users, { foreignKey: 'id', as: 'seller' })
+    sales.belongsTo(models.users, { foreignKey: 'userId', as: 'customer' }),
+    sales.belongsTo(models.users, { foreignKey: 'sellerId', as: 'seller' })
   }
 
   return sales;

@@ -131,7 +131,6 @@ export default function Cards({ cardInfos, retrieveSumFromChild }) {
             // type="number"
             onChange={ (e) => {
               setCurrentQuantityToBuy(Number(e.target.value));
-              console.log('entrou aqui');
               sumValueOfProducts(Number(e.target.value));
             } }
           />

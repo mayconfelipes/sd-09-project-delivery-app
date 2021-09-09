@@ -34,6 +34,12 @@ function Login() {
       break;
     }
   };
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user')) || {};
+    if (user.token) return history.push('/customer/products');
+  }, [history]);
+
   useEffect(() => {
     async function fetchProducts() {
       const data = await API.fetchProducts();
@@ -50,7 +56,7 @@ function Login() {
     if (responseLogin.message === 'Invalid fields') {
       return setIsValidFields(false);
     }
-    console.log('Resposta de login', responseLogin);
+
     if (responseLogin.token) {
       localStorage.setItem('user', JSON.stringify(responseLogin));
       validRole(responseLogin.role);
