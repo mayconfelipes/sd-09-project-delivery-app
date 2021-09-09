@@ -6,6 +6,7 @@ import Login from './Login';
 import Checkout from './Checkout';
 import ClientProducts from './ClientProducts';
 import Register from './Register';
+import CustomerOrdersDetails from './customer/CustomerOrdersDetails';
 import OrderDetail from './OrderDetail';
 import Admin from './Admin';
 import SellerOrder from './SellerOrder';
@@ -41,6 +42,7 @@ const Routes = () => (
         render={ () => <CustomerProvider><CustomerOrder /></CustomerProvider> }
       />
     </Switch>
+    <Route path="/customer/orders/:id" component={ CustomerOrdersDetails } />
   </BrowserRouter>
 );
 

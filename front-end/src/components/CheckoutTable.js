@@ -12,7 +12,7 @@ export default function CheckoutTable() {
   const page = path[2];
   const context = useContext(role === 'customer'
     ? Customer : Seller);
-
+  console.log(context);
   const { shoppingCart } = context;
 
   const [totalPrice, setTotalPrice] = useTotalPrice();
