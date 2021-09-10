@@ -67,7 +67,6 @@ function CustomerOrderDetails() {
   return (
     <div>
       <Navbar role={ userData.role } />
-
       <div className="pedido">
         <p className="mt-10 title-table-pedidos">Detalhe do Pedido</p>
         <div className="head-pedido">
@@ -75,7 +74,7 @@ function CustomerOrderDetails() {
             { transformOrderNumber(myOrder.id) }
           </p>
           <p data-testid={ dataTestIds[38] }>
-            { myOrder['seller.name'] }
+            { `P.Vendedora: ${myOrder['seller.name']}` }
           </p>
           <p data-testid={ dataTestIds[39] }>
             { myOrder.saleDate }
