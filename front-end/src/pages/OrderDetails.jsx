@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
-import { io } from 'socket.io-client';
+import io from 'socket.io-client';
 import OrderDetailsTable from '../components/OrderDetailsTable';
 import NavBarCustomer from '../components/navBarCustomer';
 import '../styles/OrderDetails.css';

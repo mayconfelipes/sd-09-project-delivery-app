@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
+import io from 'socket.io-client';
 import NavBarAdmin from '../components/navBarAdmin';
+import '../styles/Admin.css';
 import * as api from '../services/api';
+import AdminUsersTable from '../components/AdminUsersTable';
 
 io('http://localhost:3001');
 
@@ -12,6 +14,19 @@ function Admin() {
   const [role, setRole] = useState('seller');
   const [showInvalidRegisterError, setInvalidRegisterError] = useState('');
   const [isValid, setIsValid] = useState(false);
+  const [usersList, setUsersList] = useState([]);
+
+  const getAllUsers = async () => {
+    const admin = JSON.parse(localStorage.getItem('user'));
+    let allUsers = await api.getAllUsers();
+    allUsers = allUsers.filter((user) => user.email !== admin.email);
+    setUsersList(allUsers);
+    console.log(usersList);
+  };
+
+  useEffect(() => {
+    getAllUsers();
+  }, []);
 
   useEffect(() => {
     const magicNumber = 12;
@@ -22,7 +37,6 @@ function Admin() {
       && name.length >= magicNumber) {
       return setIsValid(true);
     }
-
     setIsValid(false);
   }, [name, email, password, role]);
 
@@ -35,20 +49,23 @@ function Admin() {
   const registerUser = async () => {
     try {
       const userObject = { name, email, password, role };
-
       const user = JSON.parse(localStorage.getItem('user'));
-
       await api.registerUserByAdmin(userObject, user.token);
+      await getAllUsers();
     } catch (error) {
       showInvalidRegisterMessage(error.message);
     }
   };
 
-  return (
-    <div>
-      <NavBarAdmin />
+  const removeUser = async (userId) => {
+    const admin = JSON.parse(localStorage.getItem('user'));
+    await api.deleteUser(userId, admin.token);
+    await getAllUsers();
+  };
 
-      <h2>Cadastrar novo Usuário</h2>
+  return (
+    <div className="admin-page">
+      <NavBarAdmin />
 
       <form>
         <label htmlFor="name">
@@ -105,10 +122,11 @@ function Admin() {
           Cadastrar
         </button>
 
-        <p data-testid="admin_manage__element-invalid-register">
-          { showInvalidRegisterError }
-        </p>
       </form>
+      <p data-testid="admin_manage__element-invalid-register">
+        { showInvalidRegisterError }
+      </p>
+      <AdminUsersTable users={ usersList } removeUser={ removeUser } />
     </div>
   );
 }

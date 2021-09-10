@@ -1,0 +1,105 @@
+.admin-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 2vh;
+  height: max-content;
+  padding-bottom: 5vh;
+  width: 100%;
+}
+
+.admin-page form {
+  background-color: #eaf1ef;
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5rem;
+  padding: 0.5rem;
+  position: relative;
+  width: 80%;
+}
+
+.admin-page form:before {
+  content: 'Cadastrar novo Usuário';
+  left: 0;
+  position: absolute;
+  top: -1.5rem;
+}
+
+.admin-page form label {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.admin-page form button {
+  background-color: hsl(166, 95%, 22%);
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  margin: 0 auto;
+  padding: 0 1.25em;
+  width: max-content;
+}
+
+.admin-page form button:hover {
+  background-color: hsl(166, 95%, 25%);
+  cursor: pointer;
+}
+
+.admin-page form button:disabled {
+  background-color: hsl(166, 20%, 40%);
+  color: hsla(0, 0%, 100%, 0.6);
+  cursor: not-allowed;
+}
+
+.admin-page table {
+  box-sizing: border-box;
+  text-align: center;
+  width: 80%;
+}
+
+.admin-page table td {
+  padding: 0;
+}
+
+.admin-page table tbody tr {
+  line-height: 2.5;
+}
+
+.admin-user-item {
+  background-color: #2fc18c;
+}
+
+.admin-user-name {
+  background-color: #f2fffc;
+  text-align: left;
+}
+
+.admin-user-email {
+  background-color: #036b52;
+  color: white;
+}
+
+.admin-user-role {
+  background-color: #421981;
+  color: white;
+}
+
+.admin-remove-user-button {
+  background-color: #056cf9;
+  border: none;
+  color: white;
+  font-family: sans-serif;
+  font-size: 1rem;
+  line-height: 2.5;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.admin-remove-user-button:hover {
+  background-color: hsl(215, 96%, 60%);
+  cursor: pointer;
+}

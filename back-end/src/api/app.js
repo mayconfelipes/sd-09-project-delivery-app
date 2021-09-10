@@ -31,6 +31,7 @@ app.post('/login', User.loginUser);
 app.post('/register', User.registerUser);
 app.post('/register/admin', auth, User.registerUserByAdmin);
 app.get('/users', User.getAllUsers);
+app.delete('/users', auth, User.deleteUser);
 app.get('/sellers', User.getAllSellers);
 app.get('/products', Product.getAllProducts);
 app.get('/sellers', User.getAllSellers);

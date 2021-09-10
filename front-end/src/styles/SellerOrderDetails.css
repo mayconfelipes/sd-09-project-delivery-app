@@ -67,7 +67,8 @@
 }
 
 .seller-order-details-header button:disabled {
-  background-color: hsl(166, 95%, 25%);
+  background-color: hsl(166, 20%, 40%);
+  color: hsla(0, 0%, 100%, 0.6);
   cursor: not-allowed;
 }
 

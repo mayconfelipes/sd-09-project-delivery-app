@@ -36,6 +36,19 @@ const registerUserByAdmin = async (req, res, next) => {
   }
 };
 
+const deleteUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { role } = req.user;
+    if (role === 'administrator') {
+      await User.deleteUser(id);
+      return res.status(201).json({ message: 'Usuário deletado com sucesso' });
+    }
+  } catch (error) {
+    return next(error);
+  }
+};
+
 const getAllUsers = async (req, res, next) => {
   try {
     const allUsers = await User.getAllUsers();
@@ -56,6 +69,7 @@ module.exports = {
   loginUser,
   registerUser,
   registerUserByAdmin,
+  deleteUser,
   getAllUsers,
   getAllSellers,
 };

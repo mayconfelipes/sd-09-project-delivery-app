@@ -27,12 +27,6 @@ export const loginUser = async (email, password) => {
   return loggedUser;
 };
 
-// export const getOrders = async () => {
-//   const orders = await axios
-//     .get('/customer/orders');
-//   return orders;
-// };
-
 export const getProducts = async () => {
   const { data } = await axios
     .get(`${baseURL}/products`);
@@ -80,5 +74,17 @@ export const updateSale = async (orderId, status, token) => {
   const headers = { headers: { Authorization: token } };
   const { data } = await axios
     .put(`${baseURL}/sales/${orderId}`, { status }, headers);
+  return data;
+};
+
+export const getAllUsers = async () => {
+  const { data } = await axios
+    .get(`${baseURL}/users`);
+  return data;
+};
+
+export const deleteUser = async (id, token) => {
+  const { data } = await axios
+    .delete(`${baseURL}/users/${id}`, { headers: { Authorization: token } });
   return data;
 };

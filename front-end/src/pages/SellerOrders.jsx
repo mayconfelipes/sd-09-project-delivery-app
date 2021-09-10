@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { io } from 'socket.io-client';
+import io from 'socket.io-client';
 import SellerOrderCard from '../components/SellerOrderCard';
 import NavBarSeller from '../components/navBarSeller';
 import ProductsContext from '../context/ProductsContext';

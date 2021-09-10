@@ -40,6 +40,11 @@ const registerUser = async ({ name, email, password, role }) => {
   return registeredUser;
 };
 
+const deleteUser = async (id) => {
+  const userToDelete = await User.findOne({ where: { id } });
+  await userToDelete.destroy();
+};
+
 const getAllUsers = async () => {
   const allUsers = await User.findAll({ attributes: { exclude: ['password'] } });
   return allUsers.map((user) => user.dataValues);
@@ -56,6 +61,7 @@ const getAllSellers = async () => {
 module.exports = {
   loginUser,
   registerUser,
+  deleteUser,
   getAllUsers,
   getAllSellers,
 };

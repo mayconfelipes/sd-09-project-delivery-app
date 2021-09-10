@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { io } from 'socket.io-client';
+import io from 'socket.io-client';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import ProductsContext from './ProductsContext';
