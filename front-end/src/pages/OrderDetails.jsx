@@ -4,8 +4,6 @@ import NavBar from '../Components/NavBar';
 import api from '../services/api';
 import dateFormat from '../services/dateFormat';
 
-// comentario teste
-
 function OrderDetails() {
   const user = JSON.parse(localStorage.getItem('user'));
   const [sale, setSale] = useState([]);
