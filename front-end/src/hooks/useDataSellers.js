@@ -14,10 +14,10 @@ const useDataSellers = () => {
           endpoint: 'seller/',
           token,
         });
-  
+
         setSellers(requestedSellers);
       };
-      
+
       requestSellers();
     },
     [],
