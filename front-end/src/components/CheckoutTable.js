@@ -22,13 +22,12 @@ export default function CheckoutTable() {
   const context = useContext(role === 'customer'
     ? Customer : Seller);
   const { shoppingCart } = context;
-  console.log('shoppingCart', shoppingCart);
 
   const [totalPrice, setTotalPrice] = useTotalPrice();
 
   useEffect(() => {
-    setTotalPrice(shoppingCart, page, role);
-  }, [shoppingCart, setTotalPrice, page, role]);
+    setTotalPrice(shoppingCart);
+  }, []);
 
   return (
     <table>

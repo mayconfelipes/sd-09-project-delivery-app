@@ -6,6 +6,8 @@
 .order-card {
   border: 1px solid black;
   border-radius: 8px;
+  display: flex;
+  justify-content: space-evenly;
   margin: 5px;
   min-width: 300px;
   padding: 1em 10px;

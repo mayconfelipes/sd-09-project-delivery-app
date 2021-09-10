@@ -6,9 +6,21 @@ import PropTypes from 'prop-types';
 // import useInfoUsers from '../hooks/useInfousers';
 
 function TableOrderDetails(props) {
-  const datatestid = 'customer_order_details__';
   const [orderDetails, setOrderDetails] = useState({});
-  const { id } = props;
+  const { id, path } = props;
+
+  const pageTestId = {
+    '/customer/checkout': 'customer_checkout__',
+    '/customer/orders': 'customer_order_details__',
+    '/seller/orders': 'seller_order_details__',
+  };
+
+  const deliverystatuses = {
+    '/customer/orders': ['delivery', 'MARCAR COMO ENTREGUE'],
+    '/seller/orders': ['dispatch', 'SAIU PARA ENTREGA', 'preparing', 'PREPARAR PEDIDO'],
+  };
+
+  const dataTestId = pageTestId[path.join('/')];
 
   const getOrderDetails = ((useCallback(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -35,46 +47,67 @@ function TableOrderDetails(props) {
   const { saleDate, status } = orderDetails;
 
   return (Object.keys(orderDetails).length === 0 ? <span>loading...</span> : (
-    <div>
+    <>
       <h3>Detalhe do Pedido</h3>
       <table>
         <thead>
           <tr>
             <th
-              data-testid={ `${datatestid}element-order-details-label-order-id` }
+              data-testid={
+                `${dataTestId}element-order-details-label-order-id`
+              }
             >
               {`PEDIDO ${id}`}
             </th>
             <th
-              data-testid={ `${datatestid}element-order-details-label-seller-name` }
+              data-testid={
+                `${dataTestId}element-order-details-label-seller-name`
+              }
             >
               {orderDetails.seller.name}
             </th>
             <th
-              data-testid={ `${datatestid}element-order-details-label-order-date` }
+              data-testid={
+                `${dataTestId}element-order-details-label-order-date`
+              }
             >
               {moment(saleDate).format('DD/MM/YYYY')}
             </th>
             <th
-              data-testid={ `${datatestid}element-order-details-label-delivery-status` }
+              data-testid={
+                `${dataTestId}element-order-details-label-delivery-status`
+              }
             >
               {status}
             </th>
+            { path[1] === 'seller' && (
+              <button
+                type="button"
+                data-testid={
+                  `${dataTestId}button-${deliverystatuses[path.join('/')][2]}-check`
+                }
+              >
+                {deliverystatuses[path.join('/')][3]}
+              </button>
+            )}
             <button
               type="button"
-              data-testid={ `${datatestid}button-delivery-check` }
+              data-testid={
+                `${dataTestId}button-${deliverystatuses[path.join('/')][0]}-check`
+              }
               disabled
             >
-              MARCAR COMO ENTREGUE
+              {deliverystatuses[path.join('/')][1]}
             </button>
           </tr>
         </thead>
       </table>
-    </div>));
+    </>));
 }
 
 TableOrderDetails.propTypes = {
   id: PropTypes.number.isRequired,
+  path: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default TableOrderDetails;

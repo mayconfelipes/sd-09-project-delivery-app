@@ -31,9 +31,7 @@ const OrderCard = (props) => {
                 to={ `/${address}/orders/${id}` }
                 data-testid={ `${dataTestId}-order-id-${id}` }
               >
-                <span data-testid={ `${dataTestId}-order-id-${id}` }>
-                  {id}
-                </span>
+                {id}
               </Link>
               <span data-testid={ `${dataTestId}-delivery-status-${id}` }>
                 {status}
@@ -44,8 +42,12 @@ const OrderCard = (props) => {
               <span data-testid={ `${dataTestId}-card-price-${id}` }>
                 {formatCurrency(totalPrice)}
               </span>
-              { pageSeller && <span>{deliveryAddress}</span>}
-              { pageSeller && <span>{deliveryNumber}</span>}
+              { pageSeller && (
+                <>
+                  <span>{deliveryAddress}</span>
+                  <span>{deliveryNumber}</span>
+                </>
+              )}
             </div>
           ),
         )
