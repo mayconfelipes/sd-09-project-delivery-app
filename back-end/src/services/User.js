@@ -15,6 +15,8 @@ const RegisterSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const findById = async (id) => User.findById(id);
+
 const findByEmail = async (email) => {
   const user = await User.findOne({ where: { email } });
 
@@ -71,6 +73,7 @@ const getByRole = async (role) => {
 };
 
 module.exports = {
+  findById,
   login,
   register,
   getAllUsers,
