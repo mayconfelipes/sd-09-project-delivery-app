@@ -8,7 +8,15 @@ const useOrderDetail = () => {
         url: `http://localhost:3001/sales/${id}`,
         headers: { Authorization: token },
       });
-      setShoppingCart(response.data.products);
+      const shoppingCart = response.data.products.map((product) => (
+        {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          quantity: product.SaleProduct.quantity,
+        }
+      ));
+      setShoppingCart(shoppingCart);
     } catch (error) {
       setShoppingCart(error.response);
     }

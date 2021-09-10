@@ -6,12 +6,15 @@ import Seller from '../context/sellerContext';
 import useTotalPrice from '../hooks/utils/useTotalPrice';
 
 export default function CheckoutTable() {
-  const History = useHistory();
+  const history = useHistory();
   const MAGIC_NUMBER = 3;
-  const path = History.location.pathname.split('/')
+  const path = history.location.pathname.split('/')
     .filter((p, index) => index < MAGIC_NUMBER);
   const role = path[1];
   const page = path[2];
+  const context = useContext(role === 'customer'
+    ? Customer : Seller);
+  const { shoppingCart } = context;
 
   const pageTestId = {
     '/customer/checkout': 'customer_checkout',
@@ -19,18 +22,13 @@ export default function CheckoutTable() {
     '/seller/orders': 'seller_order_details',
   };
 
-  const context = useContext(role === 'customer'
-    ? Customer : Seller);
-  const { shoppingCart } = context;
-  console.log('shoppingCart', shoppingCart);
-
   const [totalPrice, setTotalPrice] = useTotalPrice();
 
   useEffect(() => {
-    setTotalPrice(shoppingCart, page, role);
-  }, [shoppingCart, setTotalPrice, page, role]);
+    setTotalPrice(shoppingCart);
+  }, [shoppingCart]);
 
-  return (
+  return (!shoppingCart ? <span>loading...</span> : (
     <table>
       <thead>
         <tr>
@@ -52,14 +50,17 @@ export default function CheckoutTable() {
             page={ page }
           />
         )) : <tr><td>Apenas teias de aranha em seu carrinho...</td></tr>}
-        <tr
-          data-testid={ `${pageTestId[path.join('/')]}__element-order-total-price` }
-        >
+        <tr>
           <td>
-            {`Total: R$ ${totalPrice}`}
+            Total R$
+            <span
+              data-testid={ `${pageTestId[path.join('/')]}__element-order-total-price` }
+            >
+              {totalPrice}
+            </span>
           </td>
         </tr>
       </tbody>
     </table>
-  );
+  ));
 }

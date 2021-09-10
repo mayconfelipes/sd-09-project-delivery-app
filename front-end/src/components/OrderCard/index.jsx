@@ -26,27 +26,32 @@ const OrderCard = (props) => {
       {
         orderList.map(
           ({ id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber }) => (
-            <div className="order-card" key={ id }>
-              <Link
-                to={ `/${address}/orders/${id}` }
-                data-testid={ `${dataTestId}-order-id-${id}` }
-              >
+            <Link
+              to={ `/${address}/orders/${id}` }
+              data-testid={ `${dataTestId}-order-id-${id}` }
+              key={ id }
+            >
+              <div className="order-card">
                 <span data-testid={ `${dataTestId}-order-id-${id}` }>
                   {id}
                 </span>
-              </Link>
-              <span data-testid={ `${dataTestId}-delivery-status-${id}` }>
-                {status}
-              </span>
-              <span data-testid={ `${dataTestId}-order-date-${id}` }>
-                {formatDate(saleDate)}
-              </span>
-              <span data-testid={ `${dataTestId}-card-price-${id}` }>
-                {formatCurrency(totalPrice)}
-              </span>
-              { pageSeller && <span>{deliveryAddress}</span>}
-              { pageSeller && <span>{deliveryNumber}</span>}
-            </div>
+                <span data-testid={ `${dataTestId}-delivery-status-${id}` }>
+                  {status}
+                </span>
+                <span data-testid={ `${dataTestId}-order-date-${id}` }>
+                  {formatDate(saleDate)}
+                </span>
+                <span data-testid={ `${dataTestId}-card-price-${id}` }>
+                  {formatCurrency(totalPrice)}
+                </span>
+                { pageSeller && (
+                  <>
+                    <span>{deliveryAddress}</span>
+                    <span>{deliveryNumber}</span>
+                  </>
+                )}
+              </div>
+            </Link>
           ),
         )
       }

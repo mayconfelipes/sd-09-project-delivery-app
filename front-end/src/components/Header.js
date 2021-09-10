@@ -27,10 +27,10 @@ const Header = () => {
   }
 
   useEffect(() => {
-    if (match.path === '/admin/manage') {
+    if (match.path.includes('admin')) {
       setSecondNavBarText('GERENCIAR USUÁRIOS');
       setSecondNavBarLink('/admin/manage');
-    } else if (match.path === ('/seller/orders')) {
+    } else if (match.path.includes('seller')) {
       setSecondNavBarText('PEDIDOS');
       setSecondNavBarLink('/seller/orders');
     } else {
