@@ -94,7 +94,7 @@ function TableOrderDetails({
             ))}
         </table>
         <h2
-          data-testid="seller_order_details__element-order-total-h2rice"
+          data-testid="seller_order_details__element-order-total-price"
         >
           {`Total ${totalPrice}`}
         </h2>

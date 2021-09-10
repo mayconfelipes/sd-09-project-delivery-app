@@ -17,10 +17,12 @@ function SaleCard({
     <>
       <div className="order-card-left">
         <div>
-          <p data-testid={ `customer_orders__element-order-id-${saleId}` }>
+          <p>
             Pedido&nbsp;
           </p>
-          <p>{ saleId }</p>
+          <p data-testid={ `customer_orders__element-order-id-${saleId}` }>
+            { saleId }
+          </p>
         </div>
       </div>
 
@@ -37,7 +39,7 @@ function SaleCard({
             </p>
           </div>
           <div className="order-half-content">
-            <p>
+            <p data-testid={ `customer_orders__element-card-price-${saleId}` }>
               R$
               { totalPrice }
             </p>
