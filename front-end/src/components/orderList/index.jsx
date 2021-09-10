@@ -9,7 +9,7 @@ const OrderList = () => {
   const { allSales } = useContext(Context);
   const [details, setDetails] = useState({ redirect: false, orderId: 0 });
   const { redirect, orderId } = details;
-  const [changeDataTestId, setChangeDataTestId] = useState(false);
+  const [changeDataTestId, setChangeDataTestId] = useState(true);
 
   const redirectTo = (id) => {
     setDetails({
@@ -20,7 +20,8 @@ const OrderList = () => {
 
   useEffect(() => {
     const pathName = window.location.pathname;
-    if (pathName === 'customer/orders') setChangeDataTestId(true);
+    console.log(pathName);
+    if (pathName === '/customer/orders') setChangeDataTestId(false);
   }, []);
 
   const returnP = (id, deliveryAddress, deliveryNumber) => (
@@ -32,6 +33,7 @@ const OrderList = () => {
       {`${deliveryAddress} ${deliveryNumber}`}
     </p>
   );
+  console.log(changeDataTestId);
   return (
     <S.SalesList>
       {

@@ -7,7 +7,7 @@ import OrderList from '../../components/orderList';
 const SellerOrders = () => {
   const { name } = JSON.parse(localStorage.getItem('user'));
   const paginas = [
-    'PEDIDOS */customer_products__element-navbar-link-orders */customer/orders',
+    'PEDIDOS */customer_products__element-navbar-link-orders*/customer/orders',
   ];
 
   const { setAllSales } = useContext(Context);
