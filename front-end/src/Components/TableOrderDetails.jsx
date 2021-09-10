@@ -20,11 +20,21 @@ function TableOrderDetails({
   return (
     <div>
       <div className="order-details-table-header">
-        <p data-testid="customer_order_details__element-order-details-label-order-id">
-          {`PEDIDO ${orderId}`}
+        <p>
+          Pedido&nbsp;
+          <span
+            data-testid="customer_order_details__element-order-details-label-order-id"
+          >
+            {orderId}
+          </span>
         </p>
-        <p data-testid="customer_order_details__element-order-details-label-seller-name">
-          {`P. Vend: ${sellerName}`}
+        <p>
+          P. Vend:&nbsp;
+          <span
+            data-testid="customer_order_details__element-order-details-label-seller-name"
+          >
+            {sellerName}
+          </span>
         </p>
         <p data-testid="customer_order_details__element-order-details-label-order-date">
           { orderDate }
@@ -76,27 +86,36 @@ function TableOrderDetails({
                 >
                   { item.SaleProduct.quantity }
                 </td>
-                <td
-                  data-testid={
-                    `customer_order_details__element-order-table-unit-price-${item.id}`
-                  }
-                >
-                  {`R$ ${item.price}`}
+                <td>
+                  R$
+                  <span
+                    data-testid={
+                      `customer_order_details__element-order-table-unit-price-${item.id}`
+                    }
+                  >
+                    {item.price}
+                  </span>
                 </td>
-                <td
-                  data-testid={
-                    `customer_order_details__element-order-table-sub-total-${item.id}`
-                  }
-                >
-                  { `R$ ${Number((item.price * item.SaleProduct.quantity).toFixed(2))}` }
+                <td>
+                  R$
+                  <span
+                    data-testid={
+                      `customer_order_details__element-order-table-sub-total-${item.id}`
+                    }
+                  >
+                    {Number((item.price * item.SaleProduct.quantity).toFixed(2))}
+                  </span>
                 </td>
               </tr>
             ))}
         </table>
-        <h2
-          data-testid="customer_order_details__element-order-total-price"
-        >
-          {`Total ${totalPrice}`}
+        <h2>
+          Total
+          <span
+            data-testid="customer_order_details__element-order-total-price"
+          >
+            {totalPrice}
+          </span>
         </h2>
       </div>
     </div>
