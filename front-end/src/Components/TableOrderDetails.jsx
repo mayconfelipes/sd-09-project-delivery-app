@@ -64,28 +64,28 @@ function TableOrderDetails({
                 </td>
                 <td
                   data-testid={
-                    `seller_order_details__element-order-table-name-${item.id}`
+                    `customer_order_details__element-order-table-name-${item.id}`
                   }
                 >
                   { item.name }
                 </td>
                 <td
                   data-testid={
-                    `seller_order_details__element-order-table-quantity-${item.id}`
+                    `customer_order_details__element-order-table-quantity-${item.id}`
                   }
                 >
                   { item.SaleProduct.quantity }
                 </td>
                 <td
                   data-testid={
-                    `seller_order_details__element-order-table-unit-price-${item.id}`
+                    `customer_order_details__element-order-table-unit-price-${item.id}`
                   }
                 >
                   {`R$ ${item.price}`}
                 </td>
                 <td
                   data-testid={
-                    `seller_order_details__element-order-table-sub-total-${item.id}`
+                    `customer_order_details__element-order-table-sub-total-${item.id}`
                   }
                 >
                   { `R$ ${Number((item.price * item.SaleProduct.quantity).toFixed(2))}` }
@@ -94,7 +94,7 @@ function TableOrderDetails({
             ))}
         </table>
         <h2
-          data-testid="seller_order_details__element-order-total-price"
+          data-testid="customer_order_details__element-order-total-price"
         >
           {`Total ${totalPrice}`}
         </h2>
