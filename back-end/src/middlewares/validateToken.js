@@ -6,7 +6,7 @@ const jwtSecret = 'secret_key';
 module.exports = (req, _res, next) => {
   try {
     const token = req.headers.authorization;
-    console.log(token);
+    // console.log(token);
     if (!token) return next({ error: { statusCode: 401, message: 'Token not found' } });
 
     const { user } = jwt.verify(token, jwtSecret);
