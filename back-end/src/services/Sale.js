@@ -15,13 +15,17 @@ const UpdateSchema = Joi.object({
   status: Joi.string().required(),
 });
 
+const findAll = async () => {
+  const sale = await Sale.findAll();
+  
+  return sale;
+};
+
 const findById = async (id) => {
-  const sale = await Sale.findOne({
+  const sale = await Sale.findOne({ 
     where: { id },
-    include: [{ model: Product, as: 'product', through: { attributes: ['quantity'] } }],
-  });
-  console.log(sale.dataValues);
-  return sale.dataValues;
+    include: [{ model: Product, as: 'product', through: { attributes: ['quantity'] } }] });
+  return sale;
 };
 
 const register = async (saleInfo) => {
@@ -54,7 +58,7 @@ const update = async ({ id, status }) => {
 
   await Sale.update({ status }, { where: { id } });
 
-  const sale = await findById(id);
+  const sale = await Sale.findByPk(id);
 
   return {
     sale,
@@ -71,9 +75,21 @@ const findAllByUserId = async (userId) => {
   };
 };
 
+const findAllBySellerId = async (sellerId) => {
+  const sale = await Sale.findAll({ where: { sellerId } });
+
+  if (!sale) throw generateError(404, 'Venda não encontrada');
+
+  return {
+    sale,
+  };
+};
+
 module.exports = {
   register,
   update,
   findAllByUserId,
+  findAll,
+  findAllBySellerId,
   findById,
 };

@@ -15,6 +15,7 @@ app.use(express.static('public'));
 app.use('/user', Router.userRoutes);
 app.use('/product', Router.productRoutes);
 app.use('/sale', Router.saleRoutes);
+app.use('/salesProducts', Router.salesProducts);
 
 app.use(handleError);
 
