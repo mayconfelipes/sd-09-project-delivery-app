@@ -29,9 +29,10 @@ const OrderCard = (props) => {
             <div className="order-card" key={ id }>
               <Link
                 to={ `/${address}/orders/${id}` }
-                data-testid={ `${dataTestId}-order-id-${id}` }
               >
-                {id}
+                <span data-testid={ `${dataTestId}-order-id-${id}` }>
+                  {id}
+                </span>
               </Link>
               <span data-testid={ `${dataTestId}-delivery-status-${id}` }>
                 {status}

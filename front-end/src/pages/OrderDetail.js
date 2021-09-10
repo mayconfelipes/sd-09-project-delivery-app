@@ -20,7 +20,7 @@ const OrderDetail = () => {
 
   useEffect(() => {
     setOrderDetail(token, setShoppingCart, id);
-  }, [id, setOrderDetail, setShoppingCart, token]);
+  }, []);
 
   return (
     <>

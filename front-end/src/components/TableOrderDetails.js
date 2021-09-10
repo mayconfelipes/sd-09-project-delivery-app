@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import moment from 'moment';
 import PropTypes from 'prop-types';
+import { formatDate } from '../utils/helpers';
 
 // import useInfoUsers from '../hooks/useInfousers';
 
@@ -71,7 +71,7 @@ function TableOrderDetails(props) {
                 `${dataTestId}element-order-details-label-order-date`
               }
             >
-              {moment(saleDate).format('DD/MM/YYYY')}
+              {formatDate(saleDate)}
             </th>
             <th
               data-testid={

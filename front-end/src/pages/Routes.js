@@ -25,6 +25,7 @@ const Routes = () => (
         render={ () => <SellerProvider><OrderDetail /></SellerProvider> }
       />
       <Route
+        exact
         path="/seller/orders"
         render={ () => <SellerProvider><SellerOrder /></SellerProvider> }
       />
