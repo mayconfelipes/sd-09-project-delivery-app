@@ -5,34 +5,22 @@ import formatPrice from '../../services/formatPrice';
 import formatDate from '../../services/formatDate';
 import DEFAULT_ORDER from '../customerOrderDetails/default';
 
-// - 54: seller_order_details__element-order-details-label-order-id
-// - 55: seller_order_details__element-order-details-label-delivery-status
-// - 56: seller_order_details__element-order-details-label-order-date
-// - 57: seller_order_details__button-preparing-check
-// - 58: seller_order_details__button-dispatch-check
-// - 59: seller_order_details__element-order-table-item-number-\<index>
-// - 60: seller_order_details__element-order-table-name-\<index>
-// - 61: seller_order_details__element-order-table-quantity-\<index>
-// - 62: seller_order_details__element-order-table-unit-price-\<index>
-// - 63: seller_order_details__element-order-table-sub-total-\<index>
-// - 64: seller_order_details__element-order-total-price
-
 const dataTestIdLabel = 'seller_order_details__element-order-details-label';
 const dataTestIdTable = 'seller_order_details__element-order-table';
 const dataTestIdTotal = 'seller_order_details__element-order';
-// const dataTestIdButton = 'seller_order_details__button-';
+const dataTestIdButton = 'seller_order_details__button';
 
 const SellerOrderDetails = () => {
   const [order, setOrder] = useState(DEFAULT_ORDER);
   const { sale, products } = order;
   const [loading, setLoading] = useState(true);
+  const [controlButton, setControlButton] = useState(false);
   const {
     id: saleId, sale_date: saleDate, status, total_price: totalPrice,
   } = sale;
   const { name } = JSON.parse(localStorage.getItem('user'));
   const paginas = [
-    'PRODUTOS *customer_products__element-navbar-link-products*/customer/products',
-    'MEUS PEDIDOS*customer_products__element-navbar-link-orders*/customer/orders',
+    'PEDIDOS *customer_products__element-navbar-link-orders*/seller/orders',
   ];
   const getOrder = async () => {
     const { token } = JSON.parse(localStorage.getItem('user'));
@@ -74,15 +62,17 @@ const SellerOrderDetails = () => {
                 </span>
                 <button
                   type="button"
-                  data-testid="customer_order_details__button-delivery-check"
-                  disabled={ (status !== 'saiu para entrega') }
+                  data-testid={ `${dataTestIdButton}-preparing-check` }
+                  onClick={ () => setControlButton(!controlButton) }
+                  disabled={ controlButton }
                 >
                   PREPARAR PEDIDO
                 </button>
                 <button
                   type="button"
-                  data-testid="customer_order_details__button-delivery-check"
-                  disabled={ (status !== 'saiu para entrega') }
+                  data-testid={ `${dataTestIdButton}-dispatch-check` }
+                  onClick={ () => setControlButton(!controlButton) }
+                  disabled={ !controlButton }
                 >
                   SAIU PARA ENTREGA
                 </button>
@@ -132,7 +122,7 @@ const SellerOrderDetails = () => {
                 </tbody>
               </table>
               <p
-                data-testid="customer_order_details__element-order-total-price"
+                data-testid="seller_order_details__element-order-total-price"
               >
                 { formatPrice(Number(totalPrice)) }
               </p>
