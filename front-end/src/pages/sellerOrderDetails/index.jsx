@@ -1,100 +1,146 @@
-// import React, { useState, useEffect } from 'react';
-// import Navbar from '../../components/navbar';
+import React, { useEffect, useState } from 'react';
+import Navbar from '../../components/navbar';
+import { getOrderById } from '../../services/fetchApi';
+import formatPrice from '../../services/formatPrice';
+import formatDate from '../../services/formatDate';
+import DEFAULT_ORDER from '../customerOrderDetails/default';
 
-// // const dataTestIdLable = 'seller_order_details__element-order-details-label';
-// // const dataTestIdTable = 'seller_order_details__element-order-table';
-// // const dataTestIdTotal = 'seller_order_details__element-order';
+// - 54: seller_order_details__element-order-details-label-order-id
+// - 55: seller_order_details__element-order-details-label-delivery-status
+// - 56: seller_order_details__element-order-details-label-order-date
+// - 57: seller_order_details__button-preparing-check
+// - 58: seller_order_details__button-dispatch-check
+// - 59: seller_order_details__element-order-table-item-number-\<index>
+// - 60: seller_order_details__element-order-table-name-\<index>
+// - 61: seller_order_details__element-order-table-quantity-\<index>
+// - 62: seller_order_details__element-order-table-unit-price-\<index>
+// - 63: seller_order_details__element-order-table-sub-total-\<index>
+// - 64: seller_order_details__element-order-total-price
 
-// const SellerOrderDetails = () => {
-//   const [order, setOrder] = useState({});
-// const [loading, setLoading] = useState(true);
-//   const { sale, products } = order;
-//   const {
-//     id: saleId, sale_date: saleDate, status, total_price: totalPrice,
-//   } = sale;
-//   const { name } = JSON.parse(localStorage.getItem('user'));
-//   const paginas = [
-//     'PEDIDOS *customer_products__element-navbar-link-orders*/orders/products',
-//   ];
-//   const getOrder = async () => {
-//     const { token } = JSON.parse(localStorage.getItem('user'));
-//     const pathName = window.location.pathname;
-//     const id = pathName.split('/');
-//     const orderDetail = await getOrderById(token, id[3]);
-//     setOrder(orderDetail);
-// setLoading(false);
-//   };
-//   useEffect(() => {
-//     getOrder();
-//     console.log(order);
-//   }, []);
-//   const headersTable = ['Item', 'Descrição', 'Quantidade', 'Valor Unitario', 'Sub-total'];
-//   console.log(products, totalPrice);
-//   return (
-//     <div>
-//       <Navbar abas={ paginas } user={ name } />
-//       <h1>Bora</h1>
-//       <div>
-//         <div>
-//           <p>{ saleId }</p>
-//           <p>{ saleDate }</p>
-//           <p>{ status }</p>
-//           <button
-//             type="button"
-//           >
-//             Preparar Pedido
-//           </button>
-//           <button
-//             type="button"
-//           >
-//             Saiu para entrega
-//           </button>
-//         </div>
-//         <table>
-//           <thead>
-//             <tr>
-//               { headersTable.map((element) => (
-//                 <th key={ element }>{element}</th>
-//               ))}
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {
-//               products.map(({ res: { name: productName, price }, quantity }, index) => (
-//                 <tr key={ item.id }>
-//                   <td
-//                     data-testid
-//                   >
-//                     {index + 1}
-//                   </td>
-//                   <td
-//                     data-testid
-//                   >
-//                     {productName}
-//                   </td>
-//                   <td
-//                     data-testid
-//                   >
-//                     {quantity}
-//                   </td>
-//                   <td
-//                     data-testid
-//                   >
-//                     {formatPrice(price)}
-//                   </td>
-//                   <td
-//                     data-testid
-//                   >
-//                     {formatPrice(price * quantity)}
-//                   </td>
-//                 </tr>
-//               ))
-//             }
-//           </tbody>
-//         </table>
-//       </div>
-//     </div>
-//   );
-// };
+const dataTestIdLabel = 'seller_order_details__element-order-details-label';
+const dataTestIdTable = 'seller_order_details__element-order-table';
+const dataTestIdTotal = 'seller_order_details__element-order';
+// const dataTestIdButton = 'seller_order_details__button-';
 
-// export default SellerOrderDetails;
+const SellerOrderDetails = () => {
+  const [order, setOrder] = useState(DEFAULT_ORDER);
+  const { sale, products } = order;
+  const [loading, setLoading] = useState(true);
+  const {
+    id: saleId, sale_date: saleDate, status, total_price: totalPrice,
+  } = sale;
+  const { name } = JSON.parse(localStorage.getItem('user'));
+  const paginas = [
+    'PRODUTOS *customer_products__element-navbar-link-products*/customer/products',
+    'MEUS PEDIDOS*customer_products__element-navbar-link-orders*/customer/orders',
+  ];
+  const getOrder = async () => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const pathName = window.location.pathname;
+    const id = pathName.split('/');
+    const orderDetail = await getOrderById(token, id[3]);
+    setOrder(orderDetail);
+    setLoading(false);
+  };
+  const headersTable = ['Item', 'Descrição', 'Quantidade', 'Valor Unitario', 'Sub-total'];
+
+  useEffect(() => {
+    getOrder();
+  }, []);
+
+  return (
+    <div>
+      <Navbar abas={ paginas } user={ name } />
+      {
+        loading
+          ? <h1>Bora</h1>
+          : (
+            <div>
+              <div>
+                <span
+                  data-testid={ `${dataTestIdLabel}-order-id` }
+                >
+                  { `Número pedido: ${saleId}` }
+                </span>
+                <span
+                  data-testid={ `${dataTestIdLabel}-order-date` }
+                >
+                  { formatDate(saleDate.split('T')[0]) }
+                </span>
+                <span
+                  data-testid={ `${dataTestIdLabel}-delivery-status` }
+                >
+                  { status }
+                </span>
+                <button
+                  type="button"
+                  data-testid="customer_order_details__button-delivery-check"
+                  disabled={ (status !== 'saiu para entrega') }
+                >
+                  PREPARAR PEDIDO
+                </button>
+                <button
+                  type="button"
+                  data-testid="customer_order_details__button-delivery-check"
+                  disabled={ (status !== 'saiu para entrega') }
+                >
+                  SAIU PARA ENTREGA
+                </button>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    { headersTable.map((element) => (
+                      <th key={ element }>{element}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    products.map((
+                      { res: { name: productName, price }, quantity }, index,
+                    ) => (
+                      <tr key={ index }>
+                        <td
+                          data-testid={ `${dataTestIdTable}-item-number-${index}` }
+                        >
+                          {index + 1}
+                        </td>
+                        <td
+                          data-testid={ `${dataTestIdTable}-name-${index}` }
+                        >
+                          {productName}
+                        </td>
+                        <td
+                          data-testid={ `${dataTestIdTable}-quantity-${index}` }
+                        >
+                          {quantity}
+                        </td>
+                        <td
+                          data-testid={ `${dataTestIdTable}-sub-total-${index}` }
+                        >
+                          {formatPrice(Number(price))}
+                        </td>
+                        <td
+                          data-testid={ `${dataTestIdTotal}-total-price-${index}` }
+                        >
+                          {formatPrice(Number(price * quantity))}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+              <p
+                data-testid="customer_order_details__element-order-total-price"
+              >
+                { formatPrice(Number(totalPrice)) }
+              </p>
+            </div>
+          )
+      }
+    </div>
+  );
+};
+
+export default SellerOrderDetails;
