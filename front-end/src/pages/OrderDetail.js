@@ -25,7 +25,7 @@ const OrderDetail = () => {
   return (
     <>
       <Header />
-      <TableOrderDetails id={ id } path={ path } />
+      <TableOrderDetails id={ id } path={ path.join('/') } />
       <CheckoutTable />
     </>
   );

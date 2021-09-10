@@ -20,7 +20,7 @@ function TableOrderDetails(props) {
     '/seller/orders': ['dispatch', 'SAIU PARA ENTREGA', 'preparing', 'PREPARAR PEDIDO'],
   };
 
-  const dataTestId = pageTestId[path.join('/')];
+  const dataTestId = pageTestId[path];
 
   const getOrderDetails = ((useCallback(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -80,24 +80,24 @@ function TableOrderDetails(props) {
             >
               {status}
             </th>
-            { path[1] === 'seller' && (
+            { path.includes('seller') && (
               <button
                 type="button"
                 data-testid={
-                  `${dataTestId}button-${deliverystatuses[path.join('/')][2]}-check`
+                  `${dataTestId}button-${deliverystatuses[path][2]}-check`
                 }
               >
-                {deliverystatuses[path.join('/')][3]}
+                {deliverystatuses[path][3]}
               </button>
             )}
             <button
               type="button"
               data-testid={
-                `${dataTestId}button-${deliverystatuses[path.join('/')][0]}-check`
+                `${dataTestId}button-${deliverystatuses[path][0]}-check`
               }
               disabled
             >
-              {deliverystatuses[path.join('/')][1]}
+              {deliverystatuses[path][1]}
             </button>
           </tr>
         </thead>
@@ -106,8 +106,8 @@ function TableOrderDetails(props) {
 }
 
 TableOrderDetails.propTypes = {
-  id: PropTypes.number.isRequired,
-  path: PropTypes.arrayOf(PropTypes.string).isRequired,
+  id: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
 };
 
 export default TableOrderDetails;
