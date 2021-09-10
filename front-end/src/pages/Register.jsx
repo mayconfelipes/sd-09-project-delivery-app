@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 function Register() {
@@ -7,7 +7,7 @@ function Register() {
   const [errorMessage, setErrorMessage] = useState('');
   const [disableBtn, setDisableBtn] = useState(true);
   const [revealPass, setRevealPass] = useState(false);
-  const history = useHistory();
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     const passwordLength = 6;
@@ -24,16 +24,14 @@ function Register() {
       setDisableBtn(true);
     }
   }, [signupValues.name, signupValues.email, signupValues.password, signupValues]);
-
   function handleLocalState(event) {
     const { name, value } = event.target;
     setSignupValues((prevState) => ({ ...prevState, [name]: value }));
   }
-
   async function registerUser() {
     try {
       const { name, email, password } = signupValues;
-      await axios({
+      const request = await axios({
         method: 'post',
         url: 'http://localhost:3001/user',
         data: {
@@ -42,18 +40,16 @@ function Register() {
           password,
         },
       });
-      // const { data } = request;
+      const { data } = request;
       localStorage.setItem('user', JSON.stringify(data));
-      history.push('/customer/products');
+      setRedirect(true);
     } catch (e) {
       setErrorMessage('Usuario já cadastrado');
     }
   }
-
   return (
     <div className="App">
       <div className="signup-container">
-
         <label htmlFor="name">
           Nome
           <input
@@ -66,7 +62,6 @@ function Register() {
             onChange={ (event) => handleLocalState(event) }
           />
         </label>
-
         <label htmlFor="email">
           Email
           <input
@@ -83,7 +78,7 @@ function Register() {
           <label htmlFor="password">
             <span>Senha</span>
             <input
-              type={ revealPass ? 'password' : 'text' }
+              type={ revealPass ? 'text' : 'password' }
               name="password"
               className="input-element"
               placeholder="**********"
@@ -101,7 +96,6 @@ function Register() {
             className={ `far ${revealPass ? 'fa-eye' : 'fa-eye-slash'} passreveal` }
           />
         </div>
-
         <button
           type="button"
           data-testid="common_register__button-register"
@@ -117,8 +111,8 @@ function Register() {
           {errorMessage}
         </span>
       </div>
+      {redirect && <Redirect to="/customer/products" />}
     </div>
   );
 }
-
 export default Register;

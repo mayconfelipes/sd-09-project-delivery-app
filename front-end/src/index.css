@@ -241,6 +241,7 @@ table tr td {
   background-color: transparent;
   font-size: 16px;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .navbar-container .navbar-left button, .navbar-container .navbar-right button, .navbar-container .navbar-right span  {
@@ -361,4 +362,15 @@ table tr td {
 
 .done {
   background-color: #3fd9b4;
+}
+
+/* ORDER DETAILS */
+
+.order-details-table-header {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: center;
+  margin: 0 auto;
+  width: 80%;
 }
