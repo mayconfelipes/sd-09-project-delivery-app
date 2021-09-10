@@ -7,14 +7,18 @@ const useDataSellers = () => {
   const { token } = useUserDataContext();
 
   useEffect(
-    async () => {
-      const { data: { sellers: requestedSellers } } = await requestApi({
-        method: 'get',
-        endpoint: 'seller/',
-        token,
-      });
-
-      setSellers(requestedSellers);
+    () => {
+      const requestSellers = async () => {
+        const { data: { sellers: requestedSellers } } = await requestApi({
+          method: 'get',
+          endpoint: 'seller/',
+          token,
+        });
+  
+        setSellers(requestedSellers);
+      };
+      
+      requestSellers();
     },
     [],
   );
