@@ -13,6 +13,7 @@ class Order extends React.Component {
     this.state = {
       allInfo: [],
       statusP: '',
+      statusColor: 'status-pendente',
     };
 
     this.fetchAPI = this.fetchAPI.bind(this);
@@ -21,6 +22,9 @@ class Order extends React.Component {
   }
 
   componentDidMount() {
+    const { match: { params: { id } } } = this.props;
+    const { statusColor } = this.state;
+    socket.emit('statusInitial', { id, statusColor });
     this.fetchAPI();
     this.updateSocket();
   }
@@ -39,10 +43,23 @@ class Order extends React.Component {
 
   updateSocket() {
     const { match: { params } } = this.props;
-    socket.on('newStatus', ({ id, status }) => {
+
+    socket.on('statusColorInitial', ({ id, statusColor }) => {
+      console.log(Number(params.id));
+      console.log(Number(id));
+      console.log(statusColor);
+      if (Number(params.id) === Number(id)) {
+        this.setState({
+          statusColor,
+        });
+      }
+    });
+
+    socket.on('newStatus', ({ id, status, statusColor }) => {
       if (Number(params.id) === id) {
         this.setState({
           statusP: status,
+          statusColor,
         });
       }
     });
@@ -63,11 +80,12 @@ class Order extends React.Component {
     return newDate;
   }
 
-  updateStatus(status, rgb) {
+  updateStatus(status, statusColor) {
     const { allInfo: { id } } = this.state;
-    socket.emit('updateStatus', { id, status, rgb });
+    socket.emit('updateStatus', { id, status, statusColor });
     this.setState({
       statusP: status,
+      statusColor,
     });
   }
 
@@ -77,7 +95,7 @@ class Order extends React.Component {
         className="btn-status"
         type="button"
         disabled={ status !== 'Em Trânsito' }
-        onClick={ () => this.updateStatus('Entregue', '#00cc9b') }
+        onClick={ () => this.updateStatus('Entregue', 'status-entregue') }
         data-testid={ `${role}_order_details__button-delivery-check` }
       >
         MARCAR COMO ENTREGUE
@@ -92,7 +110,7 @@ class Order extends React.Component {
           className="btn-status"
           type="button"
           disabled={ status !== 'Pendente' }
-          onClick={ () => this.updateStatus('Preparando', '#66cc00') }
+          onClick={ () => this.updateStatus('Preparando', 'status-preparando') }
           data-testid={ `${role}_order_details__button-preparing-check` }
         >
           PREPARAR PEDIDO
@@ -101,7 +119,7 @@ class Order extends React.Component {
           className="btn-status"
           type="button"
           disabled={ status !== 'Preparando' }
-          onClick={ () => this.updateStatus('Em Trânsito', '#056cf9') }
+          onClick={ () => this.updateStatus('Em Trânsito', 'status-transito') }
           data-testid={ `${role}_order_details__button-dispatch-check` }
         >
           SAIU PARA ENTREGA
@@ -153,7 +171,7 @@ class Order extends React.Component {
   }
 
   render() {
-    const { allInfo, statusP } = this.state;
+    const { allInfo, statusP, statusColor } = this.state;
     const { role } = JSON.parse(localStorage.user);
 
     if (allInfo.length === 0) {
@@ -185,7 +203,7 @@ class Order extends React.Component {
               { newDate }
             </p>
             <p
-              className="status-color"
+              className={ statusColor }
               data-testid={
                 `${role}_order_details__element-order-details-label-delivery-status`
               }

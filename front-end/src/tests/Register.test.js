@@ -14,7 +14,7 @@ describe('Register teste', () => {
   });
 
   test('Tem tres input', () => {
-    const { container } = renderWithRouterAndStore(<Register />);
+    const { container } = renderWithRouterAndStore(<Register />, { route: '/resgiter' });
     const allInput = container.querySelectorAll('input');
 
     userEvent.type(allInput[0], 'test');
@@ -27,7 +27,7 @@ describe('Register teste', () => {
   });
 
   test('Tem um button para registrar', async  () => {
-    const { getByTestId, container } = renderWithRouterAndStore(<Register />);
+    const { getByTestId, container } = renderWithRouterAndStore(<Register />, { route: '/resgiter' });
     const button = getByTestId('common_register__button-register');
     const allInput = container.querySelectorAll('input');
 

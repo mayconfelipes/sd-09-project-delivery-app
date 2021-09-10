@@ -10,6 +10,7 @@ class OrderCard extends React.Component {
 
     this.state = {
       statusP: '',
+      statusColor: 'status-pendente',
     };
 
     this.dateFormat = this.dateFormat.bind(this);
@@ -18,6 +19,9 @@ class OrderCard extends React.Component {
   }
 
   componentDidMount() {
+    const { sale: { id } } = this.props;
+    const { statusColor } = this.state;
+    socket.emit('statusInitial', { id, statusColor });
     this.updateStatus();
   }
 
@@ -27,10 +31,19 @@ class OrderCard extends React.Component {
       statusP: sale.status,
     });
 
-    socket.on('newStatus', ({ id, status }) => {
+    socket.on('statusColorInitial', ({ id, statusColor }) => {
+      if (Number(sale.id) === id) {
+        this.setState({
+          statusColor,
+        });
+      }
+    });
+
+    socket.on('newStatus', ({ id, status, statusColor }) => {
       if (Number(sale.id) === id) {
         this.setState({
           statusP: status,
+          statusColor,
         });
       }
     });
@@ -90,7 +103,7 @@ class OrderCard extends React.Component {
 
   render() {
     const { sale, role } = this.props;
-    const { statusP } = this.state;
+    const { statusP, statusColor } = this.state;
 
     return (
       <div>
@@ -106,7 +119,7 @@ class OrderCard extends React.Component {
           <div className="container-card">
             <div className="card-up">
               <p
-                className="word-status"
+                className={ statusColor }
                 data-testid={ `${role}_orders__element-delivery-status-${sale.id}` }
               >
                 { statusP }

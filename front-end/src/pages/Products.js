@@ -3,34 +3,36 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProductCard from '../components/ProductCard';
-import fetchGET from '../services/fetchGET';
+// import fetchGET from '../services/fetchGET';
 import '../styles/Cards.css';
+import { productsThunk } from '../actions/productsAction';
 
 class Products extends React.Component {
-  constructor() {
-    super();
+  // constructor() {
+  //   super();
 
-    this.state = {
-      products: [],
-    };
+  //   this.state = {
+  //     products: [],
+  //   };
 
-    this.fetchAPI = this.fetchAPI.bind(this);
+  //   this.fetchAPI = this.fetchAPI.bind(this);
+  // }
+
+  componentDidMount() {
+    const { setAllProducts } = this.props;
+    setAllProducts();
+    // this.fetchAPI();
   }
 
-  async componentDidMount() {
-    await this.fetchAPI();
-  }
-
-  async fetchAPI() {
-    const result = await fetchGET('products');
-    this.setState({
-      products: result,
-    });
-  }
+  // async fetchAPI() {
+  //   const result = await fetchGET('products');
+  //   this.setState({
+  //     products: result,
+  //   });
+  // }
 
   render() {
-    const { products } = this.state;
-    const { getTotalPrice, getProducts } = this.props;
+    const { getTotalPrice, getProducts, getAllProducts } = this.props;
 
     return (
       <div>
@@ -50,7 +52,7 @@ class Products extends React.Component {
           </button>
         </Link>
         <div className="allCard">
-          { products.map((product, index) => (
+          { getAllProducts.map((product, index) => (
             <ProductCard
               key={ `${product}${index}` }
               product={ product }
@@ -65,6 +67,11 @@ class Products extends React.Component {
 const mapStateToProps = (state) => ({
   getProducts: state.checkoutReducer.productsBuy,
   getTotalPrice: state.checkoutReducer.totalPrice,
+  getAllProducts: state.productsReducer.allProduct,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setAllProducts: () => dispatch(productsThunk()),
 });
 
 Products.propTypes = ({
@@ -73,4 +80,4 @@ Products.propTypes = ({
   getTotalPrice: PropTypes.string,
 }).isRequired;
 
-export default connect(mapStateToProps)(Products);
+export default connect(mapStateToProps, mapDispatchToProps)(Products);

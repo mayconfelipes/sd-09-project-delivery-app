@@ -46,3 +46,27 @@
   border: 1px solid rgb(153, 153, 153);
   color: rgb(102, 102, 102);
 }
+
+.order-detail-up .status-pendente {
+  background-color: rgba(204, 184, 0, 0.75);
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+
+.order-detail-up .status-preparando {
+  background-color: rgb(102, 204, 0);
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+
+.order-detail-up .status-transito {
+  background-color: rgb(5, 108, 249);
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+
+.order-detail-up .status-entregue {
+  background-color: rgb(0, 204, 155);
+  border-radius: 5px;
+  padding: 2px 5px;
+}

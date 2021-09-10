@@ -8,7 +8,7 @@ import '@testing-library/jest-dom/extend-expect';
 describe('Login teste', () => {
   test('Verifica se renderizou a pagina de Login', () => {
     const { getByText } = renderWithRouterAndStore(<Login />);
-    const title = getByText(/HOME/i);
+    const title = getByText(/Têlivery/i);
 
     expect(title).toBeInTheDocument();
   });
@@ -58,7 +58,7 @@ describe('Login teste', () => {
     userEvent.type(allInput[1], 'fulana@123');
     expect(button).toBeEnabled();
 
-    fireEvent.click(button);    
+    fireEvent.click(button);
 
     await new Promise(r => setTimeout(_ => r(), 1000));
     expect(history.location.pathname).toBe('/seller/orders');

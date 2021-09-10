@@ -1,0 +1,94 @@
+h3 {
+  margin: 25px 30px;
+}
+
+.table-admin {
+  border: 1px solid rgb(178, 187, 184);
+  box-shadow: 2px 2px 2px grey;
+  margin: 0 30px;
+  padding: 5px;
+}
+
+.item-admin {
+  background-color: rgb(47, 193, 140);
+  border-radius: 5px 0 0 5px;
+}
+
+.name-admin {
+  background-color: rgb(234, 241, 239);
+}
+
+.email-admin {
+  background-color: rgb(3, 107, 82);
+  color: white;
+}
+
+.tipo-admin {
+  background-color: rgb(66, 25, 129);
+  color: white;
+}
+
+.button-admin {
+  background-color: rgb(5, 108, 249);
+  border-radius: 0 5px 5px 0;
+}
+
+.button-delete {
+  background-color: rgb(5, 108, 249);
+  color: white;
+}
+
+.page-admin-up {
+  border: 1px solid rgb(178, 187, 184);
+  box-shadow: 2px 2px 2px grey;
+  margin: 25px 30px;
+  padding: 5px;
+}
+
+.form-admin {
+  display: flex;
+  justify-content: space-around;
+}
+
+.form-admin input {
+  border: 1px solid rgb(178, 187, 184);
+  font-size: medium;
+  height: 30px;
+  text-align: center;
+  width: 350px;
+}
+
+.form-admin select {
+  background-color: white;
+  border: 1px solid rgb(178, 187, 184);
+  font-size: medium;
+  height: 36px;
+  text-align: center;
+  width: 250px;
+}
+
+.form-admin label {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.div-admin-register {
+  display: flex;
+  justify-content: center;
+}
+
+.div-admin-register button {
+  background-color: rgba(3, 107, 82, 1);
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  height: 40px;
+  width: 180px;
+}
+
+.button-admin-register:disabled, .button-admin-register[ disabled ] {
+  background-color: rgb(204, 204, 204);
+  border: 1px solid rgb(153, 153, 153);
+  color: rgb(102, 102, 102);
+}

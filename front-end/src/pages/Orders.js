@@ -27,8 +27,8 @@ class Orders extends React.Component {
   }
 
   render() {
-    const { allSales } = this.state;
     const { role } = JSON.parse(localStorage.user);
+    const { allSales } = this.state;
 
     return (
       <div className="allCards">

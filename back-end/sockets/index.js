@@ -1,9 +1,20 @@
 const Sales = require('../src/services/Sales');
 const Users = require('../src/services/Users');
 
+const colorStatus = {};
+
 module.exports = (io) => io.on('connection', (socket) => {
-  socket.on('updateStatus', ({ id, status, rgb }) => {
-    io.emit('newStatus', { id, status, rgb });
+  socket.on('statusInitial', ({ id, statusColor }) => {
+    if (colorStatus[id]) {
+      socket.emit('statusColorInitial', ({ id, statusColor: colorStatus[id] }));
+    } else {
+      colorStatus[id] = statusColor;
+    }
+  });
+
+  socket.on('updateStatus', ({ id, status, statusColor }) => {
+    colorStatus[id] = statusColor;
+    io.emit('newStatus', { id, status, statusColor: colorStatus[id] });
     Sales.updateSale(id, { status });
   });
 

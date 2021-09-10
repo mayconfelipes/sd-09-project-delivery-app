@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import ItensDetails from '../components/ItensDetails';
-import fetchGET from '../services/fetchGET';
-import fetchPOST from '../services/fetchPOST';
-import { productsAction, setTotalPriceAction } from '../actions/checkoutAction';
+// import fetchPOST from '../services/fetchPOST';
+import {
+  allSellerThunk,
+  placeOrderThunk, productsAction, setTotalPriceAction } from '../actions/checkoutAction';
 import '../styles/Checkout.css';
 
 class Checkout extends React.Component {
@@ -15,21 +16,19 @@ class Checkout extends React.Component {
     this.state = {
       deliveryAddress: '',
       deliveryNumber: '',
-      sellers: [],
       selectValue: '',
       redirect: false,
-      id: 0,
     };
 
     this.placeOrder = this.placeOrder.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.fetchAPI = this.fetchAPI.bind(this);
     this.tableItens = this.tableItens.bind(this);
     this.selectSeller = this.selectSeller.bind(this);
   }
 
   componentDidMount() {
-    this.fetchAPI();
+    const { setAllSeller } = this.props;
+    setAllSeller();
   }
 
   handleChange({ target }) {
@@ -37,22 +36,13 @@ class Checkout extends React.Component {
     this.setState({ [name]: value });
   }
 
-  async fetchAPI() {
-    try {
-      const result = await fetchGET('users');
-      const arrayFilter = result.filter((user) => user.role === 'seller');
-      this.setState({
-        sellers: arrayFilter,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   async placeOrder() {
     const user = localStorage.getItem('user');
     const { selectValue, deliveryAddress, deliveryNumber } = this.state;
-    const { getTotalPrice, getProducts, setProducts, setTotalPrice } = this.props;
+    const {
+      getTotalPrice,
+      getProducts, setProducts, setTotalPrice, setPlaceOrder } = this.props;
+
     const bodySales = {
       userId: JSON.parse(user).id,
       sellerId: Number(selectValue),
@@ -62,10 +52,10 @@ class Checkout extends React.Component {
       products: getProducts,
     };
 
-    const { id } = await fetchPOST('sales', bodySales);
+    await setPlaceOrder(bodySales);
+    // const { id } = await fetchPOST('sales', bodySales);
 
     this.setState({
-      id,
       redirect: true,
     });
     setProducts([]);
@@ -100,7 +90,7 @@ class Checkout extends React.Component {
   }
 
   selectSeller() {
-    const { sellers } = this.state;
+    const { getAllSeller } = this.props;
     return (
       <label className="label-seller" htmlFor="seller">
         <p className="word-label">P.Vendedora Responsavel:</p>
@@ -110,7 +100,7 @@ class Checkout extends React.Component {
           onChange={ this.handleChange }
         >
           <option value="">Selecione um Vendedor</option>
-          { sellers.map((seller, index) => (
+          { getAllSeller.map((seller, index) => (
             <option
               key={ `${seller}${index}` }
               value={ seller.id }
@@ -124,8 +114,8 @@ class Checkout extends React.Component {
   }
 
   render() {
-    const { getTotalPrice } = this.props;
-    const { deliveryAddress, deliveryNumber, redirect, id } = this.state;
+    const { getTotalPrice, getOrderID } = this.props;
+    const { deliveryAddress, deliveryNumber, redirect } = this.state;
 
     return (
       <div className="checkout">
@@ -180,7 +170,7 @@ class Checkout extends React.Component {
             </button>
           </div>
         </div>
-        { redirect && <Redirect to={ `/customer/orders/${id}` } /> }
+        { redirect && <Redirect to={ `/customer/orders/${getOrderID}` } /> }
       </div>
     );
   }
@@ -189,11 +179,16 @@ class Checkout extends React.Component {
 const mapStateToProps = (state) => ({
   getProducts: state.checkoutReducer.productsBuy,
   getTotalPrice: state.checkoutReducer.totalPrice,
+  getAllSeller: state.checkoutReducer.allSeller,
+  getOrderID: state.checkoutReducer.orderID,
+  getRedirect: state.checkoutReducer.redirect,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setProducts: (productsBuy) => dispatch(productsAction(productsBuy)),
   setTotalPrice: (totalPrice) => dispatch(setTotalPriceAction(totalPrice)),
+  setAllSeller: () => dispatch(allSellerThunk()),
+  setPlaceOrder: (body) => dispatch(placeOrderThunk(body)),
 });
 
 Checkout.propTypes = ({
