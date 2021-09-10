@@ -13,6 +13,17 @@ function SaleCard({
     if (sts === 'Entregue') return 'done';
   };
 
+  const renderTotalPrice = (price) => (
+    <p>
+      R$
+      <span
+        data-testid={ `customer_orders__element-card-price-${saleId}` }
+      >
+        { price.replace('.', ',') }
+      </span>
+    </p>
+  );
+
   return (
     <>
       <div className="order-card-left">
@@ -39,10 +50,7 @@ function SaleCard({
             </p>
           </div>
           <div className="order-half-content">
-            <p data-testid={ `customer_orders__element-card-price-${saleId}` }>
-              R$
-              { totalPrice }
-            </p>
+            { renderTotalPrice(totalPrice) }
           </div>
         </div>
       </div>
