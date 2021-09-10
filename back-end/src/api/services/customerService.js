@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-const { Product, Sale, User } = require('../../database/models');
+const { Product, Sale, User, salesProduct } = require('../../database/models');
 
 const errorTypes = require('../utils/errorTypes');
 
@@ -16,14 +16,8 @@ const getProducts = async () => {
   return { products };
 };
 
-const getSellers = async () => {
-  const sellers = await User.findAll({ where: { role: 'seller' } });
-
-  return { sellers };
-};
-
 const createCheckout = async (saleData) => {
-  const { sellerId, deliveryAddress, deliveryNumber, totalPrice, userId } = saleData;
+  const { sellerId, deliveryAddress, deliveryNumber, totalPrice, userId, cart } = saleData;
   const saleDate = moment().utc().format();
 
   const order = await Sale.create({
@@ -36,19 +30,36 @@ const createCheckout = async (saleData) => {
     status: 'Pendente',
   });
 
+  const { id: saleId } = order.dataValues;
+
+  cart.forEach((product) => {
+    salesProduct.create({ saleId, productId: product.id, quantity: product.quantity });
+  });
+
   return { order };
 };
 
 const getOrders = async (userId) => {
-  const orders = await Sale
-  .findAll({ where: { userId }, attributes: { exclude: ['user_id', 'seller_id'] } });
+  const orders = await Sale.findAll({
+    where: { userId },
+    attributes: { exclude: ['user_id', 'seller_id'] },
+    include: [
+      { model: Product, as: 'products', through: { attributes: ['quantity'] } },
+    ],
+  });
 
   return { orders };
 };
 
 const getOrderById = async (id) => {
-  const order = await Sale
-  .findOne({ where: { id }, attributes: { exclude: ['user_id', 'seller_id'] } });
+  const order = await Sale.findOne({
+    where: { id },
+    attributes: { exclude: ['user_id', 'seller_id'] },
+    include: [
+      { model: User, as: 'seller', attributes: ['id', 'name'] },
+      { model: Product, as: 'products', through: { attributes: ['quantity'] } },
+    ],
+  });
 
   if (!order) {
     const error = errorTypes.orderNotFound;
@@ -59,4 +70,4 @@ const getOrderById = async (id) => {
   return { order };
 };
 
-module.exports = { getProducts, createCheckout, getOrders, getOrderById, getSellers };
+module.exports = { getProducts, createCheckout, getOrders, getOrderById };
