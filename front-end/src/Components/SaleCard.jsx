@@ -7,7 +7,6 @@ function SaleCard({
   saleDate,
   totalPrice,
 }) {
-  const sliceDate = 10;
   const statusClasses = (sts) => {
     if (sts === 'Pendente') return 'pending';
     if (sts === 'Preparando') return 'preparing';
@@ -34,10 +33,7 @@ function SaleCard({
         <div className="order-card-right-half">
           <div className="order-half-content">
             <p data-testid={ `customer_orders__element-order-date-${saleId}` }>
-              { saleDate
-                .slice(0, sliceDate)
-                .replaceAll('-', '')
-                .replace(/(\d{4})(\d{2})(\d{2})/, '$3/$2/$1') }
+              { saleDate }
             </p>
           </div>
           <div className="order-half-content">

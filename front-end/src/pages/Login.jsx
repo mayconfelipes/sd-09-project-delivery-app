@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Context from '../context/Context';
@@ -33,14 +33,14 @@ function Login() {
     }
   };
 
+  const redirectRole = {
+    customer: '/customer/products',
+    seller: '/seller/orders',
+    administrator: '/admin/manage',
+  };
+
   const validateUser = async (e) => {
     e.preventDefault();
-    const redirectRole = {
-      customer: '/customer/products',
-      seller: '/seller/orders',
-      administrator: '/admin/manage',
-    };
-
     try {
       const response = await axios({
         method: 'post',
@@ -54,6 +54,11 @@ function Login() {
       setErrorMessage('Dados inválidos.');
     }
   };
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) history.push(redirectRole[user.role]);
+  });
 
   return (
     <div className="App">

@@ -49,8 +49,8 @@ const getAll = rescue(async (_req, res) => {
 const findSaleById = rescue(async (req, res) => {
   const { id } = req.params;
 
-  const sales = await Sale.findById(id);
-  return res.status(200).json(sales);
+  const sale = await Sale.findById(id);
+  return res.status(201).json(sale);
 });
 
 module.exports = {

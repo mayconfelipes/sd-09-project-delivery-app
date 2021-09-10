@@ -35,7 +35,7 @@ const register = async (saleInfo) => {
 
   const { userId, sellerId, deliveryAddress, deliveryNumber, cart } = saleInfo;
   const totalPrice = await calculateTotalPrice(Product, cart);
-
+  console.log(totalPrice);
   const sale = await Sale.create({
     userId,
     sellerId,
