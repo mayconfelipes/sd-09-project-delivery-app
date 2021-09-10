@@ -51,4 +51,16 @@ customerController.get('/orders/:id', jwtValidator, rescue(async (req, res, next
   return res.status(ok).json({ order });
 }));
 
+customerController.put('/orders/:id', jwtValidator, rescue(async (req, res, next) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  const { userId } = req;
+
+  const { error, response } = await customerService.changeOrderStatus(id, userId, status);
+
+  if (error) return next(error);
+
+  return res.status(ok).json(response);
+}));
+
 module.exports = customerController;

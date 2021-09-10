@@ -70,4 +70,17 @@ const getOrderById = async (id) => {
   return { order };
 };
 
-module.exports = { getProducts, createCheckout, getOrders, getOrderById };
+const changeOrderStatus = async (id, userId, status) => {
+  const validStatus = ['Entregue'];
+ 
+  if (!validStatus.includes(status)) {
+    const error = errorTypes.invalidStatus;
+
+    return { error };
+  }
+  const [response] = await Sale.update({ status }, { where: { id, userId } });
+
+  return { response: !!response };
+};
+
+module.exports = { getProducts, createCheckout, getOrders, getOrderById, changeOrderStatus };

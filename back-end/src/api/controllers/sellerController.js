@@ -36,4 +36,16 @@ sellerController.get('/orders/:id', jwtValidator, rescue(async (req, res, next) 
   return res.status(ok).json({ order });
 }));
 
+sellerController.put('/orders/:id', jwtValidator, rescue(async (req, res, next) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  const { userId: sellerId } = req;
+
+  const { error, response } = await sellerService.changeOrderStatus(id, sellerId, status);
+
+  if (error) return next(error);
+
+  return res.status(ok).json(response);
+}));
+
 module.exports = sellerController;

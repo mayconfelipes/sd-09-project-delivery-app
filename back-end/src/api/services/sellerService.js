@@ -40,4 +40,17 @@ const getOrderById = async (id, sellerId) => {
   return { order };
 };
 
-module.exports = { getSellers, getOrdersBySellerId, getOrderById };
+const changeOrderStatus = async (id, sellerId, status) => {
+  const validStatus = ['Preparando', 'Em Trânsito'];
+ 
+  if (!validStatus.includes(status)) {
+    const error = errorTypes.invalidStatus;
+
+    return { error };
+  }
+  const [response] = await Sale.update({ status }, { where: { id, sellerId } });
+
+  return { response: !!response };
+};
+
+module.exports = { getSellers, getOrdersBySellerId, getOrderById, changeOrderStatus };
