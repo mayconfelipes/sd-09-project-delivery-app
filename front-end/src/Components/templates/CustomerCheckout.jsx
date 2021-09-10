@@ -6,11 +6,14 @@ import { Main } from '../atoms';
 // import ProductsList from '../../components/organisms/ProductsList';
 import NavBar from '../organisms/NavBar';
 import { productsArrayPropTypes } from '../../utils/propTypes';
+import CheckoutSelect from '../molecules/CheckoutSelect';
 
 const CustomerCheckout = ({ className }) => (
   <>
     <NavBar />
-    <Main className={ className } />
+    <Main className={ className }>
+      <CheckoutSelect />
+    </Main>
   </>
 );
 

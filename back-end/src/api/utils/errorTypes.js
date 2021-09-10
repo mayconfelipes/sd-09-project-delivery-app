@@ -15,4 +15,8 @@ module.exports = {
     message: 'No Order found with this ID',
     code: 'notFound',
   },
+  invalidStatus: {
+    message: 'Invalid order status',
+    code: 'badRequest',
+  },
 };
