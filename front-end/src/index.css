@@ -264,7 +264,6 @@ table tr td {
 }
 .navbar-container .navbar-left button {
   color: #fafafa;
-  text-transform: uppercase;
 }
 
 .navbar-container .navbar-right span {
@@ -323,7 +322,6 @@ table tr td {
   gap: 8px;
   justify-content: space-between;
   padding: 8px;
-  text-transform: uppercase;
   width: 100%;
 }
 
