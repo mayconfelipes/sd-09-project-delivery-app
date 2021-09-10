@@ -9,7 +9,7 @@ import {
   Input,
   Label,
   Wrapper,
-} from '../../Components';
+} from '../../components';
 import assets from '../../assets';
 import testIds from '../../utils/testIds';
 import paths from '../../Routes/paths';

@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import { fieldChangeHandler } from '../utils/handlers';
 import { validateInfo } from '../utils/validateInfo';
 
-const useAuthFormInfo = ({ fields, validationSchema }) => {
+const useAuthFormInfo = (
+  { fields, validationSchema = {} },
+  disableValidation = false,
+) => {
   const initialState = fields.reduce(
     (accumulator, field) => ({ ...accumulator, [field]: '' }),
     {},
@@ -12,8 +15,10 @@ const useAuthFormInfo = ({ fields, validationSchema }) => {
 
   useEffect(
     () => {
-      const { error } = validateInfo({ info: authInfo, schema: validationSchema });
-      setInfoValidation(!!error);
+      if (!disableValidation) {
+        const { error } = validateInfo({ info: authInfo, schema: validationSchema });
+        setInfoValidation(!!error);
+      }
     }, [authInfo],
   );
 

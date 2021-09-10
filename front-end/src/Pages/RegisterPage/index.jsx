@@ -6,7 +6,7 @@ import {
   Input,
   Label,
   Wrapper,
-} from '../../Components';
+} from '../../components';
 import testIds from '../../utils/testIds';
 import redirectByRole from '../../Routes/redirectByRole';
 import useAuthentication from '../../hooks/useAuthentication';

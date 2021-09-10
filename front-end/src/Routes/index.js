@@ -5,16 +5,21 @@ import {
   Login,
   Register,
   NotFound,
+  Checkout,
+  Products,
+  Orders,
 } from '../Pages';
-import Products from '../Pages/CustomerPages/Products';
+
 import paths from './paths';
 
 const Routes = () => (
   <Switch>
-    <Route path={ paths.customer.products } component={ Products } />
-    <Route path={ paths.register } component={ Register } />
-    <Route path={ paths.login } component={ Login } />
     <Route exact path={ paths.home } component={ HomePage } />
+    <Route path={ paths.login } component={ Login } />
+    <Route path={ paths.register } component={ Register } />
+    <Route path={ paths.customer.products } component={ Products } />
+    <Route exact path={ paths.customer.checkout } component={ Checkout } />
+    <Route exact path={ paths.customer.orders } component={ Orders } />
     <Route component={ NotFound } />
   </Switch>
 );
