@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomerCheckout from '../../../Components/templates/CustomerCheckout';
+import CustomerCheckout from '../../../components/templates/CustomerCheckout';
 import useProductsList from '../../../hooks/useProductsList';
 
 const Checkout = () => {

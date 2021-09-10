@@ -43,4 +43,8 @@ export const NavWrapper = styled.nav`
   height: 100%;
 `;
 
+export const Option = styled.option``;
+
+export const Select = styled.select``;
+
 export const Wrapper = styled.div``;
